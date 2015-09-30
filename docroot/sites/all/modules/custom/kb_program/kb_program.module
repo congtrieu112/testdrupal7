@@ -1,0 +1,452 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * @file
+ * kb_program.module
+ */
+// 50 items per page.
+//define('TOTAL_ITEMS_PER_PAGE', 50);
+// Admin uri links.
+define('ADMIN_CONTENT_PROGRAM_MANAGE_URI', 'admin/content/program/manage/');
+define('ADMIN_CONTENT_PROGRAM_URI', 'admin/content/program');
+
+/**
+ * Implements hook_entity_info().
+ */
+function kb_program_entity_info() {
+  $kb_program_entity_info['kb_program'] = array(
+    'label' => t('Program'),
+    'label callback' => 'kb_program_label_callback',
+    'entity class' => 'Program',
+    'controller class' => 'ProgramController',
+    'base table' => 'program',
+    'uri callback' => 'kb_program_uri',
+    'fieldable' => TRUE,
+    'entity keys' => array(
+      'id' => 'idkp',
+    ),
+    'uri callback' => 'entity_class_uri',
+    'load hook' => 'kb_program_load',
+    'static cache' => TRUE,
+    'admin ui' => array(
+      'path' => 'admin/content/program',
+      'controller class' => 'ProgramUIController',
+      'file' => 'kb_program.admin.inc',
+    ),
+    'module' => 'kb_program',
+    'access callback' => 'kb_program_access_callback',
+    'bundles' => array(
+      'kb_program' => array(
+        'label' => 'Program',
+        'admin' => array(
+          'path' => 'admin/structure/program/manage/fields',
+        //'access arguments' => array('administer program'),
+        ),
+      ),
+    ),
+    'views controller class' => 'EntityDefaultViewsController',
+  );
+
+  return $kb_program_entity_info;
+}
+
+/**
+ * Implements hook_menu().
+ */
+function kb_program_menu() {
+  $items = array();
+
+  $items['program/%program'] = array(
+    'title' => 'Program',
+    'page callback' => 'kb_program_view_entity',
+    'page arguments' => array(1),
+    'access callback' => 'kb_program_access_menu_callback',
+    'access arguments' => array('view', 1),
+  );
+
+  $items['program/locate'] = array(
+    'page callback' => 'kb_program_locate_callback',
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/l/bulk/delete/%'] = array(
+    'title' => 'Bulk Delete Program',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kb_program_bulk_delete', 5),
+    'access arguments' => array('administer program entities'),
+    'file' => 'kb_program.admin.inc',
+  );
+
+  $items['admin/structure/program'] = array(
+    'title' => 'Program Fields',
+    'access arguments' => array('administer program entities'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['import-program'] = array(
+    'title' => 'Import',
+    'page callback' => 'action_import_program',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
+  $items['import-program-batch'] = array(
+    'title' => 'Import',
+    'page callback' => 'action_import_program_batch',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+function action_import_program_batch() {
+  $import_program_batch = new import_program_batch();
+  return $import_program_batch->start();
+}
+
+function action_import_program() {
+
+//  // Call class KBAPI
+//  $KBAPI = new KBAPI();
+//  // Check exists programme
+//  krumo(reset($KBAPI->checkExistsProgramme(4)));exit;
+//
+//  // Insert to programme node
+//  $params = array(
+//    'idkp' => '4',
+//    'name' => '4',
+//    'structure' => '4',
+//    'type' => 'programme'
+//  );
+//  $KBAPI->insertNodeProgramme($params);
+}
+
+/**
+ * Implements hook_permission().
+ */
+function kb_program_permission() {
+  return array(
+    'administer program entities' => array(
+      'title' => t('Administer Program Entities'),
+      'description' => t('Allows a user to administer lawmaker entities'),
+    ),
+    'view program entities' => array(
+      'title' => t('View Program Entity'),
+      'description' => t('Allows a user to view the program entities.'),
+    ),
+    'create program entities' => array(
+      'title' => t('Create Program Entities'),
+      'description' => t('Allows a user to create program entities.'),
+    ),
+    'edit program entities' => array(
+      'title' => t('Edit Program Entities'),
+      'description' => t('Allows a user to edit program entities.'),
+    ),
+    'delete program entities' => array(
+      'title' => t('Delete Program Entities'),
+      'description' => t('Allows a user to delete program entities.'),
+    ),
+    'use program bulk operations' => array(
+      'title' => t('Do bulk operations on Program entities'),
+      'description' => t('Allows a user to do bulk operations.'),
+    ),
+  );
+}
+
+/**
+ * Check access permission for Program Entity UI.
+ */
+function kb_program_access_menu_callback($op, $kb_program = NULL, $account = NULL) {
+  switch ($op) {
+    case 'view':
+      return user_access('view program entities', $account);
+
+    case 'create':
+      return user_access('create program entities', $account);
+
+    case 'update':
+      return user_access('edit program entities', $account);
+
+    case 'delete':
+      return user_access('delete program entities', $account);
+  }
+
+  return FALSE;
+}
+
+/**
+ * Program access callback.
+ */
+function kb_program_access_callback() {
+  if (user_is_anonymous() && !user_access('administer program entities')) {
+    return FALSE;
+  } else {
+    return TRUE;
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kb_program_theme() {
+  return array(
+    'kb_program_full' => array(
+      'variables' => array('kb_program' => NULL),
+      'file' => 'kb_program.theme.inc',
+    ),
+  );
+}
+
+/**
+ * Helper function for custom queries.
+ */
+function kb_program_entity_query($conditions = array()) {
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'kb_program');
+
+  // Apply conditions.
+  foreach ($conditions as $key => $value) {
+    $query->propertyCondition($key, $value);
+  }
+
+  $result = $query->execute();
+
+  if (isset($result['kb_program'])) {
+    $kb_program = array_keys($result['kb_program']);
+  } else {
+    $kb_program = array();
+  }
+
+  return $kb_program;
+}
+
+/**
+ * Saves Program to database.
+ */
+function kb_program_save(kb_program $kb_program) {
+  return $kb_program->save();
+}
+
+/**
+ * View for /kb_program/<idkp> page.
+ */
+function kb_program_view_entity($kb_program) {
+  // Path not entity.
+  $kb_program_output = theme('kb_program_full', array('kb_program' => $kb_program));
+  return $kb_program_output;
+}
+
+/**
+ * Program custom entity class.
+ */
+class Program extends Entity {
+
+  /**
+   * Override defaultUri().
+   */
+  protected
+    function defaultUri() {
+    return array('path' => 'program/' . $this->identifier());
+  }
+
+}
+
+/**
+ * Menu autoloader for /kb_program.
+ */
+function kb_program_load($idkp, $reset = FALSE) {
+  $kb_program = kb_program_load_multiple(array($idkp), array(), $reset);
+  return reset($kb_program);
+}
+
+/**
+ * Load multiple kb_program based on certain conditions.
+ */
+function kb_program_load_multiple($idkp = array(), $conditions = array(), $reset = FALSE) {
+  return entity_load('kb_program', $idkp, $conditions, $reset);
+}
+
+/**
+ * Deletes a lawmaker.
+ */
+function kb_program_delete(kb_program $kb_program) {
+  $kb_program->delete();
+}
+
+/**
+ * Delete multiple kb_program.
+ */
+function kb_program_delete_multiple(array $idkp) {
+  entity_get_controller('kb_program')->delete($idkp);
+}
+
+/**
+ * Custom controller for the kb_program entity.
+ */
+class ProgramController extends EntityAPIController {
+  /**
+   * Override the save method.
+   */
+//  public function save($entity, DatabaseTransaction $transaction = NULL) {
+//    if (isset($entity->is_new)) {
+//      $entity->created = REQUEST_TIME;
+//    }
+//
+//    $entity->changed = REQUEST_TIME;
+//    return parent::save($entity, $transaction);
+//  }
+}
+
+/**
+ * Custom controller for the administrator UI.
+ */
+class ProgramUIController extends EntityDefaultUIController {
+
+  /**
+   * Override the menu hook for default ui controller.
+   */
+  public
+    function hook_menu() {
+    $items = parent::hook_menu();
+    $items[$this->path]['title'] = t('Program');
+    $items[$this->path]['description'] = t('Manage program, including fields.');
+    $items[$this->path]['access callback'] = 'kb_program_access_callback';
+    $items[$this->path]['access arguments'] = array('administer program entities');
+    $items[$this->path]['type'] = MENU_LOCAL_TASK;
+    return $items;
+  }
+
+  /**
+   * Admin form for searching and doing bulk operations.
+   */
+  public
+    function overviewForm($form, &$form_state) {
+    $form['pager'] = array('#theme' => 'pager');
+
+    $header = array(
+      'idkp' => array('data' => t('ID'), 'field' => 'idkp'),
+      'name' => array('data' => t('Name'), 'field' => 'name'),
+      'operations' => array('data' => t('Operations'), 'field' => 'operations'),
+    );
+
+    $options = array();
+    $search_term = !empty($_GET['search']) ? $_GET['search'] : NULL;
+
+    $query = new EntityFieldQuery();
+    $query
+      ->entityCondition('entity_type', 'kb_program');
+
+    if (!empty($search_term)) {
+      $query->propertyCondition('name', '%' . $search_term . '%', 'like');
+    }
+    // Check for sort order and sort key.
+    if (!empty($_GET['sort']) && !empty($_GET['order'])) {
+      $sort = strtoupper($_GET['sort']);
+      $order = strtolower($_GET['order']);
+      $order = str_replace(' ', '_', $order);
+      if ($order != 'operations') {
+        $query->propertyOrderBy($order, $sort);
+      }
+    }
+
+    $query->pager(TOTAL_ITEMS_PER_PAGE);
+
+    $result = $query->execute();
+    $kb_program_results = !empty($result['kb_program']) ? $result['kb_program'] : array();
+    $kb_program_array = !empty($kb_program_results) ? kb_program_load_multiple(array_keys($kb_program_results)) : array();
+    foreach ($kb_program_array as $idkp => $kb_program) {
+      $options['idkp-' . $idkp] = array(
+        'idkp' => l($kb_program->idkp, 'program/' . $kb_program->idkp),
+        'name' => l($kb_program->name, 'program/' . $kb_program->idkp),
+        'operations' =>
+        l(t('View'), 'program/' . $kb_program->idkp) . ' ' .
+        l(t('Edit'), ADMIN_CONTENT_PROGRAM_MANAGE_URI . $idkp, array('query' => array('destination' => ADMIN_CONTENT_PROGRAM_URI))) . ' ' .
+        l(t('Delete'), ADMIN_CONTENT_PROGRAM_MANAGE_URI . $idkp . '/delete', array('attributes' => array('class' => array('program-delete-' . $kb_program->idkp),), 'query' => array('destination' => ADMIN_CONTENT_PROGRAM_URI))),
+      );
+    }
+
+    $form['search'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Basic Search'),
+      '#collapsible' => TRUE,
+      '#collapsed' => !empty($search_term) ? FALSE : TRUE,
+    );
+
+    $form['search']['search_text'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Search Term'),
+      '#default_value' => !empty($search_term) ? $search_term : '',
+    );
+
+    $form['search']['search_submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Search'),
+    );
+
+    $form['bulk_operations'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Bulk Operations'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+
+    $form['bulk_operations']['operations'] = array(
+      '#type' => 'select',
+      '#options' => array(
+        0 => t('Select a bulk operation'),
+        'delete' => t('Delete selected program'),
+      ),
+    );
+
+    $form['bulk_operations']['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Submit'),
+    );
+
+    $form['entities'] = array(
+      '#type' => 'tableselect',
+      '#header' => $header,
+      '#options' => $options,
+      '#attributes' => array('class' => array('entity-sort-table')),
+      '#empty' => t('There are no program.'),
+    );
+
+    return $form;
+  }
+
+  /**
+   * Form Submit method.
+   */
+  public
+    function overviewFormSubmit($form, &$form_state) {
+    $values = $form_state['input'];
+    $idkp = array();
+
+    if (!empty($values['entities'])) {
+      foreach ($values['entities'] as $index => $value) {
+        if (!empty($value)) {
+          $idkp[] = str_replace('idkp-', '', $value);
+        }
+      }
+
+      switch ($values['operations']) {
+        case 'delete':
+          drupal_goto('admin/content/program/bulk/delete/' . implode('|', $idkp));
+          break;
+      }
+    }
+
+    if (!empty($values['search_text'])) {
+      drupal_goto('admin/content/program', array('query' => array('search' => $values['search_text'])));
+    }
+  }
+
+}

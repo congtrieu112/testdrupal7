@@ -1,0 +1,199 @@
+<?php
+
+/**
+ * @file
+ * Create taxonomy vocabularies and fields needed.
+ */
+
+function kb_taxonomy_install() {
+    kb_create_vocabularies();
+    kb_process_fields_for_vocabularies();
+    drupal_goto('admin/kb-vocabulary-one-time');
+}
+
+function kb_create_vocabularies() {
+    $vocabs = taxonomy_get_vocabularies(NULL);
+    $arr_needed = array(
+        'chauffage' => 'Chauffage',
+        'district' => 'District',
+        'city' => 'City',
+        'departement' => 'Departement',
+        'marque_de_commercialisation' => 'Marque de Commercialisation',
+        'type_de_programme' => 'Type de programme',
+        'type_logement' => 'Type Logement',
+        'zone' => 'Zone',
+        'nombre_piece' => 'Nombre Piece',
+        'nombre_chambre' => 'Nombre Chambre',
+        'etage_si_appartement' => 'Etage (si appartement)',
+        'orientation' => 'Orientation',
+        'statut_logement' => 'Statut Logement',
+        'visibilite_logement' => 'Visibilite Logement',
+        'voie_type' => 'Type de voie',
+    );
+    $machine_names = array();
+    foreach ($vocabs as $voc) {
+        $machine_names[] = $voc->machine_name;
+    }
+    foreach ($arr_needed as $k => $v) {
+        if (!in_array($k, $machine_names)) {
+            $new_voc = new stdClass();
+            $new_voc->name = $v;
+            $new_voc->machine_name = $k;
+            $new_voc->description = '';
+            $new_voc->hierarchy = 0;
+            $new_voc->module = 'taxonomy';
+            $new_voc->weight = 0;
+            taxonomy_vocabulary_save($new_voc);
+        }
+    }
+}
+
+function kb_process_fields_for_vocabularies() {
+    $arr_fields_text_to_create = array(
+        'field_idkc' => 'IDKC',
+        'field_idk' => 'IDK',
+        'field_longitude' => 'LONGITUDE',
+        'field_latitude' => 'LATITUDE',
+        'field_departement' => 'DEPARTEMENT',
+        'field_source_data' => 'Source data',
+        'field_idkd' => 'IDKD',
+        'field_idka' => 'IDKA',
+        'field_idkb' => 'IDKB',
+        'field_idktp' => 'IDKTP',
+        'field_idktl' => 'IDKTL',
+        'field_idkz' => 'IDKZ',
+        'field_nbre_pieces' => 'ID Nombre Piece',
+        'field_nbre_chambres' => 'ID Nombre Chambre',
+        'field_etage' => 'ID Etage (si appartement)',
+        'field_idko' => 'ID Orientation',
+        'field_statut' => 'ID Statut Logement',
+        'field_visibilite' => 'ID Visibilite Logement',
+        'field_voie_type' => 'ID Type de voie',
+    );
+    $arr_fields_refe_to_create = array(
+        'field_idkd_rf' => 'DEPARTEMENT',
+        'field_idk_rf' => 'IDK',
+    );
+    foreach ($arr_fields_text_to_create as $k => $v ) {
+        $field = field_info_field($k);
+        if ($field == NULL) {
+            $field = array(
+                'settings' => array('max_length' => 255),
+                'field_name' => $k,
+                'type' => 'text',
+                'module' => 'text'
+            );
+            field_create_field($field);
+        }
+    }
+    $field_idkd_rf = field_info_field('field_idkd_rf');
+    if ($field_idkd_rf == NULL) {
+        $field_idkd_rf = array(
+            'settings' => array(
+                'allowed_values' => array(
+                    0 => array(
+                        'vocabulary' => 'departement',
+                        'parent' => 0,
+                    ),
+                ),
+            ),
+            'type' => 'taxonomy_term_reference',
+            'field_name' => 'field_idkd_rf',
+            'module' => 'taxonomy',
+        );
+        field_create_field($field_idkd_rf);
+    }
+    $field_idk_rf = field_info_field('field_idk_rf');
+    if ($field_idk_rf == NULL) {
+        $field_idk_rf = array(
+            'settings' => array(
+                'allowed_values' => array(
+                    0 => array(
+                        'vocabulary' => 'city',
+                        'parent' => 0,
+                    ),
+                 )
+            ),
+            'type' => 'taxonomy_term_reference',
+            'field_name' => 'field_idk_rf',
+            'module' => 'taxonomy',
+        );
+        field_create_field($field_idk_rf);
+    }
+    $arr_fields_intantce = array(
+        'chauffage' => array(
+            'field_idkc' => 'IDKC',
+        ),
+        'district' => array(
+            'field_idka' => 'IDKA',
+            'field_idk_rf' => 'IDK',
+            'field_longitude' => 'LONGITUDE',
+            'field_latitude' => 'LATITUDE',
+        ),
+        'city' => array(
+            'field_idk' => 'IDK',
+            'field_idkd_rf' => 'CODE POSTAL',
+            'field_longitude' => 'X',
+            'field_latitude' => 'Y',
+        ),
+        'departement' => array(
+            'field_idkd' => 'IDKD',
+        ),
+        'marque_de_commercialisation' => array(
+            'field_idkb' => 'IDKB',
+        ),
+        'type_de_programme' => array(
+            'field_idktp' => 'IDKTP',
+        ),
+        'type_logement' => array(
+            'field_idktl' => 'IDKTL',
+        ),
+        'zone' => array(
+            'field_idkz' => 'IDKZ',
+        ),
+        'nombre_piece' => array(
+            'field_nbre_pieces' => 'ID Nombre Piece',
+        ),
+        'nombre_chambre' => array(
+            'field_nbre_chambres' => 'ID Nombre Chambre',
+        ),
+        'etage_si_appartement' => array(
+            'field_etage' => 'ID Etage (si appartement)',
+        ),
+        'orientation' => array(
+            'field_idko' => 'ID Orientation',
+        ),
+        'statut_logement' => array(
+            'field_statut' => 'ID Statut Logement',
+        ),
+        'visibilite_logement' => array(
+            'field_visibilite' => 'ID Visibilite Logement',
+        ),
+        'voie_type' => array(
+            'field_voie_type' => 'ID Type de voie',
+        ),
+    );
+    foreach ($arr_fields_intantce as $k => $v) {
+        $v['field_source_data'] = 'Source data';
+        foreach ($v as $field => $label) {
+            $tmp_field = field_info_instance('taxonomy_term', $field, $k);
+            if ($tmp_field == NULL) {
+                $field_intance = array(
+                    'label' => $label,
+                    'field_name' => $field,
+                    'entity_type' => 'taxonomy_term',
+                    'bundle' => $k,
+                );
+                if ($field == 'field_idk_rf' || $field == 'field_idkd_rf') {
+                    $field_intance['settings'] = array(
+                        'allowed_values' => array(
+                               array('vid' => kb_taxonomy_get_vocabulary_by_name($k), 
+                                     'parent' => 0)
+                        )
+                   );
+                }
+                field_create_instance($field_intance);
+            }
+        }
+    }
+}

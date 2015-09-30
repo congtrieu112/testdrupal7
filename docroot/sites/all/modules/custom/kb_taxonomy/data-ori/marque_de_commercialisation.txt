@@ -1,0 +1,14 @@
+BATI@Bati Service|
+BREG@Breguet|
+FAPR@Franck Arthur Promotion|
+AVAN@Groupe Avantis|
+KETB@Kaufman & Broad|
+MALA@Malardeau|
+PARK@Park Promotion|
+PATR@Patrimoine Compagnie|
+RBTG@Résidence Bernard Teillaud|
+SEFI@Séfima|
+SM2I@SM2I|
+SMCI@SMCI|
+SOPR@Sopra Promotion|
+

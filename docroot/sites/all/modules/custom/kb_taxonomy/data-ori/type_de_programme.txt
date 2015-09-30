@@ -1,0 +1,4 @@
+AP@Appartement|
+MA@Maison Individuelle|
+MI@Maisons et appartements|
+
