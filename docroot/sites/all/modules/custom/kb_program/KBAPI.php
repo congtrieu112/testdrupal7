@@ -63,6 +63,20 @@ class KBAPI {
   }
 
   public
+    function getListProgramme($type = 'node', $bundle = 'programme') {
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition('entity_type', $type)
+      ->entityCondition('bundle', $bundle)
+      ->execute();
+
+    if ($result) {
+      return $result['node'];
+    }
+
+    return FALSE;
+  }
+
+  public
     function insertNodeProgramme($params, $type = 'programme') {
     $node = new stdClass();
     $node->title = $params['name'];
