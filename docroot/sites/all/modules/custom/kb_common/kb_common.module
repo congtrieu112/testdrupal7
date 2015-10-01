@@ -8,15 +8,15 @@
 /**
  * Implements of hook_form_alter().
  */
-function kb_common_form_alter(&$form, &$form_state, $form_id) {
-  switch ($form_id) {
-    case 'programme_node_form':
-      $form['field_idkp']['#access']=FALSE;
-      $form['field_structure']['#access']=FALSE;
+//function kb_common_form_alter(&$form, &$form_state, $form_id) {
+//  switch ($form_id) {
+//    case 'programme_node_form':
+//      $form['field_idkp']['#access']=FALSE;
+//      $form['field_structure']['#access']=FALSE;
 
-      break;
+//      break;
 
-    default:
-      break;
-  }
-}
+//    default:
+//      break;
+//  }
+//}

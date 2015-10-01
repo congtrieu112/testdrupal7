@@ -103,6 +103,13 @@ function kb_program_menu() {
     'access callback' => TRUE,
   );
 
+  $items['delete-program-nodes'] = array(
+    'title' => 'Import',
+    'page callback' => 'action_delete_program_nodes',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+  );
+
   return $items;
 }
 
@@ -112,7 +119,6 @@ function action_import_program_batch() {
 }
 
 function action_import_program() {
-
 //  // Call class KBAPI
 //  $KBAPI = new KBAPI();
 //  // Check exists programme
@@ -126,6 +132,21 @@ function action_import_program() {
 //    'type' => 'programme'
 //  );
 //  $KBAPI->insertNodeProgramme($params);
+}
+
+function action_delete_program_nodes() {
+  $KBAPI = new KBAPI();
+  $results = $KBAPI->getListProgramme();
+
+  foreach ($results as $id => $value) {
+    $nids[] = $id;
+  }
+
+  if (!empty($nids)) {
+    node_delete_multiple($nids);
+    drupal_set_message(t('Deleted %count nodes.', array('%count' => count($nids))));
+  }
+
 }
 
 /**
