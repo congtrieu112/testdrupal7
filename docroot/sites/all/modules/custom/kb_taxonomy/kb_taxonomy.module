@@ -1,0 +1,103 @@
+<?php
+/**
+ * @file
+ * Alter form edit taxonomy terms, create menu to run batch
+ */
+function kb_taxonomy_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id) {
+    if ($form['#vocabulary']->machine_name == 'city' || $form['#vocabulary']->machine_name == 'district') {
+        $form['name']['#disabled'] = TRUE;
+        if (isset($form['field_idk'])) {
+            $form['field_idk']['#disabled'] = TRUE;
+        }
+        if (isset($form['field_idkd_rf'])) {
+            $form['field_idkd_rf']['#disabled'] = TRUE;
+        }
+        if (isset($form['field_idka'])) {
+            $form['field_idka']['#disabled'] = TRUE;
+        }
+        if (isset($form['field_idk_rf'])) {
+            $form['field_idk_rf']['#disabled'] = TRUE;
+        }
+        $form['field_longitude']['#disabled'] = TRUE;
+        $form['field_latitude']['#disabled'] = TRUE;
+        $form['relations']['#attributes']['style'] = array('display: none');
+    }
+    if (isset($form['field_source_data'])) {
+        $form['field_source_data']['#attributes']['style'] = array('display: none');
+    }
+}
+function kb_taxonomy_menu() {
+    $items['admin/kb-vocabulary-one-time'] = array(
+        'title' => 'Create all terms needed',
+        'type' => MENU_NORMAL_ITEM,
+        'page callback' => 'batch_kb_taxonomy_one_time',
+        'access callback' => TRUE,
+    );
+    $items['admin/kb-vocabulary-daily-import-city'] = array(
+        'title' => 'Build all terms for city vocabulary',
+        'type' => MENU_NORMAL_ITEM,
+        'page callback' => 'batch_kb_taxonomy_daily_city',
+        'access callback' => TRUE,
+    );
+    $items['admin/kb-vocabulary-daily-import-district'] = array(
+        'title' => 'Build all terms for district vocabulary',
+        'type' => MENU_NORMAL_ITEM,
+        'page callback' => 'batch_kb_taxonomy_daily_district',
+        'access callback' => TRUE,
+    );
+    return $items;
+}
+function kb_taxonomy_get_vocabulary_by_name($vocabulary_name) {
+  $vocabs = taxonomy_get_vocabularies(NULL);
+  foreach ($vocabs as $vocab_object) {
+    if ($vocab_object->machine_name == $vocabulary_name) {
+      return $vocab_object->vid;
+    }
+  }
+  return FALSE;
+}
+function batch_kb_taxonomy_one_time() {
+  $batch = array(
+    'operations' => array(
+      array('batch_kb_taxonomy_one_time_process', array()),
+      ),
+    'finished' => 'batch_kb_taxonomy_one_time_finished',
+    'title' => t('Importing taxonomy terms'),
+    'init_message' => t('Creating terms from each data file.'),
+    'progress_message' => t('Creating terms for vocabulary:'),
+    'error_message' => t('Importing taxonomy batch has encountered an error.'),
+    'file' => drupal_get_path('module', 'kb_taxonomy') . '/kb_taxonomy.batch.inc',
+  );
+  batch_set($batch);
+  batch_process('admin/structure/taxonomy');
+}
+function batch_kb_taxonomy_daily_city() {
+  $batch = array(
+    'operations' => array(
+      array('batch_kb_taxonomy_daily_process', array('city')),
+      ),
+    'finished' => 'batch_kb_taxonomy_daily_finished',
+    'title' => t('Importing taxonomy terms'),
+    'init_message' => t('Processing terms from ville.txt file.'),
+    'progress_message' => t('Processing terms for City vocabulary:'),
+    'error_message' => t('Importing taxonomy batch has encountered an error.'),
+    'file' => drupal_get_path('module', 'kb_taxonomy') . '/kb_taxonomy.batch.inc',
+  );
+  batch_set($batch);
+  batch_process('admin');
+}
+function batch_kb_taxonomy_daily_district() {
+  $batch = array(
+    'operations' => array(
+      array('batch_kb_taxonomy_daily_process', array('district')),
+      ),
+    'finished' => 'batch_kb_taxonomy_daily_finished',
+    'title' => t('Importing taxonomy terms'),
+    'init_message' => t('Processing terms from ARRONDISSEMENT.TXT file.'),
+    'progress_message' => t('Processing terms for District vocabulary:'),
+    'error_message' => t('Importing taxonomy batch has encountered an error.'),
+    'file' => drupal_get_path('module', 'kb_taxonomy') . '/kb_taxonomy.batch.inc',
+  );
+  batch_set($batch);
+  batch_process('admin');
+}
