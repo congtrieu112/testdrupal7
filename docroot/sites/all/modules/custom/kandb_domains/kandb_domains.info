@@ -1,0 +1,9 @@
+name = KandB Domains
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = domain
+dependencies[] = domain_conf
+features[domain][] = kandb_git_local
+features[domain_conf][] = kandb_git_local
+features[features_api][] = api:2
