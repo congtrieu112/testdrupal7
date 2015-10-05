@@ -1,5 +1,0 @@
-1@studio|
-2@2 pièces|
-3@3 pièces|
-4@4 pièces|
-5@5 pièces et +|
