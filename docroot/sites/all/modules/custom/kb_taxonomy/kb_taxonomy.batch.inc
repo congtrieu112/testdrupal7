@@ -1,18 +1,42 @@
 <?php
 
-function batch_kb_taxonomy_one_time_finished($success, $results, $operations) {
-  if ($success) {
-    $message = t('@count vocabularies successfully processed:', array('@count' => count($results)));
-    $message .= theme('item_list', array('items' => $results));
-    drupal_set_message($message);
+function batch_kb_taxonomy_voc_process($vocs , $process){
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($process);
+    $context['sandbox']['all_vocs'] = taxonomy_get_vocabularies(NULL);
+    $machine_names = array();
+    foreach ($context['sandbox']['all_vocs'] as $id => $voc) {
+        $machine_names[$id] = $voc->machine_name;
+    }
+    $context['sandbox']['machine_names'] = $machine_names;
   }
-  else {
-    $error_operation = reset($operations);
-    $message = t('An error occurred while processing %error_operation with arguments: @arguments', array('%error_operation' => $error_operation[0], '@arguments' => print_r($error_operation[1], TRUE)));
-    drupal_set_message($message, 'error');
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    $current_voc = $vocs[$process[$context['sandbox']['progress']]];
+    $context['results'][] = $current_voc['title'];
+    $context['message'] = $current_voc['title'];
+    $all_vocs = $context['sandbox']['all_vocs'];
+    kb_process_voc($all_vocs , array($process[$context['sandbox']['progress']] => $current_voc), $context['sandbox']['machine_names']);
   }
+  $context['sandbox']['progress']++;  
 }
 
+function batch_kb_taxonomy_term_process($vocs , $process){
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = count($process);
+  }
+  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    $current_voc = $vocs[$process[$context['sandbox']['progress']]];
+    $context['results'][] = $current_voc['title'];
+    $context['message'] = $current_voc['title'];
+    $all_terms = '';
+    kb_process_term($process[$context['sandbox']['progress']], $current_voc);
+  }
+  $context['sandbox']['progress']++;  
+}
 function kb_process_voc($all_vocs , $current_voc, $machine_names){
     foreach ($current_voc as $k => $v) {
         if (!in_array($k, $machine_names)) {
@@ -77,43 +101,6 @@ function kb_process_voc($all_vocs , $current_voc, $machine_names){
             }
         }
     }
-}
-function batch_kb_taxonomy_voc_process($vocs , $process){
-  if (!isset($context['sandbox']['progress'])) {
-    $context['sandbox']['progress'] = 0;
-    $context['sandbox']['max'] = count($process);
-    $context['sandbox']['all_vocs'] = taxonomy_get_vocabularies(NULL);
-    $machine_names = array();
-    foreach ($context['sandbox']['all_vocs'] as $id => $voc) {
-        $machine_names[$id] = $voc->machine_name;
-    }
-    $context['sandbox']['machine_names'] = $machine_names;
-  }
-  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
-    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-    $current_voc = $vocs[$process[$context['sandbox']['progress']]];
-    $context['results'][] = $current_voc['title'];
-    $context['message'] = $current_voc['title'];
-    $all_vocs = $context['sandbox']['all_vocs'];
-    kb_process_voc($all_vocs , array($process[$context['sandbox']['progress']] => $current_voc), $context['sandbox']['machine_names']);
-  }
-  $context['sandbox']['progress']++;  
-}
-
-function batch_kb_taxonomy_term_process($vocs , $process){
-  if (!isset($context['sandbox']['progress'])) {
-    $context['sandbox']['progress'] = 0;
-    $context['sandbox']['max'] = count($process);
-  }
-  if ($context['sandbox']['progress'] != $context['sandbox']['max']) {
-    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
-    $current_voc = $vocs[$process[$context['sandbox']['progress']]];
-    $context['results'][] = $current_voc['title'];
-    $context['message'] = $current_voc['title'];
-    $all_terms = '';
-    kb_process_term($process[$context['sandbox']['progress']], $current_voc);
-  }
-  $context['sandbox']['progress']++;  
 }
 function kb_process_term($v_name, $current_voc){
     $mapping = $current_voc['mapping_data'];

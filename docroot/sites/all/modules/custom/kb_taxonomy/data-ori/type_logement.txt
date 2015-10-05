@@ -1,0 +1,6 @@
+AP@Appartement|
+BU@Bureau|
+CO@Commerce|
+AC@Local-activité|
+MA@Maison|
+TE@Terrain|

@@ -1,0 +1,4 @@
+0@Indisponible|
+1@Disponible|
+2@Réservé|
+3@Vendu|
