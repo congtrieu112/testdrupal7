@@ -1,0 +1,11 @@
+name = Draggableviews Book
+description = Reorder books
+dependencies[] = draggableviews
+package = Views
+core = 7.x
+
+files[] = draggableviews_book_views_handler_argument.inc
+; Information added by drush on 2013-04-29
+version = "7.x-2.0+56-dev"
+project = "draggableviews"
+datestamp = "1367247645"
