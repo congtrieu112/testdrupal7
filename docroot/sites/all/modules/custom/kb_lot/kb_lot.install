@@ -1,0 +1,208 @@
+<?php
+
+/**
+ * @file
+ * Install, update, and uninstall functions for program
+ */
+
+/**
+ * Implements hook_schema().
+ */
+function kb_lot_schema() {
+  $schema = array();
+
+  $schema['lot'] = array(
+    'description' => 'Entity Lot',
+    'fields' => array(
+      'idkl' => array(
+        'description' => 'Username housing',
+        'type' => 'char',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
+      'idkp' => array(
+        'description' => 'Username program',
+        'type' => 'int',
+      ),
+      'idktl' => array(
+        'description' => 'Username type housing',
+        'type' => 'char',
+        'length' => 5,
+      ),
+      'price' => array(
+        'description' => 'Price (€)',
+        'type' => 'numeric',
+      ),
+      'nbre_pieces' => array(
+        'description' => 'Number of pieces',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'nbre_chambres' => array(
+        'description' => 'Number of rooms',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'etage' => array(
+        'description' => 'Floor number ( of the apartment )',
+        'type' => 'char',
+        'length' => 5,
+      ),
+      'duplex' => array(
+        'description' => 'Duplex (Boolean)',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'surface' => array(
+        'description' => 'Living area',
+        'type' => 'float',
+      ),
+      'idko' => array(
+        'description' => 'Username orientation',
+        'type' => 'char',
+        'length' => 20,
+      ),
+      'description_fr' => array(
+        'description' => 'Description in French',
+        'type' => 'text',
+        'size' => 'big',
+      ),
+      'description_uk' => array(
+        'description' => 'Description in English',
+        'type' => 'text',
+        'size' => 'big',
+      ),
+      'url_visite' => array(
+        'description' => 'Visit URL decorated housing',
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'idkm' => array(
+        'description' => 'ID Model House',
+        'type' => 'int',
+      ),
+      'label_model' => array(
+        'description' => 'Label Model home',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'garden' => array(
+        'description' => 'Garden : Area',
+        'type' => 'float',
+      ),
+      'balcon' => array(
+        'description' => 'Balcony : Surface',
+        'type' => 'float',
+      ),
+      'loggia' => array(
+        'description' => 'Loggia : Surface',
+        'type' => 'float',
+      ),
+      'terrace' => array(
+        'description' => 'Terrace',
+        'type' => 'float',
+      ),
+      'terrain' => array(
+        'description' => 'Terrace',
+        'type' => 'int',
+      ),
+      'parking' => array(
+        'description' => 'Parking',
+        'type' => 'int',
+      ),
+      'box' => array(
+        'description' => 'Box',
+        'type' => 'int',
+      ),
+      'cave' => array(
+        'description' => 'Cellar price',
+        'type' => 'int',
+      ),
+      'opportunite' => array(
+        'description' => 'Special Offers - Opportunity of the week ( boolean)',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'res_second' => array(
+        'description' => 'Special Offers - Second home ( boolean)',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'pls' => array(
+        'description' => 'Special Offers - PLS (Boolean)',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'statut' => array(
+        'description' => 'Identifying housing status',
+        'type' => 'char',
+        'length' => 5,
+      ),
+      'lib_parking' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'lib_cave' => array(
+        'type' => 'varchar',
+        'length' => 255,
+      ),
+      'visibilite' => array(
+        'description' => 'Username Visibility Housing',
+        'type' => 'int',
+        'size' => 'tiny',
+      ),
+      'date_liv' => array(
+        'type' => 'int',
+      ),
+    ),
+
+    'primary key' => array('idkl'),
+    'foreign keys' => array(
+      'fk_program' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'idkp')),
+      'fk_housing' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'idktl')),
+      'fk_nbre_pieces' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'nbre_pieces')),
+      'fk_nbre_chambres' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'nbre_chambres')),
+      'fk_etage' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'etage')),
+      'fk_orientation' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'idko')),
+      'fk_model_house' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'idkm')),
+      'fk_status' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'statut')),
+      'fk_visibility' => array('table' => 'taxonomy_vocabulary', 'columns' => array('vid' => 'visibilite')),
+    )
+  );
+
+  $schema['lot_index'] = array(
+    'description' => 'Entity Lot Index',
+    'fields' => array(
+      'idkl' => array(
+        'description' => 'Username housing',
+        'type' => 'char',
+        'length' => 50,
+        'not null' => TRUE,
+      ),
+      'tid' => array(
+         'description' => 'The term ID.',
+         'type' => 'int',
+         'unsigned' => TRUE,
+         'not null' => TRUE,
+         'default' => 0,
+      ),
+    ),
+
+    'indexes' => array(
+      'term_lot' => array('tid'),
+      'idkl' => array('idkl'),
+    ),
+    'foreign keys' => array(
+      'tracked_lot' => array(
+        'table' => 'lot',
+        'columns' => array('idkl' => 'idkl'),
+      ),
+      'term' => array(
+        'table' => 'taxonomy_term_data',
+        'columns' => array('tid' => 'tid'),
+      ),
+    ),
+  );
+
+  return $schema;
+}

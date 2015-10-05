@@ -1,0 +1,9 @@
+name = Program
+description = "Program Entity"
+core = 7.x
+package = K&B Development
+
+files[] = kb_program.batch.inc
+files[] = KBAPI.php
+
+dependencies[] = entity

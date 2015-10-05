@@ -1,0 +1,9 @@
+drush.makefile=kandb.make
+drupal.profile=kandb
+db.url=mysql://username:password@host/db
+site.name=kandb
+site.mail=test@example.com
+account.name=admin
+account.pass=admin
+account.mail=test@example.com
+sites.subdir=lightning.localhost

@@ -1,0 +1,8 @@
+name = Lot
+description = "Lot Entity"
+core = 7.x
+package = K&B Development
+
+files[] = kb_lot.batch.inc
+
+dependencies[] = entity
