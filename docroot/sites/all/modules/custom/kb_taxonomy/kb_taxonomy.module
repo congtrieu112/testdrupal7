@@ -1,74 +1,5 @@
 <?php
 
-function kb_taxonomy_menu() {
-    $items['admin/structure/kb-taxonomy'] = array(
-        'title' => 'KB taxonomy',
-        'type' => MENU_NORMAL_ITEM,
-        'page callback' => 'drupal_get_form',
-        'page arguments' => array('kb_taxonomy_form'),
-        'access callback' => TRUE,
-    );
-    return $items;
-}
-function kb_taxonomy_form(){
-    $form = array();
-    $vocs = _kb_get_list_vocabularies();
-    $form['#vocs'] = $vocs;
-    foreach($vocs as $key => $voc){
-        $form['fieldset' . $key] = array(
-            '#type' => 'fieldset', 
-            '#title' => $voc['title'], 
-            '#collapsible' => TRUE, 
-            '#collapsed' => FALSE,
-
-          );
-        $form['fieldset' . $key]['build_vocs_'. $key] = array(
-          '#type' => 'checkbox', 
-          '#title' => t('Create/update vocabulary'),
-        );
-        $form['fieldset' . $key]['build_term_'. $key] = array(
-          '#type' => 'checkbox',
-          '#title' => t('Process terms'),
-        );
-    }
-    $form['submit'] = array('#type' => 'submit', '#value' => t('Submit'));
-    return $form;
-}
-function kb_taxonomy_form_submit($form, &$form_state){
-    $vocs = $form['#vocs'];
-    $values = $form_state['values'];
-    $process = array(
-        'term' => array(),
-        'vocs' => array(),
-    );
-    foreach($vocs as $key => $voc){
-        if($values['build_vocs_' . $key] == 1){
-            $process['vocs'][] = $key;
-        }
-        if($values['build_term_' . $key] == 1){
-            $process['term'][] = $key;
-        }
-    }
-  $batch = array(
-    'operations' => array(
-      array('batch_kb_taxonomy_voc_process', array($vocs, $process['vocs'])),
-      array('batch_kb_taxonomy_term_process', array($vocs, $process['term'])),
-      ),
-    'finished' => 'batch_kb_taxonomy_finished',
-    'title' => t('Process taxonomy'),
-    'init_message' => t('Process taxonomy stating'),
-    'progress_message' => t('Processed @current out of @total.'),
-    'error_message' => t('Importing taxonomy batch has encountered an error.'),
-    'file' => drupal_get_path('module', 'kb_taxonomy') . '/kb_taxonomy.batch.inc',
-  );
-  batch_set($batch);
-  batch_process('admin/structure/kb-taxonomy');
-}
-function kb_taxonomy_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id) {
-    if (isset($form['field_source_data'])) {
-        $form['field_source_data']['#attributes']['style'] = array('display: none');
-    }
-}
 function kb_taxonomy_get_vocabulary_by_name($vocabulary_name) {
   $vocabs = taxonomy_get_vocabularies(NULL);
   foreach ($vocabs as $vocab_object) {
@@ -78,21 +9,22 @@ function kb_taxonomy_get_vocabulary_by_name($vocabulary_name) {
   }
   return FALSE;
 }
-function _kb_get_list_vocabularies(){
+function get_vocs_to_build(){
     $vocs = array(
         'departement' => array(
-            'title' => 'Departement',
-            'description' => 'Departement',
+            'title' => 'Département',
+            'description' => '',
             'fields' => array(
-                'field_code_departement' => array(
+                'field_numero_departement' => array(
                     'type' => 'text',  
                     'module' => 'text',  
                     'settings' => array('max_length' => 255),  
-                    'title' => 'Code departement',  
+                    'title' => 'Numéro',  
+                    'weight' => -4,  
                 ),
             ),
             'mapping_data' => array(
-                0 => 'field_code_departement',
+                0 => 'field_numero_departement',
                 1 => 'name',
             ),
         ),

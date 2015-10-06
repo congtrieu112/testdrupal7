@@ -66,29 +66,12 @@ function kb_process_voc($all_vocs , $current_voc, $machine_names){
                         'field_name' => $field_name,
                         'entity_type' => 'taxonomy_term',
                         'bundle' => $k,
+                        'widget' => array(
+                            'weight' => $op['weight'],
+                        ),
                     );
                     field_create_instance($field_instance);
                 }
-            }
-            $field_sd = field_info_field('field_source_data');
-            if($field_sd == NULL){
-                $field_sd = array(
-                    'settings' => array('max_length' => 255),
-                    'field_name' => 'field_source_data',
-                    'type' => 'text',
-                    'module' => 'text',
-                );
-                field_create_field($field_sd);
-            }
-            $field_sd_instance = field_info_instance('taxonomy_term', 'field_source_data', $k);
-            if($field_sd_instance == NULL){
-                $field_sd_instance = array(
-                    'label' => 'Source data',
-                    'field_name' => 'field_source_data',
-                    'entity_type' => 'taxonomy_term',
-                    'bundle' => $k,
-               );
-               field_create_instance($field_sd_instance);
             }
         }
         else {
@@ -115,45 +98,32 @@ function kb_process_term($v_name, $current_voc){
     $arr_rows = preg_split('/\|/', $data);
     $vid = kb_taxonomy_get_vocabulary_by_name($v_name);
     $terms = entity_load('taxonomy_term', FALSE, array('vid' => $vid));
-    $ids = array();
-    $arr_old_source = array();
     $id_source = array();
     foreach ($terms as $k => $term) {
-       $ids[$term->field_source_data[LANGUAGE_NONE][0]['value']] = $term->tid; 
-       $arr_old_source[$k] = $term->field_source_data[LANGUAGE_NONE][0]['value'];
        $id_source[$term->{$mapping[0]}[LANGUAGE_NONE][0]['value']] = $k;
     }
     foreach ($arr_rows as $row) {
         $str = trim($row);
         if ($str) {
-            if (in_array($str, $arr_old_source)) {
-                unset($terms[$ids[$str]]);
+            $cols = preg_split('/¤/', $str);
+            if (array_key_exists($cols[0] , $id_source)) {
+                $term = $terms[$id_source[$cols[0]]];
+                unset($terms[$term->tid]);
             }
             else {
-                $cols = preg_split('/¤/', $str);
-                if (array_key_exists($cols[0] , $id_source)) {
-                    $term = $terms[$id_source[$cols[0]]];
-                    unset($terms[$term->tid]);
+                $term = new stdClass();
+            }
+            $term->vid = $vid;
+            foreach($mapping as $k => $v){
+                if($v != 'name'){
+                    $term->{$v}[LANGUAGE_NONE][0]['value'] = $cols[$k];
                 }
                 else {
-                    $term = new stdClass();
+                    $term->name = $cols[$k];
                 }
-                $term->field_source_data['und'][0]['value'] = $str;
-                $term->vid = $vid;
-                foreach($mapping as $k => $v){
-                    if($v != 'name'){
-                        $term->{$v}[LANGUAGE_NONE][0]['value'] = $cols[$k];
-                    }
-                    else {
-                        $term->name = $cols[$k];
-                    }
-                }
-                taxonomy_term_save($term);
             }
+            taxonomy_term_save($term);
         }
-    }
-    foreach ($terms as $k => $v) {
-        taxonomy_term_delete($k);
     }
 }
 function batch_kb_taxonomy_finished($success, $results, $operations){
