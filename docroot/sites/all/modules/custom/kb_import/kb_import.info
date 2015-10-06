@@ -1,0 +1,7 @@
+name = K&B Import
+description = "Import file txt to content type (Programme, Lot, Maison)"
+core = 7.x
+package = K&B Development
+
+files[] = KAndBAPI.php
+
