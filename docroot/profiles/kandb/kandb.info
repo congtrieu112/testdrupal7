@@ -147,6 +147,9 @@ dependencies[] = workbench_moderation_notes
 dependencies[] = features
 ;dependencies[] = kandb_content
 
+; Temporary module
+dependencies[] = context
+dependencies[] = special_menu_items
 
 
 
