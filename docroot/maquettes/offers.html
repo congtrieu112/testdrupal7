@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html data-debug lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="K&amp;B offers">
+    <title>K&amp;B - offers</title>
+    <link rel="stylesheet" href="css/app.css">
+    <script src="js/modernizr.js"></script>
+  </head>
+  <body class="no-js offers">
+    <main class="main-wrapper">
+      <div class="sticky contain-to-grid">
+        <header data-topbar role="banner" class="top-bar">
+          <div class="wrapper"><a href="#" class="burger hide-for-large-up">BURGER</a>
+            <ul class="title-area show-for-large-up">
+              <li class="name"><a href="index.html" title="K&amp;B homepage" class="title-area__link"><img src="assets/images/logo-Kaufman-Broad.svg" alt="Kaufman&amp;Board"></a></li>
+              <li role="search" class="has-form hidden">
+                <form action="#" method="post" class="row collapse">
+                  <div class="large-4 small-3 columns">
+                    <button type="submit" class="button expand">Ok</button>
+                  </div>
+                  <div class="large-8 small-9 columns">
+                    <input type="text" placeholder="Ville, programme, bien...">
+                  </div>
+                </form>
+              </li>
+            </ul>
+            <nav aria-label="Menu principal" class="top-bar-section show-for-large-up">
+              <ul class="right">
+                <li><a href="#">Nos offres</a></li>
+                <li><a href="#">Nos services</a></li>
+                <li><a href="#">Nos conseils</a></li>
+                <li><a href="#">Le groupe</a></li>
+                <li><a href="#" class="button">Mon espace</a></li>
+              </ul>
+            </nav>
+          </div>
+        </header>
+      </div>
+      <section class="searchFormular searchFormular--results">
+        <div class="wrapper">
+          <!-- [searchFormular] search results - start-->
+          <form action="#" method="post" data-abide="data-abide" class="searchFormular__form">
+            <div class="input-withSubmit">
+              <label class="input"><span class="visually-hidden">Ville, département ou programme</span>
+                <input type="search" name="place" placeholder="Ville, département ou programme" required="required" class="input__search"/><small class="error">Veuillez saisir votre recherche</small>
+              </label>
+              <button type="submit" class="button-submit js-btn-submit"><span class="button__content"><span aria-hidden="true" class="icon icon-search"></span><span class="visually-hidden">Rechercher</span></span></button>
+            </div>
+            <div id="dropdown-search-filters" aria-hidden="true" class="searchFormular__filters hidden">
+              <div class="searchFormular__dropdowns">
+                <!-- type-->
+                <div class="form-dropdown">
+                  <button aria-expanded="false" aria-controls="dropdown-type-choice" data-app-dropdown="search" class="form-dropdown__trigger">Type<span aria-hidden="true" class="icon icon-expand"></span></button>
+                  <div id="dropdown-type-choice" aria-hidden="true" class="form-dropdown__content hidden">
+                    <ul class="ul-unstyled undo-padding">
+                      <li class="bordered">
+                        <input type="checkbox" id="type1" name="type" value="maison" class="input-checkbox"/>
+                        <label for="type1" class="label-checkbox"><span>Maison</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="type2" name="type" value="appartement" class="input-checkbox"/>
+                        <label for="type2" class="label-checkbox"><span>Appartement</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="type3" name="type" value="commerce" class="input-checkbox"/>
+                        <label for="type3" class="label-checkbox"><span>Commerce et bureaux</span></label>
+                      </li>
+                      <li>
+                        <input type="checkbox" id="type4" name="type" value="demenagement" class="input-checkbox"/>
+                        <label for="type4" class="label-checkbox"><span>Déménagement</span></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- prix-->
+                <div class="form-dropdown">
+                  <button aria-expanded="false" aria-controls="dropdown-price-choice" data-app-dropdown="search" class="form-dropdown__trigger">Prix<span aria-hidden="true" class="icon icon-expand"></span></button>
+                  <div id="dropdown-price-choice" aria-hidden="true" class="form-dropdown__content hidden">
+                    <ul class="ul-unstyled price-range">
+                      <li>
+                        <label class="input">
+                          <div class="input__label visually-hidden">Min</div>
+                          <input type="number" name="priceMin" placeholder="Min" step="1000" class="input__text small-padding text-center"/>
+                        </label>
+                      </li>
+                      <li>
+                        <label class="input">
+                          <div class="input__label visually-hidden">Max</div>
+                          <input type="number" name="priceMax" placeholder="Max" step="1000" class="input__text small-padding text-center"/>
+                        </label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- pièces-->
+                <div class="form-dropdown">
+                  <button aria-expanded="false" aria-controls="dropdown-rooms-choice" data-app-dropdown="search" class="form-dropdown__trigger">Pièces<span aria-hidden="true" class="icon icon-expand"></span></button>
+                  <div id="dropdown-rooms-choice" aria-hidden="true" class="form-dropdown__content hidden">
+                    <ul class="ul-unstyled with-columns undo-padding">
+                      <li class="bordered">
+                        <input type="checkbox" id="rooms1" name="rooms" value="1" class="input-checkbox"/>
+                        <label for="rooms1" class="label-checkbox"><span>1 pièce</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="rooms2" name="rooms" value="2" class="input-checkbox"/>
+                        <label for="rooms2" class="label-checkbox"><span>2 pièce</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="rooms3" name="rooms" value="3" class="input-checkbox"/>
+                        <label for="rooms3" class="label-checkbox"><span>3 pièce</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="rooms4" name="rooms" value="4" class="input-checkbox"/>
+                        <label for="rooms4" class="label-checkbox"><span>4 pièce</span></label>
+                      </li>
+                      <li>
+                        <input type="checkbox" id="rooms5" name="rooms" value="5+" class="input-checkbox"/>
+                        <label for="rooms5" class="label-checkbox"><span>5  pièce et +</span></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+                <!-- surface-->
+                <div class="form-dropdown">
+                  <button aria-expanded="false" aria-controls="dropdown-surface-choice" data-app-dropdown="search" class="form-dropdown__trigger">Surface<span aria-hidden="true" class="icon icon-expand"></span></button>
+                  <div id="dropdown-surface-choice" aria-hidden="true" class="form-dropdown__content hidden">
+                    <label class="input">
+                      <div class="input__label visually-hidden">Min</div>
+                      <input type="number" name="surfaceMin" placeholder="Min" step="10" class="input__text small-padding text-center"/>
+                    </label>
+                  </div>
+                </div>
+                <!-- services-->
+                <div class="form-dropdown">
+                  <button aria-expanded="false" aria-controls="dropdown-services-choice" data-app-dropdown="search" class="form-dropdown__trigger">Services<span aria-hidden="true" class="icon icon-expand"></span></button>
+                  <div id="dropdown-services-choice" aria-hidden="true" class="form-dropdown__content hidden">
+                    <ul class="ul-unstyled undo-padding">
+                      <li class="bordered">
+                        <input type="checkbox" id="services1" name="services" value="duplex" class="input-checkbox"/>
+                        <label for="services1" class="label-checkbox"><span>Duplex</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="services2" name="services" value="plein-pied" class="input-checkbox"/>
+                        <label for="services2" class="label-checkbox"><span>Plein-pied</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="services3" name="services" value="dernier-etage" class="input-checkbox"/>
+                        <label for="services3" class="label-checkbox"><span>Dernier étage</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="services4" name="services" value="garage-parking" class="input-checkbox"/>
+                        <label for="services4" class="label-checkbox"><span>Garage / Parking</span></label>
+                      </li>
+                      <li class="bordered">
+                        <input type="checkbox" id="services5" name="services" value="balcon-terrasse-jardin" class="input-checkbox"/>
+                        <label for="services5" class="label-checkbox"><span>Balcon / Terrasse / Jardin</span></label>
+                      </li>
+                      <li>
+                        <input type="checkbox" id="services6" name="services" value="pack-silver" class="input-checkbox"/>
+                        <label for="services6" class="label-checkbox"><span>
+                            Pack silver
+                            &nbsp;<a href="#" aria-describedby="infotip-pack-silver2" class="infotip"></a>
+                            <div role="tooltip" id="infotip-pack-silver2" aria-hidden="false" class="hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dictum risus. Curabitur quam neque, pulvinar non purus quis, varius placerat mi. Aliquam vel felis nisl. Donec euismod auctor ipsum, sed congue massa iaculis vitae. Suspendisse risus urna, dictum nec mattis a, ultricies non lectus. Aenean nec nulla id odio auctor congue in eu felis. Suspendisse egestas, neque sit amet fringilla ultrices, nisi nunc ultrices tellus, sed venenatis elit orci ac massa. In nec turpis enim. Proin vitae dui dolor.</div></span></label>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="form-dropdown__bottom">
+                <!-- others-->
+                <ul class="ul-unstyled extra-checkboxes">
+                  <li>
+                    <input type="checkbox" id="immediate-shipping" name="immediate-shipping" value="true" class="input-checkbox"/>
+                    <label for="immediate-shipping" class="label-checkbox"><span>Livraison immédiate</span></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="pinel" name="pinel" value="true" class="input-checkbox"/>
+                    <label for="pinel" class="label-checkbox"><span>
+                        Investir&nbsp;: Loi PINEL
+                        &nbsp;<a href="#" aria-describedby="infotip-pinel" class="infotip"></a>
+                        <div role="tooltip" id="infotip-pinel" aria-hidden="false" class="hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dictum risus. Curabitur quam neque, pulvinar non purus quis, varius placerat mi. Aliquam vel felis nisl. Donec euismod auctor ipsum, sed congue massa iaculis vitae. Suspendisse risus urna, dictum nec mattis a, ultricies non lectus. Aenean nec nulla id odio auctor congue in eu felis. Suspendisse egestas, neque sit amet fringilla ultrices, nisi nunc ultrices tellus, sed venenatis elit orci ac massa. In nec turpis enim. Proin vitae dui dolor.</div></span></label>
+                  </li>
+                  <li>
+                    <input type="checkbox" id="silver" name="silver" value="true" class="input-checkbox"/>
+                    <label for="silver" class="label-checkbox"><span>
+                        Pack Silver
+                        &nbsp;<a href="#" aria-describedby="infotip-pack-silver" class="infotip"></a>
+                        <div role="tooltip" id="infotip-pack-silver" aria-hidden="false" class="hidden">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a dictum risus. Curabitur quam neque, pulvinar non purus quis, varius placerat mi. Aliquam vel felis nisl. Donec euismod auctor ipsum, sed congue massa iaculis vitae. Suspendisse risus urna, dictum nec mattis a, ultricies non lectus. Aenean nec nulla id odio auctor congue in eu felis. Suspendisse egestas, neque sit amet fringilla ultrices, nisi nunc ultrices tellus, sed venenatis elit orci ac massa. In nec turpis enim. Proin vitae dui dolor.</div></span></label>
+                  </li>
+                </ul>
+                <!-- submit-->
+                <button type="submit" class="button--icon"><span class="button__content"><span class="icon icon-search"></span>Trouver un bien</span></button>
+              </div>
+            </div>
+            <button aria-expanded="false" aria-controls="dropdown-search-filters" data-app-dropdown="remove" class="searchFormular__more js-form-more"><span aria-hidden="true" class="icon icon-expand"></span>Plus de critères</button>
+          </form>
+          <!-- [searchFormular] search results - end-->
+        </div>
+      </section>
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Et, placeat, maiores. Sed nisi, quas, magni perferendis hic molestias inventore, optio doloremque recusandae itaque eos temporibus esse reprehenderit accusantium quia odit.</p>
+      <p>Praesentium nihil non doloremque, magni itaque eveniet iure inventore veniam ea repellat ad, consequatur quibusdam tempora iusto modi ipsa aspernatur ducimus vero? Labore, asperiores, dolorum. Alias laborum eos similique illum.</p>
+      <p>Sequi eius, minus! Doloribus, quasi in. Praesentium natus quos labore quisquam porro ex quae voluptates laudantium, vitae magnam inventore, illo aut. Blanditiis rem, deleniti asperiores ipsum cupiditate fugiat. Est, facere?</p>
+      <p>Praesentium amet aliquid sequi? Ducimus eveniet perspiciatis eius laboriosam, consectetur magnam, adipisci animi repellat reiciendis sunt, saepe labore excepturi ut expedita tempore maiores, fugit quos ipsa similique! Minima, sapiente, optio!</p>
+      <p>Nisi sit tenetur architecto deleniti excepturi qui ratione, sapiente, quaerat aut distinctio atque ipsam quidem perspiciatis eveniet quibusdam quas perferendis, enim magni accusamus. Dolorum praesentium quos sunt, aliquam tempore nobis.</p>
+      <p>Non natus molestiae dicta esse praesentium id officia at quod fugiat nisi quos ipsam omnis rerum, sint maiores laudantium dolorum, dolore, quisquam odit! Vero modi qui accusamus adipisci eum, esse.</p>
+      <p>Minus molestias eveniet laboriosam labore quasi magnam dolore minima repellat. Voluptas quidem odit adipisci nesciunt sit quis nihil velit quod, rem, illum officiis doloremque modi non maiores ipsum nisi! Atque!</p>
+      <p>Consectetur iusto veniam vel sunt at explicabo, aperiam quisquam commodi, eius consequatur veritatis quia rerum placeat porro quas ullam illum sit molestiae dignissimos ipsam nisi! Rem, sint, autem! Quibusdam, illo.</p>
+      <p>Dicta natus quam similique architecto maiores reprehenderit distinctio aliquam corrupti voluptatibus sequi, itaque quidem dolorem adipisci soluta nisi, quae beatae nam inventore, ipsam sint quisquam dolorum. Laborum quam, natus ad!</p>
+      <p>Voluptas ad, accusamus, quasi deserunt quos libero deleniti dolores exercitationem nulla magni at minus nostrum eligendi. Dicta magnam officia sint necessitatibus explicabo placeat, voluptates cupiditate quod, ipsa perferendis quidem est?</p>
+    </main>
+    <script src="js/bundle.js"></script>
+  </body>
+</html>

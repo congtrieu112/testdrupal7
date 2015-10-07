@@ -1,0 +1,19 @@
+name = Lightning
+description = A fast and feature-rich Drupal distribution.
+core = 7.x
+distribution_name = Lightning
+exclusive = 1
+
+; Lightning
+dependencies[] = assemble
+dependencies[] = curate
+dependencies[] = distro_update
+
+; System Requirements
+php = 5.4
+php_memory_limit = 128M
+
+; Information added by drush on 2015-09-09
+version = "7.x-1.x-dev"
+project = "lightning"
+datestamp = "1441816605"
