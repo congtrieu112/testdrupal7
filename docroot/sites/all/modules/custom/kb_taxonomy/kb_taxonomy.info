@@ -1,9 +1,0 @@
-; $Id$
-name = KB-taxonomy
-core = 7.x
-package = K&B Development
-
-dependencies[] = taxonomy
-dependencies[] = text
-dependencies[] = field
-dependencies[] = field_sql_storage
