@@ -1,0 +1,5 @@
+name = K&B Feeds
+core = 7.x
+package = K&B Development
+
+dependencies[] = feeds
