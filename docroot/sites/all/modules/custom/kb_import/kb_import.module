@@ -37,9 +37,16 @@ function action_delete_nodes() {
  * @return string
  */
 function kb_import_cronapi($op, $job = NULL) {
-  $items['fetch_programme_import_cron'] = array(
-    'description' => 'Fetch Programme Import',
-    'rule' => '*/5 * * * *',
+  $items['fetch_programme_import_cron_1'] = array(
+    'description' => 'Fetch Programme Import 1',
+    'rule' => '0 6 * * 1,5',
+    'callback' => 'kb_import_fetch_programme_import_cron' ,
+    'arguments' => array(array('programme_import'))
+  );
+
+  $items['fetch_programme_import_cron_2'] = array(
+    'description' => 'Fetch Programme Import 2',
+    'rule' => '0 16 * * 5',
     'callback' => 'kb_import_fetch_programme_import_cron' ,
     'arguments' => array(array('programme_import'))
   );
