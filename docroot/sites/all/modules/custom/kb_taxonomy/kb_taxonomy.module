@@ -1,0 +1,33 @@
+<?php
+
+function kb_taxonomy_get_vocabulary_by_name($vocabulary_name) {
+  $vocabs = taxonomy_get_vocabularies(NULL);
+  foreach ($vocabs as $vocab_object) {
+    if ($vocab_object->machine_name == $vocabulary_name) {
+      return $vocab_object->vid;
+    }
+  }
+  return FALSE;
+}
+function get_vocs_to_build(){
+    $vocs = array(
+        'departement' => array(
+            'title' => 'Département',
+            'description' => '',
+            'fields' => array(
+                'field_numero_departement' => array(
+                    'type' => 'text',  
+                    'module' => 'text',  
+                    'settings' => array('max_length' => 255),  
+                    'title' => 'Numéro',  
+                    'weight' => -4,  
+                ),
+            ),
+            'mapping_data' => array(
+                0 => 'field_numero_departement',
+                1 => 'name',
+            ),
+        ),
+    );
+    return $vocs;
+}
