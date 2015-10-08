@@ -1,0 +1,17 @@
+<?php
+
+function kb_feeds_feeds_plugins() {
+  $info = array();
+  $path = drupal_get_path('module', 'kb_feeds');
+  $info['KbFeedsCSVParser'] = array(
+    'name' => 'KB CSV parser',
+    'description' => 'Parse data in Comma Separated Value format.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbFeedsCSVParser',
+      'file' => 'KbFeedsCSVParser.inc',
+      'path' => $path,
+    ),
+  );
+  return $info;
+}
