@@ -36778,43 +36778,6 @@ $accordion
 var ajaxPath = {} ;
 
 
-function AjaxCtrl(settings) {
-  var that = this;
-
-  this.settings = {
-
-  };
-
-  this.caller     = new Caller(this);
-  this.callback   = new Callback(this);
-  this.fn         = new Fn(this);
-
-  this.init = function() {
-    that.settings = $.extend( true, that.settings, settings );
-  };
-
-  this.init();
-
-  // Controller class
-  this.Controller = function ( data ) {
-    this.datas = data ;
-
-    this.send = function ( data ){
-      this.ajaxCaller = that.caller.request( this , data );
-      return this;
-    };
-
-    this.abort = function () {
-      if (this.ajaxCaller) {
-        this.ajaxCaller.abort();
-      }
-    };
-
-    return this;
-  };
-}
-
-
 // Caller managment
 var Caller = function( scope ) {
   var that = scope ;
@@ -36906,6 +36869,43 @@ var Fn = function ( scope ){
 };
 
 
+function AjaxCtrl(settings) {
+  var that = this;
+
+  this.settings = {
+
+  };
+
+  this.caller     = new Caller(this);
+  this.callback   = new Callback(this);
+  this.fn         = new Fn(this);
+
+  this.init = function() {
+    that.settings = $.extend( true, that.settings, settings );
+  };
+
+  this.init();
+
+  // Controller class
+  this.Controller = function ( data ) {
+    this.datas = data ;
+
+    this.send = function ( data ){
+      this.ajaxCaller = that.caller.request( this , data );
+      return this;
+    };
+
+    this.abort = function () {
+      if (this.ajaxCaller) {
+        this.ajaxCaller.abort();
+      }
+    };
+
+    return this;
+  };
+}
+
+
 App.AjaxController = new AjaxCtrl(ajaxPath);
 },{}],10:[function(require,module,exports){
 /* ============================ */
@@ -36918,10 +36918,10 @@ App.AjaxController = new AjaxCtrl(ajaxPath);
 // ajax links
 
 var trigger = "[data-ajax-module]";
-var root = this;
+var root = {};
 
 
-this.init = function() {
+root.init = function() {
 
   $(document).on('click.ajaxLink', trigger, function(e) {
     e.preventDefault();
@@ -36932,7 +36932,7 @@ this.init = function() {
 };
 
 
-this.ajaxCall = function( el ) {
+root.ajaxCall = function( el ) {
   var $el = $(el);
   var module = $el.data('ajax-module');
   var caller = new App.AjaxController.Controller({
@@ -36948,7 +36948,7 @@ this.ajaxCall = function( el ) {
 };
 
 
-this.url = function( el ) {
+root.url = function( el ) {
   var $el = $(el);
   var url = false;
 
@@ -36962,14 +36962,28 @@ this.url = function( el ) {
 };
 
 
-this.init();
+root.init();
 },{}],11:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
 /* ====================== */
 
 'use strict';
-
+/*
+if (Modernizr.touch) {
+  var $body = $('body');
+  $(document)
+    .on('focusin', 'input', function(){
+      console.log(this);
+      console.log($(document).scrollTop());
+      var offset = $(this).offset().top;
+      setTimeout(function () {
+        $(document).scrollTop( offset + 200 );
+        console.log($(document).scrollTop());
+      }, 1000);
+      $body.addClass('fixfixed');
+    });
+}*/
 
 // prevent page scrolling on ios when user click on labels
 /*$('label').on('touchend.label touchstart.label click.label', function(e) {
@@ -37051,8 +37065,7 @@ Dropdown.prototype.toggle = function( $el ) {
 };
 
 Dropdown.prototype.open = function( $el, $target ) {
-  var scope = this,
-      mode = $el.data('app-dropdown');
+  var mode = $el.data('app-dropdown');
 
   if ( mode === 'remove' ) {
     $target.find('button').first().focus();
@@ -37070,7 +37083,7 @@ Dropdown.prototype.open = function( $el, $target ) {
 
   $target.velocity("slideDown", {
       duration: 250,
-      complete: function(el) {
+      complete: function() {
         $el.velocity("scroll", { duration: 200, offset: -80 });
       }
     })
@@ -37080,8 +37093,6 @@ Dropdown.prototype.open = function( $el, $target ) {
 };
 
 Dropdown.prototype.close = function( $el, $target ) {
-  var scope = this;
-
   $el.attr('aria-expanded', 'false');
   $target.velocity("slideUp", {
       duration: 250
@@ -37184,11 +37195,10 @@ Gmaps.prototype.initMarkers = function() {
 };
 
 Gmaps.prototype.getMarkers = function() {
-  var scope   = this,
-      $items = $('[data-gmaps-marker]'),
+  var $items = $('[data-gmaps-marker]'),
       markers = [],
       image = {
-          url: '../assets/images/gmaps-marker.png',
+          url: 'assets/images/gmaps-marker.png',
           origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(0, 32)
         };
@@ -37225,9 +37235,6 @@ $(function() {
 
 'use strict';
 
-if ( Foundation.utils.is_small_only() || Foundation.utils.is_medium_only() ){
-
-}
 
 
 },{}],15:[function(require,module,exports){
@@ -37281,29 +37288,12 @@ App.updaters.foundation = function() {
 var $triggerMore  = $('.js-form-more'),
     $btnSubmit    = $('.js-btn-submit');
 
-var searchInit = function() {
-  var $root = $('.searchFormular');
-
-  if (!$root.length) {
-    return;
-  }
-
-  $triggerMore
-    .off('click.search-mode')
-    .on('click.search-mode', function(e){
-      e.preventDefault();
-      openMore( $(this) );
-    });
-
-  abideInit();
-};
-
-var openMore = function( $trigger ) {
+var openMore = function() {
   // hide 1st submit button
   $btnSubmit
     .hide()
     .attr("aria-hidden", "true");
-}
+};
 
 var abideInit = function() {
   $(document).foundation({
@@ -37317,109 +37307,143 @@ var abideInit = function() {
   }).foundation('abide', 'reflow');
 };
 
-searchInit();
-},{}],17:[function(require,module,exports){
-/* ==================== */
-/* slick : app-slick.js */
-/* ==================== */
+var searchInit = function() {
+  var $root = $('.searchFormular');
 
-'use strict';
-
-var slickInit = function() {
-  var slick = $('[data-slick]');
-
-  if ( slick.length ) {
+  if (!$root.length) {
     return;
   }
 
-  for ( var i=0, slickLength=slick.length ; i<slickLength ; i++ ) {
-    var $slick  = $(slick[i]),
-        mode    = $slick.attr('data-slick') || "";
+  $triggerMore
+    .off('click.search-mode')
+    .on('click.search-mode', function(e){
+      e.preventDefault();
+      openMore();
+    });
 
-    slickActivate( $slick, mode );
-  }
+  abideInit();
 };
 
-var slickActivate = function( $el, mode ) {
+searchInit();
+},{}],17:[function(require,module,exports){
+/* ======================= */
+/* AppSlick : app-slick.js */
+/* ======================= */
 
-  switch(mode) {
-    case "testimonial":
-      if ( Foundation.utils.is_small_only() ) {
-        if ( !checkInit( $el ) ) {
-          $el.slick({
-            arrows: false,
-            dots: true,
-            infinite: false,
-            edgeFriction: 0
-          });
-        }
-      } else {
-        unslick( $el );
-      }
-      break;
+'use strict';
 
-    case "intro-slider":
-      unslick( $el );
-      if ( Foundation.utils.is_small_only() ) {
-        if ( !checkInit( $el ) ) {
-          $el.slick({
-            arrows: false,
-            dots: true,
-            infinite: false,
-            edgeFriction: 0
-          });
-        }
-      } else {
-        if ( !checkInit( $el ) ) {
-          $el.slick({
-            arrows: true,
-            dots: false,
-            infinite: false,
-            edgeFriction: 0,
-            appendArrows: $el.siblings(".slick-navigation"),
-            prevArrow: '<button type="button" class="slick-prev icon icon-expand"></button>',
-            nextArrow: '<button type="button" class="slick-next icon icon-expand"></button>'
-          });
-        }
-      }
-      break;
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
 
-    default:
-      break;
-  }
+var trigger = '[data-slick]';
 
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+  infinite: false,
+  edgeFriction: 0,
+  arrows: false,
+  dots: true,
+  slidesToShow: 1,
+  slidesToScroll: 1
 };
 
-var unslick = function( $el ) {
-  if ( checkInit( $el ) ) {
+var defaultsMedium = {
+  arrows: true,
+  dots: false,
+  prevArrow: '<button type="button" class="slick-prev"><span class="icon"></span></button>',
+  nextArrow: '<button type="button" class="slick-next"><span class="icon"></span></button>'
+};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppSlick( el, options ) {
+  this.settings = {};
+
+  if ( Foundation.utils.is_medium_up() ) {
+    this.settings = $.extend({}, defaults, defaultsMedium, options);
+  } else {
+    this.settings = $.extend({}, defaults);
+  }
+
+  return this.init( el );
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+// init slick
+AppSlick.prototype.init = function( el ) {
+  var that = this,
+      $el = $(el);
+
+  that.unslick( $el );
+  $el.slick(that.settings);
+};
+
+
+// check if slick is initialized
+AppSlick.prototype.checkInit = function( $el ) {
+  return $el.hasClass('slick-initialized');
+};
+
+// RIP slick
+AppSlick.prototype.unslick = function( $el ) {
+  var that = this;
+
+  if ( that.checkInit( $el ) ) {
     $el.slick('unslick');
   }
 };
 
-var checkInit = function( $el ) {
-  return $el.hasClass('slick-initialized');
-};
 
 
-slickInit();
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
 
-$(window).on('resize', Foundation.utils.throttle(function(e){
-  slickInit();
-}, 500));
+if ( $(trigger).length ) {
+
+  $.fn.appSlick = function() {
+    return this.each(function () {
+      var $this = $(this);
+      $this.data('appSlick', new AppSlick( this, $this.data('slick') ));
+    });
+  };
+
+  $(trigger).appSlick();
+
+}
 
 
+/*$(window).on('resize', Foundation.utils.throttle(function(){
+  $(trigger).appSlick();
+}, 500));*/
+
+/*
 // auto refresh Foundation after ajax response
-App.updaters.foundation = function() {
-  slickInit();
-};
+App.updaters.slick = function() {
+  $(trigger).appSlick();
+};*/
+
 },{}],18:[function(require,module,exports){
+(function (global){
 /* ================== */
 /* main : app-main.js */
 /* ================== */
 
 'use strict';
 
-var $                   = require('jquery');
+require('jquery');
 var _                   = require('lodash');
 var foundation          = require('foundation');
 var velocity            = require("velocity-animate");
@@ -37431,8 +37455,8 @@ var attachFastClick = require('../../node_modules/foundation-sites/js/vendor/fas
 attachFastClick(document.body);
 
 
-// create our App object
-var App = {
+// create our global App object
+global.App = {
   settings: {},
   updaters: {}
 };
@@ -37453,10 +37477,6 @@ App.launchUpdaters = function(obj){
 };
 
 
-// Global access to our App object
-window.App = App;
-
-
 // init Foundation
 $(document).foundation();
 
@@ -37467,8 +37487,7 @@ App.updaters.foundation = function() {
 
 
 // app scripts
-// var magellan            = require("./app-magellan.js");
-var Appcommon              = require("./app-common.js");
+var Appcommon           = require("./app-common.js");
 var reveal              = require("./app-reveal.js");
 var accordion           = require("./app-accordion.js");
 var appAlaxLink         = require("./app-offcanvas.js");
@@ -37486,4 +37505,5 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
 // deprecated
 //var appDocs             = require("./app-docs.js");
 
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{"../../node_modules/foundation-sites/js/vendor/fastclick.js":2,"./app-accordion.js":8,"./app-ajax-controller.js":9,"./app-ajax-link.js":10,"./app-common.js":11,"./app-dropdown.js":12,"./app-gmaps.js":13,"./app-offcanvas.js":14,"./app-reveal.js":15,"./app-searchFormular.js":16,"./app-slick.js":17,"foundation":1,"gmaps":3,"jquery":4,"lodash":5,"slick-carousel":6,"velocity-animate":7}]},{},[18]);

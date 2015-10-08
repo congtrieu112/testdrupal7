@@ -10,24 +10,24 @@
     <script src="js/modernizr.js"></script>
   </head>
   <body class="styleguide">
+    <!-- [siteHeader] start-->
     <div class="sticky contain-to-grid">
-      <header data-topbar role="banner" class="top-bar">
-        <div class="wrapper"><a href="#" class="burger hide-for-large-up">BURGER</a>
-          <ul class="title-area">
-            <li class="name"><a href="index.html" title="K&amp;B homepage" class="title-area__link"><img src="assets/images/logo-Kaufman-Broad.svg" alt="Kaufman&amp;Board"></a></li>
+      <header data-topbar role="banner" class="top-bar"><a href="#" class="burger hide-for-large-up">BURGER</a>
+        <ul class="title-area">
+          <li class="name"><a href="index.html" title="K&amp;B homepage" class="title-area__link"><img src="assets/images/logo-Kaufman-Broad.svg" alt="Kaufman&amp;Board"></a></li>
+        </ul>
+        <nav aria-label="Menu principal" class="top-bar-section">
+          <ul class="right">
+            <li><a href="#colors">COLORS</a></li>
+            <li><a href="#type">TYPE</a></li>
+            <li><a href="#buttons">BUTTONS</a></li>
+            <li><a href="#icons">ICONS</a></li>
+            <li><a href="#other">OTHER</a></li>
           </ul>
-          <nav aria-label="Menu principal" class="top-bar-section">
-            <ul class="right">
-              <li><a href="#colors">COLORS</a></li>
-              <li><a href="#type">TYPE</a></li>
-              <li><a href="#buttons">BUTTONS</a></li>
-              <li><a href="#icons">ICONS</a></li>
-              <li><a href="#other">OTHER</a></li>
-            </ul>
-          </nav>
-        </div>
+        </nav>
       </header>
     </div>
+    <!-- [siteHeader] end-->
     <div class="wrapper">
       <h2 id="colors">Colors</h2>
       <ul class="colors">
@@ -141,28 +141,39 @@
         <div class="heading__title">Heading 1</div>
         <div class="heading__title heading__title--sub">Sub-heading 1</div>
       </div>
+      <div class="bg-mediumBlue">
+        <div class="heading heading--bordered heading--white">
+          <div class="heading__title">Heading 1</div>
+          <div class="heading__title heading__title--sub">Sub-heading 1</div>
+        </div>
+      </div>
       <h2 id="buttons">BUTTONS</h2>
-      <button class="btn-primary">button-primary</button>
+      <button class="btn-primary">btn-primary</button>
       <ul>
         <li>@extend .btn-primary;</li>
       </ul>
-      <button class="btn-primary btn-rounded">button-primary btn-rounded</button>
+      <button class="btn-primary btn-rounded">btn-primary btn-rounded</button>
       <ul>
         <li>@extend .btn-primary;</li>
         <li>@extend .btn-rounded;</li>
       </ul>
-      <button class="btn-secondary">button-secondary</button>
+      <button class="btn-secondary">btn-secondary</button>
       <ul>
         <li>@extend .btn-secondary;</li>
       </ul>
-      <button class="btn-secondary btn-rounded">button-secondary btn-rounded</button>
+      <button class="btn-secondary btn-rounded">btn-secondary btn-rounded</button>
       <ul>
         <li>@extend .btn-secondary;</li>
         <li>@extend .btn-rounded;</li>
       </ul>
-      <button class="btn-filter">button-filter</button>
+      <button class="btn-filter">btn-filter</button>
       <ul>
         <li>@extend .btn-filter;</li>
+      </ul>
+      <button class="btn-primary btn-rounded">btn-primary btn-rounded<span class="icon icon-arrow"></span></button>
+      <ul>
+        <li>@extend .btn-primary;</li>
+        <li>@extend .btn-rounded;</li>
       </ul>
       <h2 id="icons">ICONS</h2>
       <ul class="icon-list">
@@ -173,8 +184,10 @@
         <li><span class="icon icon-star"></span>&nbsp;icon-star</li>
       </ul>
       <h2 id="other">OTHER (testing purpose)</h2><a href="partials/test.html" title="index page" data-ajax-module="test">test ajax</a>
-      <div data-ajax-response="test"></div><img alt="Beautiful picture" data-interchange="[test_assets/paysage-small.jpg, (small)], [test_assets/paysage-medium.jpg, (medium)], [test_assets/paysage-large.jpg, (large)]"/>
+      <div data-ajax-response="test"></div>
+      <!-- [Responsive img] start--><img alt="Beautiful picture" data-interchange="[test_assets/paysage-small.jpg, (small)], [test_assets/paysage-medium.jpg, (medium)], [test_assets/paysage-large.jpg, (large)]"/>
       <noscript><img src="test_assets/paysage-medium.jpg" alt="Beautiful picture"/></noscript>
+      <!-- [Responsive img] end-->
     </div>
     <script src="js/bundle.js"></script>
   </body>
