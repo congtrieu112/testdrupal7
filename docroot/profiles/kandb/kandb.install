@@ -18,7 +18,7 @@ function kandb_install() {
   variable_set('theme_default', $theme);
 
   // Enable admin theme.
-  $admin_theme = 'ember';
+  $admin_theme = 'adminimal_theme';
   theme_enable(array($admin_theme));
   variable_set('admin_theme', $admin_theme);
 
@@ -26,119 +26,7 @@ function kandb_install() {
   variable_set('node_admin_theme', '1');
 
   // Disable bartik and seven.
-  theme_disable(array('bartik', 'seven'));
-
-  // Enable some standard blocks.
-  $default_theme = variable_get('theme_default', $theme);
-  $blocks = array(
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $default_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'main',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'content',
-      'pages' => '',
-      'cache' => -1,
-    ),
-    array(
-      'module' => 'system',
-      'delta' => 'help',
-      'theme' => $admin_theme,
-      'status' => 1,
-      'weight' => 0,
-      'region' => 'help',
-      'pages' => '',
-      'cache' => -1,
-    ),
-  );
-  $query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
-  foreach ($blocks as $block) {
-    $query->values($block);
-  }
-  $query->execute();
-
-  // Enable user picture support and set the default to a square thumbnail option.
-  variable_set('user_pictures', '1');
-  variable_set('user_picture_dimensions', '1024x1024');
-  variable_set('user_picture_file_size', '800');
-  variable_set('user_picture_style', 'thumbnail');
-
-  // Allow visitor account creation with administrative approval.
-  variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
-
-  // Enable default permissions for system roles.
-  user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'access comments'));
-  user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', 'access comments', 'post comments', 'skip comment approval'));
-
-  // Create a default role for site administrators
-  // with all available permissions assigned.
-  $admin_role = new stdClass();
-  $admin_role->name = 'administrator';
-  $admin_role->weight = 2;
-  user_role_save($admin_role);
-  user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
-  // Set this as the administrator role.
-  variable_set('user_admin_role', $admin_role->rid);
-
-  // Assign user 1 the "administrator" role.
-  db_insert('users_roles')
-    ->fields(array('uid' => 1, 'rid' => $admin_role->rid))
-    ->execute();
-  // revert features to ensure they are all installed
-  $features = array(
-    'kandb_content',
-    'lightning_admin',
-    'lightning_base',
-    'lightning_image',
-    'lightning_tags',
-    'lightning_article',
-    'lightning_blocks',
-    'lightning_content',
-    'lightning_featured',
-    'lightning_files',
-    'lightning_filter',
-    'lightning_forms',
-    'lightning_fpp',
-    'lightning_identifiers',
-    'lightning_metatags',
-    'lightning_moderation',
-    'lightning_panels',
-    'lightning_landing',
-    'lightning_media',
-    'lightning_page',
-    'lightning_roles',
-    'lightning_sps',
-    'lightning_theme',
-    'lightning_views',
-    'lightning_wysiwyg'
-  );
-  features_revert($features);
-  // ignore any rebuild messages
-  node_access_needs_rebuild(FALSE);
-  // ignore any other install messages
-  drupal_get_messages();
-
+  theme_disable(array('bartik', 'seven', 'ember'));
 }
 
 /**
@@ -150,7 +38,7 @@ function kandb_install_tasks_alter(&$tasks, $install_state) {
   // Skip language selection install step and default language to English.
   $tasks['install_select_locale']['display'] = FALSE;
   $tasks['install_select_locale']['run'] = INSTALL_TASK_SKIP;
-  $install_state['parameters']['locale'] = 'en';
+  $install_state['parameters']['locale'] = 'fr';
 
   // Override "install_finished" task.
   $tasks['install_finished']['function'] = 'kandb_install_finished';
@@ -187,9 +75,6 @@ function kandb_install_finished(&$install_state) {
   features_get_info(NULL, NULL, TRUE);
   features_rebuild();
 
-  // Rebuild all Default Config (cleanup install).
-  defaultconfig_rebuild_all();
-
   // Revert all Features (cleanup install).
   features_revert();
 
@@ -206,6 +91,6 @@ function kandb_install_finished(&$install_state) {
   }
   else {
     // Display a success message for Drush-based install.
-    drupal_set_message("kandb install complete.");
+    drupal_set_message("Kaufman & Broad install complete.");
   }
 }
