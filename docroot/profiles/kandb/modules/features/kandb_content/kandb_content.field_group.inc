@@ -21,12 +21,14 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '33',
+    'weight' => '11',
     'children' => array(
       0 => 'field_photo_conseiller',
       1 => 'field_nom_conseiller',
       2 => 'field_espace_vente_adresse',
       3 => 'field_espace_vente_horaire',
+      4 => 'field_espace_vente_longitude',
+      5 => 'field_espace_vente_latitude',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -43,6 +45,40 @@ function kandb_content_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_description_option|node|bien|form';
+  $field_group->group_name = 'group_description_option';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'bien';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Description et options',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_description',
+      1 => 'field_caracteristiques',
+      2 => 'field_documents',
+      3 => 'field_plaquette_commerciale',
+      4 => 'field_fiche_renseignement',
+      5 => 'field_plan_batiment',
+      6 => 'field_kit_fiscal',
+      7 => 'field_orientation',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-description-option field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_description_option|node|bien|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_description_option|node|programme|form';
   $field_group->group_name = 'group_description_option';
   $field_group->entity_type = 'node';
@@ -51,7 +87,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description et options',
-    'weight' => '4',
+    'weight' => '7',
     'children' => array(
       0 => 'field_options',
       1 => 'field_description',
@@ -73,6 +109,73 @@ function kandb_content_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_detail_prospect|node|prospect_b2b|form';
+  $field_group->group_name = 'group_detail_prospect';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'prospect_b2b';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Détails du prospect',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_prospect_nom',
+      1 => 'field_prospect_prenom',
+      2 => 'field_prospect_adresse',
+      3 => 'field_prospect_code_postal',
+      4 => 'field_prospect_ville',
+      5 => 'field_prospect_pays',
+      6 => 'field_prospect_telephone',
+      7 => 'field_prospect_mail',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-detail-prospect field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_detail_prospect|node|prospect_b2b|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_detail_souhait|node|prospect_b2b|form';
+  $field_group->group_name = 'group_detail_souhait';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'prospect_b2b';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Détails de ses souhaits',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_souhait_regions_dpt_ville',
+      1 => 'field_souhait_type_bien',
+      2 => 'field_souhait_nb_pieces',
+      3 => 'field_souhait_livraison',
+      4 => 'field_souhait_budget',
+      5 => 'field_souhait_tva',
+      6 => 'field_souhait_caracteristiques',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-detail-souhait field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_detail_souhait|node|prospect_b2b|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_documents|node|programme|form';
   $field_group->group_name = 'group_documents';
   $field_group->entity_type = 'node';
@@ -81,7 +184,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Documents',
-    'weight' => '8',
+    'weight' => '10',
     'children' => array(
       0 => 'field_plaquette_commerciale',
       1 => 'field_fiche_renseignement',
@@ -111,7 +214,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Exterieur',
-    'weight' => '19',
+    'weight' => '23',
     'children' => array(
       0 => 'field_slider_exterieur_titre',
       1 => 'field_slider_exterieur_image',
@@ -140,7 +243,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Intérieur',
-    'weight' => '20',
+    'weight' => '24',
     'children' => array(
       0 => 'field_slider_interieur_titre',
       1 => 'field_slider_interieur_image',
@@ -169,7 +272,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'RT 2012',
-    'weight' => '22',
+    'weight' => '26',
     'children' => array(
       0 => 'field_slider_rt2012_titre',
       1 => 'field_slider_rt2012_image',
@@ -198,7 +301,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Sécurité',
-    'weight' => '21',
+    'weight' => '25',
     'children' => array(
       0 => 'field_slider_securite_titre',
       1 => 'field_slider_securite_image',
@@ -227,7 +330,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = 'group_prestations';
   $field_group->data = array(
     'label' => 'Slider',
-    'weight' => '18',
+    'weight' => '22',
     'children' => array(
       0 => 'group_pres_slider_exterieur',
       1 => 'group_pres_slider_interieur',
@@ -257,7 +360,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prestations',
-    'weight' => '6',
+    'weight' => '9',
     'children' => array(
       0 => 'field_prestations_titre',
       1 => 'field_prestations_sous_titre',
@@ -287,7 +390,7 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Quartier',
-    'weight' => '5',
+    'weight' => '8',
     'children' => array(
       0 => 'field_quartier_titre',
       1 => 'field_quartier_sous_titre',
@@ -310,6 +413,41 @@ function kandb_content_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_summary_bloc|node|bien|form';
+  $field_group->group_name = 'group_summary_bloc';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'bien';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Résumé du bien',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_type',
+      1 => 'field_image_principale',
+      2 => 'field_superficie',
+      3 => 'field_nb_pieces',
+      4 => 'field_nb_chambres',
+      5 => 'field_numero_lot',
+      6 => 'field_prix_tva_20',
+      7 => 'field_etage',
+      8 => 'title',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-summary-bloc field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_summary_bloc|node|bien|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_summary_bloc|node|programme|form';
   $field_group->group_name = 'group_summary_bloc';
   $field_group->entity_type = 'node';
@@ -318,11 +456,13 @@ function kandb_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Résumé du programme',
-    'weight' => '3',
+    'weight' => '6',
     'children' => array(
       0 => 'field_image_principale',
       1 => 'field_trimestre',
-      2 => 'title',
+      2 => 'field_annee',
+      3 => 'field_tva_55',
+      4 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -335,6 +475,36 @@ function kandb_content_field_group_info() {
     ),
   );
   $export['group_summary_bloc|node|programme|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_visite|node|bien|form';
+  $field_group->group_name = 'group_visite';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'bien';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Visite virtuel',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_visite_3d',
+      1 => 'field_visite_titre',
+      2 => 'field_visite_texte',
+      3 => 'field_visite_plan_3d',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-visite field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_visite|node|bien|form'] = $field_group;
 
   return $export;
 }
