@@ -72,7 +72,7 @@ class KbParserCSV extends ParserCSV{
       $line = mb_convert_encoding($line, "UTF-8", "ISO-8859-1");
       $line = str_replace("|", "" ,$line);
       $line = str_replace("¤", $kb_delimiter ,$line);
-      
+
       if (empty($line)) {
         continue;
       }
@@ -85,7 +85,8 @@ class KbParserCSV extends ParserCSV{
       $fields = str_getcsv($line, $this->delimiter, '','\\');
 
       $totalHeader = count($this->columnNames);
-      if($this->columnNames != FALSE && $totalHeader != count($fields)) {
+
+      if($this->columnNames != FALSE && $totalHeader > count($fields)) {
         if($fields && is_array($fields)) {
           if((int)$fields[0] > 0) {
             watchdog('IMPORT FEEDS', 'Import file txt to node error at id: ' . $fields[0], WATCHDOG_WARNING);

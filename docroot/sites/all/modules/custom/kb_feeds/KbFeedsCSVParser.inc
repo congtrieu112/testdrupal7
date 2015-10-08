@@ -21,7 +21,7 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     $start = $state->pointer ? $state->pointer : $parser->lastLinePos();
     $limit = $source->importer->getLimit();
     $rows = $this->parseItems($parser, $iterator, $start, $limit);
-
+    
     $state->total = filesize($fetcher_result->getFilePath());
     $state->pointer = $parser->lastLinePos();
     $progress = $parser->lastLinePos() ? $parser->lastLinePos() : $state->total;
