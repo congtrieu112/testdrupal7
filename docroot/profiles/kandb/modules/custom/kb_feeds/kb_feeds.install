@@ -1,0 +1,5 @@
+<?php
+
+function kb_feeds_enable() {
+  cache_clear_all('plugins:feeds:plugins', 'cache');
+}
