@@ -9,6 +9,14 @@
  */
 function kandb_feed_taxonomy_default_vocabularies() {
   return array(
+    'arrondissement' => array(
+      'name' => 'Arrondissement',
+      'machine_name' => 'arrondissement',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'ville' => array(
       'name' => 'Ville',
       'machine_name' => 'ville',
