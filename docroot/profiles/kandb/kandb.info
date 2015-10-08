@@ -67,3 +67,4 @@ dependencies[] = uuid_features
 dependencies[] = kandb_content
 dependencies[] = kandb_domains
 dependencies[] = kandb_taxonomy
+dependencies[] = kandb_context

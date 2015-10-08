@@ -94,3 +94,12 @@ function kandb_install_finished(&$install_state) {
     drupal_set_message("Kaufman & Broad install complete.");
   }
 }
+
+/**
+ * Enable "Kandb context" feature
+ */
+function kandb_install_update_7100(&$sandbox){
+    if(!module_exists('kandb_context')){
+        module_enable(array('kandb_context'), TRUE);
+    }
+}
