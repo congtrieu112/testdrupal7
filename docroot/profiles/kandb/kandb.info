@@ -65,3 +65,5 @@ dependencies[] = views_ui
 ; Features
 dependencies[] = kandb_content
 dependencies[] = kandb_domains
+dependencies[] = kandb_user
+dependencies[] = kandb_role
