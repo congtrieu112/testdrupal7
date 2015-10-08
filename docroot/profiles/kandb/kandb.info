@@ -1,0 +1,67 @@
+name = K&B Profile
+description = Kaufman & Broad Drupal distribution.
+version = 1.0
+core = 7.x
+exclusive = true
+
+; ----------
+; Dependencies
+; ----------
+; Contrib
+dependencies[] = admin_views
+dependencies[] = admin_menu
+dependencies[] = adminimal_admin_menu
+dependencies[] = better_formats
+dependencies[] = ckeditor
+dependencies[] = context
+dependencies[] = context_ui
+dependencies[] = contextual
+dependencies[] = ctools
+dependencies[] = date
+dependencies[] = date_api
+dependencies[] = date_views
+dependencies[] = diff
+dependencies[] = domain
+dependencies[] = domain_alias
+dependencies[] = domain_conf
+dependencies[] = domain_content
+dependencies[] = domain_settings
+dependencies[] = entity
+dependencies[] = entityreference
+dependencies[] = features
+dependencies[] = features_diff
+dependencies[] = field
+dependencies[] = field_group
+dependencies[] = field_sql_storage
+dependencies[] = file
+dependencies[] = filter
+dependencies[] = help
+dependencies[] = image
+dependencies[] = list
+dependencies[] = location
+dependencies[] = location_node
+dependencies[] = menu
+dependencies[] = module_filter
+dependencies[] = node
+dependencies[] = options
+dependencies[] = pathauto
+dependencies[] = system
+dependencies[] = strongarm
+dependencies[] = taxonomy
+dependencies[] = path
+dependencies[] = redirect
+dependencies[] = text
+dependencies[] = token
+dependencies[] = update
+dependencies[] = user
+dependencies[] = views
+dependencies[] = views_bulk_operations
+dependencies[] = views_ui
+
+
+; Custom
+
+
+; Features
+dependencies[] = kandb_content
+dependencies[] = kandb_domains

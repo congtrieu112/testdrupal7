@@ -1,0 +1,4 @@
+name = "K&B Common"
+package = K&B Development
+core = "7.x"
+description = "K&B common module contain common functional"

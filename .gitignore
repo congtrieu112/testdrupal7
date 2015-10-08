@@ -3,3 +3,9 @@ docroot/files
 docroot/sites/*/files
 docroot/sites/*/private
 
+/nbproject/private/
+# Ignore file settings.php
+docroot/sites/default/settings.php
+
+# Ignore index.php
+docroot/index.php
