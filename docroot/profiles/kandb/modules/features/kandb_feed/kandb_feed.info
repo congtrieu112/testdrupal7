@@ -15,3 +15,4 @@ features[field_base][] = field_idk
 features[field_instance][] = taxonomy_term-ville-field_code_departement
 features[field_instance][] = taxonomy_term-ville-field_idk
 features[taxonomy][] = ville
+project path = sites/default/files/features

@@ -18,14 +18,14 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'City feed import',
     'description' => '',
     'fetcher' => array(
-      'plugin_key' => 'FeedsFileFetcher',
+      'plugin_key' => 'FeedsHTTPFetcher',
       'config' => array(
-        'allowed_extensions' => 'txt',
-        'direct' => 1,
-        'directory' => 'public://feeds/city',
-        'allowed_schemes' => array(
-          'public' => 'public',
-        ),
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
       ),
     ),
     'parser' => array(
@@ -67,7 +67,7 @@ function kandb_feed_feeds_importer_default() {
     'update' => 0,
     'import_period' => '-1',
     'expire_period' => 3600,
-    'import_on_create' => 0,
+    'import_on_create' => 1,
     'process_in_background' => 0,
   );
   $export['city_feed_import'] = $feeds_importer;

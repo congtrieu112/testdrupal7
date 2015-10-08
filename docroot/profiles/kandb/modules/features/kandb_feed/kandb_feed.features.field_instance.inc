@@ -27,7 +27,7 @@ function kandb_feed_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_code_departement',
-    'label' => 'code_departement',
+    'label' => 'Code departement',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -61,7 +61,7 @@ function kandb_feed_field_default_field_instances() {
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_idk',
-    'label' => 'idk',
+    'label' => 'IDK',
     'required' => 0,
     'settings' => array(
       'text_processing' => 0,
@@ -80,8 +80,8 @@ function kandb_feed_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('code_departement');
-  t('idk');
+  t('Code departement');
+  t('IDK');
 
   return $field_instances;
 }
