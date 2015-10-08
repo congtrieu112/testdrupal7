@@ -11,7 +11,7 @@
  *
  * @author dinh.han
  */
-class KBAPI {
+class KAndBAPI {
   public function getListNodeByBundle($type = 'node', $bundle = 'programme') {
     $query = new EntityFieldQuery();
     $result = $query->entityCondition('entity_type', $type)
