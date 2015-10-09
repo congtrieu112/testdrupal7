@@ -72,83 +72,96 @@ class KbParserCSV extends ParserCSV{
       $line = mb_convert_encoding($line, "UTF-8", "ISO-8859-1");
       $line = str_replace("|", "" ,$line);
       $line = str_replace("¤", $kb_delimiter ,$line);
-      
+
       if (empty($line)) {
         continue;
       }
-      
+
       if ($skipLine) {
         $skipLine = FALSE;
         continue;
       }
 
-      $quoted = FALSE;
-      $currentIndex = 0;
-      $currentField = '';
-      $fields = array();
+      $fields = str_getcsv($line, $this->delimiter, '','\\');
 
-      while ($currentIndex <= strlen($line)) {
-        if ($quoted) {
-          $nextQuoteIndex = strpos($line, '"', $currentIndex);
+      $totalHeader = count($this->columnNames);
 
-          if ($nextQuoteIndex === FALSE) {
-            $currentField .= substr($line, $currentIndex);
-            $lineIterator->next();
-
-            if (!$lineIterator->valid()) {
-              $fields[] = $currentField;
-              break;
-            }
-            $currentField .= "\n";
-            $line = trim($lineIterator->current(), "\r\n");
-            $currentIndex = 0;
-            continue;
-          }
-
-          $currentField .= substr($line, $currentIndex, $nextQuoteIndex - $currentIndex);
-
-          if (isset($line[$nextQuoteIndex + 1]) && $line[$nextQuoteIndex + 1] === '"') {
-            $currentField .= '"';
-            $currentIndex = $nextQuoteIndex + 2;
-          }
-          else {
-            $quoted = FALSE;
-            $currentIndex = $nextQuoteIndex + 1;
+      if($this->columnNames != FALSE && $totalHeader > count($fields)) {
+        if($fields && is_array($fields)) {
+          if((int)$fields[0] > 0) {
+            watchdog('IMPORT FEEDS', 'Import file txt to node error at id: ' . $fields[0], WATCHDOG_WARNING);
           }
         }
-        else {
-          $nextQuoteIndex = strpos($line, '"', $currentIndex);
-          $nextDelimiterIndex = strpos($line, $this->delimiter, $currentIndex);
-
-          if ($nextQuoteIndex === FALSE) {
-            $nextIndex = $nextDelimiterIndex;
-          }
-          elseif ($nextDelimiterIndex === FALSE) {
-            $nextIndex = $nextQuoteIndex;
-          }
-          else {
-            $nextIndex = min($nextQuoteIndex, $nextDelimiterIndex);
-          }
-
-          if ($nextIndex === FALSE) {
-            $currentField .= substr($line, $currentIndex);
-            $fields[] = $currentField;
-            break;
-          }
-          elseif ($line[$nextIndex] === $this->delimiter[0]) {
-            $length = ($nextIndex + strlen($this->delimiter) - 1) - $currentIndex;
-            $currentField .= substr($line, $currentIndex, $length);
-            $fields[] = $currentField;
-            $currentField = '';
-            $currentIndex += $length + 1;
-          }
-          else {
-            $quoted = TRUE;
-            $currentField .= substr($line, $currentIndex, $nextIndex - $currentIndex);
-            $currentIndex = $nextIndex + 1;
-          }
-        }
+        continue;
       }
+
+//      $quoted = FALSE;
+//      $currentIndex = 0;
+//      $currentField = '';
+//      $fields = array();
+//
+//      while ($currentIndex <= strlen($line)) {
+//        if ($quoted) {
+//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
+//
+//          if ($nextQuoteIndex === FALSE) {
+//            $currentField .= substr($line, $currentIndex);
+//            $lineIterator->next();
+//
+//            if (!$lineIterator->valid()) {
+//              $fields[] = $currentField;
+//              break;
+//            }
+//            $currentField .= "\n";
+//            $line = trim($lineIterator->current(), "\r\n");
+//            $currentIndex = 0;
+//            continue;
+//          }
+//
+//          $currentField .= substr($line, $currentIndex, $nextQuoteIndex - $currentIndex);
+//
+//          if (isset($line[$nextQuoteIndex + 1]) && $line[$nextQuoteIndex + 1] === '"') {
+//            $currentField .= '"';
+//            $currentIndex = $nextQuoteIndex + 2;
+//          }
+//          else {
+//            $quoted = FALSE;
+//            $currentIndex = $nextQuoteIndex + 1;
+//          }
+//        }
+//        else {
+//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
+//          $nextDelimiterIndex = strpos($line, $this->delimiter, $currentIndex);
+//
+//          if ($nextQuoteIndex === FALSE) {
+//            $nextIndex = $nextDelimiterIndex;
+//          }
+//          elseif ($nextDelimiterIndex === FALSE) {
+//            $nextIndex = $nextQuoteIndex;
+//          }
+//          else {
+//            $nextIndex = min($nextQuoteIndex, $nextDelimiterIndex);
+//          }
+//
+//          if ($nextIndex === FALSE) {
+//            $currentField .= substr($line, $currentIndex);
+//            $fields[] = $currentField;
+//            break;
+//          }
+//          elseif ($line[$nextIndex] === $this->delimiter[0]) {
+//            $length = ($nextIndex + strlen($this->delimiter) - 1) - $currentIndex;
+//            $currentField .= substr($line, $currentIndex, $length);
+//            $fields[] = $currentField;
+//            $currentField = '';
+//            $currentIndex += $length + 1;
+//          }
+//          else {
+//            $quoted = TRUE;
+//            $currentField .= substr($line, $currentIndex, $nextIndex - $currentIndex);
+//            $currentIndex = $nextIndex + 1;
+//          }
+//        }
+//      }
 
       if (empty($this->columnNames)) {
         $row = $fields;
