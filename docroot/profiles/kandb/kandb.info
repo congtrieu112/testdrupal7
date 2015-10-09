@@ -57,7 +57,8 @@ dependencies[] = user
 dependencies[] = views
 dependencies[] = views_bulk_operations
 dependencies[] = views_ui
-
+dependencies[] = uuid
+dependencies[] = uuid_features
 
 ; Custom
 
@@ -65,5 +66,7 @@ dependencies[] = views_ui
 ; Features
 dependencies[] = kandb_content
 dependencies[] = kandb_domains
+dependencies[] = kandb_taxonomy
+dependencies[] = kandb_context
 dependencies[] = kandb_user
 dependencies[] = kandb_role
