@@ -98,8 +98,16 @@ function kandb_install_finished(&$install_state) {
 /**
  * Enable "Kandb context" feature
  */
-function kandb_install_update_7100(&$sandbox){
+function kandb_update_7100(&$sandbox){
     if(!module_exists('kandb_context')){
         module_enable(array('kandb_context'), TRUE);
+    }
+}
+/**
+ * Enable "Display Suite" module
+ */
+function kandb_update_7101(&$sandbox){
+    if(!module_exists('ds_ui')){
+        module_enable(array('ds_ui'), TRUE);
     }
 }

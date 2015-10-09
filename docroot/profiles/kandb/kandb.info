@@ -59,6 +59,8 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_ui
 dependencies[] = uuid
 dependencies[] = uuid_features
+dependencies[] = ds
+dependencies[] = ds_ui
 
 ; Custom
 
