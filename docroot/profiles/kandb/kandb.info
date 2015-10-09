@@ -68,3 +68,5 @@ dependencies[] = kandb_content
 dependencies[] = kandb_domains
 dependencies[] = kandb_taxonomy
 dependencies[] = kandb_context
+dependencies[] = kandb_user
+dependencies[] = kandb_role
