@@ -512,28 +512,6 @@ function kandb_content_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_id_type_voie'
-  $field_bases['field_id_type_voie'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_type_voie',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_id_xls'
   $field_bases['field_id_xls'] = array(
     'active' => 1,
@@ -921,7 +899,7 @@ function kandb_content_field_default_field_bases() {
       'granularity' => array(
         'day' => 'day',
         'hour' => 0,
-        'minute' => 'minute',
+        'minute' => 0,
         'month' => 'month',
         'second' => 0,
         'year' => 'year',

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html data-debug lang="fr" class="no-js">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="K&amp;B development Style guide">
+    <title>K&amp;B Styleguide</title>
+    <link rel="stylesheet" href="css/app.css">
+    <link rel="stylesheet" href="css/app-styleguide.css">
+    <script src="js/modernizr.js"></script>
+  </head>
+  <body class="styleguide">
+    <!-- [siteHeader] start-->
+    <div class="sticky contain-to-grid">
+      <header data-topbar role="banner" class="top-bar"><a href="#" class="burger hide-for-large-up">BURGER</a>
+        <ul class="title-area">
+          <li class="name"><a href="index.html" title="K&amp;B homepage" class="title-area__link"><img src="assets/images/logo-Kaufman-Broad.svg" alt="Kaufman&amp;Board"></a></li>
+        </ul>
+        <nav aria-label="Menu principal" class="top-bar-section">
+          <ul class="right">
+            <li><a href="#colors">COLORS</a></li>
+            <li><a href="#type">TYPE</a></li>
+            <li><a href="#buttons">BUTTONS</a></li>
+            <li><a href="#icons">ICONS</a></li>
+            <li><a href="#other">OTHER</a></li>
+          </ul>
+        </nav>
+      </header>
+    </div>
+    <!-- [siteHeader] end-->
+    <div class="wrapper">
+      <h2 id="colors">Colors</h2>
+      <ul class="colors">
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-white"></div>
+            <div class="colors__name">$white</div>
+            <div class="colors__hex">#ffffff</div>
+            <div class="colors__class">bg-white</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-black"></div>
+            <div class="colors__name">$black</div>
+            <div class="colors__hex">#000000</div>
+            <div class="colors__class">bg-black</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-jet"></div>
+            <div class="colors__name">$jet</div>
+            <div class="colors__hex">#003e5e</div>
+            <div class="colors__class">bg-jet</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-lightBlue"></div>
+            <div class="colors__name">$lightBlue</div>
+            <div class="colors__hex">#a3d7f0</div>
+            <div class="colors__class">bg-lightBlue</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-blue"></div>
+            <div class="colors__name">$blue</div>
+            <div class="colors__hex">#199edd</div>
+            <div class="colors__class">bg-blue</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-mediumBlue"></div>
+            <div class="colors__name">$mediumBlue</div>
+            <div class="colors__hex">#0e7fb5</div>
+            <div class="colors__class">bg-mediumBlue</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-darkBlue"></div>
+            <div class="colors__name">$darkBlue</div>
+            <div class="colors__hex">#213649</div>
+            <div class="colors__class">bg-darkBlue</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-lightGrey"></div>
+            <div class="colors__name">$lightGrey</div>
+            <div class="colors__hex">#f2f5f6</div>
+            <div class="colors__class">bg-lightGrey</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-mediumGrey"></div>
+            <div class="colors__name">$mediumGrey</div>
+            <div class="colors__hex">#e5e5e5</div>
+            <div class="colors__class">bg-mediumGrey</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-grey"></div>
+            <div class="colors__name">$grey</div>
+            <div class="colors__hex">#869298</div>
+            <div class="colors__class">bg-grey</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-brown"></div>
+            <div class="colors__name">$brown</div>
+            <div class="colors__hex">#e2dace</div>
+            <div class="colors__class">bg-brown</div>
+          </div>
+        </li>
+        <li>
+          <div class="colors__item">
+            <div class="colors__demo bg-pink"></div>
+            <div class="colors__name">$pink</div>
+            <div class="colors__hex">#ff3265</div>
+            <div class="colors__class">bg-pink</div>
+          </div>
+        </li>
+      </ul>
+      <h2 id="type">TYPE</h2>
+      <div class="heading">
+        <div class="heading__title">Heading 1</div>
+        <div class="heading__title heading__title--sub">Sub-heading 1</div>
+      </div>
+      <div class="heading heading--bordered">
+        <div class="heading__title">Heading 1</div>
+        <div class="heading__title heading__title--sub">Sub-heading 1</div>
+      </div>
+      <div class="heading--small">
+        <div class="heading__title">Heading 1</div>
+        <div class="heading__title heading__title--sub">Sub-heading 1</div>
+      </div>
+      <div class="bg-mediumBlue">
+        <div class="heading heading--bordered heading--white">
+          <div class="heading__title">Heading 1</div>
+          <div class="heading__title heading__title--sub">Sub-heading 1</div>
+        </div>
+      </div>
+      <h2 id="buttons">BUTTONS</h2>
+      <button class="btn-primary">btn-primary</button>
+      <ul>
+        <li>@extend .btn-primary;</li>
+      </ul>
+      <button class="btn-primary btn-rounded">btn-primary btn-rounded</button>
+      <ul>
+        <li>@extend .btn-primary;</li>
+        <li>@extend .btn-rounded;</li>
+      </ul>
+      <button class="btn-secondary">btn-secondary</button>
+      <ul>
+        <li>@extend .btn-secondary;</li>
+      </ul>
+      <button class="btn-secondary btn-rounded">btn-secondary btn-rounded</button>
+      <ul>
+        <li>@extend .btn-secondary;</li>
+        <li>@extend .btn-rounded;</li>
+      </ul>
+      <button class="btn-filter">btn-filter</button>
+      <ul>
+        <li>@extend .btn-filter;</li>
+      </ul>
+      <button class="btn-primary btn-rounded">btn-primary btn-rounded<span class="icon icon-arrow"></span></button>
+      <ul>
+        <li>@extend .btn-primary;</li>
+        <li>@extend .btn-rounded;</li>
+      </ul>
+      <h2 id="icons">ICONS</h2>
+      <ul class="icon-list">
+        <li><span class="icon icon-close"></span>&nbsp;icon-close</li>
+        <li><span class="icon icon-expand"></span>&nbsp;icon-expand</li>
+        <li><span class="icon icon-search"></span>&nbsp;icon-search</li>
+        <li><span class="icon icon-arrow"></span>&nbsp;icon-arrow</li>
+        <li><span class="icon icon-star"></span>&nbsp;icon-star</li>
+      </ul>
+      <h2 id="other">OTHER (testing purpose)</h2><a href="partials/test.html" title="index page" data-ajax-module="test">test ajax</a>
+      <div data-ajax-response="test"></div>
+      <!-- [Responsive img] start--><img alt="Beautiful picture" data-interchange="[test_assets/paysage-small.jpg, (small)], [test_assets/paysage-medium.jpg, (medium)], [test_assets/paysage-large.jpg, (large)]"/>
+      <noscript><img src="test_assets/paysage-medium.jpg" alt="Beautiful picture"/></noscript>
+      <!-- [Responsive img] end-->
+    </div>
+    <script src="js/bundle.js"></script>
+  </body>
+</html>
