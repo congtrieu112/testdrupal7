@@ -103,3 +103,11 @@ function kandb_install_update_7100(&$sandbox){
         module_enable(array('kandb_context'), TRUE);
     }
 }
+/**
+ * Enable "Kandb dossier" feature
+ */
+function kandb_update_7102(&$sandbox){
+    if(!module_exists('kandb_dossier')){
+        module_enable(array('kandb_dossier'), TRUE);
+    }
+}
