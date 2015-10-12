@@ -6,31 +6,32 @@
  */
 
 // Update mode for existing items.
-define('FEEDS_SKIP_EXISTING', 0);
-define('FEEDS_REPLACE_EXISTING', 1);
-define('FEEDS_UPDATE_EXISTING', 2);
+define('KB_FEEDS_SKIP_EXISTING', 0);
+define('KB_FEEDS_REPLACE_EXISTING', 1);
+define('KB_FEEDS_UPDATE_EXISTING', 2);
 // Options for handling content in Drupal but not in source data.
-define('FEEDS_SKIP_NON_EXISTENT', 'skip');
-define('FEEDS_DELETE_NON_EXISTENT', 'delete');
+define('KB_FEEDS_SKIP_NON_EXISTENT', 'skip');
+define('KB_FEEDS_DELETE_NON_EXISTENT', 'delete');
+define('KB_FEEDS_UPDATE_FIELD_NON_EXISTENT', 'update');
 
 // Default limit for creating items on a page load, not respected by all
 // processors.
-define('FEEDS_PROCESS_LIMIT', 50);
+define('KB_FEEDS_PROCESS_LIMIT', 50);
 
 /**
  * Thrown if a validation fails.
  */
-class FeedsValidationException extends Exception {}
+class KbFeedsValidationException extends Exception {}
 
 /**
  * Thrown if a an access check fails.
  */
-class FeedsAccessException extends Exception {}
+class KbFeedsAccessException extends Exception {}
 
 /**
  * Abstract class, defines interface for processors.
  */
-abstract class FeedsProcessor extends FeedsPlugin {
+abstract class KbFeedsProcessor extends FeedsPlugin {
 
   /**
    * Implements FeedsPlugin::pluginType().
@@ -105,7 +106,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    *   existing ids first.
    */
   protected function entityLoad(FeedsSource $source, $entity_id) {
-    if ($this->config['update_existing'] == FEEDS_UPDATE_EXISTING) {
+    if ($this->config['update_existing'] == KB_FEEDS_UPDATE_EXISTING) {
       $entities = entity_load($this->entityType(), array($entity_id));
       return reset($entities);
     }
@@ -123,7 +124,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
   /**
    * Validate an entity.
    *
-   * @throws FeedsValidationException $e
+   * @throws KbFeedsValidationException $e
    *   If validation fails.
    */
   protected function entityValidate($entity) {}
@@ -134,7 +135,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    * @param $entity
    *   Entity to be saved.
    *
-   * @throws FeedsAccessException $e
+   * @throws KbFeedsAccessException $e
    *   If the access check fails.
    */
   protected function entitySaveAccess($entity) {}
@@ -191,7 +192,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
       if ($entity_id) {
         unset($state->removeList[$entity_id]);
       }
-      $skip_existing = $this->config['update_existing'] == FEEDS_SKIP_EXISTING;
+      $skip_existing = $this->config['update_existing'] == KB_FEEDS_SKIP_EXISTING;
 
       module_invoke_all('feeds_before_update', $source, $item, $entity_id);
 
@@ -305,11 +306,16 @@ abstract class FeedsProcessor extends FeedsPlugin {
       );
     }
     if ($state->unpublished) {
+      if($this->config['update_non_existent'] == KB_FEEDS_UPDATE_FIELD_NON_EXISTENT) {
+        $str = 'Updated field for';
+      } else {
+        $str = 'Unpublished';
+      }
       $messages[] = array(
         'message' => format_plural(
             $state->unpublished,
-            'Unpublished @number @entity.',
-            'Unpublished @number @entities.',
+            $str . ' @number @entity.',
+            $str . ' @number @entities.',
             array('@number' => $state->unpublished) + $tokens
         ),
       );
@@ -368,7 +374,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
   protected function initEntitiesToBeRemoved(FeedsSource $source, FeedsState $state) {
     $state->removeList = array();
     // We fill it only if needed.
-    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] == FEEDS_SKIP_NON_EXISTENT) {
+    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] == KB_FEEDS_SKIP_NON_EXISTENT) {
       return;
     }
     // Build base select statement.
@@ -406,7 +412,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    */
   protected function clean(FeedsState $state) {
     // We clean only if needed.
-    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] == FEEDS_SKIP_NON_EXISTENT) {
+    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] == KB_FEEDS_SKIP_NON_EXISTENT) {
       return;
     }
 
@@ -501,7 +507,7 @@ abstract class FeedsProcessor extends FeedsPlugin {
    * @see FeedsCSVParser::parse()
    */
   public function getLimit() {
-    return variable_get('feeds_process_limit', FEEDS_PROCESS_LIMIT);
+    return variable_get('feeds_process_limit', KB_FEEDS_PROCESS_LIMIT);
   }
 
   /**
@@ -770,8 +776,8 @@ abstract class FeedsProcessor extends FeedsPlugin {
     }
     return array(
       'mappings' => array(),
-      'update_existing' => FEEDS_SKIP_EXISTING,
-      'update_non_existent' => FEEDS_SKIP_NON_EXISTENT,
+      'update_existing' => KB_FEEDS_SKIP_EXISTING,
+      'update_non_existent' => KB_FEEDS_SKIP_NON_EXISTENT,
       'input_format' => NULL,
       'skip_hash_check' => FALSE,
       'bundle' => $bundle,
@@ -809,9 +815,9 @@ abstract class FeedsProcessor extends FeedsPlugin {
       '#description' =>
         t('Existing @entities will be determined using mappings that are a "unique target".', $tokens),
       '#options' => array(
-        FEEDS_SKIP_EXISTING => t('Do not update existing @entities', $tokens),
-        FEEDS_REPLACE_EXISTING => t('Replace existing @entities', $tokens),
-        FEEDS_UPDATE_EXISTING => t('Update existing @entities', $tokens),
+        KB_FEEDS_SKIP_EXISTING => t('Do not update existing @entities', $tokens),
+        KB_FEEDS_REPLACE_EXISTING => t('Replace existing @entities', $tokens),
+        KB_FEEDS_UPDATE_EXISTING => t('Update existing @entities', $tokens),
       ),
       '#default_value' => $this->config['update_existing'],
     );
@@ -840,8 +846,9 @@ abstract class FeedsProcessor extends FeedsPlugin {
       '#title' => t('Action to take when previously imported @entities are missing in the feed', $tokens),
       '#description' => t('Select how @entities previously imported and now missing in the feed should be updated.', $tokens),
       '#options' => array(
-        FEEDS_SKIP_NON_EXISTENT => t('Skip non-existent @entities', $tokens),
-        FEEDS_DELETE_NON_EXISTENT => t('Delete non-existent @entities', $tokens),
+        KB_FEEDS_SKIP_NON_EXISTENT => t('Skip non-existent @entities', $tokens),
+        KB_FEEDS_DELETE_NON_EXISTENT => t('Delete non-existent @entities', $tokens),
+        KB_FEEDS_UPDATE_FIELD_NON_EXISTENT => t('Update fields non-existent @entities', $tokens),
       ),
       '#default_value' => $this->config['update_non_existent'],
     );
@@ -1182,4 +1189,4 @@ abstract class FeedsProcessor extends FeedsPlugin {
 
 }
 
-class FeedsProcessorBundleNotDefined extends Exception {}
+class KbFeedsProcessorBundleNotDefined extends Exception {}

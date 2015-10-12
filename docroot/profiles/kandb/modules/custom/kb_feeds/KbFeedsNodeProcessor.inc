@@ -9,12 +9,12 @@
  * Option for handling content in Drupal but not in source data (unpublish
  * instead of skip/delete).
  */
-define('FEEDS_UNPUBLISH_NON_EXISTENT', 'unpublish');
+define('KB_FEEDS_UNPUBLISH_NON_EXISTENT', 'unpublish');
 
 /**
  * Creates nodes from feed items.
  */
-class KbFeedsNodeProcessor extends FeedsProcessor {
+class KbFeedsNodeProcessor extends KbFeedsProcessor {
 
   /**
    * Define entity type.
@@ -52,7 +52,7 @@ class KbFeedsNodeProcessor extends FeedsProcessor {
   /**
    * Loads an existing node.
    *
-   * If the update existing method is not FEEDS_UPDATE_EXISTING, only the node
+   * If the update existing method is not KB_FEEDS_UPDATE_EXISTING, only the node
    * table will be loaded, foregoing the node_load API for better performance.
    *
    * @todo Reevaluate the use of node_object_prepare().
@@ -60,7 +60,7 @@ class KbFeedsNodeProcessor extends FeedsProcessor {
   protected function entityLoad(FeedsSource $source, $nid) {
     $node = parent::entityLoad($source, $nid);
 
-    if ($this->config['update_existing'] != FEEDS_UPDATE_EXISTING) {
+    if ($this->config['update_existing'] != KB_FEEDS_UPDATE_EXISTING) {
       $node->uid = $this->config['author'];
     }
 
@@ -74,7 +74,7 @@ class KbFeedsNodeProcessor extends FeedsProcessor {
     }
 
     // Populate properties that are set by node_object_prepare().
-    if ($this->config['update_existing'] == FEEDS_UPDATE_EXISTING) {
+    if ($this->config['update_existing'] == KB_FEEDS_UPDATE_EXISTING) {
       $node->log = 'Updated by FeedsNodeProcessor';
     }
     else {
@@ -203,7 +203,7 @@ class KbFeedsNodeProcessor extends FeedsProcessor {
     );
     // Add on the "Unpublish" option for nodes, update wording.
     if (isset($form['update_non_existent'])) {
-      $form['update_non_existent']['#options'][FEEDS_UNPUBLISH_NON_EXISTENT] = t('Unpublish non-existent nodes');
+      $form['update_non_existent']['#options'][KB_FEEDS_UNPUBLISH_NON_EXISTENT] = t('Unpublish non-existent nodes');
     }
     return $form;
   }
@@ -385,24 +385,57 @@ class KbFeedsNodeProcessor extends FeedsProcessor {
    *   The FeedsState object for the given stage.
    */
   protected function clean(FeedsState $state) {
-    // Delegate to parent if not unpublishing or option not set.
-    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] != FEEDS_UNPUBLISH_NON_EXISTENT) {
-      return parent::clean($state);
-    }
 
-    $total = count($state->removeList);
-    if ($total) {
-      $nodes = node_load_multiple($state->removeList);
-      foreach ($nodes as &$node) {
-        $this->loadItemInfo($node);
-        // Update the hash value of the feed item to ensure that the item gets
-        // updated in case it reappears in the feed.
-        $node->feeds_item->hash = $this->config['update_non_existent'];
-        node_unpublish_action($node);
-        node_save($node);
-        $state->unpublished++;
+    if(isset($this->config['update_non_existent']) && $this->config['update_non_existent'] == KB_FEEDS_UPDATE_FIELD_NON_EXISTENT) {
+      $total = count($state->removeList);
+      if ($total) {
+        $nodes = node_load_multiple($state->removeList);
+
+        foreach ($nodes as &$node) {
+          if(isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
+            $tid = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+            $taxoData = taxonomy_term_load($tid);
+
+            $tid = 0;
+            if($taxoData->field_id_file[LANGUAGE_NONE][0]['value'] == 'L') {
+              $tid = getListTidTaxonomyByName('status_logement', 'Indisponible');
+            } elseif($taxoData->field_id_file[LANGUAGE_NONE][0]['value'] == 'R') {
+              $tid = getListTidTaxonomyByName('status_logement', 'Vendu');
+            }
+            
+            if($tid) {
+              $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $tid;
+            }
+
+            $this->loadItemInfo($node);
+            // Update the hash value of the feed item to ensure that the item gets
+            // updated in case it reappears in the feed.
+            $node->feeds_item->hash = $this->config['update_non_existent'];
+            node_save($node);
+            $state->unpublished++;
+          }
+        }
+      }
+    } else {
+
+      // Delegate to parent if not unpublishing or option not set.
+      if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] != KB_FEEDS_UNPUBLISH_NON_EXISTENT) {
+        return parent::clean($state);
+      }
+
+      $total = count($state->removeList);
+      if ($total) {
+        $nodes = node_load_multiple($state->removeList);
+        foreach ($nodes as &$node) {
+          $this->loadItemInfo($node);
+          // Update the hash value of the feed item to ensure that the item gets
+          // updated in case it reappears in the feed.
+          $node->feeds_item->hash = $this->config['update_non_existent'];
+          node_unpublish_action($node);
+          node_save($node);
+          $state->unpublished++;
+        }
       }
     }
   }
-
 }
