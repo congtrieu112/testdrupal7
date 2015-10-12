@@ -13,5 +13,18 @@ function kb_feeds_feeds_plugins() {
       'path' => $path,
     ),
   );
+
+  $info['KbFeedsNodeProcessor'] = array(
+    'name' => 'KB Node processor',
+    'description' => 'Create and update nodes.',
+    'help' => 'Create and update nodes from parsed content.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'KbFeedsNodeProcessor',
+      'file' => 'KbFeedsNodeProcessor.inc',
+      'path' => $path,
+    ),
+  );
+
   return $info;
 }
