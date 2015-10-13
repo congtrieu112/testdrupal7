@@ -1,0 +1,13 @@
+name = K&B Roles
+description = - Administrateur Général  - Administrateur Régional  - Conseiller(ère) en gestion de patrimoine  - Particulier 
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = role_export
+features[features_api][] = api:2
+features[user_role][] = Administrateur Général
+features[user_role][] = Administrateur Régional
+features[user_role][] = Conseiller(ère) en gestion de patrimoine
+features[user_role][] = Particulier
+features_exclude[dependencies][role_export] = role_export
