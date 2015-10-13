@@ -59,6 +59,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_ui
 dependencies[] = uuid
 dependencies[] = uuid_features
+
 dependencies[] = feeds
 dependencies[] = feeds_ui
 dependencies[] = feeds_import
@@ -66,6 +67,8 @@ dependencies[] = feeds_tamper
 dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
+dependencies[] = ds
+dependencies[] = ds_ui
 
 
 ; Custom

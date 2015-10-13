@@ -123,4 +123,8 @@ function kandb_install_update_7101(&$sandbox){
   if(!module_exists('views_ui')){
     module_enable(array('views_ui'), TRUE);
   }
+
+  if(!module_exists('ds_ui')){
+        module_enable(array('ds_ui'), TRUE);
+  }
 }
