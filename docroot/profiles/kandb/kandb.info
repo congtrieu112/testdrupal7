@@ -80,3 +80,4 @@ dependencies[] = kandb_context
 dependencies[] = kandb_feed
 dependencies[] = kandb_user
 dependencies[] = kandb_role
+dependencies[] = kandb_views
