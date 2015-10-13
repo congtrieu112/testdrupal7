@@ -134,4 +134,5 @@ function kandb_install_update_7101(&$sandbox){
 function kandb_update_7102(&$sandbox){
     if(!module_exists('kandb_dossier')){
         module_enable(array('kandb_dossier'), TRUE);
+    }
 }
