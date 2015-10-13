@@ -12,6 +12,7 @@ class KbParserCSV extends ParserCSV{
   private $startByte;
   private $lineLimit;
   private $lastLinePos;
+  private $currentParser;
 
   public function __construct() {
     $this->delimiter = ',';
@@ -22,6 +23,7 @@ class KbParserCSV extends ParserCSV{
     $this->startByte = 0;
     $this->lineLimit = 0;
     $this->lastLinePos = 0;
+    $this->currentParser = NULL;
     ini_set('auto_detect_line_endings', TRUE);
   }
 
@@ -56,6 +58,9 @@ class KbParserCSV extends ParserCSV{
   public function setStartByte($start) {
     return $this->startByte = $start;
   }
+  public function setCurrentParser($current_parser) {
+    return $this->currentParser = $current_parser;
+  }
 
   public function parse(Iterator $lineIterator) {
     $skipLine = $this->skipFirstLine;
@@ -66,9 +71,11 @@ class KbParserCSV extends ParserCSV{
     $maxTime = empty($this->timeout) ? FALSE : (microtime() + $this->timeout);
     $linesParsed = 0;
     $kb_delimiter = $this->delimiter;
+    $total_column = $this->currentParser->config['total_column'];
+    $logging = '';
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
-
-      $line = trim($lineIterator->current(), "\r\n");
+      $ori_line = $lineIterator->current();
+      $line = trim($ori_line, "\r\n");
       $line = mb_convert_encoding($line, "UTF-8", "ISO-8859-1");
       $line = str_replace("|", "" ,$line);
       $line = str_replace("¤", $kb_delimiter ,$line);
@@ -83,18 +90,11 @@ class KbParserCSV extends ParserCSV{
       }
 
       $fields = str_getcsv($line, $this->delimiter, '','\\');
-
-      $totalHeader = count($this->columnNames);
-
-      if($this->columnNames != FALSE && $totalHeader > count($fields)) {
-        if($fields && is_array($fields)) {
-          if((int)$fields[0] > 0) {
-            watchdog('IMPORT FEEDS', 'Import file txt to node error at id: ' . $fields[0], WATCHDOG_WARNING);
-          }
-        }
-        continue;
+      if(is_array($fields) && $total_column != count($fields)){
+          $log_line = mb_convert_encoding($ori_line, "UTF-8", "ISO-8859-1");
+          $logging .= str_replace('¤', '€' ,$log_line);;
+          continue;
       }
-
 //      $quoted = FALSE;
 //      $currentIndex = 0;
 //      $currentField = '';
@@ -184,6 +184,15 @@ class KbParserCSV extends ParserCSV{
         $this->lastLinePos = $lineIterator->currentPos();
         break;
       }
+    }
+    if($logging != ''){
+        $file_log_name = $this->currentParser->id . '_log_' . date('Y-m-d') . '.txt';
+        $uri = 'private://feeds/log/';
+        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+        if($prepare_file){
+            drupal_chmod($uri);
+            file_save_data($logging, $uri . $file_log_name, $replace = FILE_EXISTS_RENAME);
+        }
     }
     return $rows;
   }
