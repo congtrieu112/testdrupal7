@@ -1,5 +1,5 @@
 name = kandb_options
-description = An option can be set by the CGP, on an available appartment.
+description = CT Options
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0

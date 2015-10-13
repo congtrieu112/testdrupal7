@@ -1,0 +1,12 @@
+name = K&B Display Suite
+description = Add a new view mode Teaser-Carrousel-3, Teaser-Carrousel-4, Search
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = ds
+features[ctools][] = ds:ds:1
+features[ds_view_modes][] = search
+features[ds_view_modes][] = teaser_carrousel_3
+features[ds_view_modes][] = teaser_carrousel_4
+features[features_api][] = api:2

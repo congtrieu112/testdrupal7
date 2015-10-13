@@ -1,5 +1,5 @@
 name = kandb_bien
-description = "Bien" is an could be an apartment, a house, etc. A "Bien" is inside a program. 
+description = CT Bien
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0

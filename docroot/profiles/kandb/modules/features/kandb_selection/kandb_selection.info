@@ -1,5 +1,5 @@
 name = kandb_selection
-description = A "Selection" is a user list to keep all "Bien" that he likes.
+description = CT Selection
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0
