@@ -59,6 +59,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_ui
 dependencies[] = uuid
 dependencies[] = uuid_features
+
 dependencies[] = ds
 dependencies[] = ds_ui
 dependencies[] = feeds
@@ -68,7 +69,6 @@ dependencies[] = feeds_tamper
 dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
-
 
 ; Custom
 dependencies[] = kb_feeds
@@ -80,8 +80,10 @@ dependencies[] = kandb_domains
 ;dependencies[] = kandb_taxonomy
 dependencies[] = kandb_ds
 dependencies[] = kandb_context
+dependencies[] = kandb_feed
 dependencies[] = kandb_user
 dependencies[] = kandb_role
+dependencies[] = kandb_views
 dependencies[] = kandb_programme
 dependencies[] = kandb_bien
 dependencies[] = kandb_feed
