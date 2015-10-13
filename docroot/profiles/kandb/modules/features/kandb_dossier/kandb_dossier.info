@@ -1,4 +1,5 @@
-name = K&B Dossier
+name = kandb_dossier
+description = CT Dossier
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0

@@ -1,5 +1,5 @@
-name = kandb_prospect_B2B
-description = A Prospect B2B is an client (not Drupal) of a CGP.
+name = kandb_prospect_b2b
+description = CT Prospect B2B
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0

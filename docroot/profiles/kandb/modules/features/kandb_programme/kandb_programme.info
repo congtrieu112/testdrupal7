@@ -1,5 +1,5 @@
 name = kandb_programme
-description = "Programme" is a building that was not built already. This data is majorly imported from the "program.txt" file
+description = CT Programme
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0

@@ -1,5 +1,5 @@
 name = kandb_reservation
-description = The CGP can book an appartment for a customer The appartment is not available anymore, so it is not visible on the B2C site
+description = CT Réservation
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0
