@@ -112,8 +112,8 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     );
     $form['total_column'] = array(
       '#type' => 'textfield',
-      '#title' => t('Total column'),
-      '#description' => t('Total columns in a validate row.'),
+      '#title' => t('Total columns'),
+      '#description' => t('Total columns in a validated row.'),
       '#default_value' => $this->config['total_column'],
     );
     return $form;
@@ -146,8 +146,8 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     );
     $form['total_column'] = array(
       '#type' => 'textfield',
-      '#title' => t('Total column in file'),
-      '#description' => t('Total columns in a validate row.'),
+      '#title' => t('Total columns'),
+      '#description' => t('Total columns in a validated row.'),
       '#default_value' => $this->config['total_column'],
     );
     return $form;
