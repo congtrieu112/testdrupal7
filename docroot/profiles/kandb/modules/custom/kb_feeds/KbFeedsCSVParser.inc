@@ -9,6 +9,7 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     $parser = new KbParserCSV();
     $delimiter = $source_config['delimiter'] == 'TAB' ? "\t" : $source_config['delimiter'];
     $parser->setDelimiter($delimiter);
+    $parser->setCurrentParser($this);
     $iterator = new ParserCSVIterator($fetcher_result->getFilePath());
     if (empty($source_config['no_headers'])) {
       $header = $this->parseHeader($parser, $iterator);
@@ -60,6 +61,7 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     return array(
       'delimiter' => $this->config['delimiter'],
       'no_headers' => $this->config['no_headers'],
+      'total_column' => $this->config['total_column'],
     );
   }
   public function sourceForm($source_config) {
@@ -108,6 +110,12 @@ class KbFeedsCSVParser extends FeedsCSVParser {
       '#description' => t('Check if the imported CSV file does not start with a header row. If checked, mapping sources must be named \'0\', \'1\', \'2\' etc.'),
       '#default_value' => isset($source_config['no_headers']) ? $source_config['no_headers'] : 0,
     );
+    $form['total_column'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Total columns'),
+      '#description' => t('Total columns in a validated row.'),
+      '#default_value' => $this->config['total_column'],
+    );
     return $form;
   }
 
@@ -115,6 +123,7 @@ class KbFeedsCSVParser extends FeedsCSVParser {
     return array(
       'delimiter' => '|',
       'no_headers' => 1,
+      'total_column' => 1,
     );
   }
 
@@ -134,6 +143,12 @@ class KbFeedsCSVParser extends FeedsCSVParser {
       '#title' => t('No headers'),
       '#description' => t('Check if the imported CSV file does not start with a header row. If checked, mapping sources must be named \'0\', \'1\', \'2\' etc.'),
       '#default_value' => $this->config['no_headers'],
+    );
+    $form['total_column'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Total columns'),
+      '#description' => t('Total columns in a validated row.'),
+      '#default_value' => $this->config['total_column'],
     );
     return $form;
   }
