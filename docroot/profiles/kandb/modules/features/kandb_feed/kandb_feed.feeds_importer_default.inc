@@ -33,6 +33,7 @@ function kandb_feed_feeds_importer_default() {
       'config' => array(
         'delimiter' => '|',
         'no_headers' => 1,
+        'total_column' => '5',
       ),
     ),
     'processor' => array(
@@ -95,6 +96,7 @@ function kandb_feed_feeds_importer_default() {
       'config' => array(
         'delimiter' => '|',
         'no_headers' => 1,
+        'total_column' => '5',
       ),
     ),
     'processor' => array(
@@ -142,21 +144,22 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Parcel feed import',
     'description' => 'Import bien from TXT file',
     'fetcher' => array(
-      'plugin_key' => 'FeedsFileFetcher',
+      'plugin_key' => 'FeedsHTTPFetcher',
       'config' => array(
-        'allowed_extensions' => 'txt csv tsv xml opml',
-        'direct' => 0,
-        'directory' => 'public://feeds',
-        'allowed_schemes' => array(
-          'public' => 'public',
-        ),
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
       ),
     ),
     'parser' => array(
       'plugin_key' => 'KbFeedsCSVParser',
       'config' => array(
         'delimiter' => '|',
-        'no_headers' => 0,
+        'no_headers' => 1,
+        'total_column' => '31',
       ),
     ),
     'processor' => array(
@@ -270,7 +273,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 1,
+    'process_in_background' => 0,
   );
   $export['parcel_feed_import'] = $feeds_importer;
 
@@ -282,21 +285,22 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Programme feed import',
     'description' => 'Import programme from TXT file',
     'fetcher' => array(
-      'plugin_key' => 'FeedsFileFetcher',
+      'plugin_key' => 'FeedsHTTPFetcher',
       'config' => array(
-        'allowed_extensions' => 'txt csv tsv xml opml',
-        'direct' => 0,
-        'directory' => 'public://feeds',
-        'allowed_schemes' => array(
-          'public' => 'public',
-        ),
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
       ),
     ),
     'parser' => array(
       'plugin_key' => 'KbFeedsCSVParser',
       'config' => array(
         'delimiter' => '|',
-        'no_headers' => 0,
+        'no_headers' => 1,
+        'total_column' => '92',
       ),
     ),
     'processor' => array(
@@ -307,67 +311,62 @@ function kandb_feed_feeds_importer_default() {
         'authorize' => 1,
         'mappings' => array(
           0 => array(
-            'source' => 'idkp',
+            'source' => '0',
             'target' => 'field_id_programme',
             'unique' => FALSE,
           ),
           1 => array(
-            'source' => 'idkp',
+            'source' => '0',
             'target' => 'guid',
             'unique' => 1,
           ),
           2 => array(
-            'source' => 'name',
-            'target' => 'title',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'delivery_quarter',
+            'source' => '12',
             'target' => 'field_trimestre',
             'unique' => FALSE,
           ),
-          4 => array(
-            'source' => 'delivery_year',
+          3 => array(
+            'source' => '13',
             'target' => 'field_annee',
             'unique' => FALSE,
           ),
-          5 => array(
-            'source' => 'reduced_vat',
+          4 => array(
+            'source' => '24',
             'target' => 'field_tva_55',
             'unique' => FALSE,
           ),
-          6 => array(
-            'source' => 'bdv_seller_nom',
+          5 => array(
+            'source' => '49',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          7 => array(
-            'source' => 'bdv_address',
+          6 => array(
+            'source' => '50',
             'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'format' => 'plain_text',
+          ),
+          7 => array(
+            'source' => '51',
+            'target' => 'field_espace_vente_adresse',
+            'format' => 'plain_text',
           ),
           8 => array(
-            'source' => 'bdv_dept',
+            'source' => '52',
             'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'format' => 'plain_text',
           ),
           9 => array(
-            'source' => 'bdv_city',
-            'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'source' => '56',
+            'target' => 'field_espace_vente_horaire',
+            'format' => 'plain_text',
           ),
           10 => array(
-            'source' => 'bdv_hours_fr',
-            'target' => 'field_espace_vente_horaire',
-            'unique' => FALSE,
-          ),
-          11 => array(
-            'source' => 'bdv_x',
+            'source' => '58',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          12 => array(
-            'source' => 'bdv_y',
+          11 => array(
+            'source' => '59',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
