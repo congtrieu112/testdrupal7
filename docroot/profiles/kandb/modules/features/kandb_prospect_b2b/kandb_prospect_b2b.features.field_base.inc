@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * kandb_taxonomy.features.field_base.inc
+ * kandb_prospect_b2b.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function kandb_taxonomy_field_default_field_bases() {
+function kandb_prospect_b2b_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_facteur'
@@ -17,94 +17,6 @@ function kandb_taxonomy_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_facteur',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_id_etage'
-  $field_bases['field_id_etage'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_etage',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_id_file'
-  $field_bases['field_id_file'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_file',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_id_marque_comm'
-  $field_bases['field_id_marque_comm'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_marque_comm',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_id_nombre_chambre'
-  $field_bases['field_id_nombre_chambre'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_nombre_chambre',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -142,28 +54,6 @@ function kandb_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_id_orientation'
-  $field_bases['field_id_orientation'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_id_orientation',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
   // Exported field_base: 'field_id_type_bien'
   $field_bases['field_id_type_bien'] = array(
     'active' => 1,
@@ -186,13 +76,13 @@ function kandb_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_id_type_programme'
-  $field_bases['field_id_type_programme'] = array(
+  // Exported field_base: 'field_prospect_adresse'
+  $field_bases['field_prospect_adresse'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_id_type_programme',
+    'field_name' => 'field_prospect_adresse',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -208,13 +98,13 @@ function kandb_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_id_xls'
-  $field_bases['field_id_xls'] = array(
+  // Exported field_base: 'field_prospect_code_postal'
+  $field_bases['field_prospect_code_postal'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_id_xls',
+    'field_name' => 'field_prospect_code_postal',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -230,13 +120,13 @@ function kandb_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_idk'
-  $field_bases['field_idk'] = array(
+  // Exported field_base: 'field_prospect_mail'
+  $field_bases['field_prospect_mail'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_idk',
+    'field_name' => 'field_prospect_mail',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -246,18 +136,151 @@ function kandb_taxonomy_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'max_length' => 255,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_idk_rf'
-  $field_bases['field_idk_rf'] = array(
+  // Exported field_base: 'field_prospect_nom'
+  $field_bases['field_prospect_nom'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_idk_rf',
+    'field_name' => 'field_prospect_nom',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_prospect_pays'
+  $field_bases['field_prospect_pays'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_prospect_pays',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_prospect_prenom'
+  $field_bases['field_prospect_prenom'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_prospect_prenom',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_prospect_telephone'
+  $field_bases['field_prospect_telephone'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_prospect_telephone',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_prospect_ville'
+  $field_bases['field_prospect_ville'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_prospect_ville',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_souhait_budget'
+  $field_bases['field_souhait_budget'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_souhait_budget',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+      'profile2_private' => FALSE,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_souhait_caracteristiques'
+  $field_bases['field_souhait_caracteristiques'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_souhait_caracteristiques',
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -268,106 +291,48 @@ function kandb_taxonomy_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'city',
+          'vocabulary' => 'caracteristiques',
           'parent' => 0,
         ),
       ),
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_idka'
-  $field_bases['field_idka'] = array(
+  // Exported field_base: 'field_souhait_livraison'
+  $field_bases['field_souhait_livraison'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_idka',
+    'field_name' => 'field_souhait_livraison',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'value' => array(
+        0 => 'value',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'list',
     'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_idkb'
-  $field_bases['field_idkb'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_idkb',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'allowed_values' => array(
+        'immediate' => 'Immédiate',
       ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
+      'allowed_values_function' => '',
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_idkc'
-  $field_bases['field_idkc'] = array(
+  // Exported field_base: 'field_souhait_nb_pieces'
+  $field_bases['field_souhait_nb_pieces'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_idkc',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_idkd'
-  $field_bases['field_idkd'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_idkd',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_idkd_rf'
-  $field_bases['field_idkd_rf'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_idkd_rf',
+    'field_name' => 'field_souhait_nb_pieces',
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -378,22 +343,23 @@ function kandb_taxonomy_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'departement',
+          'vocabulary' => 'nb_pieces',
           'parent' => 0,
         ),
       ),
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_idktl'
-  $field_bases['field_idktl'] = array(
+  // Exported field_base: 'field_souhait_regions_dpt_ville'
+  $field_bases['field_souhait_regions_dpt_ville'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_idktl',
+    'field_name' => 'field_souhait_regions_dpt_ville',
     'indexes' => array(
       'format' => array(
         0 => 'format',
@@ -403,135 +369,64 @@ function kandb_taxonomy_field_default_field_bases() {
     'module' => 'text',
     'settings' => array(
       'max_length' => 255,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
     'type' => 'text',
   );
 
-  // Exported field_base: 'field_latitude'
-  $field_bases['field_latitude'] = array(
+  // Exported field_base: 'field_souhait_tva'
+  $field_bases['field_souhait_tva'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_latitude',
+    'field_name' => 'field_souhait_tva',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
-      'max_length' => 255,
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'tva',
+          'parent' => 0,
+        ),
+      ),
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_longitude'
-  $field_bases['field_longitude'] = array(
+  // Exported field_base: 'field_souhait_type_bien'
+  $field_bases['field_souhait_type_bien'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_longitude',
+    'field_name' => 'field_souhait_type_bien',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_nbre_chambres'
-  $field_bases['field_nbre_chambres'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_nbre_chambres',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'type_de_bien',
+          'parent' => 0,
+        ),
       ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
+      'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_nbre_pieces'
-  $field_bases['field_nbre_pieces'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_nbre_pieces',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_source_data'
-  $field_bases['field_source_data'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_source_data',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_statut'
-  $field_bases['field_statut'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_statut',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
   return $field_bases;
