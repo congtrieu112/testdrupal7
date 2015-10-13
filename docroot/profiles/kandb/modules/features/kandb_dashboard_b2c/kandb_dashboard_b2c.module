@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * @file
+ * Code for the Dashboard B2C feature.
+ */
+include_once 'kandb_dashboard_b2c.features.inc';
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_dashboard_b2c_menu() {
+  $items = array();
+  $items['mon-projet'] = array(
+    'title' => 'Mon projet',
+    'description' => 'The my project in B2C site.',
+    'page callback' => 'kandb_project',
+    'access callback' => TRUE,
+  );
+
+  return $items;
+}
+
+/**
+ * Callback from hook_menu().
+ */
+function kandb_project() {
+  return '';
+}
