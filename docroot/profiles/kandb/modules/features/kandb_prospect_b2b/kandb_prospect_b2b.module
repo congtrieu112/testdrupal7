@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the kandb_prospect_B2B feature.
+ */
+
+include_once 'kandb_prospect_b2b.features.inc';

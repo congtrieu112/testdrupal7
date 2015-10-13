@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the K&B Feed feature.
+ * Code for the Kandb feed feature.
  */
 
 include_once 'kandb_feed.features.inc';
