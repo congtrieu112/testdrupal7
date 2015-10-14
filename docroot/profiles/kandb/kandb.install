@@ -156,3 +156,12 @@ function kandb_update_7104(&$sandbox) {
     module_enable(array('kandb_region'), TRUE);
   }
 }
+
+/**
+ * Enable "Kandb maison" feature
+ */
+function kandb_update_7105(&$sandbox) {
+  if (!module_exists('kandb_maison')) {
+    module_enable(array('kandb_maison'), TRUE);
+  }
+}
