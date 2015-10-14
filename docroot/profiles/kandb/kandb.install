@@ -147,3 +147,12 @@ function kandb_update_7103(&$sandbox) {
     module_enable(array('kandb_dashboard_b2c'), TRUE);
   }
 }
+
+/**
+ * Enable "Kandb recherche" feature
+ */
+function kandb_update_7103(&$sandbox) {
+  if (!module_exists('kandb_recherche')) {
+    module_enable(array('kandb_recherche'), TRUE);
+  }
+}
