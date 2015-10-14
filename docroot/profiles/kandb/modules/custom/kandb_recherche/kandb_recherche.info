@@ -1,3 +1,9 @@
 name = K&B Recherche
 core = 7.x
-package = K&B Development
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = views
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = block_search_b2c
+features_exclude[dependencies][ctools] = ctools
