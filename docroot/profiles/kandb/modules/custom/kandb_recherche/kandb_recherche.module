@@ -1,0 +1,293 @@
+<?php
+
+/**
+ * Implements hook_block_info().
+ */
+function kandb_recherche_block_info() {
+  $blocks = array();
+
+  $blocks['recherche_minimal'] = array(
+    'info' => t('Recherche minimal'),
+    'cache' => DRUPAL_NO_CACHE,
+    'status' => 0,
+  );
+
+  $blocks['recherche_simple'] = array(
+    'info' => t('Recherche simple'),
+    'cache' => DRUPAL_NO_CACHE,
+    'status' => 0,
+  );
+
+  $blocks['recherche_complete_b2c'] = array(
+    'info' => t('Recherche complète B2C'),
+    'cache' => DRUPAL_NO_CACHE,
+    'status' => 0,
+  );
+
+  $blocks['recherche_complete_b2b'] = array(
+    'info' => t('Recherche complète B2B'),
+    'cache' => DRUPAL_NO_CACHE,
+    'status' => 0,
+  );
+
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function kandb_recherche_block_view($delta = '') {
+  $block = array();
+
+  switch ($delta) {
+    case 'recherche_minimal':
+      $block['subject'] = '';
+      $block['content'] = theme('recherche_minimal', array('form' => drupal_get_form('recherche_minimal_form')));
+      break;
+    case 'recherche_simple':
+      $block['subject'] = '';
+      $block['content'] = theme('recherche_simple', array('form' => drupal_get_form('recherche_simple_form')));
+      break;
+    case 'recherche_complete_b2c':
+      $block['subject'] = '';
+      $block['content'] = theme('recherche_complete_b2c', array('form' => drupal_get_form('recherche_complete_b2c_form')));
+      break;
+    case 'recherche_complete_b2b':
+      $block['subject'] = '';
+      $block['content'] = theme('recherche_complete_b2b', array());
+      break;
+  }
+
+  return $block;
+}
+
+/**
+ * Implements of hook_theme().
+ */
+function kandb_recherche_theme($existing, $type, $theme, $path) {
+  return array(
+    'recherche_minimal' => array(
+      'template' => 'templates/recherche_minimal',
+      'variables' => array('form' => NULL),
+    ),
+    'recherche_simple' => array(
+      'template' => 'templates/recherche_simple',
+      'variables' => array('form' => NULL),
+    ),
+    'recherche_complete_b2c' => array(
+      'template' => 'templates/recherche_complete_b2c',
+      'variables' => array('form' => NULL),
+    ),
+    'recherche_complete_b2b' => array(
+      'template' => 'templates/recherche_complete_b2b',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
+ * Create form 'Recherche Minimal'
+ * @param type $form
+ * @param type $form_state
+ * @return string
+ */
+function recherche_minimal_form($form, &$form_state) {
+  $form = array();
+
+  $form['search'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Trouver un bien'),
+  );
+
+  return $form;
+}
+
+/**
+ * Create form 'Recherche Simple'
+ * @param type $form
+ * @param type $form_state
+ * @return string
+ */
+function recherche_simple_form($form, &$form_state) {
+  $form = array();
+
+  $form['search'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+  );
+
+  $form['field_type'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Type'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_type']['type'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(array(t('Maison'), t('Appartment'), t('Commerce et bureaux'), t('Déménagement'))),
+  );
+
+  $form['field_prix'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Prix'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_prix']['prix_min'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Min')),
+  );
+
+  $form['field_prix']['prix_max'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Max')),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Trouver un bien'),
+  );
+
+  return $form;
+}
+
+/**
+ * Create form 'Recherche Complete B2C'
+ * @param type $form
+ * @param type $form_state
+ * @return type
+ */
+function recherche_complete_b2c_form($form, &$form_state) {
+  $form = array();
+
+  $form['search'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+  );
+
+  $form['field_type'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Type'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_type']['type'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(
+      array(
+        t('Maison'),
+        t('Appartment'),
+        t('Commerce et bureaux'),
+        t('Déménagement')
+      )
+    ),
+  );
+
+  $form['field_prix'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Prix'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_prix']['prix_min'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Min')),
+  );
+
+  $form['field_prix']['prix_max'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Max')),
+  );
+
+  $form['field_pieces'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Pièces'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_pieces']['pieces'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(
+      array(
+        t('1 pièce'),
+        t('2 pièce'),
+        t('3 pièce'),
+        t('4 pièce'),
+        t('5 pièce et +')
+      )
+    ),
+  );
+
+  $form['field_surface'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Surface'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_surface']['surface_min'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Min')),
+  );
+
+  $form['field_services'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Services'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
+  $form['field_services']['services'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(
+      array(
+        t('Duplex'),
+        t('Plein-pied'),
+        t('Dernier étage'),
+        t('Garage / Parking'),
+        t('Balcon / Terrasse / Jardin'),
+        t('Pack silver'),
+      )
+    ),
+  );
+
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Trouver un bien'),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements of hook_form_alter().
+ */
+function kandb_recherche_form_alter(&$form, &$form_state, $form_id) {
+  switch ($form_id) {
+    case 'recherche_minimal_form':
+      $form['#theme'] = 'recherche_minimal';
+      break;
+    case 'recherche_simple_form':
+      $form['#theme'] = 'recherche_simple';
+      break;
+    case 'recherche_complete_b2c_form':
+      $form['#theme'] = 'recherche_complete_b2c';
+      break;
+  }
+  return $form;
+}
