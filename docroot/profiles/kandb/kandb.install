@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Install, update and uninstall functions for kandb.
@@ -58,10 +59,10 @@ function kandb_install_finished(&$install_state) {
 
   // Installation profiles are always loaded last
   db_update('system')
-    ->fields(array('weight' => 1000))
-    ->condition('type', 'module')
-    ->condition('name', drupal_get_profile())
-    ->execute();
+      ->fields(array('weight' => 1000))
+      ->condition('type', 'module')
+      ->condition('name', drupal_get_profile())
+      ->execute();
 
   // Cache a fully-built schema.
   drupal_get_schema(NULL, TRUE);
@@ -96,10 +97,53 @@ function kandb_install_finished(&$install_state) {
 }
 
 /**
- * Enable "Kandb context" feature
+ * Enable features:
+ *  + "K&B Context"
+ *  + "K&B Views"
  */
 function kandb_install_update_7100(&$sandbox){
-    if(!module_exists('kandb_context')){
-        module_enable(array('kandb_context'), TRUE);
-    }
+  if(!module_exists('kandb_context')){
+    module_enable(array('kandb_context'), TRUE);
+  }
+
+  if(!module_exists('kandb_views')){
+    module_enable(array('kandb_views'), TRUE);
+  }
+}
+
+/**
+ * Enable modules:
+ *  + "Views"
+ *  + "Views UI"
+ */
+function kandb_install_update_7101(&$sandbox){
+  if(!module_exists('views')){
+    module_enable(array('views'), TRUE);
+  }
+
+  if(!module_exists('views_ui')){
+    module_enable(array('views_ui'), TRUE);
+  }
+
+  if(!module_exists('ds_ui')){
+        module_enable(array('ds_ui'), TRUE);
+  }
+}
+
+/**
+ * Enable "Kandb dossier" feature
+ */
+function kandb_update_7102(&$sandbox) {
+  if (!module_exists('kandb_dossier')) {
+    module_enable(array('kandb_dossier'), TRUE);
+  }
+}
+
+/**
+ * Enable "kandb Dashboard B2c" feature
+ */
+function kandb_update_7103(&$sandbox) {
+  if (!module_exists('kandb_dashboard_b2c')) {
+    module_enable(array('kandb_dashboard_b2c'), TRUE);
+  }
 }
