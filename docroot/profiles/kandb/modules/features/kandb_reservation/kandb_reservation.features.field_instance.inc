@@ -18,12 +18,6 @@ function kandb_reservation_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'entityreference',
@@ -36,19 +30,7 @@ function kandb_reservation_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 1,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'thumbnail' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -88,12 +70,6 @@ function kandb_reservation_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'entityreference',
@@ -106,19 +82,7 @@ function kandb_reservation_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 0,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'thumbnail' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
