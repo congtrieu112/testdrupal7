@@ -9,6 +9,14 @@
  */
 function kandb_taxonomy_taxonomy_default_vocabularies() {
   return array(
+    'arrondissement' => array(
+      'name' => 'Arrondissement',
+      'machine_name' => 'arrondissement',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'caracteristiques' => array(
       'name' => 'Caractéristiques',
       'machine_name' => 'caracteristiques',
@@ -108,6 +116,14 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
     'type_voie' => array(
       'name' => 'Type de voie',
       'machine_name' => 'type_voie',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
+    'ville' => array(
+      'name' => 'Ville',
+      'machine_name' => 'ville',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
