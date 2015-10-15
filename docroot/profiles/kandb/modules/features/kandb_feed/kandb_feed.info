@@ -6,6 +6,7 @@ dependencies[] = ctools
 dependencies[] = features
 dependencies[] = feeds
 dependencies[] = feeds_tamper
+dependencies[] = feeds_ui
 dependencies[] = kandb_bien
 dependencies[] = kandb_programme
 dependencies[] = kandb_taxonomy
