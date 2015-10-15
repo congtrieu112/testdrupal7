@@ -16,7 +16,7 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer->id = 'city_feed_import';
   $feeds_importer->config = array(
     'name' => 'City feed import',
-    'description' => 'Import VILLE.TXT file',
+    'description' => '',
     'fetcher' => array(
       'plugin_key' => 'FeedsHTTPFetcher',
       'config' => array(
@@ -84,7 +84,7 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer->id = 'district_feed_import';
   $feeds_importer->config = array(
     'name' => 'District feed import',
-    'description' => 'Import ARRONDISSEMENT.TXT file',
+    'description' => '',
     'fetcher' => array(
       'plugin_key' => 'FeedsHTTPFetcher',
       'config' => array(
