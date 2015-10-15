@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Webform feature.
+ */
+
+include_once 'kandb_webform.features.inc';
