@@ -174,3 +174,20 @@ function kandb_update_7106(&$sandbox) {
     module_enable(array('kandb_recherche'), TRUE);
   }
 }
+
+/**
+ * Enable "module webform" feature
+ */
+function kandb_update_7107(&$sandbox) {
+  if (!module_exists('webform')) {
+    module_enable(array('webform'), TRUE);
+  }
+}
+/**
+ * Enable "Kandb" feature
+ */
+function kandb_update_7108(&$sandbox) {
+  if (!module_exists('kandb_webform')) {
+    module_enable(array('kandb_webform'), TRUE);
+  }
+}
