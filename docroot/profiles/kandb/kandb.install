@@ -19,7 +19,7 @@ function kandb_install() {
   variable_set('theme_default', $theme);
 
   // Enable admin theme.
-  $admin_theme = 'adminimal_theme';
+  $admin_theme = 'adminimal';
   theme_enable(array($admin_theme));
   variable_set('admin_theme', $admin_theme);
 
