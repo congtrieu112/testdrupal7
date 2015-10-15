@@ -1,6 +1,8 @@
-name = kandb context
+name = K&B Context
+description = Contexts
 core = 7.x
-package = Features
+package = Kaufman & Broad
+version = 7.x-1.0
 dependencies[] = context
 dependencies[] = ctools
 dependencies[] = features
