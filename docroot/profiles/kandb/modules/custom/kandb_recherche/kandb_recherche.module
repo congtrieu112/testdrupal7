@@ -3,7 +3,7 @@
  * @file
  * Code for the K&B Recherche feature.
  */
-include_once 'kandb_recherche1.features.inc';
+include_once 'kandb_recherche.features.inc';
 
 /**
  * Implements hook_block_info().

@@ -69,6 +69,7 @@ dependencies[] = feeds_tamper
 dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
+dependencies[] = block
 
 ; Custom
 dependencies[] = kb_feeds
