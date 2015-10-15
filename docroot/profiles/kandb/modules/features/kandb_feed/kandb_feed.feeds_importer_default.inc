@@ -47,11 +47,16 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           1 => array(
-            'source' => '1',
-            'target' => 'name',
+            'source' => '0',
+            'target' => 'guid',
             'unique' => 1,
           ),
           2 => array(
+            'source' => '1',
+            'target' => 'name',
+            'unique' => 0,
+          ),
+          3 => array(
             'source' => '4',
             'target' => 'field_code_departement',
             'unique' => FALSE,
@@ -110,14 +115,19 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           1 => array(
+            'source' => '0',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
             'source' => '1',
             'target' => 'field_idk',
             'unique' => FALSE,
           ),
-          2 => array(
+          3 => array(
             'source' => '2',
             'target' => 'name',
-            'unique' => 1,
+            'unique' => 0,
           ),
         ),
         'update_existing' => '2',
