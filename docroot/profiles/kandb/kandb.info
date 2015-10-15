@@ -70,6 +70,7 @@ dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
 dependencies[] = block
+dependencies[] = webform
 
 ; Custom
 dependencies[] = kb_feeds
@@ -95,6 +96,7 @@ dependencies[] = kandb_prospect_b2b
 dependencies[] = kandb_reservation
 dependencies[] = kandb_selection
 dependencies[] = kandb_dashboard_b2c
+dependencies[] = kandb_webform
 
 ; Blocks
 dependencies[] = kandb_recherche

@@ -149,15 +149,6 @@ function kandb_update_7103(&$sandbox) {
 }
 
 /**
- * Enable "Kandb region" feature
- */
-function kandb_update_7104(&$sandbox) {
-  if (!module_exists('kandb_region')) {
-    module_enable(array('kandb_region'), TRUE);
-  }
-}
-
-/**
  * Enable "Kandb maison" feature
  */
 function kandb_update_7105(&$sandbox) {
