@@ -17,12 +17,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -33,12 +27,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 1,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -64,12 +52,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 1,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_bien_statut',
@@ -94,12 +76,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'list',
@@ -110,12 +86,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'list_default',
         'weight' => 12,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -141,12 +111,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 12,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_caracteristiques',
@@ -171,12 +135,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -187,12 +145,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 10,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -217,12 +169,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 10,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -286,12 +232,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -302,12 +242,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 13,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -332,12 +266,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 13,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -401,12 +329,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -417,12 +339,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 23,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -448,12 +364,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 23,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_etage',
@@ -477,12 +387,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -493,12 +397,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 15,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -523,12 +421,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 15,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -560,12 +452,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -575,12 +461,6 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
       'search' => array(
@@ -625,12 +505,6 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -694,12 +568,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -712,12 +580,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 3,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -742,12 +604,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 3,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -783,12 +639,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -799,12 +649,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 17,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -829,12 +673,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 17,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -866,12 +704,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -882,12 +714,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 7,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -913,12 +739,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 7,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_nb_chambres',
@@ -943,12 +763,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -959,12 +773,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 6,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -990,12 +798,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 6,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_nb_pieces',
@@ -1020,12 +822,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1036,12 +832,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 8,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1066,12 +856,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 8,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1135,12 +919,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -1151,12 +929,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 24,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1182,12 +954,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 24,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_orientation',
@@ -1211,12 +977,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -1227,12 +987,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 16,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1257,12 +1011,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 16,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1293,12 +1041,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -1309,12 +1051,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 14,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1339,12 +1075,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 14,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1376,12 +1106,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1392,12 +1116,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 9,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1422,12 +1140,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 9,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1492,12 +1204,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'entityreference',
@@ -1509,12 +1215,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 22,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1539,12 +1239,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 22,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1579,12 +1273,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'number',
@@ -1599,12 +1287,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'number_decimal',
         'weight' => 4,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1629,12 +1311,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 4,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1664,12 +1340,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -1680,12 +1350,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1711,12 +1375,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 2,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_type',
@@ -1741,12 +1399,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1757,12 +1409,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 18,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1787,12 +1433,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 18,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1856,12 +1496,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1872,12 +1506,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 21,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1902,12 +1530,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 21,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1971,12 +1593,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1987,12 +1603,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 20,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2017,12 +1627,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 20,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2086,12 +1690,6 @@ function kandb_bien_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2102,12 +1700,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 19,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2132,12 +1724,6 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 19,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2210,12 +1796,6 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -2292,12 +1872,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_id_nombre_chambre',
@@ -2369,12 +1943,6 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -2450,12 +2018,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_id_orientation',
@@ -2528,12 +2090,6 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 1,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'taxonomy_term',
@@ -2608,12 +2164,6 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_id_xls',
@@ -2685,12 +2235,6 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),

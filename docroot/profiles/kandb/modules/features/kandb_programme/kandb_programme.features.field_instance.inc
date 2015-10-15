@@ -17,12 +17,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'number',
@@ -37,12 +31,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'number_integer',
         'weight' => 42,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -67,12 +55,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 42,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -102,12 +84,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -118,12 +94,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 5,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -148,12 +118,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 5,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -217,12 +181,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -233,12 +191,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 6,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -263,12 +215,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 6,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -332,12 +278,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -348,12 +288,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 33,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -378,12 +312,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 33,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -447,12 +375,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -463,12 +385,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 34,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -493,12 +409,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 34,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -562,12 +472,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -578,12 +482,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 45,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -608,12 +506,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 45,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -677,12 +569,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -693,12 +579,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 44,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -723,12 +603,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 44,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -791,12 +665,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -807,12 +675,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 28,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -837,12 +699,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 28,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -874,12 +730,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'number',
@@ -894,12 +744,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'number_integer',
         'weight' => 41,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -924,12 +768,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 41,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -958,12 +796,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -976,12 +808,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 1,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1006,12 +832,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 1,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1047,12 +867,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -1063,12 +877,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 30,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1093,12 +901,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 30,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1130,12 +932,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -1146,12 +942,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 46,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1177,12 +967,6 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 46,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_marque_comm',
@@ -1207,12 +991,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1223,12 +1001,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 32,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1253,12 +1025,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 32,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1326,12 +1092,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'list',
@@ -1342,12 +1102,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'list_default',
         'weight' => 35,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1372,12 +1126,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 35,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1405,12 +1153,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1421,12 +1163,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 4,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1451,12 +1187,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 4,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1519,12 +1249,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -1537,12 +1261,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 31,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1567,12 +1285,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 31,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1608,12 +1320,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -1624,12 +1330,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 29,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1654,12 +1354,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 29,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1690,12 +1384,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'file',
@@ -1706,12 +1394,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'file_default',
         'weight' => 27,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1736,12 +1418,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 27,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1773,12 +1449,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1789,12 +1459,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 26,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1819,12 +1483,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 26,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1888,12 +1546,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -1904,12 +1556,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 13,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1934,12 +1580,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 13,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2003,12 +1643,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2019,12 +1653,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 12,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2054,12 +1682,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 12,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2123,12 +1745,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2139,12 +1755,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 8,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2169,12 +1779,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 8,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2238,12 +1842,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2254,12 +1852,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 7,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2299,12 +1891,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 7,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2368,12 +1954,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2384,12 +1964,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 10,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2414,12 +1988,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 10,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2483,12 +2051,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2499,12 +2061,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 40,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2529,12 +2085,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 40,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2598,12 +2148,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2614,12 +2158,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 9,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2644,12 +2182,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 9,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2713,12 +2245,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2729,12 +2255,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 39,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2759,12 +2279,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 39,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2827,12 +2341,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -2845,12 +2353,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 15,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2875,12 +2377,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 15,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -2917,12 +2413,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -2933,12 +2423,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 14,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -2963,12 +2447,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 14,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3032,12 +2510,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3048,12 +2520,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 38,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3078,12 +2544,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 38,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3146,12 +2606,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -3164,12 +2618,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 18,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3194,12 +2642,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 18,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3236,12 +2678,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3252,12 +2688,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 17,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3282,12 +2712,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 17,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3351,12 +2775,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3367,12 +2785,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 36,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3397,12 +2809,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 36,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3465,12 +2871,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -3483,12 +2883,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 24,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3513,12 +2907,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 24,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3555,12 +2943,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3571,12 +2953,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 23,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3601,12 +2977,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 23,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3670,12 +3040,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3686,12 +3050,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 37,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3716,12 +3074,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 37,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3784,12 +3136,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'image',
@@ -3802,12 +3148,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'image',
         'weight' => 21,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3832,12 +3172,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 21,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3874,12 +3208,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'text',
@@ -3890,12 +3218,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 20,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -3920,12 +3242,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 20,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -3989,12 +3305,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'list',
@@ -4005,12 +3315,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'list_default',
         'weight' => 2,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -4035,12 +3339,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 2,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -4070,12 +3368,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'list',
@@ -4086,12 +3378,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'list_default',
         'weight' => 43,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -4116,12 +3402,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 43,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -4149,12 +3429,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -4165,12 +3439,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 48,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -4196,12 +3464,6 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 48,
       ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'node',
     'field_name' => 'field_type_programme',
@@ -4226,12 +3488,6 @@ function kandb_programme_field_default_field_instances() {
     'deleted' => 0,
     'description' => '',
     'display' => array(
-      'alternate' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
@@ -4242,12 +3498,6 @@ function kandb_programme_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 47,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -4272,12 +3522,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 47,
-      ),
-      'thumbnail' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -4313,12 +3557,6 @@ function kandb_programme_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),
@@ -4395,12 +3633,6 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
     ),
     'entity_type' => 'taxonomy_term',
     'field_name' => 'field_id_type_programme',
@@ -4473,12 +3705,6 @@ function kandb_programme_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
         'weight' => 0,
       ),
     ),

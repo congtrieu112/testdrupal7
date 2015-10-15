@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the kandb_dossier feature.
+ * Code for the K&B Dossier feature.
  */
 
 include_once 'kandb_dossier.features.inc';

@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * Code for the kandb_options feature.
+ * Code for the K&B Options feature.
  */
 
 include_once 'kandb_options.features.inc';
