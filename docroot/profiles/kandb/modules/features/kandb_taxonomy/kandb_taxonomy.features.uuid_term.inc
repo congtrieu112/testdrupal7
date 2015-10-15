@@ -54,6 +54,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Rocade',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '02200368-a73d-474f-aa55-d64a95e8f026',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RCD',
+          'format' => NULL,
+          'safe_value' => 'RCD',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '45 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -83,6 +100,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'SO/O',
           'format' => NULL,
           'safe_value' => 'SO/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Massy- Palaiseau - Les Ulis (A10)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '03094f45-5d78-4a3b-8325-df2fd190ddba',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 8,
+          'format' => NULL,
+          'safe_value' => 8,
         ),
       ),
     ),
@@ -308,6 +342,40 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Evry (A6)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1083a0bc-21b4-4eb5-8961-fa3157973055',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4,
+          'format' => NULL,
+          'safe_value' => 4,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Paris La Défense',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '11074d8d-72dc-4821-acc0-8d59281821f7',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Cher',
     'description' => '',
     'format' => 'filtered_html',
@@ -337,6 +405,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'NE/E',
           'format' => NULL,
           'safe_value' => 'NE/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rue',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1331faa9-dbe1-4c1f-96cd-6c26a47f7abd',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RUE',
+          'format' => NULL,
+          'safe_value' => 'RUE',
         ),
       ),
     ),
@@ -410,6 +495,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Est Parisien (A3)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '182bbdf5-1622-4f0f-abc7-061650825ed4',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+          'format' => NULL,
+          'safe_value' => 3,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Ille et Vilaine',
     'description' => '',
     'format' => 'filtered_html',
@@ -439,6 +541,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'N/NE',
           'format' => NULL,
           'safe_value' => 'N/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Quartier',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1b3e8c20-4673-4400-a661-6e984f48a9ca',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'QTR',
+          'format' => NULL,
+          'safe_value' => 'QTR',
         ),
       ),
     ),
@@ -681,6 +800,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Cergy - Pontoise (A15)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '241898f3-5914-4655-abbc-242cdb6d877e',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 10,
+          'format' => NULL,
+          'safe_value' => 10,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Saône et Loire',
     'description' => '',
     'format' => 'filtered_html',
@@ -777,6 +913,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'SO/E',
           'format' => NULL,
           'safe_value' => 'SO/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rond-point',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '276d7b76-6396-4d1c-af66-baa74b08ffa7',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RTE',
+          'format' => NULL,
+          'safe_value' => 'RTE',
         ),
       ),
     ),
@@ -932,6 +1085,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 95,
           'format' => NULL,
           'safe_value' => 95,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Senart (A5)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2b0e7ea9-2270-4278-9144-9e7c75728510',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 5,
+          'format' => NULL,
+          'safe_value' => 5,
         ),
       ),
     ),
@@ -1421,6 +1591,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Voie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3efa52bd-f952-4c40-8961-35711b0aafbb',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'VOI',
+          'format' => NULL,
+          'safe_value' => 'VOI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '6 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -1725,6 +1912,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
+    'name' => 'ter, Rue',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4daee5c3-f596-4f20-8d19-8f1c3af4c5af',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RUT',
+          'format' => NULL,
+          'safe_value' => 'RUT',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '39 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -1937,6 +2141,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Vallée de Seine (A6)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '54255144-fcba-4523-9f68-1761c198549b',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 7,
+          'format' => NULL,
+          'safe_value' => 7,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'bis, Rue',
     'description' => '',
     'format' => 'filtered_html',
@@ -1949,6 +2170,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'RUB',
           'format' => NULL,
           'safe_value' => 'RUB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rond-point',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '57bcf7df-5fa7-47c2-ad54-af4d44e3212d',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RPO',
+          'format' => NULL,
+          'safe_value' => 'RPO',
         ),
       ),
     ),
@@ -2402,6 +2640,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
+    'name' => 'Résidence',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6c660e09-fd85-4279-bf8f-b7553475ab50',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RSD',
+          'format' => NULL,
+          'safe_value' => 'RSD',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '14 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -2558,6 +2813,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'NE/SO',
           'format' => NULL,
           'safe_value' => 'NE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'St Quentin en Yvelines (N118 – A12)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '74fbd30f-1d13-4571-b205-7d46b1274578',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 9,
+          'format' => NULL,
+          'safe_value' => 9,
         ),
       ),
     ),
@@ -3097,6 +3369,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Square',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '91fe069e-9f03-4e9c-ad24-ecb7bea67e2f',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SQU',
+          'format' => NULL,
+          'safe_value' => 'SQU',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD-EST/NORD-OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -3287,6 +3576,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 27,
           'format' => NULL,
           'safe_value' => 27,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sente',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9df0ee89-226b-4475-9635-dfdf67f10276',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SEN',
+          'format' => NULL,
+          'safe_value' => 'SEN',
         ),
       ),
     ),
@@ -3507,6 +3813,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 64,
           'format' => NULL,
           'safe_value' => 64,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Garonor – Aéroport Charles de Gaulle (A1)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'aac28985-1798-4e1d-8ae6-095f89fd0600',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+          'format' => NULL,
+          'safe_value' => 6,
         ),
       ),
     ),
@@ -3834,6 +4157,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Marne la Vallée (A4)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b82a56b6-79fc-45ce-a077-97f6547468b9',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'studio',
     'description' => '',
     'format' => 'filtered_html',
@@ -4049,6 +4389,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'E/SE',
           'format' => NULL,
           'safe_value' => 'E/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'ZAC',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c4b8a9ec-431f-47cf-8e55-71f66b10898d',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'ZAC',
+          'format' => NULL,
+          'safe_value' => 'ZAC',
         ),
       ),
     ),
@@ -4311,6 +4668,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'S/N',
           'format' => NULL,
           'safe_value' => 'S/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ter, Première',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cf553b87-c096-4ef5-8d36-bd0973b141f8',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PRT',
+          'format' => NULL,
+          'safe_value' => 'PRT',
         ),
       ),
     ),
@@ -5396,6 +5770,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'E/NE',
           'format' => NULL,
           'safe_value' => 'E/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sentier',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fc09ca3b-476b-45c9-94cc-d032e0c99e05',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SNT',
+          'format' => NULL,
+          'safe_value' => 'SNT',
         ),
       ),
     ),
