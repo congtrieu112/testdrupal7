@@ -11,249 +11,164 @@ function kandb_taxonomy_uuid_features_default_terms() {
   $terms = array();
 
   $terms[] = array(
-    'name' => 'Seine et Marne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Réservé',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '003b54c2-78d5-4cb6-a4d9-8b03af410f62',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0050afc0-008d-4d4d-b870-f9b8e8845218',
+    'vocabulary_machine_name' => 'status_logement',
+    'field_id_xls' => array(
       'und' => array(
         0 => array(
-          'value' => 77,
+          'value' => 2,
           'format' => NULL,
-          'safe_value' => 77,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+    'field_id_file' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'R',
+          'format' => NULL,
+          'safe_value' => 'R',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Côte du Nord',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD/NORD-OUEST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '07cffdc8-1e76-499b-b6d7-3c76d1f7d41a',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '015859b7-c7af-45ad-9bf6-0fbe00d38a07',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 22,
+          'value' => 'N/NO/E',
           'format' => NULL,
-          'safe_value' => 22,
+          'safe_value' => 'N/NO/E',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Meuse',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Rocade',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '0c5b9337-495e-4545-98ba-681c93d8b83d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '02200368-a73d-474f-aa55-d64a95e8f026',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
       'und' => array(
         0 => array(
-          'value' => 55,
+          'value' => 'RCD',
           'format' => NULL,
-          'safe_value' => 55,
+          'safe_value' => 'RCD',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '45 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '1209f04e-6913-4340-b0c5-34113efaed3c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '025a6a2f-8430-4fbb-9f9c-66dd4a4a7eae',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 42,
+          'value' => 45,
           'format' => NULL,
-          'safe_value' => 42,
+          'safe_value' => 45,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Savoie',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'SUD-OUEST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '15735e49-070b-4879-9c2d-a6b750b1ca0e',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '02a7c199-bb78-40d9-b78b-b4974b3baa77',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 73,
+          'value' => 'SO/O',
           'format' => NULL,
-          'safe_value' => 73,
+          'safe_value' => 'SO/O',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Eure et Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Massy- Palaiseau - Les Ulis (A10)',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '163aa3c7-cc1d-4105-a589-dbd3436ef9d2',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '03094f45-5d78-4a3b-8325-df2fd190ddba',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
       'und' => array(
         0 => array(
-          'value' => 28,
+          'value' => 8,
           'format' => NULL,
-          'safe_value' => 28,
+          'safe_value' => 8,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Dordogne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Plein pied',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '1b8cd301-2c4a-4886-b223-6ca858e16e9d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '039bd663-6017-487f-8a60-71ac0247ebf6',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => '11 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '03ac75df-069a-49f8-8cb7-bdec1557b3f4',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 24,
+          'value' => 11,
           'format' => NULL,
-          'safe_value' => 24,
+          'safe_value' => 11,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Calvados',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'SUD-EST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '1dc37db5-36f1-4398-8a0d-c0847b44f931',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '04fe6ccc-d495-482c-8207-9624cb3c9b2f',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 14,
+          'value' => 'SE/NE',
           'format' => NULL,
-          'safe_value' => 14,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Aveyron',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '1e6b2f36-7b94-4340-b180-094d9f9c29d7',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 12,
-          'format' => NULL,
-          'safe_value' => 12,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Ariège',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '20753d53-ca80-4676-af88-43c4780829a3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => '09',
-          'format' => NULL,
-          'safe_value' => '09',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Pas de Calais',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '23b8b0e4-683c-4133-a67c-379981f95fc3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 62,
-          'format' => NULL,
-          'safe_value' => 62,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Landes',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '26237abf-2507-475a-96a2-a7b7a3c3693d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 40,
-          'format' => NULL,
-          'safe_value' => 40,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Pyrénées Atlantiques',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '2b75f5bf-9765-46ad-bfe4-9bd037f04a56',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 64,
-          'format' => NULL,
-          'safe_value' => 64,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Isère',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '2d76b2ac-006d-47d1-b593-991c5b5677f7',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 38,
-          'format' => NULL,
-          'safe_value' => 38,
+          'safe_value' => 'SE/NE',
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Allier',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '36d6a40b-0bde-4079-ab67-855fb4411bf8',
+    'uuid' => '053b2efd-2747-4def-ad8f-0bd1b981b9f0',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -266,198 +181,138 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Vaucluse',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'SUD-OUEST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '398adaa8-1dce-4c50-8905-a76c26bef3cd',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '05b3424a-0678-4544-9c4a-977eb33356ce',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 84,
+          'value' => 'SO/NE',
           'format' => NULL,
-          'safe_value' => 84,
+          'safe_value' => 'SO/NE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Charente',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Rhône-Alpes',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '3b859c8a-4069-4887-9d29-8a4cdfacb427',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => '10 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '08decc01-40d4-406f-b6ab-af4c049642ec',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 16,
+          'value' => 10,
           'format' => NULL,
-          'safe_value' => 16,
+          'safe_value' => 10,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Marne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'EST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '409b9c89-b3c8-4df5-a4df-20f1a0f8b29c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0908df07-f01f-459a-8a8a-ba30ce7d5cd3',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 51,
+          'value' => 'E/S',
           'format' => NULL,
-          'safe_value' => 51,
+          'safe_value' => 'E/S',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Vienne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '13 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '46fc0eb1-ad53-47b1-8181-4739115ade86',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0c122321-918d-4dea-af5d-52ac20558b7d',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 86,
+          'value' => 13,
           'format' => NULL,
-          'safe_value' => 86,
+          'safe_value' => 13,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Val de Marne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '18 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '47ee4a4e-a085-4435-9d0c-c910037ac285',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0c2b49d3-9913-4fd6-a14a-97aa28bf197c',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 94,
+          'value' => 18,
           'format' => NULL,
-          'safe_value' => 94,
+          'safe_value' => 18,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Paris',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'SUD/SUD-EST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '4879f50b-c22d-4758-8a6f-123c6dfce3bc',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0e2d0105-adba-426a-b23b-4172d5d50f67',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 75,
+          'value' => 'S/SE/NE',
           'format' => NULL,
-          'safe_value' => 75,
+          'safe_value' => 'S/SE/NE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Côte d’Or',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD/NORD-OUEST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '4936d0af-95ad-4f02-a71b-467fc1191fa3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '0e35b3c1-f322-4772-ad93-645d64a3a37a',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 21,
+          'value' => 'N/NO/S',
           'format' => NULL,
-          'safe_value' => 21,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'NULL',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '499007a6-66a6-4bff-a326-3d2312b94f42',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => '2A',
-          'format' => NULL,
-          'safe_value' => '2A',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Gard',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '4a9c6471-3e16-432f-8730-21f7f2c2d74c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 30,
-          'format' => NULL,
-          'safe_value' => 30,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Hautes Pyrénées',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '4d7d3b4b-a6ea-44ac-8176-dcfc33ae5dc0',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 65,
-          'format' => NULL,
-          'safe_value' => 65,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Eure',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '53f05004-9598-4b59-b779-7ee11ebf5d05',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 27,
-          'format' => NULL,
-          'safe_value' => 27,
+          'safe_value' => 'N/NO/S',
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Meurthe et Moselle',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '5599def8-e515-4d6e-bf0a-1d700c8fc545',
+    'uuid' => '0ffdcdf6-de77-4247-a415-5b4636c9ea73',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -470,283 +325,62 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Rhône-Alpes',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '58c51680-b488-4402-9ffc-b8081d74fcea',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '1076efcb-b662-4a01-9707-edb0d492b7b3',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 69,
+          'value' => 'SE',
           'format' => NULL,
-          'safe_value' => 69,
+          'safe_value' => 'SE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Ardennes',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Evry (A6)',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '59f769d0-1ef2-4aed-93dc-834937eee3f3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '1083a0bc-21b4-4eb5-8961-fa3157973055',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
       'und' => array(
         0 => array(
-          'value' => '08',
+          'value' => 4,
           'format' => NULL,
-          'safe_value' => '08',
+          'safe_value' => 4,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Manche',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Paris La Défense',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '5b42a86d-7581-43ba-b28a-2b25f3cb0661',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '11074d8d-72dc-4821-acc0-8d59281821f7',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
       'und' => array(
         0 => array(
-          'value' => 50,
+          'value' => 1,
           'format' => NULL,
-          'safe_value' => 50,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Mayenne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '5d48dff2-91d8-44a4-acb1-fb79bdcb54b4',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 53,
-          'format' => NULL,
-          'safe_value' => 53,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Loiret',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '5de821d0-ba20-498c-a9a9-53240e58833a',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 45,
-          'format' => NULL,
-          'safe_value' => 45,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Hautes Alpes',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '61f00e4c-728a-400b-848c-ab6fb2ca71dc',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => '05',
-          'format' => NULL,
-          'safe_value' => '05',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Haute Savoie',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '6226ce82-ad3c-43a5-825c-c00ad62e3568',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 74,
-          'format' => NULL,
-          'safe_value' => 74,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Gironde',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '64929a57-5932-4930-b1ae-62748034916f',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 33,
-          'format' => NULL,
-          'safe_value' => 33,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Aube',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '65d4fe4d-9e2c-4d8f-9c1d-e5ec2da7cc8c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 10,
-          'format' => NULL,
-          'safe_value' => 10,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Charente Maritime',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '6edf41b6-917a-47c0-a4f9-866e2ac4befe',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 17,
-          'format' => NULL,
-          'safe_value' => 17,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Loir et Cher',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '72db5ff7-8b81-46b9-8419-18007573408b',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 41,
-          'format' => NULL,
-          'safe_value' => 41,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Oise',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '78a8b44b-4ee8-4aee-ad77-869ef9f5fc34',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 60,
-          'format' => NULL,
-          'safe_value' => 60,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Morbihan',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '78e662cd-3390-4fec-8935-d6de59d4acb3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 56,
-          'format' => NULL,
-          'safe_value' => 56,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Lot et Garonne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '79937d57-d74d-4462-aec5-59f969eac2d9',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 47,
-          'format' => NULL,
-          'safe_value' => 47,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Alpes de Haute Provence',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '7b85d957-102a-4e8e-aee8-a1d7c5182b8d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => '04',
-          'format' => NULL,
-          'safe_value' => '04',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Nord',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '7e7bb61e-5fbd-4b61-bfe3-156f1d5ddf80',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 59,
-          'format' => NULL,
-          'safe_value' => 59,
+          'safe_value' => 1,
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Cher',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '8604bbde-2337-474f-89cb-12b13d35ecf5',
+    'uuid' => '1191d355-6dcd-4087-bfe0-1b450b8e4dd7',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -759,198 +393,79 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Haute Garonne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD-EST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '8a78376c-3faa-4d73-be27-ac44c075592a',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '12f22e52-be89-44bb-bce6-e6e437c4b492',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 31,
+          'value' => 'NE/E',
           'format' => NULL,
-          'safe_value' => 31,
+          'safe_value' => 'NE/E',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Pyrénées Orientales',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Rue',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '8b67ec97-7775-408a-96c6-ef201a9fc803',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '1331faa9-dbe1-4c1f-96cd-6c26a47f7abd',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
       'und' => array(
         0 => array(
-          'value' => 66,
+          'value' => 'RUE',
           'format' => NULL,
-          'safe_value' => 66,
+          'safe_value' => 'RUE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Haut Rhin',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'OUEST/SUDEST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '8c3c08af-89e4-4d7d-864d-cbe714a2e053',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '14c9d463-9760-48de-a871-8dbe8762f5e4',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 68,
+          'value' => 'O/SE',
           'format' => NULL,
-          'safe_value' => 68,
+          'safe_value' => 'O/SE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Gers',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => '8f11b7d9-5db6-4763-9409-1a9a0d5abb27',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '15c47f50-5e2a-4022-a7a6-ac46ffefe948',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 32,
+          'value' => 'N/O',
           'format' => NULL,
-          'safe_value' => 32,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Jura',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '908a418c-0865-40d5-9655-b3f84efa6e62',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 39,
-          'format' => NULL,
-          'safe_value' => 39,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Bas Rhin',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '919df960-808e-47a6-b823-d780bfb98c86',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 67,
-          'format' => NULL,
-          'safe_value' => 67,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Aude',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '97fd6b24-78e0-4ad5-a4c9-cea4403786e7',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 11,
-          'format' => NULL,
-          'safe_value' => 11,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Lot',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '9e556099-0f90-4d0a-9c47-ac4b00a0823f',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 46,
-          'format' => NULL,
-          'safe_value' => 46,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Yonne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '9e64ce17-c2f7-4fee-8817-47ce9a000975',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 89,
-          'format' => NULL,
-          'safe_value' => 89,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Haute Vienne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => '9f1c2d14-3eec-426c-997c-46f58ab5707c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 87,
-          'format' => NULL,
-          'safe_value' => 87,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Moselle',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'a14e53f0-2154-40db-bc05-2bd37c6a28a3',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 57,
-          'format' => NULL,
-          'safe_value' => 57,
+          'safe_value' => 'N/O',
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Nièvre',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a16b17cf-60b2-4c9f-9d1c-a07dfed37a79',
+    'uuid' => '168efaa0-d16f-4fd2-bb6e-08a39d2b4ac4',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -963,96 +478,861 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Seine Saint Denis',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a39f3756-b0f2-48b6-9646-3b45cdd21c10',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '17aaa15d-5a0f-4a71-83c1-bc712666e020',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 93,
+          'value' => 'E',
           'format' => NULL,
-          'safe_value' => 93,
+          'safe_value' => 'E',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Corrèze',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Est Parisien (A3)',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a62ea4d1-e0e1-46ea-8a85-c470a00a9e5d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '182bbdf5-1622-4f0f-abc7-061650825ed4',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
       'und' => array(
         0 => array(
-          'value' => 19,
+          'value' => 3,
           'format' => NULL,
-          'safe_value' => 19,
+          'safe_value' => 3,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Tarn et Garonne',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Ille et Vilaine',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a82f2030-18ac-4641-a10b-b50ee01119d3',
+    'uuid' => '19518d5c-2ed3-45bc-80c5-71f7f39bda45',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => 82,
+          'value' => 35,
           'format' => NULL,
-          'safe_value' => 82,
+          'safe_value' => 35,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Vendée',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a9051175-a9d2-4032-bd1d-5c0013eb6e5c',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '1aa8a5ef-4381-40d7-8b85-10cd8b97a765',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 85,
+          'value' => 'N/NE',
           'format' => NULL,
-          'safe_value' => 85,
+          'safe_value' => 'N/NE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Bouches du Rhône',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Quartier',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'a9705a56-e20b-4b07-b0b2-045bc02dd8aa',
+    'uuid' => '1b3e8c20-4673-4400-a661-6e984f48a9ca',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'QTR',
+          'format' => NULL,
+          'safe_value' => 'QTR',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Maine et Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1bcbcd74-1e63-49b3-a570-245203887217',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => 13,
+          'value' => 49,
           'format' => NULL,
-          'safe_value' => 13,
+          'safe_value' => 49,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'bis, Place',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1c223ad2-419d-4c1b-a492-a701d4243da3',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PLB',
+          'format' => NULL,
+          'safe_value' => 'PLB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1c2be6d1-1f83-42be-b259-a4805922630a',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/SO',
+          'format' => NULL,
+          'safe_value' => 'NO/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1c360932-5aa0-46ee-a060-3847bc7b4744',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/E',
+          'format' => NULL,
+          'safe_value' => 'S/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Hopitaux',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1c65ab25-d08e-4479-b32b-8337d0629025',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => '4 pièces',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 3,
+    'uuid' => '1cdf49ff-a950-4872-b62d-80d5c727f721',
+    'vocabulary_machine_name' => 'nb_pieces',
+    'field_id_nombre_pieces' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4,
+          'format' => NULL,
+          'safe_value' => 4,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SM2I',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1dcc0274-f74c-436c-a722-6cf2e203cc4a',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SM2I',
+          'format' => NULL,
+          'safe_value' => 'SM2I',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Côte d’Or',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '1f536c66-4660-4796-bd84-834d7334b8d7',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 21,
+          'format' => NULL,
+          'safe_value' => 21,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Esplanade',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2069a27e-3932-4d67-b883-f4a9166324d1',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'ESP',
+          'format' => NULL,
+          'safe_value' => 'ESP',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '43 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '20903a39-c532-4ea8-a931-b99163860d86',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 43,
+          'format' => NULL,
+          'safe_value' => 43,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '211211cc-4f70-483b-86f2-01955c09647c',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/N',
+          'format' => NULL,
+          'safe_value' => 'E/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Limousin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '22a4748b-70b1-4902-be29-3d26b85c55c1',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => '1 er étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '22c41169-ad62-4cad-9ad3-ec687e90686b',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Oise',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '23a0d0ce-6bef-4862-9003-d7fff44fdae0',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 60,
+          'format' => NULL,
+          'safe_value' => 60,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '23c001e6-dc02-43cb-a84f-49eef17af024',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/SO',
+          'format' => NULL,
+          'safe_value' => 'E/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Cergy - Pontoise (A15)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '241898f3-5914-4655-abbc-242cdb6d877e',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 10,
+          'format' => NULL,
+          'safe_value' => 10,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Saône et Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '241ffbe0-2340-4b5d-9965-350d6870d4fc',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 71,
+          'format' => NULL,
+          'safe_value' => 71,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Languedoc-Roussillon',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Meuse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '25a2ec0d-fffd-4fa2-9bbe-8d6ae3d0deb7',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 55,
+          'format' => NULL,
+          'safe_value' => 55,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Indre et Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '26770375-6b9e-47e3-a2d6-3accefee5155',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 37,
+          'format' => NULL,
+          'safe_value' => 37,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/NORD-OUEST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '26c0c4b7-d828-486f-8384-7d6edf91a3e6',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/NO/SE',
+          'format' => NULL,
+          'safe_value' => 'N/NO/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Métro',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '26cd475e-28a5-40a2-bccc-da0415bfb37b',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2701a262-855c-4883-9d7e-d15473caacbf',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO/E',
+          'format' => NULL,
+          'safe_value' => 'SO/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rond-point',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '276d7b76-6396-4d1c-af66-baa74b08ffa7',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RTE',
+          'format' => NULL,
+          'safe_value' => 'RTE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Indisponible',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '279b27ff-ea86-45d2-a40c-3299c552eaff',
+    'vocabulary_machine_name' => 'status_logement',
+    'field_id_xls' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+          'format' => NULL,
+          'safe_value' => 0,
+        ),
+      ),
+    ),
+    'field_id_file' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Hautes Pyrénées',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '283a2ca6-cbfb-4dbb-900a-e29d94bfa879',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 65,
+          'format' => NULL,
+          'safe_value' => 65,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Nord',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '293206e6-be6a-490a-ac8d-a6e60d9f65ec',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 59,
+          'format' => NULL,
+          'safe_value' => 59,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '48 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2957222b-28d0-4cf9-a2cc-a36f721132b0',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 48,
+          'format' => NULL,
+          'safe_value' => 48,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '1 chambre',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '299737cd-f31f-4cc5-b311-e070f342ff93',
+    'vocabulary_machine_name' => 'nb_chambres',
+    'field_id_nombre_chambre' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Vendu',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2a1ebc1a-7f40-4d29-bab2-b9c6397d61ee',
+    'vocabulary_machine_name' => 'status_logement',
+    'field_id_xls' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+          'format' => NULL,
+          'safe_value' => 3,
+        ),
+      ),
+    ),
+    'field_id_file' => array(),
+  );
+  $terms[] = array(
+    'name' => '3 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2a6ed22e-3b60-4c2c-9c5d-c16b115fa058',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+          'format' => NULL,
+          'safe_value' => 3,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2ab1305f-03ac-4c26-b5cf-1afe704cd856',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/NO',
+          'format' => NULL,
+          'safe_value' => 'S/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Val d’Oise',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2ac0a62c-23f6-43e7-ae30-a64d153ef7c8',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 95,
+          'format' => NULL,
+          'safe_value' => 95,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Senart (A5)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2b0e7ea9-2270-4278-9144-9e7c75728510',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 5,
+          'format' => NULL,
+          'safe_value' => 5,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haute Saône',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2b2eab0c-fab2-4270-b700-8da075b1e1aa',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 70,
+          'format' => NULL,
+          'safe_value' => 70,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2bd06909-7527-4706-b602-8531f56d8e78',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/S',
+          'format' => NULL,
+          'safe_value' => 'O/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-EST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2c4adc17-a28c-47ba-bb65-6187cc3b12cb',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SE/NO',
+          'format' => NULL,
+          'safe_value' => 'SE/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '40 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2cbb42f6-8886-48f7-a942-97baee33057d',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 40,
+          'format' => NULL,
+          'safe_value' => 40,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2d497ca4-af3d-42fd-9052-deaa091ecebc',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO',
+          'format' => NULL,
+          'safe_value' => 'SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/NORD/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2e1e9c78-ef48-405a-b80a-997f27bece88',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/N/E',
+          'format' => NULL,
+          'safe_value' => 'O/N/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Boucle',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2eb333ad-9d30-4213-b570-c131241c07b3',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'BCL',
+          'format' => NULL,
+          'safe_value' => 'BCL',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ardennes',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2feb3635-c49a-4302-bf05-eefb6179e534',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '08',
+          'format' => NULL,
+          'safe_value' => '08',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '5 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '2fed0587-b291-4197-baea-c605d4cdb7ac',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 5,
+          'format' => NULL,
+          'safe_value' => 5,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Terrain',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '308d752f-c501-4e8a-82f3-117c5c7ce82d',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'TE',
+          'format' => NULL,
+          'safe_value' => 'TE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bas Rhin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '30ae1249-021a-425f-b9f6-2c8140b77d4e',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 67,
+          'format' => NULL,
+          'safe_value' => 67,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Hautes Alpes',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3181a5ba-87bf-41c2-8a02-d54c9553147f',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '05',
+          'format' => NULL,
+          'safe_value' => '05',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3191957f-9561-4321-a7e6-85ceb9d000ee',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/O',
+          'format' => NULL,
+          'safe_value' => 'S/O',
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'NULL',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'b0f40aa1-4ca0-4d11-b0da-b6dfae2d1723',
+    'uuid' => '31d089a4-2f6d-48a1-b416-a595ac4d2b0f',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1066,10 +1346,10 @@ function kandb_taxonomy_uuid_features_default_terms() {
   );
   $terms[] = array(
     'name' => 'Indre',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'b391561b-c72a-43f4-a468-d03edfdae49e',
+    'uuid' => '3238ac0d-e339-4842-a3e2-a340cf166756',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1082,215 +1362,53 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Maine et Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD-OUEST/SUD-EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'b5cf7be7-ba77-4e2a-8d14-a31be287b755',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '32a99ce8-c042-4188-8cb6-0a42d9c56123',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 49,
+          'value' => 'NO/NE/SO',
           'format' => NULL,
-          'safe_value' => 49,
+          'safe_value' => 'NO/NE/SO',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Vosges',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Champagne-Ardenne',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'b60b53fb-6e0a-45d5-8a42-61e982faa4b2',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 88,
-          'format' => NULL,
-          'safe_value' => 88,
-        ),
-      ),
-    ),
+    'uuid' => '3380aa03-777c-4c87-b45e-b86c01198a7d',
+    'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
-    'name' => 'Drôme',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Eure et Loire',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'b6ea5411-6eab-4367-9ca8-06d3940ba181',
+    'uuid' => '348b40c2-22af-47f1-a527-064943f2d629',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => 26,
+          'value' => 28,
           'format' => NULL,
-          'safe_value' => 26,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Lozère',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'b76d7564-c487-46ab-87ab-7201a78fd526',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 48,
-          'format' => NULL,
-          'safe_value' => 48,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Orne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'b90a3e3c-2618-4321-abb4-edcd067647b0',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 61,
-          'format' => NULL,
-          'safe_value' => 61,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Sarthe',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'ba2c8bc8-0d8a-4310-bd66-9a87a094fb11',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 72,
-          'format' => NULL,
-          'safe_value' => 72,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Deux Sèvres',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'bde24e77-e357-43fe-985e-d0b511dadd44',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 79,
-          'format' => NULL,
-          'safe_value' => 79,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Seine Maritime',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'bf1b303e-e8e2-4c2a-bbd6-c62098dfb1dd',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 76,
-          'format' => NULL,
-          'safe_value' => 76,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Haute Marne',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'c06786f6-2124-4b6c-8221-01b5ae14bd04',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 52,
-          'format' => NULL,
-          'safe_value' => 52,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Yvelines',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'c082b577-2c73-4114-b851-09b548cdf03d',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 78,
-          'format' => NULL,
-          'safe_value' => 78,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Hauts de Seine',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'c1b72e0f-f332-4c02-b759-0ba904270312',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 92,
-          'format' => NULL,
-          'safe_value' => 92,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Tarn',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'caadd915-4620-4612-ad96-31953f029523',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
-      'und' => array(
-        0 => array(
-          'value' => 81,
-          'format' => NULL,
-          'safe_value' => 81,
+          'safe_value' => 28,
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Haute Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'd35899d3-3f66-44db-98b1-a81082cc3277',
+    'uuid' => '3576f04c-dba7-4236-8bac-47cd078b7ea4',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1303,164 +1421,350 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Doubs',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '5 chambres et +',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'd4753597-8dea-4291-a335-49b4ad016c75',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '371e28aa-e96c-41bc-80f8-d1e48890de42',
+    'vocabulary_machine_name' => 'nb_chambres',
+    'field_id_nombre_chambre' => array(
       'und' => array(
         0 => array(
-          'value' => 25,
+          'value' => 5,
           'format' => NULL,
-          'safe_value' => 25,
+          'safe_value' => 5,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Hérault',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Appartement',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'd672ec97-aa5b-407f-a00d-a67c6bf54a43',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '375f3578-f03b-455c-894a-2ad3891cdfba',
+    'vocabulary_machine_name' => 'type_de_programme',
+    'field_id_type_programme' => array(
       'und' => array(
         0 => array(
-          'value' => 34,
+          'value' => 'AP',
           'format' => NULL,
-          'safe_value' => 34,
+          'safe_value' => 'AP',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Var',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'NORD-OUEST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'de54d1b2-f2e9-415f-8f55-802cc2e0d54a',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '37ca1d5f-90b4-4bb9-8a4b-1a88e2234457',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 83,
+          'value' => 'NO/NE',
           'format' => NULL,
-          'safe_value' => 83,
+          'safe_value' => 'NO/NE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Ain',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '20 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'df171e69-d5aa-4bd3-969b-18abdc862b9a',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '38e9e858-2876-4179-9293-2dd22a54419f',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => '01',
+          'value' => 20,
           'format' => NULL,
-          'safe_value' => '01',
+          'safe_value' => 20,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Alpes Maritimes',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Cité',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'df4c9b9b-c26a-4db2-a223-92537aef85c5',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '394ad147-55c9-46ba-aebc-c0c76edd5fe2',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
       'und' => array(
         0 => array(
-          'value' => '06',
+          'value' => 'CTE',
           'format' => NULL,
-          'safe_value' => '06',
+          'safe_value' => 'CTE',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Creuse',
-    'description' => NULL,
-    'format' => NULL,
-    'weight' => 0,
-    'uuid' => 'e2e264f8-5230-4a42-b69d-2800588bf434',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'name' => '3 pièces',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 2,
+    'uuid' => '3a4f2eea-49e2-4685-98f9-fcba42923122',
+    'vocabulary_machine_name' => 'nb_pieces',
+    'field_id_nombre_pieces' => array(
       'und' => array(
         0 => array(
-          'value' => 23,
+          'value' => 3,
           'format' => NULL,
-          'safe_value' => 23,
+          'safe_value' => 3,
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Haute Saône',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => '4 / 5 éme étage',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'e7d0d6ea-2b07-4af8-80ff-b7a0ac286bda',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '3a5d7cf8-3e1e-488b-9c14-e57c9b085c99',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 70,
+          'value' => '4/5',
           'format' => NULL,
-          'safe_value' => 70,
+          'safe_value' => '4/5',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Saône et Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'OUEST/NORD-OUEST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'e92faf6d-726a-445d-8389-830e9276b8aa',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => '3bf70a96-4d19-4549-b12f-865253c25c07',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
       'und' => array(
         0 => array(
-          'value' => 71,
+          'value' => 'O/NO/E',
           'format' => NULL,
-          'safe_value' => 71,
+          'safe_value' => 'O/NO/E',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Val d’Oise',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Vendée',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'eadca26f-5547-4fb9-9630-eb5da5486747',
+    'uuid' => '3c37ec05-3e2f-4e5f-8b0b-e247733830a6',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => 95,
+          'value' => 85,
           'format' => NULL,
-          'safe_value' => 95,
+          'safe_value' => 85,
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => '37 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3da33725-eb59-4568-918c-066e6fe0e453',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 37,
+          'format' => NULL,
+          'safe_value' => 37,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Voie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3efa52bd-f952-4c40-8961-35711b0aafbb',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'VOI',
+          'format' => NULL,
+          'safe_value' => 'VOI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '6 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3fb90b60-cf12-430b-9bd3-dad197d2a82d',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+          'format' => NULL,
+          'safe_value' => 6,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ariège',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '3fdaf07d-a83f-4b8c-9e22-b084c1c6d92d',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '09',
+          'format' => NULL,
+          'safe_value' => '09',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Seine Maritime',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '400cc223-0b5d-4a37-893b-b9d13eaca82c',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 76,
+          'format' => NULL,
+          'safe_value' => 76,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/SUD/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4135563b-94b9-4459-8cc6-bad8c7f4ba2d',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/S/E',
+          'format' => NULL,
+          'safe_value' => 'O/S/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '4 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '41d752d7-a74b-4dfc-b0ef-04f74d215ed6',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4,
+          'format' => NULL,
+          'safe_value' => 4,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Franche-Comté',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '41d8bb9b-54f3-469a-b1b9-4468c81c9052',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'EST/SUD/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '43bf6fbf-c93a-49c6-bd3a-cc6fe178cdf6',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/S/O',
+          'format' => NULL,
+          'safe_value' => 'E/S/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '44218683-7765-4cb7-a7f9-839ef1abadfe',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/N/O',
+          'format' => NULL,
+          'safe_value' => 'E/N/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '44252904-8b8c-44b7-ab33-d53cdf3e0866',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/E',
+          'format' => NULL,
+          'safe_value' => 'N/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Lorraine',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4497554f-08f7-49c7-8444-654ccf21706e',
+    'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
     'name' => 'Loire Atlantique',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'eb4e5a9a-82f9-4883-9a7e-1f4fb1d93999',
+    'uuid' => '45e356fc-4cac-42e4-8980-d6b19e4ff987',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1473,11 +1777,1679 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Cantal',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Centre-Val de Loire',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'eccdcca3-7f89-40b9-8d15-20528a38d2b7',
+    'uuid' => '469810b2-f030-48c0-b738-ea05610c4c25',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'EST/SUD-EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '47080ee4-4ddd-4c48-8d65-bb11c5bd33be',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/SE/SO',
+          'format' => NULL,
+          'safe_value' => 'E/SE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Paris',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '47acc6f3-02b0-4bd5-ab2f-4c9b02f8031a',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 75,
+          'format' => NULL,
+          'safe_value' => 75,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '47bdf498-f94f-4bf9-84c9-fba6b05e4acc',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/NO',
+          'format' => NULL,
+          'safe_value' => 'O/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '17 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '47c7b9e3-8d0e-47a8-afa8-a289800e3c49',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 17,
+          'format' => NULL,
+          'safe_value' => 17,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Hautes Pyrénées',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '480e95d7-5acd-4fa8-945a-9f05505d5cc1',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 66,
+          'format' => NULL,
+          'safe_value' => 66,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Lot',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4c4fb422-adf9-4243-a34f-681eb7f29a40',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 46,
+          'format' => NULL,
+          'safe_value' => 46,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '47 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4d4b38e4-a0e9-41ab-bf2b-e01536e3d89e',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 47,
+          'format' => NULL,
+          'safe_value' => 47,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Alsace',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4d6388c5-ecb4-4bb9-891f-34ed939b5ac8',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'ter, Rue',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4daee5c3-f596-4f20-8d19-8f1c3af4c5af',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RUT',
+          'format' => NULL,
+          'safe_value' => 'RUT',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '39 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4defde69-cc07-4ac1-8ed2-be31af155d43',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 39,
+          'format' => NULL,
+          'safe_value' => 39,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Loiret',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4ee19619-5670-45cf-8a78-774e3b45a281',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 45,
+          'format' => NULL,
+          'safe_value' => 45,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Lot et Garonne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4ef05e8c-1c41-404d-8989-d37d051b0778',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 47,
+          'format' => NULL,
+          'safe_value' => 47,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Val de Marne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '4fec5dda-d0b6-445e-9f12-4a1ac5fb5351',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 94,
+          'format' => NULL,
+          'safe_value' => 94,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/OUEST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '511250d6-8bb8-4e61-9ca9-d0cbc3f0f557',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/O/SE',
+          'format' => NULL,
+          'safe_value' => 'N/O/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Garage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5148ccda-8c3b-4636-b9b3-fdfa0f97368b',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Corrèze',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '518d422d-7f6f-49aa-a4c1-3583830dd979',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 19,
+          'format' => NULL,
+          'safe_value' => 19,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Yonne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '51fd7b43-fb19-4779-8c14-38b72894ef30',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 89,
+          'format' => NULL,
+          'safe_value' => 89,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Boulevard',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '53006eb0-2544-4386-863d-ecc2a374f3fa',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'BLD',
+          'format' => NULL,
+          'safe_value' => 'BLD',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Gard',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '530d3660-070f-48ea-8a50-cf0956b8e426',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 30,
+          'format' => NULL,
+          'safe_value' => 30,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Calvados',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '532adf46-4fb1-475f-9c84-831fbb8f986b',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 14,
+          'format' => NULL,
+          'safe_value' => 14,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-EST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '53957054-3945-434c-b14a-61866093e0e7',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SE/O',
+          'format' => NULL,
+          'safe_value' => 'SE/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '30 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '53f27edc-cc64-4249-b35e-ab6280a70f73',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 30,
+          'format' => NULL,
+          'safe_value' => 30,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Vallée de Seine (A6)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '54255144-fcba-4523-9f68-1761c198549b',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 7,
+          'format' => NULL,
+          'safe_value' => 7,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'bis, Rue',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '547e7237-77a4-4fea-b797-81f9a945081f',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RUB',
+          'format' => NULL,
+          'safe_value' => 'RUB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rond-point',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '57bcf7df-5fa7-47c2-ad54-af4d44e3212d',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RPO',
+          'format' => NULL,
+          'safe_value' => 'RPO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '15 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '58072d31-59a0-4970-b95d-0f78b90d7fa8',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 15,
+          'format' => NULL,
+          'safe_value' => 15,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Seine Saint Denis',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '583db210-9bf6-40a9-8779-3fc0da3ae275',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 93,
+          'format' => NULL,
+          'safe_value' => 93,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/OUEST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '58a407dd-e2a0-403f-bd0d-bac9104833ed',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/O/N',
+          'format' => NULL,
+          'safe_value' => 'S/O/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Hérault',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '59116692-98a6-49d2-b8d6-af5aadae15d6',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 34,
+          'format' => NULL,
+          'safe_value' => 34,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Pyrénées Orientales',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5a176ae6-7a94-4ee6-8978-f07613a1f624',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 66,
+          'format' => NULL,
+          'safe_value' => 66,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haute Garonne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5b1f3e5b-6360-4f55-a65e-502d633707b7',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 31,
+          'format' => NULL,
+          'safe_value' => 31,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '36 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5b406ee2-02b4-4970-a2ca-55382c521730',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 36,
+          'format' => NULL,
+          'safe_value' => 36,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Dernier étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5bcb4a56-fc94-46f2-ae83-085390b44107',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Picardie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5bdda1cb-4966-4de4-887e-afc57210699b',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Breguet',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5c1cf8a0-2ec1-4246-886b-e75bbf71cad4',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'BREG',
+          'format' => NULL,
+          'safe_value' => 'BREG',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Vaucluse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5cbde678-e78a-450a-866b-e1c43e44d381',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 84,
+          'format' => NULL,
+          'safe_value' => 84,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Provence-Alpes-Côte d\'Azur',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Ascenseur',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5d51c992-aaae-44ac-a276-0339c23ab874',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'SUD-EST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5f0bb8f7-0f6f-4041-baab-c4190213dc9b',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SE/N',
+          'format' => NULL,
+          'safe_value' => 'SE/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Promenade',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5f768bab-fdab-45d7-9cd8-c55ae797ac57',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PRM',
+          'format' => NULL,
+          'safe_value' => 'PRM',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '604b4872-5e46-4882-9a32-906320332376',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/N',
+          'format' => NULL,
+          'safe_value' => 'O/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6212f3d6-7025-4efe-886a-1fa303002dcb',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/SE',
+          'format' => NULL,
+          'safe_value' => 'N/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '62c497a6-3f31-4f48-b4cc-5deff60e6e32',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE/SE',
+          'format' => NULL,
+          'safe_value' => 'NE/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '25 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '647e1ac9-ac6f-4626-a640-98fb38eb6a70',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 25,
+          'format' => NULL,
+          'safe_value' => 25,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Yvelines',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '65284820-f7bc-400c-80c3-0499513b7415',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 78,
+          'format' => NULL,
+          'safe_value' => 78,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Séfima',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6668a41d-3dd2-4bdf-b42b-e5c5ccb2d3bf',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SEFI',
+          'format' => NULL,
+          'safe_value' => 'SEFI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '69d9f43d-b529-4603-984f-ac76dc76421f',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/O',
+          'format' => NULL,
+          'safe_value' => 'E/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bureau',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '69f51529-9f8b-4277-a814-bb61194ec3ec',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'BU',
+          'format' => NULL,
+          'safe_value' => 'BU',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Malardeau',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6a771d1e-1a34-403a-8aa8-7cd20ee92685',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'MALA',
+          'format' => NULL,
+          'safe_value' => 'MALA',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/NORD/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6b65c8de-9e0d-44e2-9158-d0bec968f458',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/N/E',
+          'format' => NULL,
+          'safe_value' => 'S/N/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '2 chambres',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6b8c6264-5020-4a8f-9a6c-e7b4dae4224d',
+    'vocabulary_machine_name' => 'nb_chambres',
+    'field_id_nombre_chambre' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '23 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6bd43437-7dd3-4806-8740-9a870e02cff9',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 23,
+          'format' => NULL,
+          'safe_value' => 23,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6bd7fe34-e3fd-43c9-b7b1-c9d84c47425a',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/SO',
+          'format' => NULL,
+          'safe_value' => 'S/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bourgogne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6c06d578-8854-41e1-bd22-fce6565ea461',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Résidence',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6c660e09-fd85-4279-bf8f-b7553475ab50',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RSD',
+          'format' => NULL,
+          'safe_value' => 'RSD',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '14 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6f21a86b-4b44-4d6f-9cab-53512fdf9271',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 14,
+          'format' => NULL,
+          'safe_value' => 14,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haute Savoie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6f8256d0-dd43-4705-b4bb-afcc804e0a66',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 74,
+          'format' => NULL,
+          'safe_value' => 74,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Alpes Maritimes',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '6fb0012f-445b-4a0b-bb13-67b6202818a4',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '06',
+          'format' => NULL,
+          'safe_value' => '06',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '22 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '70224639-a573-4ec6-ad43-1247eab9bc95',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 22,
+          'format' => NULL,
+          'safe_value' => 22,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Centre-Val de Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '70d05726-8ab4-40c3-b575-f6bf40e3ad12',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => '5 / 6 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '726e075d-3b2b-4b10-b42c-8d5008beb705',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => '5/6',
+          'format' => NULL,
+          'safe_value' => '5/6',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NULL',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '727bf68e-3f8c-4684-a799-294ef6ec085b',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NP',
+          'format' => NULL,
+          'safe_value' => 'NP',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '72f05584-eac4-48a7-b39e-8fdf2d9ff2e7',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 42,
+          'format' => NULL,
+          'safe_value' => 42,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST/EST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '73766474-a781-45f7-9cb9-d8ec128e5685',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO/E/N',
+          'format' => NULL,
+          'safe_value' => 'SO/E/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7465442d-3a0c-4cfa-99fc-6584803a1829',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE/SO',
+          'format' => NULL,
+          'safe_value' => 'NE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'St Quentin en Yvelines (N118 – A12)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '74fbd30f-1d13-4571-b205-7d46b1274578',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 9,
+          'format' => NULL,
+          'safe_value' => 9,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Charente Maritime',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '760cff33-3980-4233-9a46-c0c5c092c6ed',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 17,
+          'format' => NULL,
+          'safe_value' => 17,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Marne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '77d01d0b-59af-4358-a5c0-651aa8fd6c6f',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 51,
+          'format' => NULL,
+          'safe_value' => 51,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Duplex en sous-sol',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '78283b3f-6ad6-4940-9739-b79bf1c43fae',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => -2,
+          'format' => NULL,
+          'safe_value' => -2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Loir et Cher',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '79529570-ac1d-4eb2-a669-d975285be0f0',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 41,
+          'format' => NULL,
+          'safe_value' => 41,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '3 / 4 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '798623c0-b37e-4257-aadd-002506339b31',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => '3/4',
+          'format' => NULL,
+          'safe_value' => '3/4',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'TVA 7%',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7a064e09-fa16-4bc1-981a-d5e4f0e92c2e',
+    'vocabulary_machine_name' => 'tva',
+    'field_facteur' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0.007,
+          'format' => NULL,
+          'safe_value' => 0.007,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7c254eef-edfa-4538-9cfc-2acfb38d984d',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/E',
+          'format' => NULL,
+          'safe_value' => 'O/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Train',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7ef30dbc-1f5f-4f9d-b6ac-113fc66e0ac9',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Hauts de Seine',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7f1b411b-f992-4faf-beb9-86c2b20e883b',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 92,
+          'format' => NULL,
+          'safe_value' => 92,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/NORD/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7f6cc42d-3a10-41a6-b69b-778f96460e63',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/N/NE',
+          'format' => NULL,
+          'safe_value' => 'S/N/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '42 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7f85e77a-8c27-4931-bfda-bdd661f7fd2c',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 42,
+          'format' => NULL,
+          'safe_value' => 42,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bouches du Rhône',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7fbbb588-11ed-41cd-9f59-6d157614d3d6',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 13,
+          'format' => NULL,
+          'safe_value' => 13,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Creuse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '7ff8253f-5cb3-4070-a5af-cb5745c0b6a4',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 23,
+          'format' => NULL,
+          'safe_value' => 23,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Entre sol',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '80784aae-72ea-4a37-addb-f51d9b253de9',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/S',
+          'format' => NULL,
+          'safe_value' => 'E/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8139b86a-2de4-4e79-aeb5-b04ff9f28d80',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/SE',
+          'format' => NULL,
+          'safe_value' => 'NO/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Groupe Avantis',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '81b0edaf-ff70-42da-9453-46fabfce5a94',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'AVAN',
+          'format' => NULL,
+          'safe_value' => 'AVAN',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Local-activité',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '83606e01-5605-4229-a58b-e2ce9606be24',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'AC',
+          'format' => NULL,
+          'safe_value' => 'AC',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Île-de-France',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'NORD/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '83f1a137-c8b7-4a0b-b69e-d3b3b0e17d2e',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/SO',
+          'format' => NULL,
+          'safe_value' => 'N/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '44 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '850b39e7-cf19-4343-8fb7-4e694096fdfe',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 44,
+          'format' => NULL,
+          'safe_value' => 44,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SMCI',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '85a702fc-fa0a-4a0a-9033-e6ea7fc6577a',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SMCI',
+          'format' => NULL,
+          'safe_value' => 'SMCI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Landes',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '85c46f64-2f60-41e5-b803-03b85454be5a',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 40,
+          'format' => NULL,
+          'safe_value' => 40,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST/SUD-EST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '87c25caf-71ec-41aa-9a89-b81c445baa6c',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO/SE/NE',
+          'format' => NULL,
+          'safe_value' => 'SO/SE/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bati Service',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8a589dc3-c305-4b4d-af15-d654e4541730',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'BATI',
+          'format' => NULL,
+          'safe_value' => 'BATI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '3 chambres',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8ae4c2a6-528d-4646-bdca-71a6275f3463',
+    'vocabulary_machine_name' => 'nb_chambres',
+    'field_id_nombre_chambre' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+          'format' => NULL,
+          'safe_value' => 3,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ain',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8ae85039-3fb2-49e4-95d3-ad92bdc4f932',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '01',
+          'format' => NULL,
+          'safe_value' => '01',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '29 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8b9dbb89-b231-4dc3-823e-f7064b9d006f',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 29,
+          'format' => NULL,
+          'safe_value' => 29,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haut Rhin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8cc637bd-9dbf-43ba-b748-ad62d2ff9389',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 68,
+          'format' => NULL,
+          'safe_value' => 68,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haute-Normandie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8dde61bb-dd29-47b5-9f86-ece9e51b8af0',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8e4a2849-1151-4b94-9ee4-d451fef74840',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/O',
+          'format' => NULL,
+          'safe_value' => 'NO/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Disponible / Libre',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8f3a55c4-5d44-49fe-b4f4-63aa54abeb38',
+    'vocabulary_machine_name' => 'status_logement',
+    'field_id_xls' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
+        ),
+      ),
+    ),
+    'field_id_file' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'L',
+          'format' => NULL,
+          'safe_value' => 'L',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Midi-Pyrénées',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'NORD/EST/OUEST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '91084ca0-fbf8-48c2-86e5-d810e544e2f7',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/E/O/S',
+          'format' => NULL,
+          'safe_value' => 'N/E/O/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Square',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '91fe069e-9f03-4e9c-ad24-ecb7bea67e2f',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SQU',
+          'format' => NULL,
+          'safe_value' => 'SQU',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '934cc1ee-da64-47bf-bc98-a193fb985f13',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE/NO',
+          'format' => NULL,
+          'safe_value' => 'NE/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Gironde',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9374e9eb-c82c-4121-b770-25c729b98ea3',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 33,
+          'format' => NULL,
+          'safe_value' => 33,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/NORD-EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '93febf63-e264-4606-a440-ca4c1d662db2',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/NE/SO',
+          'format' => NULL,
+          'safe_value' => 'NO/NE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'RER',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '94142950-8942-4790-a010-57d95ba8fb1f',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Cantal',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '97f00011-b282-4d8b-9183-c379e8b5fa11',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1490,11 +3462,850 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Finistère',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Haute Marne',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'f36c4490-1c27-41c9-beed-7010918b5dbb',
+    'uuid' => '98133f64-c362-474b-85d9-f0008756a1f5',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 52,
+          'format' => NULL,
+          'safe_value' => 52,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '35 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '994258ef-310b-4825-8d50-41819d6a4100',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 35,
+          'format' => NULL,
+          'safe_value' => 35,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/EST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '99718fa4-0010-431b-b170-dae244e60273',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/E/O',
+          'format' => NULL,
+          'safe_value' => 'S/E/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Cour',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9c137eba-7ce0-4fa8-9d44-5451d21df765',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'COU',
+          'format' => NULL,
+          'safe_value' => 'COU',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '33 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9c3177a5-5022-415d-b5a9-541a6ee47290',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 33,
+          'format' => NULL,
+          'safe_value' => 33,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '12 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9cbc5f1d-95c4-4c2f-a2dc-24e34d60c5ab',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 12,
+          'format' => NULL,
+          'safe_value' => 12,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '27 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9d6dceb2-f7b6-43f2-b3a7-29e0af745a07',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 27,
+          'format' => NULL,
+          'safe_value' => 27,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sente',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9df0ee89-226b-4475-9635-dfdf67f10276',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SEN',
+          'format' => NULL,
+          'safe_value' => 'SEN',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Maison',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '9f66a0c0-6c3b-4d71-aaeb-ca16876e8b1d',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'MA',
+          'format' => NULL,
+          'safe_value' => 'MA',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Parking',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a0a2ea9e-c580-4651-a52a-36a8bbd5be8d',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PKG',
+          'format' => NULL,
+          'safe_value' => 'PKG',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Parking',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a1e14c18-39e8-425a-9ed2-96071bed666c',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'SUD/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a325dee0-d60a-411f-b76d-f0605ad264e0',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/NE',
+          'format' => NULL,
+          'safe_value' => 'S/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Doubs',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a3bf4254-a630-42cc-8e80-9a5b8fa12e90',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 25,
+          'format' => NULL,
+          'safe_value' => 25,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Tarn et Garonne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a3e78396-0b05-4027-b907-d31b2b88dff8',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 82,
+          'format' => NULL,
+          'safe_value' => 82,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Commerce',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a51933e5-17a8-42bf-98de-93ebe1907f9c',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'CO',
+          'format' => NULL,
+          'safe_value' => 'CO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a6462b4e-970c-4922-a6c3-9385adf756be',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/SE',
+          'format' => NULL,
+          'safe_value' => 'S/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Aveyron',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a657ceb4-c27e-40ba-ba94-6e0cea362c48',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 12,
+          'format' => NULL,
+          'safe_value' => 12,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '26 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a783dad3-9fb1-4287-a15f-874e715af919',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 26,
+          'format' => NULL,
+          'safe_value' => 26,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a7e33cfd-0728-4c53-8a50-1f3f431a5e93',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/N',
+          'format' => NULL,
+          'safe_value' => 'NO/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Plain pied',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a8201918-c5b0-468d-83a7-d19d23900e50',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PPD',
+          'format' => NULL,
+          'safe_value' => 'PPD',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Aquitaine',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Pyrénées Atlantiques',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'aa69fb97-d8f5-41d0-9090-61f72e9a6e7d',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 64,
+          'format' => NULL,
+          'safe_value' => 64,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Garonor – Aéroport Charles de Gaulle (A1)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'aac28985-1798-4e1d-8ae6-095f89fd0600',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 6,
+          'format' => NULL,
+          'safe_value' => 6,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ardèche',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'abcb384a-099b-4ab6-a0c2-4efe7149aa8e',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '07',
+          'format' => NULL,
+          'safe_value' => '07',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Place',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ac9ed056-7672-4a7e-9f38-7039a092e1a4',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PLA',
+          'format' => NULL,
+          'safe_value' => 'PLA',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Franck Arthur Promotion',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'aceca57b-df0d-4fd1-afbc-f879cc98b985',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'FAPR',
+          'format' => NULL,
+          'safe_value' => 'FAPR',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '34 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ad259271-3fa4-4964-9abc-d808ad1bad00',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 34,
+          'format' => NULL,
+          'safe_value' => 34,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Var',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ae672341-707e-4256-a856-419509831301',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 83,
+          'format' => NULL,
+          'safe_value' => 83,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Seine et Marne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'af26230b-d182-48e0-9158-cd4216219350',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 77,
+          'format' => NULL,
+          'safe_value' => 77,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ecoles',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'af354588-f627-435e-844d-98e82e6701dd',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => '46 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'afedb65d-cfde-40f8-9efd-43f7472ef6df',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 46,
+          'format' => NULL,
+          'safe_value' => 46,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '24 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b02531e8-b9a9-414e-b320-52e31f0af221',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 24,
+          'format' => NULL,
+          'safe_value' => 24,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Appartement',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b1037e21-c7b2-48f3-90bd-1be1ff496095',
+    'vocabulary_machine_name' => 'type_de_bien',
+    'field_id_type_bien' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'AP',
+          'format' => NULL,
+          'safe_value' => 'AP',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Maisons et appartements',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b16e053a-18c5-409c-bc98-e6bb7678d046',
+    'vocabulary_machine_name' => 'type_de_programme',
+    'field_id_type_programme' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'MI',
+          'format' => NULL,
+          'safe_value' => 'MI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b30dc16a-801b-4a4e-a2b4-9fa2242f058a',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N',
+          'format' => NULL,
+          'safe_value' => 'N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '31 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b3734fda-2bb4-4f4c-a42d-0a0f5374eadf',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 31,
+          'format' => NULL,
+          'safe_value' => 31,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sopra Promotion',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b3ff5d64-9bb2-4aae-bbaf-a3853e89c10e',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SOPR',
+          'format' => NULL,
+          'safe_value' => 'SOPR',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Jura',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b40ef5fc-06bd-4147-872d-9d92e02d4964',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 39,
+          'format' => NULL,
+          'safe_value' => 39,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Première',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b48f257f-ce5f-4609-ad2f-5b4fa9a7a9e5',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PRA',
+          'format' => NULL,
+          'safe_value' => 'PRA',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Avenue',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b5b61d6d-2e27-46f8-95b6-6f90eb0c3a4b',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'AVE',
+          'format' => NULL,
+          'safe_value' => 'AVE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Jardin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b62972cd-cf80-45bb-9f1c-eadb9147c7b1',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Isère',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b6e0cf45-ee7b-4fed-96c3-1339659654da',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 38,
+          'format' => NULL,
+          'safe_value' => 38,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Moselle',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b7811ff2-59d0-4b4e-9119-2d834e8a4573',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 57,
+          'format' => NULL,
+          'safe_value' => 57,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Marne la Vallée (A4)',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b82a56b6-79fc-45ce-a077-97f6547468b9',
+    'vocabulary_machine_name' => 'zone_activite',
+    'field_id_zone_activite' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'studio',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b9107d2a-b815-45bb-877a-c63c057b4918',
+    'vocabulary_machine_name' => 'nb_pieces',
+    'field_id_nombre_pieces' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '2 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'b9b63279-4a5f-4c45-a7e8-387fd0d7c24f',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'bb740b6b-3211-4a66-acc0-21ec890ab248',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/NO',
+          'format' => NULL,
+          'safe_value' => 'N/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Duplex',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'bc20f6fa-6ccf-4042-a450-69182e7a10c3',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => '8 / 9 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'bc3c226f-377f-4da2-a581-8b90e321c0a5',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => '8/9',
+          'format' => NULL,
+          'safe_value' => '8/9',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST/SUD-OUEST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'bfb09e15-0775-42fe-aaf0-ae1a9eff1291',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO/SO/SE',
+          'format' => NULL,
+          'safe_value' => 'NO/SO/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '4 chambres',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c1350f73-481c-47d4-8d3f-f2fcefdb237e',
+    'vocabulary_machine_name' => 'nb_chambres',
+    'field_id_nombre_chambre' => array(
+      'und' => array(
+        0 => array(
+          'value' => 4,
+          'format' => NULL,
+          'safe_value' => 4,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rez de chaussée',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c1c24a1f-83d1-4302-9d17-d467e97cb84f',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RDC',
+          'format' => NULL,
+          'safe_value' => 'RDC',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Finistère',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c20db490-dccc-4cd1-b2be-2ed770b8e7d8',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1507,45 +4318,1044 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Ille et Vilaine',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Poitou-Charentes',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'f66c9724-6b76-4d8e-b100-282c2edf011f',
-    'vocabulary_machine_name' => 'departement',
-    'field_numero_departement' => array(
+    'uuid' => 'c2433b6e-de2b-4d97-9820-25c734a23539',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => '7 / 8 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c3a3d627-8d36-403a-b707-2f8994ad38a1',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
       'und' => array(
         0 => array(
-          'value' => 35,
+          'value' => '7/8',
           'format' => NULL,
-          'safe_value' => 35,
+          'safe_value' => '7/8',
         ),
       ),
     ),
   );
   $terms[] = array(
-    'name' => 'Indre et Loire',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'Kaufman & Broad',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'f72f135e-c9b6-4d7b-a8b1-035c7fb80a01',
+    'uuid' => 'c3de611d-a132-4922-ac5a-cb421e6994f7',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'KETB',
+          'format' => NULL,
+          'safe_value' => 'KETB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/EST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c44ad114-da48-45db-a982-4f142338ea60',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/E/S',
+          'format' => NULL,
+          'safe_value' => 'N/E/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c457e6ff-d7f0-4eaf-8926-6788695e7568',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/SE',
+          'format' => NULL,
+          'safe_value' => 'E/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'ZAC',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c4b8a9ec-431f-47cf-8e55-71f66b10898d',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'ZAC',
+          'format' => NULL,
+          'safe_value' => 'ZAC',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Mail',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c743b5ac-ad0a-47b0-9753-8e7d81d118ea',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'MAL',
+          'format' => NULL,
+          'safe_value' => 'MAL',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Vienne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c784d86c-9870-449b-8968-c5a3fdf32769',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => 37,
+          'value' => 86,
           'format' => NULL,
-          'safe_value' => 37,
+          'safe_value' => 86,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '16 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c788cb50-b418-4be0-aaf5-70da4a082a42',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 16,
+          'format' => NULL,
+          'safe_value' => 16,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD/OUEST/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c7e41cc1-f3ba-433c-b938-c4e92934586a',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'ENOS',
+          'format' => NULL,
+          'safe_value' => 'ENOS',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c8362353-77ee-44bc-b624-71a318a3dc67',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NO',
+          'format' => NULL,
+          'safe_value' => 'NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/EST/OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c844a98f-d8eb-4607-8916-5a1f47842a27',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/E/O',
+          'format' => NULL,
+          'safe_value' => 'N/E/O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '28 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'c9dde75f-fc61-4339-a4f5-a746d094a093',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 28,
+          'format' => NULL,
+          'safe_value' => 28,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '49 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ca7d4636-fa1c-4086-93ab-3b1d2eb9c684',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 49,
+          'format' => NULL,
+          'safe_value' => 49,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rhône-Alpes',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cad37e79-ab59-4fb6-847f-192a808b4723',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 69,
+          'format' => NULL,
+          'safe_value' => 69,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Deux Sèvres',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cb5cc837-bf90-4a8f-8001-ba8b7475128c',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 79,
+          'format' => NULL,
+          'safe_value' => 79,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Gers',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cbb2cf68-072b-4b31-a535-8a3ce96e18a9',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 32,
+          'format' => NULL,
+          'safe_value' => 32,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Côte du Nord',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cca537c1-9484-4465-ad8b-fcfa532d6b18',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 22,
+          'format' => NULL,
+          'safe_value' => 22,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Terrasse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ce124ec1-4ade-4f49-9438-f47e8ab85e86',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST/SUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ce144d4c-603c-4a82-819e-a1789ba1a0af',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO/SE',
+          'format' => NULL,
+          'safe_value' => 'SO/SE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Commerces',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ce6f6fa8-9ab1-4bfb-b6d2-b627bf110818',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Basse-Normandie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cee77f25-0f4f-4df1-b910-97bd23cc6cb2',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'SUD/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cf162c93-48a4-41ab-ad7d-1f2521009348',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/N',
+          'format' => NULL,
+          'safe_value' => 'S/N',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Ter, Première',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cf553b87-c096-4ef5-8d36-bd0973b141f8',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PRT',
+          'format' => NULL,
+          'safe_value' => 'PRT',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Orne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'cff63adb-ebc8-4551-ab52-6b88d3012cca',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 61,
+          'format' => NULL,
+          'safe_value' => 61,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/SUD-OUEST/ESTNORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd00fc3f4-e20e-4167-bd91-167078e99ea5',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/SO/ENE',
+          'format' => NULL,
+          'safe_value' => 'S/SO/ENE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bretagne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd195a755-0e85-4200-8ee4-fb1d9d94b6da',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => '38 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd1d7ce06-ec39-4463-9219-7a57fccefe44',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 38,
+          'format' => NULL,
+          'safe_value' => 38,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd20dae9f-1e97-416f-b3e8-9414f100a7d7',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O/NE',
+          'format' => NULL,
+          'safe_value' => 'O/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Lieu-dit',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd26bbc03-0b21-481d-81a4-3992f22d2622',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'LIE',
+          'format' => NULL,
+          'safe_value' => 'LIE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NULL',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd2a0ccd5-c98b-4546-b2d8-25da5f75aa45',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => -1,
+          'format' => NULL,
+          'safe_value' => -1,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Passage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd2f20cd1-5bf6-42e8-9629-0acb5e748303',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PAS',
+          'format' => NULL,
+          'safe_value' => 'PAS',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Pays de la Loire',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'OUEST/SUD/EST/NORD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd3c00900-a0d9-41bf-bae9-b4bf997ba31d',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'OSEN',
+          'format' => NULL,
+          'safe_value' => 'OSEN',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '5 pièces et +',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 4,
+    'uuid' => 'd4e30183-42fa-43eb-b969-8aaf68a35ef2',
+    'vocabulary_machine_name' => 'nb_pieces',
+    'field_id_nombre_pieces' => array(
+      'und' => array(
+        0 => array(
+          'value' => 5,
+          'format' => NULL,
+          'safe_value' => 5,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Haute Vienne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd6954bc3-4e1b-4a44-8255-954aaa4f68f4',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 87,
+          'format' => NULL,
+          'safe_value' => 87,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '6 / 7 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd6d399ff-4905-4774-a180-eebab849c4ec',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => '6/7',
+          'format' => NULL,
+          'safe_value' => '6/7',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Impasse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd710126a-0f15-4c62-bd38-5d1e8dea895b',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'IMP',
+          'format' => NULL,
+          'safe_value' => 'IMP',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd749c6e5-01fc-41a2-92cd-869faff26bbb',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S',
+          'format' => NULL,
+          'safe_value' => 'S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '9 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd78e6186-b347-47d4-9b44-976213c4964b',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 9,
+          'format' => NULL,
+          'safe_value' => 9,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD/SUD-OUEST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd7ea1783-7e6f-4081-a2c9-1eb35f476df8',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'S/SO/E',
+          'format' => NULL,
+          'safe_value' => 'S/SO/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd9426980-5945-420b-917b-97e2249e1612',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/N/S',
+          'format' => NULL,
+          'safe_value' => 'E/N/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Corse',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd9847079-bf25-41d1-b303-1692142edb5c',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST/SUD-EST/EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd9b4b4ba-b571-4c1f-b1ff-3e7672e6c9ca',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE/SE/E',
+          'format' => NULL,
+          'safe_value' => 'NE/SE/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Patrimoine Compagnie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'd9dc895b-21bf-4353-b38d-211adc81c067',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PATR',
+          'format' => NULL,
+          'safe_value' => 'PATR',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Maison Individuelle',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'db7212df-0ccf-4f57-985c-156c1181338b',
+    'vocabulary_machine_name' => 'type_de_programme',
+    'field_id_type_programme' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'MA',
+          'format' => NULL,
+          'safe_value' => 'MA',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Eure',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'dc69ae93-c87b-498e-8eae-5f7bcfe602a5',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 27,
+          'format' => NULL,
+          'safe_value' => 27,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Charente',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'dd641565-a30d-4cd9-a8d7-6bc17bb0606f',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 16,
+          'format' => NULL,
+          'safe_value' => 16,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NULL',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ddbff50e-1f0a-43af-ba63-7fc447b2b1cd',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '2A',
+          'format' => NULL,
+          'safe_value' => '2A',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Park Promotion',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'dde7e372-b3c3-49ad-848e-dda77f70a220',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PARK',
+          'format' => NULL,
+          'safe_value' => 'PARK',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Manche',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'de27d119-861b-4e33-b1bc-44a074768fce',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 50,
+          'format' => NULL,
+          'safe_value' => 50,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '50 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'def76158-b58b-4889-9a92-011424e238fb',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 50,
+          'format' => NULL,
+          'safe_value' => 50,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Auvergne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e0850f4c-8001-4a5c-a4b1-434e0fe8a7b9',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Chemin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e11d0bf0-5d87-4d21-86fb-0e16c4f3ad26',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'CHE',
+          'format' => NULL,
+          'safe_value' => 'CHE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Dordogne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e122b0bf-0ff1-45b1-b0bd-8db900e84908',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 24,
+          'format' => NULL,
+          'safe_value' => 24,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORDNORD-OUEST/SUDSUD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e2b035af-cf8b-48c6-bf90-24c87889d2fc',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NNO/SSE',
+          'format' => NULL,
+          'safe_value' => 'NNO/SSE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-EST/SUD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e2cf82c8-e086-4252-95c8-f8bf1b26bd25',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SE/SO',
+          'format' => NULL,
+          'safe_value' => 'SE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Alpes de Haute Provence',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e31cdb4d-1a4a-4ba9-9e16-a96138c6438a',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => '04',
+          'format' => NULL,
+          'safe_value' => '04',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sous-Sol',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e37a2df0-c10e-46b6-9cb0-0bdbfc8f904b',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SS',
+          'format' => NULL,
+          'safe_value' => 'SS',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Lozère',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e3c2a47d-81eb-4f13-a78d-cdeddde7953d',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 48,
+          'format' => NULL,
+          'safe_value' => 48,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Quai',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e3ce50c7-e270-4164-9465-476aaca16e02',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'QU',
+          'format' => NULL,
+          'safe_value' => 'QU',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Vosges',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e42eb59c-b995-424d-a64e-0b1557aa96b4',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 88,
+          'format' => NULL,
+          'safe_value' => 88,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Tarn',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e57e5f80-028b-4427-b9fa-ba7b82ac4315',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 81,
+          'format' => NULL,
+          'safe_value' => 81,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '19 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e59be378-7b53-425c-8b71-e03e337d29b7',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 19,
+          'format' => NULL,
+          'safe_value' => 19,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Aude',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e87f2d35-92b8-41d6-8e50-b4ba9b75d4c6',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 11,
+          'format' => NULL,
+          'safe_value' => 11,
         ),
       ),
     ),
   );
   $terms[] = array(
     'name' => 'Essonne',
-    'description' => NULL,
-    'format' => NULL,
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'f732ce9c-84ac-412c-a890-c557cad90d21',
+    'uuid' => 'e8993471-4914-4ff5-995b-7ff34f9a4408',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
@@ -1558,18 +5368,501 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Ardèche',
-    'description' => NULL,
-    'format' => NULL,
+    'name' => 'EST/OUEST/NORD/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
     'weight' => 0,
-    'uuid' => 'fdd69392-db48-412d-92dc-1fb86a4e0039',
+    'uuid' => 'e8ca8666-41bf-4896-b977-04ffd658fd24',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/O/N/S',
+          'format' => NULL,
+          'safe_value' => 'E/O/N/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Aube',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'e998e8ea-e520-4b53-9e3d-9551681b71b2',
     'vocabulary_machine_name' => 'departement',
     'field_numero_departement' => array(
       'und' => array(
         0 => array(
-          'value' => '07',
+          'value' => 10,
           'format' => NULL,
-          'safe_value' => '07',
+          'safe_value' => 10,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Combles',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'eb308021-8a96-40d0-a13a-d79e6aa4c090',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'CMB',
+          'format' => NULL,
+          'safe_value' => 'CMB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD/SUD',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ec0dad20-0d92-4741-9cc2-457c1a168ac6',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'N/S',
+          'format' => NULL,
+          'safe_value' => 'N/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ec95e1dd-be41-40b3-a4c0-83ede8bf113e',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'O',
+          'format' => NULL,
+          'safe_value' => 'O',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Bis, Première',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'ecc9178a-c201-4d4f-81fe-32485a7e5a55',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'PRB',
+          'format' => NULL,
+          'safe_value' => 'PRB',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '2 pièces',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 1,
+    'uuid' => 'ed044a86-613b-4d55-9c77-46894a35f858',
+    'vocabulary_machine_name' => 'nb_pieces',
+    'field_id_nombre_pieces' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST/SUDEST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'eede3c50-71b4-44af-8c56-f532fdd2c3ed',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE/SE/NO',
+          'format' => NULL,
+          'safe_value' => 'NE/SE/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'efd2b9f0-9dfa-44bf-a972-7d37d10b582f',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/NO',
+          'format' => NULL,
+          'safe_value' => 'E/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Nord-Pas-de-Calais',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'efef5001-c9bf-4bce-9a08-4dece3b35b92',
+    'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'TVA 5.5%',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f2bfd133-479c-4e2d-9be2-0990fb7d0f4e',
+    'vocabulary_machine_name' => 'tva',
+    'field_facteur' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0.055,
+          'format' => NULL,
+          'safe_value' => 0.055,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Mayenne',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f3ef68b3-a2b5-4369-be32-1bbf570626cf',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 53,
+          'format' => NULL,
+          'safe_value' => 53,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '41 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f5c9fe37-fbd4-437e-999d-5ac847f23289',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 41,
+          'format' => NULL,
+          'safe_value' => 41,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'SUD-OUEST/SUD-EST/NORD-OUEST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f737a021-4d77-4abb-844d-32a4f3efa7d2',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SO/SE/NO',
+          'format' => NULL,
+          'safe_value' => 'SO/SE/NO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Morbihan',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f79f52df-6d05-4d9e-aea8-65026075ee7e',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 56,
+          'format' => NULL,
+          'safe_value' => 56,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '8 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f7d1d9eb-3568-4f1e-817d-09e5953f4a00',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 8,
+          'format' => NULL,
+          'safe_value' => 8,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '32 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f8598a34-7384-46a4-bfb7-f53619eaef30',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 32,
+          'format' => NULL,
+          'safe_value' => 32,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Savoie',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'f92736c4-0700-4686-890b-1f73e65fb799',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 73,
+          'format' => NULL,
+          'safe_value' => 73,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '21 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fa024a96-0665-4463-bba2-61d80787ea19',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 21,
+          'format' => NULL,
+          'safe_value' => 21,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fabdbfb0-9322-4363-a0f2-8941cc533d6b',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'NE',
+          'format' => NULL,
+          'safe_value' => 'NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sarthe',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'faddea7b-55a0-4af9-9c8b-55b505d1ce40',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 72,
+          'format' => NULL,
+          'safe_value' => 72,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Rez de jardin',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fb46c770-6d3c-47f6-94b3-c922e01748ec',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RDJ',
+          'format' => NULL,
+          'safe_value' => 'RDJ',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Allée',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fb4e2556-20dd-4dd9-b60b-e0783af2fd9b',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'ALL',
+          'format' => NULL,
+          'safe_value' => 'ALL',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Accès mobilité réduite',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fb85256f-7a45-4fc3-a657-fbfdf34452d4',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'EST/NORD-EST',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fbe6b11e-551c-401f-ba2b-35518adb2135',
+    'vocabulary_machine_name' => 'orientation',
+    'field_id_orientation' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'E/NE',
+          'format' => NULL,
+          'safe_value' => 'E/NE',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Sentier',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fc09ca3b-476b-45c9-94cc-d032e0c99e05',
+    'vocabulary_machine_name' => 'type_voie',
+    'field_id_type_voie' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'SNT',
+          'format' => NULL,
+          'safe_value' => 'SNT',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Résidence Bernard Teillaud',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fc3c1d8f-0b36-4720-bf02-aac92fd4cdc1',
+    'vocabulary_machine_name' => 'marque_commercialisation',
+    'field_id_marque_comm' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'RBTG',
+          'format' => NULL,
+          'safe_value' => 'RBTG',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Balcon',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fc53ec7e-9b0c-4720-8f10-e4436a6bf4a9',
+    'vocabulary_machine_name' => 'caracteristiques',
+  );
+  $terms[] = array(
+    'name' => 'Pas de Calais',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fc7c0c90-f10a-4b82-a493-686987ba88c5',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 62,
+          'format' => NULL,
+          'safe_value' => 62,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Drôme',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fd371496-99c7-452d-8cf0-b274dcfa0b11',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 26,
+          'format' => NULL,
+          'safe_value' => 26,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => '7 ème étage',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'fea8fda4-3162-4da3-b3e0-dac251b22b08',
+    'vocabulary_machine_name' => 'etage',
+    'field_id_etage' => array(
+      'und' => array(
+        0 => array(
+          'value' => 7,
+          'format' => NULL,
+          'safe_value' => 7,
         ),
       ),
     ),
