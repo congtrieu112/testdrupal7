@@ -7,7 +7,7 @@
 /**
  * Implements hook_views_default_views().
  */
-function kandb_recherche1_views_default_views() {
+function kandb_recherche_views_default_views() {
   $export = array();
 
   $view = new view();
