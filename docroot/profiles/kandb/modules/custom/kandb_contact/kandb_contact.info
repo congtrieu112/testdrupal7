@@ -1,0 +1,6 @@
+name = K&B contact
+core = 7.x
+description = Declare 2 blocks: Contact block page and Contact on summary
+package = K&B Development
+
+dependencies[] = kandb_webform

@@ -100,3 +100,4 @@ dependencies[] = kandb_webform
 
 ; Blocks
 dependencies[] = kandb_recherche
+dependencies[] = kandb_contact
