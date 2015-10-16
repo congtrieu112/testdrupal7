@@ -182,3 +182,19 @@ function kandb_update_7108(&$sandbox) {
     module_enable(array('kandb_webform'), TRUE);
   }
 }
+/**
+ * Enable "module youtube" feature
+ */
+function kandb_update_7109(&$sandbox) {
+  if (!module_exists('youtube')) {
+    module_enable(array('youtube'), TRUE);
+  }
+}
+/**
+ * Enable "Kandb article" feature
+ */
+function kandb_update_7110(&$sandbox) {
+  if (!module_exists('kandb_article')) {
+    module_enable(array('kandb_article'), TRUE);
+  }
+}

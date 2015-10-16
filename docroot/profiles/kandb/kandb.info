@@ -72,6 +72,7 @@ dependencies[] = job_scheduler
 dependencies[] = elysia_cron
 dependencies[] = block
 dependencies[] = webform
+dependencies[] = youtube
 
 ; Custom
 dependencies[] = kb_feeds
@@ -97,6 +98,7 @@ dependencies[] = kandb_reservation
 dependencies[] = kandb_selection
 dependencies[] = kandb_dashboard_b2c
 dependencies[] = kandb_webform
+dependencies[] = kandb_article
 
 ; Blocks
 dependencies[] = kandb_recherche
