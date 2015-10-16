@@ -1,7 +1,7 @@
 name = K&B Maison
 description = CT Maison
 core = 7.x
-package = undefined
+package = Kaufman & Broad
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = features
