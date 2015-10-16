@@ -19,7 +19,7 @@ function kandb_install() {
   variable_set('theme_default', $theme);
 
   // Enable admin theme.
-  $admin_theme = 'adminimal_theme';
+  $admin_theme = 'adminimal';
   theme_enable(array($admin_theme));
   variable_set('admin_theme', $admin_theme);
 
@@ -145,15 +145,6 @@ function kandb_update_7102(&$sandbox) {
 function kandb_update_7103(&$sandbox) {
   if (!module_exists('kandb_dashboard_b2c')) {
     module_enable(array('kandb_dashboard_b2c'), TRUE);
-  }
-}
-
-/**
- * Enable "Kandb region" feature
- */
-function kandb_update_7104(&$sandbox) {
-  if (!module_exists('kandb_region')) {
-    module_enable(array('kandb_region'), TRUE);
   }
 }
 

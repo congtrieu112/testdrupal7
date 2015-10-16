@@ -31,6 +31,7 @@ dependencies[] = entityreference
 dependencies[] = features
 dependencies[] = features_diff
 dependencies[] = field
+dependencies[] = field_ui
 dependencies[] = field_group
 dependencies[] = field_sql_storage
 dependencies[] = file
@@ -71,16 +72,15 @@ dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
 dependencies[] = block
+dependencies[] = webform
 
 ; Custom
 dependencies[] = kb_feeds
 dependencies[] = kb_import
 
 ; Features
-;dependencies[] = kandb_content
 dependencies[] = kandb_domains
 dependencies[] = kandb_taxonomy
-dependencies[] = kandb_region
 dependencies[] = kandb_ds
 dependencies[] = kandb_context
 dependencies[] = kandb_feed
@@ -97,6 +97,7 @@ dependencies[] = kandb_prospect_b2b
 dependencies[] = kandb_reservation
 dependencies[] = kandb_selection
 dependencies[] = kandb_dashboard_b2c
+dependencies[] = kandb_webform
 
 ; Blocks
 dependencies[] = kandb_recherche
