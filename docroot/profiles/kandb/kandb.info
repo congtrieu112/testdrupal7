@@ -66,6 +66,7 @@ dependencies[] = feeds
 dependencies[] = feeds_ui
 dependencies[] = feeds_import
 dependencies[] = feeds_tamper
+dependencies[] = feeds_tamper_ui
 dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
