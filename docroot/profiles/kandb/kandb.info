@@ -102,3 +102,4 @@ dependencies[] = kandb_bean
 
 ; Blocks
 dependencies[] = kandb_recherche
+dependencies[] = kandb_contact
