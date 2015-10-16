@@ -182,3 +182,21 @@ function kandb_update_7108(&$sandbox) {
     module_enable(array('kandb_webform'), TRUE);
   }
 }
+
+/**
+ * Enable "module bean" feature
+ */
+function kandb_update_7109(&$sandbox) {
+  if (!module_exists('bean')) {
+    module_enable(array('bean'), TRUE);
+  }
+}
+
+/**
+ * Enable "Kandb bean" feature
+ */
+function kandb_update_7110(&$sandbox) {
+  if (!module_exists('kandb_bean')) {
+    module_enable(array('kandb_bean'), TRUE);
+  }
+}
