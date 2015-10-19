@@ -1,3 +1,6 @@
+<?php
+  $errors = form_get_errors();
+?>
 <section class="searchFormular searchFormular--results">
     <div class="wrapper">
         <?php print '<form id="' . $form['#id'] . '" data-abide="data-abide" class="searchFormular__form" novalidate="novalidate" accept-charset="UTF-8" method="' . $form['#method'] . '" action="' . $form['#action'] . '">'; ?>
@@ -5,7 +8,7 @@
             <label class="input">
                 <span class="visually-hidden"><?php print t('Ville, département ou programme'); ?></span>
                 <?php print render($form['place']); ?>
-                <small class="error">Veuillez saisir votre recherche</small>
+                <small class="error"><?php print $errors['place'];?></small>
             </label>
 
             <button class="button-submit js-btn-submit" type="submit">

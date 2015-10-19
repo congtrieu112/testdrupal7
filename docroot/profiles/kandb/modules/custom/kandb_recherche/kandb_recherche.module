@@ -106,17 +106,25 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
 function recherche_minimal_form($form, &$form_state) {
   $form = array();
 
-  $form['search'] = array(
+  $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#theme_wrappers' => array()
   );
 
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Trouver un bien'),
+    '#attributes' => array('class' => array('btn-icon button__content icon icon-search')),
   );
 
   return $form;
+}
+
+function recherche_minimal_form_validate($form, &$form_state) {
+  if(empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir votre recherche'));
+  }
 }
 
 /**
@@ -163,7 +171,15 @@ function recherche_simple_form($form, &$form_state) {
   return $form;
 }
 
+function recherche_simple_form_validate(&$form, &$form_state) {
+  if(empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir votre recherche'));
+  }
+}
+
 function recherche_simple_form_submit(&$form, &$form_state) {
+
+
 }
 
 /**
@@ -247,6 +263,17 @@ function recherche_complete_b2c_form($form, &$form_state) {
   );
 
   return $form;
+}
+
+function recherche_complete_b2c_form_validate(&$form, &$form_state) {
+  if(empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir votre recherche'));
+  }
+}
+
+function recherche_complete_b2c_form_submit(&$form, &$form_state) {
+
+
 }
 
 /**
