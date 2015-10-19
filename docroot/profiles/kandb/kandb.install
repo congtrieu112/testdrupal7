@@ -184,9 +184,26 @@ function kandb_update_7108(&$sandbox) {
 }
 
 /**
- * Enable "module bean" feature
+ * Enable "module youtube" feature
  */
 function kandb_update_7109(&$sandbox) {
+  if (!module_exists('youtube')) {
+    module_enable(array('youtube'), TRUE);
+  }
+}
+/**
+ * Enable "Kandb article" feature
+ */
+function kandb_update_7110(&$sandbox) {
+  if (!module_exists('kandb_article')) {
+    module_enable(array('kandb_article'), TRUE);
+  }
+}
+
+/**
+ * Enable "module bean" feature
+ */
+function kandb_update_7111(&$sandbox) {
   if (!module_exists('bean')) {
     module_enable(array('bean'), TRUE);
   }
@@ -195,7 +212,7 @@ function kandb_update_7109(&$sandbox) {
 /**
  * Enable "Kandb bean" feature
  */
-function kandb_update_7110(&$sandbox) {
+function kandb_update_7112(&$sandbox) {
   if (!module_exists('kandb_bean')) {
     module_enable(array('kandb_bean'), TRUE);
   }
