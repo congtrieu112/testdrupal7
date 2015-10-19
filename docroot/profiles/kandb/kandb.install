@@ -235,3 +235,12 @@ function kandb_update_7114(&$sandbox) {
     module_enable(array('kandb_homepage'), TRUE);
   }
 }
+
+/**
+ * Enable "Feature K&B Dossier Views" feature
+ */
+function kandb_update_7115(&$sandbox) {
+  if (!module_exists('kandb_dossier_views')) {
+    module_enable(array('kandb_dossier_views'), TRUE);
+  }
+}

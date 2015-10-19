@@ -118,7 +118,7 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = '52';
   $feeds_tamper->plugin_id = 'rewrite';
   $feeds_tamper->settings = array(
-    'text' => '[49], [50], [51]',
+    'text' => '[50], [51], [52]',
   );
   $feeds_tamper->weight = 0;
   $feeds_tamper->description = 'Rewrite';

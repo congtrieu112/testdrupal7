@@ -30,6 +30,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 20,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 19,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -75,6 +81,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 19,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 18,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -157,6 +169,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 22,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 21,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -202,6 +220,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 21,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 20,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -284,6 +308,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'entityreference_label',
         'weight' => 24,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -329,6 +359,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 23,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 22,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -409,6 +445,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 26,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 25,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -487,6 +529,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 18,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -573,6 +621,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 3,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 4,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -623,6 +677,12 @@ function kandb_dossier_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 5,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 5,
       ),
       'teaser' => array(
@@ -704,6 +764,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 4,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -784,6 +850,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 6,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -834,6 +906,12 @@ function kandb_dossier_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 8,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 8,
       ),
       'teaser' => array(
@@ -913,6 +991,12 @@ function kandb_dossier_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 7,
       ),
       'teaser' => array(
@@ -995,6 +1079,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 9,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1046,6 +1136,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 25,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1124,6 +1220,12 @@ function kandb_dossier_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 10,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 10,
       ),
       'teaser' => array(
@@ -1206,6 +1308,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 12,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 11,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1257,6 +1365,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 14,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1336,6 +1450,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 13,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1417,6 +1537,12 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 15,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1468,6 +1594,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 17,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1547,6 +1679,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 16,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1628,6 +1766,19 @@ function kandb_dossier_field_default_field_instances() {
         'type' => 'image',
         'weight' => 1,
       ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+          'quickedit' => array(
+            'editor' => 'form',
+          ),
+        ),
+        'type' => 'image',
+        'weight' => 1,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1670,6 +1821,17 @@ function kandb_dossier_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(
+          'quickedit' => array(
+            'editor' => 'plain_text',
+          ),
+        ),
+        'type' => 'text_default',
+        'weight' => 2,
+      ),
+      'dossier_big_teaser' => array(
         'label' => 'above',
         'module' => 'text',
         'settings' => array(
@@ -1758,6 +1920,12 @@ function kandb_dossier_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 0,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
