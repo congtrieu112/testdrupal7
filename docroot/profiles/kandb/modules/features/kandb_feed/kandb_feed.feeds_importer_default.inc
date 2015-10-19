@@ -149,6 +149,126 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'maison_feed_import';
+  $feeds_importer->config = array(
+    'name' => 'Maison feed import',
+    'description' => 'Import maison content type from MAISON.TXT file',
+    'fetcher' => array(
+      'plugin_key' => 'FeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbFeedsCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 1,
+        'total_column' => '17',
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'FeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => '0',
+            'target' => 'field_maison_idkm',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => '0',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => '1',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => '2',
+            'target' => 'field_maison_point_fort',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => '4',
+            'target' => 'field_maison_nb_etage',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => '5',
+            'target' => 'field_maison_nb_pieces',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => '6',
+            'target' => 'field_maison_nb_chambres',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => '7',
+            'target' => 'field_maison_nb_salle_bain',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => '8',
+            'target' => 'field_maison_description',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => '10',
+            'target' => 'field_maison_surface_sejour',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => '11',
+            'target' => 'field_maison_surface_cuisine',
+            'unique' => FALSE,
+          ),
+          11 => array(
+            'source' => '12',
+            'target' => 'field_maison_surface_totale',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => '13',
+            'target' => 'field_maison_url_visite:url',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => '14',
+            'target' => 'field_maison_pos_ammenagement',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'maison',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['maison_feed_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'parcel_feed_import';
   $feeds_importer->config = array(
     'name' => 'Parcel feed import',
