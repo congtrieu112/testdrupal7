@@ -217,3 +217,12 @@ function kandb_update_7112(&$sandbox) {
     module_enable(array('kandb_bean'), TRUE);
   }
 }
+
+/**
+ * Enable "module bean uuid" feature
+ */
+function kandb_update_7113(&$sandbox) {
+  if (!module_exists('bean_uuid')) {
+    module_enable(array('bean_uuid'), TRUE);
+  }
+}

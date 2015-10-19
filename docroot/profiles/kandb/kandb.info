@@ -75,6 +75,7 @@ dependencies[] = block
 dependencies[] = webform
 dependencies[] = youtube
 dependencies[] = bean
+dependencies[] = bean_uuid
 
 ; Custom
 dependencies[] = kb_feeds
