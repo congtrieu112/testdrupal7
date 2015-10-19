@@ -179,6 +179,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Picardie',
+          'format' => NULL,
+          'safe_value' => 'Picardie',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD-OUEST/NORD-EST',
@@ -323,6 +332,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Lorraine',
+          'format' => NULL,
+          'safe_value' => 'Lorraine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD-EST',
@@ -388,6 +406,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 18,
           'format' => NULL,
           'safe_value' => 18,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
         ),
       ),
     ),
@@ -476,6 +503,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bourgogne',
+          'format' => NULL,
+          'safe_value' => 'Bourgogne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'EST',
@@ -527,6 +563,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bretagne',
+          'format' => NULL,
+          'safe_value' => 'Bretagne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'NORD/NORD-EST',
@@ -575,6 +620,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 49,
           'format' => NULL,
           'safe_value' => 49,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Pays de la Loire',
+          'format' => NULL,
+          'safe_value' => 'Pays de la Loire',
         ),
       ),
     ),
@@ -688,6 +742,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bourgogne',
+          'format' => NULL,
+          'safe_value' => 'Bourgogne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Esplanade',
@@ -781,6 +844,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Picardie',
+          'format' => NULL,
+          'safe_value' => 'Picardie',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'EST/SUD-OUEST',
@@ -832,6 +904,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bourgogne',
+          'format' => NULL,
+          'safe_value' => 'Bourgogne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Languedoc-Roussillon',
@@ -857,6 +938,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Lorraine',
+          'format' => NULL,
+          'safe_value' => 'Lorraine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Indre et Loire',
@@ -871,6 +961,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 37,
           'format' => NULL,
           'safe_value' => 37,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
         ),
       ),
     ),
@@ -968,6 +1067,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Nord',
@@ -982,6 +1090,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 59,
           'format' => NULL,
           'safe_value' => 59,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Nord-Pas-de-Calais',
+          'format' => NULL,
+          'safe_value' => 'Nord-Pas-de-Calais',
         ),
       ),
     ),
@@ -1088,6 +1205,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Senart (A5)',
@@ -1119,6 +1245,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 70,
           'format' => NULL,
           'safe_value' => 70,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Franche-Comté',
+          'format' => NULL,
+          'safe_value' => 'Franche-Comté',
         ),
       ),
     ),
@@ -1241,6 +1376,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Champagne-Ardenne',
+          'format' => NULL,
+          'safe_value' => 'Champagne-Ardenne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '5 ème étage',
@@ -1292,6 +1436,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Alsace',
+          'format' => NULL,
+          'safe_value' => 'Alsace',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Hautes Alpes',
@@ -1306,6 +1459,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => '05',
           'format' => NULL,
           'safe_value' => '05',
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Provence-Alpes-Côte d\'Azur',
+          'format' => NULL,
+          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
         ),
       ),
     ),
@@ -1328,7 +1490,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'NULL',
+    'name' => 'Haute-Corse',
     'description' => '',
     'format' => 'filtered_html',
     'weight' => 0,
@@ -1340,6 +1502,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => '2B',
           'format' => NULL,
           'safe_value' => '2B',
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Corse',
+          'format' => NULL,
+          'safe_value' => 'Corse',
         ),
       ),
     ),
@@ -1357,6 +1528,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 36,
           'format' => NULL,
           'safe_value' => 36,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
         ),
       ),
     ),
@@ -1402,6 +1582,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Haute Loire',
@@ -1416,6 +1605,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 43,
           'format' => NULL,
           'safe_value' => 43,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Auvergne',
+          'format' => NULL,
+          'safe_value' => 'Auvergne',
         ),
       ),
     ),
@@ -1572,6 +1770,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Pays de la Loire',
+          'format' => NULL,
+          'safe_value' => 'Pays de la Loire',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '37 ème étage',
@@ -1640,6 +1847,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Seine Maritime',
@@ -1654,6 +1870,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 76,
           'format' => NULL,
           'safe_value' => 76,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Haute-Normandie',
+          'format' => NULL,
+          'safe_value' => 'Haute-Normandie',
         ),
       ),
     ),
@@ -1775,6 +2000,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Pays de la Loire',
+          'format' => NULL,
+          'safe_value' => 'Pays de la Loire',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Centre-Val de Loire',
@@ -1814,6 +2048,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 75,
           'format' => NULL,
           'safe_value' => 75,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
         ),
       ),
     ),
@@ -1868,6 +2111,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(),
   );
   $terms[] = array(
     'name' => 'Lot',
@@ -1882,6 +2126,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 46,
           'format' => NULL,
           'safe_value' => 46,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
         ),
       ),
     ),
@@ -1961,6 +2214,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Lot et Garonne',
@@ -1978,6 +2240,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aquitaine',
+          'format' => NULL,
+          'safe_value' => 'Aquitaine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Val de Marne',
@@ -1992,6 +2263,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 94,
           'format' => NULL,
           'safe_value' => 94,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
         ),
       ),
     ),
@@ -2037,6 +2317,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Limousin',
+          'format' => NULL,
+          'safe_value' => 'Limousin',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Yonne',
@@ -2051,6 +2340,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 89,
           'format' => NULL,
           'safe_value' => 89,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bourgogne',
+          'format' => NULL,
+          'safe_value' => 'Bourgogne',
         ),
       ),
     ),
@@ -2088,6 +2386,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Languedoc-Roussillon',
+          'format' => NULL,
+          'safe_value' => 'Languedoc-Roussillon',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Calvados',
@@ -2102,6 +2409,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 14,
           'format' => NULL,
           'safe_value' => 14,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Basse-Normandie',
+          'format' => NULL,
+          'safe_value' => 'Basse-Normandie',
         ),
       ),
     ),
@@ -2175,6 +2491,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Somme',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '5613d6a4-a52a-44b4-b26c-ee4ec41b6485',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 80,
+          'format' => NULL,
+          'safe_value' => 80,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Picardie',
+          'format' => NULL,
+          'safe_value' => 'Picardie',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Rond-point',
     'description' => '',
     'format' => 'filtered_html',
@@ -2224,6 +2566,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD/OUEST/NORD',
@@ -2258,6 +2609,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Languedoc-Roussillon',
+          'format' => NULL,
+          'safe_value' => 'Languedoc-Roussillon',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Pyrénées Orientales',
@@ -2275,6 +2635,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Languedoc-Roussillon',
+          'format' => NULL,
+          'safe_value' => 'Languedoc-Roussillon',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Haute Garonne',
@@ -2289,6 +2658,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 31,
           'format' => NULL,
           'safe_value' => 31,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
         ),
       ),
     ),
@@ -2356,6 +2734,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 84,
           'format' => NULL,
           'safe_value' => 84,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Provence-Alpes-Côte d\'Azur',
+          'format' => NULL,
+          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
         ),
       ),
     ),
@@ -2491,6 +2878,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 78,
           'format' => NULL,
           'safe_value' => 78,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
         ),
       ),
     ),
@@ -2689,6 +3085,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Alpes Maritimes',
@@ -2703,6 +3108,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => '06',
           'format' => NULL,
           'safe_value' => '06',
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Provence-Alpes-Côte d\'Azur',
+          'format' => NULL,
+          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
         ),
       ),
     ),
@@ -2782,6 +3196,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD-OUEST/EST/NORD',
@@ -2850,6 +3273,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Poitou-Charentes',
+          'format' => NULL,
+          'safe_value' => 'Poitou-Charentes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Marne',
@@ -2864,6 +3296,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 51,
           'format' => NULL,
           'safe_value' => 51,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Champagne-Ardenne',
+          'format' => NULL,
+          'safe_value' => 'Champagne-Ardenne',
         ),
       ),
     ),
@@ -2898,6 +3339,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 41,
           'format' => NULL,
           'safe_value' => 41,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Centre-Val de Loire',
+          'format' => NULL,
+          'safe_value' => 'Centre-Val de Loire',
         ),
       ),
     ),
@@ -2977,6 +3427,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD/NORD/NORD-EST',
@@ -3028,6 +3487,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Provence-Alpes-Côte d\'Azur',
+          'format' => NULL,
+          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Creuse',
@@ -3042,6 +3510,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 23,
           'format' => NULL,
           'safe_value' => 23,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Limousin',
+          'format' => NULL,
+          'safe_value' => 'Limousin',
         ),
       ),
     ),
@@ -3093,6 +3570,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'AVAN',
           'format' => NULL,
           'safe_value' => 'AVAN',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Territoire de Belfort',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => '820b78ad-4611-4adb-90d8-d6d12b29ada7',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 90,
+          'format' => NULL,
+          'safe_value' => 90,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Franche-Comté',
+          'format' => NULL,
+          'safe_value' => 'Franche-Comté',
         ),
       ),
     ),
@@ -3189,6 +3692,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aquitaine',
+          'format' => NULL,
+          'safe_value' => 'Aquitaine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD-OUEST/SUD-EST/NORD-EST',
@@ -3257,6 +3769,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '29 ème étage',
@@ -3288,6 +3809,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 68,
           'format' => NULL,
           'safe_value' => 68,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Alsace',
+          'format' => NULL,
+          'safe_value' => 'Alsace',
         ),
       ),
     ),
@@ -3418,6 +3948,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aquitaine',
+          'format' => NULL,
+          'safe_value' => 'Aquitaine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'NORD-OUEST/NORD-EST/SUD-OUEST',
@@ -3460,6 +3999,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Auvergne',
+          'format' => NULL,
+          'safe_value' => 'Auvergne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Haute Marne',
@@ -3474,6 +4022,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 52,
           'format' => NULL,
           'safe_value' => 52,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Champagne-Ardenne',
+          'format' => NULL,
+          'safe_value' => 'Champagne-Ardenne',
         ),
       ),
     ),
@@ -3672,6 +4229,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Franche-Comté',
+          'format' => NULL,
+          'safe_value' => 'Franche-Comté',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Tarn et Garonne',
@@ -3686,6 +4252,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 82,
           'format' => NULL,
           'safe_value' => 82,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
         ),
       ),
     ),
@@ -3737,6 +4312,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 12,
           'format' => NULL,
           'safe_value' => 12,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
         ),
       ),
     ),
@@ -3816,6 +4400,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aquitaine',
+          'format' => NULL,
+          'safe_value' => 'Aquitaine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Garonor – Aéroport Charles de Gaulle (A1)',
@@ -3847,6 +4440,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => '07',
           'format' => NULL,
           'safe_value' => '07',
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
         ),
       ),
     ),
@@ -3918,6 +4520,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Provence-Alpes-Côte d\'Azur',
+          'format' => NULL,
+          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Seine et Marne',
@@ -3932,6 +4543,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 77,
           'format' => NULL,
           'safe_value' => 77,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
         ),
       ),
     ),
@@ -4079,6 +4699,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Franche-Comté',
+          'format' => NULL,
+          'safe_value' => 'Franche-Comté',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Première',
@@ -4138,6 +4767,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Moselle',
@@ -4152,6 +4790,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 57,
           'format' => NULL,
           'safe_value' => 57,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Lorraine',
+          'format' => NULL,
+          'safe_value' => 'Lorraine',
         ),
       ),
     ),
@@ -4316,6 +4963,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bretagne',
+          'format' => NULL,
+          'safe_value' => 'Bretagne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Poitou-Charentes',
@@ -4443,6 +5099,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Poitou-Charentes',
+          'format' => NULL,
+          'safe_value' => 'Poitou-Charentes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '16 ème étage',
@@ -4562,6 +5227,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Deux Sèvres',
@@ -4576,6 +5250,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 79,
           'format' => NULL,
           'safe_value' => 79,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Poitou-Charentes',
+          'format' => NULL,
+          'safe_value' => 'Poitou-Charentes',
         ),
       ),
     ),
@@ -4596,9 +5279,18 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
-    'name' => 'Côte du Nord',
+    'name' => 'Côte d\'Armor',
     'description' => '',
     'format' => 'filtered_html',
     'weight' => 0,
@@ -4610,6 +5302,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 22,
           'format' => NULL,
           'safe_value' => 22,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bretagne',
+          'format' => NULL,
+          'safe_value' => 'Bretagne',
         ),
       ),
     ),
@@ -4702,6 +5403,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 61,
           'format' => NULL,
           'safe_value' => 61,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Basse-Normandie',
+          'format' => NULL,
+          'safe_value' => 'Basse-Normandie',
         ),
       ),
     ),
@@ -4871,6 +5581,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 87,
           'format' => NULL,
           'safe_value' => 87,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Limousin',
+          'format' => NULL,
+          'safe_value' => 'Limousin',
         ),
       ),
     ),
@@ -5052,6 +5771,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Haute-Normandie',
+          'format' => NULL,
+          'safe_value' => 'Haute-Normandie',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Charente',
@@ -5069,9 +5797,18 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Poitou-Charentes',
+          'format' => NULL,
+          'safe_value' => 'Poitou-Charentes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
-    'name' => 'NULL',
+    'name' => 'Corse-du-Sud',
     'description' => '',
     'format' => 'filtered_html',
     'weight' => 0,
@@ -5083,6 +5820,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => '2A',
           'format' => NULL,
           'safe_value' => '2A',
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Corse',
+          'format' => NULL,
+          'safe_value' => 'Corse',
         ),
       ),
     ),
@@ -5117,6 +5863,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 50,
           'format' => NULL,
           'safe_value' => 50,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Basse-Normandie',
+          'format' => NULL,
+          'safe_value' => 'Basse-Normandie',
         ),
       ),
     ),
@@ -5179,6 +5934,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aquitaine',
+          'format' => NULL,
+          'safe_value' => 'Aquitaine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'NORDNORD-OUEST/SUDSUD-EST',
@@ -5230,6 +5994,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Auvergne',
+          'format' => NULL,
+          'safe_value' => 'Auvergne',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Sous-Sol',
@@ -5261,6 +6034,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 48,
           'format' => NULL,
           'safe_value' => 48,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Languedoc-Roussillon',
+          'format' => NULL,
+          'safe_value' => 'Languedoc-Roussillon',
         ),
       ),
     ),
@@ -5298,6 +6080,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Lorraine',
+          'format' => NULL,
+          'safe_value' => 'Lorraine',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Tarn',
@@ -5312,6 +6103,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 81,
           'format' => NULL,
           'safe_value' => 81,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Midi-Pyrénées',
+          'format' => NULL,
+          'safe_value' => 'Midi-Pyrénées',
         ),
       ),
     ),
@@ -5349,6 +6149,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Languedoc-Roussillon',
+          'format' => NULL,
+          'safe_value' => 'Languedoc-Roussillon',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Essonne',
@@ -5363,6 +6172,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 91,
           'format' => NULL,
           'safe_value' => 91,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Île-de-France',
+          'format' => NULL,
+          'safe_value' => 'Île-de-France',
         ),
       ),
     ),
@@ -5397,6 +6215,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 10,
           'format' => NULL,
           'safe_value' => 10,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Champagne-Ardenne',
+          'format' => NULL,
+          'safe_value' => 'Champagne-Ardenne',
         ),
       ),
     ),
@@ -5487,6 +6314,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Puy-de-Dôme',
+    'description' => '',
+    'format' => 'filtered_html',
+    'weight' => 0,
+    'uuid' => 'edf80168-9baf-4bea-8c80-1ba772f02039',
+    'vocabulary_machine_name' => 'departement',
+    'field_numero_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 63,
+          'format' => NULL,
+          'safe_value' => 63,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Auvergne',
+          'format' => NULL,
+          'safe_value' => 'Auvergne',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD-EST/SUDEST/NORD-OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -5561,6 +6414,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Pays de la Loire',
+          'format' => NULL,
+          'safe_value' => 'Pays de la Loire',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '41 ème étage',
@@ -5609,6 +6471,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 56,
           'format' => NULL,
           'safe_value' => 56,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Bretagne',
+          'format' => NULL,
+          'safe_value' => 'Bretagne',
         ),
       ),
     ),
@@ -5663,6 +6534,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '21 ème étage',
@@ -5711,6 +6591,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 72,
           'format' => NULL,
           'safe_value' => 72,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Pays de la Loire',
+          'format' => NULL,
+          'safe_value' => 'Pays de la Loire',
         ),
       ),
     ),
@@ -5832,6 +6721,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Nord-Pas-de-Calais',
+          'format' => NULL,
+          'safe_value' => 'Nord-Pas-de-Calais',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Drôme',
@@ -5846,6 +6744,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 26,
           'format' => NULL,
           'safe_value' => 26,
+        ),
+      ),
+    ),
+    'field_region' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Rhône-Alpes',
+          'format' => NULL,
+          'safe_value' => 'Rhône-Alpes',
         ),
       ),
     ),

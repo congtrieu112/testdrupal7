@@ -190,8 +190,11 @@ class KbParserCSV extends ParserCSV{
         $uri = 'private://feeds/log/';
         $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
         if($prepare_file){
+            $path = drupal_realpath($uri . $file_log_name);
+            $data = file_get_contents($path);
+            $logging .= $data;
             drupal_chmod($uri);
-            file_save_data($logging, $uri . $file_log_name, $replace = FILE_EXISTS_RENAME);
+            file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
         }
     }
     return $rows;
