@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Code for the K&B Recherche feature.
@@ -87,6 +88,12 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
       'template' => 'templates/recherche_complete_b2b',
       'variables' => array(),
     ),
+    'recherche_check_box' => array(
+      'render element' => 'element',
+    ),
+    'recherche_check_box_item' => array(
+      'render element' => 'element',
+    ),
   );
 }
 
@@ -97,19 +104,41 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
  * @return string
  */
 function recherche_minimal_form($form, &$form_state) {
-  $form = array();
-
-  $form['search'] = array(
+  $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#theme_wrappers' => array()
   );
 
   $form['submit'] = array(
     '#type' => 'submit',
     '#value' => t('Trouver un bien'),
+    '#attributes' => array('class' => array('btn-icon button__content icon icon-search')),
   );
 
+  $form['#theme'] = array('recherche_minimal');
+
   return $form;
+}
+
+/**
+ * Implements hook_form_validate()
+ * @param type $form
+ * @param type $form_state
+ */
+function recherche_minimal_form_validate($form, &$form_state) {
+  if (empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir vo_tre recherche'));
+  }
+}
+
+/**
+ * Implements hook_form_submit()
+ * @param type $form
+ * @param type $form_state
+ */
+function recherche_minimal_form_submit(&$form, &$form_state) {
+
 }
 
 /**
@@ -119,74 +148,13 @@ function recherche_minimal_form($form, &$form_state) {
  * @return string
  */
 function recherche_simple_form($form, &$form_state) {
-  $form = array();
-
-  $form['search'] = array(
+  $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#theme_wrappers' => array()
   );
 
-  $form['field_type'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Type'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_type']['type'] = array(
-    '#type' => 'checkboxes',
-    '#options' => drupal_map_assoc(array(t('Maison'), t('Appartment'), t('Commerce et bureaux'), t('Déménagement'))),
-  );
-
-  $form['field_prix'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Prix'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_prix']['prix_min'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Min')),
-  );
-
-  $form['field_prix']['prix_max'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Max')),
-  );
-
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
-  );
-
-  return $form;
-}
-
-/**
- * Create form 'Recherche Complete B2C'
- * @param type $form
- * @param type $form_state
- * @return type
- */
-function recherche_complete_b2c_form($form, &$form_state) {
-  $form = array();
-
-  $form['search'] = array(
-    '#type' => 'textfield',
-    '#attributes' => array('placeholder' => array('Ville, département ou programme')),
-  );
-
-  $form['field_type'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Type'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_type']['type'] = array(
+  $form['type'] = array(
     '#type' => 'checkboxes',
     '#options' => drupal_map_assoc(
       array(
@@ -196,35 +164,95 @@ function recherche_complete_b2c_form($form, &$form_state) {
         t('Déménagement')
       )
     ),
+    '#theme_wrappers' => array(),
+    '#theme' => 'recherche_check_box'
   );
 
-  $form['field_prix'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Prix'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_prix']['prix_min'] = array(
+  $form['prix_min'] = array(
     '#type' => 'textfield',
     '#size' => 1,
-    '#attributes' => array('placeholder' => array('Min')),
+    '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
+    '#theme_wrappers' => array(),
   );
 
-  $form['field_prix']['prix_max'] = array(
+  $form['prix_max'] = array(
     '#type' => 'textfield',
     '#size' => 1,
-    '#attributes' => array('placeholder' => array('Max')),
+    '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
+    '#theme_wrappers' => array()
   );
 
-  $form['field_pieces'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Pièces'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+  $form['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Trouver un bien'),
+    '#attributes' => array('class' => array('btn-icon button__content icon icon-search')),
   );
 
-  $form['field_pieces']['pieces'] = array(
+  $form['#theme'] = array('recherche_simple');
+
+  return $form;
+}
+
+/**
+ * Implements hook_form_validate()
+ * @param type $form
+ * @param type $form_state
+ */
+function recherche_simple_form_validate(&$form, &$form_state) {
+  if (empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir votre recherche'));
+  }
+}
+
+/**
+ * Implements hook_form_submit()
+ * @param type $form
+ * @param type $form_state
+ */
+function recherche_simple_form_submit(&$form, &$form_state) {
+
+}
+
+/**
+ * Create form 'Recherche Complete B2C'
+ * @param type $form
+ * @param type $form_state
+ * @return type
+ */
+function recherche_complete_b2c_form($form, &$form_state) {
+  $form['place'] = array(
+    '#type' => 'textfield',
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#theme_wrappers' => array()
+  );
+
+  $form['type'] = array(
+    '#type' => 'checkboxes',
+    '#options' => drupal_map_assoc(
+      array(
+        t('Maison'),
+        t('Appartment'),
+        t('Commerce et bureaux'),
+        t('Déménagement')
+      )
+    ),
+    '#theme_wrappers' => array(),
+    '#theme' => 'recherche_check_box'
+  );
+
+  $form['prix_min'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
+  );
+
+  $form['prix_max'] = array(
+    '#type' => 'textfield',
+    '#size' => 1,
+    '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
+  );
+
+  $form['pieces'] = array(
     '#type' => 'checkboxes',
     '#options' => drupal_map_assoc(
       array(
@@ -235,29 +263,17 @@ function recherche_complete_b2c_form($form, &$form_state) {
         t('5 pièce et +')
       )
     ),
+    '#theme_wrappers' => array(),
+    '#theme' => 'recherche_check_box'
   );
 
-  $form['field_surface'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Surface'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_surface']['surface_min'] = array(
+  $form['surface_min'] = array(
     '#type' => 'textfield',
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min')),
   );
 
-  $form['field_services'] = array(
-    '#type' => 'fieldset',
-    '#title' => t('Services'),
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
-  );
-
-  $form['field_services']['services'] = array(
+  $form['services'] = array(
     '#type' => 'checkboxes',
     '#options' => drupal_map_assoc(
       array(
@@ -269,6 +285,8 @@ function recherche_complete_b2c_form($form, &$form_state) {
         t('Pack silver'),
       )
     ),
+    '#theme_wrappers' => array(),
+    '#theme' => 'recherche_check_box'
   );
 
   $form['submit'] = array(
@@ -276,23 +294,63 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#value' => t('Trouver un bien'),
   );
 
+  $form['#theme'] = array('recherche_complete_b2c');
+
   return $form;
 }
 
 /**
- * Implements of hook_form_alter().
+ * Implements hook_form_validate()
+ * @param type $form
+ * @param type $form_state
  */
-function kandb_recherche_form_alter(&$form, &$form_state, $form_id) {
-  switch ($form_id) {
-    case 'recherche_minimal_form':
-      $form['#theme'] = 'recherche_minimal';
-      break;
-    case 'recherche_simple_form':
-      $form['#theme'] = 'recherche_simple';
-      break;
-    case 'recherche_complete_b2c_form':
-      $form['#theme'] = 'recherche_complete_b2c';
-      break;
+function recherche_complete_b2c_form_validate(&$form, &$form_state) {
+  if (empty($form_state['values']['place'])) {
+    form_set_error('place', t('Veuillez saisir votre recherche'));
   }
-  return $form;
+}
+
+/**
+ * Implements hook_form_submit()
+ * @param type $form
+ * @param type $form_state
+ */
+function recherche_complete_b2c_form_submit(&$form, &$form_state) {
+
+}
+
+/**
+ * Custom theme of checkboxes for the gender field.
+ */
+function theme_recherche_check_box($variables) {
+  $element = $variables['element'];
+  $options = array_keys($element['#options']);
+  $output = '';
+  foreach ($options as $option) {
+    $output .= theme('recherche_check_box_item', $element[$option]);
+  }
+
+  return $output;
+}
+
+/**
+ * Custom theme of checkboxes for the gender field.
+ */
+function theme_recherche_check_box_item($variables) {
+  $element = $variables['element'];
+  $element['#attributes']['class'] = array('input-checkbox');
+
+  //$element['#attributes']['name'] = 'newsletter_subscription';
+  $attributes = array('#return_value' => 'value', 'id', 'type');
+  element_set_attributes($element, $attributes);
+  if ($element['#default_value'] == $element['#return_value']) {
+    $element['#attributes']['checked'] = 'checked';
+  }
+
+  $output = '<li class="bordered">'
+    . '<input name="' . $element['#name'] . '" ' . drupal_attributes($element['#attributes']) . '/>'
+    . '<label class="label-checkbox" for="' . $element['#id'] . '"><span>' . $element['#title'] . '</span></label>'
+    . '</li>';
+
+  return $output;
 }

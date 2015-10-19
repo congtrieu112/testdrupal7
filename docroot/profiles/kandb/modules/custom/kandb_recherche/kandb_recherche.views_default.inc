@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * kandb_recherche1.views_default.inc
+ * kandb_recherche.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function kandb_recherche1_views_default_views() {
+function kandb_recherche_views_default_views() {
   $export = array();
 
   $view = new view();

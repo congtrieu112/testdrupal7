@@ -182,3 +182,47 @@ function kandb_update_7108(&$sandbox) {
     module_enable(array('kandb_webform'), TRUE);
   }
 }
+
+/**
+ * Enable "module youtube" feature
+ */
+function kandb_update_7109(&$sandbox) {
+  if (!module_exists('youtube')) {
+    module_enable(array('youtube'), TRUE);
+  }
+}
+/**
+ * Enable "Kandb article" feature
+ */
+function kandb_update_7110(&$sandbox) {
+  if (!module_exists('kandb_article')) {
+    module_enable(array('kandb_article'), TRUE);
+  }
+}
+
+/**
+ * Enable "module bean" feature
+ */
+function kandb_update_7111(&$sandbox) {
+  if (!module_exists('bean')) {
+    module_enable(array('bean'), TRUE);
+  }
+}
+
+/**
+ * Enable "Kandb bean" feature
+ */
+function kandb_update_7112(&$sandbox) {
+  if (!module_exists('kandb_bean')) {
+    module_enable(array('kandb_bean'), TRUE);
+  }
+}
+
+/**
+ * Enable "module bean uuid" feature
+ */
+function kandb_update_7113(&$sandbox) {
+  if (!module_exists('bean_uuid')) {
+    module_enable(array('bean_uuid'), TRUE);
+  }
+}
