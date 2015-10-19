@@ -169,7 +169,7 @@ function kandb_feed_feeds_importer_default() {
       'config' => array(
         'delimiter' => '|',
         'no_headers' => 1,
-        'total_column' => '31',
+        'total_column' => '32',
       ),
     ),
     'processor' => array(
@@ -191,7 +191,7 @@ function kandb_feed_feeds_importer_default() {
           ),
           2 => array(
             'source' => '1',
-            'target' => 'field_programme:etid',
+            'target' => 'field_programme',
             'unique' => FALSE,
           ),
           3 => array(
@@ -383,7 +383,7 @@ function kandb_feed_feeds_importer_default() {
         ),
         'update_existing' => '1',
         'update_non_existent' => 'skip',
-        'input_format' => 'filtered_html',
+        'input_format' => 'plain_text',
         'skip_hash_check' => 0,
         'bundle' => 'programme',
       ),

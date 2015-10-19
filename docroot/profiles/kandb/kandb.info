@@ -67,12 +67,14 @@ dependencies[] = feeds
 dependencies[] = feeds_ui
 dependencies[] = feeds_import
 dependencies[] = feeds_tamper
+dependencies[] = feeds_tamper_ui
 dependencies[] = feeds_tamper_stbf
 dependencies[] = job_scheduler
 dependencies[] = elysia_cron
 dependencies[] = block
 dependencies[] = webform
 dependencies[] = youtube
+dependencies[] = bean
 
 ; Custom
 dependencies[] = kb_feeds
@@ -83,7 +85,6 @@ dependencies[] = kandb_domains
 dependencies[] = kandb_taxonomy
 dependencies[] = kandb_ds
 dependencies[] = kandb_context
-dependencies[] = kandb_feed
 dependencies[] = kandb_user
 dependencies[] = kandb_role
 dependencies[] = kandb_views
@@ -99,6 +100,8 @@ dependencies[] = kandb_selection
 dependencies[] = kandb_dashboard_b2c
 dependencies[] = kandb_webform
 dependencies[] = kandb_article
+dependencies[] = kandb_bean
 
 ; Blocks
 dependencies[] = kandb_recherche
+dependencies[] = kandb_contact

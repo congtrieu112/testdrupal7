@@ -1,0 +1,47 @@
+<?php
+
+function kandb_contact_block_info(){
+  $blocks = array();
+  $blocks['contact_block_page'] = array(
+    'info' => 'Contact block page',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['contact_on_summary'] = array(
+    'info' => 'Contact on summary',
+    'cache' => DRUPAL_NO_CACHE,
+  );
+  return $blocks;
+}
+
+function kandb_contact_block_view($delta = ''){
+  $block = array();
+  switch ($delta){
+    case 'contact_block_page':
+      $block['subject'] = '';
+      $block['content'] = _get_contact_block_content();
+      break;
+    case 'contact_on_summary':
+      $block['subject'] = '';
+      $block['content'] = _get_contact_block_content();
+      break;
+  }
+  return $block;
+}
+
+function _get_contact_block_content(){
+  $out = '';
+  $machine_names = array(
+    '_tre_rappel_',
+    'prendre_rendez_vous'
+  );
+  $base_path = base_path();
+  foreach($machine_names as $k => $name){
+    $webform = webform_features_machine_name_load($name);
+    if($webform){
+      $title = $webform->title;
+      $alias = drupal_get_path_alias('node/' . $webform->nid);
+      $out .= '<a data-reveal-ajax="true" title="' . $title . '" href="' . $base_path . $alias .'">' . $title . '</a>';
+    }
+  }
+  return $out;
+}
