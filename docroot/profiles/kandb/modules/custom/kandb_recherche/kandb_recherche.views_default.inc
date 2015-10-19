@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * kandb_recherche1.views_default.inc
+ * kandb_recherche.views_default.inc
  */
 
 /**

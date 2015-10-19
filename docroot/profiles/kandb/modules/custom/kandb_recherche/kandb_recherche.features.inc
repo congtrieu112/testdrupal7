@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * kandb_recherche1.features.inc
+ * kandb_recherche.features.inc
  */
 
 /**
