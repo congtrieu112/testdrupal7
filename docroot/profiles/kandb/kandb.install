@@ -200,3 +200,12 @@ function kandb_update_7110(&$sandbox) {
     module_enable(array('kandb_bean'), TRUE);
   }
 }
+
+/**
+ * Enable "Kandb bean" feature
+ */
+function kandb_update_7111(&$sandbox) {
+  if (!module_exists('bean_uuid')) {
+    module_enable(array('bean_uuid'), TRUE);
+  }
+}

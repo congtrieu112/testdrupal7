@@ -74,6 +74,7 @@ dependencies[] = elysia_cron
 dependencies[] = block
 dependencies[] = webform
 dependencies[] = bean
+dependencies[] = bean_uuid
 
 ; Custom
 dependencies[] = kb_feeds
