@@ -102,6 +102,7 @@ dependencies[] = kandb_dashboard_b2c
 dependencies[] = kandb_webform
 dependencies[] = kandb_article
 dependencies[] = kandb_bean
+dependencies[] = kandb_homepage
 
 ; Blocks
 dependencies[] = kandb_recherche

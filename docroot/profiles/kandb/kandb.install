@@ -226,3 +226,12 @@ function kandb_update_7113(&$sandbox) {
     module_enable(array('bean_uuid'), TRUE);
   }
 }
+
+/**
+ * Enable "Kandb homepage" feature
+ */
+function kandb_update_7114(&$sandbox) {
+  if (!module_exists('kandb_homepage')) {
+    module_enable(array('kandb_homepage'), TRUE);
+  }
+}

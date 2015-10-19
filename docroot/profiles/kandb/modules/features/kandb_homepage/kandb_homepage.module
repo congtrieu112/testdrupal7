@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B CT Homepage feature.
+ */
+
+include_once 'kandb_homepage.features.inc';
