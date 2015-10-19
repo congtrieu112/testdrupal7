@@ -21,11 +21,11 @@ dependencies[] = date
 dependencies[] = date_api
 dependencies[] = date_views
 dependencies[] = diff
-;dependencies[] = domain
-;dependencies[] = domain_alias
-;dependencies[] = domain_conf
-;dependencies[] = domain_content
-;dependencies[] = domain_settings
+dependencies[] = domain
+dependencies[] = domain_alias
+dependencies[] = domain_conf
+dependencies[] = domain_content
+dependencies[] = domain_settings
 dependencies[] = entity
 dependencies[] = entityreference
 dependencies[] = features
@@ -80,7 +80,7 @@ dependencies[] = kb_feeds
 dependencies[] = kb_import
 
 ; Features
-;dependencies[] = kandb_domains
+dependencies[] = kandb_domains
 dependencies[] = kandb_taxonomy
 dependencies[] = kandb_ds
 dependencies[] = kandb_context
