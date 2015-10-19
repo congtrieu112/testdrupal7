@@ -182,9 +182,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Picardie',
-          'format' => NULL,
-          'safe_value' => 'Picardie',
+          'tid' => '5bdda1cb-4966-4de4-887e-afc57210699b',
         ),
       ),
     ),
@@ -335,9 +333,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Lorraine',
-          'format' => NULL,
-          'safe_value' => 'Lorraine',
+          'tid' => '4497554f-08f7-49c7-8444-654ccf21706e',
         ),
       ),
     ),
@@ -412,9 +408,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -506,9 +500,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bourgogne',
-          'format' => NULL,
-          'safe_value' => 'Bourgogne',
+          'tid' => '6c06d578-8854-41e1-bd22-fce6565ea461',
         ),
       ),
     ),
@@ -566,9 +558,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bretagne',
-          'format' => NULL,
-          'safe_value' => 'Bretagne',
+          'tid' => 'd195a755-0e85-4200-8ee4-fb1d9d94b6da',
         ),
       ),
     ),
@@ -626,9 +616,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Pays de la Loire',
-          'format' => NULL,
-          'safe_value' => 'Pays de la Loire',
+          'tid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
         ),
       ),
     ),
@@ -745,9 +733,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bourgogne',
-          'format' => NULL,
-          'safe_value' => 'Bourgogne',
+          'tid' => '6c06d578-8854-41e1-bd22-fce6565ea461',
         ),
       ),
     ),
@@ -847,9 +833,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Picardie',
-          'format' => NULL,
-          'safe_value' => 'Picardie',
+          'tid' => '5bdda1cb-4966-4de4-887e-afc57210699b',
         ),
       ),
     ),
@@ -907,9 +891,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bourgogne',
-          'format' => NULL,
-          'safe_value' => 'Bourgogne',
+          'tid' => '6c06d578-8854-41e1-bd22-fce6565ea461',
         ),
       ),
     ),
@@ -941,9 +923,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Lorraine',
-          'format' => NULL,
-          'safe_value' => 'Lorraine',
+          'tid' => '4497554f-08f7-49c7-8444-654ccf21706e',
         ),
       ),
     ),
@@ -967,9 +947,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -1070,9 +1048,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -1096,9 +1072,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Nord-Pas-de-Calais',
-          'format' => NULL,
-          'safe_value' => 'Nord-Pas-de-Calais',
+          'tid' => 'efef5001-c9bf-4bce-9a08-4dece3b35b92',
         ),
       ),
     ),
@@ -1208,9 +1182,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -1251,9 +1223,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Franche-Comté',
-          'format' => NULL,
-          'safe_value' => 'Franche-Comté',
+          'tid' => '41d8bb9b-54f3-469a-b1b9-4468c81c9052',
         ),
       ),
     ),
@@ -1379,9 +1349,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Champagne-Ardenne',
-          'format' => NULL,
-          'safe_value' => 'Champagne-Ardenne',
+          'tid' => '3380aa03-777c-4c87-b45e-b86c01198a7d',
         ),
       ),
     ),
@@ -1439,9 +1407,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Alsace',
-          'format' => NULL,
-          'safe_value' => 'Alsace',
+          'tid' => '4d6388c5-ecb4-4bb9-891f-34ed939b5ac8',
         ),
       ),
     ),
@@ -1465,9 +1431,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Provence-Alpes-Côte d\'Azur',
-          'format' => NULL,
-          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+          'tid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
         ),
       ),
     ),
@@ -1508,9 +1472,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Corse',
-          'format' => NULL,
-          'safe_value' => 'Corse',
+          'tid' => 'd9847079-bf25-41d1-b303-1692142edb5c',
         ),
       ),
     ),
@@ -1534,9 +1496,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -1585,9 +1545,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -1611,9 +1569,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Auvergne',
-          'format' => NULL,
-          'safe_value' => 'Auvergne',
+          'tid' => 'e0850f4c-8001-4a5c-a4b1-434e0fe8a7b9',
         ),
       ),
     ),
@@ -1773,9 +1729,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Pays de la Loire',
-          'format' => NULL,
-          'safe_value' => 'Pays de la Loire',
+          'tid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
         ),
       ),
     ),
@@ -1850,9 +1804,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -1876,9 +1828,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Haute-Normandie',
-          'format' => NULL,
-          'safe_value' => 'Haute-Normandie',
+          'tid' => '8dde61bb-dd29-47b5-9f86-ece9e51b8af0',
         ),
       ),
     ),
@@ -2003,9 +1953,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Pays de la Loire',
-          'format' => NULL,
-          'safe_value' => 'Pays de la Loire',
+          'tid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
         ),
       ),
     ),
@@ -2054,9 +2002,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -2132,9 +2078,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -2217,9 +2161,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -2243,9 +2185,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Aquitaine',
-          'format' => NULL,
-          'safe_value' => 'Aquitaine',
+          'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
         ),
       ),
     ),
@@ -2269,9 +2209,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -2320,9 +2258,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Limousin',
-          'format' => NULL,
-          'safe_value' => 'Limousin',
+          'tid' => '22a4748b-70b1-4902-be29-3d26b85c55c1',
         ),
       ),
     ),
@@ -2346,9 +2282,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bourgogne',
-          'format' => NULL,
-          'safe_value' => 'Bourgogne',
+          'tid' => '6c06d578-8854-41e1-bd22-fce6565ea461',
         ),
       ),
     ),
@@ -2389,9 +2323,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Languedoc-Roussillon',
-          'format' => NULL,
-          'safe_value' => 'Languedoc-Roussillon',
+          'tid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
         ),
       ),
     ),
@@ -2415,9 +2347,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Basse-Normandie',
-          'format' => NULL,
-          'safe_value' => 'Basse-Normandie',
+          'tid' => 'cee77f25-0f4f-4df1-b910-97bd23cc6cb2',
         ),
       ),
     ),
@@ -2509,9 +2439,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Picardie',
-          'format' => NULL,
-          'safe_value' => 'Picardie',
+          'tid' => '5bdda1cb-4966-4de4-887e-afc57210699b',
         ),
       ),
     ),
@@ -2569,9 +2497,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -2612,9 +2538,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Languedoc-Roussillon',
-          'format' => NULL,
-          'safe_value' => 'Languedoc-Roussillon',
+          'tid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
         ),
       ),
     ),
@@ -2638,9 +2562,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Languedoc-Roussillon',
-          'format' => NULL,
-          'safe_value' => 'Languedoc-Roussillon',
+          'tid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
         ),
       ),
     ),
@@ -2664,9 +2586,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -2740,9 +2660,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Provence-Alpes-Côte d\'Azur',
-          'format' => NULL,
-          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+          'tid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
         ),
       ),
     ),
@@ -2884,9 +2802,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -3088,9 +3004,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -3114,9 +3028,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Provence-Alpes-Côte d\'Azur',
-          'format' => NULL,
-          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+          'tid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
         ),
       ),
     ),
@@ -3137,14 +3049,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'Centre-Val de Loire',
-    'description' => '',
-    'format' => 'filtered_html',
-    'weight' => 0,
-    'uuid' => '70d05726-8ab4-40c3-b575-f6bf40e3ad12',
-    'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
     'name' => '5 / 6 ème étage',
@@ -3199,9 +3103,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -3276,9 +3178,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Poitou-Charentes',
-          'format' => NULL,
-          'safe_value' => 'Poitou-Charentes',
+          'tid' => 'c2433b6e-de2b-4d97-9820-25c734a23539',
         ),
       ),
     ),
@@ -3302,9 +3202,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Champagne-Ardenne',
-          'format' => NULL,
-          'safe_value' => 'Champagne-Ardenne',
+          'tid' => '3380aa03-777c-4c87-b45e-b86c01198a7d',
         ),
       ),
     ),
@@ -3345,9 +3243,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Centre-Val de Loire',
-          'format' => NULL,
-          'safe_value' => 'Centre-Val de Loire',
+          'tid' => '469810b2-f030-48c0-b738-ea05610c4c25',
         ),
       ),
     ),
@@ -3430,9 +3326,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -3490,9 +3384,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Provence-Alpes-Côte d\'Azur',
-          'format' => NULL,
-          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+          'tid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
         ),
       ),
     ),
@@ -3516,9 +3408,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Limousin',
-          'format' => NULL,
-          'safe_value' => 'Limousin',
+          'tid' => '22a4748b-70b1-4902-be29-3d26b85c55c1',
         ),
       ),
     ),
@@ -3593,9 +3483,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Franche-Comté',
-          'format' => NULL,
-          'safe_value' => 'Franche-Comté',
+          'tid' => '41d8bb9b-54f3-469a-b1b9-4468c81c9052',
         ),
       ),
     ),
@@ -3695,9 +3583,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Aquitaine',
-          'format' => NULL,
-          'safe_value' => 'Aquitaine',
+          'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
         ),
       ),
     ),
@@ -3772,9 +3658,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -3815,9 +3699,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Alsace',
-          'format' => NULL,
-          'safe_value' => 'Alsace',
+          'tid' => '4d6388c5-ecb4-4bb9-891f-34ed939b5ac8',
         ),
       ),
     ),
@@ -3951,9 +3833,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Aquitaine',
-          'format' => NULL,
-          'safe_value' => 'Aquitaine',
+          'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
         ),
       ),
     ),
@@ -4002,9 +3882,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Auvergne',
-          'format' => NULL,
-          'safe_value' => 'Auvergne',
+          'tid' => 'e0850f4c-8001-4a5c-a4b1-434e0fe8a7b9',
         ),
       ),
     ),
@@ -4028,9 +3906,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Champagne-Ardenne',
-          'format' => NULL,
-          'safe_value' => 'Champagne-Ardenne',
+          'tid' => '3380aa03-777c-4c87-b45e-b86c01198a7d',
         ),
       ),
     ),
@@ -4232,9 +4108,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Franche-Comté',
-          'format' => NULL,
-          'safe_value' => 'Franche-Comté',
+          'tid' => '41d8bb9b-54f3-469a-b1b9-4468c81c9052',
         ),
       ),
     ),
@@ -4258,9 +4132,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -4318,9 +4190,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -4403,9 +4273,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Aquitaine',
-          'format' => NULL,
-          'safe_value' => 'Aquitaine',
+          'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
         ),
       ),
     ),
@@ -4446,9 +4314,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -4523,9 +4389,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Provence-Alpes-Côte d\'Azur',
-          'format' => NULL,
-          'safe_value' => 'Provence-Alpes-Côte d&#039;Azur',
+          'tid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
         ),
       ),
     ),
@@ -4549,9 +4413,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -4702,9 +4564,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Franche-Comté',
-          'format' => NULL,
-          'safe_value' => 'Franche-Comté',
+          'tid' => '41d8bb9b-54f3-469a-b1b9-4468c81c9052',
         ),
       ),
     ),
@@ -4770,9 +4630,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -4796,9 +4654,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Lorraine',
-          'format' => NULL,
-          'safe_value' => 'Lorraine',
+          'tid' => '4497554f-08f7-49c7-8444-654ccf21706e',
         ),
       ),
     ),
@@ -4966,9 +4822,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bretagne',
-          'format' => NULL,
-          'safe_value' => 'Bretagne',
+          'tid' => 'd195a755-0e85-4200-8ee4-fb1d9d94b6da',
         ),
       ),
     ),
@@ -5102,9 +4956,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Poitou-Charentes',
-          'format' => NULL,
-          'safe_value' => 'Poitou-Charentes',
+          'tid' => 'c2433b6e-de2b-4d97-9820-25c734a23539',
         ),
       ),
     ),
@@ -5230,9 +5082,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -5256,9 +5106,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Poitou-Charentes',
-          'format' => NULL,
-          'safe_value' => 'Poitou-Charentes',
+          'tid' => 'c2433b6e-de2b-4d97-9820-25c734a23539',
         ),
       ),
     ),
@@ -5282,9 +5130,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -5308,9 +5154,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bretagne',
-          'format' => NULL,
-          'safe_value' => 'Bretagne',
+          'tid' => 'd195a755-0e85-4200-8ee4-fb1d9d94b6da',
         ),
       ),
     ),
@@ -5409,9 +5253,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Basse-Normandie',
-          'format' => NULL,
-          'safe_value' => 'Basse-Normandie',
+          'tid' => 'cee77f25-0f4f-4df1-b910-97bd23cc6cb2',
         ),
       ),
     ),
@@ -5587,9 +5429,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Limousin',
-          'format' => NULL,
-          'safe_value' => 'Limousin',
+          'tid' => '22a4748b-70b1-4902-be29-3d26b85c55c1',
         ),
       ),
     ),
@@ -5774,9 +5614,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Haute-Normandie',
-          'format' => NULL,
-          'safe_value' => 'Haute-Normandie',
+          'tid' => '8dde61bb-dd29-47b5-9f86-ece9e51b8af0',
         ),
       ),
     ),
@@ -5800,9 +5638,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Poitou-Charentes',
-          'format' => NULL,
-          'safe_value' => 'Poitou-Charentes',
+          'tid' => 'c2433b6e-de2b-4d97-9820-25c734a23539',
         ),
       ),
     ),
@@ -5826,9 +5662,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Corse',
-          'format' => NULL,
-          'safe_value' => 'Corse',
+          'tid' => 'd9847079-bf25-41d1-b303-1692142edb5c',
         ),
       ),
     ),
@@ -5869,9 +5703,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Basse-Normandie',
-          'format' => NULL,
-          'safe_value' => 'Basse-Normandie',
+          'tid' => 'cee77f25-0f4f-4df1-b910-97bd23cc6cb2',
         ),
       ),
     ),
@@ -5937,9 +5769,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Aquitaine',
-          'format' => NULL,
-          'safe_value' => 'Aquitaine',
+          'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
         ),
       ),
     ),
@@ -5997,9 +5827,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Auvergne',
-          'format' => NULL,
-          'safe_value' => 'Auvergne',
+          'tid' => 'e0850f4c-8001-4a5c-a4b1-434e0fe8a7b9',
         ),
       ),
     ),
@@ -6040,9 +5868,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Languedoc-Roussillon',
-          'format' => NULL,
-          'safe_value' => 'Languedoc-Roussillon',
+          'tid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
         ),
       ),
     ),
@@ -6083,9 +5909,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Lorraine',
-          'format' => NULL,
-          'safe_value' => 'Lorraine',
+          'tid' => '4497554f-08f7-49c7-8444-654ccf21706e',
         ),
       ),
     ),
@@ -6109,9 +5933,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Midi-Pyrénées',
-          'format' => NULL,
-          'safe_value' => 'Midi-Pyrénées',
+          'tid' => '8f7a4318-f820-4d97-81b3-75960f9a8ca3',
         ),
       ),
     ),
@@ -6152,9 +5974,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Languedoc-Roussillon',
-          'format' => NULL,
-          'safe_value' => 'Languedoc-Roussillon',
+          'tid' => '255451a5-c0cb-4db7-a0d3-2254fac6abe4',
         ),
       ),
     ),
@@ -6178,9 +5998,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Île-de-France',
-          'format' => NULL,
-          'safe_value' => 'Île-de-France',
+          'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
         ),
       ),
     ),
@@ -6221,9 +6039,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Champagne-Ardenne',
-          'format' => NULL,
-          'safe_value' => 'Champagne-Ardenne',
+          'tid' => '3380aa03-777c-4c87-b45e-b86c01198a7d',
         ),
       ),
     ),
@@ -6332,9 +6148,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Auvergne',
-          'format' => NULL,
-          'safe_value' => 'Auvergne',
+          'tid' => 'e0850f4c-8001-4a5c-a4b1-434e0fe8a7b9',
         ),
       ),
     ),
@@ -6417,9 +6231,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Pays de la Loire',
-          'format' => NULL,
-          'safe_value' => 'Pays de la Loire',
+          'tid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
         ),
       ),
     ),
@@ -6477,9 +6289,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Bretagne',
-          'format' => NULL,
-          'safe_value' => 'Bretagne',
+          'tid' => 'd195a755-0e85-4200-8ee4-fb1d9d94b6da',
         ),
       ),
     ),
@@ -6537,9 +6347,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),
@@ -6597,9 +6405,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Pays de la Loire',
-          'format' => NULL,
-          'safe_value' => 'Pays de la Loire',
+          'tid' => 'd30614f8-f0bf-4f9f-ae1a-b86b2fc60064',
         ),
       ),
     ),
@@ -6724,9 +6530,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Nord-Pas-de-Calais',
-          'format' => NULL,
-          'safe_value' => 'Nord-Pas-de-Calais',
+          'tid' => 'efef5001-c9bf-4bce-9a08-4dece3b35b92',
         ),
       ),
     ),
@@ -6750,9 +6554,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_region' => array(
       'und' => array(
         0 => array(
-          'value' => 'Rhône-Alpes',
-          'format' => NULL,
-          'safe_value' => 'Rhône-Alpes',
+          'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
         ),
       ),
     ),

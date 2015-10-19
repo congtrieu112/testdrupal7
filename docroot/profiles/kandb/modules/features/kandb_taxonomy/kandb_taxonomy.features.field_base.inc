@@ -370,18 +370,23 @@ function kandb_taxonomy_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_region',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
-      'max_length' => 255,
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'region',
+          'parent' => 0,
+        ),
+      ),
       'profile2_private' => FALSE,
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
   return $field_bases;
