@@ -197,10 +197,13 @@ function kandb_maison_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'decimal_separator' => ',',
+      'precision' => 10,
       'profile2_private' => FALSE,
+      'scale' => 2,
     ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'number_decimal',
   );
 
   // Exported field_base: 'field_maison_surface_sejour'
@@ -214,10 +217,13 @@ function kandb_maison_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'decimal_separator' => ',',
+      'precision' => 10,
       'profile2_private' => FALSE,
+      'scale' => 2,
     ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'number_decimal',
   );
 
   // Exported field_base: 'field_maison_surface_totale'
@@ -231,10 +237,13 @@ function kandb_maison_field_default_field_bases() {
     'locked' => 0,
     'module' => 'number',
     'settings' => array(
+      'decimal_separator' => ',',
+      'precision' => 10,
       'profile2_private' => FALSE,
+      'scale' => 2,
     ),
     'translatable' => 0,
-    'type' => 'number_integer',
+    'type' => 'number_decimal',
   );
 
   // Exported field_base: 'field_maison_url_visite'
