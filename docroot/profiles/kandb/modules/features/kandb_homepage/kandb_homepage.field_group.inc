@@ -95,5 +95,35 @@ function kandb_homepage_field_group_info() {
   );
   $export['group_hp_block_ref|node|homepage|form'] = $field_group;
 
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_hp_block_search|node|homepage|form';
+  $field_group->group_name = 'group_hp_block_search';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'homepage';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Bloc search',
+    'weight' => '3',
+    'children' => array(
+      0 => 'field_hp_block_search_img_des',
+      1 => 'field_hp_block_search_img_mob',
+      2 => 'field_hp_block_search_title',
+      3 => 'field_hp_block_search_stitle',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-hp-block-search field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_hp_block_search|node|homepage|form'] = $field_group;
+
   return $export;
 }
