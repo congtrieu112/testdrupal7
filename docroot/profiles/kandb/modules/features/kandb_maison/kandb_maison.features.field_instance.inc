@@ -89,7 +89,7 @@ function kandb_maison_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 8,
+      'weight' => 11,
     ),
   );
 
@@ -607,11 +607,11 @@ function kandb_maison_field_default_field_instances() {
           'quickedit' => array(
             'editor' => 'form',
           ),
-          'scale' => 0,
+          'scale' => 2,
           'thousand_separator' => ' ',
         ),
-        'type' => 'number_integer',
-        'weight' => 10,
+        'type' => 'number_decimal',
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -636,7 +636,7 @@ function kandb_maison_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 10,
+      'weight' => 9,
     ),
   );
 
@@ -656,11 +656,11 @@ function kandb_maison_field_default_field_instances() {
           'quickedit' => array(
             'editor' => 'form',
           ),
-          'scale' => 0,
+          'scale' => 2,
           'thousand_separator' => ' ',
         ),
-        'type' => 'number_integer',
-        'weight' => 7,
+        'type' => 'number_decimal',
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -685,7 +685,7 @@ function kandb_maison_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 9,
+      'weight' => 8,
     ),
   );
 
@@ -705,11 +705,11 @@ function kandb_maison_field_default_field_instances() {
           'quickedit' => array(
             'editor' => 'form',
           ),
-          'scale' => 0,
+          'scale' => 2,
           'thousand_separator' => ' ',
         ),
-        'type' => 'number_integer',
-        'weight' => 9,
+        'type' => 'number_decimal',
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -734,7 +734,7 @@ function kandb_maison_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
