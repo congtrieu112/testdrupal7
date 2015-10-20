@@ -46,6 +46,9 @@ function kandb_dossier_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'selection_contact' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

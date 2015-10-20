@@ -23,9 +23,6 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'entityreference',
         'settings' => array(
           'link' => FALSE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'entityreference_label',
         'weight' => 20,
@@ -74,11 +71,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 19,
       ),
@@ -162,9 +155,6 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'entityreference',
         'settings' => array(
           'link' => FALSE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'entityreference_label',
         'weight' => 22,
@@ -213,11 +203,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 21,
       ),
@@ -301,9 +287,6 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'entityreference',
         'settings' => array(
           'link' => FALSE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'entityreference_label',
         'weight' => 24,
@@ -352,11 +335,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 23,
       ),
@@ -437,11 +416,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 26,
       ),
@@ -522,11 +497,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 18,
       ),
@@ -614,12 +585,9 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -671,13 +639,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -756,13 +720,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -843,12 +803,9 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -900,13 +857,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -985,13 +938,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1072,12 +1021,9 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1129,11 +1075,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 25,
       ),
@@ -1214,13 +1156,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1301,9 +1239,6 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 12,
@@ -1358,11 +1293,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 14,
       ),
@@ -1443,11 +1374,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 13,
       ),
@@ -1530,9 +1457,6 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 15,
@@ -1587,11 +1511,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 17,
       ),
@@ -1672,11 +1592,7 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 16,
       ),
@@ -1759,12 +1675,9 @@ function kandb_dossier_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
-        'weight' => 1,
+        'weight' => 2,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1823,13 +1736,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1913,13 +1822,9 @@ function kandb_dossier_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 1,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
