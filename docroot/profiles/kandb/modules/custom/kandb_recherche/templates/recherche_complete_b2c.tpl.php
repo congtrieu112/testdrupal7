@@ -8,7 +8,7 @@ $errors = form_get_errors();
                 <label class="input">
                     <span class="visually-hidden"><?php print t('Ville, département ou programme'); ?></span>
                     <?php print render($form['place']); ?>
-                    <small class="error"><?php print $errors['place']; ?></small>
+                    <small class="error"><?php print t('Veuillez saisir votre recherche'); ?></small>
                 </label>
 
                 <button class="button-submit js-btn-submit" type="submit">
@@ -98,8 +98,6 @@ $errors = form_get_errors();
                 <span class="icon icon-expand" aria-hidden="true"></span>
                 <?php print t('Plus de critères'); ?>
             </button>
-
-            <?php print drupal_render_children($form); ?>
         </form>
     </div>
 </section>
