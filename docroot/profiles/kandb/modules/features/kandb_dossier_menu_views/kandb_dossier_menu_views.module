@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Dossier Menu Views feature.
+ */
+
+include_once 'kandb_dossier_menu_views.features.inc';
