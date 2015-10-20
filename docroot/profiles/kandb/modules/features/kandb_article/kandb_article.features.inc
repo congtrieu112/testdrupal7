@@ -19,7 +19,7 @@ function kandb_article_ctools_plugin_api($module = NULL, $api = NULL) {
 function kandb_article_node_info() {
   $items = array(
     'article' => array(
-      'name' => t('CT Article'),
+      'name' => t('Article'),
       'base' => 'node_content',
       'description' => '',
       'has_title' => '1',
