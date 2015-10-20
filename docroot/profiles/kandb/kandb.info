@@ -104,6 +104,7 @@ dependencies[] = kandb_article
 dependencies[] = kandb_bean
 dependencies[] = kandb_homepage
 dependencies[] = kandb_dossier_views
+dependencies[] = kandb_dossier_menu_views
 
 ; Blocks
 dependencies[] = kandb_recherche
