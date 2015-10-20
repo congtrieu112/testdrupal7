@@ -573,7 +573,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Acquia Settings
  */
 if (file_exists('/var/www/site-php')) {
-  require '/var/www/site-php/kaufmanetbroad/kaufmanetbroad-settings.inc';
+  require '/var/www/site-php/kaufmanetbroad/kaufmanetbroadtyz9frhrd6-settings.inc';
 }
 
 /**
