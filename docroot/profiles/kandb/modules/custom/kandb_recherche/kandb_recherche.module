@@ -407,6 +407,6 @@ function theme_recherche_button($variables) {
 
   $value = $element['#value'];
   unset($element['#attributes']['value']);
-  return '<button type="submit" ' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
 
+  return '<button value="' . $value . '" type="submit" ' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
 }
