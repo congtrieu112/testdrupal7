@@ -1,0 +1,12 @@
+name = K&B Temporary export content
+description = Create a block header content "Nos conseils" 
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = bean
+dependencies[] = bean_admin_ui
+dependencies[] = bean_uuid
+dependencies[] = uuid_features
+__drupal_alter_by_ref[][bean][block_header] = block_header
+features[features_api][] = api:2
+features[uuid_bean][] = 446d4873-23bd-45ea-ad3a-32c41cd63d0c
