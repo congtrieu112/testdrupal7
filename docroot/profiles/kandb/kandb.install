@@ -244,3 +244,21 @@ function kandb_update_7115(&$sandbox) {
     module_enable(array('kandb_dossier_views'), TRUE);
   }
 }
+
+/**
+ * Enable "Feature kandb tmp content" feature
+ */
+function kandb_update_7116(&$sandbox) {
+  if (!module_exists('kandb_tmp_content')) {
+    module_enable(array('kandb_tmp_content'), TRUE);
+  }
+}
+
+/**
+ * Enable "Feature kandb dossier menu views" feature
+ */
+function kandb_update_7117(&$sandbox) {
+  if (!module_exists('kandb_dossier_menu_views')) {
+    module_enable(array('kandb_dossier_menu_views'), TRUE);
+  }
+}
