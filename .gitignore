@@ -5,7 +5,7 @@ docroot/sites/*/private
 
 /nbproject/private/
 # Ignore file settings.php
-docroot/sites/default/settings.php
+docroot/sites/default/settings.local.php
 
 # Ignore index.php
 docroot/index.php
