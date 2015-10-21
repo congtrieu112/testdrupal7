@@ -1,7 +1,6 @@
 <?php
 $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
-//krumo($content);
 ?>
         <!-- [homeSearch] start-->
         <!-- images need to have 2 different pictures see data-exchange attribute:
@@ -11,8 +10,8 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
         <section data-interchange="[<?php print file_create_url($content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print file_create_url($content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
             <div class="wrapper">
                 <div class="heading heading--bordered heading--white">
-                    <div class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></div>
-                    <div class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre']); ?></div>
+                    <div class="heading__title"><?php print render($content['field_hp_block_search_title']['#items'][0]['value']); ?></div>
+                    <div class="heading__title heading__title--sub"><?php print render($content['field_hp_block_search_stitle']['#items'][0]['value']); ?></div>
                 </div>
                  <?php print render($content['hp_block_search']); ?>
             </div>
