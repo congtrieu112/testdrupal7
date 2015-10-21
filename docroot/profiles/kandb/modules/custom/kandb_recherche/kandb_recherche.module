@@ -361,11 +361,11 @@ function theme_recherche_check_box($variables) {
   $element = $variables['element'];
   $options = array_keys($element['#options']);
   $output = '';
-  
+
   $totalOptions = count($options);
   $count = 1;
   foreach ($options as $option) {
-    $element[$option]['#class'] = 'bordered';
+    $element[$option]['#class'] = 'class="bordered"';
     if($count == $totalOptions) {
       $element[$option]['#class'] = '';
     }
@@ -389,7 +389,7 @@ function theme_recherche_check_box_item($variables) {
     $element['#attributes']['checked'] = 'checked';
   }
 
-  $output = '<li class="' . $element['#class'] . '">'
+  $output = '<li ' . $element['#class'] . '>'
     . '<input name="' . $element['#name'] . '" ' . drupal_attributes($element['#attributes']) . '/>'
     . '<label class="label-checkbox" for="' . $element['#id'] . '"><span>' . $element['#title'] . '</span></label>'
     . '</li>';
