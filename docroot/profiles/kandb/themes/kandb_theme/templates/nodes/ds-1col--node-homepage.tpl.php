@@ -1,7 +1,7 @@
 <?php
 $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
-krumo($content);
+//krumo($content);
 ?>
         <!-- [homeSearch] start-->
         <!-- images need to have 2 different pictures see data-exchange attribute:
