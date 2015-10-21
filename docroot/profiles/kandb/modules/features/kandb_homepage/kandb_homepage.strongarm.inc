@@ -27,6 +27,15 @@ function kandb_homepage_strongarm() {
         'path' => array(
           'weight' => '1',
         ),
+        'domain' => array(
+          'weight' => '2',
+        ),
+        'locations' => array(
+          'weight' => '8',
+        ),
+        'redirect' => array(
+          'weight' => '9',
+        ),
       ),
       'display' => array(),
     ),
