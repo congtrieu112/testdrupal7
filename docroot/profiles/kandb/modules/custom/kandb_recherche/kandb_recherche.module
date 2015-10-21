@@ -361,8 +361,16 @@ function theme_recherche_check_box($variables) {
   $element = $variables['element'];
   $options = array_keys($element['#options']);
   $output = '';
+  
+  $totalOptions = count($options);
+  $count = 1;
   foreach ($options as $option) {
+    $element[$option]['#class'] = 'bordered';
+    if($count == $totalOptions) {
+      $element[$option]['#class'] = '';
+    }
     $output .= theme('recherche_check_box_item', $element[$option]);
+    $count++;
   }
 
   return $output;
@@ -375,14 +383,13 @@ function theme_recherche_check_box_item($variables) {
   $element = $variables['element'];
   $element['#attributes']['class'] = array('input-checkbox');
 
-  //$element['#attributes']['name'] = 'newsletter_subscription';
   $attributes = array('#return_value' => 'value', 'id', 'type');
   element_set_attributes($element, $attributes);
   if ($element['#default_value'] == $element['#return_value']) {
     $element['#attributes']['checked'] = 'checked';
   }
 
-  $output = '<li class="bordered">'
+  $output = '<li class="' . $element['#class'] . '">'
     . '<input name="' . $element['#name'] . '" ' . drupal_attributes($element['#attributes']) . '/>'
     . '<label class="label-checkbox" for="' . $element['#id'] . '"><span>' . $element['#title'] . '</span></label>'
     . '</li>';
@@ -408,5 +415,5 @@ function theme_recherche_button($variables) {
   $value = $element['#value'];
   unset($element['#attributes']['value']);
 
-  return '<button value="' . $value . '" type="submit" ' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
+  return '<button value="' . $value . '"' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
 }
