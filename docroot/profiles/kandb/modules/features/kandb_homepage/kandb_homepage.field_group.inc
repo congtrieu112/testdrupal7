@@ -20,21 +20,22 @@ function kandb_homepage_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Bloc offre',
-    'weight' => '5',
+    'label' => 'Bloc conseil',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_hp_block_conseil_titre',
-      1 => 'field_hp_block_conseil_stitre',
+      0 => 'field_hp_block_conseil_stitre',
+      1 => 'field_hp_block_conseil_titre',
       2 => 'field_hp_block_conseil_titre2',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Bloc conseil',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-hp-block-conseil field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-hp-block-conseil field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_hp_block_conseil|node|homepage|form'] = $field_group;
@@ -50,10 +51,10 @@ function kandb_homepage_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Bloc offre',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_hp_block_offer_titre',
-      1 => 'field_hp_block_offer_stitre',
+      0 => 'field_hp_block_offer_stitre',
+      1 => 'field_hp_block_offer_titre',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -77,20 +78,21 @@ function kandb_homepage_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Bloc offre',
-    'weight' => '6',
+    'label' => 'Bloc Référence',
+    'weight' => '7',
     'children' => array(
-      0 => 'field_hp_block_ref_titre',
-      1 => 'field_hp_block_ref_stitre',
+      0 => 'field_hp_block_ref_stitre',
+      1 => 'field_hp_block_ref_titre',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
-      'formatter' => 'collapsible',
+      'label' => 'Bloc Référence',
       'instance_settings' => array(
-        'description' => '',
-        'classes' => 'group-hp-block-ref field-group-fieldset',
         'required_fields' => 1,
+        'classes' => 'group-hp-block-ref field-group-fieldset',
+        'description' => '',
       ),
+      'formatter' => 'collapsible',
     ),
   );
   $export['group_hp_block_ref|node|homepage|form'] = $field_group;
