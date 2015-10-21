@@ -246,11 +246,13 @@ function kandb_update_7115(&$sandbox) {
 }
 
 /**
- * Enable "Feature kandb tmp content" feature
+ * Disable "Feature kandb tmp content" feature after the installation profile
  */
 function kandb_update_7116(&$sandbox) {
-  if (!module_exists('kandb_tmp_content')) {
-    module_enable(array('kandb_tmp_content'), TRUE);
+  if (module_exists('kandb_tmp_content')) {
+    module_disable(array('kandb_tmp_content'), TRUE);
+    drupal_uninstall_modules(array('kandb_tmp_content'));
+    
   }
 }
 
