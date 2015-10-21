@@ -44,6 +44,17 @@ function kb_feeds_feeds_plugins() {
       'path' => $path,
     ),
   );
+  
+  $info['KbEncodingCSVParser'] = array(
+    'name' => 'KB migration program video parser',
+    'description' => 'Only use for "Migration program video import" importer.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbEncodingCSVParser',
+      'file' => 'KbEncodingCSVParser.inc',
+      'path' => $path,
+    ),
+  );
 
   $info['KbFeedsNodeProcessor'] = array(
     'name' => 'KB Node processor',
@@ -53,6 +64,17 @@ function kb_feeds_feeds_plugins() {
       'parent' => 'FeedsProcessor',
       'class' => 'KbFeedsNodeProcessor',
       'file' => 'KbFeedsNodeProcessor.inc',
+      'path' => $path,
+    ),
+  );
+  $info['KbFeedsMiNodeProcessor'] = array(
+    'name' => 'KB multiple importer node processor',
+    'description' => 'Create and update nodes by 2 feeds importer.',
+    'help' => 'Create and update nodes from parsed content by 2 feeds importer.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'KbFeedsMiNodeProcessor',
+      'file' => 'KbFeedsMiNodeProcessor.inc',
       'path' => $path,
     ),
   );
