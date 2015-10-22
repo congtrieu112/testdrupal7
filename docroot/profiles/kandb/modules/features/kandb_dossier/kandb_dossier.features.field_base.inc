@@ -13,7 +13,7 @@ function kandb_dossier_field_default_field_bases() {
   // Exported field_base: 'field_articles_block1_ref'
   $field_bases['field_articles_block1_ref'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_articles_block1_ref',
@@ -71,7 +71,7 @@ function kandb_dossier_field_default_field_bases() {
   // Exported field_base: 'field_articles_block2_ref'
   $field_bases['field_articles_block2_ref'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_articles_block2_ref',
@@ -129,7 +129,7 @@ function kandb_dossier_field_default_field_bases() {
   // Exported field_base: 'field_articles_block3_ref'
   $field_bases['field_articles_block3_ref'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_articles_block3_ref',
