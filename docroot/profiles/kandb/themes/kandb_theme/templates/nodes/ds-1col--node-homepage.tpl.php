@@ -10,8 +10,8 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
         <section data-interchange="[<?php print file_create_url($content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print file_create_url($content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
             <div class="wrapper">
                 <div class="heading heading--bordered heading--white">
-                    <div class="heading__title"><?php print render($content['field_hp_block_search_title']['#items'][0]['value']); ?></div>
-                    <div class="heading__title heading__title--sub"><?php print render($content['field_hp_block_search_stitle']['#items'][0]['value']); ?></div>
+                    <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
+                    <div class="heading__title heading__title--sub"><?php print render($content['field_hp_block_search_stitle']); ?></div>
                 </div>
                  <?php print render($content['hp_block_search']); ?>
             </div>
@@ -21,8 +21,8 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
         <!-- [offers] start-->
         <section class="wrapper section-padding">
             <header class="heading heading--bordered">
-                <h2 class="heading__title">Nos dernières offres</h2>
-                <p class="heading__title heading__title--sub">Profitez des meilleures opportunités du moment !</p>
+                <h2 class="heading__title"><?php print render($content['field_hp_block_offer_titre']); ?></h2>
+                <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_offer_stitre']); ?></p>
             </header>
             <!-- [carousel] start-->
             <div data-slick="{&quot;slidesToShow&quot;: 3, &quot;slidesToScroll&quot;: 3}" class="slick-slider__item-3">
