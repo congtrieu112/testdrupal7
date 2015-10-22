@@ -7144,4 +7144,68 @@ p {
     .docs__readmore:after {
       content: " >"; }
 
-/*# sourceMappingURL=maps/app.css.map */
+.styleguide h2 {
+  padding-top: 50px;
+  border-bottom: 2px solid #003e5e; }
+
+.colors {
+  display: block;
+  padding: 0;
+  margin: 0 -0.625rem; }
+  .colors:before, .colors:after {
+    content: " ";
+    display: table; }
+  .colors:after {
+    clear: both; }
+  .colors > li {
+    display: block;
+    float: left;
+    height: auto;
+    padding: 0 0.625rem 1.25rem; }
+  .colors > li {
+    list-style: none;
+    padding: 0 0.625rem 1.25rem;
+    width: 50%; }
+    .colors > li:nth-of-type(1n) {
+      clear: none; }
+    .colors > li:nth-of-type(2n+1) {
+      clear: both; }
+  @media only screen and (min-width: 48em) {
+    .colors {
+      display: block;
+      padding: 0;
+      margin: 0 -0.625rem; }
+      .colors:before, .colors:after {
+        content: " ";
+        display: table; }
+      .colors:after {
+        clear: both; }
+      .colors > li {
+        display: block;
+        float: left;
+        height: auto;
+        padding: 0 0.625rem 1.25rem; }
+      .colors > li {
+        list-style: none;
+        padding: 0 0.625rem 1.25rem;
+        width: 20%; }
+        .colors > li:nth-of-type(1n) {
+          clear: none; }
+        .colors > li:nth-of-type(5n+1) {
+          clear: both; } }
+  .colors__item {
+    border: 1px solid #869298;
+    border-radius: 5px;
+    padding: 5px; }
+  .colors__demo {
+    height: 50px; }
+
+.icon-list li {
+  margin: 20px; }
+
+.icon-list .icon {
+  margin-right: 1.25rem;
+  vertical-align: middle;
+  font-size: 1.875rem; }
+
+/*# sourceMappingURL=maps/app-styleguide.css.map */
