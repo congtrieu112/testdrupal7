@@ -289,3 +289,36 @@ function getListTidTaxonomyByName($bundle, $value) {
 
   return $tid;
 }
+
+/**
+ * Implements hook_feeds_presave
+ * @param FeedsSource $source
+ * @param type $entity
+ * @param type $item
+ */
+function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
+  $tid = 0;
+  if ($entity->feeds_item->entity_type == 'node') {
+    if ($entity->feeds_item->id == 'programme_feed_import') {
+      if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
+        $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
+        if ($terms) {
+          foreach ($terms as $key => $value) {
+            $tid = $key;
+          }
+        }
+      }
+    } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
+      if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+        $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
+        if($nodes) {
+          $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
+        }
+      }
+    }
+  }
+
+  if ($tid > 0) {
+    $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
+  }
+}
