@@ -1,0 +1,5 @@
+name = K&B Business Rules
+core = 7.x
+description = Set rules that change the content.
+package = K&B Development
+
