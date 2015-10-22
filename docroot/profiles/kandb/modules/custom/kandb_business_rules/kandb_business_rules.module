@@ -9,15 +9,8 @@
 function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item) {
   if ($entity->feeds_item->entity_type == 'node') {
     if ($entity->feeds_item->id == 'programme_feed_import') {
-      $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
-
       if($entity->feeds_item->is_new == TRUE) {
-        $entity->field_programme_stock[LANGUAGE_NONE][0]['value'] = 100;
-      } else {
-        $date = $entity->published_at;
-        if($date > strtotime("-1 month")) {
-          $entity->field_programme_stock[LANGUAGE_NONE][0]['value'] = 100;
-        }
+        $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
       }
     }
   }
@@ -31,18 +24,5 @@ function kandb_business_rules_node_presave($node) {
     if($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
       $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
     }
-  }
-}
-
-function kandb_business_rules_publication_date_alter(&$published_at, $node, $op) {
-  // Check if the node is being published.
-  if ($node->status == 1) {
-    // If a future publication date was set, change it to the curret time.
-    $now = REQUEST_TIME;
-    $published_at = ($published_at > $now) ? $now : $published_at;
-  }
-  else {
-    // If the node isn't published then reset the published date to zero.
-    $published_at = 0;
   }
 }
