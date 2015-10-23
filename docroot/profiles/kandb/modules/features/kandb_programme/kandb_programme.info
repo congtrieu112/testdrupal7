@@ -185,7 +185,6 @@ features[field_instance][] = node-programme-field_slider_securite_desc
 features[field_instance][] = node-programme-field_slider_securite_image
 features[field_instance][] = node-programme-field_slider_securite_titre
 features[field_instance][] = node-programme-field_trimestre
-features[field_instance][] = node-programme-field_tva
 features[field_instance][] = node-programme-field_tva_55
 features[field_instance][] = node-programme-field_type_programme
 features[field_instance][] = node-programme-field_visuel_grande_taille
