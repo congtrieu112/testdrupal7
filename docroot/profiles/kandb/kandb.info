@@ -108,6 +108,7 @@ dependencies[] = kandb_dossier_views
 dependencies[] = kandb_dossier_menu_views
 dependencies[] = kandb_tmp_content
 dependencies[] = kandb_image_style
+dependencies[] = kandb_promotion
 
 ; Blocks
 dependencies[] = kandb_recherche

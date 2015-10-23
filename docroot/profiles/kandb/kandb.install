@@ -266,9 +266,19 @@ function kandb_update_7117(&$sandbox) {
 }
 
 /**
- * Enable "image_style_quality" module
+
+ * Enable "Feature kandb promotion" feature
  */
 function kandb_update_7118(&$sandbox) {
+  if (!module_exists('kandb_promotion')) {
+    module_enable(array('kandb_promotion'), TRUE);
+  }
+}
+
+/**
+ * Enable "image_style_quality" module
+ */
+function kandb_update_7119(&$sandbox) {
   if (!module_exists('image_style_quality')) {
     module_enable(array('image_style_quality'), TRUE);
   }
@@ -277,7 +287,7 @@ function kandb_update_7118(&$sandbox) {
 /**
  * Enable "kandb_image_style" feature
  */
-function kandb_update_7119(&$sandbox) {
+function kandb_update_7120(&$sandbox) {
   if (!module_exists('kandb_image_style')) {
     module_enable(array('kandb_image_style'), TRUE);
   }
