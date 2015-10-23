@@ -252,7 +252,7 @@ function kandb_update_7116(&$sandbox) {
   if (module_exists('kandb_tmp_content')) {
     module_disable(array('kandb_tmp_content'), TRUE);
     drupal_uninstall_modules(array('kandb_tmp_content'));
-    
+
   }
 }
 
@@ -262,5 +262,23 @@ function kandb_update_7116(&$sandbox) {
 function kandb_update_7117(&$sandbox) {
   if (!module_exists('kandb_dossier_menu_views')) {
     module_enable(array('kandb_dossier_menu_views'), TRUE);
+  }
+}
+
+/**
+ * Enable "image_style_quality" module
+ */
+function kandb_update_7118(&$sandbox) {
+  if (!module_exists('image_style_quality')) {
+    module_enable(array('image_style_quality'), TRUE);
+  }
+}
+
+/**
+ * Enable "kandb_image_style" feature
+ */
+function kandb_update_7119(&$sandbox) {
+  if (!module_exists('kandb_image_style')) {
+    module_enable(array('kandb_image_style'), TRUE);
   }
 }
