@@ -522,11 +522,7 @@ function kandb_dossier_field_default_field_instances() {
       'teaser' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 0,
       ),
@@ -1695,19 +1691,20 @@ function kandb_dossier_field_default_field_instances() {
         'label' => 'above',
         'module' => 'image',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
+          'image_link' => 'content',
+          'image_style' => 'dossier_big_teaser',
         ),
         'type' => 'image',
         'weight' => 1,
       ),
       'teaser' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => 'content',
+          'image_style' => 'dossier_small_teaser',
+        ),
+        'type' => 'image',
         'weight' => 0,
       ),
     ),
@@ -1716,14 +1713,14 @@ function kandb_dossier_field_default_field_instances() {
     'label' => 'Image principale',
     'required' => 0,
     'settings' => array(
-      'alt_field' => 0,
+      'alt_field' => 1,
       'default_image' => 0,
-      'file_directory' => 'imgs',
+      'file_directory' => 'dossier',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
+      'min_resolution' => '1130x380',
+      'title_field' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1755,11 +1752,7 @@ function kandb_dossier_field_default_field_instances() {
       'dossier_big_teaser' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 2,
       ),
