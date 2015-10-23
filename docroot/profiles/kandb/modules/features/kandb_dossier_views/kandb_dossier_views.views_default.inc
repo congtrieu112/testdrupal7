@@ -157,6 +157,18 @@ function kandb_dossier_views_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'dossier' => 'dossier',
   );
+  $translatables['dossier'] = array(
+    t('Master'),
+    t('Dossier'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Big HP Teaser'),
+    t('Small HP Teaser'),
+  );
   $export['dossier'] = $view;
 
   return $export;

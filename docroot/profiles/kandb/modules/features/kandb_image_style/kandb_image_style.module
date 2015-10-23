@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Image style feature.
+ */
+
+include_once 'kandb_image_style.features.inc';

@@ -1610,8 +1610,12 @@ function kandb_programme_field_default_field_instances() {
       ),
       'teaser_carrousel_3' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => 'programme_teaser_3',
+        ),
+        'type' => 'image',
         'weight' => 19,
       ),
       'teaser_carrousel_4' => array(
@@ -4382,11 +4386,7 @@ function kandb_programme_field_default_field_instances() {
       'teaser_carrousel_3' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 0,
       ),
