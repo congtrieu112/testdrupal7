@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Implements hook_feeds_presave
+ * @param FeedsSource $source
+ * @param type $entity
+ * @param type $item
+ */
+function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item) {
+  if ($entity->feeds_item->entity_type == 'node') {
+    if ($entity->feeds_item->id == 'programme_feed_import') {
+      if($entity->feeds_item->is_new == TRUE) {
+        $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_node_presave().
+ */
+function kandb_business_rules_node_presave($node) {
+  if($node->type == 'programme') {
+    if($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
+      $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+    }
+  }
+}
