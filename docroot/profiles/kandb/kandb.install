@@ -264,3 +264,12 @@ function kandb_update_7117(&$sandbox) {
     module_enable(array('kandb_dossier_menu_views'), TRUE);
   }
 }
+
+/**
+ * Enable "Feature kandb promotion" feature
+ */
+function kandb_update_7118(&$sandbox) {
+  if (!module_exists('kandb_promotion')) {
+    module_enable(array('kandb_promotion'), TRUE);
+  }
+}
