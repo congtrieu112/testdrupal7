@@ -48,7 +48,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 74,
+        'weight' => 16,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -73,7 +73,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 17,
+      'weight' => 14,
     ),
   );
 
@@ -110,7 +110,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 51,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -137,7 +137,7 @@ function kandb_programme_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 53,
+      'weight' => 54,
     ),
   );
 
@@ -174,7 +174,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 52,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -238,7 +238,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 53,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -302,7 +302,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 50,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -367,7 +367,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 27,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -464,7 +464,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 49,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -565,7 +565,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 65,
+        'weight' => 7,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -662,7 +662,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 45,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -721,7 +721,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 46,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -822,7 +822,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 66,
+        'weight' => 8,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -881,7 +881,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 21,
+      'weight' => 22,
     ),
   );
 
@@ -919,7 +919,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 20,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1016,7 +1016,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 18,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1113,7 +1113,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 55,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1214,7 +1214,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 47,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1315,7 +1315,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 48,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1415,7 +1415,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 54,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1479,7 +1479,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 60,
+        'weight' => 2,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1548,7 +1548,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 73,
+        'weight' => 15,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1609,14 +1609,14 @@ function kandb_programme_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser_carrousel_3' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'image',
         'settings' => array(
-          'image_link' => 'content',
+          'image_link' => '',
           'image_style' => 'programme_teaser_3',
         ),
         'type' => 'image',
-        'weight' => 0,
+        'weight' => 19,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1632,11 +1632,11 @@ function kandb_programme_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 1,
       'default_image' => 0,
-      'file_directory' => 'programme',
+      'file_directory' => '',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
-      'min_resolution' => '440x440',
+      'min_resolution' => '',
       'title_field' => 1,
       'user_register_form' => FALSE,
     ),
@@ -1685,7 +1685,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 62,
+        'weight' => 4,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1749,7 +1749,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 58,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1813,7 +1813,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 57,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1878,7 +1878,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 21,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -1937,7 +1937,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 64,
+        'weight' => 6,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2038,7 +2038,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 67,
+        'weight' => 9,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2099,7 +2099,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 25,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2197,7 +2197,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 63,
+        'weight' => 5,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2266,7 +2266,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 61,
+        'weight' => 3,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2330,7 +2330,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 56,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2394,7 +2394,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 59,
+        'weight' => 1,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2459,7 +2459,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 77,
+        'weight' => 41,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2555,7 +2555,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 43,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2620,7 +2620,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 14,
+        'weight' => 32,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2722,7 +2722,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 1,
+        'weight' => 31,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2823,7 +2823,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2848,7 +2848,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 74,
+      'weight' => 75,
     ),
   );
 
@@ -2890,7 +2890,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 44,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2915,7 +2915,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 77,
+      'weight' => 78,
     ),
   );
 
@@ -2953,7 +2953,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -2974,7 +2974,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 60,
+      'weight' => 61,
     ),
   );
 
@@ -3012,7 +3012,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3075,7 +3075,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 58,
+      'weight' => 59,
     ),
   );
 
@@ -3113,7 +3113,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3176,7 +3176,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 62,
+      'weight' => 63,
     ),
   );
 
@@ -3214,7 +3214,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3277,7 +3277,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 61,
+      'weight' => 62,
     ),
   );
 
@@ -3319,7 +3319,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3382,7 +3382,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3483,7 +3483,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 17,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3584,7 +3584,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3605,7 +3605,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 59,
+      'weight' => 60,
     ),
   );
 
@@ -3647,7 +3647,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3672,7 +3672,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 75,
+      'weight' => 76,
     ),
   );
 
@@ -3710,7 +3710,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3815,7 +3815,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3847,7 +3847,7 @@ function kandb_programme_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 76,
+      'weight' => 77,
     ),
   );
 
@@ -3889,7 +3889,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3914,7 +3914,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 79,
+      'weight' => 80,
     ),
   );
 
@@ -3956,7 +3956,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 39,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -3981,7 +3981,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 78,
+      'weight' => 79,
     ),
   );
 
@@ -4023,7 +4023,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 40,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4048,7 +4048,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 81,
+      'weight' => 82,
     ),
   );
 
@@ -4090,7 +4090,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 41,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4115,7 +4115,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 80,
+      'weight' => 81,
     ),
   );
 
@@ -4157,7 +4157,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 42,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4222,7 +4222,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 38,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4285,7 +4285,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 28,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4384,10 +4384,11 @@ function kandb_programme_field_default_field_instances() {
         'weight' => 0,
       ),
       'teaser_carrousel_3' => array(
-        'label' => 'hidden',
+        'label' => 'above',
+        'module' => 'text',
         'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 37,
+        'type' => 'text_default',
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4498,7 +4499,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4519,7 +4520,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'youtube',
       'settings' => array(),
       'type' => 'youtube',
-      'weight' => 13,
+      'weight' => 14,
     ),
   );
 
@@ -4557,7 +4558,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 72,
+        'weight' => 14,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4616,7 +4617,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 14,
+      'weight' => 15,
     ),
   );
 
@@ -4654,7 +4655,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 29,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4751,7 +4752,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 71,
+        'weight' => 13,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4849,7 +4850,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 13,
+        'weight' => 34,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -4919,7 +4920,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 33,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5016,7 +5017,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 70,
+        'weight' => 12,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5114,7 +5115,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 36,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5184,7 +5185,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 16,
+        'weight' => 35,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5281,7 +5282,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5340,7 +5341,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 68,
+        'weight' => 10,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5437,7 +5438,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 35,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5497,7 +5498,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 76,
+        'weight' => 40,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5567,7 +5568,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 39,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5664,7 +5665,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 69,
+        'weight' => 11,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5723,7 +5724,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 42,
+      'weight' => 40,
     ),
   );
 
@@ -5762,7 +5763,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 38,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5794,7 +5795,7 @@ function kandb_programme_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'image_image',
-      'weight' => 38,
+      'weight' => 39,
     ),
   );
 
@@ -5832,7 +5833,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 18,
+        'weight' => 37,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5929,7 +5930,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 24,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -5951,6 +5952,61 @@ function kandb_programme_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_tva'
+  $field_instances['node-programme-field_tva'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 94,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_tva',
+    'label' => 'TVA',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 16,
     ),
   );
 
@@ -5992,7 +6048,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 75,
+        'weight' => 17,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -6015,7 +6071,7 @@ function kandb_programme_field_default_field_instances() {
         'display_label' => 1,
       ),
       'type' => 'options_onoff',
-      'weight' => 18,
+      'weight' => 15,
     ),
   );
 
@@ -6053,7 +6109,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 23,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -6074,7 +6130,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 73,
+      'weight' => 74,
     ),
   );
 
@@ -6111,7 +6167,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -6176,7 +6232,7 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 6,
+        'weight' => 22,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
@@ -6197,7 +6253,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 72,
+      'weight' => 73,
     ),
   );
 
@@ -6254,6 +6310,7 @@ function kandb_programme_field_default_field_instances() {
   t('RT2012 / BBC');
   t('Sous Titre');
   t('Statut du programme');
+  t('TVA');
   t('TVA 5,5%');
   t('Titre');
   t('Titre Video');
