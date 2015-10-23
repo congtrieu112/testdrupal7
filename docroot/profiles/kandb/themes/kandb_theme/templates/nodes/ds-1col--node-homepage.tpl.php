@@ -1,12 +1,9 @@
-<?php
-$logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
-?>
 <!-- [homeSearch] start-->
 <!-- images need to have 2 different pictures see data-exchange attribute:
 - small: 640 x 845
 - large: 1380 x 590
 -->
-<section data-interchange="[<?php print file_create_url($content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print file_create_url($content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
+<section data-interchange="[<?php print image_style_url('hp_search_block_mobile',$content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('hp_search_block',$content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
@@ -24,8 +21,8 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
         <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_offer_stitre']); ?></p>
     </header>
     <?php print render($content['hp_block_offre']); ?>
-    <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
-    </div>
+<!--    <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
+    </div>-->
 </section>
 <!-- [offers] end-->
 

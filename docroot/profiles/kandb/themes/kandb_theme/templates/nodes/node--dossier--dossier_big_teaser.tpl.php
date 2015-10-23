@@ -5,7 +5,7 @@ $style = $content['field_dossier_image'][0]['#image_style'];
     <?php print render($title_prefix); ?>
     <?php print render($title_suffix); ?>
 
-    <a href="https://www.youtube.com/watch?v=jO8k7fsdIIg" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url($style, $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url($style, $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
+    <a href="https://www.youtube.com/watch?v=jO8k7fsdIIg" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
         <h3 class="heading__title">Pourquoi acheter dans le neuf&nbsp;?</h3>
         <div class="btn-icon"><span class="button__content"><span class="icon icon-play"></span>Lire la vidéo</span></div></a>
     <!-- [popin] start-->

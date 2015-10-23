@@ -12,7 +12,7 @@ $style = $content['field_dossier_image'][0]['#image_style'];
         <!-- [Responsive img] start-->
         <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
             <?php print render($title_prefix); ?>
-            <img alt="test" data-interchange="[<?php print image_style_url($style, $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url($style, $content['field_dossier_image']['#items'][0]['uri']); ?>, (large)]"/>
+            <img alt="test" data-interchange="[<?php print image_style_url('dossier_small_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_small_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (large)]"/>
             <?php print render($title_suffix); ?>
         </div>
 
