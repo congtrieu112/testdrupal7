@@ -4,7 +4,6 @@ $style = $content['field_dossier_image'][0]['#image_style'];
 <!-- [fileItem] start-->
 <article class="fileItem">
     <a href="https://www.youtube.com/watch?v=jO8k7fsdIIg" title="Lire la vidéo" data-reveal-id="videofileItem" class="fileItem__img">
-        <span class="icon icon-play"></span>
         <!-- images need to have 2 formats:
         - small: 560 x 365 (HEAVY compression!!!)
         - large: 560 x 365
@@ -12,6 +11,7 @@ $style = $content['field_dossier_image'][0]['#image_style'];
         <!-- [Responsive img] start-->
         <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
             <?php print render($title_prefix); ?>
+            <span class="icon icon-play"></span>
             <img alt="test" data-interchange="[<?php print image_style_url('dossier_small_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_small_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (large)]"/>
             <?php print render($title_suffix); ?>
         </div>
