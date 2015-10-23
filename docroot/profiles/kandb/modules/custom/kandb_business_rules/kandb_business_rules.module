@@ -1,5 +1,38 @@
 <?php
 
+include_once 'class-kandb-business-rule.php';
+
+/**
+ * Implements hook_feeds_after_parse().
+ */
+function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+      
+  if($source->id === FEED_ID_IMPORT_BIEN){   // is import for bien
+        // set list nodes of bien
+        Kandb_Business_Rules::set_list_biens();
+        $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+  
+        // Get all node from db and remmove all node what it has in file import
+        // To get list node don't have in file import
+        foreach($result->items as $row){
+            $id_bien_in_file = $row[FEED_COLUMN_ID];
+            $node_bien = Kandb_Business_Rules::get_bien_from_id_bien($id_bien_in_file);
+            
+            // if it is update, then remove from list node
+            // use for RULE BIEN 103, 104, is update
+            if(!empty($node_bien)){
+                $node_bien = array_shift($node_bien);
+                
+                if(($key = array_search($node_bien->nid, $list_nodes_bien)) !== false){
+                    unset($list_nodes_bien[$key]);                    
+                }
+            }
+        }
+        
+        Kandb_Business_Rules::set_list_biens($list_nodes_bien);
+    }
+}
+
 /**
  * Implements hook_feeds_presave
  * @param FeedsSource $source
@@ -12,6 +45,22 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if($entity->feeds_item->is_new == TRUE) {
         $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
       }
+    }elseif($entity->feeds_item->id == FEED_ID_IMPORT_BIEN){
+        $status_in_file = $item[FEED_COLUMN_STATUS];
+                               
+        // RULE BIEN 101, 102, is update
+        if(!empty($entity_id)){
+            if(!($status_in_file === TAXONOMY_STATUS_LOGEMENT_L || $status_in_file === TAXONOMY_STATUS_LOGEMENT_R)){
+                $node_bien = node_load($entity_id);
+                $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+            }
+        }                
+
+        //RULE BIEN 106 , is new
+        if(empty($entity_id) && $status_in_file === TAXONOMY_STATUS_LOGEMENT_L){
+            $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
+            $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $status_invisible;
+        }
     }
   }
 }
@@ -25,4 +74,88 @@ function kandb_business_rules_node_presave($node) {
       $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
     }
   }
+}
+    
+
+/**
+ * Implements hook_feeds_after_import().
+ * 
+ * Invoked after a feed source has been imported.
+ *
+ * @param FeedsSource $source
+ *  FeedsSource object that describes the source that has been imported.
+ */
+function kandb_business_rules_feeds_after_import(FeedsSource $source) {
+  
+    if($source->id === FEED_ID_IMPORT_BIEN){   // is import for bien        
+    
+        // RULE BIEN 103 & 104
+        // Get list node don't have in file import
+        $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+
+        if(!empty($list_nodes_bien)){
+            foreach($list_nodes_bien as $nid){
+                $node = node_load($nid);
+                if(isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])){
+                    $status_node = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+
+                    $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
+                    $status_vendu = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_VENDU);
+                    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+                    $status_reserve = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_RESERVE);
+                    $flag = 0;
+
+                    switch ($status_node) { // check status of current node
+                        case $status_disponible:    // RULE BIEN 103
+                            $flag = 1;
+                            $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $status_invisible;
+                            break;
+                        case $status_reserve:       // RULE BIEN 104
+                            $flag = 1;
+                            $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $status_vendu;
+                            break;
+                        default:
+                            break;
+                    }
+
+                    if($flag){
+                        node_save($node);
+                        // Delete all node option what it related to this bien
+                        Kandb_Business_Rules::delete_node_option_related_bien($nid);                        
+                    }
+                }
+            }
+        }
+        
+        // the number of available bien is recalculated
+        Kandb_Business_Rules::recalculate_bien_to_programe();
+    }
+}
+
+/**
+ * Implements hook_node_update()
+ */
+
+function kandb_business_rules_node_update($node){
+    if($node->type === CONTENT_TYPE_BIEN){
+        $node_bien = node_load($node->nid);
+
+        $status_old = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+        $status_new = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+        
+        $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
+        $status_vendu = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_VENDU);
+        $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+        
+        if($status_old != $status_new && ($status_old == $status_disponible || $status_new == $status_disponible)){
+            // RULE BIEN 107
+            $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
+            Kandb_Business_Rules::recalculate_bien_to_programe(array($programe));
+        }
+        
+        if($status_old != $status_new && ($status_new == $status_invisible || $status_new == $status_vendu)){
+            // RULE BIEN 108
+            Kandb_Business_Rules::delete_node_option_related_bien($node->nid);
+        }
+    }
 }
