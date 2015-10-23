@@ -37,34 +37,76 @@ function action_delete_nodes() {
  * @return string
  */
 function kb_import_cronapi($op, $job = NULL) {
-  $items['fetch_programme_feed_import_cron_1'] = array(
-    'description' => 'Fetch Programme Feed Import 1',
-    'rule' => '0 6 * * 1,5',
+//  City import
+  $items['fetch_city_feed_import_6am'] = array(
+    'description' => 'Fetch city feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('city_feed_import'))
+  );
+
+  $items['fetch_city_feed_import_4pm'] = array(
+    'description' => 'Fetch city feed 4pm',
+    'rule' => '0 16 * * 5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('city_feed_import'))
+  );
+//  District import
+  $items['fetch_district_feed_import_6am'] = array(
+    'description' => 'Fetch district feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('district_feed_import'))
+  );
+
+  $items['fetch_district_feed_import_4pm'] = array(
+    'description' => 'Fetch district feed 4pm',
+    'rule' => '0 16 * * 5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('district_feed_import'))
+  );
+//  Maison import
+  $items['fetch_maison_feed_import_6am'] = array(
+    'description' => 'Fetch maison feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('maison_feed_import'))
+  );
+
+  $items['fetch_maison_feed_import_4pm'] = array(
+    'description' => 'Fetch maison feed 4pm',
+    'rule' => '0 16 * * 5',
+    'callback' => 'kb_import_fetch_import_cron' ,
+    'arguments' => array(array('maison_feed_import'))
+  );
+//  Programme import
+  $items['fetch_programme_feed_import_6am'] = array(
+    'description' => 'Fetch programme feed 6am',
+    'rule' => '0 6 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('programme_feed_import'))
   );
 
-  $items['fetch_programme_feed_import_cron_2'] = array(
-    'description' => 'Fetch Programme Feed Import 2',
+  $items['fetch_programme_feed_import_4pm'] = array(
+    'description' => 'Fetch programme feed 4pm',
     'rule' => '0 16 * * 5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('programme_feed_import'))
   );
-
-  $items['fetch_parcel_feed_import_cron_1'] = array(
-    'description' => 'Fetch Parcel Feed Import 1',
-    'rule' => '0 6 * * 1,5',
+// Parcel import
+  $items['fetch_parcel_feed_import_6am'] = array(
+    'description' => 'Fetch parcel feed 6am',
+    'rule' => '0 6 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('parcel_feed_import'))
   );
 
-  $items['fetch_parcel_feed_import_cron_2'] = array(
-    'description' => 'Fetch Parcel Feed Import 2',
+  $items['fetch_parcel_feed_import_4pm'] = array(
+    'description' => 'Fetch parcel feed 4pm',
     'rule' => '0 16 * * 5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('parcel_feed_import'))
   );
-
 
   return $items;
 }

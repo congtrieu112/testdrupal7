@@ -73,96 +73,35 @@ class KbParserCSV extends ParserCSV{
     $kb_delimiter = $this->delimiter;
     $total_column = $this->currentParser->config['total_column'];
     $logging = '';
+    $stored_line = '';
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
-      $ori_line = $lineIterator->current();
-      $line = trim($ori_line, "\r\n");
+      $line = $ori_line = $lineIterator->current();
       $line = mb_convert_encoding($line, "UTF-8", "ISO-8859-1");
-      $line = str_replace("|", "" ,$line);
-      $line = str_replace("¤", $kb_delimiter ,$line);
-
       if (empty($line)) {
         continue;
       }
-
       if ($skipLine) {
         $skipLine = FALSE;
         continue;
       }
-
+      if (strpos($line, '|') > 0) {
+          $line = trim($line, "\r\n");
+          $line = str_replace("|", "" ,$line);
+          $line = str_replace("¤", $kb_delimiter ,$line);
+          $line = $stored_line . $line;
+          $stored_line = '';
+      }
+      else {
+          $line = str_replace("¤", $kb_delimiter ,$line);
+          $stored_line .= $line;
+          continue;
+      }
       $fields = str_getcsv($line, $this->delimiter, '','\\');
       if(is_array($fields) && $total_column != count($fields)){
           $log_line = mb_convert_encoding($ori_line, "UTF-8", "ISO-8859-1");
           $logging .= str_replace('¤', '€' ,$log_line);;
           continue;
       }
-//      $quoted = FALSE;
-//      $currentIndex = 0;
-//      $currentField = '';
-//      $fields = array();
-//
-//      while ($currentIndex <= strlen($line)) {
-//        if ($quoted) {
-//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
-//
-//          if ($nextQuoteIndex === FALSE) {
-//            $currentField .= substr($line, $currentIndex);
-//            $lineIterator->next();
-//
-//            if (!$lineIterator->valid()) {
-//              $fields[] = $currentField;
-//              break;
-//            }
-//            $currentField .= "\n";
-//            $line = trim($lineIterator->current(), "\r\n");
-//            $currentIndex = 0;
-//            continue;
-//          }
-//
-//          $currentField .= substr($line, $currentIndex, $nextQuoteIndex - $currentIndex);
-//
-//          if (isset($line[$nextQuoteIndex + 1]) && $line[$nextQuoteIndex + 1] === '"') {
-//            $currentField .= '"';
-//            $currentIndex = $nextQuoteIndex + 2;
-//          }
-//          else {
-//            $quoted = FALSE;
-//            $currentIndex = $nextQuoteIndex + 1;
-//          }
-//        }
-//        else {
-//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
-//          $nextDelimiterIndex = strpos($line, $this->delimiter, $currentIndex);
-//
-//          if ($nextQuoteIndex === FALSE) {
-//            $nextIndex = $nextDelimiterIndex;
-//          }
-//          elseif ($nextDelimiterIndex === FALSE) {
-//            $nextIndex = $nextQuoteIndex;
-//          }
-//          else {
-//            $nextIndex = min($nextQuoteIndex, $nextDelimiterIndex);
-//          }
-//
-//          if ($nextIndex === FALSE) {
-//            $currentField .= substr($line, $currentIndex);
-//            $fields[] = $currentField;
-//            break;
-//          }
-//          elseif ($line[$nextIndex] === $this->delimiter[0]) {
-//            $length = ($nextIndex + strlen($this->delimiter) - 1) - $currentIndex;
-//            $currentField .= substr($line, $currentIndex, $length);
-//            $fields[] = $currentField;
-//            $currentField = '';
-//            $currentIndex += $length + 1;
-//          }
-//          else {
-//            $quoted = TRUE;
-//            $currentField .= substr($line, $currentIndex, $nextIndex - $currentIndex);
-//            $currentIndex = $nextIndex + 1;
-//          }
-//        }
-//      }
-
       if (empty($this->columnNames)) {
         $row = $fields;
       }

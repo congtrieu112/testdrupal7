@@ -18,7 +18,7 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'City feed import',
     'description' => '',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
         'auto_detect_feeds' => 0,
         'use_pubsubhubbub' => 0,
@@ -26,6 +26,8 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/VILLE.TXT',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -86,7 +88,7 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'District feed import',
     'description' => '',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
         'auto_detect_feeds' => 0,
         'use_pubsubhubbub' => 0,
@@ -94,6 +96,8 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/ARRONDISSEMENT.TXT',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -154,7 +158,7 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Maison feed import',
     'description' => 'Import maison content type from MAISON.TXT file',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
         'auto_detect_feeds' => 0,
         'use_pubsubhubbub' => 0,
@@ -162,6 +166,8 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/MAISON.TXT',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -274,7 +280,7 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Migration program video import',
     'description' => '',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
         'auto_detect_feeds' => 0,
         'use_pubsubhubbub' => 0,
@@ -282,6 +288,8 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/ProgrammeVideo.csv',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -339,14 +347,16 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Parcel feed import',
     'description' => 'Import bien from TXT file',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
-        'auto_detect_feeds' => FALSE,
-        'use_pubsubhubbub' => FALSE,
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
         'designated_hub' => '',
-        'request_timeout' => NULL,
-        'auto_scheme' => 'http',
-        'accept_invalid_cert' => FALSE,
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/LOT.TXT',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -361,7 +371,7 @@ function kandb_feed_feeds_importer_default() {
       'plugin_key' => 'KbFeedsNodeProcessor',
       'config' => array(
         'expire' => '-1',
-        'author' => '0',
+        'author' => 0,
         'authorize' => 1,
         'mappings' => array(
           0 => array(
@@ -461,7 +471,7 @@ function kandb_feed_feeds_importer_default() {
             'autocreate' => 0,
           ),
         ),
-        'update_existing' => '1',
+        'update_existing' => '2',
         'update_non_existent' => 'update',
         'input_format' => 'plain_text',
         'skip_hash_check' => 0,
@@ -485,14 +495,16 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Programme feed import',
     'description' => 'Import programme from TXT file',
     'fetcher' => array(
-      'plugin_key' => 'FeedsHTTPFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
-        'auto_detect_feeds' => FALSE,
-        'use_pubsubhubbub' => FALSE,
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
         'designated_hub' => '',
-        'request_timeout' => NULL,
-        'auto_scheme' => 'http',
-        'accept_invalid_cert' => FALSE,
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/all/default/files/import/PROGRAMME.TXT',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
@@ -522,56 +534,116 @@ function kandb_feed_feeds_importer_default() {
             'unique' => 1,
           ),
           2 => array(
+            'source' => '2',
+            'target' => 'field_marque_comm',
+            'term_search' => '1',
+            'autocreate' => 0,
+          ),
+          3 => array(
+            'source' => '3',
+            'target' => 'field_zone_activite',
+            'term_search' => '1',
+            'autocreate' => 0,
+          ),
+          4 => array(
+            'source' => '4',
+            'target' => 'field_programme_loc_ville',
+            'term_search' => '1',
+            'autocreate' => 0,
+          ),
+          5 => array(
+            'source' => '5',
+            'target' => 'field_programme_loc_arr',
+            'term_search' => '1',
+            'autocreate' => 0,
+          ),
+          6 => array(
+            'source' => '7',
+            'target' => 'field_programme_loc_num',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => '8',
+            'target' => 'field_programme_loc_type',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => '9',
+            'target' => 'field_programme_loc_rue',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => '10',
+            'target' => 'field_programme_loc_cp',
+            'unique' => FALSE,
+          ),
+          10 => array(
             'source' => '12',
             'target' => 'field_trimestre',
             'unique' => FALSE,
           ),
-          3 => array(
+          11 => array(
             'source' => '13',
             'target' => 'field_annee',
             'unique' => FALSE,
           ),
-          4 => array(
+          12 => array(
+            'source' => '14',
+            'target' => 'field_type_programme',
+            'term_search' => '1',
+            'autocreate' => 0,
+          ),
+          13 => array(
+            'source' => '18',
+            'target' => 'field_programme_loc_long',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => '19',
+            'target' => 'field_programme_loc_lat',
+            'unique' => FALSE,
+          ),
+          15 => array(
             'source' => '24',
             'target' => 'field_tva_55',
             'unique' => FALSE,
           ),
-          5 => array(
+          16 => array(
             'source' => '24',
             'target' => 'field_tva',
             'unique' => FALSE,
           ),
-          6 => array(
+          17 => array(
             'source' => '49',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          7 => array(
+          18 => array(
             'source' => '50',
             'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'format' => 'plain_text',
           ),
-          8 => array(
+          19 => array(
             'source' => '51',
             'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'format' => 'plain_text',
           ),
-          9 => array(
+          20 => array(
             'source' => '52',
             'target' => 'field_espace_vente_adresse',
-            'unique' => FALSE,
+            'format' => 'plain_text',
           ),
-          10 => array(
+          21 => array(
             'source' => '56',
             'target' => 'field_espace_vente_horaire',
-            'unique' => FALSE,
+            'format' => 'plain_text',
           ),
-          11 => array(
+          22 => array(
             'source' => '58',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          12 => array(
+          23 => array(
             'source' => '59',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,

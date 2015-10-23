@@ -187,6 +187,86 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'programme_feed_import-14-search_term_by_field';
+  $feeds_tamper->importer = 'programme_feed_import';
+  $feeds_tamper->source = '14';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'type_de_programme',
+    'field_name' => 'field_id_type_programme',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['programme_feed_import-14-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'programme_feed_import-2-search_term_by_field';
+  $feeds_tamper->importer = 'programme_feed_import';
+  $feeds_tamper->source = '2';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'marque_commercialisation',
+    'field_name' => 'field_id_marque_comm',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['programme_feed_import-2-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'programme_feed_import-3-search_term_by_field';
+  $feeds_tamper->importer = 'programme_feed_import';
+  $feeds_tamper->source = '3';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'zone_activite',
+    'field_name' => 'field_id_zone_activite',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['programme_feed_import-3-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'programme_feed_import-4-search_term_by_field';
+  $feeds_tamper->importer = 'programme_feed_import';
+  $feeds_tamper->source = '4';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'ville',
+    'field_name' => 'field_idk',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['programme_feed_import-4-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'programme_feed_import-5-search_term_by_field';
+  $feeds_tamper->importer = 'programme_feed_import';
+  $feeds_tamper->source = '5';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'arrondissement',
+    'field_name' => 'field_idka',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['programme_feed_import-5-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'programme_feed_import-52-rewrite';
   $feeds_tamper->importer = 'programme_feed_import';
   $feeds_tamper->source = '52';

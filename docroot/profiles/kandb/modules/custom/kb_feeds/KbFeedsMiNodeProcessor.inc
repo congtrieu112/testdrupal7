@@ -9,8 +9,8 @@
  * Option for handling content in Drupal but not in source data (unpublish
  * instead of skip/delete).
  */
-if(!defined('FEEDS_UNPUBLISH_NON_EXISTENT')){
-    define('FEEDS_UNPUBLISH_NON_EXISTENT', 'unpublish');
+if(!defined('MINODE_FEEDS_UNPUBLISH_NON_EXISTENT')){
+    define('MINODE_FEEDS_UNPUBLISH_NON_EXISTENT', 'unpublish');
 }
 
 /**
@@ -224,7 +224,7 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
     );
     // Add on the "Unpublish" option for nodes, update wording.
     if (isset($form['update_non_existent'])) {
-      $form['update_non_existent']['#options'][FEEDS_UNPUBLISH_NON_EXISTENT] = t('Unpublish non-existent nodes');
+      $form['update_non_existent']['#options'][MINODE_FEEDS_UNPUBLISH_NON_EXISTENT] = t('Unpublish non-existent nodes');
     }
     return $form;
   }
@@ -376,6 +376,7 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
     }
     $targets = $this->getCachedTargets();
     $entity_id = 0;
+    $nid = 0;
     foreach ($this->uniqueTargets($source, $result) as $target => $value) {
       if ($target === 'guid' || $target === 'url') {
         $entity_id = db_select('feeds_item')
@@ -435,7 +436,7 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
    */
   protected function clean(FeedsState $state) {
     // Delegate to parent if not unpublishing or option not set.
-    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] != FEEDS_UNPUBLISH_NON_EXISTENT) {
+    if (!isset($this->config['update_non_existent']) || $this->config['update_non_existent'] != MINODE_FEEDS_UNPUBLISH_NON_EXISTENT) {
       return parent::clean($state);
     }
 

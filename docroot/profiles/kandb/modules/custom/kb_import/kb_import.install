@@ -1,0 +1,9 @@
+<?php
+
+function kb_import_enable() {
+  variable_set('feeds_process_limit', 10000);
+}
+
+function kb_import_disable() {
+    variable_del('feeds_process_limit');
+}
