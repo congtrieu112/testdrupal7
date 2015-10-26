@@ -61,6 +61,12 @@ function kandb_dossier_strongarm() {
         'path' => array(
           'weight' => '11',
         ),
+        'locations' => array(
+          'weight' => '13',
+        ),
+        'redirect' => array(
+          'weight' => '12',
+        ),
       ),
       'display' => array(),
     ),
