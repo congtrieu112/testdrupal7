@@ -2292,6 +2292,12 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 29,
       ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
