@@ -70,6 +70,9 @@ function kandb_bien_strongarm() {
         'redirect' => array(
           'weight' => '30',
         ),
+        'domain' => array(
+          'weight' => '1',
+        ),
       ),
       'display' => array(),
     ),

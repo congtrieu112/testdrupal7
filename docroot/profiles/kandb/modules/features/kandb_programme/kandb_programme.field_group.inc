@@ -64,6 +64,7 @@ function kandb_programme_field_group_info() {
       1 => 'field_en_quelques_mots_b2b',
       2 => 'field_nouveau',
       3 => 'field_options',
+      4 => 'field_caracteristique',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
