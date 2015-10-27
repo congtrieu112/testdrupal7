@@ -5,9 +5,9 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
 <!-- [fileItem] start-->
 <article class="fileItem">
     <?php if ($video_id): ?>
-        <a href="https://www.youtube.com/watch?v=jO8k7fsdIIg" title="Lire la vidéo"  data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img">
+        <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('Lire la vidéo'); ?>"  data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img">
         <?php else: ?>
-            <a href="<?php print url('node/' . $node->nid); ?>" title="Lire la vidéo"   class="fileItem__img">
+            <a href="<?php print url('node/' . $node->nid); ?>" title="<?php print t('Lire la vidéo'); ?>"   class="fileItem__img">
             <?php endif; ?>
 
             <!-- images need to have 2 formats:
@@ -20,7 +20,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
                 <?php if ($video_id): ?>
                     <span class="icon icon-play"></span>
                 <?php endif; ?>
-                <img alt="test" data-interchange="[<?php print image_style_url('dossier_small_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_small_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (large)]"/>
+                <img alt="<?php print $content['field_dossier_image']['#items'][0]['alt']; ?>" data-interchange="[<?php print image_style_url('dossier_small_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_small_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (large)]"/>
                 <?php print render($title_suffix); ?>
             </div>
 
@@ -39,7 +39,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
         <!-- [popin] start-->
         <div data-equalizer-watch="data-equalizer-watch" class="fileItem__infos">
             <h4 class="fileItem__infos__heading"><?php print $node->title; ?></h4>
-            <div class="btn-wrapper text-center"><a href="<?php print url('node/' . $node->nid); ?>" class="btn-primary btn-rounded">Lire le dossier<span class="icon icon-arrow"></span></a></div>
+            <div class="btn-wrapper text-center"><a href="<?php print url('node/' . $node->nid); ?>" class="btn-primary btn-rounded"><?php print t('Lire le dossier') ?><span class="icon icon-arrow"></span></a></div>
         </div>
 </article>
 <!-- [fileItem] end-->
