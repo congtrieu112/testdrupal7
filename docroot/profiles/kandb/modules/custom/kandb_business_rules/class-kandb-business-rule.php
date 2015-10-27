@@ -248,10 +248,10 @@ class Kandb_Business_Rules {
         $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
 
         $sort = "ASC";
-        if(!$is_room_min){
+        if (!$is_room_min) {
             $sort = "DESC";
         }
-        
+
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'taxonomy_term')
             ->entityCondition('bundle', TAXONOMY_NB_PIECES)
@@ -278,7 +278,7 @@ class Kandb_Business_Rules {
                 return $tax_piece->field_id_nombre_pieces[LANGUAGE_NONE][0]["value"];
             }
         }
-        
+
         return 0;
     }
 
@@ -299,16 +299,16 @@ class Kandb_Business_Rules {
             node_save($node_programe);
         }
     }
-    
+
     /**
      * @todo To calculate total bien follow programe
      * RULE COUNTING 101.
      */
-    public static function get_total_bien_follow_programe(){
+    public static function get_total_bien_follow_programe() {
         $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
         $list_programe = self::get_list_program_contain_bien();
-        
-        foreach ($list_programe as $item) {            
+
+        foreach ($list_programe as $item) {
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'node')
                 ->entityCondition('bundle', CONTENT_TYPE_BIEN)
@@ -317,7 +317,7 @@ class Kandb_Business_Rules {
             ;
 
             $total_bien = intval($query->count()->execute());
-            if($total_bien > 0){
+            if ($total_bien > 0) {
                 $node_programe = node_load($item->nid);
                 $node_programe->field_programme_flat_available[LANGUAGE_NONE][0][value] = $total_bien;
                 node_save($node_programe);

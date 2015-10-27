@@ -128,15 +128,15 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
         // The number of available bien is recalculated.
         Kandb_Business_Rules::recalculate_bien_to_programe();
     }
-    
-    
-    if($source->id === FEED_ID_IMPORT_BIEN || $source->id === 'programme_feed_import'){
+
+
+    if ($source->id === FEED_ID_IMPORT_BIEN || $source->id === 'programme_feed_import') {
         // RULE COUNTING 106.
         Kandb_Business_Rules::calculate_programe_price();
-        
+
         // RULE COUNTING 107.
         Kandb_Business_Rules::find_room_bien_follow_programe();
-        
+
         // RULE COUNTING 101.
         Kandb_Business_Rules::get_total_bien_follow_programe();
     }
@@ -160,10 +160,10 @@ function kandb_business_rules_node_update($node) {
             // RULE BIEN 107.
             $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
             Kandb_Business_Rules::recalculate_bien_to_programe(array($programe));
-            
+
             // RULE COUNTING 106.
             Kandb_Business_Rules::calculate_programe_price();
-            
+
             // RULE COUNTING 107.
             Kandb_Business_Rules::find_room_bien_follow_programe();
         }
