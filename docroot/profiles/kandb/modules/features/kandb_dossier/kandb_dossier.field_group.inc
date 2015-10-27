@@ -23,8 +23,8 @@ function kandb_dossier_field_group_info() {
     'label' => 'Premier bloc d\'article',
     'weight' => '16',
     'children' => array(
-      0 => 'field_articles_block1_title',
-      1 => 'field_articles_block1_ref',
+      0 => 'field_articles_block1_ref',
+      1 => 'field_articles_block1_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -51,8 +51,8 @@ function kandb_dossier_field_group_info() {
     'label' => 'Second bloc d\'article',
     'weight' => '17',
     'children' => array(
-      0 => 'field_articles_block2_title',
-      1 => 'field_articles_block2_ref',
+      0 => 'field_articles_block2_ref',
+      1 => 'field_articles_block2_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -79,8 +79,8 @@ function kandb_dossier_field_group_info() {
     'label' => 'Troisième bloc d\'article',
     'weight' => '18',
     'children' => array(
-      0 => 'field_articles_block3_title',
-      1 => 'field_articles_block3_ref',
+      0 => 'field_articles_block3_ref',
+      1 => 'field_articles_block3_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -105,10 +105,10 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Lien vers les articles',
-    'weight' => '9',
+    'weight' => '10',
     'children' => array(
-      0 => 'field_dossier_articles_title',
-      1 => 'field_dossier_articles_intro',
+      0 => 'field_dossier_articles_intro',
+      1 => 'field_dossier_articles_title',
       2 => 'group_dossier_articles_block1',
       3 => 'group_dossier_articles_block2',
       4 => 'group_dossier_articles_block3',
@@ -136,11 +136,11 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Premier bloc',
-    'weight' => '4',
+    'weight' => '5',
     'children' => array(
       0 => 'field_dossier_block1_image',
-      1 => 'field_dossier_block1_title',
-      2 => 'field_dossier_block1_text',
+      1 => 'field_dossier_block1_text',
+      2 => 'field_dossier_block1_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -165,11 +165,11 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Second bloc',
-    'weight' => '5',
+    'weight' => '6',
     'children' => array(
       0 => 'field_dossier_block2_image',
-      1 => 'field_dossier_block2_title',
-      2 => 'field_dossier_block2_text',
+      1 => 'field_dossier_block2_text',
+      2 => 'field_dossier_block2_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -194,11 +194,11 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Troisème bloc',
-    'weight' => '6',
+    'weight' => '7',
     'children' => array(
       0 => 'field_dossier_block3_image',
-      1 => 'field_dossier_block3_title',
-      2 => 'field_dossier_block3_text',
+      1 => 'field_dossier_block3_text',
+      2 => 'field_dossier_block3_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -223,11 +223,11 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Quatrième bloc',
-    'weight' => '7',
+    'weight' => '8',
     'children' => array(
       0 => 'field_dossier_block4_image',
-      1 => 'field_dossier_block4_title',
-      2 => 'field_dossier_block4_text',
+      1 => 'field_dossier_block4_text',
+      2 => 'field_dossier_block4_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -252,11 +252,11 @@ function kandb_dossier_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Cinquième bloc',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_dossier_block5_image',
-      1 => 'field_dossier_block5_title',
-      2 => 'field_dossier_block5_text',
+      1 => 'field_dossier_block5_text',
+      2 => 'field_dossier_block5_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
