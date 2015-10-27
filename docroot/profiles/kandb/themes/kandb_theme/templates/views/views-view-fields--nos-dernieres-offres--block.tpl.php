@@ -27,12 +27,23 @@ $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 $ville_name = $row->field_field_programme_loc_ville[0]['rendered']['#title'];
 $departement_tax = $row->field_field_espace_vente_dpt[0]['rendered']['#options']['entity'];
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
+
+$available = false;
+// Check date rage available promotion.
+if ($row->field_promotion_programme_node_title):
+    $current_date = time();
+    $start_date = strtotime($row->field_field_promotion_start[0]['raw']['value']);
+    $end_date = strtotime($row->field_field_promotion_stop[0]['raw']['value']);
+    if ($current_date > $start_date && $current_date < $end_date):
+        $available = true;
+    endif;
+endif;
 ?>
 <div class="slick-slider__item">
     <article class="squaredImageItem squaredImageItem--stacked false">
         <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $node->title; ?>" class="squaredImageItem__img">
             <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
-            <?php if ($row->field_promotion_programme_node_title): ?>
+            <?php if ($row->field_promotion_programme_node_title && $available): ?>
                 <div class="tag"><?php print t('Plus que deux T3 disponibles'); ?></div>
                 <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
             <?php endif; ?>
