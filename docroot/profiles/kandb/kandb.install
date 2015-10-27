@@ -292,3 +292,13 @@ function kandb_update_7120(&$sandbox) {
     module_enable(array('kandb_image_style'), TRUE);
   }
 }
+
+/**
+ * Enable "kandb_habiteo" feature
+ */
+function kandb_update_7121(&$sandbox) {
+  if (!module_exists('kandb_habiteo')) {
+    module_enable(array('kandb_habiteo'), TRUE);
+  }
+}
+
