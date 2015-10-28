@@ -5,3 +5,4 @@
  */
 
 include_once 'kandb_bien.features.inc';
+include_once 'kandb_bien.block.inc';

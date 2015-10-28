@@ -1,0 +1,28 @@
+<?php
+
+function kandb_bien_enable() {
+  //Set show link  
+  $show = variable_get('service_links_show', array());
+  if(!isset($show['print'])){
+    $show['print'] = 1;
+  }
+  if(!isset($show['printmail'])){
+    $show['printmail'] = 1;
+  }
+  variable_set('service_links_show', $show);
+  //Set for node type
+  $node_types = variable_get('service_links_node_types', array());
+  $node_types['bien'] = 'bien';
+  $node_types['programme'] = 'programme';
+  variable_set('service_links_node_types', $node_types);
+  //Set open window
+  $window = variable_get('service_links_new_window');
+  if (is_null($window)) {
+      variable_set('service_links_new_window', 1);
+  }
+  //Set style
+  $style = variable_get('service_links_block_style');
+  if(is_null($style)) {
+    variable_set('service_links_block_style', 2);
+  }
+}
