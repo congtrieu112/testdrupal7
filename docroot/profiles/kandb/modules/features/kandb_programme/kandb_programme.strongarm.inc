@@ -52,6 +52,12 @@ function kandb_programme_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'selection_contact' => array(
+        'custom_settings' => FALSE,
+      ),
+      'dossier_big_teaser' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

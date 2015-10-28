@@ -356,7 +356,8 @@ function kandb_programme_field_group_info() {
       10 => 'field_programme_stock',
       11 => 'field_type_programme',
       12 => 'field_zone_activite',
-      13 => 'field_programme_habiteo_id',
+      13 => 'field_program_low_tva_price_min',
+      14 => 'field_program_low_tva_price_max',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
