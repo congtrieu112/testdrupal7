@@ -90,7 +90,7 @@ function kandb_bien_strongarm() {
             'visible' => TRUE,
           ),
           'full' => array(
-            'weight' => '22',
+            'weight' => '21',
             'visible' => FALSE,
           ),
         ),

@@ -160,8 +160,10 @@ function _get_block_data($delta, &$block) {
                 $biens_variables[$nid]['caracteristiques'] = '';
                 if(isset($node->field_caracteristiques[LANGUAGE_NONE])){
                     $caracteristiques_arr = array();
+                    $all_fields = field_info_fields();
+                    $allowed_values= list_allowed_values($all_fields["field_caracteristiques"]);
                     foreach($node->field_caracteristiques[LANGUAGE_NONE] as $id => $value) {
-                        $caracteristiques_arr[] = $value['value'];
+                        $caracteristiques_arr[] = $allowed_values[$value['value']];
                     }
                     $biens_variables[$nid]['caracteristiques'] = implode(' - ', $caracteristiques_arr);
                 }

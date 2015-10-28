@@ -18,6 +18,7 @@ dependencies[] = options
 dependencies[] = print
 dependencies[] = print_mail
 dependencies[] = service_links
+dependencies[] = print_services
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = text

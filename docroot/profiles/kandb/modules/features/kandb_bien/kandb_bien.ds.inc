@@ -44,7 +44,7 @@ function kandb_bien_ds_field_settings_info() {
     ),
     'service_links' => array(
       'weight' => '2',
-      'label' => 'hidden',
+      'label' => 'inline',
       'format' => 'default',
     ),
   );
