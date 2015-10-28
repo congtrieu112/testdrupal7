@@ -1,0 +1,24 @@
+git --diff a/domain_conf/domain_conf.module b/domain_conf/domain_conf.module
+--- a/domain_conf/domain_conf.module
++++ b/domain_conf/domain_conf.module
+@@ -298,8 +298,9 @@ function domain_conf_language_options()
+  */
+ function _domain_conf_load_primary($unset = FALSE) {
+   $settings = &drupal_static(__FUNCTION__);
++  global $install_state;
+ 
+-  if (!isset($settings)) {
++  if (!isset($settings) && empty($install_state)) {
+     // Account for table prefixing.
+     $cache_table = domain_get_primary_table('cache');
+     // Load the query.
+@@ -317,6 +318,9 @@ function _domain_conf_load_primary($unset = FALSE)
+       }
+       $settings = $data;
+     }
++    if(isset($settings['language_default']) && is_object($settings['language_default'])){
++      $settings['language_default'] = $settings['language_default']->language;
++    }
+   }
+   // Do we reset the global or just return data?
+   if ($unset) {
