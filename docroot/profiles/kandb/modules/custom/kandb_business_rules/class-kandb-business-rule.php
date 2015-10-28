@@ -138,7 +138,7 @@ class Kandb_Business_Rules {
             $total_bien = self::calculate_bien_follow_programe($item->nid);
 
             $node_programe = node_load($item->nid);
-            $node_programe->field_programme_flat_available[LANGUAGE_NONE][0][value] = $total_bien;
+            $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
             node_save($node_programe);
         }
     }
@@ -232,8 +232,8 @@ class Kandb_Business_Rules {
             $max_price = self::get_programe_min_max_price($item->nid, FALSE);
 
             $node_programe = node_load($item->nid);
-            $node_programe->field_programme_price_min[LANGUAGE_NONE][0][value] = $min_price;
-            $node_programe->field_programme_price_max[LANGUAGE_NONE][0][value] = $max_price;
+            $node_programe->field_programme_price_min[LANGUAGE_NONE][0]["value"] = $min_price;
+            $node_programe->field_programme_price_max[LANGUAGE_NONE][0]["value"] = $max_price;
             node_save($node_programe);
         }
     }
@@ -260,24 +260,26 @@ class Kandb_Business_Rules {
 
 
         $list_pieces = $query->execute();
+        if(!empty($list_pieces)){
+            foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
+                $query1 = new EntityFieldQuery();
+                $query1->entityCondition('entity_type', 'node')
+                    ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+                    ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+                    ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
+                    ->fieldCondition('field_nb_pieces', 'tid', $nb_piece->tid, '=')
+                ;
 
-        foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
-            $query1 = new EntityFieldQuery();
-            $query1->entityCondition('entity_type', 'node')
-                ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-                ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-                ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
-                ->fieldCondition('field_nb_pieces', 'tid', $nb_piece->tid, '=')
-            ;
+                // count bien follow programe and piece
+                $count_bien = intval($query1->count()->execute());
+                if ($count_bien > 0) {  // Have item mean this is min|max piece what I need to find.
+                    $tax_piece = taxonomy_term_load($nb_piece->tid);
 
-            // count bien follow programe and piece
-            $count_bien = intval($query1->count()->execute());
-            if ($count_bien > 0) {  // Have item mean this is min|max piece what I need to find.
-                $tax_piece = taxonomy_term_load($nb_piece->tid);
-
-                return $tax_piece->field_id_nombre_pieces[LANGUAGE_NONE][0]["value"];
+                    return $tax_piece->field_id_nombre_pieces[LANGUAGE_NONE][0]["value"];
+                }
             }
         }
+        
 
         return 0;
     }
@@ -294,8 +296,8 @@ class Kandb_Business_Rules {
             $room_max = self::get_room_min_max_follow_programe($item->nid, FALSE);
 
             $node_programe = node_load($item->nid);
-            $node_programe->field_programme_room_min[LANGUAGE_NONE][0][value] = $room_min;
-            $node_programe->field_programme_room_max[LANGUAGE_NONE][0][value] = $room_max;
+            $node_programe->field_programme_room_min[LANGUAGE_NONE][0]["value"] = $room_min;
+            $node_programe->field_programme_room_max[LANGUAGE_NONE][0]["value"] = $room_max;
             node_save($node_programe);
         }
     }
@@ -319,7 +321,7 @@ class Kandb_Business_Rules {
             $total_bien = intval($query->count()->execute());
             if ($total_bien > 0) {
                 $node_programe = node_load($item->nid);
-                $node_programe->field_programme_flat_available[LANGUAGE_NONE][0][value] = $total_bien;
+                $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
                 node_save($node_programe);
             }
         }
