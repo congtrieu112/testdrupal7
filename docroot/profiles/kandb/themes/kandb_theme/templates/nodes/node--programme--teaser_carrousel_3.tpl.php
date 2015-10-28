@@ -18,11 +18,11 @@ $departement_code = isset($departement->field_numero_departement[LANGUAGE_NONE][
         <article class="squaredImageItem squaredImageItem--stacked false">
             <a href="<?php print url('node/' . $node->nid); ?>" title="<?php print $node->title; ?>" class="squaredImageItem__img">
                 <img src="<?php print image_style_url($style, $content['field_image_principale']['#items'][0]['uri']); ?>" alt="<?php print $content['field_image_principale']['#items'][0]['alt'] ?>"/>
-                <div class="tag">Plus que deux T3 disponibles</div>
+                <div class="tag"><?php print t('Plus que deux T3 disponibles'); ?></div>
             </a>
             <div class="squaredImageItem__infos">
                 <div class="squaredImageItem__details">
-                    <a href="#" title="Go to programme page" class="heading heading--small">
+                    <a href="<?php print url('node/' . $node->nid); ?>" title="<?php print t('Go to programme page'); ?>" class="heading heading--small">
                         <p class="heading__title">
                             <?php print $ville_name . ' / ' . $departement_code; ?>
                         </p>

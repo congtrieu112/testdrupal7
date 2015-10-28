@@ -2899,7 +2899,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 75,
+      'weight' => 74,
     ),
   );
 
@@ -2975,7 +2975,79 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 78,
+      'weight' => 77,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_programme_habiteo_id'
+  $field_instances['node-programme-field_programme_habiteo_id'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 95,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_programme_habiteo_id',
+    'label' => 'Habiteo 3rd party ID',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 82,
     ),
   );
 
@@ -3882,7 +3954,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 76,
+      'weight' => 75,
     ),
   );
 
@@ -4063,7 +4135,7 @@ function kandb_programme_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 77,
+      'weight' => 76,
     ),
   );
 
@@ -4139,7 +4211,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 80,
+      'weight' => 79,
     ),
   );
 
@@ -4215,7 +4287,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 79,
+      'weight' => 78,
     ),
   );
 
@@ -4285,7 +4357,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 82,
+      'weight' => 81,
     ),
   );
 
@@ -4355,7 +4427,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'number',
       'settings' => array(),
       'type' => 'number',
-      'weight' => 81,
+      'weight' => 80,
     ),
   );
 
@@ -6444,7 +6516,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 74,
+      'weight' => 73,
     ),
   );
 
@@ -6571,7 +6643,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 73,
+      'weight' => 72,
     ),
   );
 
@@ -6597,6 +6669,7 @@ function kandb_programme_field_default_field_instances() {
   t('En quelques mots B2B');
   t('Etat des risques');
   t('Fiche Renseignement');
+  t('Habiteo 3rd party ID');
   t('Horaire de l\'espace de vente');
   t('ID du programme');
   t('Image');

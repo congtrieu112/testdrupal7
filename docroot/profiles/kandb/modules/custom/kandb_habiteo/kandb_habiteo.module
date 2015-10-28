@@ -1,0 +1,139 @@
+<?php
+
+/**
+ *  Implements hook_menu().
+ */
+function kandb_habiteo_menu() {
+    $items = array();
+    $items['admin/habiteo-settings'] = array(
+      'title' => 'Habiteo setting page',
+      'description' => 'Habiteo webservice',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('habiteo_page_settings_form'),
+      'access arguments' => array('administrator custom settings'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['maquettes/%/%'] = array(
+      'title' => 'Mock habiteo reponse json',
+      'description' => 'Habiteo reponse mock',
+      'page callback' => 'render_habiteo_json',
+      'page arguments' => array(1, 2),
+      'access arguments' => array('access content'),
+    );
+
+    // For testing case, and will be remove later.
+    $items['test/maquettes'] = array(
+      'title' => 'Test cron retrive habiteo',
+      'description' => 'Habiteo reponse mock',
+      'page callback' => 'render_test_habiteo',
+      'page arguments' => array(1),
+      'access arguments' => array('access content'),
+    );
+
+
+    return $items;
+}
+
+/**
+ *  Implements hook_settings_form().
+ */
+function habiteo_page_settings_form($form, &$form_state) {
+
+    $form['variable_tab'] = array(
+      '#type' => 'vertical_tabs',
+    );
+
+    $form['variable_habiteo_page'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Habiteo Setting'),
+      '#group' => 'variable_tab',
+    );
+
+    $form['variable_habiteo_page']['habiteo_feed_url'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Habiteo feed URL'),
+      '#description' => t('example: http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes"'),
+      '#default_value' => variable_get('habiteo_feed_url', ''),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+
+    $form['variable_habiteo_page']['habiteo_feed_token'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Habiteo feed TOKEN'),
+      '#description' => t('example: 3c7070bcf6bc98a6ea813ff7ff78953d'),
+      '#default_value' => variable_get('habiteo_feed_token', ''),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => TRUE,
+    );
+
+    return system_settings_form($form);
+}
+
+/**
+ * Implements ouput json from programe mock.
+ */
+function render_habiteo_json($token, $type) {
+
+    $uri = 'public://';
+    $data = '';
+    if ($wrapper = file_stream_wrapper_get_instance_by_uri($uri)) {
+        $path = $wrapper->realpath();
+        $file = $path . '/maquettes/' . $token . '/' . $type;
+        if (file_exists($file)) {
+            // Do something
+            $data = file_get_contents($file);
+        }
+    }
+    print $data;
+}
+
+/**
+ * Implement mock page for testing imports habiteo_id into CT programes.
+ */
+function render_test_habiteo() {
+
+    $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+    $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+    if ($habiteo_feed_url && $habiteo_feed_token) {
+        $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
+        $request = drupal_http_request($path);
+        if ($request->data) {
+            $imports = json_decode($request->data);
+            foreach ($imports as $item) {
+                kandb_habiteo_update_programe($item->id_partenaire, $item->id);
+            }
+        }
+    }
+    return 'test';
+}
+
+/**
+ * Update field_programme_habiteo_id when field_id_programme has exist.
+ */
+function kandb_habiteo_update_programe($id, $habiteo_id, $type = 'programme') {
+    $query = new EntityFieldQuery();
+
+    $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', $type)
+      ->fieldCondition('field_id_programme', 'value', $id, '=');
+
+    $result = $query->execute();
+
+    if (isset($result['node'])) {
+        $items_nids = array_keys($result['node']);
+        $items = entity_load('node', $items_nids);
+        if ($items) {
+            foreach ($items as $item) {
+                $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
+                node_save($item);
+                watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
+            }
+        }
+    } else {
+        watchdog('kandb_habiteo', 'Logs: <pre>id_programme: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+    }
+}

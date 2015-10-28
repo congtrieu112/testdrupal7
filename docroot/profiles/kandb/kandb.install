@@ -266,7 +266,6 @@ function kandb_update_7117(&$sandbox) {
 }
 
 /**
-
  * Enable "Feature kandb promotion" feature
  */
 function kandb_update_7118(&$sandbox) {
@@ -290,5 +289,23 @@ function kandb_update_7119(&$sandbox) {
 function kandb_update_7120(&$sandbox) {
   if (!module_exists('kandb_image_style')) {
     module_enable(array('kandb_image_style'), TRUE);
+  }
+}
+
+/**
+ * Enable "kandb_business_rules" custom module
+ */
+function kandb_update_7121(&$sandbox) {
+  if (!module_exists('kandb_business_rules')) {
+    module_enable(array('kandb_business_rules'), TRUE);
+  }
+}
+
+/**
+ * Enable "kandb_habiteo" feature
+ */
+function kandb_update_7122(&$sandbox) {
+  if (!module_exists('kandb_habiteo')) {
+    module_enable(array('kandb_habiteo'), TRUE);
   }
 }

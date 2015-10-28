@@ -1,0 +1,8 @@
+name = K&B Habiteo
+core = 7.x
+description = Connect Habiteo services
+package = K&B Development
+
+dependencies[] = kandb_programme
+
+

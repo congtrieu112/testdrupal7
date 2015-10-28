@@ -358,6 +358,7 @@ function kandb_programme_field_group_info() {
       10 => 'field_programme_stock',
       11 => 'field_type_programme',
       12 => 'field_zone_activite',
+      13 => 'field_programme_habiteo_id',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

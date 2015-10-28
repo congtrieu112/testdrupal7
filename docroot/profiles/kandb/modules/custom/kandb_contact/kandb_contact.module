@@ -10,6 +10,10 @@ function kandb_contact_block_info(){
     'info' => 'Contact on summary',
     'cache' => DRUPAL_NO_CACHE,
   );
+  $blocks['contact_block_with_sales_office'] = array(
+    'info' => 'Contact block with sales office',
+    'cache' => DRUPAL_NO_CACHE,
+  );
   return $blocks;
 }
 
@@ -21,6 +25,10 @@ function kandb_contact_block_view($delta = ''){
       $block['content'] = _get_contact_block_content();
       break;
     case 'contact_on_summary':
+      $block['subject'] = '';
+      $block['content'] = _get_contact_block_content();
+      break;
+    case 'contact_block_with_sales_office':
       $block['subject'] = '';
       $block['content'] = _get_contact_block_content();
       break;
