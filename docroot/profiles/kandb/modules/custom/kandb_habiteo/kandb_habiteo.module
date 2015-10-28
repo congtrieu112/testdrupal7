@@ -22,6 +22,14 @@ function kandb_habiteo_menu() {
       'access arguments' => array('access content'),
     );
 
+    $items['maquettes/%/lots'] = array(
+      'title' => 'Mock habiteo reponse json for Bien',
+      'description' => 'Habiteo reponse mock for Bien',
+      'page callback' => 'render_habiteo_json_bien',
+      'page arguments' => array(1),
+      'access arguments' => array('access content'),
+    );
+
     // For testing case, and will be remove later.
     $items['test/maquettes'] = array(
       'title' => 'Test cron retrive habiteo',
@@ -135,5 +143,24 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $type = 'programme') {
         }
     } else {
         watchdog('kandb_habiteo', 'Logs: <pre>id_programme: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+    }
+}
+
+function render_habiteo_json_bien($token) {
+    $params = drupal_get_query_parameters();
+    $id_lots = isset($params['ID']) ? $params['ID'] : '';
+    if ($id_lots) {
+
+        $uri = 'public://';
+        $data = '';
+        if ($wrapper = file_stream_wrapper_get_instance_by_uri($uri)) {
+            $path = $wrapper->realpath();
+            $file = $path . '/maquettes/' . $token . '/lots/' . $id_lots;
+            if (file_exists($file)) {
+                // Do something
+                $data = file_get_contents($file);
+            }
+        }
+        print $data;
     }
 }
