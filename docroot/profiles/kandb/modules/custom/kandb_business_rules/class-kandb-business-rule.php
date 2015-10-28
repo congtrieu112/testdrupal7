@@ -207,6 +207,7 @@ class Kandb_Business_Rules {
             ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
             ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
             ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
+            ->range(0, 1)
         ;
 
         $results = $query->execute();
