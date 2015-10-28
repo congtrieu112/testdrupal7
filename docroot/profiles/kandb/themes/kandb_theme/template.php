@@ -24,14 +24,10 @@ function kandb_theme_process_page(&$variables) {
         $variables['title_suffix']['add_or_remove_shortcut']['#weight'] = -100;
     }
 
-    $common_css = array(
-      'app'
-    );
     $common_js = array(
       'modernizr',
       'bundle',
     );
-    kandb_theme_include_asset($common_css, 'css');
     kandb_theme_include_common_js($common_js);
 }
 

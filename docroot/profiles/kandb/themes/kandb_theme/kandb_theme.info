@@ -3,8 +3,8 @@ description = Theme of Kaufman and Broad.
 core = 7.x
 
 stylesheets[all][] = css/app.css
-scripts[] = js/bundle.js
-scripts[] = js/modernizer.js
+;scripts[] = js/bundle.js
+;scripts[] = js/modernizer.js
 
 regions[header] = Header
 regions[content] = Content
