@@ -136,7 +136,7 @@ class Kandb_Business_Rules {
             $total_bien = self::calculate_bien_follow_programe($item->nid);
 
             $node_programe = node_load($item->nid);
-            $node_programe->field_programme_flat_available[LANGUAGE_NONE][0][value] = $total_bien;
+            $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]['value'] = $total_bien;
             node_save($node_programe);
         }
     }
