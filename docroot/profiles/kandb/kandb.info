@@ -82,6 +82,7 @@ dependencies[] = image_style_quality
 dependencies[] = kb_feeds
 dependencies[] = kb_import
 dependencies[] = kandb_habiteo
+dependencies[] = kandb_business_rules
 
 ; Features
 dependencies[] = kandb_domains
