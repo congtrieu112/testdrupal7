@@ -2292,12 +2292,6 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 29,
       ),
-      'search_programme' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 29,
-      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -3042,7 +3036,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 61,
+      'weight' => 59,
     ),
   );
 
@@ -3145,7 +3139,68 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 59,
+      'weight' => 58,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_programme_loc_department'
+  $field_instances['node-programme-field_programme_loc_department'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 96,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_programme_loc_department',
+    'label' => 'Départment',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 61,
     ),
   );
 
@@ -3249,7 +3304,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 63,
+      'weight' => 64,
     ),
   );
 
@@ -3353,7 +3408,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 62,
+      'weight' => 63,
     ),
   );
 
@@ -3424,6 +3479,67 @@ function kandb_programme_field_default_field_instances() {
       'settings' => array(),
       'type' => 'number',
       'weight' => 55,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_programme_loc_region'
+  $field_instances['node-programme-field_programme_loc_region'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 97,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_programme_loc_region',
+    'label' => 'Region',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 62,
     ),
   );
 
@@ -6474,6 +6590,7 @@ function kandb_programme_field_default_field_instances() {
   t('Description');
   t('Description video');
   t('Département');
+  t('Départment');
   t('Echelle');
   t('Email du conseiller');
   t('En quelques mots');
@@ -6510,6 +6627,7 @@ function kandb_programme_field_default_field_instances() {
   t('Prix minimum');
   t('Prix moyen au m²');
   t('RT2012 / BBC');
+  t('Region');
   t('Sous Titre');
   t('Statut du programme');
   t('TVA');

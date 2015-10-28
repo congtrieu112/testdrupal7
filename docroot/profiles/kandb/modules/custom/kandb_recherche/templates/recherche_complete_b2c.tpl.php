@@ -26,7 +26,7 @@ $errors = form_get_errors();
                         </button>
                         <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-type-choice">
                             <ul class="ul-unstyled undo-padding">
-                                <?php print render($form['type']); ?>
+                                <?php print render($form['field_type_tid']); ?>
                             </ul>
                         </div>
                     </div>
@@ -60,7 +60,7 @@ $errors = form_get_errors();
                         </button>
                         <div class="form-dropdown__content hidden" aria-hidden="false" id="dropdown-rooms-choice">
                             <ul class="ul-unstyled with-columns undo-padding">
-                                <?php print render($form['pieces']); ?>
+                                <?php print render($form['field_nb_pieces_tid']); ?>
                             </ul>
                         </div>
                     </div>
@@ -72,7 +72,7 @@ $errors = form_get_errors();
                         <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-surface-choice" style="display: none;">
                             <label class="input">
                                 <div class="input__label visually-hidden"><?php print t('Min'); ?></div>
-                                <?php print render($form['surface_min']); ?>
+                                <?php print render($form['field_superficie_value']); ?>
                             </label>
                         </div>
                     </div>
@@ -83,7 +83,7 @@ $errors = form_get_errors();
                         </button>
                         <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-services-choice">
                             <ul class="ul-unstyled undo-padding">
-                                <?php print render($form['services']); ?>
+                                <?php print render($form['field_caracteristique_tid']); ?>
                             </ul>
                         </div>
                     </div>

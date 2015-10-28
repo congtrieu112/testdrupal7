@@ -74,10 +74,10 @@ function kandb_programme_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '13',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '12',
         ),
         'domain' => array(
           'weight' => '1',

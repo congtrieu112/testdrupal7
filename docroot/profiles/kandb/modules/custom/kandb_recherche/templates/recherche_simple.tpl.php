@@ -20,7 +20,7 @@ $errors = form_get_errors();
                     </button>
                     <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-type-choice">
                         <ul class="ul-unstyled undo-padding">
-                            <?php print render($form['type']); ?>
+                            <?php print render($form['field_type_tid']); ?>
                         </ul>
                     </div>
                 </div>
