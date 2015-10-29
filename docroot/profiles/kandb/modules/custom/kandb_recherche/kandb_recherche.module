@@ -47,7 +47,7 @@ function hook_permission() {
 /**
  * Page Callback
  */
-function kandb_recherche_page(){
+function kandb_recherche_page() {
 
   // Search form
   $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
@@ -55,7 +55,7 @@ function kandb_recherche_page(){
 
   $result = NULL;
   // Result
-  if(isset($_GET['place']) && !empty($_GET['place'])){
+  if (isset($_GET['place']) && !empty($_GET['place'])) {
     $vocabularies = taxonomy_vocabulary_get_names();
 
     // Check if the search localisation exists in our BDD
@@ -69,7 +69,7 @@ function kandb_recherche_page(){
 
     // If the user search catch a ville, a departement,
     // a region or a programme, launch the search
-    if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
+    if (!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
       // Get the search view
       $view_programme = views_get_view('search');
 
@@ -78,7 +78,7 @@ function kandb_recherche_page(){
 
       /*
        * Filters
-      */
+       */
 
       $filters = $view_programme->display_handler->get_option('filters');
 
@@ -90,18 +90,21 @@ function kandb_recherche_page(){
       $filters['name_2']['value'] = $location;
 
       // Type (type => field_type_tid)
-      if(isset($_GET['field_type_tid']) && !empty($_GET['field_type_tid'])) $filters['field_type_tid']['value'] = $_GET['field_type_tid'];
+      if (isset($_GET['field_type_tid']) && !empty($_GET['field_type_tid']))
+        $filters['field_type_tid']['value'] = $_GET['field_type_tid'];
 
       // TODO : PRICE
-
       // Pièces (field_nb_pieces_tid)
-      if(isset($_GET['field_nb_pieces_tid']) && !empty($_GET['field_nb_pieces_tid'])) $filters['field_nb_pieces_tid']['value'] = $_GET['field_nb_pieces_tid'];
+      if (isset($_GET['field_nb_pieces_tid']) && !empty($_GET['field_nb_pieces_tid']))
+        $filters['field_nb_pieces_tid']['value'] = $_GET['field_nb_pieces_tid'];
 
       // Surface (field_superficie_value)
-      if(isset($_GET['field_superficie_value']) && !empty($_GET['field_superficie_value'])) $filters['field_superficie_value']['value'] = $_GET['field_superficie_value'];
+      if (isset($_GET['field_superficie_value']) && !empty($_GET['field_superficie_value']))
+        $filters['field_superficie_value']['value'] = $_GET['field_superficie_value'];
 
       // Service (sfield_caracteristique_tid)
-      if(isset($_GET['field_caracteristique_tid']) && !empty($_GET['field_caracteristique_tid'])) $filters['field_caracteristique_tid']['value'] = $_GET['field_caracteristique_tid'];
+      if (isset($_GET['field_caracteristique_tid']) && !empty($_GET['field_caracteristique_tid']))
+        $filters['field_caracteristique_tid']['value'] = $_GET['field_caracteristique_tid'];
 
       // Set filters
       $view_programme->display_handler->set_option('filters', $filters);
@@ -112,8 +115,8 @@ function kandb_recherche_page(){
       $view_programme->post_execute();
 
 
-    // Otherwise we propose some new result
-    }else{
+      // Otherwise we propose some new result
+    }else {
       // Check if the search localisation exists in our BDD (starting by)
       $location = $_GET['place'];
       $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
@@ -126,12 +129,12 @@ function kandb_recherche_page(){
       // If there is ville, departement, region or
       // programme starting with the search, propose
       // a list with all the possibility
-      if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
+      if (!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
         $return = array();
 
         // Ville
         $return['ville'] = array();
-        foreach($ville as $id => $term_object){
+        foreach ($ville as $id => $term_object) {
           $return['ville'][$id] = array(
             'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
             'name' => ucfirst(strtolower($term_object->name)),
@@ -140,7 +143,7 @@ function kandb_recherche_page(){
 
         // Departement
         $return['departement'] = array();
-        foreach($departement as $id => $term_object){
+        foreach ($departement as $id => $term_object) {
           $return['departement'][$id] = array(
             'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
             'name' => $term_object->name,
@@ -149,7 +152,7 @@ function kandb_recherche_page(){
 
         // Region
         $return['region'] = array();
-        foreach($region as $id => $term_object){
+        foreach ($region as $id => $term_object) {
           $return['region'][$id] = array(
             'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
             'name' => $term_object->name,
@@ -158,7 +161,7 @@ function kandb_recherche_page(){
 
         // Programme
         $return['programme'] = array();
-        foreach($programme as $id => $prog){
+        foreach ($programme as $id => $prog) {
           $return['programme'][$id] = array(
             'link' => kandb_recherche_get_action_url() . '?place=' . $prog->title,
             'name' => $prog->title,
@@ -172,11 +175,11 @@ function kandb_recherche_page(){
           'programme' => $return['programme'],
         ));
 
-      // Otherwise list all departement
-      }else {
-        $tree = taxonomy_get_tree( $vocabularies['departement']->vid);
+        // Otherwise list all departement
+      } else {
+        $tree = taxonomy_get_tree($vocabularies['departement']->vid);
         $departement = array();
-        foreach($tree as $id => $term){
+        foreach ($tree as $id => $term) {
           $departement[$id] = array(
             'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
             'name' => $term->name,
@@ -279,7 +282,6 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
     'result_beginning_with' => array(
       'template' => 'templates/result_beginning_with',
     ),
-
     // SEARCH FORMS
     'recherche_minimal' => array(
       'template' => 'templates/recherche_minimal',
@@ -306,7 +308,6 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
     'recherche_button' => array(
       'render element' => 'element',
     ),
-
   );
 }
 
@@ -368,13 +369,13 @@ function recherche_simple_form($form, &$form_state) {
     '#type' => 'textfield',
     '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['place'],
+    '#default_value' => isset($_GET['place']) ? $_GET['place'] : '',
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
   $terms = taxonomy_get_tree($taxonomy->vid);
   $form_terms = array();
-  foreach($terms as $term_object){
+  foreach ($terms as $term_object) {
     $form_terms[$term_object->tid] = $term_object->name;
   }
   $form['field_type_tid'] = array(
@@ -389,7 +390,7 @@ function recherche_simple_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_min'],
+    '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : '',
   );
 
   $form['prix_max'] = array(
@@ -397,7 +398,7 @@ function recherche_simple_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_max'],
+    '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : '',
   );
 
   $form['submit'] = array(
@@ -450,7 +451,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
   $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
   $terms = taxonomy_get_tree($taxonomy->vid);
   $form_terms = array();
-  foreach($terms as $term_object){
+  foreach ($terms as $term_object) {
     $form_terms[$term_object->tid] = $term_object->name;
   }
   $form['field_type_tid'] = array(
@@ -477,7 +478,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
   $taxonomy = taxonomy_vocabulary_machine_name_load('nb_pieces');
   $terms = taxonomy_get_tree($taxonomy->vid);
   $form_terms = array();
-  foreach($terms as $term_object){
+  foreach ($terms as $term_object) {
     $form_terms[$term_object->tid] = $term_object->name;
   }
   $form['field_nb_pieces_tid'] = array(
@@ -497,7 +498,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
   $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
   $terms = taxonomy_get_tree($taxonomy->vid);
   $form_terms = array();
-  foreach($terms as $term_object){
+  foreach ($terms as $term_object) {
     $form_terms[$term_object->tid] = $term_object->name;
   }
   $form['field_caracteristique_tid'] = array(
@@ -556,8 +557,8 @@ function theme_recherche_check_box($variables) {
       $element[$option]['#class'] = '';
     }
     if (isset($_GET[$element['#name']])) {
-      foreach($_GET[$element['#name']] as $id){
-        if(isset($element[$id])){
+      foreach ($_GET[$element['#name']] as $id) {
+        if (isset($element[$id])) {
           $element[$id]['#attributes']['checked'] = 'checked';
         }
       }
@@ -613,12 +614,12 @@ function theme_recherche_button($variables) {
 /**
  * Get action url depending of the domain
  */
-function kandb_recherche_get_action_url(){
+function kandb_recherche_get_action_url() {
   $domain = domain_get_domain();
   $action = '/';
-  if($domain['machine_name'] == 'kandb_b2b'){
+  if ($domain['machine_name'] == 'kandb_b2b') {
     $action .= URL_SEARCH_B2B;
-  }else{
+  } else {
     $action .= URL_SEARCH_B2C;
   }
   return $action;
@@ -645,18 +646,20 @@ function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = fa
   $query->entityCondition('entity_type', 'taxonomy_term');
 
   // Term name condition
-  if($begin_with) $term_name = $term_name.'%';
+  if ($begin_with)
+    $term_name = $term_name . '%';
   $query->propertyCondition('name', $term_name, 'LIKE');
 
   // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+  if ($vid != NULL)
+    $query->propertyCondition('vid', $vid);
 
   // Return result
   $result = $query->execute();
 
   // Load terms
   $terms = array();
-  if(isset($result['taxonomy_term'])) {
+  if (isset($result['taxonomy_term'])) {
     $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
   }
 
@@ -684,19 +687,20 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
   $query->entityCondition('entity_type', 'taxonomy_term');
 
   // Term name condition
-  foreach($field_values as $couple) {
+  foreach ($field_values as $couple) {
     $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
   }
 
   // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+  if ($vid != NULL)
+    $query->propertyCondition('vid', $vid);
 
   // Return result
   $result = $query->execute();
 
   // Load terms
   $terms = array();
-  if(isset($result['taxonomy_term'])) {
+  if (isset($result['taxonomy_term'])) {
     $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
   }
 
@@ -724,16 +728,16 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
   $query->entityCondition('bundle', 'programme');
 
   // Available
-  if($available) {
+  if ($available) {
     $query->propertyCondition('status', 1);
     $query->fieldCondition('field_programme_statut', 'value', '1');
   }
 
   // Field values
-  foreach($field_values as $couple) {
-    if(key($couple) == 'title'){
+  foreach ($field_values as $couple) {
+    if (key($couple) == 'title') {
       $query->propertyCondition('title', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
-    }else{
+    } else {
       $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
     }
   }
@@ -743,7 +747,7 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
 
   // Load terms
   $entities = array();
-  if(!empty($result)) {
+  if (!empty($result)) {
     $entities = entity_load('node', array_keys($result['node']));
   }
 
