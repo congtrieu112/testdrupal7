@@ -43,10 +43,20 @@ endif;
     <article class="squaredImageItem squaredImageItem--stacked false">
         <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="squaredImageItem__img">
             <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
-            <?php if ($row->field_promotion_programme_node_title && $available): ?>
-                <div class="tag"><?php print t('Plus que deux T3 disponibles'); ?></div>
-                <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
-            <?php endif; ?>
+            <ul class="squaredImageItem__img__tags">
+                <?php if ($row->field_promotion_programme_node_title && $available): ?>
+                    <li>
+                        <div class="tag tag--important"><?php print t('Plus que deux T3 disponibles'); ?></div>
+                        <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
+                    </li>
+                <?php endif; ?>
+                    <!--                <li>
+                                        <div class="tag">TVA 7%<sup>(2)</sup></div>
+                                    </li>
+                                    <li>
+                                        <div class="tag">Livraison immédiate<sup>(1)</sup></div>
+                                    </li>-->
+            </ul>
         </a>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
