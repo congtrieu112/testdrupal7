@@ -11,9 +11,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
             <a href="<?php print url('node/' . $node->nid); ?>" title="<?php print t('vidéo'); ?>"  data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
             <?php endif; ?>
             <h3 class="heading__title"><?php print t('Pourquoi acheter dans le neuf ?'); ?></h3>
-            <?php if ($video_id): ?>
-                <div class="btn-icon"><span class="button__content"><span class="icon icon-play"></span>Lire la vidéo</span></div>
-            <?php endif; ?>
+            <div class="btn-icon"><span class="button__content"><span class="icon icon-play"></span><?php print t('Lire la vidéo'); ?></span></div>
         </a>
         <!-- [popin] start-->
         <?php if ($video_id): ?>
