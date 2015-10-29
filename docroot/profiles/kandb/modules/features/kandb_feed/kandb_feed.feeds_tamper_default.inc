@@ -73,6 +73,21 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_video_import-identifiantprogramme-trim';
+  $feeds_tamper->importer = 'migration_program_video_import';
+  $feeds_tamper->source = 'IdentifiantProgramme';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '"',
+    'side' => 'trim',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Trim';
+  $export['migration_program_video_import-identifiantprogramme-trim'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'migration_program_video_import-youtubeid-rewrite';
   $feeds_tamper->importer = 'migration_program_video_import';
   $feeds_tamper->source = 'YoutubeId';
@@ -80,9 +95,24 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->settings = array(
     'text' => 'http://www.youtube.com/watch?v=[youtubeid]',
   );
-  $feeds_tamper->weight = 0;
+  $feeds_tamper->weight = 2;
   $feeds_tamper->description = 'Rewrite';
   $export['migration_program_video_import-youtubeid-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_video_import-youtubeid-trim';
+  $feeds_tamper->importer = 'migration_program_video_import';
+  $feeds_tamper->source = 'YoutubeId';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '"',
+    'side' => 'trim',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Trim';
+  $export['migration_program_video_import-youtubeid-trim'] = $feeds_tamper;
 
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */

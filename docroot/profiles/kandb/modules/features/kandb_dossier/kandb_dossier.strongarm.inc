@@ -68,7 +68,14 @@ function kandb_dossier_strongarm() {
           'weight' => '12',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'domain' => array(
+          'teaser' => array(
+            'weight' => '3',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__dossier'] = $strongarm;

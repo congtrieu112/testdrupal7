@@ -61,6 +61,12 @@ function kandb_programme_strongarm() {
       'dossier_big_teaser' => array(
         'custom_settings' => FALSE,
       ),
+      'print' => array(
+        'custom_settings' => FALSE,
+      ),
+      'teaser_on_bien' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(

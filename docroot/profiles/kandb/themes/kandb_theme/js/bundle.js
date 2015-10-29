@@ -37058,39 +37058,177 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 
 'use strict';
 
-var $accordion = $('.accordion-navigation');
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
 
-$accordion.find('.content:not(.active)').hide();
+var trigger       = '[data-app-accordion]',
+    content       = '[data-app-accordion-content]',
+    link          = '[data-app-accordion-link]',
+    activeLink    = '[data-app-accordion-link].active',
+    unactiveLink  = '[data-app-accordion-link]:not(.active)';
 
-$accordion
-  .off('click.accordion-trigger')
-  .on('click.accordion-trigger', '.js-accordion-trigger', function(e) {
-    var $trigger = $(e.delegateTarget),
-        $content = $trigger.find('.content');
 
-    if ( $content.hasClass('active') ) {
-      $content.addClass('active')
-        .velocity('slideUp', {
-          duration: 500
-        });
-    } else {
-      $content.velocity('slideDown', {
-        duration: 500
-      });
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppAccordion( el, opt ) {
+  this.settings = $.extend({}, defaults, opt);
+  this.item = $(el);
+
+  this.preInit();
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppAccordion.prototype = {
+
+  preInit: function() {
+    var that = this,
+        responsive = this.item.data('app-accordion-responsive');
+
+    if ( typeof responsive === 'undefined' || responsive && matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+      that.init();
     }
 
-    $trigger.siblings('.accordion-navigation').find('.content')
-      .velocity('slideUp', {
-        duration: 500,
-        complete: function () {
-          $trigger.velocity("scroll", {
-            duration: 600,
-            offset: -100
-          });
-        }
+    return this;
+  },
+
+  init: function() {
+    var that = this;
+
+    that
+      .hideOnLoad()
+      .bindEvents();
+
+    return this;
+  },
+
+  hideOnLoad: function() {
+    var that        = this,
+        $activeLink = this.item.find(activeLink),
+        $target     = $( $activeLink.attr('href') ).find(content);
+
+    if ( $activeLink.length ) {
+      that.setActive($activeLink);
+
+      this.item.find(content)
+        .attr('aria-hidden', 'true')
+        .hide();
+
+      $target
+        .attr('aria-hidden', 'false')
+        .show();
+    }
+
+    return this;
+  },
+
+  setActive: function( $activeLink ) {
+    $(unactiveLink)
+      .attr({
+        'aria-selected': 'false',
+        'aria-expanded': 'false'
       });
 
-  });
+    $(link).removeClass('active');
+
+    $activeLink
+      .attr({
+        'aria-selected': 'true',
+        'aria-expanded': 'true'
+      })
+      .addClass('active');
+
+    return this;
+  },
+
+  bindEvents: function() {
+    var that = this;
+
+    // open on click or 'enter' key
+    $(link)
+      .off('click.accordion, keydown.accordion')
+      .on('click.accordion, keydown.accordion', function(e){
+        var $this = $(this);
+        e.preventDefault();
+
+        if ( !$this.hasClass('active') && e.type === 'click' || (e.type === 'keydown' && e.keyCode === 13) ) {
+          var $content = $( $this.attr('href') ).find(content);
+
+          that.setActive($this);
+
+          that.close();
+
+          $content
+            .attr('aria-hidden', 'false')
+            .velocity('slideDown', {
+              duration: 500,
+              complete: function () {
+                $this.velocity("scroll", {
+                  duration: 200,
+                  offset: -100,
+                  mobileHA: false
+                });
+              }
+            });
+        }
+
+      });
+
+    return this;
+  },
+
+  close: function() {
+    this.item.find(content).filter('[aria-hidden="false"]')
+      .attr('aria-hidden', 'true')
+      .velocity('slideUp', {
+        duration: 500
+      });
+
+    return this;
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+if ( $(trigger).length ) {
+
+  $.fn.appAccordion = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppAccordion');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppAccordion', new AppAccordion(this, opt));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appAccordion();
+
+}
 },{}],10:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37336,6 +37474,14 @@ $(document).foundation({
     timeout : 1000
   }
 });
+
+
+// remove elements depending on breakpoints
+if ( Foundation.utils.is_small_only() ) {
+  $('.show-for-medium-up').remove();
+} else if ( Foundation.utils.is_medium_up() ) {
+  $('.show-for-small-only').remove();
+}
 },{}],13:[function(require,module,exports){
 /* ========================== */
 /* dropdown : app-dropdown.js */
@@ -37359,130 +37505,150 @@ var defaults = {};
 /* MODULE DEFINITION */
 /* ================= */
 
-function Dropdown(opts) {
+function AppDropdown( el, opts ) {
   this.settings = $.extend({}, defaults, opts);
-  return this.init();
+  this.item = $(el);
+
+  this.init();
 }
 
 /* ============== */
 /* MODULE METHODS */
 /* ============== */
 
-Dropdown.prototype.init = function() {
-  var scope = this,
-      $trigger = $(trigger);
+AppDropdown.prototype = {
 
-  $trigger.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
-    e.preventDefault();
-    scope.toggle( $(this) );
-  });
+  init: function() {
+    var that = this;
 
-  // close on page clicking
-  if ( Foundation.utils.is_medium_up() ) {
-    $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
-      var $content = $('.form-dropdown__content, [data-app-dropdown]');
+    this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
+      e.preventDefault();
+      that.toggle();
+    });
 
-      if ( $content.is(':visible') ) {
-        if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
-          scope.closeAll( $trigger );
+    // close on page clicking
+    if ( Foundation.utils.is_medium_up() ) {
+      $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
+        var $content = $('.form-dropdown__content, [data-app-dropdown]');
+
+        if ( $content.is(':visible') ) {
+          if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
+            that.closeAll( $(trigger) );
+          }
         }
-      }
-    }, 300, true));
-  }
-
-  return this;
-};
-
-Dropdown.prototype.toggle = function( $el ) {
-  var scope   = this,
-      closed  = ( $el.attr('aria-expanded') === "false" ) ? true : false,
-      ariaControls = $el.attr('aria-controls'),
-      $target = $( '#' + ariaControls ),
-      mode = $el.data('app-dropdown');
-
-  if ( closed ) {
-    if ( mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
-      scope
-        .closeAll( $('[data-app-dropdown="search"]') )
-        .open( $el, $target );
-      return this;
+      }, 300, true));
     }
 
-    scope.open( $el, $target );
-  } else {
-    scope.close( $el, $target );
-  }
+    return this;
+  },
 
-  return this;
-};
+  toggle: function() {
+    var closed  = ( this.item.attr('aria-expanded') === "false" ) ? true : false,
+        ariaControls = this.item.attr('aria-controls'),
+        $target = $( '#' + ariaControls ),
+        mode = this.item.data('app-dropdown');
 
-Dropdown.prototype.open = function( $el, $target ) {
-  var mode = $el.data('app-dropdown');
+    if ( closed ) {
+      if ( mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
+        this
+          .closeAll( $('[data-app-dropdown="search"]') )
+          .open( $target );
+        return this;
+      }
 
-  if ( mode === 'remove' ) {
-    $target.find('button').first().focus();
+      this.open( $target );
+    } else {
+      this.close( this.item, $target );
+    }
 
-    $el.velocity("slideUp", {
+    return this;
+  },
+
+  open: function( $target ) {
+    var that = this,
+        mode = this.item.data('app-dropdown');
+
+    if ( mode === 'remove' ) {
+      $target.find('button').first().focus();
+
+      this.item.velocity("slideUp", {
+          duration: 250,
+          complete: function(elements) {
+            $(elements).remove();
+          }
+        });
+
+    } else {
+      this.item.attr('aria-expanded', 'true');
+    }
+
+    $target.velocity("slideDown", {
         duration: 250,
-        complete: function(elements) {
-          $(elements).remove();
+        complete: function() {
+          that.item.velocity("scroll", { duration: 200, offset: -80 });
         }
-      });
+      })
+      .attr('aria-hidden', 'false');
 
-  } else {
-    $el.attr('aria-expanded', 'true');
-  }
+    return this;
+  },
 
-  $target.velocity("slideDown", {
-      duration: 250,
-      complete: function() {
-        $el.velocity("scroll", { duration: 200, offset: -80 });
+  close: function( $el, $target ) {
+    $el.attr('aria-expanded', 'false');
+    $target.velocity("slideUp", {
+        duration: 250
+      })
+      .attr('aria-hidden', 'true');
+
+    return this;
+  },
+
+  closeAll: function( $trigger ) {
+    var scope = this;
+
+    for ( var i=0, triggersLength=$trigger.length ; i<triggersLength ; i++ ) {
+      var $el = $($trigger[i]),
+          ariaControls = $el.attr('aria-controls'),
+          ariaExpanded = $el.attr('aria-expanded');
+
+      if ( ariaExpanded === "true" ) {
+        scope.close($el, $( '#' + ariaControls ));
       }
-    })
-    .attr('aria-hidden', 'false');
-
-  return this;
-};
-
-Dropdown.prototype.close = function( $el, $target ) {
-  $el.attr('aria-expanded', 'false');
-  $target.velocity("slideUp", {
-      duration: 250
-    })
-    .attr('aria-hidden', 'true');
-
-  return this;
-};
-
-Dropdown.prototype.closeAll = function( $trigger ) {
-  var scope = this;
-
-  for ( var i=0, triggersLength=$trigger.length ; i<triggersLength ; i++ ) {
-    var $el = $($trigger[i]),
-        ariaControls = $el.attr('aria-controls'),
-        ariaExpanded = $el.attr('aria-expanded');
-
-    if ( ariaExpanded === "true" ) {
-      scope.close($el, $( '#' + ariaControls ));
     }
+
+    return this;
   }
 
-  return this;
 };
+
 
 /* =============== */
 /* MODULE DATA-API */
 /* =============== */
 
 $(function() {
-  var opts = {};
-  App.dropdown = new Dropdown(opts);
 
-  // auto refresh Foundation after ajax response
-  App.updaters.dropdown = function() {
-    App.dropdown = new Dropdown(opts);
+  $.fn.appDropdown = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppDropdown');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppDropdown', new AppDropdown( this, opt) );
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
   };
+
+  $(trigger).appDropdown();
+
 });
+
 },{}],14:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
@@ -37662,7 +37828,7 @@ Link2map.prototype.init = function() {
       targetURL = 'bingmaps:?where=';
     }
 
-    self.location.href = targetURL + place;
+    window.self.location.href = targetURL + place;
   });
 
   return this;
@@ -37697,6 +37863,14 @@ var trigger = '.menu-btn, .site-overlay',
 
 var $html = $('html');
 
+var allowScroll = function() {
+  $(document).on('touchmove.scroll', function (e) {
+    if ( !$(e.target).hasClass('scrollable').length ) {
+      e.preventDefault();
+    }
+  });
+};
+
 $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
   $html.toggleClass('offCanvas--opened');
   $('.menu-btn').toggleClass('is-active');
@@ -37707,16 +37881,6 @@ $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
     $(document).off('touchmove.scroll');
   }
 });
-
-var allowScroll = function() {
-  $(document).on('touchmove.scroll', function (e) {
-    if ( !$(e.target).hasClass('scrollable').length ) {
-      e.preventDefault();
-    }
-  });
-};
-
-
 },{}],17:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
@@ -37750,6 +37914,19 @@ $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
 
     $iframe.attr('src', src);
   }
+  $('body').css({
+    'overflow': 'hidden'
+  });
+  $(document).on('touchmove', function(e) {
+    e.preventDefault();
+  });
+});
+
+$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+  $('body').css({
+    'overflow': 'auto'
+  });
+  $(document).off('touchmove');
 });
 
 
@@ -37776,20 +37953,41 @@ var openMore = function() {
     .attr("aria-hidden", "true");
 };
 
+var typeNumber = function() {
+  // Because firefox allow alphabetic input...
+  var $input = $('input[type=number]'),
+      regex = /[0-9]|\./;
+
+  $input.off('keypress.inputNumber').on('keypress.inputNumber', function(e){
+    var key = e.keyCode || e.which;
+    key = String.fromCharCode( key );
+
+    if( !regex.test(key) ) {
+      e.preventDefault();
+    }
+  });
+};
+
 var abideInit = function() {
   $(document).foundation({
     abide : {
       live_validate : false,
       validate_on_blur : false,
-      focus_on_invalid : true,
+      focus_on_invalid : false,
       error_labels: true,
-      timeout : 500
+      timeout : 500,
+      patterns: {
+        number: /^[-+]?[1-9]\d*$/
+      }
     }
   }).foundation('abide', 'reflow');
 };
 
 var searchInit = function() {
   var $root = $('.searchFormular');
+
+  abideInit();
+  typeNumber();
 
   if (!$root.length) {
     return;
@@ -37801,8 +37999,6 @@ var searchInit = function() {
       e.preventDefault();
       openMore();
     });
-
-  abideInit();
 };
 
 searchInit();
@@ -37841,7 +38037,9 @@ $(trigger).comboSelect({
 /* MODULE TRIGGER */
 /* ============== */
 
-var trigger = '[data-slick]';
+var trigger = '[data-slick]',
+    nav     = '[data-slick-nav]',
+    link    = '[data-slick-links]';
 
 
 /* =============== */
@@ -37865,12 +38063,56 @@ var defaultsMedium = {
 };
 
 
+// link to specific slide
+var setActiveLinks = function($link) {
+  $link.closest(nav).find(link)
+    .attr({
+      'aria-selected': 'false'
+    })
+    .removeClass('active');
+
+  $link
+    .attr({
+      'aria-selected': 'true'
+    })
+    .addClass('active');
+};
+
+var initLinks = function() {
+  var $links = $(link);
+
+  if ( $links ) {
+
+    setActiveLinks( $links.filter('.active') );
+
+    $links.off('click.slickLink').on('click.slickLink', function(e) {
+      e.preventDefault();
+
+      var $this = $(this),
+          $anchor = $( $this.attr('href') ),
+          $slider = $anchor.closest('.slick-slider');
+
+      if ( !$this.hasClass('active') ) {
+        setActiveLinks( $this );
+
+        $slider.slick( 'slickGoTo', $anchor.index() );
+      }
+    });
+  }
+};
+
+
 /* ================= */
 /* MODULE DEFINITION */
 /* ================= */
 
-function AppSlick( el, options ) {
+function AppSlick( el, opt, options ) {
   this.settings = {};
+
+  // remove .unwrap container (can be usefull in some responsive-DA-weirdness)
+  if ( $(trigger).find('.unwrap').length && Foundation.utils.is_small_only() ) {
+    $(trigger).find('.unwrap > *').unwrap();
+  }
 
   if ( Foundation.utils.is_medium_up() ) {
     this.settings = $.extend({}, defaults, defaultsMedium, options);
@@ -37878,7 +38120,8 @@ function AppSlick( el, options ) {
     this.settings = $.extend({}, defaults);
   }
 
-  return this.init( el );
+  this.item = $(el);
+  this.init();
 }
 
 
@@ -37886,38 +38129,55 @@ function AppSlick( el, options ) {
 /* MODULE METHODS */
 /* ============== */
 
-// init slick
-AppSlick.prototype.init = function( el ) {
-  var that = this,
-      $el = $(el);
+AppSlick.prototype = {
 
-  that.unslick( $el );
+  init: function() {
+    var that = this;
 
-  // only active if breakpoint match data-slick-responsive
-  if ( $el.data('slick-responsive') ) {
-    var responsive = $el.attr('data-slick-responsive');
+    that.unslick();
 
-    if ( matchMedia(Foundation.media_queries[ responsive ]).matches ) {
-      $el.slick(that.settings);
+    // only active if breakpoint match data-slick-responsive
+    if ( this.item.data('slick-responsive') ) {
+      var responsive = this.item.data('slick-responsive');
+
+      if ( matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+        this.item.slick(that.settings);
+      }
+    } else {
+      this.item.slick(that.settings);
     }
-  } else {
-    $el.slick(that.settings);
+
+    initLinks(this.item);
+
+    that.bindEvents();
+
+    return this;
+  },
+
+  bindEvents: function() {
+    var that = this;
+
+    this.item.on('afterChange', function(event, slick, currentSlide, nextSlide){
+      var activeSlide = $(this).find('.slick-active').attr('id');
+
+      setActiveLinks( $('[href="#'+ activeSlide +'"]') );
+    });
+
+    return this;
+  },
+
+  checkInit: function() {
+    return this.item.hasClass('slick-initialized');
+  },
+
+  unslick: function() {
+    var that = this;
+
+    if ( that.checkInit() ) {
+      this.item.slick('unslick');
+    }
   }
-};
 
-
-// check if slick is initialized
-AppSlick.prototype.checkInit = function( $el ) {
-  return $el.hasClass('slick-initialized');
-};
-
-// RIP slick
-AppSlick.prototype.unslick = function( $el ) {
-  var that = this;
-
-  if ( that.checkInit( $el ) ) {
-    $el.slick('unslick');
-  }
 };
 
 
@@ -37927,10 +38187,20 @@ AppSlick.prototype.unslick = function( $el ) {
 
 if ( $(trigger).length ) {
 
-  $.fn.appSlick = function() {
-    return this.each(function () {
-      var $this = $(this);
-      $this.data('appSlick', new AppSlick( this, $this.data('slick') ));
+  $.fn.appSlick = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('appSlick');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
     });
   };
 
@@ -37938,16 +38208,6 @@ if ( $(trigger).length ) {
 
 }
 
-
-/*$(window).on('resize', Foundation.utils.throttle(function(){
-  $(trigger).appSlick();
-}, 500));*/
-
-/*
-// auto refresh Foundation after ajax response
-App.updaters.slick = function() {
-  $(trigger).appSlick();
-};*/
 
 },{}],21:[function(require,module,exports){
 /*jshint asi:true, expr:true */
@@ -37962,6 +38222,7 @@ App.updaters.slick = function() {
 // Expose plugin as an AMD module if AMD loader is present:
 (function (factory) {
   'use strict';
+  var define = (typeof define === 'function') ? define : "";
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
@@ -37991,7 +38252,6 @@ App.updaters.slick = function() {
       themeClass         : '',
       maxHeight          : 200,
       extendStyle        : true,
-      focusInput         : true,
       focusInput         : true,
       filter             : false
   };
