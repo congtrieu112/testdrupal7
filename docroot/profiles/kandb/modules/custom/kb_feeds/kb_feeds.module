@@ -307,7 +307,7 @@ function getListTidTaxonomyByName($bundle, $value) {
  * @param type $entity
  * @param type $item
  */	 
-function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {	 
+function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {	
   $tid = 0;	 
   if ($entity->feeds_item->entity_type == 'node') {	 
     if ($entity->feeds_item->id == 'programme_feed_import') {	 
@@ -326,10 +326,53 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];	 
         }	 
       }	 
-    }	 
+    }elseif($entity->feeds_item->id == 'document_import'){
+        $status = 0;
+        $sticky = 0;
+        switch ($entity->status) {
+            case "On line":
+                $status = 1;
+                break;
+            case "Off line":
+                break;
+            default:
+                $sticky = 1;
+                break;
+        }
+        
+        $entity->status = $status;
+        $entity->sticky = $sticky;
+    }
   }	 
 
+    
   if ($tid > 0) {	 
     $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;	 
   }	 
+}
+
+/**	 
+ * Implements hook_feeds_after_parse	 
+ * @param FeedsSource $source 
+ * @param type $entity
+ * @param type $item
+ */	 
+function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+    if($source->id === "document_import"){
+        global $base_url;
+
+        foreach($result->items as $key => $row){
+            $file = $row["lienfichier"];
+            if(!empty($file)){
+                $path_url = $base_url . '/sites/default/files';
+                if($file[0] === '/'){
+                    $path_url .= $file;
+                }else{
+                    $path_url .= '/' . $file;
+                }
+            }
+
+            $result->items[$key]["lienfichier"] = $path_url;
+        }   
+    }    
 }

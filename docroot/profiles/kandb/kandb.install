@@ -309,3 +309,12 @@ function kandb_update_7122(&$sandbox) {
     module_enable(array('kandb_habiteo'), TRUE);
   }
 }
+
+/**
+ * Enable "kandb_doclib_feature" feature
+ */
+function kandb_update_7123(&$sandbox) {
+  if (!module_exists('kandb_doclib_feature')) {
+    module_enable(array('kandb_doclib_feature'), TRUE);
+  }
+}

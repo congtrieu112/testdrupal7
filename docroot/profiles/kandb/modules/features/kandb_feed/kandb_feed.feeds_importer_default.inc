@@ -153,6 +153,87 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'document_import';
+  $feeds_importer->config = array(
+    'name' => 'Document import',
+    'description' => 'Import pdf contents from DocBibliotheque.csv',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'FeedsCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => 'TitreDuDocument',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'Categorie',
+            'target' => 'field_document_type',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'DATE',
+            'target' => 'field_document_date:start',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'Statut',
+            'target' => 'status',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'Statut',
+            'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'LienFichier',
+            'target' => 'field_document_file:uri',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '1',
+        'update_non_existent' => 'update',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'document',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 1,
+  );
+  $export['document_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'maison_feed_import';
   $feeds_importer->config = array(
     'name' => 'Maison feed import',
