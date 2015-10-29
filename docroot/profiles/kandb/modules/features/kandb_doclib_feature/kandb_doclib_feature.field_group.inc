@@ -21,7 +21,7 @@ function kandb_doclib_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contacts',
-    'weight' => '11',
+    'weight' => '10',
     'children' => array(
       0 => 'field_contact1_display',
       1 => 'field_contact1_title',
