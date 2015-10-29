@@ -205,8 +205,8 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-bien-field_caracteristiques'
-  $field_instances['node-bien-field_caracteristiques'] = array(
+  // Exported field_instance: 'node-bien-field_caracteristique'
+  $field_instances['node-bien-field_caracteristique'] = array(
     'bundle' => 'bien',
     'default_value' => NULL,
     'deleted' => 0,
@@ -214,43 +214,39 @@ function kandb_bien_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'list_default',
-        'weight' => 12,
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 27,
       ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 0,
       ),
       'teaser_carrousel_3' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_caracteristiques',
-    'label' => 'Caractéristiques',
+    'field_name' => 'field_caracteristique',
+    'label' => 'Caractéristique',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1940,7 +1936,7 @@ function kandb_bien_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Caractéristiques');
+  t('Caractéristique');
   t('Description');
   t('En quelques mots');
   t('Etage');

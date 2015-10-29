@@ -6,7 +6,6 @@ include_once 'class-kandb-business-rule.php';
  * Implements hook_feeds_after_parse().
  */
 function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
-
   if ($source->id === FEED_ID_IMPORT_BIEN) {   // Is import for bien.
     // Set list nodes of bien.
     Kandb_Business_Rules::set_list_biens();
@@ -95,7 +94,7 @@ function kandb_business_rules_node_presave($node) {
       $node->field_program_low_tva_price_max = array();
     }
 
-    if(isset($node->nid)) {
+    if (isset($node->nid)) {
       $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', 'bien')
@@ -178,6 +177,17 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
     // The number of available bien is recalculated.
     Kandb_Business_Rules::recalculate_bien_to_programe();
   }
+
+  if ($source->id === FEED_ID_IMPORT_BIEN || $source->id === 'programme_feed_import') {
+    // RULE COUNTING 106.
+    Kandb_Business_Rules::calculate_programe_price();
+
+    // RULE COUNTING 107.
+    Kandb_Business_Rules::find_room_bien_follow_programe();
+
+    // RULE COUNTING 101.
+    Kandb_Business_Rules::get_total_bien_follow_programe();
+  }
 }
 
 /**
@@ -198,6 +208,12 @@ function kandb_business_rules_node_update($node) {
       // RULE BIEN 107.
       $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
       Kandb_Business_Rules::recalculate_bien_to_programe(array($programe));
+
+      // RULE COUNTING 106.
+      Kandb_Business_Rules::calculate_programe_price();
+
+      // RULE COUNTING 107.
+      Kandb_Business_Rules::find_room_bien_follow_programe();
     }
 
     if ($status_old != $status_new && ($status_new == $status_invisible || $status_new == $status_vendu)) {

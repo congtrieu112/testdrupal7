@@ -75,27 +75,30 @@ function kandb_bien_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_caracteristiques'
-  $field_bases['field_caracteristiques'] = array(
+  // Exported field_base: 'field_caracteristique'
+  $field_bases['field_caracteristique'] = array(
     'active' => 1,
     'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_caracteristiques',
+    'field_name' => 'field_caracteristique',
     'indexes' => array(
-      'value' => array(
-        0 => 'value',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'list',
+    'module' => 'taxonomy',
     'settings' => array(
-      'allowed_values' => array(),
-      'allowed_values_function' => '',
-      'profile2_private' => FALSE,
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'caracteristiques',
+          'parent' => 0,
+        ),
+      ),
     ),
     'translatable' => 0,
-    'type' => 'list_text',
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_description'

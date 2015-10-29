@@ -52,6 +52,9 @@ function kandb_programme_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'search_programme' => array(
+        'custom_settings' => TRUE,
+      ),
       'selection_contact' => array(
         'custom_settings' => FALSE,
       ),
@@ -71,13 +74,27 @@ function kandb_programme_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '13',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '12',
+        ),
+        'domain' => array(
+          'weight' => '1',
         ),
       ),
-      'display' => array(),
+      'display' => array(
+        'domain' => array(
+          'default' => array(
+            'weight' => '1',
+            'visible' => TRUE,
+          ),
+          'search_programme' => array(
+            'weight' => '1',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__programme'] = $strongarm;

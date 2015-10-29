@@ -38,7 +38,7 @@ function kandb_bien_strongarm() {
         'custom_settings' => TRUE,
       ),
       'full' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
       'rss' => array(
         'custom_settings' => FALSE,
@@ -50,6 +50,18 @@ function kandb_bien_strongarm() {
         'custom_settings' => FALSE,
       ),
       'revision' => array(
+        'custom_settings' => FALSE,
+      ),
+      'print' => array(
+        'custom_settings' => FALSE,
+      ),
+      'teaser_on_bien' => array(
+        'custom_settings' => FALSE,
+      ),
+      'selection_contact' => array(
+        'custom_settings' => FALSE,
+      ),
+      'dossier_big_teaser' => array(
         'custom_settings' => FALSE,
       ),
     ),
@@ -70,8 +82,22 @@ function kandb_bien_strongarm() {
         'redirect' => array(
           'weight' => '7',
         ),
+        'domain' => array(
+          'weight' => '1',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'domain' => array(
+          'default' => array(
+            'weight' => '1',
+            'visible' => TRUE,
+          ),
+          'full' => array(
+            'weight' => '21',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__bien'] = $strongarm;
