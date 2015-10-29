@@ -10,6 +10,142 @@
 function kandb_bien_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-bien-field_bien_habiteo_id'
+  $field_instances['node-bien-field_bien_habiteo_id'] = array(
+    'bundle' => 'bien',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 26,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_bien_habiteo_id',
+    'label' => 'Habiteo 3rd party Bien ID',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 31,
+    ),
+  );
+
+  // Exported field_instance: 'node-bien-field_bien_low_tva_price'
+  $field_instances['node-bien-field_bien_low_tva_price'] = array(
+    'bundle' => 'bien',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 27,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_bien_low_tva_price',
+    'label' => 'Prix TVA réduit',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 4,
+    ),
+  );
+
   // Exported field_instance: 'node-bien-field_bien_statut'
   $field_instances['node-bien-field_bien_statut'] = array(
     'bundle' => 'bien',
@@ -65,7 +201,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -120,7 +256,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => 8,
     ),
   );
 
@@ -134,33 +270,37 @@ function kandb_bien_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(),
+        'settings' => array(
+          'quickedit' => array(
+            'editor' => 'plain_text',
+          ),
+        ),
         'type' => 'text_default',
-        'weight' => 26,
+        'weight' => 10,
       ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 20,
       ),
       'teaser_carrousel_3' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 9,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 10,
       ),
     ),
     'entity_type' => 'node',
@@ -170,17 +310,38 @@ function kandb_bien_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
           'plain_text' => 'plain_text',
+          'raw_html' => 'raw_html',
+          'userbase' => 'userbase',
         ),
         'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
+            'filtered_html' => array(
+              'weight' => -10,
+            ),
+            'full_html' => array(
+              'weight' => -9,
+            ),
             'plain_text' => array(
-              'weight' => 10,
+              'weight' => -8,
+            ),
+            'raw_html' => array(
+              'weight' => -6,
+            ),
+            'userbase' => array(
+              'weight' => -7,
             ),
           ),
         ),
+      ),
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -192,7 +353,7 @@ function kandb_bien_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 1,
+      'weight' => 6,
     ),
   );
 
@@ -289,7 +450,7 @@ function kandb_bien_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 4,
+      'weight' => 9,
     ),
   );
 
@@ -412,7 +573,7 @@ function kandb_bien_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 6,
+      'weight' => 11,
     ),
   );
 
@@ -529,7 +690,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -664,7 +825,7 @@ function kandb_bien_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 8,
+      'weight' => 14,
     ),
   );
 
@@ -723,7 +884,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -879,7 +1040,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -938,7 +1099,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 7,
     ),
   );
 
@@ -1002,7 +1163,7 @@ function kandb_bien_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 7,
+      'weight' => 13,
     ),
   );
 
@@ -1066,7 +1227,7 @@ function kandb_bien_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 5,
+      'weight' => 10,
     ),
   );
 
@@ -1079,38 +1240,39 @@ function kandb_bien_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'above',
-        'module' => 'text',
+        'module' => 'number',
         'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
         ),
-        'type' => 'text_default',
-        'weight' => 9,
+        'type' => 'number_integer',
+        'weight' => 28,
       ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 0,
       ),
       'teaser_carrousel_3' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 8,
+        'weight' => 0,
       ),
       'teaser_carrousel_4' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 9,
+        'weight' => 0,
       ),
     ),
     'entity_type' => 'node',
@@ -1118,52 +1280,18 @@ function kandb_bien_field_default_field_instances() {
     'label' => 'Prix',
     'required' => 0,
     'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
-          'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
-            'full_html' => array(
-              'weight' => -9,
-            ),
-            'plain_text' => array(
-              'weight' => -8,
-            ),
-            'raw_html' => array(
-              'weight' => -6,
-            ),
-            'userbase' => array(
-              'weight' => -7,
-            ),
-          ),
-        ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
       'user_register_form' => FALSE,
     ),
     'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 5,
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 3,
     ),
   );
 
@@ -1233,7 +1361,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 17,
+      'weight' => 6,
     ),
   );
 
@@ -1355,7 +1483,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 32,
     ),
   );
 
@@ -1511,7 +1639,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 14,
+      'weight' => 6,
     ),
   );
 
@@ -1608,7 +1736,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 17,
+      'weight' => 10,
     ),
   );
 
@@ -1705,7 +1833,7 @@ function kandb_bien_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 16,
+      'weight' => 9,
     ),
   );
 
@@ -1802,7 +1930,7 @@ function kandb_bien_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 15,
+      'weight' => 7,
     ),
   );
 
@@ -1813,6 +1941,7 @@ function kandb_bien_field_default_field_instances() {
   t('En quelques mots');
   t('Etage');
   t('Fiche Renseignement');
+  t('Habiteo 3rd party Bien ID');
   t('ID du bien');
   t('Image Principale');
   t('Kit fiscal');
@@ -1825,6 +1954,7 @@ function kandb_bien_field_default_field_instances() {
   t('Plan du bâtiment');
   t('Plaquette Commerciale');
   t('Prix');
+  t('Prix TVA réduit');
   t('Programme');
   t('Statut du bien');
   t('Superficie');
