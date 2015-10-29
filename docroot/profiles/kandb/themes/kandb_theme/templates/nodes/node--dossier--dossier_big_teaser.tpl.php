@@ -8,7 +8,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <?php if ($video_id): ?>
         <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('vidéo'); ?>" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
         <?php else: ?>
-            <a href="<?php print url('node/' . $node->id); ?>" title="<?php print t('vidéo'); ?>"  data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
+            <a href="<?php print url('node/' . $node->nid); ?>" title="<?php print t('vidéo'); ?>"  data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
             <?php endif; ?>
             <h3 class="heading__title"><?php print t('Pourquoi acheter dans le neuf ?'); ?></h3>
             <?php if ($video_id): ?>

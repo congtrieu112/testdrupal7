@@ -16,298 +16,299 @@ include_once 'kandb_recherche.features.inc';
  * Implements hook_menu().
  */
 function kandb_recherche_menu() {
-  $menu[URL_SEARCH_B2C] = array(
-    'title' => 'Page de recherche B2C',
-    'page callback' => 'kandb_recherche_page',
-    'access arguments' => array('access content'),
-    'type' => MENU_NORMAL_ITEM,
-  );
+    $menu[URL_SEARCH_B2C] = array(
+      'title' => 'Page de recherche B2C',
+      'page callback' => 'kandb_recherche_page',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
 
-  $menu[URL_SEARCH_B2B] = array(
-    'title' => 'Page de recherche B2B',
-    'page callback' => 'kandb_recherche_pro_page',
-    'access arguments' => array('access B2B search'),
-    'type' => MENU_NORMAL_ITEM,
-  );
-  return $menu;
+    $menu[URL_SEARCH_B2B] = array(
+      'title' => 'Page de recherche B2B',
+      'page callback' => 'kandb_recherche_pro_page',
+      'access arguments' => array('access B2B search'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+    return $menu;
 }
 
 /**
  * Implements hook_permission()
  */
 function hook_permission() {
-  return array(
-    'access B2B search' => array(
-      'title' => t('Access B2B search'),
-      'description' => t('Allow a user to use the B2B search.'),
-    ),
-  );
+    return array(
+      'access B2B search' => array(
+        'title' => t('Access B2B search'),
+        'description' => t('Allow a user to use the B2B search.'),
+      ),
+    );
 }
 
 /**
  * Page Callback
  */
-function kandb_recherche_page(){
+function kandb_recherche_page() {
 
-  // Search form
-  $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
-  $block_form = $block_form['content'];
+    // Search form
+    $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
+    $block_form = $block_form['content'];
 
-  $result = NULL;
-  // Result
-  if(isset($_GET['place']) && !empty($_GET['place'])){
-    $vocabularies = taxonomy_vocabulary_get_names();
+    $result = NULL;
+    // Result
+    if (isset($_GET['place']) && !empty($_GET['place'])) {
+        $vocabularies = taxonomy_vocabulary_get_names();
 
-    // Check if the search localisation exists in our BDD
-    $location = $_GET['place'];
-    $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
-    $postal_code = kandb_recherche_programme_by_field(array('field_numero_departement' => $location));
-    $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
-    $code_departement = kandb_recherche_taxonomy_term_by_field_value(array(array('field_code_departement' => $location,)));
-    $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
-    $programme = kandb_recherche_programme_by_field(array('title' => $location));
+        // Check if the search localisation exists in our BDD
+        $location = $_GET['place'];
+        $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
+        $postal_code = kandb_recherche_programme_by_field(array('field_numero_departement' => $location));
+        $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
+        $code_departement = kandb_recherche_taxonomy_term_by_field_value(array(array('field_code_departement' => $location,)));
+        $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
+        $programme = kandb_recherche_programme_by_field(array('title' => $location));
 
-    // If the user search catch a ville, a departement,
-    // a region or a programme, launch the search
-    if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
-      // Get the search view
-      $view_programme = views_get_view('search');
+        // If the user search catch a ville, a departement,
+        // a region or a programme, launch the search
+        if (!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
+            // Get the search view
+            $view_programme = views_get_view('search');
 
-      // Get the "search bien B2C" view block
-      $view_programme->set_display('block');
+            // Get the "search bien B2C" view block
+            $view_programme->set_display('block');
 
-      /*
-       * Filters
-      */
+            /*
+             * Filters
+             */
 
-      $filters = $view_programme->display_handler->get_option('filters');
+            $filters = $view_programme->display_handler->get_option('filters');
 
-      // Location parameters
-      $filters['title']['value'] = $location;
-      $filters['name']['value'] = $location;
-      $filters['field_code_departement_value']['value'] = $location;
-      $filters['name_1']['value'] = $location;
-      $filters['name_2']['value'] = $location;
+            // Location parameters
+            $filters['title']['value'] = $location;
+            $filters['name']['value'] = $location;
+            $filters['field_code_departement_value']['value'] = $location;
+            $filters['name_1']['value'] = $location;
+            $filters['name_2']['value'] = $location;
 
-      // Type (type => field_type_tid)
-      if(isset($_GET['field_type_tid']) && !empty($_GET['field_type_tid'])) $filters['field_type_tid']['value'] = $_GET['field_type_tid'];
+            // Type (type => field_type_tid)
+            if (isset($_GET['field_type_tid']) && !empty($_GET['field_type_tid']))
+                $filters['field_type_tid']['value'] = $_GET['field_type_tid'];
 
-      // TODO : PRICE
+            // TODO : PRICE
+            // Pièces (field_nb_pieces_tid)
+            if (isset($_GET['field_nb_pieces_tid']) && !empty($_GET['field_nb_pieces_tid']))
+                $filters['field_nb_pieces_tid']['value'] = $_GET['field_nb_pieces_tid'];
 
-      // Pièces (field_nb_pieces_tid)
-      if(isset($_GET['field_nb_pieces_tid']) && !empty($_GET['field_nb_pieces_tid'])) $filters['field_nb_pieces_tid']['value'] = $_GET['field_nb_pieces_tid'];
+            // Surface (field_superficie_value)
+            if (isset($_GET['field_superficie_value']) && !empty($_GET['field_superficie_value']))
+                $filters['field_superficie_value']['value'] = $_GET['field_superficie_value'];
 
-      // Surface (field_superficie_value)
-      if(isset($_GET['field_superficie_value']) && !empty($_GET['field_superficie_value'])) $filters['field_superficie_value']['value'] = $_GET['field_superficie_value'];
+            // Service (sfield_caracteristique_tid)
+            if (isset($_GET['field_caracteristique_tid']) && !empty($_GET['field_caracteristique_tid']))
+                $filters['field_caracteristique_tid']['value'] = $_GET['field_caracteristique_tid'];
 
-      // Service (sfield_caracteristique_tid)
-      if(isset($_GET['field_caracteristique_tid']) && !empty($_GET['field_caracteristique_tid'])) $filters['field_caracteristique_tid']['value'] = $_GET['field_caracteristique_tid'];
+            // Set filters
+            $view_programme->display_handler->set_option('filters', $filters);
 
-      // Set filters
-      $view_programme->display_handler->set_option('filters', $filters);
-
-      // Execute
-      $view_programme->pre_execute();
-      $result = $view_programme->display_handler->preview();
-      $view_programme->post_execute();
+            // Execute
+            $view_programme->pre_execute();
+            $result = $view_programme->display_handler->preview();
+            $view_programme->post_execute();
 
 
-    // Otherwise we propose some new result
-    }else{
-      // Check if the search localisation exists in our BDD (starting by)
-      $location = $_GET['place'];
-      $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
-      $postal_code = kandb_recherche_programme_by_field(array('field_numero_departement' => $location), TRUE);
-      $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
-      $code_departement = kandb_recherche_taxonomy_term_by_field_value(array(array('field_code_departement' => $location,)));
-      $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
-      $programme = kandb_recherche_programme_by_field(array('title' => $location), TRUE);
+            // Otherwise we propose some new result
+        }else {
+            // Check if the search localisation exists in our BDD (starting by)
+            $location = $_GET['place'];
+            $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
+            $postal_code = kandb_recherche_programme_by_field(array('field_numero_departement' => $location), TRUE);
+            $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
+            $code_departement = kandb_recherche_taxonomy_term_by_field_value(array(array('field_code_departement' => $location,)));
+            $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
+            $programme = kandb_recherche_programme_by_field(array('title' => $location), TRUE);
 
-      // If there is ville, departement, region or
-      // programme starting with the search, propose
-      // a list with all the possibility
-      if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
-        $return = array();
+            // If there is ville, departement, region or
+            // programme starting with the search, propose
+            // a list with all the possibility
+            if (!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
+                $return = array();
 
-        // Ville
-        $return['ville'] = array();
-        foreach($ville as $id => $term_object){
-          $return['ville'][$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
-            'name' => ucfirst(strtolower($term_object->name)),
-          );
+                // Ville
+                $return['ville'] = array();
+                foreach ($ville as $id => $term_object) {
+                    $return['ville'][$id] = array(
+                      'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
+                      'name' => ucfirst(strtolower($term_object->name)),
+                    );
+                }
+
+                // Departement
+                $return['departement'] = array();
+                foreach ($departement as $id => $term_object) {
+                    $return['departement'][$id] = array(
+                      'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
+                      'name' => $term_object->name,
+                    );
+                }
+
+                // Region
+                $return['region'] = array();
+                foreach ($region as $id => $term_object) {
+                    $return['region'][$id] = array(
+                      'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
+                      'name' => $term_object->name,
+                    );
+                }
+
+                // Programme
+                $return['programme'] = array();
+                foreach ($programme as $id => $prog) {
+                    $return['programme'][$id] = array(
+                      'link' => kandb_recherche_get_action_url() . '?place=' . $prog->title,
+                      'name' => $prog->title,
+                    );
+                }
+
+                $result = theme('result_beginning_with', array(
+                  'ville' => $return['ville'],
+                  'departement' => $return['departement'],
+                  'region' => $return['region'],
+                  'programme' => $return['programme'],
+                ));
+
+                // Otherwise list all departement
+            } else {
+                $tree = taxonomy_get_tree($vocabularies['departement']->vid);
+                $departement = array();
+                foreach ($tree as $id => $term) {
+                    $departement[$id] = array(
+                      'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
+                      'name' => $term->name,
+                    );
+                }
+                $result = theme('result_departement', array('departement' => $departement));
+            }
         }
-
-        // Departement
-        $return['departement'] = array();
-        foreach($departement as $id => $term_object){
-          $return['departement'][$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
-            'name' => $term_object->name,
-          );
-        }
-
-        // Region
-        $return['region'] = array();
-        foreach($region as $id => $term_object){
-          $return['region'][$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $term_object->name,
-            'name' => $term_object->name,
-          );
-        }
-
-        // Programme
-        $return['programme'] = array();
-        foreach($programme as $id => $prog){
-          $return['programme'][$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $prog->title,
-            'name' => $prog->title,
-          );
-        }
-
-        $result = theme('result_beginning_with', array(
-          'ville' => $return['ville'],
-          'departement' => $return['departement'],
-          'region' => $return['region'],
-          'programme' => $return['programme'],
-        ));
-
-      // Otherwise list all departement
-      }else {
-        $tree = taxonomy_get_tree( $vocabularies['departement']->vid);
-        $departement = array();
-        foreach($tree as $id => $term){
-          $departement[$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
-            'name' => $term->name,
-          );
-        }
-        $result = theme('result_departement', array('departement' => $departement));
-      }
     }
-  }
 
-  return theme('recherche', array(
-    'block_form' => $block_form,
-    'result' => $result,
-  ));
+    return theme('recherche', array(
+      'block_form' => $block_form,
+      'result' => $result,
+    ));
 }
 
 /**
  * Implements hook_block_info().
  */
 function kandb_recherche_block_info() {
-  $blocks = array();
+    $blocks = array();
 
-  $blocks['recherche_minimal'] = array(
-    'info' => t('Recherche minimal'),
-    'cache' => DRUPAL_NO_CACHE,
-    'status' => 0,
-  );
+    $blocks['recherche_minimal'] = array(
+      'info' => t('Recherche minimal'),
+      'cache' => DRUPAL_NO_CACHE,
+      'status' => 0,
+    );
 
-  $blocks['recherche_simple'] = array(
-    'info' => t('Recherche simple'),
-    'cache' => DRUPAL_NO_CACHE,
-    'status' => 0,
-  );
+    $blocks['recherche_simple'] = array(
+      'info' => t('Recherche simple'),
+      'cache' => DRUPAL_NO_CACHE,
+      'status' => 0,
+    );
 
-  $blocks['recherche_complete_b2c'] = array(
-    'info' => t('Recherche complète B2C'),
-    'cache' => DRUPAL_NO_CACHE,
-    'status' => 0,
-  );
+    $blocks['recherche_complete_b2c'] = array(
+      'info' => t('Recherche complète B2C'),
+      'cache' => DRUPAL_NO_CACHE,
+      'status' => 0,
+    );
 
-  $blocks['recherche_complete_b2b'] = array(
-    'info' => t('Recherche complète B2B'),
-    'cache' => DRUPAL_NO_CACHE,
-    'status' => 0,
-  );
+    $blocks['recherche_complete_b2b'] = array(
+      'info' => t('Recherche complète B2B'),
+      'cache' => DRUPAL_NO_CACHE,
+      'status' => 0,
+    );
 
-  $blocks['recherche_result_b2c'] = array(
-    'info' => t('Recherche complète B2B'),
-    'cache' => DRUPAL_NO_CACHE,
-    'status' => 0,
-  );
+    $blocks['recherche_result_b2c'] = array(
+      'info' => t('Recherche complète B2B'),
+      'cache' => DRUPAL_NO_CACHE,
+      'status' => 0,
+    );
 
-  return $blocks;
+    return $blocks;
 }
 
 /**
  * Implements hook_block_view().
  */
 function kandb_recherche_block_view($delta = '') {
-  $block = array();
+    $block = array();
 
-  switch ($delta) {
-    case 'recherche_minimal':
-      $block['subject'] = '';
-      $block['content'] = theme('recherche_minimal', array('form' => drupal_get_form('recherche_minimal_form')));
-      break;
-    case 'recherche_simple':
-      $block['subject'] = '';
-      $block['content'] = theme('recherche_simple', array('form' => drupal_get_form('recherche_simple_form')));
-      break;
-    case 'recherche_complete_b2c':
-      $block['subject'] = '';
-      $block['content'] = theme('recherche_complete_b2c', array('form' => drupal_get_form('recherche_complete_b2c_form')));
-      break;
-    case 'recherche_complete_b2b':
-      $block['subject'] = '';
-      $block['content'] = theme('recherche_complete_b2b', array());
-      break;
-    case 'recherche_result_b2c':
-      $block['subject'] = '';
-      $block['content'] = '';
-  }
+    switch ($delta) {
+        case 'recherche_minimal':
+            $block['subject'] = '';
+            $block['content'] = theme('recherche_minimal', array('form' => drupal_get_form('recherche_minimal_form')));
+            break;
+        case 'recherche_simple':
+            $block['subject'] = '';
+            $block['content'] = theme('recherche_simple', array('form' => drupal_get_form('recherche_simple_form')));
+            break;
+        case 'recherche_complete_b2c':
+            $block['subject'] = '';
+            $block['content'] = theme('recherche_complete_b2c', array('form' => drupal_get_form('recherche_complete_b2c_form')));
+            break;
+        case 'recherche_complete_b2b':
+            $block['subject'] = '';
+            $block['content'] = theme('recherche_complete_b2b', array());
+            break;
+        case 'recherche_result_b2c':
+            $block['subject'] = '';
+            $block['content'] = '';
+    }
 
-  return $block;
+    return $block;
 }
 
 /**
  * Implements of hook_theme().
  */
 function kandb_recherche_theme($existing, $type, $theme, $path) {
-  return array(
-    // SEARCH RESULT
-    'recherche' => array(
-      'template' => 'templates/recherche',
-      'variables' => array(),
-    ),
-    'result_departement' => array(
-      'template' => 'templates/result_departement',
-    ),
-    'result_beginning_with' => array(
-      'template' => 'templates/result_beginning_with',
-    ),
-
-    // SEARCH FORMS
-    'recherche_minimal' => array(
-      'template' => 'templates/recherche_minimal',
-      'variables' => array('form' => NULL),
-    ),
-    'recherche_simple' => array(
-      'template' => 'templates/recherche_simple',
-      'variables' => array('form' => NULL),
-    ),
-    'recherche_complete_b2c' => array(
-      'template' => 'templates/recherche_complete_b2c',
-      'variables' => array('form' => NULL),
-    ),
-    'recherche_complete_b2b' => array(
-      'template' => 'templates/recherche_complete_b2b',
-      'variables' => array(),
-    ),
-    'recherche_check_box' => array(
-      'render element' => 'element',
-    ),
-    'recherche_check_box_item' => array(
-      'render element' => 'element',
-    ),
-    'recherche_button' => array(
-      'render element' => 'element',
-    ),
-
-  );
+    return array(
+      // SEARCH RESULT
+      'recherche' => array(
+        'template' => 'templates/recherche',
+        'variables' => array(),
+      ),
+      'result_departement' => array(
+        'template' => 'templates/result_departement',
+      ),
+      'result_beginning_with' => array(
+        'template' => 'templates/result_beginning_with',
+      ),
+      // SEARCH FORMS
+      'recherche_minimal' => array(
+        'template' => 'templates/recherche_minimal',
+        'variables' => array('form' => NULL),
+      ),
+      'recherche_simple' => array(
+        'template' => 'templates/recherche_simple',
+        'variables' => array('form' => NULL),
+      ),
+      'recherche_complete_b2c' => array(
+        'template' => 'templates/recherche_complete_b2c',
+        'variables' => array('form' => NULL),
+      ),
+      'recherche_complete_b2b' => array(
+        'template' => 'templates/recherche_complete_b2b',
+        'variables' => array(),
+      ),
+      'recherche_check_box' => array(
+        'render element' => 'element',
+      ),
+      'recherche_check_box_item' => array(
+        'render element' => 'element',
+      ),
+      'recherche_button' => array(
+        'render element' => 'element',
+      ),
+    );
 }
 
 /**
@@ -317,26 +318,26 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
  * @return string
  */
 function recherche_minimal_form($form, &$form_state) {
-  $form['place'] = array(
-    '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
-    '#theme_wrappers' => array(),
-    '#default_value' => $_GET['place'],
-  );
+    $form['place'] = array(
+      '#type' => 'textfield',
+      '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+      '#theme_wrappers' => array(),
+      '#default_value' => $_GET['place'],
+    );
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
-    '#theme_wrappers' => array(),
-    '#attributes' => array('class' => array('btn-icon')),
-    '#theme' => 'recherche_button'
-  );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Trouver un bien'),
+      '#theme_wrappers' => array(),
+      '#attributes' => array('class' => array('btn-icon')),
+      '#theme' => 'recherche_button'
+    );
 
-  $form['#method'] = 'get';
-  $form['#action'] = kandb_recherche_get_action_url();
-  $form['#theme'] = array('recherche_minimal');
+    $form['#method'] = 'get';
+    $form['#action'] = kandb_recherche_get_action_url();
+    $form['#theme'] = array('recherche_minimal');
 
-  return $form;
+    return $form;
 }
 
 /**
@@ -364,55 +365,55 @@ function recherche_minimal_form_submit() {
  * @return string
  */
 function recherche_simple_form($form, &$form_state) {
-  $form['place'] = array(
-    '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
-    '#theme_wrappers' => array(),
-    '#default_value' => $_GET['place'],
-  );
+    $form['place'] = array(
+      '#type' => 'textfield',
+      '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+      '#theme_wrappers' => array(),
+      '#default_value' => isset($_GET['place']) ? $_GET['place'] : '',
+    );
 
-  $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
-  $terms = taxonomy_get_tree($taxonomy->vid);
-  $form_terms = array();
-  foreach($terms as $term_object){
-    $form_terms[$term_object->tid] = $term_object->name;
-  }
-  $form['field_type_tid'] = array(
-    '#type' => 'checkboxes',
-    '#options' => $form_terms,
-    '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
-  );
+    $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
+    $terms = taxonomy_get_tree($taxonomy->vid);
+    $form_terms = array();
+    foreach ($terms as $term_object) {
+        $form_terms[$term_object->tid] = $term_object->name;
+    }
+    $form['field_type_tid'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $form_terms,
+      '#theme_wrappers' => array(),
+      '#theme' => 'recherche_check_box'
+    );
 
-  $form['prix_min'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
-    '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_min'],
-  );
+    $form['prix_min'] = array(
+      '#type' => 'textfield',
+      '#size' => 1,
+      '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
+      '#theme_wrappers' => array(),
+      '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : '',
+    );
 
-  $form['prix_max'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
-    '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_max'],
-  );
+    $form['prix_max'] = array(
+      '#type' => 'textfield',
+      '#size' => 1,
+      '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
+      '#theme_wrappers' => array(),
+      '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : '',
+    );
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
-    '#theme_wrappers' => array(),
-    '#attributes' => array('class' => array('btn-icon')),
-    '#theme' => 'recherche_button'
-  );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Trouver un bien'),
+      '#theme_wrappers' => array(),
+      '#attributes' => array('class' => array('btn-icon')),
+      '#theme' => 'recherche_button'
+    );
 
-  $form['#method'] = 'get';
-  $form['#action'] = kandb_recherche_get_action_url();
-  $form['#theme'] = array('recherche_simple');
+    $form['#method'] = 'get';
+    $form['#action'] = kandb_recherche_get_action_url();
+    $form['#theme'] = array('recherche_simple');
 
-  return $form;
+    return $form;
 }
 
 /**
@@ -440,86 +441,86 @@ function recherche_simple_form_submit() {
  * @return type
  */
 function recherche_complete_b2c_form($form, &$form_state) {
-  $form['place'] = array(
-    '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
-    '#theme_wrappers' => array(),
-    '#default_value' => isset($_GET['place']) ? $_GET['place'] : NULL,
-  );
+    $form['place'] = array(
+      '#type' => 'textfield',
+      '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+      '#theme_wrappers' => array(),
+      '#default_value' => isset($_GET['place']) ? $_GET['place'] : NULL,
+    );
 
-  $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
-  $terms = taxonomy_get_tree($taxonomy->vid);
-  $form_terms = array();
-  foreach($terms as $term_object){
-    $form_terms[$term_object->tid] = $term_object->name;
-  }
-  $form['field_type_tid'] = array(
-    '#type' => 'checkboxes',
-    '#options' => $form_terms,
-    '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
-  );
+    $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
+    $terms = taxonomy_get_tree($taxonomy->vid);
+    $form_terms = array();
+    foreach ($terms as $term_object) {
+        $form_terms[$term_object->tid] = $term_object->name;
+    }
+    $form['field_type_tid'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $form_terms,
+      '#theme_wrappers' => array(),
+      '#theme' => 'recherche_check_box'
+    );
 
-  $form['prix_min'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
-    '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : NULL,
-  );
+    $form['prix_min'] = array(
+      '#type' => 'textfield',
+      '#size' => 1,
+      '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
+      '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : NULL,
+    );
 
-  $form['prix_max'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
-    '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : NULL,
-  );
+    $form['prix_max'] = array(
+      '#type' => 'textfield',
+      '#size' => 1,
+      '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
+      '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : NULL,
+    );
 
-  $taxonomy = taxonomy_vocabulary_machine_name_load('nb_pieces');
-  $terms = taxonomy_get_tree($taxonomy->vid);
-  $form_terms = array();
-  foreach($terms as $term_object){
-    $form_terms[$term_object->tid] = $term_object->name;
-  }
-  $form['field_nb_pieces_tid'] = array(
-    '#type' => 'checkboxes',
-    '#options' => $form_terms,
-    '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
-  );
+    $taxonomy = taxonomy_vocabulary_machine_name_load('nb_pieces');
+    $terms = taxonomy_get_tree($taxonomy->vid);
+    $form_terms = array();
+    foreach ($terms as $term_object) {
+        $form_terms[$term_object->tid] = $term_object->name;
+    }
+    $form['field_nb_pieces_tid'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $form_terms,
+      '#theme_wrappers' => array(),
+      '#theme' => 'recherche_check_box'
+    );
 
-  $form['field_superficie_value'] = array(
-    '#type' => 'textfield',
-    '#size' => 1,
-    '#attributes' => array('placeholder' => array('Min')),
-    '#default_value' => isset($_GET['field_superficie_value']) ? $_GET['field_superficie_value'] : NULL,
-  );
+    $form['field_superficie_value'] = array(
+      '#type' => 'textfield',
+      '#size' => 1,
+      '#attributes' => array('placeholder' => array('Min')),
+      '#default_value' => isset($_GET['field_superficie_value']) ? $_GET['field_superficie_value'] : NULL,
+    );
 
-  $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
-  $terms = taxonomy_get_tree($taxonomy->vid);
-  $form_terms = array();
-  foreach($terms as $term_object){
-    $form_terms[$term_object->tid] = $term_object->name;
-  }
-  $form['field_caracteristique_tid'] = array(
-    '#type' => 'checkboxes',
-    '#options' => $form_terms,
-    '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
-  );
+    $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
+    $terms = taxonomy_get_tree($taxonomy->vid);
+    $form_terms = array();
+    foreach ($terms as $term_object) {
+        $form_terms[$term_object->tid] = $term_object->name;
+    }
+    $form['field_caracteristique_tid'] = array(
+      '#type' => 'checkboxes',
+      '#options' => $form_terms,
+      '#theme_wrappers' => array(),
+      '#theme' => 'recherche_check_box'
+    );
 
-  $form['submit'] = array(
-    '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
-    '#theme_wrappers' => array(),
-    '#attributes' => array('class' => array('btn-icon')),
-    '#theme' => 'recherche_button'
-  );
+    $form['submit'] = array(
+      '#type' => 'submit',
+      '#value' => t('Trouver un bien'),
+      '#theme_wrappers' => array(),
+      '#attributes' => array('class' => array('btn-icon')),
+      '#theme' => 'recherche_button'
+    );
 
-  $form['#method'] = 'get';
-  $form['#action'] = kandb_recherche_get_action_url();
-  $form['#theme'] = array('recherche_complete_b2c');
+    $form['#method'] = 'get';
+    $form['#action'] = kandb_recherche_get_action_url();
+    $form['#theme'] = array('recherche_complete_b2c');
 
-  return $form;
+    return $form;
 }
 
 /**
@@ -544,49 +545,49 @@ function recherche_complete_b2c_form_submit() {
  * Custom theme of checkboxes for the gender field.
  */
 function theme_recherche_check_box($variables) {
-  $element = $variables['element'];
-  $options = array_keys($element['#options']);
-  $output = '';
+    $element = $variables['element'];
+    $options = array_keys($element['#options']);
+    $output = '';
 
-  $totalOptions = count($options);
-  $count = 1;
-  foreach ($options as $option) {
-    $element[$option]['#class'] = 'class="bordered"';
-    if ($count == $totalOptions) {
-      $element[$option]['#class'] = '';
-    }
-    if (isset($_GET[$element['#name']])) {
-      foreach($_GET[$element['#name']] as $id){
-        if(isset($element[$id])){
-          $element[$id]['#attributes']['checked'] = 'checked';
+    $totalOptions = count($options);
+    $count = 1;
+    foreach ($options as $option) {
+        $element[$option]['#class'] = 'class="bordered"';
+        if ($count == $totalOptions) {
+            $element[$option]['#class'] = '';
         }
-      }
+        if (isset($_GET[$element['#name']])) {
+            foreach ($_GET[$element['#name']] as $id) {
+                if (isset($element[$id])) {
+                    $element[$id]['#attributes']['checked'] = 'checked';
+                }
+            }
+        }
+
+        $element[$option]['#name'] = $element['#name'];
+        $output .= theme('recherche_check_box_item', $element[$option]);
+        $count++;
     }
 
-    $element[$option]['#name'] = $element['#name'];
-    $output .= theme('recherche_check_box_item', $element[$option]);
-    $count++;
-  }
-
-  return $output;
+    return $output;
 }
 
 /**
  * Custom theme of checkboxes for the gender field.
  */
 function theme_recherche_check_box_item($variables) {
-  $element = $variables['element'];
-  $element['#attributes']['class'] = array('input-checkbox');
+    $element = $variables['element'];
+    $element['#attributes']['class'] = array('input-checkbox');
 
-  $attributes = array('#return_value' => 'value', 'id', 'type');
-  element_set_attributes($element, $attributes);
+    $attributes = array('#return_value' => 'value', 'id', 'type');
+    element_set_attributes($element, $attributes);
 
-  $output = '<li ' . $element['#class'] . '>'
-    . '<input name="' . $element['#name'] . '[]" ' . drupal_attributes($element['#attributes']) . '/>'
-    . '<label class="label-checkbox" for="' . $element['#id'] . '"><span>' . $element['#title'] . '</span></label>'
-    . '</li>';
+    $output = '<li ' . $element['#class'] . '>'
+      . '<input name="' . $element['#name'] . '[]" ' . drupal_attributes($element['#attributes']) . '/>'
+      . '<label class="label-checkbox" for="' . $element['#id'] . '"><span>' . $element['#title'] . '</span></label>'
+      . '</li>';
 
-  return $output;
+    return $output;
 }
 
 /**
@@ -595,33 +596,33 @@ function theme_recherche_check_box_item($variables) {
  * Render the button element as a button and the submit element as an input element.
  */
 function theme_recherche_button($variables) {
-  $element = $variables['element'];
-  $element['#attributes']['type'] = 'submit';
+    $element = $variables['element'];
+    $element['#attributes']['type'] = 'submit';
 
-  element_set_attributes($element, array('id', 'name', 'value'));
+    element_set_attributes($element, array('id', 'name', 'value'));
 
-  if (!empty($element['#attributes']['disabled'])) {
-    $element['#attributes']['class'][] = 'form-button-disabled';
-  }
+    if (!empty($element['#attributes']['disabled'])) {
+        $element['#attributes']['class'][] = 'form-button-disabled';
+    }
 
-  $value = $element['#value'];
-  unset($element['#attributes']['value']);
+    $value = $element['#value'];
+    unset($element['#attributes']['value']);
 
-  return '<button value="' . $value . '"' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
+    return '<button value="' . $value . '"' . drupal_attributes($element['#attributes']) . '><span class="button__content"><span class="icon icon-search"></span>' . $value . '</span></button>';
 }
 
 /**
  * Get action url depending of the domain
  */
-function kandb_recherche_get_action_url(){
-  $domain = domain_get_domain();
-  $action = '/';
-  if($domain['machine_name'] == 'kandb_b2b'){
-    $action .= URL_SEARCH_B2B;
-  }else{
-    $action .= URL_SEARCH_B2C;
-  }
-  return $action;
+function kandb_recherche_get_action_url() {
+    $domain = domain_get_domain();
+    $action = '/';
+    if ($domain['machine_name'] == 'kandb_b2b') {
+        $action .= URL_SEARCH_B2B;
+    } else {
+        $action .= URL_SEARCH_B2C;
+    }
+    return $action;
 }
 
 /**
@@ -640,27 +641,29 @@ function kandb_recherche_get_action_url(){
  *   Returns an array of terms that match the search
  */
 function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = false) {
-  // Query
-  $query = new EntityFieldQuery;
-  $query->entityCondition('entity_type', 'taxonomy_term');
+    // Query
+    $query = new EntityFieldQuery;
+    $query->entityCondition('entity_type', 'taxonomy_term');
 
-  // Term name condition
-  if($begin_with) $term_name = $term_name.'%';
-  $query->propertyCondition('name', $term_name, 'LIKE');
+    // Term name condition
+    if ($begin_with)
+        $term_name = $term_name . '%';
+    $query->propertyCondition('name', $term_name, 'LIKE');
 
-  // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+    // Vocabulary
+    if ($vid != NULL)
+        $query->propertyCondition('vid', $vid);
 
-  // Return result
-  $result = $query->execute();
+    // Return result
+    $result = $query->execute();
 
-  // Load terms
-  $terms = array();
-  if(isset($result['taxonomy_term'])) {
-    $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
-  }
+    // Load terms
+    $terms = array();
+    if (isset($result['taxonomy_term'])) {
+        $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+    }
 
-  return $terms;
+    return $terms;
 }
 
 /**
@@ -679,28 +682,29 @@ function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = fa
  *   Returns an array of terms that match the search
  */
 function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL, $begin_with = false) {
-  // Query
-  $query = new EntityFieldQuery;
-  $query->entityCondition('entity_type', 'taxonomy_term');
+    // Query
+    $query = new EntityFieldQuery;
+    $query->entityCondition('entity_type', 'taxonomy_term');
 
-  // Term name condition
-  foreach($field_values as $couple) {
-    $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
-  }
+    // Term name condition
+    foreach ($field_values as $couple) {
+        $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+    }
 
-  // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+    // Vocabulary
+    if ($vid != NULL)
+        $query->propertyCondition('vid', $vid);
 
-  // Return result
-  $result = $query->execute();
+    // Return result
+    $result = $query->execute();
 
-  // Load terms
-  $terms = array();
-  if(isset($result['taxonomy_term'])) {
-    $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
-  }
+    // Load terms
+    $terms = array();
+    if (isset($result['taxonomy_term'])) {
+        $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+    }
 
-  return $terms;
+    return $terms;
 }
 
 /**
@@ -718,36 +722,36 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
  *   Returns an array of programme that match the search
  */
 function kandb_recherche_programme_by_field($field_values, $begin_with = false, $available = true) {
-  // Query
-  $query = new EntityFieldQuery;
-  $query->entityCondition('entity_type', 'node');
-  $query->entityCondition('bundle', 'programme');
+    // Query
+    $query = new EntityFieldQuery;
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'programme');
 
-  // Available
-  if($available) {
-    $query->propertyCondition('status', 1);
-    $query->fieldCondition('field_programme_statut', 'value', '1');
-  }
-
-  // Field values
-  foreach($field_values as $couple) {
-    if(key($couple) == 'title'){
-      $query->propertyCondition('title', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
-    }else{
-      $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+    // Available
+    if ($available) {
+        $query->propertyCondition('status', 1);
+        $query->fieldCondition('field_programme_statut', 'value', '1');
     }
-  }
 
-  // Return result
-  $result = $query->execute();
+    // Field values
+    foreach ($field_values as $couple) {
+        if (key($couple) == 'title') {
+            $query->propertyCondition('title', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+        } else {
+            $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+        }
+    }
 
-  // Load terms
-  $entities = array();
-  if(!empty($result)) {
-    $entities = entity_load('node', array_keys($result['node']));
-  }
+    // Return result
+    $result = $query->execute();
 
-  return $entities;
+    // Load terms
+    $entities = array();
+    if (!empty($result)) {
+        $entities = entity_load('node', array_keys($result['node']));
+    }
+
+    return $entities;
 }
 
 /**
@@ -755,5 +759,5 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
  * @param $view
  */
 function kandb_recherche_views_pre_execute(&$view) {
-  dpq($view->build_info['query']);
+    dpq($view->build_info['query']);
 }
