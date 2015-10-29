@@ -7,7 +7,6 @@ define('CONTENT_TYPE_BIEN', 'bien');
 define('CONTENT_TYPE_PROGRAMME', 'programme');
 define('CONTENT_TYPE_OPTION', 'options');
 
-
 define('TAXONOMY_NB_PIECES', 'nb_pieces');
 define('TAXONOMY_STATUS_LOGEMENT', 'status_logement');
 define('TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE', 'Indisponible');
@@ -138,7 +137,9 @@ class Kandb_Business_Rules {
             $total_bien = self::calculate_bien_follow_programe($item->nid);
 
             $node_programe = node_load($item->nid);
+
             $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
+
             node_save($node_programe);
         }
     }
@@ -240,7 +241,7 @@ class Kandb_Business_Rules {
     }
 
     /**
-     * @todo 
+     * @todo
      * @param type $id_programe
      * @param type $is_room_min
      * @return int
@@ -280,7 +281,7 @@ class Kandb_Business_Rules {
                 }
             }
         }
-        
+
 
         return 0;
     }
