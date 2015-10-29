@@ -23,9 +23,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 0,
           'thousand_separator' => ' ',
         ),
@@ -33,6 +30,12 @@ function kandb_programme_field_default_field_instances() {
         'weight' => 42,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 42,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -86,11 +89,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 62,
       ),
@@ -99,6 +98,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 62,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -150,11 +155,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 60,
       ),
@@ -163,6 +164,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 60,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -214,11 +221,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 61,
       ),
@@ -227,6 +230,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 61,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -269,6 +278,67 @@ function kandb_programme_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-programme-field_caracteristique'
+  $field_instances['node-programme-field_caracteristique'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 95,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_caracteristique',
+    'label' => 'Caractéristique',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 9,
+    ),
+  );
+
   // Exported field_instance: 'node-programme-field_contrat_reservation'
   $field_instances['node-programme-field_contrat_reservation'] = array(
     'bundle' => 'programme',
@@ -278,11 +348,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 53,
       ),
@@ -291,6 +357,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 53,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -343,15 +415,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 6,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 6,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -426,7 +500,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 10,
+      'weight' => 11,
     ),
   );
 
@@ -440,11 +514,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 49,
       ),
@@ -453,6 +523,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 49,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -527,7 +603,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 11,
+      'weight' => 12,
     ),
   );
 
@@ -541,15 +617,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 33,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 33,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -638,11 +716,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 67,
       ),
@@ -651,6 +725,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 67,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -697,11 +778,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 65,
       ),
@@ -710,6 +787,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 65,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -798,15 +881,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 34,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 34,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -895,15 +980,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 45,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 45,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -992,15 +1079,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 44,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 44,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1089,11 +1178,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 63,
       ),
@@ -1102,6 +1187,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 63,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1190,11 +1281,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 64,
       ),
@@ -1203,6 +1290,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 64,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1291,11 +1384,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 66,
       ),
@@ -1304,6 +1393,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 66,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1391,11 +1487,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 54,
       ),
@@ -1404,6 +1496,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 54,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1455,15 +1553,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 28,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1523,9 +1623,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 0,
           'thousand_separator' => ' ',
         ),
@@ -1536,6 +1633,18 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
+        'weight' => 41,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
         'weight' => 41,
       ),
       'teaser' => array(
@@ -1589,9 +1698,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 1,
@@ -1600,6 +1706,16 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
+        'weight' => 1,
+      ),
+      'search_programme' => array(
+        'label' => 'hidden',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
         'weight' => 1,
       ),
       'teaser' => array(
@@ -1661,15 +1777,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 30,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 30,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1725,11 +1843,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 55,
       ),
@@ -1738,6 +1852,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 55,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1789,11 +1909,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 57,
       ),
@@ -1802,6 +1918,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 57,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1854,15 +1976,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 46,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 46,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -1913,15 +2037,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 32,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 32,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2014,15 +2140,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 35,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 35,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2065,103 +2193,6 @@ function kandb_programme_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-programme-field_options'
-  $field_instances['node-programme-field_options'] = array(
-    'bundle' => 'programme',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 25,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_options',
-    'label' => 'Options',
-    'required' => 0,
-    'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
-          'full_html' => 'full_html',
-          'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
-            'full_html' => array(
-              'weight' => -9,
-            ),
-            'plain_text' => array(
-              'weight' => -8,
-            ),
-            'raw_html' => array(
-              'weight' => -6,
-            ),
-            'userbase' => array(
-              'weight' => -7,
-            ),
-          ),
-        ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 9,
-    ),
-  );
-
   // Exported field_instance: 'node-programme-field_photo_conseiller'
   $field_instances['node-programme-field_photo_conseiller'] = array(
     'bundle' => 'programme',
@@ -2174,14 +2205,17 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 31,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2242,15 +2276,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 29,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 29,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2306,11 +2342,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 58,
       ),
@@ -2319,6 +2351,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 58,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2370,15 +2408,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 27,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 27,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2435,15 +2475,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 26,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 26,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2531,11 +2573,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 56,
       ),
@@ -2544,6 +2582,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 56,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2596,15 +2640,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 13,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2693,15 +2739,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 12,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 12,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -2798,9 +2846,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -2812,6 +2857,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 85,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2865,9 +2916,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -2879,6 +2927,18 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 87,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3001,11 +3061,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 93,
       ),
@@ -3014,6 +3070,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 93,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3046,7 +3108,7 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 61,
+      'weight' => 59,
     ),
   );
 
@@ -3060,11 +3122,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 72,
       ),
@@ -3073,6 +3131,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 72,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3147,7 +3211,68 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 59,
+      'weight' => 58,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_programme_loc_department'
+  $field_instances['node-programme-field_programme_loc_department'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 96,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_programme_loc_department',
+    'label' => 'Départment',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 61,
     ),
   );
 
@@ -3161,11 +3286,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 74,
       ),
@@ -3174,6 +3295,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 74,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3248,7 +3376,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 63,
+      'weight' => 64,
     ),
   );
 
@@ -3262,11 +3390,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 73,
       ),
@@ -3275,6 +3399,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 73,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3349,7 +3480,7 @@ function kandb_programme_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 62,
+      'weight' => 63,
     ),
   );
 
@@ -3366,9 +3497,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 0,
           'thousand_separator' => ' ',
         ),
@@ -3380,6 +3508,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 69,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3420,6 +3554,67 @@ function kandb_programme_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-programme-field_programme_loc_region'
+  $field_instances['node-programme-field_programme_loc_region'] = array(
+    'bundle' => 'programme',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 97,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_programme_loc_region',
+    'label' => 'Region',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 62,
+    ),
+  );
+
   // Exported field_instance: 'node-programme-field_programme_loc_rue'
   $field_instances['node-programme-field_programme_loc_rue'] = array(
     'bundle' => 'programme',
@@ -3430,11 +3625,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 71,
       ),
@@ -3443,6 +3634,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 71,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3531,11 +3728,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 70,
       ),
@@ -3544,6 +3737,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 70,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3632,11 +3831,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 92,
       ),
@@ -3645,6 +3840,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 92,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3694,9 +3895,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -3708,6 +3906,18 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 86,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3758,11 +3968,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 68,
       ),
@@ -3771,6 +3977,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 68,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3864,9 +4077,6 @@ function kandb_programme_field_default_field_instances() {
           'multiple_from' => '',
           'multiple_number' => '',
           'multiple_to' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'date_default',
         'weight' => 79,
@@ -3876,6 +4086,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 79,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -3936,9 +4152,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -3950,6 +4163,18 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 89,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4003,9 +4228,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -4017,6 +4239,18 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 2,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_decimal',
+        'weight' => 88,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4070,9 +4304,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -4084,6 +4315,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 91,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4137,9 +4374,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -4151,6 +4385,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 90,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4205,11 +4445,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 80,
       ),
@@ -4218,6 +4454,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 80,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4269,9 +4511,6 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'decimal_separator' => '.',
           'prefix_suffix' => TRUE,
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'scale' => 2,
           'thousand_separator' => ' ',
         ),
@@ -4283,6 +4522,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 84,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4333,15 +4578,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 8,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 8,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -4430,11 +4677,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 7,
       ),
@@ -4447,6 +4690,12 @@ function kandb_programme_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 7,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 7,
       ),
       'teaser' => array(
@@ -4539,9 +4788,6 @@ function kandb_programme_field_default_field_instances() {
         'label' => 'above',
         'module' => 'youtube',
         'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
           'youtube_autohide' => FALSE,
           'youtube_autoplay' => FALSE,
           'youtube_controls' => FALSE,
@@ -4560,6 +4806,23 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'youtube',
+        'settings' => array(
+          'youtube_autohide' => FALSE,
+          'youtube_autoplay' => FALSE,
+          'youtube_controls' => FALSE,
+          'youtube_height' => NULL,
+          'youtube_iv_load_policy' => FALSE,
+          'youtube_loop' => FALSE,
+          'youtube_showinfo' => FALSE,
+          'youtube_size' => '420x315',
+          'youtube_width' => NULL,
+        ),
+        'type' => 'youtube_video',
+        'weight' => 50,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -4606,15 +4869,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 40,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 40,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -4703,15 +4968,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 9,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -4800,15 +5067,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 39,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 39,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -4899,14 +5168,17 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 15,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -4968,15 +5240,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 14,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5065,15 +5339,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 38,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 38,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5164,14 +5440,17 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 18,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 18,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5233,15 +5512,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 17,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 17,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5330,11 +5611,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 51,
       ),
@@ -5343,6 +5620,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 51,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -5389,15 +5673,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 36,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 36,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5486,11 +5772,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 52,
       ),
@@ -5499,6 +5781,13 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 52,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -5547,14 +5836,17 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 24,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 24,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5616,15 +5908,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 23,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 23,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5713,15 +6007,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 37,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 37,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5812,14 +6108,17 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(
           'image_link' => '',
           'image_style' => '',
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
         ),
         'type' => 'image',
         'weight' => 21,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 21,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5881,15 +6180,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 20,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 20,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -5978,16 +6279,18 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 2,
       ),
       'search' => array(
         'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 2,
+      ),
+      'search_programme' => array(
+        'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 2,
@@ -6047,6 +6350,13 @@ function kandb_programme_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'search_programme' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 94,
+      ),
       'teaser' => array(
         'label' => 'above',
         'settings' => array(),
@@ -6096,15 +6406,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'list',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'list_default',
         'weight' => 43,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 43,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -6157,15 +6469,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 48,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 48,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -6215,11 +6529,7 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'file_default',
         'weight' => 59,
       ),
@@ -6228,6 +6538,12 @@ function kandb_programme_field_default_field_instances() {
         'settings' => array(),
         'type' => 'hidden',
         'weight' => 0,
+      ),
+      'search_programme' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 59,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -6280,15 +6596,17 @@ function kandb_programme_field_default_field_instances() {
       'default' => array(
         'label' => 'above',
         'module' => 'taxonomy',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 47,
       ),
       'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 47,
+      ),
+      'search_programme' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -6337,12 +6655,14 @@ function kandb_programme_field_default_field_instances() {
   t('Autres documents');
   t('Bail commercial');
   t('Bon de commande mobilier');
+  t('Caractéristique');
   t('Code Postal');
   t('Contrat de réservation');
   t('Date de mise en ligne');
   t('Description');
   t('Description video');
   t('Département');
+  t('Départment');
   t('Echelle');
   t('Email du conseiller');
   t('En quelques mots');
@@ -6368,7 +6688,6 @@ function kandb_programme_field_default_field_instances() {
   t('Nombre de pièce min');
   t('Nouveauté');
   t('Numéro de voie');
-  t('Options');
   t('Photo du conseiller');
   t('Plan de masse 3D');
   t('Plan du bâtiment');
@@ -6381,6 +6700,7 @@ function kandb_programme_field_default_field_instances() {
   t('Prix minimum');
   t('Prix moyen au m²');
   t('RT2012 / BBC');
+  t('Region');
   t('Sous Titre');
   t('Statut du programme');
   t('TVA');

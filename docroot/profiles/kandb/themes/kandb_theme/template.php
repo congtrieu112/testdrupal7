@@ -114,4 +114,33 @@ function kandb_theme_preprocess_node(&$vars) {
         default:
             break;
     }
+    if($vars['view_mode'] == 'full' && $vars['type'] == 'bien'){
+        $price_tva_min = $price_tva_max = 0;
+        if (!empty($variables['field_tva'])) {
+            if(isset($variables['field_programme'][0]['entity'])){
+                $programme = $variables['field_programme'][0]['entity'];
+                if (isset($programme->field_programme_price_max[LANGUAGE_NONE][0]['value'])) {
+                    $price_tva_max = $programme->field_programme_price_max[LANGUAGE_NONE][0]['value'];
+                }
+                if (isset($programme->field_programme_price_min[LANGUAGE_NONE][0]['value'])) {
+                    $price_tva_min = $programme->field_programme_price_min[LANGUAGE_NONE][0]['value'];
+                }
+                $tva_facteur = 1;
+                if(($price_tva_max || $price_tva_min) && isset($variables['field_tva'][0]['taxonomy_term'])){
+                    $tva = $variables['field_tva'][0]['taxonomy_term'];
+                    if(isset($tva->field_facteur[LANGUAGE_NONE][0]['value'])){
+                        $tva_facteur += (float)$tva->field_facteur[LANGUAGE_NONE][0]['value'];
+                    }
+                    $price_tva_max = $price_tva_max/1.2*$tva_facteur;
+                    $price_tva_min = $price_tva_min/1.2*$tva_facteur;
+                }
+            }
+        }
+        if($price_tva_max != 0) {
+            $variables['price_tva_max'] = $price_tva_max;
+        }
+        if($price_tva_min != 0) {
+            $variables['price_tva_min'] = $price_tva_min;
+        }
+    }
 }

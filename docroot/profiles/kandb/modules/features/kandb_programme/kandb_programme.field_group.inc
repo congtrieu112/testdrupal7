@@ -63,7 +63,7 @@ function kandb_programme_field_group_info() {
       0 => 'field_en_quelques_mots',
       1 => 'field_en_quelques_mots_b2b',
       2 => 'field_nouveau',
-      3 => 'field_options',
+      3 => 'field_caracteristique',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -138,6 +138,8 @@ function kandb_programme_field_group_info() {
       5 => 'field_programme_loc_rue',
       6 => 'field_programme_loc_type',
       7 => 'field_programme_loc_ville',
+      8 => 'field_programme_loc_department',
+      9 => 'field_programme_loc_region',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -341,7 +343,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Données cachées',
-    'weight' => '12',
+    'weight' => '11',
     'children' => array(
       0 => 'field_marque_comm',
       1 => 'field_programme_avg_price',
