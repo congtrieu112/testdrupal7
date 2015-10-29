@@ -192,10 +192,12 @@ function render_test_habiteo_bien() {
   if ($habiteo_feed_url && $habiteo_feed_token) {
     $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?ID=' . $id_lots;
     $request = drupal_http_request($path);
-    if ($request->data) {
+    if (isset($request->data)) {
       $imports = json_decode($request->data);
-      foreach ($imports as $item) {
-        kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+      if ($imports) {
+        foreach ($imports as $item) {
+          kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+        }
       }
     }
   }
