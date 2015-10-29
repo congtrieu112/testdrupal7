@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Doc Bibliotheque feature.
+ */
+
+include_once 'kandb_doclib_feature.features.inc';
