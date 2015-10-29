@@ -185,31 +185,36 @@ function kandb_feed_feeds_importer_default() {
         'authorize' => 1,
         'mappings' => array(
           0 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'field_document_id',
+            'unique' => FALSE,
+          ),
+          1 => array(
             'source' => 'TitreDuDocument',
             'target' => 'title',
             'unique' => FALSE,
           ),
-          1 => array(
+          2 => array(
             'source' => 'Categorie',
             'target' => 'field_document_type',
             'unique' => FALSE,
           ),
-          2 => array(
+          3 => array(
             'source' => 'DATE',
             'target' => 'field_document_date:start',
             'unique' => FALSE,
           ),
-          3 => array(
+          4 => array(
             'source' => 'Statut',
             'target' => 'status',
             'unique' => FALSE,
           ),
-          4 => array(
+          5 => array(
             'source' => 'Statut',
             'target' => 'sticky',
             'unique' => FALSE,
           ),
-          5 => array(
+          6 => array(
             'source' => 'LienFichier',
             'target' => 'field_document_file:uri',
             'unique' => FALSE,
