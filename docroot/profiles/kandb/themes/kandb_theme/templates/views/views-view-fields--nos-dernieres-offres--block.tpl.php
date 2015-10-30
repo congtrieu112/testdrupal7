@@ -22,6 +22,7 @@
  *
  * @ingroup views_templates
  */
+
 $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 
 $ville_name = $row->field_field_programme_loc_ville[0]['rendered']['#title'];
@@ -46,7 +47,7 @@ endif;
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_programme_node_title && $available): ?>
                     <li>
-                        <div class="tag tag--important"><?php print t('Plus que deux T3 disponibles'); ?></div>
+                        <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
                         <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                     </li>
                 <?php endif; ?>
