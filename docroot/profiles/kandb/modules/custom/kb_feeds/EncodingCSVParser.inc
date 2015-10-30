@@ -84,7 +84,6 @@ class EncodingCSVParser extends ParserCSV {
       $currentIndex = 0;
       $currentField = '';
       $fields = array();
-      $ttt = 0;
       while ($currentIndex <= strlen($line)) {
         if ($quoted) {
           $nextQuoteIndex = strpos($line, '"', $currentIndex);
@@ -172,13 +171,7 @@ class EncodingCSVParser extends ParserCSV {
       
       if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
         $rows[] = $row;
-      }
-      
-      if($ttt++ > 0){
-          echo "<pre>";
-          print_r($rows);die;
-      }
-      
+      }     
       
       if (!empty($maxTime) && microtime() > $maxTime) {
         $this->timeoutReached = TRUE;

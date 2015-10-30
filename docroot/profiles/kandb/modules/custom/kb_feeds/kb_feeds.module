@@ -374,8 +374,6 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         
 
         foreach($result->items as $key => $row){
-            
-            
             $list_file_id = array();    // List column have upload file
             if($source->id === "document_import"){
                 $list_file_id = array(
@@ -385,7 +383,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
                 
                 $id_program = $row["identifiantprogramme"];
                 $check_exist = get_program_by_id($id_program);
-                // just use for update node, not add new
+                // just use for update node, not add new.
                 if(empty($check_exist)){
                     unset($result->items[$key]);
                     continue;
@@ -425,8 +423,6 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
                 }
             }
         }
-        echo "<pre>";
-        print_r($result->items);die;
     }
 }
 
