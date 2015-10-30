@@ -84,6 +84,7 @@ class EncodingCSVParser extends ParserCSV {
       $currentIndex = 0;
       $currentField = '';
       $fields = array();
+      $ttt = 0;
       while ($currentIndex <= strlen($line)) {
         if ($quoted) {
           $nextQuoteIndex = strpos($line, '"', $currentIndex);
@@ -145,6 +146,11 @@ class EncodingCSVParser extends ParserCSV {
           $logging .= $line;
           continue;
         }
+      }elseif ($this->id == 'kb_patrimoine_import') {          
+        if (is_array($fields) && 14 > count($fields)) {
+          $logging .= $line;
+          continue;
+        }
       } else {
         if (is_array($fields) && 2 != count($fields)) {
           $logging .= $line;
@@ -163,9 +169,17 @@ class EncodingCSVParser extends ParserCSV {
           $row[$columnName] = isset($field) ? $field : '';
         }
       }
+      
       if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
         $rows[] = $row;
       }
+      
+      if($ttt++ > 0){
+          echo "<pre>";
+          print_r($rows);die;
+      }
+      
+      
       if (!empty($maxTime) && microtime() > $maxTime) {
         $this->timeoutReached = TRUE;
         $this->lastLinePos = $lineIterator->currentPos();

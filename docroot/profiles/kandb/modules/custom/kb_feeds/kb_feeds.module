@@ -369,21 +369,79 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
  * @param type $item
  */	 
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
-    if($source->id === "document_import"){
+    if($source->id === "document_import" || $source->id === "kb_patrimoine_import"){      
         global $base_url;
+        
 
         foreach($result->items as $key => $row){
-            $file = $row["lienfichier"];
-            if(!empty($file)){
-                $path_url = $base_url . '/sites/default/files';
-                if($file[0] === '/'){
-                    $path_url .= $file;
-                }else{
-                    $path_url .= '/' . $file;
+            
+            
+            $list_file_id = array();    // List column have upload file
+            if($source->id === "document_import"){
+                $list_file_id = array(
+                    "lienfichier"
+                );
+            }elseif($source->id === "kb_patrimoine_import"){
+                
+                $id_program = $row["identifiantprogramme"];
+                $check_exist = get_program_by_id($id_program);
+                // just use for update node, not add new
+                if(empty($check_exist)){
+                    unset($result->items[$key]);
+                    continue;
+                }
+                
+                $list_file_id = array(
+                    "PlaquetteCommerciale",
+                    "ContratDeReservation",
+                    "EtatDesRisques",
+                    "LetterBanque",
+                    "FichesDeRenseignement",
+                    "PrestationsDuProgramme",
+                    "MandatDeGestionLocative",
+                    "PlansDeMasse",
+                    "VisuelGrandeTaille",
+                    "BailCommercial",
+                    "BonDeCommandeMobilier",
+                    "KitFiscal",
+                    "AutreDoc",
+                );
+            }
+        
+            // Parse url for pdf file.
+            foreach($list_file_id as $item_col_file){
+                $item_col_file = strtolower($item_col_file);
+
+                $file = $row[$item_col_file];
+                if(!empty($file)){
+                    $path_url = $base_url . '/sites/default/files';
+                    if($file[0] === '/'){
+                        $path_url .= $file;
+                    }else{
+                        $path_url .= '/' . $file;
+                    }
+                    
+                    $result->items[$key][$item_col_file] = $path_url;
                 }
             }
+        }
+        echo "<pre>";
+        print_r($result->items);die;
+    }
+}
 
-            $result->items[$key]["lienfichier"] = $path_url;
-        }   
-    }    
+function get_program_by_id($id_program){
+    $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'programme')
+            ->fieldCondition('field_id_programme', 'value', $id_program, '=');
+
+
+        $results = $query->execute();
+
+        if (!empty($results)) {
+            return $results["node"];
+        }
+
+        return array();
 }
