@@ -13,6 +13,40 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse-categorie-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse';
+  $feeds_tamper->source = 'Categorie';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => 'Communiqué de presse',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse-categorie-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse-lienfichier-find_replace';
+  $feeds_tamper->importer = 'document_import_communique_de_presse';
+  $feeds_tamper->source = 'LienFichier';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => '/ketbmedia/fr/com',
+    'replace' => 'public://import/pdf migration folder',
+    'case_sensitive' => 0,
+    'word_boundaries' => 0,
+    'whole' => 0,
+    'regex' => FALSE,
+    'func' => 'str_ireplace',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['document_import_communique_de_presse-lienfichier-find_replace'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'maison_feed_import-10-find_replace';
   $feeds_tamper->importer = 'maison_feed_import';
   $feeds_tamper->source = '10';

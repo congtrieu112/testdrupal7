@@ -1,0 +1,5 @@
+<?php
+
+function kandb_feed_enable() {
+  cache_clear_all('plugins:feeds:plugins', 'cache');
+}
