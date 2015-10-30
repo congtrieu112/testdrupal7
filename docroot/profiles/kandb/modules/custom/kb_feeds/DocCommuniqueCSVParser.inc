@@ -263,19 +263,16 @@ class DocCommuniqueCSVParser extends ParserCSV{
                   $txt_path = drupal_realpath($txt_uri);
                   if(!file_exists($txt_path)) {
                       $is_log = TRUE;
-                  }
-                  if ($txt_file_prepare) {
+                      $field = '';
+                  } else {
                     $txt_data = file_get_contents($txt_path);
-                    $encoding = mb_detect_encoding($contents, "UTF-8,ISO-8859-1,UTF-16");
+                    $encoding = mb_detect_encoding($txt_data, "UTF-8,ISO-8859-15,UTF-16");
                     if ($txt_data) {
                         if($encoding != 'UTF-8') {
                             $txt_data = mb_convert_encoding($txt_data, "UTF-8", $encoding);
                         }
                         $field = $txt_data;
                     }
-                  }
-                  else {
-                      $field = '';
                   }
               }
           }
