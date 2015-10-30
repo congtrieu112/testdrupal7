@@ -22,10 +22,10 @@
  *
  * @ingroup views_templates
  */
-$style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 
+$style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 $ville_name = $row->field_field_programme_loc_ville[0]['rendered']['#title'];
-$departement_tax = $row->field_field_espace_vente_dpt[0]['rendered']['#options']['entity'];
+$departement_tax = $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'];
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 
 $available = false;
@@ -46,7 +46,7 @@ endif;
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_programme_node_title && $available): ?>
                     <li>
-                        <div class="tag tag--important"><?php print t('Plus que deux T3 disponibles'); ?></div>
+                        <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
                         <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                     </li>
                 <?php endif; ?>
