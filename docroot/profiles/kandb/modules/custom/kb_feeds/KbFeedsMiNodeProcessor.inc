@@ -184,9 +184,9 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
 
     $author = user_load($this->config['author']);
     $importers = feeds_importer_load_all(TRUE);
-    $importer_ops = array(
-        '-1' => t('- None -'),
-    );
+//    $importer_ops = array(
+//        '-1' => t('- None -'),
+//    );
     $current_id = $this->id;
     foreach($importers as $k => $importer){
         if($k != $current_id){
@@ -194,12 +194,20 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
             $importer_ops[$k] = $name;
         }
     }
+//    $form['related_importer'] = array(
+//      '#type' => 'select',
+//      '#title' => t('Related importer'),
+//      '#options' => $importer_ops,
+//      '#description' => t("Select a related importer."),
+//      '#default_value' => $this->config['related_importer'],
+//    );
+
     $form['related_importer'] = array(
-      '#type' => 'select',
+      '#type' => 'checkboxes',
       '#title' => t('Related importer'),
       '#options' => $importer_ops,
       '#description' => t("Select a related importer."),
-      '#default_value' => $this->config['related_importer'],
+      '#default_value' => $this->config['related_importer']
     );
     $form['author'] = array(
       '#type' => 'textfield',
