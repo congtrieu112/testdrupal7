@@ -56,10 +56,10 @@ function kandb_views_views_default_views() {
     'image_style' => 'programme_teaser_3',
     'image_link' => '',
   );
-  /* Field: Content: Département */
-  $handler->display->display_options['fields']['field_espace_vente_dpt']['id'] = 'field_espace_vente_dpt';
-  $handler->display->display_options['fields']['field_espace_vente_dpt']['table'] = 'field_data_field_espace_vente_dpt';
-  $handler->display->display_options['fields']['field_espace_vente_dpt']['field'] = 'field_espace_vente_dpt';
+  /* Field: Content: Départment */
+  $handler->display->display_options['fields']['field_programme_loc_department']['id'] = 'field_programme_loc_department';
+  $handler->display->display_options['fields']['field_programme_loc_department']['table'] = 'field_data_field_programme_loc_department';
+  $handler->display->display_options['fields']['field_programme_loc_department']['field'] = 'field_programme_loc_department';
   /* Field: Content: Ville */
   $handler->display->display_options['fields']['field_programme_loc_ville']['id'] = 'field_programme_loc_ville';
   $handler->display->display_options['fields']['field_programme_loc_ville']['table'] = 'field_data_field_programme_loc_ville';
@@ -150,7 +150,7 @@ function kandb_views_views_default_views() {
     t('Desc'),
     t('Content referencing Content from field_promotion_programme'),
     t('Image Principale'),
-    t('Département'),
+    t('Départment'),
     t('Ville'),
     t('Programme lié:'),
     t('Date de début'),
