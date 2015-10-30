@@ -55,6 +55,17 @@ function kb_feeds_feeds_plugins() {
       'path' => $path,
     ),
   );
+  
+  $info['KbDocCommuniqueCSVParser'] = array(
+    'name' => 'KB migration document communique parser',
+    'description' => 'Only use for "Document import communique de presse" importer.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbDocCommuniqueCSVParser',
+      'file' => 'KbDocCommuniqueCSVParser.inc',
+      'path' => $path,
+    ),
+  );
 
   $info['KbFeedsNodeProcessor'] = array(
     'name' => 'KB Node processor',
