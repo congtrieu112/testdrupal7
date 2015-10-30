@@ -4,35 +4,50 @@
  *  Implements hook_menu().
  */
 function kandb_habiteo_menu() {
-    $items = array();
-    $items['admin/habiteo-settings'] = array(
-      'title' => 'Habiteo setting page',
-      'description' => 'Habiteo webservice',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('habiteo_page_settings_form'),
-      'access arguments' => array('administrator custom settings'),
-      'type' => MENU_NORMAL_ITEM,
-    );
+  $items = array();
+  $items['admin/habiteo-settings'] = array(
+    'title' => 'Habiteo setting page',
+    'description' => 'Habiteo webservice',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('habiteo_page_settings_form'),
+    'access arguments' => array('administrator custom settings'),
+    'type' => MENU_NORMAL_ITEM,
+  );
 
-    $items['maquettes/%/%'] = array(
-      'title' => 'Mock habiteo reponse json',
-      'description' => 'Habiteo reponse mock',
-      'page callback' => 'render_habiteo_json',
-      'page arguments' => array(1, 2),
-      'access arguments' => array('access content'),
-    );
+  $items['maquettes/%/%'] = array(
+    'title' => 'Mock habiteo reponse json',
+    'description' => 'Habiteo reponse mock',
+    'page callback' => 'render_habiteo_json',
+    'page arguments' => array(1, 2),
+    'access arguments' => array('access content'),
+  );
 
-    // For testing case, and will be remove later.
-    $items['test/maquettes'] = array(
-      'title' => 'Test cron retrive habiteo',
-      'description' => 'Habiteo reponse mock',
-      'page callback' => 'render_test_habiteo',
-      'page arguments' => array(1),
-      'access arguments' => array('access content'),
-    );
+  $items['maquettes/%/lots'] = array(
+    'title' => 'Mock habiteo reponse json for Bien',
+    'description' => 'Habiteo reponse mock for Bien',
+    'page callback' => 'render_habiteo_json_bien',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
+
+  // For testing case, and will be remove later.
+  $items['test/maquettes'] = array(
+    'title' => 'Test cron retrive habiteo for programm',
+    'description' => 'Habiteo reponse mock',
+    'page callback' => 'render_test_habiteo',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
+  $items['test/maquettes_bien'] = array(
+    'title' => 'Test cron retrive habiteo for bien',
+    'description' => 'Habiteo reponse mock',
+    'page callback' => 'render_test_habiteo_bien',
+    'page arguments' => array(1),
+    'access arguments' => array('access content'),
+  );
 
 
-    return $items;
+  return $items;
 }
 
 /**
@@ -40,37 +55,37 @@ function kandb_habiteo_menu() {
  */
 function habiteo_page_settings_form($form, &$form_state) {
 
-    $form['variable_tab'] = array(
-      '#type' => 'vertical_tabs',
-    );
+  $form['variable_tab'] = array(
+    '#type' => 'vertical_tabs',
+  );
 
-    $form['variable_habiteo_page'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Habiteo Setting'),
-      '#group' => 'variable_tab',
-    );
+  $form['variable_habiteo_page'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Habiteo Setting'),
+    '#group' => 'variable_tab',
+  );
 
-    $form['variable_habiteo_page']['habiteo_feed_url'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Habiteo feed URL'),
-      '#description' => t('example: http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes"'),
-      '#default_value' => variable_get('habiteo_feed_url', ''),
-      '#size' => 60,
-      '#maxlength' => 128,
-      '#required' => TRUE,
-    );
+  $form['variable_habiteo_page']['habiteo_feed_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo feed URL'),
+    '#description' => t('example: http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes"'),
+    '#default_value' => variable_get('habiteo_feed_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
 
-    $form['variable_habiteo_page']['habiteo_feed_token'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Habiteo feed TOKEN'),
-      '#description' => t('example: 3c7070bcf6bc98a6ea813ff7ff78953d'),
-      '#default_value' => variable_get('habiteo_feed_token', ''),
-      '#size' => 60,
-      '#maxlength' => 128,
-      '#required' => TRUE,
-    );
+  $form['variable_habiteo_page']['habiteo_feed_token'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo feed TOKEN'),
+    '#description' => t('example: 3c7070bcf6bc98a6ea813ff7ff78953d'),
+    '#default_value' => variable_get('habiteo_feed_token', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
 
-    return system_settings_form($form);
+  return system_settings_form($form);
 }
 
 /**
@@ -78,17 +93,17 @@ function habiteo_page_settings_form($form, &$form_state) {
  */
 function render_habiteo_json($token, $type) {
 
-    $uri = 'public://';
-    $data = '';
-    if ($wrapper = file_stream_wrapper_get_instance_by_uri($uri)) {
-        $path = $wrapper->realpath();
-        $file = $path . '/maquettes/' . $token . '/' . $type;
-        if (file_exists($file)) {
-            // Do something
-            $data = file_get_contents($file);
-        }
+  $uri = 'public://';
+  $data = '';
+  if ($wrapper = file_stream_wrapper_get_instance_by_uri($uri)) {
+    $path = $wrapper->realpath();
+    $file = $path . '/maquettes/' . $token . '/' . $type;
+    if (file_exists($file)) {
+      // Do something
+      $data = file_get_contents($file);
     }
-    print $data;
+  }
+  print $data;
 }
 
 /**
@@ -96,44 +111,121 @@ function render_habiteo_json($token, $type) {
  */
 function render_test_habiteo() {
 
-    $habiteo_feed_url = variable_get('habiteo_feed_url', '');
-    $habiteo_feed_token = variable_get('habiteo_feed_token', '');
-    if ($habiteo_feed_url && $habiteo_feed_token) {
-        $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
-        $request = drupal_http_request($path);
-        if ($request->data) {
-            $imports = json_decode($request->data);
-            foreach ($imports as $item) {
-                kandb_habiteo_update_programe($item->id_partenaire, $item->id);
-            }
-        }
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+  if ($habiteo_feed_url && $habiteo_feed_token) {
+    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
+    $request = drupal_http_request($path);
+    if ($request->data) {
+      $imports = json_decode($request->data);
+      foreach ($imports as $item) {
+        kandb_habiteo_update_programe($item->id_partenaire, $item->id);
+      }
     }
-    return 'test';
+  }
+  return 'Import habiteo into programme';
 }
 
 /**
  * Update field_programme_habiteo_id when field_id_programme has exist.
  */
 function kandb_habiteo_update_programe($id, $habiteo_id, $type = 'programme') {
-    $query = new EntityFieldQuery();
+  $query = new EntityFieldQuery();
 
-    $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', $type)
-      ->fieldCondition('field_id_programme', 'value', $id, '=');
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', $type)
+    ->fieldCondition('field_id_programme', 'value', $id, '=');
 
-    $result = $query->execute();
+  $result = $query->execute();
 
-    if (isset($result['node'])) {
-        $items_nids = array_keys($result['node']);
-        $items = entity_load('node', $items_nids);
-        if ($items) {
-            foreach ($items as $item) {
-                $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
-                node_save($item);
-                watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
-            }
-        }
-    } else {
-        watchdog('kandb_habiteo', 'Logs: <pre>id_programme: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+  if (isset($result['node'])) {
+    $items_nids = array_keys($result['node']);
+    $items = entity_load('node', $items_nids);
+    if ($items) {
+      foreach ($items as $item) {
+        $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
+        node_save($item);
+        watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
+      }
     }
+  } else {
+    watchdog('kandb_habiteo', 'Logs: <pre>id_programme: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+  }
+}
+
+/**
+ * output json from lots file.
+ */
+function render_habiteo_json_bien($token) {
+  $params = drupal_get_query_parameters();
+  $id_lots = isset($params['ID']) ? $params['ID'] : '';
+  if ($id_lots) {
+
+    $uri = 'public://';
+    $data = '';
+    if ($wrapper = file_stream_wrapper_get_instance_by_uri($uri)) {
+      $path = $wrapper->realpath();
+      $file = $path . '/maquettes/' . $token . '/lots/' . $id_lots;
+      if (file_exists($file)) {
+        // Do something
+        $data = file_get_contents($file);
+      }
+    }
+    print $data;
+  }
+}
+
+/**
+ * Import bien_habiteo_id into bien CT.
+ */
+function render_test_habiteo_bien() {
+
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+  $params = drupal_get_query_parameters();
+  $id_lots = isset($params['ID']) ? $params['ID'] : '';
+  // Check format url has programme_habiteo_id.
+  if (!$id_lots) {
+    return 'missing programme_habiteo_id ex: /test/maquettes_bien?ID=file_name';
+  }
+
+  if ($habiteo_feed_url && $habiteo_feed_token) {
+    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?ID=' . $id_lots;
+    $request = drupal_http_request($path);
+    if (isset($request->data)) {
+      $imports = json_decode($request->data);
+      if ($imports) {
+        foreach ($imports as $item) {
+          kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+        }
+      }
+    }
+  }
+  return 'Import habiteo into bien';
+}
+
+/**
+ * Update field_bien_habiteo_id when field_id_bienhas exist.
+ */
+function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
+  $query = new EntityFieldQuery();
+
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'bien')
+    ->fieldCondition('field_id_bien', 'value', $id, '=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $items_nids = array_keys($result['node']);
+    $items = entity_load('node', $items_nids);
+    if ($items) {
+      foreach ($items as $item) {
+        $item->field_bien_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
+        node_save($item);
+        watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
+      }
+    }
+  } else {
+    watchdog('kandb_habiteo', 'Logs: <pre>id_bien: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+  }
 }
