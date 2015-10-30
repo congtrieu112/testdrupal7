@@ -29,6 +29,24 @@ function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParser
     }
 
     Kandb_Business_Rules::set_list_biens($list_nodes_bien);
+  } elseif($source->id === 'migration_program_import') {
+    foreach ($result->items as &$row) {
+      $slider_rt2012_titre = isset($row['reglementationthermiquetitre']) ? trim($row['reglementationthermiquetitre']) : '';
+      $slider_rt2012_description = isset($row['reglementationthermiquezone1']) ? trim($row['reglementationthermiquezone1']) : '';
+      $slider_rt2012_description1 = isset($row['reglementationthermiquezone2']) ? trim($row['reglementationthermiquezone2']) : '';
+      $slider_rt2012_echelle = isset($row['reglementationthermiqueechelle']) ? trim($row['reglementationthermiqueechelle']) : '';
+      if (($slider_rt2012_titre || $slider_rt2012_description || $slider_rt2012_description1) && ($slider_rt2012_echelle)) {
+        unset($row['labelbbczone1']);
+        unset($row['labelbbczone2']);
+        unset($row['labelbbcechelle']);
+        $row['rt2012'] = 1;
+      } else {
+        unset($row['reglementationthermiquezone1']);
+        unset($row['reglementationthermiquezone2']);
+        unset($row['reglementationthermiqueechelle']);
+        $row['rt2012'] = 0;
+      }
+    }
   }
 }
 
