@@ -42,7 +42,7 @@
         </div>
         <div class="homeDocs__list">
             <div class="heading text-center">
-                <h3 class="heading__title heading__title--sub"><?php print t('Des solutions adaptées à chacun'); ?></h3>
+                <h3 class="heading__title heading__title--sub"><?php print render($content['field_hp_block_conseil_titre2']); ?></h3>
             </div>
             <?php print render($content['hp_block_conseil_small']); ?>
         </div>
