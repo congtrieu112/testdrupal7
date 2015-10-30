@@ -188,7 +188,7 @@ class EncodingCSVParser extends ParserCSV {
       }
 
       //$file_log_name = 'migration_program_video_import_log_' . date('Y-m-d') . '.txt';
-      $uri = 'public://feeds/log/';
+      $uri = 'private://feeds/log/';
       $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
 
       if ($prepare_file) {
