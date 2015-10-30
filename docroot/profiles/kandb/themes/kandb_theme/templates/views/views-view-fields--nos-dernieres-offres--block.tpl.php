@@ -24,9 +24,8 @@
  */
 
 $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
-
 $ville_name = $row->field_field_programme_loc_ville[0]['rendered']['#title'];
-$departement_tax = $row->field_field_espace_vente_dpt[0]['rendered']['#options']['entity'];
+$departement_tax = $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'];
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 
 $available = false;
