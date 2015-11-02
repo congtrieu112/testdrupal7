@@ -545,7 +545,7 @@ function import_bien_pdf_admin() {
  */
 function import_bien_pdf_admin_submit() {
 
-    if (isset($_REQUEST["op_import_bien_pdf"])) { // action import bien pdf map files
+    if (isset($_REQUEST["op_import_bien_pdf"])) { // Action import bien pdf map files.
         $dir_parent = variable_get('import_bien_pdf_dir_parent');
 
         if (empty($dir_parent)) {
@@ -555,7 +555,7 @@ function import_bien_pdf_admin_submit() {
             batch_set(import_bien_pdf_batch_operation());
         }
     }
-    else {  // action save settings
+    else {  // Action save settings.
         $dir_parent = $_REQUEST['dir_parent'];
 
         if (!empty($dir_parent) && $dir_parent[0] == '/') {
@@ -579,7 +579,7 @@ function import_bien_pdf_admin_submit() {
 function import_bien_pdf_batch_operation() {
     drupal_set_message('Updating Bien Nodes');
 
-    // build the list of operation functions and function arguments
+    // Build the list of operation functions and function arguments.
     global $base_url;
     $dir_parent = variable_get('import_bien_pdf_dir_parent');
     $operations = array();
@@ -593,7 +593,7 @@ function import_bien_pdf_batch_operation() {
                 if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
                     $program = get_program_by_id($id_program);
                     if (!empty($program)) {   // Exist node program.
-                        // Load all pdf file in folder program
+                        // Load all pdf file in folder program.
                         if ($handle_pdf_files = opendir($base_path . $id_program)) {
                             while (false !== ($pdf_file = readdir($handle_pdf_files))) {
                                 if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
@@ -602,11 +602,11 @@ function import_bien_pdf_batch_operation() {
                                     $id_bien = $idbien_extension[0];
                                     $extension_file = $idbien_extension[1];
 
-                                    // just get pdf file
+                                    // Just get pdf file.
                                     if (strtolower($extension_file) == 'pdf') {
                                         $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
                                         if (!empty($node_biens)) {
-                                            // sometime we will find more than 1 item
+                                            // Sometime we will find more than 1 item.
                                             foreach ($node_biens as $item_bien) {
                                                 $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
                                                 $data = array(
@@ -619,7 +619,7 @@ function import_bien_pdf_batch_operation() {
                                             }
                                         }
                                         else {
-                                            // write log file : id_bien $id_bien does not exist
+                                            // Write log file : id_bien $id_bien does not exist.
                                         }
                                     }
                                 }
@@ -629,7 +629,7 @@ function import_bien_pdf_batch_operation() {
                         }
                     }
                     else {
-                        // write log file: id_program: $id_program does not exist
+                        // Write log file: id_program: $id_program does not exist.
                     }
                 }
             }
@@ -638,10 +638,10 @@ function import_bien_pdf_batch_operation() {
         }
     }
     else {
-        // write log file: $base_path . "folder does not exist"
+        // Write log file: $base_path . "folder does not exist".
     }
 
-    // build the batch instructions
+    // Build the batch instructions.
     $batch = array(
       'operations' => $operations,
       'finished' => 'import_bien_pdf_batch_operation_finished',
