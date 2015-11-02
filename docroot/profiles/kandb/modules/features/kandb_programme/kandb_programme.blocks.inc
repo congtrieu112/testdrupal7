@@ -27,6 +27,10 @@ function kandb_programme_theme($existing, $type, $theme, $path) {
       'template' => 'templates/kandb_programme',
       'variables' => array('main_menu' => NULL),
     ),
+    'program_characteristic' => array(
+      'template' => 'program_characteristic',
+      'variables' => array('programme_variables' => NULL),
+    ),
   );
 }
 
@@ -43,6 +47,9 @@ function kandb_programme_block_info() {
   $blocks['document_block'] = array(
     'info' => 'Document block',
     'cache' => DRUPAL_NO_CACHE,
+  );
+  $blocks['program_characteristic'] = array(
+    'info' => 'Program Characteristic',
   );
   return $blocks;
 }
@@ -62,6 +69,10 @@ function kandb_programme_block_view($delta = '') {
     case 'logement_block':
       $block['subject'] = '';
       $block['content'] = _get_logement_block_content();
+      break;
+    case 'program_characteristic':
+      $block['subject'] = '';
+      $block['content'] = _get_program_characteristic_content();
       break;
   }
   return $block;
@@ -392,4 +403,54 @@ function createFileArchireForProgramme($node) {
     $statusFileB2B = createFileZip($path . '/Programme/archive/' . $node->nid . '/' . $fileNameB2B, $paramsB2B);
     $statusFileB2C = createFileZip($path . '/Programme/archive/' . $node->nid . '/' . $fileNameB2C, $paramsB2C);
   }
+}
+
+function _get_program_characteristic_content() {
+  $content = '';
+  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+    $node = node_load(arg(1));
+    if (isset($node->type) && $node->type == 'programme') {
+      $programme_variables = array();
+      $programme_variables['prestations_titre'] = isset($node->field_prestations_titre[LANGUAGE_NONE][0]['value']) ? $node->field_prestations_titre[LANGUAGE_NONE][0]['value'] : '';
+      $programme_variables['prestations_sous_titre'] = isset($node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value']) ? $node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value'] : '';
+      //Tab 1
+      $programme_variables['slider_exterieur_titre'] = isset($node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value'] : '';
+      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      if ($uri) {
+        $programme_variables['slider_exterieur_image_small'] = image_style_url('program_characteristic_small', $uri);
+        $programme_variables['slider_exterieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
+        $programme_variables['slider_exterieur_image_alt'] = $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['alt'];
+      }
+      $programme_variables['slider_exterieur_description'] = isset($node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value'] : '';
+      //Tab 2
+      $programme_variables['slider_interieur_titre'] = isset($node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value'] : '';
+      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      if ($uri) {
+        $programme_variables['slider_interieur_image_small'] = image_style_url('program_characteristic_small', $uri);
+        $programme_variables['slider_interieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
+        $programme_variables['slider_interieur_image_alt'] = $node->field_slider_interieur_image[LANGUAGE_NONE][0]['alt'];
+      }
+      $programme_variables['slider_interieur_description'] = isset($node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value'] : '';
+      //Tab 3
+      $programme_variables['slider_securite_titre'] = isset($node->field_slider_securite_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_titre[LANGUAGE_NONE][0]['value'] : '';
+      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : '';
+      if ($uri) {
+        $programme_variables['slider_securite_image_small'] = image_style_url('program_characteristic_small', $uri);
+        $programme_variables['slider_securite_image_medium'] = image_style_url('program_characteristic_medium', $uri);
+        $programme_variables['slider_securite_image_alt'] = $node->field_slider_securite_image[LANGUAGE_NONE][0]['alt'];
+      }
+      $programme_variables['slider_securite_description'] = isset($node->field_slider_securite_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_desc[LANGUAGE_NONE][0]['value'] : '';
+      //Tab 4
+      $programme_variables['slider_rt2012_titre'] = isset($node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value'] : '';
+      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : '';
+      if ($uri) {
+        $programme_variables['slider_rt2012_image_small'] = image_style_url('program_characteristic_small', $uri);
+        $programme_variables['slider_rt2012_image_medium'] = image_style_url('program_characteristic_medium', $uri);
+        $programme_variables['slider_rt2012_image_alt'] = $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['alt'];
+      }
+      $programme_variables['slider_rt2012_description'] = isset($node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value'] : '';
+      $content = theme('program_characteristic', array('programme_variables' => $programme_variables));
+    } 
+  }
+  return $content;
 }
