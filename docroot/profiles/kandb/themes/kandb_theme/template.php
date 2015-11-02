@@ -27,7 +27,6 @@ function kandb_theme_process_page(&$variables) {
   }
 
   $common_js = array(
-    'modernizr',
     'bundle',
   );
   // Add custom script and keep them in footer scope.
