@@ -25,7 +25,6 @@ function kandb_theme_process_page(&$variables) {
   }
 
   $common_js = array(
-    'modernizr',
     'bundle',
   );
   kandb_theme_include_common_js($common_js);
