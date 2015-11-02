@@ -10,6 +10,28 @@
 function kandb_dossier_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_articles_block1_image'
+  $field_bases['field_articles_block1_image'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_articles_block1_image',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_articles_block1_ref'
   $field_bases['field_articles_block1_ref'] = array(
     'active' => 1,
@@ -68,6 +90,28 @@ function kandb_dossier_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_articles_block2_image'
+  $field_bases['field_articles_block2_image'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_articles_block2_image',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_articles_block2_ref'
   $field_bases['field_articles_block2_ref'] = array(
     'active' => 1,
@@ -124,6 +168,28 @@ function kandb_dossier_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'text',
+  );
+
+  // Exported field_base: 'field_articles_block3_image'
+  $field_bases['field_articles_block3_image'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_articles_block3_image',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
   );
 
   // Exported field_base: 'field_articles_block3_ref'

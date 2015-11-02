@@ -114,7 +114,7 @@ function kandb_theme_preprocess_node(&$vars) {
     default:
       break;
   }
-  
+
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
     $price_tva_min = $price_tva_max = 0;
     if (!empty($variables['field_tva'])) {

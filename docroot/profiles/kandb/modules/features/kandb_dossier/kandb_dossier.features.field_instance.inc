@@ -10,6 +10,62 @@
 function kandb_dossier_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-dossier-field_articles_block1_image'
+  $field_instances['node-dossier-field_articles_block1_image'] = array(
+    'bundle' => 'dossier',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 30,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_articles_block1_image',
+    'label' => 'Articles image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 18,
+    ),
+  );
+
   // Exported field_instance: 'node-dossier-field_articles_block1_ref'
   $field_instances['node-dossier-field_articles_block1_ref'] = array(
     'bundle' => 'dossier',
@@ -25,7 +81,7 @@ function kandb_dossier_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 20,
+        'weight' => 23,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -77,7 +133,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 19,
+        'weight' => 22,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -146,6 +202,61 @@ function kandb_dossier_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-dossier-field_articles_block2_image'
+  $field_instances['node-dossier-field_articles_block2_image'] = array(
+    'bundle' => 'dossier',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 31,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_articles_block2_image',
+    'label' => 'Articles image',
+    'required' => FALSE,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 19,
+    ),
+  );
+
   // Exported field_instance: 'node-dossier-field_articles_block2_ref'
   $field_instances['node-dossier-field_articles_block2_ref'] = array(
     'bundle' => 'dossier',
@@ -161,7 +272,7 @@ function kandb_dossier_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 22,
+        'weight' => 25,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -213,7 +324,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 21,
+        'weight' => 24,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -282,6 +393,61 @@ function kandb_dossier_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-dossier-field_articles_block3_image'
+  $field_instances['node-dossier-field_articles_block3_image'] = array(
+    'bundle' => 'dossier',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 32,
+      ),
+      'dossier_big_teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_articles_block3_image',
+    'label' => 'Articles image',
+    'required' => FALSE,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 21,
+    ),
+  );
+
   // Exported field_instance: 'node-dossier-field_articles_block3_ref'
   $field_instances['node-dossier-field_articles_block3_ref'] = array(
     'bundle' => 'dossier',
@@ -297,7 +463,7 @@ function kandb_dossier_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 24,
+        'weight' => 27,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -349,7 +515,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 23,
+        'weight' => 26,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -430,7 +596,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 26,
+        'weight' => 29,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -511,7 +677,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 18,
+        'weight' => 21,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -595,7 +761,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 4,
+        'weight' => 7,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -649,7 +815,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 9,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -730,7 +896,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 8,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -813,7 +979,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 7,
+        'weight' => 10,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -867,7 +1033,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 9,
+        'weight' => 12,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -948,7 +1114,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 11,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1031,7 +1197,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 10,
+        'weight' => 13,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1085,7 +1251,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 25,
+        'weight' => 28,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1166,7 +1332,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 11,
+        'weight' => 14,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1249,7 +1415,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 12,
+        'weight' => 15,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1303,7 +1469,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 14,
+        'weight' => 17,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1384,7 +1550,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 13,
+        'weight' => 16,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1467,7 +1633,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 15,
+        'weight' => 18,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1521,7 +1687,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 17,
+        'weight' => 20,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1602,7 +1768,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 16,
+        'weight' => 19,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1685,7 +1851,7 @@ function kandb_dossier_field_default_field_instances() {
           'image_style' => '',
         ),
         'type' => 'image',
-        'weight' => 2,
+        'weight' => 4,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1747,7 +1913,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 3,
+        'weight' => 6,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1829,7 +1995,7 @@ function kandb_dossier_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1921,7 +2087,7 @@ function kandb_dossier_field_default_field_instances() {
           'youtube_width' => NULL,
         ),
         'type' => 'youtube_video',
-        'weight' => 27,
+        'weight' => 5,
       ),
       'dossier_big_teaser' => array(
         'label' => 'above',
@@ -1955,6 +2121,7 @@ function kandb_dossier_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Articles');
+  t('Articles image');
   t('Image');
   t('Image principale');
   t('Introduction');
