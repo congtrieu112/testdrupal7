@@ -212,11 +212,12 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
  * Implements hook_node_update()
  */
 function kandb_business_rules_node_update($node) {
+    
   if ($node->type === CONTENT_TYPE_BIEN) {
     $node_bien = node_load($node->nid);
 
-    $status_old = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
-    $status_new = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+    $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+    $status_new = (isset($node->field_bien_statut[LANGUAGE_NONE][0])) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
 
     $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
     $status_vendu = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_VENDU);
