@@ -318,3 +318,12 @@ function kandb_update_7123(&$sandbox) {
     module_enable(array('kandb_doclib_feature'), TRUE);
   }
 }
+
+/**
+ * Enable Webform Ajax module
+ */
+function kandb_update_7124(){
+  if (!module_exists('webform_ajax')) {
+    module_enable(array('webform_ajax'), TRUE);
+  }
+}

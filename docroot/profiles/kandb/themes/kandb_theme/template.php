@@ -1,5 +1,7 @@
 <?php
 
+define('WATCHEEZY', '//api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+
 /**
  * Override or insert variables into the page template.
  */
@@ -25,10 +27,13 @@ function kandb_theme_process_page(&$variables) {
   }
 
   $common_js = array(
-    'modernizr',
     'bundle',
   );
+  // Add custom script and keep them in footer scope.
   kandb_theme_include_common_js($common_js);
+
+  // Add live chat script all page.
+  drupal_add_js(WATCHEEZY, 'external');
 }
 
 /**
@@ -114,7 +119,7 @@ function kandb_theme_preprocess_node(&$vars) {
     default:
       break;
   }
-  
+
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
     $price_tva_min = $price_tva_max = 0;
     if (!empty($variables['field_tva'])) {
