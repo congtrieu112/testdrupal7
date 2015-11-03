@@ -24,6 +24,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 26,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -101,6 +107,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'number_decimal',
         'weight' => 27,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -146,6 +158,72 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-bien-field_bien_plan'
+  $field_instances['node-bien-field_bien_plan'] = array(
+    'bundle' => 'bien',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 29,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_bien_plan',
+    'label' => 'Plan du bien',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'txt pdf',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 10,
+    ),
+  );
+
   // Exported field_instance: 'node-bien-field_bien_statut'
   $field_instances['node-bien-field_bien_statut'] = array(
     'bundle' => 'bien',
@@ -163,6 +241,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 1,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -218,6 +302,12 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 27,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -277,6 +367,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 10,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -375,6 +471,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 13,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -472,6 +574,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 23,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -513,70 +621,6 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-bien-field_fiche_renseignement'
-  $field_instances['node-bien-field_fiche_renseignement'] = array(
-    'bundle' => 'bien',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'file_default',
-        'weight' => 15,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 8,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 4,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 15,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_fiche_renseignement',
-    'label' => 'Fiche Renseignement',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 11,
-    ),
-  );
-
   // Exported field_instance: 'node-bien-field_id_bien'
   $field_instances['node-bien-field_id_bien'] = array(
     'bundle' => 'bien',
@@ -593,6 +637,12 @@ function kandb_bien_field_default_field_instances() {
           ),
         ),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'search' => array(
@@ -713,6 +763,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'image',
         'weight' => 3,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -765,70 +821,6 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-bien-field_kit_fiscal'
-  $field_instances['node-bien-field_kit_fiscal'] = array(
-    'bundle' => 'bien',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'file_default',
-        'weight' => 17,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 16,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 2,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 15,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 17,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_kit_fiscal',
-    'label' => 'Kit fiscal',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 14,
-    ),
-  );
-
   // Exported field_instance: 'node-bien-field_nb_chambres'
   $field_instances['node-bien-field_nb_chambres'] = array(
     'bundle' => 'bien',
@@ -846,6 +838,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 7,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -906,6 +904,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 6,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -964,6 +968,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 8,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1062,6 +1072,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 24,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1103,134 +1119,6 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-bien-field_plan_batiment'
-  $field_instances['node-bien-field_plan_batiment'] = array(
-    'bundle' => 'bien',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'file_default',
-        'weight' => 16,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 3,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 16,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_plan_batiment',
-    'label' => 'Plan du bâtiment',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 13,
-    ),
-  );
-
-  // Exported field_instance: 'node-bien-field_plaquette_commerciale'
-  $field_instances['node-bien-field_plaquette_commerciale'] = array(
-    'bundle' => 'bien',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'file',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'form',
-          ),
-        ),
-        'type' => 'file_default',
-        'weight' => 14,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 11,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 12,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_plaquette_commerciale',
-    'label' => 'Plaquette Commerciale',
-    'required' => 0,
-    'settings' => array(
-      'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
-      'max_filesize' => '',
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'file',
-      'settings' => array(
-        'progress_indicator' => 'throbber',
-      ),
-      'type' => 'file_generic',
-      'weight' => 10,
-    ),
-  );
-
   // Exported field_instance: 'node-bien-field_prix_tva_20'
   $field_instances['node-bien-field_prix_tva_20'] = array(
     'bundle' => 'bien',
@@ -1249,6 +1137,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'number_integer',
         'weight' => 28,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1314,6 +1208,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'entityreference_label',
         'weight' => 22,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1387,6 +1287,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'number_decimal',
         'weight' => 4,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1445,6 +1351,12 @@ function kandb_bien_field_default_field_instances() {
         'settings' => array(),
         'type' => 'taxonomy_term_reference_link',
         'weight' => 25,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1505,6 +1417,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'taxonomy_term_reference_link',
         'weight' => 2,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1563,6 +1481,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 18,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1661,6 +1585,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 21,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1757,6 +1687,12 @@ function kandb_bien_field_default_field_instances() {
         ),
         'type' => 'text_default',
         'weight' => 20,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search' => array(
         'label' => 'above',
@@ -1855,6 +1791,12 @@ function kandb_bien_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 19,
       ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'search' => array(
         'label' => 'above',
         'settings' => array(),
@@ -1940,19 +1882,16 @@ function kandb_bien_field_default_field_instances() {
   t('Description');
   t('En quelques mots');
   t('Etage');
-  t('Fiche Renseignement');
   t('Habiteo 3rd party Bien ID');
   t('ID du bien');
   t('Image Principale');
-  t('Kit fiscal');
   t('Lien de la visite 3D');
   t('Lien plan 3D');
   t('Nombre de chambres');
   t('Nombre de pièces');
   t('Numéro de lot');
   t('Orientation');
-  t('Plan du bâtiment');
-  t('Plaquette Commerciale');
+  t('Plan du bien');
   t('Prix');
   t('Prix TVA réduit');
   t('Programme');
