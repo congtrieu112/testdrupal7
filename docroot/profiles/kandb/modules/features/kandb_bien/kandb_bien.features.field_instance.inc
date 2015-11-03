@@ -28,7 +28,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 24,
       ),
       'search' => array(
         'label' => 'above',
@@ -111,7 +111,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 31,
       ),
       'search' => array(
         'label' => 'above',
@@ -175,7 +175,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 32,
       ),
       'search' => array(
         'label' => 'above',
@@ -246,7 +246,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 33,
       ),
       'search' => array(
         'label' => 'above',
@@ -307,7 +307,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 30,
       ),
       'search' => array(
         'label' => 'above',
@@ -372,7 +372,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 29,
       ),
       'search' => array(
         'label' => 'above',
@@ -475,7 +475,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 26,
       ),
       'search' => array(
         'label' => 'above',
@@ -578,7 +578,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 27,
       ),
       'search' => array(
         'label' => 'above',
@@ -643,7 +643,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 28,
       ),
       'search' => array(
         'label' => 'above',
@@ -767,7 +767,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 35,
       ),
       'search' => array(
         'label' => 'above',
@@ -843,7 +843,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 38,
       ),
       'search' => array(
         'label' => 'above',
@@ -908,7 +908,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 40,
       ),
       'search' => array(
         'label' => 'above',
@@ -973,7 +973,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 42,
       ),
       'search' => array(
         'label' => 'above',
@@ -1076,7 +1076,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 41,
       ),
       'search' => array(
         'label' => 'above',
@@ -1142,7 +1142,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 39,
       ),
       'search' => array(
         'label' => 'above',
@@ -1211,9 +1211,13 @@ function kandb_bien_field_default_field_instances() {
       ),
       'full' => array(
         'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
+        'module' => 'entityreference',
+        'settings' => array(
+          'links' => 1,
+          'view_mode' => 'teaser_on_bien',
+        ),
+        'type' => 'entityreference_entity_view',
+        'weight' => 5,
       ),
       'search' => array(
         'label' => 'above',
@@ -1291,7 +1295,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 36,
       ),
       'search' => array(
         'label' => 'above',
@@ -1356,7 +1360,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 37,
       ),
       'search' => array(
         'label' => 'above',
@@ -1421,7 +1425,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 34,
       ),
       'search' => array(
         'label' => 'above',
@@ -1486,7 +1490,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 25,
       ),
       'search' => array(
         'label' => 'above',
@@ -1589,7 +1593,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 12,
       ),
       'search' => array(
         'label' => 'above',
@@ -1692,7 +1696,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 13,
       ),
       'search' => array(
         'label' => 'above',
@@ -1795,7 +1799,7 @@ function kandb_bien_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 0,
+        'weight' => 14,
       ),
       'search' => array(
         'label' => 'above',

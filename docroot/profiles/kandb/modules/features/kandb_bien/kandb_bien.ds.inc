@@ -27,11 +27,6 @@ function kandb_bien_ds_field_settings_info() {
       'label' => 'inline',
       'format' => 'default',
     ),
-    'contact_on_summary' => array(
-      'weight' => '3',
-      'label' => 'inline',
-      'format' => 'default',
-    ),
     'price_tva_max' => array(
       'weight' => '1',
       'label' => 'inline',
@@ -44,6 +39,11 @@ function kandb_bien_ds_field_settings_info() {
     ),
     'service_links' => array(
       'weight' => '2',
+      'label' => 'inline',
+      'format' => 'default',
+    ),
+    'contact_on_summary' => array(
+      'weight' => '3',
       'label' => 'inline',
       'format' => 'default',
     ),
@@ -176,6 +176,40 @@ function kandb_bien_ds_layout_settings_info() {
     'layout_link_custom' => '',
   );
   $export['node|bien|full'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|programme|teaser_on_bien';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'programme';
+  $ds_layout->view_mode = 'teaser_on_bien';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_image_principale',
+        1 => 'field_programme_room_min',
+        2 => 'field_programme_room_max',
+        3 => 'field_programme_price_min',
+      ),
+    ),
+    'fields' => array(
+      'field_image_principale' => 'ds_content',
+      'field_programme_room_min' => 'ds_content',
+      'field_programme_room_max' => 'ds_content',
+      'field_programme_price_min' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|programme|teaser_on_bien'] = $ds_layout;
 
   return $export;
 }
