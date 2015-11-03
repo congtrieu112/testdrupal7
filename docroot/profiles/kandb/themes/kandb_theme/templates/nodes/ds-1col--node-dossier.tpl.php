@@ -30,31 +30,31 @@ $list_block_article_2 = array();
 $title_block_article_3 = '';
 $list_block_article_3 = array();
 
-//------------get title
+//get title
 if (isset($content['title']['#object']->title))
   $title = $content['title']['#object']->title;
-//------------end get title
-//------------get subtitle
+//end get title
+//get subtitle
 if (isset($content['field_dossier_sous_titre']['#object']->field_dossier_sous_titre['und'][0]['value']))
   $sub_title = $content['field_dossier_sous_titre']['#object']->field_dossier_sous_titre['und'][0]['value'];
-//------------end get subtitle
-//---------------get introduction
+//end get subtitle
+//get introduction
 if (isset($content['field_dossier_introduction']['#object']->field_dossier_introduction['und'][0]['value']))
   $introduction = $content['field_dossier_introduction']['#object']->field_dossier_introduction['und'][0]['value'];
-//...............end get introduction
-//----------get image
+//end get introduction
+//get image
 if (isset($content['field_dossier_image']['#object']->field_dossier_image['und'][0]['uri']))
   $image_content = $content['field_dossier_image']['#object']->field_dossier_image['und'][0]['uri'];
 if (isset($content['field_dossier_image']['#object']->field_dossier_image['und'][0]['title']))
   $image_content_title = $content['field_dossier_image']['#object']->field_dossier_image['und'][0]['title'];
 
-//----------end get image
-//-----------get video
+//end get image
+//get video
 if (isset($content['field_dossier_video']['#object']->field_dossier_video['und'][0]['input']))
   $url_video_content = $content['field_dossier_video']['#object']->field_dossier_video['und'][0]['input'];
 if (isset($content['field_dossier_video']['#object']->field_dossier_video['und'][0]['input']))
   $id_video_content = $content['field_dossier_video']['#object']->field_dossier_video['und'][0]['video_id'];
-//-----------end get video
+//end get video
 //Block 1 of the dossier page	
 //get uri image
 if (isset($content['field_dossier_block1_image']['#object']->field_dossier_block1_image['und'][0]['uri']))
@@ -125,6 +125,7 @@ if (isset($content['field_articles_block1_title']['#object']->field_articles_blo
 //list article block article 1
 if (isset($content['field_articles_block1_ref']['#object']->field_articles_block1_ref['und']) && count($content['field_articles_block1_ref']['#object']->field_articles_block1_ref['und']))
   $list_block_article_1 = $content['field_articles_block1_ref']['#object']->field_articles_block1_ref['und'];
+
 //end list article block article 1
 //get image block article 1
 if (isset($content['field_articles_block1_image']['#object']->field_articles_block1_image['und'][0]['uri']))
@@ -175,7 +176,13 @@ endif;
     <!-- images need to have 2 formats:
    - small: 560 x 350 (High compression)
    - medium: 1180 x 380
-    --><a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php if($image_content){  print file_create_url($image_content); ?>, (small)], [<?php print file_create_url($image_content).', (medium)]'; }?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
+    --><a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php
+    if ($image_content) {
+      print file_create_url($image_content);
+      ?>, (small)], [<?php
+            print file_create_url($image_content) . ', (medium)]';
+          }
+          ?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
     <!-- [popin] start-->
     <?php if ($url_video_content): ?>
       <div id="videoConseilMain" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
@@ -341,8 +348,17 @@ endif;
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_1 ?></h4>
                       <?php if ($list_block_article_1): ?>
                         <ul class="articleList__item__infos__links">
-                            <?php foreach ($list_block_article_1 as $l): ?>
-                              <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
+                            <?php
+                            foreach ($list_block_article_1 as $l):
+                              $article_alias = url('node/' . $l['entity']->nid);
+                              $article_alias = explode('/', $article_alias);
+                              $article_alias = end($article_alias);
+                              $path = $article_alias;
+                              $current_dossier_path = request_path();
+                              $path = $current_dossier_path . '/' . $path;
+                              $path = str_replace('content/', '', $path);
+                              ?>
+                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                       <?php endif; ?>
@@ -362,8 +378,17 @@ endif;
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_2 ?></h4>
                       <?php if ($list_block_article_2): ?>
                         <ul class="articleList__item__infos__links">
-                            <?php foreach ($list_block_article_2 as $l): ?>
-                              <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
+                            <?php
+                            foreach ($list_block_article_1 as $l):
+                              $article_alias = url('node/' . $l['entity']->nid);
+                              $article_alias = explode('/', $article_alias);
+                              $article_alias = end($article_alias);
+                              $path = $article_alias;
+                              $current_dossier_path = request_path();
+                              $path = $current_dossier_path . '/' . $path;
+                              $path = str_replace('content/', '', $path);
+                              ?>
+                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                       <?php endif; ?>
@@ -383,8 +408,17 @@ endif;
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_3 ?></h4>
                       <?php if ($list_block_article_3): ?>
                         <ul class="articleList__item__infos__links">
-                            <?php foreach ($list_block_article_3 as $l): ?>
-                              <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
+                            <?php
+                            foreach ($list_block_article_1 as $l):
+                              $article_alias = url('node/' . $l['entity']->nid);
+                              $article_alias = explode('/', $article_alias);
+                              $article_alias = end($article_alias);
+                              $path = $article_alias;
+                              $current_dossier_path = request_path();
+                              $path = $current_dossier_path . '/' . $path;
+                              $path = str_replace('content/', '', $path);
+                              ?>
+                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
                         </ul>
                       <?php endif; ?>
