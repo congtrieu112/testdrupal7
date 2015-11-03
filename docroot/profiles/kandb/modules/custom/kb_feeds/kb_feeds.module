@@ -336,7 +336,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         elseif ($entity->feeds_item->id == 'parcel_feed_import') {
             if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                 $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
-                if ($nodes) {
+                if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
                     $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
                 }
             }
