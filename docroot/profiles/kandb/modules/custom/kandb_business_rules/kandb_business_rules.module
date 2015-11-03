@@ -240,7 +240,7 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
  * Implements hook_node_update()
  */
 function kandb_business_rules_node_update($node) {
-    
+
   if ($node->type === CONTENT_TYPE_BIEN) {
     $node_bien = node_load($node->nid);
 
