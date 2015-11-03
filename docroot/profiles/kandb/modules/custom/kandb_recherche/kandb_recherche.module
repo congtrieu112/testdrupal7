@@ -755,5 +755,5 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
  * @param $view
  */
 function kandb_recherche_views_pre_execute(&$view) {
-  dpq($view->build_info['query']);
+  // dpq($view->build_info['query']);
 }
