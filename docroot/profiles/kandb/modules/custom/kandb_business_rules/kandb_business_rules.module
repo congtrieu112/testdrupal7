@@ -29,7 +29,7 @@ function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParser
     }
 
     Kandb_Business_Rules::set_list_biens($list_nodes_bien);
-  } elseif($source->id === 'migration_program_import') {
+  } elseif ($source->id === 'migration_program_import') {
     foreach ($result->items as &$row) {
       $slider_rt2012_titre = isset($row['reglementationthermiquetitre']) ? trim($row['reglementationthermiquetitre']) : '';
       $slider_rt2012_description = isset($row['reglementationthermiquezone1']) ? trim($row['reglementationthermiquezone1']) : '';
@@ -101,8 +101,36 @@ function kandb_business_rules_node_presave($node) {
       }
     }
 
-    $programme_price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] : 0;
-    $programme_price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] : 0;
+    $terms = taxonomy_get_term_by_name('Disponible / Libre');
+    $key = $node->nid;
+    $tid = 0;
+    if ($terms) {
+      foreach ($terms as $id => $term) {
+        $tid = $id;
+      }
+    }
+
+    $programme_price_min = 0;
+    $programme_price_max = 0;
+    if ($tid > 0) {
+      $listMaxMinPrice = db_query('select max(field_prix_tva_20_value) as max, min(field_prix_tva_20_value) as min, field_programme_target_id
+        from field_data_field_prix_tva_20 prize
+        inner join field_data_field_programme program on prize.entity_id = program.entity_id
+        inner join field_data_field_bien_statut bien on bien.entity_id = program.entity_id
+        where field_bien_statut_tid = :tid and field_programme_target_id = :key group by field_programme_target_id', array(':tid' => $tid, ':key' => $key));
+
+      // Show results
+      if ($listMaxMinPrice->rowCount() > 0) {
+        $listMaxMinPrice = $listMaxMinPrice->fetchAll();
+        foreach ($listMaxMinPrice as $program_prices) {
+          $programme_price_min = $program_prices->min;
+          $programme_price_max = $program_prices->max;
+        }
+      }
+    }
+
+    $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] = $programme_price_min;
+    $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] = $programme_price_max;
 
     if ($tva) {
       $node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = ($programme_price_min / 1.2) * ($tva + 1);
