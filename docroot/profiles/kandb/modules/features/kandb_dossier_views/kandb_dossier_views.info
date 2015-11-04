@@ -3,6 +3,7 @@ description = Create 2 views to show the CT Dossier on the Homepage
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0
+dependencies[] = domain_views
 dependencies[] = ds
 dependencies[] = kandb_dossier
 dependencies[] = views
