@@ -175,9 +175,11 @@ endif;
     <!-- images need to have 2 formats:
    - small: 560 x 350 (High compression)
    - medium: 1180 x 380
-    --><a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php if($image_content){  print file_create_url($image_content); ?>, (small)], [<?php print file_create_url($image_content).', (medium)]'; }?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
+    --><a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php if ($image_content) {
+  print file_create_url($image_content); ?>, (small)], [<?php print file_create_url($image_content) . ', (medium)]';
+} ?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
     <!-- [popin] start-->
-    <?php if ($url_video_content): ?>
+<?php if ($url_video_content): ?>
       <div id="videoConseilMain" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
           <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
               <div class="flex-video youtube">
@@ -185,14 +187,14 @@ endif;
               </div>
           </div>
       </div>
-    <?php endif; ?>
+<?php endif; ?>
     <!-- [popin] end-->
 
     <p class="ourAdvices__text"><?php print $introduction ?></p>
     <!-- [Advice introduction] end-->
 
 
-    <?php if ($block_1_title) { ?>
+<?php if ($block_1_title) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -200,25 +202,25 @@ endif;
               - small:
               - medium: 850 x 345
               -->
-              <?php if ($uri_block_1_image): ?>
+  <?php if ($uri_block_1_image): ?>
                 <!-- [Responsive img] start--><img alt="<?php print $block_1_title ?>" data-interchange="[<?php print file_create_url($uri_block_1_image) ?>, (small)], [<?php print file_create_url($uri_block_1_image) ?>, (medium)]"/>
                 <noscript><img src="<?php print file_create_url($uri_block_1_image) ?>" alt="<?php print $block_1_title ?>"/></noscript>
                 <!-- [Responsive img] end-->
-              <?php endif; ?>
+          <?php endif; ?>
           </figure>
-          <?php if ($block_1_title): ?>
+  <?php if ($block_1_title): ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $block_1_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_1_text): ?>
             <p class="ourAdvices__text"><?php print $block_1_text ?></p>
-          <?php endif; ?>
+      <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
 
-    <?php if ($block_2_title) { ?>
+<?php if ($block_2_title) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -226,24 +228,24 @@ endif;
               - small:
               - medium: 850 x 345
               -->
-              <?php if ($uri_block_2_image): ?>
+  <?php if ($uri_block_2_image): ?>
                 <!-- [Responsive img] start--><img alt="<?php print $block_2_title ?>" data-interchange="[<?php print file_create_url($uri_block_2_image) ?>, (small)], [<?php print file_create_url($uri_block_2_image) ?>, (medium)]"/>
                 <noscript><img src="<?php print file_create_url($uri_block_2_image) ?>" alt="<?php print $block_2_title ?>"/></noscript>
                 <!-- [Responsive img] end-->
-              <?php endif; ?>
+          <?php endif; ?>
           </figure>
-          <?php if ($block_2_title): ?>
+  <?php if ($block_2_title): ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $block_2_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_2_text): ?>
             <p class="ourAdvices__text"><?php print $block_2_text ?></p>
-          <?php endif; ?>
+      <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
-    <?php } ?>
-    <?php if ($block_3_title) { ?>
+<?php } ?>
+<?php if ($block_3_title) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -251,24 +253,24 @@ endif;
               - small:
               - medium: 850 x 345
               -->
-              <?php if ($uri_block_3_image): ?>
+  <?php if ($uri_block_3_image): ?>
                 <!-- [Responsive img] start--><img alt="<?php print $block_3_title ?>" data-interchange="[<?php print file_create_url($uri_block_3_image) ?>, (small)], [<?php print file_create_url($uri_block_3_image) ?>, (medium)]"/>
                 <noscript><img src="<?php print file_create_url($uri_block_3_image) ?>" alt="<?php print $block_3_title ?>"/></noscript>
                 <!-- [Responsive img] end-->
-              <?php endif; ?>
+          <?php endif; ?>
           </figure>
-          <?php if ($block_3_title): ?>
+  <?php if ($block_3_title): ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $block_3_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_3_text): ?>
             <p class="ourAdvices__text"><?php print $block_3_text ?></p>
-          <?php endif; ?>
+      <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
-    <?php } ?>
-    <?php if ($block_4_title) { ?>
+<?php } ?>
+<?php if ($block_4_title) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -276,24 +278,24 @@ endif;
               - small:
               - medium: 850 x 345
               -->
-              <?php if ($uri_block_4_image): ?>
+  <?php if ($uri_block_4_image): ?>
                 <!-- [Responsive img] start--><img alt="<?php print $block_4_title ?>" data-interchange="[<?php print file_create_url($uri_block_4_image) ?>, (small)], [<?php print file_create_url($uri_block_4_image) ?>, (medium)]"/>
                 <noscript><img src="<?php print file_create_url($uri_block_4_image) ?>" alt="<?php print $block_4_title ?>"/></noscript>
                 <!-- [Responsive img] end-->
-              <?php endif; ?>
+          <?php endif; ?>
           </figure>
-          <?php if ($block_4_title): ?>
+  <?php if ($block_4_title): ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $block_4_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_4_text): ?>
             <p class="ourAdvices__text"><?php print $block_4_text ?></p>
-          <?php endif; ?>
+      <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
-    <?php } ?>
-    <?php if ($block_5_title) { ?>
+<?php } ?>
+<?php if ($block_5_title) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -301,23 +303,23 @@ endif;
               - small:
               - medium: 850 x 345
               -->
-              <?php if ($uri_block_5_image): ?>
+  <?php if ($uri_block_5_image): ?>
                 <!-- [Responsive img] start--><img alt="<?php print $block_5_title ?>" data-interchange="[<?php print file_create_url($uri_block_5_image) ?>, (small)], [<?php print file_create_url($uri_block_5_image) ?>, (medium)]"/>
                 <noscript><img src="<?php print file_create_url($uri_block_5_image) ?>" alt="<?php print $block_5_title ?>"/></noscript>
                 <!-- [Responsive img] end-->
-              <?php endif; ?>
+          <?php endif; ?>
           </figure>
-          <?php if ($block_5_title): ?>
+  <?php if ($block_5_title): ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $block_5_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_5_text): ?>
             <p class="ourAdvices__text"><?php print $block_5_text ?></p>
-          <?php endif; ?>
+      <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
-    <?php } ?>
+<?php } ?>
 </article>
 <!-- [content Advice] end-->
 <!-- [article list] start-->
@@ -328,89 +330,78 @@ endif;
             <p class="articleList__intro"><?php print $intro_main_block_article ?></p>
         </header>
         <div data-equalizer data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="articleList__list">
-            <?php if ($title_block_article_1): ?>
+                <?php if ($title_block_article_1): ?>
               <div class="articleList__item">
-                  <?php if ($image_block_article_1): ?>
+  <?php if ($image_block_article_1): ?>
                     <div class="articleList__item__img">
                         <!-- [Responsive img] start--><img alt="<?php print $title_block_article_1 ?>" data-interchange="[<?php print file_create_url($image_block_article_1) ?>, (small)], [<?php print file_create_url($image_block_article_1) ?>, (large)]"/>
                         <noscript><img src="<?php print file_create_url($image_block_article_1) ?>" alt="<?php print $title_block_article_1 ?>"/></noscript>
                         <!-- [Responsive img] end-->
                     </div>
-                  <?php endif; ?>
+                      <?php endif; ?>
                   <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_1 ?></h4>
-                      <?php if ($list_block_article_1): ?>
+                          <?php if ($list_block_article_1): ?>
                         <ul class="articleList__item__infos__links">
                             <?php foreach ($list_block_article_1 as $l): ?>
                               <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                         </ul>
-                      <?php endif; ?>
+              <?php endif; ?>
                   </div>
               </div>
-            <?php endif; ?>
-            <?php if ($title_block_article_2): ?>
+                <?php endif; ?>
+                <?php if ($title_block_article_2): ?>
               <div class="articleList__item">
-                  <?php if ($image_block_article_2): ?>
+  <?php if ($image_block_article_2): ?>
                     <div class="articleList__item__img">
                         <!-- [Responsive img] start--><img alt="<?php print $title_block_article_2 ?>" data-interchange="[<?php print file_create_url($image_block_article_2) ?>, (small)], [<?php print file_create_url($image_block_article_2) ?>, (large)]"/>
                         <noscript><img src="<?php print file_create_url($image_block_article_2) ?>" alt="<?php print $title_block_article_2 ?>"/></noscript>
                         <!-- [Responsive img] end-->
                     </div>
-                  <?php endif; ?>
+                      <?php endif; ?>
                   <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_2 ?></h4>
-                      <?php if ($list_block_article_2): ?>
+                          <?php if ($list_block_article_2): ?>
                         <ul class="articleList__item__infos__links">
                             <?php foreach ($list_block_article_2 as $l): ?>
                               <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                         </ul>
-                      <?php endif; ?>
+              <?php endif; ?>
                   </div>
               </div>
-            <?php endif; ?>
-            <?php if ($title_block_article_3): ?>
+                <?php endif; ?>
+                <?php if ($title_block_article_3): ?>
               <div class="articleList__item">
-                  <?php if ($image_block_article_3): ?>
+  <?php if ($image_block_article_3): ?>
                     <div class="articleList__item__img">
                         <!-- [Responsive img] start--><img alt="<?php print $title_block_article_3 ?>" data-interchange="[<?php print file_create_url($image_block_article_3) ?>, (small)], [<?php print file_create_url($image_block_article_3) ?>, (large)]"/>
                         <noscript><img src="<?php print file_create_url($image_block_article_3) ?>" alt="<?php print $title_block_article_3 ?>"/></noscript>
                         <!-- [Responsive img] end-->
                     </div>
-                  <?php endif; ?>
+                      <?php endif; ?>
                   <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
                       <h4 class="articleList__item__infos__heading"><?php print $title_block_article_3 ?></h4>
-                      <?php if ($list_block_article_3): ?>
+                          <?php if ($list_block_article_3): ?>
                         <ul class="articleList__item__infos__links">
                             <?php foreach ($list_block_article_3 as $l): ?>
                               <li><a href="<?php print url('node/' . $l['entity']->nid) ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
+                        <?php endforeach; ?>
                         </ul>
-                      <?php endif; ?>
+              <?php endif; ?>
                   </div>
               </div>
-            <?php endif; ?>
+<?php endif; ?>
         </div>
     </div>
 </section>
 <!-- [article list] end-->
 <!-- [contactUs generic] start-->
-<aside class="contactUs section-padding contactUs-generic">
-    <div style="background-image: url(<?php print $path_img ?>contactUs.jpg)" class="contactUs__img show-for-medium-up"></div>
-    <div class="wrapper">
-        <div class="contactUs__informations">
-            <div class="small-wrapper">
-                <p class="contactUs__informations__heading">Nous pouvons vous aider à concrétiser votre projet immobilier</p>
-                <p class="contactUs__informations__text">D’autres consommateurs se posent les même questions que vous</p>
-                <div class="contactUs__informations__cta">
-                    <a href="tel://0800544000" class="btn-phone-green">
-                        <span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
-                    <a href="#" class="btn-white">Consulter notre FAQ<span class="icon icon-arrow"></span></a>
-                </div>
-            </div>
-        </div>
-        <div class="contactUs__cta"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-primary btn-rounded">Rappelez moi</a><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-secondary btn-rounded">Prendre rendez-vous</a></div>
-    </div>
-</aside>
+
+<?php
+$path_module_contact = drupal_get_path('module', 'kandb_contact') . '/templates/contact_block_page.tpl.php';
+include $path_module_contact;
+?>
+
 <!-- [contactUs generic] end-->
