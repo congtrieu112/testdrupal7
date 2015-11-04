@@ -27,11 +27,6 @@ function kandb_bien_ds_field_settings_info() {
       'label' => 'inline',
       'format' => 'default',
     ),
-    'contact_on_summary' => array(
-      'weight' => '3',
-      'label' => 'inline',
-      'format' => 'default',
-    ),
     'price_tva_max' => array(
       'weight' => '1',
       'label' => 'inline',
@@ -44,6 +39,11 @@ function kandb_bien_ds_field_settings_info() {
     ),
     'service_links' => array(
       'weight' => '2',
+      'label' => 'inline',
+      'format' => 'default',
+    ),
+    'contact_on_summary' => array(
+      'weight' => '3',
       'label' => 'inline',
       'format' => 'default',
     ),
@@ -176,24 +176,6 @@ function kandb_bien_ds_layout_settings_info() {
     'layout_link_custom' => '',
   );
   $export['node|bien|full'] = $ds_layout;
-
-  return $export;
-}
-
-/**
- * Implements hook_ds_view_modes_info().
- */
-function kandb_bien_ds_view_modes_info() {
-  $export = array();
-
-  $ds_view_mode = new stdClass();
-  $ds_view_mode->api_version = 1;
-  $ds_view_mode->view_mode = 'teaser_on_bien';
-  $ds_view_mode->label = 'Teaser on Bien';
-  $ds_view_mode->entities = array(
-    'node' => 'node',
-  );
-  $export['teaser_on_bien'] = $ds_view_mode;
 
   return $export;
 }

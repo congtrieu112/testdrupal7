@@ -1,5 +1,7 @@
 <?php
 
+define('WATCHEEZY', '//api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+
 /**
  * Override or insert variables into the page template.
  */
@@ -25,10 +27,13 @@ function kandb_theme_process_page(&$variables) {
   }
 
   $common_js = array(
-    'modernizr',
     'bundle',
   );
+  // Add custom script and keep them in footer scope.
   kandb_theme_include_common_js($common_js);
+
+  // Add live chat script all page.
+  drupal_add_js(WATCHEEZY, 'external');
 }
 
 /**
@@ -116,34 +121,29 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
+    $programme = NULL;
+    if ($vars['type'] == 'programme') {
+      $programme = $vars['node'];
+    }
+    elseif (isset($vars['field_programme'][0]['entity'])) {
+      $programme = $vars['field_programme'][0]['entity'];
+    }
     $price_tva_min = $price_tva_max = 0;
-    if (!empty($variables['field_tva'])) {
-      if (isset($variables['field_programme'][0]['entity'])) {
-        $programme = $variables['field_programme'][0]['entity'];
-        if (isset($programme->field_programme_price_max[LANGUAGE_NONE][0]['value'])) {
-          $price_tva_max = $programme->field_programme_price_max[LANGUAGE_NONE][0]['value'];
-        }
-        if (isset($programme->field_programme_price_min[LANGUAGE_NONE][0]['value'])) {
-          $price_tva_min = $programme->field_programme_price_min[LANGUAGE_NONE][0]['value'];
-        }
-        $tva_facteur = 1;
-        if (($price_tva_max || $price_tva_min) && isset($variables['field_tva'][0]['taxonomy_term'])) {
-          $tva = $variables['field_tva'][0]['taxonomy_term'];
-          if (isset($tva->field_facteur[LANGUAGE_NONE][0]['value'])) {
-            $tva_facteur += (float) $tva->field_facteur[LANGUAGE_NONE][0]['value'];
-          }
-          $price_tva_max = $price_tva_max / 1.2 * $tva_facteur;
-          $price_tva_min = $price_tva_min / 1.2 * $tva_facteur;
-        }
+    if (!empty($vars['field_tva']) && $programme != NULL) {
+      if (isset($programme->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'])) {
+        $price_tva_max = $programme->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'];
+      }
+      if (isset($programme->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'])) {
+        $price_tva_min = $programme->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'];
       }
     }
     if ($price_tva_max != 0) {
-      $variables['price_tva_max'] = $price_tva_max;
+      $vars['price_tva_max'] = $price_tva_max;
     }
     if ($price_tva_min != 0) {
-      $variables['price_tva_min'] = $price_tva_min;
+      $vars['price_tva_min'] = $price_tva_min;
     }
-
+    
     $vars['anchor'] = FALSE;
     if ($vars['title']) {
       $vars['anchor'] = TRUE;

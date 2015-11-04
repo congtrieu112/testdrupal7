@@ -77,6 +77,8 @@ dependencies[] = youtube
 dependencies[] = bean
 dependencies[] = bean_uuid
 dependencies[] = image_style_quality
+dependencies[] = webform_ajax
+dependencies[] = domain_views
 
 ; Custom
 dependencies[] = kb_feeds

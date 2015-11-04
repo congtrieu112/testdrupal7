@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the K&B Temporary export content feature.
  */
+
+include_once 'kandb_tmp_content.features.inc';

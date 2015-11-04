@@ -30,7 +30,7 @@ function _get_block_data($delta, &$block) {
     if($delta == 'appartements_disponibles'){
         if(arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
             $nids = array();
-            $block['subject'] = 'Appartements de 3 pièces disponibles';
+            $block['subject'] = 'Appartements disponibles';
             $block['content'] = '';
             $current_bien_id = arg(1);
             $least_most_expensive = array();
@@ -81,19 +81,21 @@ function _get_block_data($delta, &$block) {
                 $db_query->condition('prg.field_programme_target_id', $programme_id);
             }
             //Get prix of bien
-            $db_query->leftJoin('field_data_field_prix_tva_20', 'prix', 'prix.entity_id=n.nid');
-            $db_query->condition('prix.entity_type', 'node');
-            $db_query->condition('prix.bundle', 'bien');
-            $db_query->addField('prix', 'field_prix_tva_20_value');
-            //Get field_nb_pieces field
-            $db_query->leftJoin('field_data_field_nb_pieces', 'nbr', 'nbr.entity_id=n.nid');
-            $db_query->condition('nbr.entity_type', 'node');
-            $db_query->condition('nbr.bundle', 'bien');
-            $db_query->leftJoin('field_data_field_id_nombre_pieces', 'id_nbr', 'id_nbr.entity_id=nbr.field_nb_pieces_tid');
-            $db_query->condition('id_nbr.entity_type', 'taxonomy_term');
-            $db_query->condition('id_nbr.bundle', 'nb_pieces');
+            if ($current_prix != 0) {
+              $db_query->leftJoin('field_data_field_prix_tva_20', 'prix', 'prix.entity_id=n.nid');
+              $db_query->condition('prix.entity_type', 'node');
+              $db_query->condition('prix.bundle', 'bien');
+              $db_query->addField('prix', 'field_prix_tva_20_value');
+            }
+            //The same number of rooms
             if($nbr > 0) {
-                $db_query->condition('id_nbr.field_id_nombre_pieces_value', $nbr);
+              $db_query->leftJoin('field_data_field_nb_pieces', 'nbr', 'nbr.entity_id=n.nid');
+              $db_query->condition('nbr.entity_type', 'node');
+              $db_query->condition('nbr.bundle', 'bien');
+              $db_query->leftJoin('field_data_field_id_nombre_pieces', 'id_nbr', 'id_nbr.entity_id=nbr.field_nb_pieces_tid');
+              $db_query->condition('id_nbr.entity_type', 'taxonomy_term');
+              $db_query->condition('id_nbr.bundle', 'nb_pieces');
+              $db_query->condition('id_nbr.field_id_nombre_pieces_value', $nbr);
             }
             $all_biens = $db_query->distinct()->execute()->fetchAll();
             if(empty($all_biens)){
@@ -149,23 +151,35 @@ function _get_block_data($delta, &$block) {
                     }
                     $biens_variables[$nid]['id'] = $id_bien;
                 }
-                //Prix 20% and 5.5%
+                //Prix 20% and 5.5% or 7%
                 $biens_variables[$nid]['prix_20'] = '';
-                $biens_variables[$nid]['prix_5_5'] = '';
+                $biens_variables[$nid]['prix_low_tva']['value'] = '';
+                $biens_variables[$nid]['prix_low_tva']['suffix'] = '';
                 if(isset($node->field_prix_tva_20[LANGUAGE_NONE][0]['value'])){
                     $biens_variables[$nid]['prix_20'] = $node->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
-                    $biens_variables[$nid]['prix_5_5'] = $biens_variables[$nid]['prix_20'] / 1.2 * 1.055;
+                    if (isset($node->field_tva[LANGUAGE_NONE][0]['tid'])) {
+                      $tva_term = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
+                      if ($tva_term->field_facteur[LANGUAGE_NONE][0]['value']) {
+                        $tva_val = $tva_term->field_facteur[LANGUAGE_NONE][0]['value'];
+                        $biens_variables[$nid]['prix_low_tva']['value'] = round($biens_variables[$nid]['prix_20'] / 1.2 * (1 + $tva_val), 2);
+                        if ($tva_val == 0.055) {
+                          $biens_variables[$nid]['prix_low_tva']['suffix'] = '€ TVA 5,5%';
+                        }
+                        elseif ($tva_val == 0.07) {
+                          $biens_variables[$nid]['prix_low_tva']['suffix'] = '€ TVA 7%';
+                        }
+                      }
+                    }
                 }
                 //caracteristiques
                 $biens_variables[$nid]['caracteristiques'] = '';
-                if(isset($node->field_caracteristiques[LANGUAGE_NONE])){
-                    $caracteristiques_arr = array();
-                    $all_fields = field_info_fields();
-                    $allowed_values= list_allowed_values($all_fields["field_caracteristiques"]);
-                    foreach($node->field_caracteristiques[LANGUAGE_NONE] as $id => $value) {
-                        $caracteristiques_arr[] = $allowed_values[$value['value']];
+                if(isset($node->field_caracteristique[LANGUAGE_NONE])){
+                    $caracteristique_arr = array();
+                    foreach($node->field_caracteristique[LANGUAGE_NONE] as $id => $value) {
+                      $caracteristique = taxonomy_term_load($value['tid']);
+                        $caracteristique_arr[] = $caracteristique->name;
                     }
-                    $biens_variables[$nid]['caracteristiques'] = implode(' - ', $caracteristiques_arr);
+                    $biens_variables[$nid]['caracteristiques'] = implode(' - ', $caracteristique_arr);
                 }
                 //field_superficie
                 $biens_variables[$nid]['superficie'] = '';
@@ -182,6 +196,9 @@ function _get_block_data($delta, &$block) {
                 }
             }
             $block['content'] = theme('bien_block_appartements_disponibles', array('biens_rows' => $biens_variables));
+            if(trim(strip_tags($block['content'])) == '') {
+              $block['content'] = '';
+            }
         }
     }
 }
