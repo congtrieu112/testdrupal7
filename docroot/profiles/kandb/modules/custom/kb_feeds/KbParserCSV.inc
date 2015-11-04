@@ -97,11 +97,11 @@ class KbParserCSV extends ParserCSV{
           continue;
       }
       $fields = str_getcsv($line, $this->delimiter, '','\\');
-      if(is_array($fields) && $total_column != count($fields)){
-          $log_line = mb_convert_encoding($ori_line, "UTF-8", "ISO-8859-1");
-          $logging .= str_replace('¤', '€' ,$log_line);;
-          continue;
-      }
+//      if(is_array($fields) && $total_column != count($fields)){
+//          $log_line = mb_convert_encoding($ori_line, "UTF-8", "ISO-8859-1");
+//          $logging .= str_replace('¤', '€' ,$log_line);;
+//          continue;
+//      }
       if (empty($this->columnNames)) {
         $row = $fields;
       }
@@ -124,18 +124,18 @@ class KbParserCSV extends ParserCSV{
         break;
       }
     }
-    if($logging != ''){
-        $file_log_name = $this->currentParser->id . '_log_' . date('Y-m-d') . '.txt';
-        $uri = 'private://feeds/log/';
-        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-        if($prepare_file){
-            $path = drupal_realpath($uri . $file_log_name);
-            $data = file_get_contents($path);
-            $logging .= $data;
-            drupal_chmod($uri);
-            file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-        }
-    }
+//    if($logging != ''){
+//        $file_log_name = $this->currentParser->id . '_log_' . date('Y-m-d') . '.txt';
+//        $uri = 'private://feeds/log/';
+//        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+//        if($prepare_file){
+//            $path = drupal_realpath($uri . $file_log_name);
+//            $data = file_get_contents($path);
+//            $logging .= $data;
+//            drupal_chmod($uri);
+//            file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+//        }
+//    }
     return $rows;
   }
 }

@@ -314,69 +314,236 @@ function getListTidTaxonomyByName($bundle, $value) {
     return $tid;
 }
 
-/** 	 
- * Implements hook_feeds_presave	 
- * @param FeedsSource $source 
+/**
+ * Implements hook_feeds_presave
+ * @param FeedsSource $source
  * @param type $entity
  * @param type $item
  */
 function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
+    $logging = '';
+    $totalItems = count($item);
+
+    $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
+    $file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+
     $tid = 0;
-    if ($entity->feeds_item->entity_type == 'node') {
+    if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
         if ($entity->feeds_item->id == 'programme_feed_import') {
-            if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
+          if ($totalItems != $totalColumn) {
+            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'term_name' => array(
+                24 => 'field_tva',
+              ),
+              'term_id' => array(
+                2 => 'field_marque_comm',
+                3 => 'field_zone_activite',
+                4 => 'field_programme_loc_ville',
+                5 => 'field_programme_loc_arr',
+                14 => 'field_type_programme'
+              ),
+              'number' => array(
+                7 => 'field_programme_loc_num',
+                13 => 'field_annee',
+              ),
+              'check_box' => array(
+                24 => 'field_tva_55',
+              ),
+            );
+
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+            if (!$logging) {
+              if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
                 $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
                 if ($terms) {
                     foreach ($terms as $key => $value) {
                         $tid = $key;
                     }
                 }
+              }
             }
-        }
-        elseif ($entity->feeds_item->id == 'parcel_feed_import') {
-            if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+          }
+        } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
+          if ($totalItems != $totalColumn) {
+            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'term_name' => array(
+                2 => 'field_type',
+                10 => 'field_orientation'
+              ),
+              'term_field_id' => array(
+                  4 => 'field_nb_pieces',
+                  5 => 'field_nb_chambres',
+                  6 => 'field_etage',
+                ),
+              'entity_id' => array(
+                1 => 'field_programme'
+              ),
+              'term_id' => array(
+                7 => 'field_caracteristique',
+                15 => 'field_caracteristique',
+                16 => 'field_caracteristique',
+                18 => 'field_caracteristique',
+                20 => 'field_caracteristique'
+              ),
+              'number' => array(
+                3 => 'field_prix_tva_20',
+                8 => 'field_superficie',
+              ),
+            );
+
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+            if (!$logging) {
+              if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                 $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
                 if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
                     $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
                 }
+              }
             }
-        }
-        elseif ($entity->feeds_item->id == 'document_import') {
-            $status = 0;
-            $sticky = 0;
-            switch ($entity->status) {
-                case "On line":
-                    $status = 1;
-                    break;
-                case "Off line":
-                    break;
-                default:
-                    $sticky = 1;
-                    break;
-            }
+          }
+        } elseif ($entity->feeds_item->id == 'document_import') {
+          if ($totalItems != 6) {
+            $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'term_name' => array(
+                'categorie' => 'field_document_type',
+              ),
+              'date_time' => array(
+                'date' => 'field_document_date'
+              ),
+            );
 
-            $entity->status = $status;
-            $entity->sticky = $sticky;
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
+            if (!$logging) {
+              $status = 0;
+              $sticky = 0;
+              switch ($entity->status) {
+                  case "On line":
+                      $status = 1;
+                      break;
+                  case "Off line":
+                      break;
+                  default:
+                      $sticky = 1;
+                      break;
+              }
+
+              $entity->status = $status;
+              $entity->sticky = $sticky;
+            }
+          }
+        } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
+          if ($totalItems != 14) {
+            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          }
+        } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
+          if ($totalItems != $totalColumn) {
+            $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'term_name' => array(
+                'categorie' => 'field_document_type',
+              ),
+              'date_time' => array(
+                'date' => 'field_document_date'
+              ),
+            );
+
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
+          }
+        } elseif ($entity->feeds_item->id == 'maison_feed_import') {
+          $logging = '';
+          if ($totalItems != $totalColumn) {
+            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'number' => array(
+                4 => 'field_maison_nb_etage',
+                5 => 'field_maison_nb_pieces',
+                6 => 'field_maison_nb_chambres',
+                7 => 'field_maison_nb_salle_bain',
+                10 => 'field_maison_surface_sejour',
+                11 => 'field_maison_surface_cuisine',
+                12 => 'field_maison_surface_totale',
+              ),
+            );
+
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
+          }
+        } elseif ($entity->feeds_item->id == 'migration_program_video_import') {
+          if ($totalItems != 1) {
+            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          }
+        } elseif($entity->feeds_item->id == 'migration_program_import') {
+          if ($totalItems > 44 || $totalItems < 41) {
+            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $validates = array(
+              'term_name' => array(
+                'typeprogramme' => 'field_type_programme',
+                'tva' => 'field_tva'
+              ),
+              'number' => array(
+                'affichagestock' => 'field_programme_stock',
+                'noderue' => 'field_programme_loc_num',
+                'prixmoyenm2' => 'field_programme_avg_price',
+                'prixminimum' => 'field_programme_min_price',
+                'anneelivraison' => 'field_annee'
+              ),
+              'check_box' => array(
+                'statut' => 'field_programme_statut',
+                'rt2012' => 'field_slider_rt2012_bbc'
+              )
+            );
+
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
+          }
+        } elseif ($entity->feeds_item->id == 'city_feed_import') {
+          if ($totalItems != $totalColumn) {
+            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          }
+        } elseif ($entity->feeds_item->id == 'district_feed_import') {
+          if ($totalItems != $totalColumn) {
+            $logging = $item[2] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+          } else {
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'taxonomy_term')
+                ->entityCondition('bundle', 'ville')
+                ->fieldCondition('field_idk', 'value', $item[1]);
+
+            $results = $query->execute();
+            if(!$results["taxonomy_term"]) {
+              $logging = $item[0] . '|field_idk|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+            }
+          }
         }
     }
 
+    if ($logging) {
+      createFileErrorLogTxt($file_log_name, $logging);
+      $entity->feeds_item->skip = TRUE;
+    }
 
     if ($tid > 0) {
         $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
     }
 }
 
-/** 	 
- * Implements hook_feeds_after_parse	 
- * @param FeedsSource $source 
+/**
+ * Implements hook_feeds_after_parse
+ * @param FeedsSource $source
  * @param type $entity
  * @param type $item
  */
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+    $file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
     if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
         global $base_url;
-
-
         foreach ($result->items as $key => $row) {
             $list_file_id = array();    // List column have upload file
             if ($source->id === "document_import") {
@@ -429,6 +596,28 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
                 }
             }
         }
+    } elseif ($source->id === "city_feed_import"){
+      foreach ($result->items as $key => $row) {
+        if(!$row[1]) {
+            $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
+        }
+
+        if ($logging) {
+          createFileErrorLogTxt($file_log_name, $logging);
+        }
+      }
+    } elseif ($source->id === "district_feed_import") {
+      foreach ($result->items as $key => $row) {
+        if(!$row[2]) {
+          $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
+        }
+
+        if ($logging) {
+          createFileErrorLogTxt($file_log_name, $logging);
+        }
+      }
+
+
     }
 }
 
@@ -472,7 +661,7 @@ function get_bien_by_bienid($id_bien) {
 }
 
 /**
- * @todo to save field field_bien_plan for node bien 
+ * @todo to save field field_bien_plan for node bien
  * @global type $user
  * @param type $path_pdf_file
  */
@@ -671,4 +860,144 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
         $error_operation = reset($operations);
         drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
     }
+}
+
+/**
+ * Validate field when import file by feeds.
+ * @param type $validates
+ * @param type $item
+ * @param type $entity
+ * @return error_log
+ */
+function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0) {
+  $logging = '';
+  $error_log = $item[$key_id] . '|';
+  $error_log_field = '';
+  $error_term_field = '';
+  $error_checkbox_field = '';
+  $error_date_field = '';
+
+  foreach ($validates as $type => $fields) {
+    switch ($type) {
+      case 'term_name':
+      case 'term_field_id':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+
+          if (($item[$key] == 0 || trim($item[$key])) && !isset($field[LANGUAGE_NONE][0]['tid'])) {
+            $error_term_field .= $field_name . ',';
+          }
+        }
+
+        break;
+      case 'entity_id':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+          if (trim($item[$key]) && !isset($field[LANGUAGE_NONE][0]['target_id'])) {
+            $error_term_field .= $field_name . ',';
+          }
+        }
+
+        break;
+
+      case 'term_id':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+          if (trim($item[$key])) {
+            $term = taxonomy_term_load($item[$key]);
+            if (!$term) {
+              $error_term_field .= $field_name . ',';
+            }
+          }
+        }
+
+        break;
+
+      case 'number':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+          if($item[$key] != "0" && !empty($item[$key])) {
+            if (!is_numeric($item[$key])) {
+              $error_log_field .= $field_name . ',';
+            } else {
+              $number = (int) $item[$key];
+              if ($number == 0) {
+                $error_log_field .= $field_name . ',';
+              }
+            }
+          }
+        }
+
+        break;
+
+      case 'date_time':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+          if (trim($item[$key])) {
+            if (!isset($field[LANGUAGE_NONE][0]['value'])) {
+              $error_date_field .= $field_name . ',';
+            } else {
+              if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) 00:00:00$/", $item[$key])) {
+                $error_date_field .= $field_name . ',';
+              }
+            }
+          }
+        }
+
+        break;
+
+      case 'check_box':
+        foreach ($fields as $key => $field_name) {
+          $field = $entity->$field_name;
+          if (trim($item[$key])) {
+            if(!isset($field[LANGUAGE_NONE][0]['value'])) {
+              $error_checkbox_field .= $field_name . ',';
+            } else {
+              if($field[LANGUAGE_NONE][0]['value'] > 1) {
+                $error_checkbox_field .= $field_name . ',';
+              }
+            }
+          }
+        }
+
+        break;
+    }
+  }
+
+  if ($error_term_field) {
+    $logging .= $error_log . $error_term_field . '|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+  }
+
+  if ($error_log_field) {
+    $logging .= $error_log . $error_log_field . '|' . 'Wrong format' . '|' . 'Skip import' . "\n";
+  }
+
+  if ($error_date_field) {
+    $logging .= $error_log . $error_date_field . '|' . 'Datetime wrong format' . '|' . 'Skip import' . "\n";
+  }
+
+  if ($error_checkbox_field) {
+    $logging .= $error_log . $error_checkbox_field . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
+  }
+
+
+  return $logging;
+}
+
+
+/**
+ * Create file Error Log (.txt)
+ * @param type $file_log_name
+ * @param type $logging
+ * @param type $uri
+ */
+function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds/log/') {
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $file_log_name);
+    $data = file_get_contents($path);
+    $logging .= $data;
+    drupal_chmod($uri);
+    file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+  }
 }
