@@ -58,7 +58,6 @@
   </div>
   <?php print $page_top; ?>
   <?php print $page; ?>
-  zrgrg
   <?php print $page_bottom; ?>
 </body>
 </html>
