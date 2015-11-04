@@ -65,7 +65,7 @@ function kandb_programme_strongarm() {
         'custom_settings' => FALSE,
       ),
       'teaser_on_bien' => array(
-        'custom_settings' => FALSE,
+        'custom_settings' => TRUE,
       ),
     ),
     'extra_fields' => array(
@@ -93,7 +93,7 @@ function kandb_programme_strongarm() {
         'domain' => array(
           'default' => array(
             'weight' => '1',
-            'visible' => TRUE,
+            'visible' => FALSE,
           ),
           'search_programme' => array(
             'weight' => '1',
@@ -102,6 +102,10 @@ function kandb_programme_strongarm() {
           'full' => array(
             'weight' => '1',
             'visible' => TRUE,
+          ),
+          'teaser_on_bien' => array(
+            'weight' => '1',
+            'visible' => FALSE,
           ),
         ),
       ),

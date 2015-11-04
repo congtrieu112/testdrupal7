@@ -97,7 +97,10 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
-    if ($node && $node->type == 'programme') {
+    // To avoid loop from function node_save.
+    $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
+    
+    if ($node && $node->type == 'programme' && !$is_node_updating) {
         if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
             $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
         }
@@ -225,12 +228,15 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
  * Implements hook_node_update()
  */
 function kandb_business_rules_node_update($node) {
+    // To avoid loop from feed import.
     $is_feed_import = Kandb_Business_Rules::get_is_feed_import();
+    
+    // To avoid loop from function node_save.
     $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
-    Kandb_Business_Rules::set_is_node_updating();
     
     // Is manual update node in admin.
-    if ($node->type === CONTENT_TYPE_BIEN && !$is_feed_import && !$is_node_updating) {        
+    if ($node->type === CONTENT_TYPE_BIEN && !$is_feed_import && !$is_node_updating) {
+        Kandb_Business_Rules::set_is_node_updating();
         $node_bien = node_load($node->nid);
 
         $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
