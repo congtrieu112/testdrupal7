@@ -375,6 +375,145 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'kb_patrimoine_import';
+  $feeds_importer->config = array(
+    'name' => 'Kb Patrimoine Import',
+    'description' => 'import pdf contents from DocumentProgrammeKbPatrimoine.csv',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocumentProgrammeKbPatrimoine.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'migration_program_import' => 'migration_program_import',
+          'migration_program_video_import' => 'migration_program_video_import',
+          'programme_feed_import' => 'programme_feed_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'maison_feed_import' => 0,
+          'parcel_feed_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'field_id_programme',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => 'PlaquetteCommerciale',
+            'target' => 'field_plaquette_commerciale:uri',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'ContratDeReservation',
+            'target' => 'field_contrat_reservation:uri',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'EtatDesRisques',
+            'target' => 'field_etat_des_risques:uri',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'LetterBanque',
+            'target' => 'field_lettre_de_banque:uri',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'FichesDeRenseignement',
+            'target' => 'field_fiche_renseignement:uri',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'PrestationsDuProgramme',
+            'target' => 'field_prestations_programme:uri',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'MandatDeGestionLocative',
+            'target' => 'field_mandat_gestion_locative:uri',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'PlansDeMasse',
+            'target' => 'field_plan_batiment:uri',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => 'VisuelGrandeTaille',
+            'target' => 'field_visuel_grande_taille:uri',
+            'unique' => FALSE,
+          ),
+          11 => array(
+            'source' => 'BailCommercial',
+            'target' => 'field_bail_commercial:uri',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => 'BonDeCommandeMobilier',
+            'target' => 'field_bon_commande_mobilier:uri',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => 'KitFiscal',
+            'target' => 'field_kit_fiscal:uri',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => 'AutreDoc',
+            'target' => 'field_autre_documents:uri',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'programme',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 1,
+  );
+  $export['kb_patrimoine_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'maison_feed_import';
   $feeds_importer->config = array(
     'name' => 'Maison feed import',
@@ -811,7 +950,7 @@ function kandb_feed_feeds_importer_default() {
         'use_pubsubhubbub' => 0,
         'designated_hub' => '',
         'request_timeout' => '',
-        'auto_scheme' => 'http',
+        'auto_scheme' => '',
         'accept_invalid_cert' => 0,
         'kb_url' => 'sites/default/files/import/LOT.TXT',
         'kb_url_type' => '0',
@@ -959,7 +1098,7 @@ function kandb_feed_feeds_importer_default() {
         'use_pubsubhubbub' => 0,
         'designated_hub' => '',
         'request_timeout' => '',
-        'auto_scheme' => 'http',
+        'auto_scheme' => '',
         'accept_invalid_cert' => 0,
         'kb_url' => 'sites/default/files/import/PROGRAMME.TXT',
         'kb_url_type' => '0',

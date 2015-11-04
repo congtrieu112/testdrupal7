@@ -17,21 +17,21 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '0050afc0-008d-4d4d-b870-f9b8e8845218',
     'vocabulary_machine_name' => 'status_logement',
-    'field_id_xls' => array(
-      'und' => array(
-        0 => array(
-          'value' => 2,
-          'format' => NULL,
-          'safe_value' => 2,
-        ),
-      ),
-    ),
     'field_id_file' => array(
       'und' => array(
         0 => array(
           'value' => 'R',
           'format' => NULL,
           'safe_value' => 'R',
+        ),
+      ),
+    ),
+    'field_id_xls' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+          'format' => NULL,
+          'safe_value' => 2,
         ),
       ),
     ),
@@ -1018,6 +1018,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '279b27ff-ea86-45d2-a40c-3299c552eaff',
     'vocabulary_machine_name' => 'status_logement',
+    'field_id_file' => array(),
     'field_id_xls' => array(
       'und' => array(
         0 => array(
@@ -1027,7 +1028,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_id_file' => array(),
   );
   $terms[] = array(
     'name' => 'Hautes Pyrénées',
@@ -1118,6 +1118,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '2a1ebc1a-7f40-4d29-bab2-b9c6397d61ee',
     'vocabulary_machine_name' => 'status_logement',
+    'field_id_file' => array(),
     'field_id_xls' => array(
       'und' => array(
         0 => array(
@@ -1127,7 +1128,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_id_file' => array(),
   );
   $terms[] = array(
     'name' => '3 ème étage',
@@ -3268,16 +3268,16 @@ function kandb_taxonomy_uuid_features_default_terms() {
   $terms[] = array(
     'name' => 'TVA 7%',
     'description' => '',
-    'format' => 'filtered_html',
+    'format' => 'plain_text',
     'weight' => 0,
     'uuid' => '7a064e09-fa16-4bc1-981a-d5e4f0e92c2e',
     'vocabulary_machine_name' => 'tva',
     'field_facteur' => array(
       'und' => array(
         0 => array(
-          'value' => 0.007,
+          'value' => 0.07,
           'format' => NULL,
-          'safe_value' => 0.007,
+          'safe_value' => 0.07,
         ),
       ),
     ),
@@ -3736,21 +3736,21 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '8f3a55c4-5d44-49fe-b4f4-63aa54abeb38',
     'vocabulary_machine_name' => 'status_logement',
-    'field_id_xls' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-          'format' => NULL,
-          'safe_value' => 1,
-        ),
-      ),
-    ),
     'field_id_file' => array(
       'und' => array(
         0 => array(
           'value' => 'L',
           'format' => NULL,
           'safe_value' => 'L',
+        ),
+      ),
+    ),
+    'field_id_xls' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+          'format' => NULL,
+          'safe_value' => 1,
         ),
       ),
     ),

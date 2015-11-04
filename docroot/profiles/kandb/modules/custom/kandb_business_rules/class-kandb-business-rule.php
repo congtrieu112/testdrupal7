@@ -23,6 +23,26 @@ class Kandb_Business_Rules {
 
     public static $_list_biens = array();
     public static $_list_id_program = array();
+    public static $_is_feed_import = FALSE;
+    public static $_list_progame = array();
+    public static $_list_progam_to_save = array();
+    public static $_is_node_updating = false;
+    
+    public static function set_is_feed_import($status = TRUE){
+        self::$_is_feed_import = $status;
+    }
+    
+    public static function get_is_feed_import(){
+        return self::$_is_feed_import;
+    }
+    
+    public static function set_is_node_updating($status = TRUE){
+        self::$_is_node_updating = $status;
+    }
+    
+    public static function get_is_node_updating(){
+        return self::$_is_node_updating;
+    }
 
     /**
      * @todo set list node bien
@@ -82,12 +102,18 @@ class Kandb_Business_Rules {
      * @param type $term_name
      * @return type
      */
-    public static function get_tax_status_du_logement_by_name($term_name) {
+    public static function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {        
         $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'taxonomy_term')
+        $query->entityCondition('entity_type', 'taxonomy_term');
             //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
-            ->propertyCondition('name', $term_name)
-            ->range(0, 1);
+        
+        if(!$search_by_name){
+            $query->fieldCondition('field_id_file', 'value', $term_name, '=');
+        }else{
+            $query->propertyCondition('name', $term_name);
+        }
+            
+        $query->range(0, 1);
 
 
         $results = $query->execute();
@@ -115,10 +141,10 @@ class Kandb_Business_Rules {
             ->entityCondition('bundle', CONTENT_TYPE_BIEN)
             ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
             ->fieldCondition('field_programme', 'target_id', $id_programe, '=');
-
-        $results = $query->execute();
-        if (!empty($results)) {
-            return count($results["node"]);
+        
+        $count_bien = intval($query->count()->execute());
+        if ($count_bien > 0) {
+            return $count_bien;
         }
         return 0;
     }
@@ -136,11 +162,16 @@ class Kandb_Business_Rules {
         foreach ($list_programe as $item) {
             $total_bien = self::calculate_bien_follow_programe($item->nid);
 
-            $node_programe = node_load($item->nid);
-
+            if(isset(self::$_list_progam_to_save [$item->nid])){
+                $node_programe = self::$_list_progam_to_save [$item->nid];
+            }else{
+                $node_programe = node_load($item->nid);
+            }
+            
             $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
-
-            node_save($node_programe);
+            
+            self::$_list_progam_to_save [$item->nid] = $node_programe;
+            //node_save($node_programe);
         }
     }
 
@@ -149,6 +180,10 @@ class Kandb_Business_Rules {
      * @return int
      */
     public static function get_list_program_contain_bien() {
+        if(!empty(self::$_list_progame)){
+            return self::$_list_progame;
+        }
+        
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'node')
             ->entityCondition('bundle', CONTENT_TYPE_PROGRAMME);
@@ -157,7 +192,8 @@ class Kandb_Business_Rules {
         $results = $query->execute();
 
         if (!empty($results)) {
-            return $results["node"];
+            self::$_list_progame = $results["node"];
+            return self::$_list_progame;
         }
         return array();
     }
@@ -226,17 +262,26 @@ class Kandb_Business_Rules {
      * @todo To calculate min price and max price for programe
      * RULE COUNTING 106
      */
-    public static function calculate_programe_price() {
-        $list_programe = self::get_list_program_contain_bien();
+    public static function calculate_programe_price($list_programe = array()) {
+        if (empty($list_programe)) {
+            $list_programe = self::get_list_program_contain_bien();
+        }        
 
         foreach ($list_programe as $item) {
             $min_price = self::get_programe_min_max_price($item->nid);
             $max_price = self::get_programe_min_max_price($item->nid, FALSE);
 
-            $node_programe = node_load($item->nid);
+            if(isset(self::$_list_progam_to_save [$item->nid])){
+                $node_programe = self::$_list_progam_to_save [$item->nid];
+            }else{
+                $node_programe = node_load($item->nid);
+            }
+            
             $node_programe->field_programme_price_min[LANGUAGE_NONE][0]["value"] = $min_price;
             $node_programe->field_programme_price_max[LANGUAGE_NONE][0]["value"] = $max_price;
-            node_save($node_programe);
+            
+            self::$_list_progam_to_save [$item->nid] = $node_programe;
+            //node_save($node_programe);
         }
     }
 
@@ -291,16 +336,26 @@ class Kandb_Business_Rules {
      * RULE COUNTING 107
      * @return type
      */
-    public static function find_room_bien_follow_programe() {
-        $list_programe = self::get_list_program_contain_bien();
+    public static function find_room_bien_follow_programe($list_programe = array()) {
+        if (empty($list_programe)) {
+            $list_programe = self::get_list_program_contain_bien();
+        }
+        
         foreach ($list_programe as $item) {
             $room_min = self::get_room_min_max_follow_programe($item->nid);
             $room_max = self::get_room_min_max_follow_programe($item->nid, FALSE);
 
-            $node_programe = node_load($item->nid);
+            if(isset(self::$_list_progam_to_save [$item->nid])){
+                $node_programe = self::$_list_progam_to_save [$item->nid];
+            }else{
+                $node_programe = node_load($item->nid);
+            }
+            
             $node_programe->field_programme_room_min[LANGUAGE_NONE][0]["value"] = $room_min;
             $node_programe->field_programme_room_max[LANGUAGE_NONE][0]["value"] = $room_max;
-            node_save($node_programe);
+
+            self::$_list_progam_to_save [$item->nid] = $node_programe;
+            //node_save($node_programe);
         }
     }
 
@@ -322,9 +377,24 @@ class Kandb_Business_Rules {
 
             $total_bien = intval($query->count()->execute());
             if ($total_bien > 0) {
-                $node_programe = node_load($item->nid);
+                if(isset(self::$_list_progam_to_save [$item->nid])){
+                    $node_programe = self::$_list_progam_to_save [$item->nid];
+                }else{
+                    $node_programe = node_load($item->nid);
+                }
+                
                 $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
-                node_save($node_programe);
+                
+                self::$_list_progam_to_save [$item->nid] = $node_programe;
+                //node_save($node_programe);
+            }
+        }
+    }
+    
+    public static function node_save_list_program (){
+        if(!empty(self::$_list_progam_to_save)){
+            foreach(self::$_list_progam_to_save as $node){
+                node_save($node);
             }
         }
     }

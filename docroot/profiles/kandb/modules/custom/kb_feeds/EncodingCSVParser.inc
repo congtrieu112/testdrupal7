@@ -145,6 +145,11 @@ class EncodingCSVParser extends ParserCSV {
           $logging .= $line;
           continue;
         }
+      }elseif ($this->id == 'kb_patrimoine_import') {          
+        if (is_array($fields) && 14 > count($fields)) {
+          $logging .= $line;
+          continue;
+        }
       } else {
         if (is_array($fields) && 2 != count($fields)) {
           $logging .= $line;
@@ -163,9 +168,11 @@ class EncodingCSVParser extends ParserCSV {
           $row[$columnName] = isset($field) ? $field : '';
         }
       }
+      
       if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
         $rows[] = $row;
-      }
+      }     
+      
       if (!empty($maxTime) && microtime() > $maxTime) {
         $this->timeoutReached = TRUE;
         $this->lastLinePos = $lineIterator->currentPos();

@@ -1,55 +1,243 @@
 <?php
 
-function kandb_contact_block_info(){
+/**
+ * Implementation of hook_menu()
+ * @return array
+ */
+function kandb_contact_menu() {
+
+  $items = array();
+
+  $items['admin/content/contact'] = array(
+    'title' => 'Contact settings',
+    'description' => 'Change the contact information of the contact block.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_contact_admin'),
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_block_info()
+ * @return array
+ */
+function kandb_contact_block_info() {
   $blocks = array();
   $blocks['contact_block_page'] = array(
     'info' => 'Contact block page',
-    'cache' => DRUPAL_NO_CACHE,
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   $blocks['contact_on_summary'] = array(
     'info' => 'Contact on summary',
-    'cache' => DRUPAL_NO_CACHE,
+    'cache' => DRUPAL_CACHE_PER_PAGE,
   );
   $blocks['contact_block_with_sales_office'] = array(
     'info' => 'Contact block with sales office',
-    'cache' => DRUPAL_NO_CACHE,
+    'cache' => DRUPAL_CACHE_GLOBAL,
   );
   return $blocks;
 }
 
-function kandb_contact_block_view($delta = ''){
+/**
+ * Implementation hook_block_view()
+ * @param string $delta
+ * @return array
+ */
+function kandb_contact_block_view($delta = '') {
   $block = array();
-  switch ($delta){
+  switch ($delta) {
     case 'contact_block_page':
       $block['subject'] = '';
-      $block['content'] = _get_contact_block_content();
+      $block['content'] = kandb_contact_block_page();
       break;
     case 'contact_on_summary':
       $block['subject'] = '';
-      $block['content'] = _get_contact_block_content();
+      $block['content'] = '';
       break;
     case 'contact_block_with_sales_office':
       $block['subject'] = '';
-      $block['content'] = _get_contact_block_content();
+      $block['content'] = '';
       break;
   }
   return $block;
 }
 
-function _get_contact_block_content(){
-  $out = '';
-  $machine_names = array(
+/**
+ * Implement hook_theme()
+ */
+function kandb_contact_theme($existing, $type, $theme, $path) {
+  return array(
+    // Contact buttons
+    'contact_buttons' => array(
+      'template' => 'templates/contact_buttons',
+      'variables' => array(),
+    ),
+    'contact_block_page' => array(
+      'template' => 'templates/contact_block_page',
+      'variables' => array(),
+    ),
+    'contact_block_with_sales_office' => array(
+      'template' => 'templates/contact_block_with_sales_office',
+      'variables' => array(),
+    ),
+    'contact_on_summary' => array(
+      'template' => 'templates/contact_on_summary',
+      'variables' => array(),
+    ),
+  );
+}
+
+function kandb_contact_buttons() {
+  global $base_url;
+
+  $links = array();
+  $webform_machine_names = array(
     '_tre_rappel_',
     'prendre_rendez_vous'
   );
-  $base_path = base_path();
-  foreach($machine_names as $k => $name){
+
+  foreach ($webform_machine_names as $name) {
     $webform = webform_features_machine_name_load($name);
-    if($webform){
-      $title = $webform->title;
-      $alias = drupal_get_path_alias('node/' . $webform->nid);
-      $out .= '<a data-reveal-ajax="true" title="' . $title . '" href="' . $base_path . $alias .'">' . $title . '</a>';
+    if ($webform) {
+      $links[] = theme_link(
+        array(
+          'text' => $webform->title,
+          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+          'options' => array(
+            'attributes' => array(
+              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+              'data-reveal-ajax' => array('true'),
+              'data-reveal-id' => array('popinLeadForm'),
+            ),
+            'html' => FALSE,
+          )
+        )
+      );
     }
   }
-  return $out;
+
+
+  return theme('contact_buttons',
+    array(
+      'links' => $links
+    )
+  );
+}
+
+/**
+ * Callback function
+ */
+function kandb_contact_block_page() {
+  $variables = array();
+  $variables['content'] = kandb_contact_get_all_variables();
+  $variables['content']['buttons'] = kandb_contact_buttons();
+  return theme('contact_block_page', $variables);
+}
+
+/**
+ * Get all the variable defined by this module
+ *
+ * @return array
+ *  Returns an array with
+ *  variable_name => variable_value
+ */
+function kandb_contact_get_all_variables() {
+  $variables = array(
+    'kandb_contact_photo' => '',
+    'kandb_contact_title' => '',
+    'kandb_contact_sub_title' => '',
+    'kandb_contact_faq_text' => '',
+    'kandb_contact_faq_link' => '',
+    'kandb_contact_numero_text' => '',
+    'kandb_contact_numero_vert' => '',
+  );
+
+  foreach ($variables as $name => $value) {
+    $variables[$name] = variable_get($name);
+  }
+
+  if(!empty($variables['kandb_contact_photo'])){
+    $variables['kandb_contact_photo'] = file_load($variables['kandb_contact_photo']);
+    if ($wrapper = file_stream_wrapper_get_instance_by_uri($variables['kandb_contact_photo']->uri)) {
+      $variables['kandb_contact_photo']->uri = $wrapper->getExternalUrl();
+    }
+  }
+
+  return $variables;
+}
+
+
+/**
+ * Admin interface
+ *
+ * Called from drupal_get_form
+ *
+ * @return mixed
+ */
+function kandb_contact_admin() {
+  $form = array();
+
+  $form['kandb_contact_photo'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Photo du block de contact (230px / 310px)'),
+    '#default_value' => variable_get('kandb_contact_photo'),
+    '#upload_location' => 'public://',
+  );
+  $form['kandb_contact_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre du bloc de contact'),
+    '#default_value' => variable_get('kandb_contact_title'),
+    '#required' => TRUE,
+  );
+  $form['kandb_contact_sub_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sous titre du bloc de contact'),
+    '#default_value' => variable_get('kandb_contact_sub_title'),
+    '#required' => TRUE,
+  );
+  $form['kandb_contact_numero_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Texte avant le numéro vert'),
+    '#default_value' => variable_get('kandb_contact_numero_text'),
+    '#required' => TRUE,
+  );
+  $form['kandb_contact_numéro_vert'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Numéro vert'),
+    '#default_value' => variable_get('kandb_contact_numero_vert'),
+    '#required' => TRUE,
+  );
+  $form['kandb_contact_faq_text'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Texte sur le bouton de FAQ'),
+    '#default_value' => variable_get('kandb_contact_faq_text'),
+    '#required' => TRUE,
+  );
+  $form['kandb_contact_faq_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Lien vers la FAQ'),
+    '#default_value' => variable_get('kandb_contact_faq_link'),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
+}
+
+function kandb_contact_admin_validate($form, &$form_state) {
+  global $user;
+
+  // Load the file via file.fid.
+  $file = file_load($form_state['values']['kandb_contact_photo']);
+
+  // Change status to permanent.
+  $file->status = FILE_STATUS_PERMANENT;
+
+  // Save.
+  file_save($file);
+
+  // Record that the module (in this example, user module) is using the file.
+  file_usage_add($file, 'user', 'user', $user->uid);
 }
