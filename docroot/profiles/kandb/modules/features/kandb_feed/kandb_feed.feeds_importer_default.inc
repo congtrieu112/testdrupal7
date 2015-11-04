@@ -26,7 +26,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/VILLE.TXT',
+        'kb_url' => 'sites/default/files/import/VILLE.TXT',
         'kb_url_type' => '0',
       ),
     ),
@@ -96,7 +96,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/ARRONDISSEMENT.TXT',
+        'kb_url' => 'sites/default/files/import/ARRONDISSEMENT.TXT',
         'kb_url_type' => '0',
       ),
     ),
@@ -153,6 +153,367 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'document_import';
+  $feeds_importer->config = array(
+    'name' => 'Document import',
+    'description' => 'Import pdf contents from DocBibliotheque.csv',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'FeedsCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'field_document_id',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'TitreDuDocument',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'Categorie',
+            'target' => 'field_document_type',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'DATE',
+            'target' => 'field_document_date:start',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'Statut',
+            'target' => 'status',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'Statut',
+            'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'LienFichier',
+            'target' => 'field_document_file:uri',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '1',
+        'update_non_existent' => 'update',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'document',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 1,
+  );
+  $export['document_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'document_import_communique_de_presse';
+  $feeds_importer->config = array(
+    'name' => 'Document import communique de presse',
+    'description' => 'Import document from CommuniqueDePresse.csv file',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/CommuniqueDePresse.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbDocCommuniqueCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'FeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantCommunique',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          1 => array(
+            'source' => 'IdentifiantCommunique',
+            'target' => 'field_document_id',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'TitreDuCommunique',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'DATE',
+            'target' => 'field_document_date:start',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'ContenuLienTxt',
+            'target' => 'field_document_description',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'Contact1AffichageParDefaut',
+            'target' => 'field_contact1_display',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'Contact1Titre',
+            'target' => 'field_contact1_title',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'Contact1Texte',
+            'target' => 'field_contact1_text',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'Contact1Email',
+            'target' => 'field_contact1_email',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'Contact2AffichageParDefaut',
+            'target' => 'field_contact2_display',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => 'Contact2Titre',
+            'target' => 'field_contact2_title',
+            'unique' => FALSE,
+          ),
+          11 => array(
+            'source' => 'Contact2Texte',
+            'target' => 'field_contact2_text',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => 'Contact2Email',
+            'target' => 'field_contact2_email',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => 'Statut',
+            'target' => 'status',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => 'LienFichier',
+            'target' => 'field_document_file:uri',
+            'unique' => FALSE,
+          ),
+          15 => array(
+            'source' => 'Categorie',
+            'target' => 'field_document_type',
+            'unique' => FALSE,
+          ),
+          16 => array(
+            'source' => 'Sticky',
+            'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'document',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['document_import_communique_de_presse'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'kb_patrimoine_import';
+  $feeds_importer->config = array(
+    'name' => 'Kb Patrimoine Import',
+    'description' => 'import pdf contents from DocumentProgrammeKbPatrimoine.csv',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocumentProgrammeKbPatrimoine.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'migration_program_import' => 'migration_program_import',
+          'migration_program_video_import' => 'migration_program_video_import',
+          'programme_feed_import' => 'programme_feed_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'maison_feed_import' => 0,
+          'parcel_feed_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'field_id_programme',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => 'PlaquetteCommerciale',
+            'target' => 'field_plaquette_commerciale:uri',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'ContratDeReservation',
+            'target' => 'field_contrat_reservation:uri',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'EtatDesRisques',
+            'target' => 'field_etat_des_risques:uri',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'LetterBanque',
+            'target' => 'field_lettre_de_banque:uri',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'FichesDeRenseignement',
+            'target' => 'field_fiche_renseignement:uri',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'PrestationsDuProgramme',
+            'target' => 'field_prestations_programme:uri',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'MandatDeGestionLocative',
+            'target' => 'field_mandat_gestion_locative:uri',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'PlansDeMasse',
+            'target' => 'field_plan_batiment:uri',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => 'VisuelGrandeTaille',
+            'target' => 'field_visuel_grande_taille:uri',
+            'unique' => FALSE,
+          ),
+          11 => array(
+            'source' => 'BailCommercial',
+            'target' => 'field_bail_commercial:uri',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => 'BonDeCommandeMobilier',
+            'target' => 'field_bon_commande_mobilier:uri',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => 'KitFiscal',
+            'target' => 'field_kit_fiscal:uri',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => 'AutreDoc',
+            'target' => 'field_autre_documents:uri',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'programme',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 1,
+  );
+  $export['kb_patrimoine_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'maison_feed_import';
   $feeds_importer->config = array(
     'name' => 'Maison feed import',
@@ -166,7 +527,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/MAISON.TXT',
+        'kb_url' => 'sites/default/files/import/MAISON.TXT',
         'kb_url_type' => '0',
       ),
     ),
@@ -275,9 +636,9 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
-  $feeds_importer->id = 'migration_program_video_import';
+  $feeds_importer->id = 'migration_program_import';
   $feeds_importer->config = array(
-    'name' => 'Migration program video import',
+    'name' => 'Migration program import',
     'description' => '',
     'fetcher' => array(
       'plugin_key' => 'KbFeedsHTTPFetcher',
@@ -286,9 +647,9 @@ function kandb_feed_feeds_importer_default() {
         'use_pubsubhubbub' => 0,
         'designated_hub' => '',
         'request_timeout' => '',
-        'auto_scheme' => '',
+        'auto_scheme' => 'http',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/ProgrammeVideo.csv',
+        'kb_url' => 'sites/default/files/import/Programme.csv',
         'kb_url_type' => '0',
       ),
     ),
@@ -305,7 +666,243 @@ function kandb_feed_feeds_importer_default() {
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
-        'related_importer' => 'programme_feed_import',
+        'related_importer' => array(
+          'migration_program_video_import' => 'migration_program_video_import',
+          'programme_feed_import' => 'programme_feed_import',
+          'parcel_feed_import' => 0,
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'maison_feed_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'field_id_programme',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'LaVieDeQuartierFr',
+            'target' => 'field_quartier_sous_titre',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'LabelBbcZone1',
+            'target' => 'field_slider_rt2012_desc',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'LabelBbcZone2',
+            'target' => 'field_slider_rt2012_desc',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'LabelBbcEchelle',
+            'target' => 'field_slider_rt2012_echelle',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'ReglementationThermiqueTitre',
+            'target' => 'field_slider_rt2012_titre',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'ReglementationThermiqueZone1',
+            'target' => 'field_slider_rt2012_desc',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'ReglementationThermiqueZone2',
+            'target' => 'field_slider_rt2012_desc',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'ReglementationThermiqueEchelle',
+            'target' => 'field_slider_rt2012_echelle',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'Statut',
+            'target' => 'field_programme_statut',
+            'unique' => FALSE,
+          ),
+          10 => array(
+            'source' => 'TypeProgramme',
+            'target' => 'field_type_programme',
+            'term_search' => '0',
+            'autocreate' => 0,
+          ),
+          11 => array(
+            'source' => 'Nom',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          12 => array(
+            'source' => 'AffichageStock',
+            'target' => 'field_programme_stock',
+            'unique' => FALSE,
+          ),
+          13 => array(
+            'source' => 'NoDeRue',
+            'target' => 'field_programme_loc_num',
+            'unique' => FALSE,
+          ),
+          14 => array(
+            'source' => 'TypeDeVoie',
+            'target' => 'field_programme_loc_type',
+            'unique' => FALSE,
+          ),
+          15 => array(
+            'source' => 'NomRue',
+            'target' => 'field_programme_loc_rue',
+            'unique' => FALSE,
+          ),
+          16 => array(
+            'source' => 'CP',
+            'target' => 'field_programme_loc_cp',
+            'unique' => FALSE,
+          ),
+          17 => array(
+            'source' => 'PrixMoyenM2',
+            'target' => 'field_programme_avg_price',
+            'unique' => FALSE,
+          ),
+          18 => array(
+            'source' => 'PrixMinimum',
+            'target' => 'field_programme_min_price',
+            'unique' => FALSE,
+          ),
+          19 => array(
+            'source' => 'TrimestreLivraison',
+            'target' => 'field_trimestre',
+            'unique' => FALSE,
+          ),
+          20 => array(
+            'source' => 'AnneeLivraison',
+            'target' => 'field_annee',
+            'unique' => FALSE,
+          ),
+          21 => array(
+            'source' => 'DescriptifLongue',
+            'target' => 'field_en_quelques_mots',
+            'unique' => FALSE,
+          ),
+          22 => array(
+            'source' => 'Rt2012',
+            'target' => 'field_slider_rt2012_bbc',
+            'unique' => FALSE,
+          ),
+          23 => array(
+            'source' => 'Tva',
+            'target' => 'field_tva',
+            'unique' => FALSE,
+          ),
+          24 => array(
+            'source' => 'X',
+            'target' => 'field_programme_loc_long',
+            'unique' => FALSE,
+          ),
+          25 => array(
+            'source' => 'Y',
+            'target' => 'field_programme_loc_lat',
+            'unique' => FALSE,
+          ),
+          26 => array(
+            'source' => 'VendeurNom',
+            'target' => 'field_nom_conseiller',
+            'unique' => FALSE,
+          ),
+          27 => array(
+            'source' => 'BureauDeVenteAdresse',
+            'target' => 'field_espace_vente_adresse',
+            'unique' => FALSE,
+          ),
+          28 => array(
+            'source' => 'BureauDeVenteHoraireOuverture',
+            'target' => 'field_espace_vente_horaire',
+            'unique' => FALSE,
+          ),
+          29 => array(
+            'source' => 'BureauDeVenteX',
+            'target' => 'field_espace_vente_latitude',
+            'unique' => FALSE,
+          ),
+          30 => array(
+            'source' => 'BureauDeVenteY',
+            'target' => 'field_espace_vente_latitude',
+            'unique' => FALSE,
+          ),
+          31 => array(
+            'source' => 'DateMiseEnLigne',
+            'target' => 'field_programme_online_date:start',
+            'unique' => FALSE,
+          ),
+          32 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 0,
+        'bundle' => 'programme',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['migration_program_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'migration_program_video_import';
+  $feeds_importer->config = array(
+    'name' => 'Migration program video import',
+    'description' => '',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/ProgrammeVideo.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'migration_program_import' => 'migration_program_import',
+          'programme_feed_import' => 'programme_feed_import',
+          'parcel_feed_import' => 0,
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'maison_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => 'IdentifiantProgramme',
@@ -355,7 +952,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/LOT.TXT',
+        'kb_url' => 'sites/default/files/import/LOT.TXT',
         'kb_url_type' => '0',
       ),
     ),
@@ -503,7 +1100,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/PROGRAMME.TXT',
+        'kb_url' => 'sites/default/files/import/PROGRAMME.TXT',
         'kb_url_type' => '0',
       ),
     ),
@@ -521,7 +1118,16 @@ function kandb_feed_feeds_importer_default() {
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
-        'related_importer' => 'migration_program_video_import',
+        'related_importer' => array(
+          'migration_program_import' => 'migration_program_import',
+          'migration_program_video_import' => 'migration_program_video_import',
+          'parcel_feed_import' => 0,
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'maison_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => '0',

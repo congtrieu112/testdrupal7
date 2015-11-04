@@ -10,6 +10,67 @@
 function kandb_bien_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_bien_habiteo_id'
+  $field_bases['field_bien_habiteo_id'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_bien_habiteo_id',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
+  // Exported field_base: 'field_bien_low_tva_price'
+  $field_bases['field_bien_low_tva_price'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_bien_low_tva_price',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_bien_plan'
+  $field_bases['field_bien_plan'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_bien_plan',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'file',
+    'settings' => array(
+      'display_default' => 0,
+      'display_field' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'file',
+  );
+
   // Exported field_base: 'field_bien_statut'
   $field_bases['field_bien_statut'] = array(
     'active' => 1,
@@ -262,19 +323,12 @@ function kandb_bien_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_prix_tva_20',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
+    'indexes' => array(),
     'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
+    'module' => 'number',
+    'settings' => array(),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'number_integer',
   );
 
   // Exported field_base: 'field_programme'
@@ -329,32 +383,6 @@ function kandb_bien_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'number_float',
-  );
-
-  // Exported field_base: 'field_tva'
-  $field_bases['field_tva'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_tva',
-    'indexes' => array(
-      'tid' => array(
-        0 => 'tid',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'taxonomy',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => array(
-          'vocabulary' => 'tva',
-          'parent' => 0,
-        ),
-      ),
-    ),
-    'translatable' => 0,
-    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_type'

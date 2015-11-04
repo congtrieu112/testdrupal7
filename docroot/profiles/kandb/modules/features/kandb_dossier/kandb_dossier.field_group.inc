@@ -25,6 +25,7 @@ function kandb_dossier_field_group_info() {
     'children' => array(
       0 => 'field_articles_block1_ref',
       1 => 'field_articles_block1_title',
+      2 => 'field_articles_block1_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -53,6 +54,7 @@ function kandb_dossier_field_group_info() {
     'children' => array(
       0 => 'field_articles_block2_ref',
       1 => 'field_articles_block2_title',
+      2 => 'field_articles_block2_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -81,6 +83,7 @@ function kandb_dossier_field_group_info() {
     'children' => array(
       0 => 'field_articles_block3_ref',
       1 => 'field_articles_block3_title',
+      2 => 'field_articles_block3_image',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

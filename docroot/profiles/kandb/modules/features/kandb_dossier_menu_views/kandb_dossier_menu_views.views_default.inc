@@ -31,8 +31,11 @@ function kandb_dossier_menu_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['style_plugin'] = 'grid';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['style_options']['columns'] = '5';
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -62,6 +65,7 @@ function kandb_dossier_menu_views_views_default_views() {
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
+  $handler->display->display_options['block_description'] = '<none>';
   $translatables['kandb_menu_our_advice'] = array(
     t('Master'),
     t('Menu - Nos conseils'),
@@ -72,6 +76,7 @@ function kandb_dossier_menu_views_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Block'),
+    t('<none>'),
   );
   $export['kandb_menu_our_advice'] = $view;
 

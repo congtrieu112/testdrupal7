@@ -3,7 +3,8 @@
 - small: 640 x 845
 - large: 1380 x 590
 -->
-<section data-interchange="[<?php print image_style_url('hp_search_block_mobile',$content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('hp_search_block',$content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
+<?php drupal_set_title(''); ?>
+<section data-interchange="[<?php print image_style_url('hp_search_block_mobile', $content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('hp_search_block', $content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
@@ -42,7 +43,7 @@
         </div>
         <div class="homeDocs__list">
             <div class="heading text-center">
-                <h3 class="heading__title heading__title--sub"><?php print t('Des solutions adaptées à chacun'); ?></h3>
+                <h3 class="heading__title heading__title--sub"><?php print render($content['field_hp_block_conseil_titre2']); ?></h3>
             </div>
             <?php print render($content['hp_block_conseil_small']); ?>
         </div>

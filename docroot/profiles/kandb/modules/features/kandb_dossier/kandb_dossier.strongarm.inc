@@ -49,6 +49,12 @@ function kandb_dossier_strongarm() {
       'selection_contact' => array(
         'custom_settings' => FALSE,
       ),
+      'print' => array(
+        'custom_settings' => FALSE,
+      ),
+      'teaser_on_bien' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -67,8 +73,22 @@ function kandb_dossier_strongarm() {
         'redirect' => array(
           'weight' => '12',
         ),
+        'domain' => array(
+          'weight' => '1',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'domain' => array(
+          'teaser' => array(
+            'weight' => '3',
+            'visible' => TRUE,
+          ),
+          'default' => array(
+            'weight' => '47',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__dossier'] = $strongarm;

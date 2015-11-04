@@ -13,6 +13,35 @@ function kandb_bien_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_bien_hide|node|bien|form';
+  $field_group->group_name = 'group_bien_hide';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'bien';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Données cachées',
+    'weight' => '10',
+    'children' => array(
+      0 => 'field_bien_habiteo_id',
+      1 => 'field_tva',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Données cachées',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => 'group-bien-hide field-group-fieldset',
+        'description' => '',
+      ),
+      'formatter' => 'collapsed',
+    ),
+  );
+  $export['group_bien_hide|node|bien|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_description_option|node|bien|form';
   $field_group->group_name = 'group_description_option';
   $field_group->entity_type = 'node';
@@ -21,16 +50,17 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description et options',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_documents',
-      1 => 'field_fiche_renseignement',
-      2 => 'field_kit_fiscal',
-      3 => 'field_orientation',
-      4 => 'field_plan_batiment',
-      5 => 'field_plaquette_commerciale',
-      6 => 'field_description',
-      7 => 'field_caracteristique',
+      0 => 'field_caracteristique',
+      1 => 'field_description',
+      2 => 'field_documents',
+      3 => 'field_fiche_renseignement',
+      4 => 'field_kit_fiscal',
+      5 => 'field_orientation',
+      6 => 'field_plan_batiment',
+      7 => 'field_plaquette_commerciale',
+      8 => 'field_bien_plan',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -55,17 +85,17 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Résumé du bien',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
-      0 => 'field_etage',
-      1 => 'field_image_principale',
-      2 => 'field_nb_chambres',
-      3 => 'field_nb_pieces',
-      4 => 'field_numero_lot',
-      5 => 'field_prix_tva_20',
-      6 => 'field_superficie',
-      7 => 'field_type',
-      8 => 'field_tva',
+      0 => 'field_bien_low_tva_price',
+      1 => 'field_etage',
+      2 => 'field_image_principale',
+      3 => 'field_nb_chambres',
+      4 => 'field_nb_pieces',
+      5 => 'field_numero_lot',
+      6 => 'field_prix_tva_20',
+      7 => 'field_superficie',
+      8 => 'field_type',
       9 => 'title',
     ),
     'format_type' => 'fieldset',
@@ -91,7 +121,7 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Visite virtuel',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_visite_3d',
       1 => 'field_visite_plan_3d',

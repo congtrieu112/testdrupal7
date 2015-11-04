@@ -77,6 +77,8 @@ dependencies[] = youtube
 dependencies[] = bean
 dependencies[] = bean_uuid
 dependencies[] = image_style_quality
+dependencies[] = webform_ajax
+dependencies[] = domain_views
 
 ; Custom
 dependencies[] = kb_feeds
@@ -111,6 +113,7 @@ dependencies[] = kandb_dossier_menu_views
 dependencies[] = kandb_tmp_content
 dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
+dependencies[] = kandb_doclib_feature
 
 ; Blocks
 dependencies[] = kandb_recherche

@@ -13,6 +13,40 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse-categorie-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse';
+  $feeds_tamper->source = 'Categorie';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => 'Communiqué de presse',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse-categorie-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse-lienfichier-find_replace';
+  $feeds_tamper->importer = 'document_import_communique_de_presse';
+  $feeds_tamper->source = 'LienFichier';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => '/ketbmedia/fr/com',
+    'replace' => 'public://import/pdf migration folder',
+    'case_sensitive' => 0,
+    'word_boundaries' => 0,
+    'whole' => 0,
+    'regex' => FALSE,
+    'func' => 'str_ireplace',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['document_import_communique_de_presse-lienfichier-find_replace'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'maison_feed_import-10-find_replace';
   $feeds_tamper->importer = 'maison_feed_import';
   $feeds_tamper->source = '10';
@@ -73,6 +107,49 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_import-labelbbczone2-rewrite';
+  $feeds_tamper->importer = 'migration_program_import';
+  $feeds_tamper->source = 'LabelBbcZone2';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => '[labelbbczone1] [labelbbczone2]',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['migration_program_import-labelbbczone2-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_import-reglementationthermiquezone2-rewrite';
+  $feeds_tamper->importer = 'migration_program_import';
+  $feeds_tamper->source = 'ReglementationThermiqueZone2';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => '[reglementationthermiquezone1] [reglementationthermiquezone2]',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['migration_program_import-reglementationthermiquezone2-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_video_import-identifiantprogramme-trim';
+  $feeds_tamper->importer = 'migration_program_video_import';
+  $feeds_tamper->source = 'IdentifiantProgramme';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '"',
+    'side' => 'trim',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Trim';
+  $export['migration_program_video_import-identifiantprogramme-trim'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'migration_program_video_import-youtubeid-rewrite';
   $feeds_tamper->importer = 'migration_program_video_import';
   $feeds_tamper->source = 'YoutubeId';
@@ -80,9 +157,24 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->settings = array(
     'text' => 'http://www.youtube.com/watch?v=[youtubeid]',
   );
-  $feeds_tamper->weight = 0;
+  $feeds_tamper->weight = 2;
   $feeds_tamper->description = 'Rewrite';
   $export['migration_program_video_import-youtubeid-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_program_video_import-youtubeid-trim';
+  $feeds_tamper->importer = 'migration_program_video_import';
+  $feeds_tamper->source = 'YoutubeId';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '"',
+    'side' => 'trim',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Trim';
+  $export['migration_program_video_import-youtubeid-trim'] = $feeds_tamper;
 
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */

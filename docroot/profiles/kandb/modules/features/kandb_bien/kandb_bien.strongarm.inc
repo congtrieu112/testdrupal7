@@ -77,10 +77,10 @@ function kandb_bien_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '8',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '7',
         ),
         'domain' => array(
           'weight' => '1',
@@ -93,7 +93,7 @@ function kandb_bien_strongarm() {
             'visible' => TRUE,
           ),
           'full' => array(
-            'weight' => '21',
+            'weight' => '44',
             'visible' => FALSE,
           ),
         ),

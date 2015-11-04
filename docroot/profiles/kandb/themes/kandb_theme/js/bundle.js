@@ -37058,39 +37058,177 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 
 'use strict';
 
-var $accordion = $('.accordion-navigation');
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
 
-$accordion.find('.content:not(.active)').hide();
+var trigger       = '[data-app-accordion]',
+    content       = '[data-app-accordion-content]',
+    link          = '[data-app-accordion-link]',
+    activeLink    = '[data-app-accordion-link].active',
+    unactiveLink  = '[data-app-accordion-link]:not(.active)';
 
-$accordion
-  .off('click.accordion-trigger')
-  .on('click.accordion-trigger', '.js-accordion-trigger', function(e) {
-    var $trigger = $(e.delegateTarget),
-        $content = $trigger.find('.content');
 
-    if ( $content.hasClass('active') ) {
-      $content.addClass('active')
-        .velocity('slideUp', {
-          duration: 500
-        });
-    } else {
-      $content.velocity('slideDown', {
-        duration: 500
-      });
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppAccordion( el, opt ) {
+  this.settings = $.extend({}, defaults, opt);
+  this.item = $(el);
+
+  this.preInit();
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppAccordion.prototype = {
+
+  preInit: function() {
+    var that = this,
+        responsive = this.item.data('app-accordion-responsive');
+
+    if ( typeof responsive === 'undefined' || responsive && matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+      that.init();
     }
 
-    $trigger.siblings('.accordion-navigation').find('.content')
-      .velocity('slideUp', {
-        duration: 500,
-        complete: function () {
-          $trigger.velocity("scroll", {
-            duration: 600,
-            offset: -100
-          });
-        }
+    return this;
+  },
+
+  init: function() {
+    var that = this;
+
+    that
+      .hideOnLoad()
+      .bindEvents();
+
+    return this;
+  },
+
+  hideOnLoad: function() {
+    var that        = this,
+        $activeLink = this.item.find(activeLink),
+        $target     = $( $activeLink.attr('href') ).find(content);
+
+    if ( $activeLink.length ) {
+      that.setActive($activeLink);
+
+      this.item.find(content)
+        .attr('aria-hidden', 'true')
+        .hide();
+
+      $target
+        .attr('aria-hidden', 'false')
+        .show();
+    }
+
+    return this;
+  },
+
+  setActive: function( $activeLink ) {
+    $(unactiveLink)
+      .attr({
+        'aria-selected': 'false',
+        'aria-expanded': 'false'
       });
 
-  });
+    $(link).removeClass('active');
+
+    $activeLink
+      .attr({
+        'aria-selected': 'true',
+        'aria-expanded': 'true'
+      })
+      .addClass('active');
+
+    return this;
+  },
+
+  bindEvents: function() {
+    var that = this;
+
+    // open on click or 'enter' key
+    $(link)
+      .off('click.accordion, keydown.accordion')
+      .on('click.accordion, keydown.accordion', function(e){
+        var $this = $(this);
+        e.preventDefault();
+
+        if ( !$this.hasClass('active') && e.type === 'click' || (e.type === 'keydown' && e.keyCode === 13) ) {
+          var $content = $( $this.attr('href') ).find(content);
+
+          that.setActive($this);
+
+          that.close();
+
+          $content
+            .attr('aria-hidden', 'false')
+            .velocity('slideDown', {
+              duration: 500,
+              complete: function () {
+                $this.velocity("scroll", {
+                  duration: 200,
+                  offset: -100,
+                  mobileHA: false
+                });
+              }
+            });
+        }
+
+      });
+
+    return this;
+  },
+
+  close: function() {
+    this.item.find(content).filter('[aria-hidden="false"]')
+      .attr('aria-hidden', 'true')
+      .velocity('slideUp', {
+        duration: 500
+      });
+
+    return this;
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+if ( $(trigger).length ) {
+
+  $.fn.appAccordion = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppAccordion');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppAccordion', new AppAccordion(this, opt));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appAccordion();
+
+}
 },{}],10:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37233,6 +37371,169 @@ function AjaxCtrl(settings) {
 App.AjaxController = new AjaxCtrl(ajaxPath);
 },{}],11:[function(require,module,exports){
 /* ============================ */
+/* ajax form : app-ajax-form.js */
+/* ============================ */
+
+'use strict';
+
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger   = "[data-ajax-form]",
+    response  = "[data-ajax-form-response]";
+
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppAjaxForm( el, opt, options ) {
+  this.settings = {};
+  this.settings = $.extend({}, defaults, options);
+  this.item = $(el);
+
+  this.init();
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppAjaxForm.prototype = {
+
+  init: function() {
+    var that = this;
+
+    this.item.on('ajaxForm', function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      that.ajaxCall( this );
+    });
+
+    return this;
+  },
+
+  ajaxCall: function() {
+    var that = this,
+        $target = this.item.find(response);
+
+    this.item.find('[type=submit]').addClass('ajax-wait');
+
+    var caller  = new App.AjaxController.Controller({
+          module:     "ajaxForm",
+          parent:     $target,
+          callback:   that.callback
+        });
+
+    if ( App.debug ) {
+      setTimeout(function(){
+        caller.send({
+          url:    that.url(),
+          data:   "",
+          error: function( xhr, status, error ){
+            that.errorCallback( xhr, status, error );
+          }
+        });
+      }, 2000);
+    } else {
+      caller.send({
+        url:    that.url(),
+        data:   "",
+        error: function( xhr, status, error ){
+          that.errorCallback( xhr, status, error );
+        }
+      });
+    }
+  },
+
+  url: function() {
+    return this.item.attr('action');
+  },
+
+  errorCallback: function( xhr, status, error ) {
+    this.displayMessage( error, 'error' );
+
+    return this;
+  },
+
+  callback: function( ctrl ) {
+    var $this = ctrl.datas.parent.closest(trigger),
+        settings = $this.data('appAjaxForm').settings;
+
+    var closePopin = function() {
+      $this.closest('.reveal-modal').foundation('reveal', 'close');
+      $this.data('appAjaxForm').resetForm();
+      clearTimeout(timeOut);
+    };
+
+    $this.data('appAjaxForm').displayMessage( ctrl.msg, 'success' );
+
+    if (settings.callback && settings.callback === 'close') {
+      var timeOut = setTimeout(function(){
+        closePopin();
+      }, 4000);
+    }
+  },
+
+  displayMessage: function( message, status ) {
+    this.item.find('[type=submit]').removeClass('ajax-wait');
+
+    if ( typeof status !== 'undefined' && status === 'error' ) {
+      this.item.addClass('status-nok');
+      this.item.find( response ).html( '<p>'+ message +'</p>' );
+    } else {
+      this.item.addClass('status-ok');
+      this.item.find( response ).html( message );
+    }
+  },
+
+  resetForm: function() {
+    this.item[0].reset();
+    this.item.removeClass('status-ok status-nok');
+    this.item.find( response ).empty();
+  }
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+if ( $(trigger).length ) {
+
+  $.fn.appAjaxForm = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('appAjaxForm');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('appAjaxForm', new AppAjaxForm( this, opt, $(this).data('ajax-form') ));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appAjaxForm();
+
+}
+},{}],12:[function(require,module,exports){
+/* ============================ */
 /* ajax link : app-ajax-link.js */
 /* ============================ */
 
@@ -37296,12 +37597,20 @@ root.url = function( el ) {
 
 
 root.init();
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
 /* ====================== */
 
 'use strict';
+
+// remove elements depending on breakpoints
+if ( Foundation.utils.is_small_only() ) {
+  $('.show-for-medium-up').remove();
+} else if ( Foundation.utils.is_medium_up() ) {
+  $('.show-for-small-only').remove();
+}
+
 
 // touch hack to prevent autoscroll on form elements focus (TABLET)
 if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
@@ -37328,15 +37637,31 @@ if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
 }
 
 
-// Foundation ABIDE validator
+// FORMS
 $(document).foundation({
-  abide : {
-    live_validate : true,
-    validate_on_blur : true,
-    timeout : 1000
+  "abide" : {
+    live_validate : false,
+    validate_on_blur : false,
+    focus_on_invalid : false,
+    error_labels: true,
+    timeout : 500,
+    patterns: {
+      number: /^[-+]?[1-9]\d*$/
+    }
   }
 });
-},{}],13:[function(require,module,exports){
+
+$('form[data-ajax-form]').on('submit', function(e){
+  e.preventDefault();
+});
+
+$('form[data-ajax-form]').on('valid.fndtn.abide', function() {
+  $(this).trigger('ajaxForm');
+});
+
+
+
+},{}],14:[function(require,module,exports){
 /* ========================== */
 /* dropdown : app-dropdown.js */
 /* ========================== */
@@ -37359,131 +37684,178 @@ var defaults = {};
 /* MODULE DEFINITION */
 /* ================= */
 
-function Dropdown(opts) {
+function AppDropdown( el, opts ) {
   this.settings = $.extend({}, defaults, opts);
-  return this.init();
+  this.item = $(el);
+
+  this.init();
 }
 
 /* ============== */
 /* MODULE METHODS */
 /* ============== */
 
-Dropdown.prototype.init = function() {
-  var scope = this,
-      $trigger = $(trigger);
+AppDropdown.prototype = {
 
-  $trigger.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
-    e.preventDefault();
-    scope.toggle( $(this) );
-  });
+  init: function() {
+    var that = this;
 
-  // close on page clicking
-  if ( Foundation.utils.is_medium_up() ) {
-    $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
-      var $content = $('.form-dropdown__content, [data-app-dropdown]');
+    this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
+      e.preventDefault();
+      that.toggle();
+    });
 
-      if ( $content.is(':visible') ) {
-        if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
-          scope.closeAll( $trigger );
+    // close on page clicking
+    if ( Foundation.utils.is_medium_up() ) {
+      $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
+        var $content = $('.form-dropdown__content, [data-app-dropdown]');
+
+        if ( $content.is(':visible') ) {
+          if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
+            that.closeAll( $(trigger) );
+          }
         }
-      }
-    }, 300, true));
-  }
-
-  return this;
-};
-
-Dropdown.prototype.toggle = function( $el ) {
-  var scope   = this,
-      closed  = ( $el.attr('aria-expanded') === "false" ) ? true : false,
-      ariaControls = $el.attr('aria-controls'),
-      $target = $( '#' + ariaControls ),
-      mode = $el.data('app-dropdown');
-
-  if ( closed ) {
-    if ( mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
-      scope
-        .closeAll( $('[data-app-dropdown="search"]') )
-        .open( $el, $target );
-      return this;
+      }, 300, true));
     }
 
-    scope.open( $el, $target );
-  } else {
-    scope.close( $el, $target );
-  }
+    return this;
+  },
 
-  return this;
-};
+  toggle: function() {
+    var closed  = ( this.item.attr('aria-expanded') === "false" ) ? true : false,
+        ariaControls = this.item.attr('aria-controls'),
+        $target = $( '#' + ariaControls ),
+        mode = this.item.data('app-dropdown');
 
-Dropdown.prototype.open = function( $el, $target ) {
-  var mode = $el.data('app-dropdown');
+    if ( closed ) {
+      if ( mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
+        this
+          .closeAll( $('[data-app-dropdown="search"]') )
+          .open( $target );
+        return this;
+      }
 
-  if ( mode === 'remove' ) {
-    $target.find('button').first().focus();
+      this.open( $target );
+    } else {
+      this.close( this.item, $target );
+    }
 
-    $el.velocity("slideUp", {
+    return this;
+  },
+
+  open: function( $target ) {
+    var that = this,
+        mode = this.item.data('app-dropdown');
+
+    if ( mode === 'remove' ) {
+      $target.find('button').first().focus();
+
+      this.item.velocity("slideUp", {
+          duration: 250,
+          complete: function(elements) {
+            $(elements).remove();
+          }
+        });
+
+    } else {
+      this.item.attr('aria-expanded', 'true');
+    }
+
+    $target.velocity("slideDown", {
         duration: 250,
-        complete: function(elements) {
-          $(elements).remove();
+        complete: function() {
+          that.item.velocity("scroll", { duration: 200, offset: -80 });
         }
-      });
+      })
+      .attr('aria-hidden', 'false');
 
-  } else {
-    $el.attr('aria-expanded', 'true');
-  }
+    return this;
+  },
 
-  $target.velocity("slideDown", {
-      duration: 250,
-      complete: function() {
-        $el.velocity("scroll", { duration: 200, offset: -80 });
+  close: function( $el, $target ) {
+    $el.attr('aria-expanded', 'false');
+    $target.velocity("slideUp", {
+        duration: 250
+      })
+      .attr('aria-hidden', 'true');
+
+    return this;
+  },
+
+  closeAll: function( $trigger ) {
+    var scope = this;
+
+    for ( var i=0, triggersLength=$trigger.length ; i<triggersLength ; i++ ) {
+      var $el = $($trigger[i]),
+          ariaControls = $el.attr('aria-controls'),
+          ariaExpanded = $el.attr('aria-expanded');
+
+      if ( ariaExpanded === "true" ) {
+        scope.close($el, $( '#' + ariaControls ));
       }
-    })
-    .attr('aria-hidden', 'false');
-
-  return this;
-};
-
-Dropdown.prototype.close = function( $el, $target ) {
-  $el.attr('aria-expanded', 'false');
-  $target.velocity("slideUp", {
-      duration: 250
-    })
-    .attr('aria-hidden', 'true');
-
-  return this;
-};
-
-Dropdown.prototype.closeAll = function( $trigger ) {
-  var scope = this;
-
-  for ( var i=0, triggersLength=$trigger.length ; i<triggersLength ; i++ ) {
-    var $el = $($trigger[i]),
-        ariaControls = $el.attr('aria-controls'),
-        ariaExpanded = $el.attr('aria-expanded');
-
-    if ( ariaExpanded === "true" ) {
-      scope.close($el, $( '#' + ariaControls ));
     }
+
+    return this;
   }
 
-  return this;
 };
+
 
 /* =============== */
 /* MODULE DATA-API */
 /* =============== */
 
 $(function() {
-  var opts = {};
-  App.dropdown = new Dropdown(opts);
 
-  // auto refresh Foundation after ajax response
-  App.updaters.dropdown = function() {
-    App.dropdown = new Dropdown(opts);
+  $.fn.appDropdown = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppDropdown');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppDropdown', new AppDropdown( this, opt) );
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
   };
+
+  $(trigger).appDropdown();
+
 });
-},{}],14:[function(require,module,exports){
+
+},{}],15:[function(require,module,exports){
+/* =================== */
+/* forms : app-form.js */
+/* =================== */
+
+'use strict';
+
+$(document).foundation({
+  "abide" : {
+    live_validate : false,
+    validate_on_blur : false,
+    focus_on_invalid : false,
+    error_labels: true,
+    timeout : 500,
+    patterns: {
+      number: /^[-+]?[1-9]\d*$/
+    }
+  }
+});
+
+$('form[data-ajax-form]').on('submit', function(e){
+  e.preventDefault();
+});
+
+$('form[data-ajax-form]').on('valid.fndtn.abide', function() {
+  $(this).trigger('ajaxForm');
+});
+},{}],16:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
 /* ================== */
@@ -37580,7 +37952,28 @@ $(function() {
     App.gmaps = new Gmaps(opts);
   };
 });
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
+/* ====================================== */
+/* iframes : app-iframes.js */
+/* ====================================== */
+
+'use strict';
+
+var trigger = 'iframe[data-src]:visible';
+
+App.appIframes = function( el ) {
+  var $el = $(el);
+
+  for ( var i=0, iframeLength=$el.length; i<iframeLength; i++ ) {
+    var $iframe = $($el[i]),
+        src = $iframe.data('src');
+
+    $iframe.attr('src', src);
+  }
+};
+
+App.appIframes( trigger );
+},{}],18:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
 /* ========================== */
@@ -37662,7 +38055,7 @@ Link2map.prototype.init = function() {
       targetURL = 'bingmaps:?where=';
     }
 
-    self.location.href = targetURL + place;
+    window.self.location.href = targetURL + place;
   });
 
   return this;
@@ -37685,7 +38078,7 @@ $(function() {
   }
 
 });
-},{}],16:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /* ============================= */
 /* off canvas : app-offcanvas.js */
 /* ============================= */
@@ -37697,6 +38090,14 @@ var trigger = '.menu-btn, .site-overlay',
 
 var $html = $('html');
 
+var allowScroll = function() {
+  $(document).on('touchmove.scroll', function (e) {
+    if ( !$(e.target).hasClass('scrollable').length ) {
+      e.preventDefault();
+    }
+  });
+};
+
 $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
   $html.toggleClass('offCanvas--opened');
   $('.menu-btn').toggleClass('is-active');
@@ -37707,17 +38108,7 @@ $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
     $(document).off('touchmove.scroll');
   }
 });
-
-var allowScroll = function() {
-  $(document).on('touchmove.scroll', function (e) {
-    if ( !$(e.target).hasClass('scrollable').length ) {
-      e.preventDefault();
-    }
-  });
-};
-
-
-},{}],17:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -37725,7 +38116,7 @@ var allowScroll = function() {
 'use strict';
 
 // init Foundation Reveal
-var reveal = function() {
+App.reveal = function() {
 
   $(document).foundation({
     "reveal": {
@@ -37736,30 +38127,82 @@ var reveal = function() {
       multiple_opened: false,
       root_element: 'body'
     }
-  });
+  }).foundation('reveal', 'reflow');
 
 };
+
+var $siteWrapper = $('.main-wrapper');
 
 $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
   var $modal = $(this),
       iframes = $modal.find('iframe[data-src]');
 
-  for ( var i=0, iframeLength=iframes.length; i<iframeLength; i++ ) {
-    var $iframe = $(iframes[i]),
-        src = $iframe.data('src');
+  // init iframes into popin
+  App.appIframes( iframes );
 
-    $iframe.attr('src', src);
+  // prevent page scrolling on mobile
+  var offsetY = window.pageYOffset;
+  if ( Modernizr.touch ) {
+    $('body, html').addClass('no-scroll');
+    $siteWrapper.css({
+      'position': 'fixed',
+      'top': '-' +offsetY + 'px'
+    });
+  } else {
+    $('body').addClass('no-scroll');
   }
 });
 
 
-reveal();
+$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+  var $modal = $(this);
+
+  if ( $modal.find('.reveal-modal__wrapper').length <= 0 ) {
+    $modal
+      .prepend( '<button class="close-reveal-modal icon icon-close"></button>' )
+      .children()
+        .wrapAll('<div class="reveal-modal__wrapper"></div>');
+  }
+
+
+  // init select plugin
+  App.appComboSelect();
+});
+
+
+$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+  var $modal = $(this);
+
+  if ( Modernizr.touch ) {
+    $('body, html').removeClass('no-scroll');
+    var scrollPosition = Math.abs( $siteWrapper.position().top );
+    $siteWrapper.css({
+      'position': 'static'
+    });
+    $(window).scrollTop(scrollPosition);
+
+  } else {
+    $('body').removeClass('no-scroll');
+  }
+
+  // in case of Drupal Form
+  if ( $modal.is('[data-drupal-form]') ) {
+    $modal.empty();
+  }
+
+  // in case of front ajax forms
+  if ( $modal.find('form[data-ajax-form]').length ) {
+    $modal.find('form[data-ajax-form]').data('appAjaxForm').resetForm();
+  }
+});
+
+App.reveal();
 
 // auto refresh Foundation after ajax response
 App.updaters.foundation = function() {
-  reveal();
+  App.reveal();
 };
-},{}],18:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -37776,20 +38219,25 @@ var openMore = function() {
     .attr("aria-hidden", "true");
 };
 
-var abideInit = function() {
-  $(document).foundation({
-    abide : {
-      live_validate : false,
-      validate_on_blur : false,
-      focus_on_invalid : true,
-      error_labels: true,
-      timeout : 500
+var typeNumber = function() {
+  // Because firefox allow alphabetic input...
+  var $input = $('input[type=number]'),
+      regex = /[0-9]|\./;
+
+  $input.off('keypress.inputNumber').on('keypress.inputNumber', function(e){
+    var key = e.keyCode || e.which;
+    key = String.fromCharCode( key );
+
+    if( !regex.test(key) ) {
+      e.preventDefault();
     }
-  }).foundation('abide', 'reflow');
+  });
 };
 
 var searchInit = function() {
   var $root = $('.searchFormular');
+
+  typeNumber();
 
   if (!$root.length) {
     return;
@@ -37801,12 +38249,10 @@ var searchInit = function() {
       e.preventDefault();
       openMore();
     });
-
-  abideInit();
 };
 
 searchInit();
-},{}],19:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -37815,22 +38261,26 @@ searchInit();
 
 var trigger = 'select[data-app-select]';
 
-$(trigger).comboSelect({
-  comboClass         : 'combo-select', /* outer container class */
-  comboArrowClass    : 'combo-select-arrow', /* arrow class */
-  comboDropDownClass : 'combo-dropdown', /* dropdown class */
-  inputClass         : 'combobox-input text-input', /* Input element class */
-  disabledClass      : 'option-disabled', /* Disabled class */
-  hoverClass         : 'option-hover', /* dropdown list hover class */
-  selectedClass      : 'option-selected', /* dropdown list selected class */
-  markerClass        : 'combo-marker', /* Search marker class */
-  maxHeight          : 200, /* Max height of dropdown */
-  themeClass         : '', /* Theme using external classes */
-  extendStyle        : true, /* Copy all inline styles from original select */
-  focusInput         : false,
-  filter             : false
-});
-},{}],20:[function(require,module,exports){
+App.appComboSelect = function() {
+  $(trigger).comboSelect({
+    comboClass         : 'combo-select', /* outer container class */
+    comboArrowClass    : 'combo-select-arrow', /* arrow class */
+    comboDropDownClass : 'combo-dropdown', /* dropdown class */
+    inputClass         : 'combobox-input text-input', /* Input element class */
+    disabledClass      : 'option-disabled', /* Disabled class */
+    hoverClass         : 'option-hover', /* dropdown list hover class */
+    selectedClass      : 'option-selected', /* dropdown list selected class */
+    markerClass        : 'combo-marker', /* Search marker class */
+    maxHeight          : 200, /* Max height of dropdown */
+    themeClass         : '', /* Theme using external classes */
+    extendStyle        : true, /* Copy all inline styles from original select */
+    focusInput         : false,
+    filter             : false
+  });
+};
+
+App.appComboSelect();
+},{}],23:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -37841,7 +38291,9 @@ $(trigger).comboSelect({
 /* MODULE TRIGGER */
 /* ============== */
 
-var trigger = '[data-slick]';
+var trigger = '[data-slick]',
+    nav     = '[data-slick-nav]',
+    link    = '[data-slick-links]';
 
 
 /* =============== */
@@ -37865,12 +38317,56 @@ var defaultsMedium = {
 };
 
 
+// link to specific slide
+var setActiveLinks = function($link) {
+  $link.closest(nav).find(link)
+    .attr({
+      'aria-selected': 'false'
+    })
+    .removeClass('active');
+
+  $link
+    .attr({
+      'aria-selected': 'true'
+    })
+    .addClass('active');
+};
+
+var initLinks = function() {
+  var $links = $(link);
+
+  if ( $links ) {
+
+    setActiveLinks( $links.filter('.active') );
+
+    $links.off('click.slickLink').on('click.slickLink', function(e) {
+      e.preventDefault();
+
+      var $this = $(this),
+          $anchor = $( $this.attr('href') ),
+          $slider = $anchor.closest('.slick-slider');
+
+      if ( !$this.hasClass('active') ) {
+        setActiveLinks( $this );
+
+        $slider.slick( 'slickGoTo', $anchor.index() );
+      }
+    });
+  }
+};
+
+
 /* ================= */
 /* MODULE DEFINITION */
 /* ================= */
 
-function AppSlick( el, options ) {
+function AppSlick( el, opt, options ) {
   this.settings = {};
+
+  // remove .unwrap container (can be usefull in some responsive-DA-weirdness)
+  if ( $(trigger).find('.unwrap').length && Foundation.utils.is_small_only() ) {
+    $(trigger).find('.unwrap > *').unwrap();
+  }
 
   if ( Foundation.utils.is_medium_up() ) {
     this.settings = $.extend({}, defaults, defaultsMedium, options);
@@ -37878,7 +38374,8 @@ function AppSlick( el, options ) {
     this.settings = $.extend({}, defaults);
   }
 
-  return this.init( el );
+  this.item = $(el);
+  this.init();
 }
 
 
@@ -37886,38 +38383,55 @@ function AppSlick( el, options ) {
 /* MODULE METHODS */
 /* ============== */
 
-// init slick
-AppSlick.prototype.init = function( el ) {
-  var that = this,
-      $el = $(el);
+AppSlick.prototype = {
 
-  that.unslick( $el );
+  init: function() {
+    var that = this;
 
-  // only active if breakpoint match data-slick-responsive
-  if ( $el.data('slick-responsive') ) {
-    var responsive = $el.attr('data-slick-responsive');
+    that.unslick();
 
-    if ( matchMedia(Foundation.media_queries[ responsive ]).matches ) {
-      $el.slick(that.settings);
+    // only active if breakpoint match data-slick-responsive
+    if ( this.item.data('slick-responsive') ) {
+      var responsive = this.item.data('slick-responsive');
+
+      if ( matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+        this.item.slick(that.settings);
+      }
+    } else {
+      this.item.slick(that.settings);
     }
-  } else {
-    $el.slick(that.settings);
+
+    initLinks(this.item);
+
+    that.bindEvents();
+
+    return this;
+  },
+
+  bindEvents: function() {
+    var that = this;
+
+    this.item.on('afterChange', function(event, slick, currentSlide, nextSlide){
+      var activeSlide = $(this).find('.slick-active').attr('id');
+
+      setActiveLinks( $('[href="#'+ activeSlide +'"]') );
+    });
+
+    return this;
+  },
+
+  checkInit: function() {
+    return this.item.hasClass('slick-initialized');
+  },
+
+  unslick: function() {
+    var that = this;
+
+    if ( that.checkInit() ) {
+      this.item.slick('unslick');
+    }
   }
-};
 
-
-// check if slick is initialized
-AppSlick.prototype.checkInit = function( $el ) {
-  return $el.hasClass('slick-initialized');
-};
-
-// RIP slick
-AppSlick.prototype.unslick = function( $el ) {
-  var that = this;
-
-  if ( that.checkInit( $el ) ) {
-    $el.slick('unslick');
-  }
 };
 
 
@@ -37927,10 +38441,20 @@ AppSlick.prototype.unslick = function( $el ) {
 
 if ( $(trigger).length ) {
 
-  $.fn.appSlick = function() {
-    return this.each(function () {
-      var $this = $(this);
-      $this.data('appSlick', new AppSlick( this, $this.data('slick') ));
+  $.fn.appSlick = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('appSlick');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
     });
   };
 
@@ -37939,17 +38463,7 @@ if ( $(trigger).length ) {
 }
 
 
-/*$(window).on('resize', Foundation.utils.throttle(function(){
-  $(trigger).appSlick();
-}, 500));*/
-
-/*
-// auto refresh Foundation after ajax response
-App.updaters.slick = function() {
-  $(trigger).appSlick();
-};*/
-
-},{}],21:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -37962,6 +38476,7 @@ App.updaters.slick = function() {
 // Expose plugin as an AMD module if AMD loader is present:
 (function (factory) {
   'use strict';
+  var define = (typeof define === 'function') ? define : "";
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module.
     define(['jquery'], factory);
@@ -37991,7 +38506,6 @@ App.updaters.slick = function() {
       themeClass         : '',
       maxHeight          : 200,
       extendStyle        : true,
-      focusInput         : true,
       focusInput         : true,
       filter             : false
   };
@@ -38583,7 +39097,7 @@ App.updaters.slick = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],22:[function(require,module,exports){
+},{"jquery":5}],25:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -38643,11 +39157,14 @@ var accordion           = require("./app-accordion.js");
 var appOffCanvas        = require("./app-offcanvas.js");
 var appAjaxCtrl         = require("./app-ajax-controller.js");
 var appAlaxLink         = require("./app-ajax-link.js");
+var appForms            = require("./app-forms.js");
+var appAlaxForm         = require("./app-ajax-form.js");
 var appSlick            = require("./app-slick.js");
 var appSelect           = require("./app-select.js");
 var appDropdown         = require("./app-dropdown.js");
 var appSearchFormular   = require("./app-searchFormular.js");
 var appLink2map         = require("./app-link2map.js");
+var appIframes          = require("./app-iframes.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -38658,4 +39175,4 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":9,"./app-ajax-controller.js":10,"./app-ajax-link.js":11,"./app-common.js":12,"./app-dropdown.js":13,"./app-gmaps.js":14,"./app-link2map.js":15,"./app-offcanvas.js":16,"./app-reveal.js":17,"./app-searchFormular.js":18,"./app-select.js":19,"./app-slick.js":20,"./combo-select.js":21,"foundation":2,"gmaps":4,"jquery":5,"lodash":6,"slick-carousel":7,"velocity-animate":8}]},{},[22]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":9,"./app-ajax-controller.js":10,"./app-ajax-form.js":11,"./app-ajax-link.js":12,"./app-common.js":13,"./app-dropdown.js":14,"./app-forms.js":15,"./app-gmaps.js":16,"./app-iframes.js":17,"./app-link2map.js":18,"./app-offcanvas.js":19,"./app-reveal.js":20,"./app-searchFormular.js":21,"./app-select.js":22,"./app-slick.js":23,"./combo-select.js":24,"foundation":2,"gmaps":4,"jquery":5,"lodash":6,"slick-carousel":7,"velocity-animate":8}]},{},[25]);

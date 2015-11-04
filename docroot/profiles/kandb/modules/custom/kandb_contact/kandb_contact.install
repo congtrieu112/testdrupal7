@@ -1,1 +1,37 @@
 <?php
+
+/**
+ * Add contact settings variables
+ */
+function kandb_contact_update_7105(){
+  // Load the files contents
+  $image = file_get_contents(drupal_get_path('module', 'kandb_contact') . '/images/contactUs.jpg');
+
+  // Returns the new file object
+  $file = file_save_data(
+    $image,
+    'public://contactUs.jpg',
+    FILE_EXISTS_RENAME
+  );
+
+  variable_set('kandb_contact_photo', $file->fid);
+  variable_set('kandb_contact_title', 'Nous pouvons vous aider à concrétiser votre projet immobilier');
+  variable_set('kandb_contact_sub_title', 'D’autres consommateurs se posent les même questions que vous');
+  variable_set('kandb_contact_faq_text', 'Consulter notre FAQ');
+  variable_set('kandb_contact_faq_link', '/faq');
+  variable_set('kandb_contact_numero_text', 'N° vert');
+  variable_set('kandb_contact_numero_vert', ' 0 800 544 000');
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function kandb_contact_unistall(){
+  variable_del('kandb_contact_photo');
+  variable_del('kandb_contact_title');
+  variable_del('kandb_contact_sub_title');
+  variable_del('kandb_contact_faq_text');
+  variable_del('kandb_contact_faq_link');
+  variable_del('kandb_contact_numero_text');
+  variable_del('kandb_contact_numero_vert');
+}
