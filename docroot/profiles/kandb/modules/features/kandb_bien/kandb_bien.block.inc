@@ -30,7 +30,7 @@ function _get_block_data($delta, &$block) {
     if($delta == 'appartements_disponibles'){
         if(arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
             $nids = array();
-            $block['subject'] = 'Appartements de 3 pièces disponibles';
+            $block['subject'] = 'Appartements disponibles';
             $block['content'] = '';
             $current_bien_id = arg(1);
             $least_most_expensive = array();

@@ -177,57 +177,5 @@ function kandb_bien_ds_layout_settings_info() {
   );
   $export['node|bien|full'] = $ds_layout;
 
-  $ds_layout = new stdClass();
-  $ds_layout->api_version = 1;
-  $ds_layout->id = 'node|programme|teaser_on_bien';
-  $ds_layout->entity_type = 'node';
-  $ds_layout->bundle = 'programme';
-  $ds_layout->view_mode = 'teaser_on_bien';
-  $ds_layout->layout = 'ds_1col';
-  $ds_layout->settings = array(
-    'regions' => array(
-      'ds_content' => array(
-        0 => 'field_image_principale',
-        1 => 'field_programme_room_min',
-        2 => 'field_programme_room_max',
-        3 => 'field_programme_price_min',
-      ),
-    ),
-    'fields' => array(
-      'field_image_principale' => 'ds_content',
-      'field_programme_room_min' => 'ds_content',
-      'field_programme_room_max' => 'ds_content',
-      'field_programme_price_min' => 'ds_content',
-    ),
-    'classes' => array(),
-    'wrappers' => array(
-      'ds_content' => 'div',
-    ),
-    'layout_wrapper' => 'div',
-    'layout_attributes' => '',
-    'layout_attributes_merge' => 1,
-    'layout_link_attribute' => '',
-    'layout_link_custom' => '',
-  );
-  $export['node|programme|teaser_on_bien'] = $ds_layout;
-
-  return $export;
-}
-
-/**
- * Implements hook_ds_view_modes_info().
- */
-function kandb_bien_ds_view_modes_info() {
-  $export = array();
-
-  $ds_view_mode = new stdClass();
-  $ds_view_mode->api_version = 1;
-  $ds_view_mode->view_mode = 'teaser_on_bien';
-  $ds_view_mode->label = 'Teaser on Bien';
-  $ds_view_mode->entities = array(
-    'node' => 'node',
-  );
-  $export['teaser_on_bien'] = $ds_view_mode;
-
   return $export;
 }
