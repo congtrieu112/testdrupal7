@@ -5,8 +5,8 @@
  */
 function kandb_habiteo_menu() {
   $items = array();
-  $items['admin/habiteo-settings'] = array(
-    'title' => 'Habiteo setting page',
+  $items['admin/config/habiteo'] = array(
+    'title' => 'Habiteo',
     'description' => 'Habiteo webservice',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('habiteo_page_settings_form'),
@@ -227,5 +227,64 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
     }
   } else {
     watchdog('kandb_habiteo', 'Logs: <pre>id_bien: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+  }
+}
+
+function kandb_habiteo_cronapi($op, $job = NULL) {
+  $items['import_habiteo_bien'] = array(
+    'description' => 'Import habiteo bien feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kandb_habiteo_import_bien',
+    'arguments' => array('lots'),
+  );
+
+  $items['import_habiteo_programme'] = array(
+    'description' => 'Import habiteo programme feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kandb_habiteo_import_programme',
+  );
+
+
+  return $items;
+}
+
+/**
+ * Import bien_habiteo_id into bien CT.
+ */
+function kandb_habiteo_import_bien($id_lots) {
+
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+  $params = drupal_get_query_parameters();
+  if ($habiteo_feed_url && $habiteo_feed_token) {
+    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?ID=' . $id_lots;
+    $request = drupal_http_request($path);
+    if (isset($request->data)) {
+      $imports = json_decode($request->data);
+      if ($imports) {
+        foreach ($imports as $item) {
+          kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+        }
+      }
+    }
+  }
+}
+
+
+/**
+ * Import programme_habiteo_id into programmes CT.
+ */
+function kandb_habiteo_import_programme() {
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+  if ($habiteo_feed_url && $habiteo_feed_token) {
+    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
+    $request = drupal_http_request($path);
+    if ($request->data) {
+      $imports = json_decode($request->data);
+      foreach ($imports as $item) {
+        kandb_habiteo_update_programe($item->id_partenaire, $item->id);
+      }
+    }
   }
 }
