@@ -72,22 +72,18 @@ function kandb_article_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_article_image',
     'indexes' => array(
-      'tid' => array(
-        0 => 'tid',
+      'fid' => array(
+        0 => 'fid',
       ),
     ),
     'locked' => 0,
-    'module' => 'taxonomy',
+    'module' => 'image',
     'settings' => array(
-      'allowed_values' => array(
-        0 => array(
-          'vocabulary' => 'status_logement',
-          'parent' => 0,
-        ),
-      ),
+      'default_image' => 0,
+      'uri_scheme' => 'public',
     ),
     'translatable' => 0,
-    'type' => 'taxonomy_term_reference',
+    'type' => 'image',
   );
 
   // Exported field_base: 'field_article_resume'

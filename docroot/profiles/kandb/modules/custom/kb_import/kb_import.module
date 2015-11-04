@@ -38,9 +38,9 @@ function action_delete_nodes() {
  */
 function kb_import_cronapi($op, $job = NULL) {
 //  City import
-  $items['fetch_city_feed_import_6am'] = array(
-    'description' => 'Fetch city feed 6am',
-    'rule' => '0 6 * * 1-5',
+  $items['fetch_city_feed_import_3am'] = array(
+    'description' => 'Fetch city feed 3am',
+    'rule' => '0 3 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('city_feed_import'))
   );
@@ -52,9 +52,9 @@ function kb_import_cronapi($op, $job = NULL) {
     'arguments' => array(array('city_feed_import'))
   );
 //  District import
-  $items['fetch_district_feed_import_6am'] = array(
-    'description' => 'Fetch district feed 6am',
-    'rule' => '0 6 * * 1-5',
+  $items['fetch_district_feed_import_3am'] = array(
+    'description' => 'Fetch district feed 3am',
+    'rule' => '0 3 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('district_feed_import'))
   );
@@ -66,9 +66,9 @@ function kb_import_cronapi($op, $job = NULL) {
     'arguments' => array(array('district_feed_import'))
   );
 //  Maison import
-  $items['fetch_maison_feed_import_6am'] = array(
-    'description' => 'Fetch maison feed 6am',
-    'rule' => '0 6 * * 1-5',
+  $items['fetch_maison_feed_import_3am'] = array(
+    'description' => 'Fetch maison feed 3am',
+    'rule' => '0 3 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('maison_feed_import'))
   );
@@ -80,9 +80,9 @@ function kb_import_cronapi($op, $job = NULL) {
     'arguments' => array(array('maison_feed_import'))
   );
 //  Programme import
-  $items['fetch_programme_feed_import_6am'] = array(
-    'description' => 'Fetch programme feed 6am',
-    'rule' => '0 6 * * 1-5',
+  $items['fetch_programme_feed_import_3am'] = array(
+    'description' => 'Fetch programme feed 3am',
+    'rule' => '0 3 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('programme_feed_import'))
   );
@@ -94,9 +94,9 @@ function kb_import_cronapi($op, $job = NULL) {
     'arguments' => array(array('programme_feed_import'))
   );
 // Parcel import
-  $items['fetch_parcel_feed_import_6am'] = array(
-    'description' => 'Fetch parcel feed 6am',
-    'rule' => '0 6 * * 1-5',
+  $items['fetch_parcel_feed_import_3am'] = array(
+    'description' => 'Fetch parcel feed 3am',
+    'rule' => '0 3 * * 1-5',
     'callback' => 'kb_import_fetch_import_cron' ,
     'arguments' => array(array('parcel_feed_import'))
   );
