@@ -1,5 +1,4 @@
-name = K&B Business Rules
+name = K&B set alias article of Dossier
 core = 7.x
-description = Set rules that change the content.
+description = set alias article of Dossier
 package = K&B Development
-
