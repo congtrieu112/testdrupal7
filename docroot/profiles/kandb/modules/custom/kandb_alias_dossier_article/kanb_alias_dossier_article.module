@@ -1,0 +1,111 @@
+<?php
+/**
+ * hook formsubmit dossier form
+ * @param array $form
+ * @param type $form_state
+ */
+function kandb_form_dossier_node_form_alter(&$form, &$form_state) {
+  $form['#submit'][] = 'kandb_set_alias_submit';
+}
+/**
+ * acion submit
+ * @param type $form
+ * @param type $form_state
+ * @return type
+ */
+function kandb_set_alias_submit($form, &$form_state) {
+  //path dossier 
+  $old_path_dossier = $form['additional_settings']['group']['#groups']['additional_settings'][4]['alias']['#default_value'];
+  $path_dossier = $form['additional_settings']['group']['#groups']['additional_settings'][4]['alias']['#value'];
+  if (!$path_dossier || !$old_path_dossier) {
+    return;
+  }
+  //set alias for block 1
+  if (isset($form['field_articles_block1_ref']['und']) && count($form['field_articles_block1_ref']['und'])) {
+    $array_article = $form['field_articles_block1_ref']['und'];
+    foreach ($array_article as $index => $article) {
+      // if numeric --> is article id
+      if (is_numeric($index)) {
+        if (isset($article['target_id']['#entity']->field_articles_block1_ref['und'][$index]['target_id']))
+          $id_article = $article['target_id']['#entity']->field_articles_block1_ref['und'][$index]['target_id'];
+        if ($id_article) {
+          kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article);
+        }
+      }
+    }
+  }
+
+
+
+
+  //set alias for block 2
+  if (isset($form['field_articles_block2_ref']['und']) && count($form['field_articles_block2_ref']['und'])) {
+    $array_article = $form['field_articles_block2_ref']['und'];
+    foreach ($array_article as $index => $article) {
+      // if numeric --> is article id
+      if (is_numeric($index)) {
+        if (isset($article['target_id']['#entity']->field_articles_block2_ref['und'][$index]['target_id']))
+          $id_article = $article['target_id']['#entity']->field_articles_block2_ref['und'][$index]['target_id'];
+        if ($id_article) {
+          kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article);
+        }
+      }
+    }
+  }
+
+  //set alias for block 3
+  if (isset($form['field_articles_block3_ref']['und']) && count($form['field_articles_block3_ref']['und'])) {
+    $array_article = $form['field_articles_block3_ref']['und'];
+    foreach ($array_article as $index => $article) {
+      // if numeric --> is article id
+      if (is_numeric($index)) {
+        if (isset($article['target_id']['#entity']->field_articles_block3_ref['und'][$index]['target_id']))
+          $id_article = $article['target_id']['#entity']->field_articles_block3_ref['und'][$index]['target_id'];
+        if ($id_article) {
+          kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article);
+        }
+      }
+    }
+  }
+}
+
+/**
+ * function check and set alias
+ * @param type $path_dossier
+ * @param type $old_path_dossier
+ * @param type $id_article
+ */
+// set alias for each article with doessier title
+function kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article) {
+  // get alias of this id article
+  $query = db_select('url_alias', 'n')
+      ->fields('n', array('alias'))
+      ->condition('source', 'node/' . $id_article);
+  $alias = $query->execute()->fetchCol();
+  if (count($alias)) {
+    $new_alias = $path_dossier . '/';
+    $old_alias = $old_path_dossier . '/';
+    $alias = explode("/", $alias[0]);
+    $path_article = $alias[1];
+    $new_alias .= $path_article;
+    $old_alias .= $path_article;
+    //check if it has old alias, so we delete the old alias
+    if (strcmp($new_alias, $old_alias)) {
+      $query = db_select('url_alias', 'n')
+          ->fields('n', array('pid'))
+          ->condition('alias', $old_alias);
+      $exist_old_alias = $query->execute()->fetchCol();
+      if (count($exist_old_alias))
+        path_delete($exist_old_alias[0]);
+    }
+    //check if exists this new alias
+    $query = db_select('url_alias', 'n')
+        ->fields('n', array('alias'))
+        ->condition('alias', $new_alias);
+    $exist_alias = $query->execute()->fetchCol();
+    if (!count($exist_alias)) {
+      $path = array('source' => "node/$id_article", 'alias' => $new_alias);
+      path_save($path);
+    }
+  }
+}
