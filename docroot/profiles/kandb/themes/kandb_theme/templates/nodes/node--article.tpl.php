@@ -160,21 +160,8 @@ if (isset($node->field_article_article_ref[LANGUAGE_NONE][0])) {
 <!-- [advice More Article] end-->
 
 <!-- [contactUs generic] start-->
-<aside class="contactUs section-padding contactUs-generic">
-    <div style="background-image: url(contactUs.jpg)" class="contactUs__img show-for-medium-up"></div>
-    <div class="wrapper">
-        <div class="contactUs__informations">
-            <div class="small-wrapper">
-                <p class="contactUs__informations__heading">Nous pouvons vous aider à concrétiser votre projet immobilier</p>
-                <p class="contactUs__informations__text">D’autres consommateurs se posent les même questions que vous</p>
-                <div class="contactUs__informations__cta">
-                    <a href="tel://0800544000" class="btn-phone-green">
-                        <span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
-                    <a href="#" class="btn-white">Consulter notre FAQ<span class="icon icon-arrow"></span></a>
-                </div>
-            </div>
-        </div>
-        <div class="contactUs__cta"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-primary btn-rounded">Rappelez moi</a><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-secondary btn-rounded">Prendre rendez-vous</a></div>
-    </div>
-</aside>
+<?php
+$path_module_contact = drupal_get_path('module', 'kandb_contact') .'/templates/contact_block_page.tpl.php';
+include $path_module_contact;
+?>
 <!-- [contactUs generic] end-->
