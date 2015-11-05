@@ -3,21 +3,21 @@ $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 //get link file Plaquette commerciale
 $file_plaquette_commerciale = '';
 if (isset($content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'])) {
-$file_plaquette_commerciale = $content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'];
+  $file_plaquette_commerciale = $content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'];
 }
 //get link file fiche reseignement
 $file_fiche_renseignement = '';
 if (isset($content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'])) {
-$file_fiche_renseignement = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
+  $file_fiche_renseignement = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
 }
 //get link file Kit fiscal
 $file_kit_fiscal = '';
 if (isset($content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'])) {
-$file_kit_fiscal = $content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'];
+  $file_kit_fiscal = $content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'];
 }//get link file Plan du bâtiment
 $file_plan_batiment = '';
 if (isset($content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'])) {
-$file_plan_batiment = $content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'];
+  $file_plan_batiment = $content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'];
 }
 //get link zip file
 $addMore = '_';
@@ -29,14 +29,20 @@ $path = file_create_url('public://');
 $real_path = drupal_realpath('public://');
 $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
 if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
-$filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
-$linkfile = $path . 'Programme/archive/' . $nid . '/' . $fileName;
-if ($filePath) {
-if (file_exists($filePath)) {
-$link_to_zip = $linkfile;
+  $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+  $linkfile = $path . 'Programme/archive/' . $nid . '/' . $fileName;
+  if ($filePath) {
+    if (file_exists($filePath)) {
+      $link_to_zip = $linkfile;
+    }
+  }
 }
-}
-}
+
+// Habitel widget
+$habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';
+$habiteo_key = variable_get('habiteo_widget_security_key');
+$habiteo_video_de_quartier_url = variable_get('habiteo_video-de-quartier_url');
+$habiteo_vue_generale_url = variable_get('habiteo_vue-generale_url');
 ?>
 <!-- [programParcel] start-->
 <section class="section-padding bg-lightGrey">
@@ -172,16 +178,18 @@ $link_to_zip = $linkfile;
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title">Un arrondissement</h2>
-            <p class="heading__title heading__title--sub">à l’image des familles</p>
+            <h2 class="heading__title"><?php print t('Un arrondissement'); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print t('à l’image des familles'); ?></p>
         </header>
     </div>
     <div class="swapItem">
         <div class="swapItem__2">
             <div class="wrapper--medium-up">
-                <div class="iframe iframe--video-de-quartier">
-                    <iframe src="" data-src="http://widgets.habiteo.com/video-de-quartier?id=2G90uqxgE640JojGXGTdL1&amp;key=5lxfgCv4mKCknnPCWEsIYl" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-                </div>
+                <?php if ($habiteo_id): ?>
+                  <div class="iframe iframe--video-de-quartier">
+                      <iframe src="" data-src="<?php print $habiteo_video_de_quartier_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+                  </div>
+                <?php endif; ?>
             </div>
         </div>
         <div class="swapItem__1">
@@ -307,11 +315,13 @@ $link_to_zip = $linkfile;
 <section class="section-padding show-for-medium-up">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title">Découvrez la modélisation 3D</h2>
+            <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
         </header>
-        <div class="iframe iframe--vue-generale">
-            <iframe src="" data-src="http://widgets.habiteo.com/vue-generale?id=2G90uqxgE640JojGXGTdL1&amp;key=5lxfgCv4mKCknnPCWEsIYl" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-        </div>
+        <?php if ($habiteo_id): ?>
+          <div class="iframe iframe--vue-generale">
+              <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+          </div>
+        <?php endif; ?>
         <div class="content-centered">
             <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
         </div>
@@ -330,43 +340,43 @@ $link_to_zip = $linkfile;
                     <h2 class="heading__title">Documents <br>téléchargeables</h2>
                 </header>
                 <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>">
-                    <button <?php if (!isset($link_to_zip) ||!$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded hide-for-small-only">
+                    <button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded hide-for-small-only">
                         Tout télécharger (.zip)</button></a>
             </div>
             <div class="programDocumentDownload__items">
                 <ul class="row">
-                    <?php if($file_plaquette_commerciale): ?>
-                    <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_plaquette_commerciale) ?>" <?php if (!$file_plaquette_commerciale) print $nocontent; ?> ><span class="icon icon-flyer"></span>
-                            <div class="heading heading--small">
-                                <div class="heading__title">Plaquette commerciale</div>
-                            </div></a>
-                    </li>
+                    <?php if ($file_plaquette_commerciale): ?>
+                      <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_plaquette_commerciale) ?>" <?php if (!$file_plaquette_commerciale) print $nocontent; ?> ><span class="icon icon-flyer"></span>
+                              <div class="heading heading--small">
+                                  <div class="heading__title">Plaquette commerciale</div>
+                              </div></a>
+                      </li>
                     <?php endif; ?>
-                    <?php if($file_fiche_renseignement): ?>
-                    <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_fiche_renseignement) ?>" <?php if (!$file_fiche_renseignement) print $nocontent; ?>><span class="icon icon-file"></span>
-                            <div class="heading heading--small">
-                                <div class="heading__title">Kit juridique</div>
-                            </div></a>
-                    </li>
+                    <?php if ($file_fiche_renseignement): ?>
+                      <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_fiche_renseignement) ?>" <?php if (!$file_fiche_renseignement) print $nocontent; ?>><span class="icon icon-file"></span>
+                              <div class="heading heading--small">
+                                  <div class="heading__title">Kit juridique</div>
+                              </div></a>
+                      </li>
                     <?php endif; ?>
-                    <?php if($file_kit_fiscal): ?>
-                    <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_kit_fiscal) ?>" <?php if (!$file_kit_fiscal) print $nocontent; ?>><span class="icon icon-calculator"></span>
-                            <div class="heading heading--small">
-                                <div class="heading__title">Kit fiscal</div>
-                            </div></a>
-                    </li>
+                    <?php if ($file_kit_fiscal): ?>
+                      <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_kit_fiscal) ?>" <?php if (!$file_kit_fiscal) print $nocontent; ?>><span class="icon icon-calculator"></span>
+                              <div class="heading heading--small">
+                                  <div class="heading__title">Kit fiscal</div>
+                              </div></a>
+                      </li>
                     <?php endif; ?>
-                    <?php if($file_plan_batiment): ?>
-                    <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_plan_batiment) ?>" <?php if (!$file_plan_batiment) print $nocontent; ?>><span class="icon icon-plan"></span>
-                            <div class="heading heading--small">
-                                <div class="heading__title">Plan du bâtiment</div>
-                            </div></a>
-                    </li>
+                    <?php if ($file_plan_batiment): ?>
+                      <li class="programDocumentDownload__items__item"><a href="<?php print file_create_url($file_plan_batiment) ?>" <?php if (!$file_plan_batiment) print $nocontent; ?>><span class="icon icon-plan"></span>
+                              <div class="heading heading--small">
+                                  <div class="heading__title">Plan du bâtiment</div>
+                              </div></a>
+                      </li>
                     <?php endif; ?>
                 </ul>
             </div>
             <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>"><button <?php if (!isset($link_to_zip) ||!$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded btn-download">Tout télécharger (.zip)</button></a>
+                <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>"><button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded btn-download">Tout télécharger (.zip)</button></a>
             </div>
             <!-- [popin] start-->
             <div id="downloadInformationForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
