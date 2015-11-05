@@ -71,7 +71,7 @@ function kandb_recherche_page(){
     // a region or a programme, launch the search
     if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
       // Get the search view
-      $view_programme = views_get_view('search');
+      $view_programme = views_get_view('search_solr');
 
       // Get the "search bien B2C" view block
       $view_programme->set_display('block');
@@ -83,25 +83,26 @@ function kandb_recherche_page(){
       $filters = $view_programme->display_handler->get_option('filters');
 
       // Location parameters
-      $filters['title']['value'] = $location;
-      $filters['name']['value'] = $location;
+      $filters['field_programme_title']['value'] = $location;
+      $filters['field_programme_field_programme_loc_cp']['value'] = $location;
+      $filters['field_programme_field_programme_loc_ville']['value'] = $ville;
       $filters['field_code_departement_value']['value'] = $location;
-      $filters['name_1']['value'] = $location;
-      $filters['name_2']['value'] = $location;
+      $filters['field_programme_field_programme_loc_department']['value'] = $location;
+      $filters['field_programme_field_programme_loc_region']['value'] = $location;
 
       // Type (type => field_type_tid)
-      if(isset($_GET['field_type_tid']) && !empty($_GET['field_type_tid'])) $filters['field_type_tid']['value'] = $_GET['field_type_tid'];
+      if(isset($_GET['field_type']) && !empty($_GET['field_type'])) $filters['field_type']['value'] = $_GET['field_type'];
 
       // TODO : PRICE
 
       // Pièces (field_nb_pieces_tid)
-      if(isset($_GET['field_nb_pieces_tid']) && !empty($_GET['field_nb_pieces_tid'])) $filters['field_nb_pieces_tid']['value'] = $_GET['field_nb_pieces_tid'];
+      if(isset($_GET['field_nb_pieces']) && !empty($_GET['field_nb_pieces'])) $filters['field_nb_pieces']['value'] = $_GET['field_nb_pieces'];
 
       // Surface (field_superficie_value)
-      if(isset($_GET['field_superficie_value']) && !empty($_GET['field_superficie_value'])) $filters['field_superficie_value']['value'] = $_GET['field_superficie_value'];
+      if(isset($_GET['field_superficie']) && !empty($_GET['field_superficie'])) $filters['field_superficie']['value'] = $_GET['field_superficie'];
 
       // Service (sfield_caracteristique_tid)
-      if(isset($_GET['field_caracteristique_tid']) && !empty($_GET['field_caracteristique_tid'])) $filters['field_caracteristique_tid']['value'] = $_GET['field_caracteristique_tid'];
+      if(isset($_GET['field_caracteristique']) && !empty($_GET['field_caracteristique'])) $filters['field_caracteristique']['value'] = $_GET['field_caracteristique'];
 
       // Set filters
       $view_programme->display_handler->set_option('filters', $filters);
@@ -377,7 +378,7 @@ function recherche_simple_form($form, &$form_state) {
   foreach($terms as $term_object){
     $form_terms[$term_object->tid] = $term_object->name;
   }
-  $form['field_type_tid'] = array(
+  $form['field_type'] = array(
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
@@ -453,7 +454,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
   foreach($terms as $term_object){
     $form_terms[$term_object->tid] = $term_object->name;
   }
-  $form['field_type_tid'] = array(
+  $form['field_type'] = array(
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
@@ -480,18 +481,18 @@ function recherche_complete_b2c_form($form, &$form_state) {
   foreach($terms as $term_object){
     $form_terms[$term_object->tid] = $term_object->name;
   }
-  $form['field_nb_pieces_tid'] = array(
+  $form['field_nb_pieces'] = array(
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
     '#theme' => 'recherche_check_box'
   );
 
-  $form['field_superficie_value'] = array(
+  $form['field_superficie'] = array(
     '#type' => 'textfield',
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min')),
-    '#default_value' => isset($_GET['field_superficie_value']) ? $_GET['field_superficie_value'] : NULL,
+    '#default_value' => isset($_GET['field_superficie']) ? $_GET['field_superficie'] : NULL,
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
@@ -500,7 +501,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
   foreach($terms as $term_object){
     $form_terms[$term_object->tid] = $term_object->name;
   }
-  $form['field_caracteristique_tid'] = array(
+  $form['field_caracteristique'] = array(
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
@@ -730,11 +731,11 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
   }
 
   // Field values
-  foreach($field_values as $couple) {
-    if(key($couple) == 'title'){
-      $query->propertyCondition('title', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+  foreach($field_values as $field => $value) {
+    if($field == 'title'){
+      $query->propertyCondition('title', $value . ($begin_with ? '%' : ''), 'LIKE');
     }else{
-      $query->fieldCondition(key($couple), 'value', $couple[key($couple)] . ($begin_with ? '%' : ''), 'LIKE');
+      $query->fieldCondition($field, 'value', $value . ($begin_with ? '%' : ''), 'LIKE');
     }
   }
 

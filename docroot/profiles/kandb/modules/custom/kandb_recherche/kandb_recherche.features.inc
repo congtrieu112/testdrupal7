@@ -23,7 +23,7 @@ function kandb_recherche_default_search_api_index() {
     "server" : "local_solr",
     "item_type" : "node",
     "options" : {
-      "datasource" : { "bundles" : [ "bien", "programme", "promotion" ] },
+      "datasource" : { "bundles" : [ "bien", "programme" ] },
       "index_directly" : 1,
       "cron_limit" : "-1",
       "fields" : {
@@ -47,21 +47,12 @@ function kandb_recherche_default_search_api_index() {
         "field_programme:field_programme_room_max" : { "type" : "integer" },
         "field_programme:field_programme_room_min" : { "type" : "integer" },
         "field_programme:field_programme_statut" : { "type" : "boolean" },
-        "field_programme:field_promotion_programme_node_eb:nid" : { "type" : "list\\u003Cinteger\\u003E" },
-        "field_programme:field_promotion_programme_node_eb:title" : { "type" : "list\\u003Ctext\\u003E" },
         "field_programme:field_tva" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_programme:nid" : { "type" : "integer" },
         "field_programme:status" : { "type" : "integer" },
         "field_programme:title" : { "type" : "text" },
         "field_programme:type" : { "type" : "string" },
         "field_programme:url" : { "type" : "uri" },
-        "field_promotion_biens_node_eb:field_promotion_b2c_b2b" : { "type" : "list\\u003Cstring\\u003E" },
-        "field_promotion_biens_node_eb:field_promotion_description" : { "type" : "list\\u003Ctext\\u003E" },
-        "field_promotion_biens_node_eb:field_promotion_mention_legale" : { "type" : "list\\u003Ctext\\u003E" },
-        "field_promotion_biens_node_eb:field_promotion_start" : { "type" : "list\\u003Cdate\\u003E" },
-        "field_promotion_biens_node_eb:field_promotion_stop" : { "type" : "list\\u003Cdate\\u003E" },
-        "field_promotion_biens_node_eb:nid" : { "type" : "list\\u003Cinteger\\u003E" },
-        "field_promotion_biens_node_eb:title" : { "type" : "list\\u003Ctext\\u003E" },
         "field_superficie" : { "type" : "decimal" },
         "field_tva" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_type" : { "type" : "integer", "entity_type" : "taxonomy_term" },
@@ -108,7 +99,6 @@ function kandb_recherche_default_search_api_index() {
               "field_programme_loc_long" : true,
               "field_programme_mtn_legale" : true,
               "field_prix_tva_20" : true,
-              "field_promotion_mention_legale" : true
             },
             "title" : 0,
             "alt" : 1,
@@ -126,7 +116,6 @@ function kandb_recherche_default_search_api_index() {
               "field_programme_loc_long" : true,
               "field_programme_mtn_legale" : true,
               "field_prix_tva_20" : true,
-              "field_promotion_mention_legale" : true
             },
             "spaces" : "[^[:alnum:]]",
             "ignorable" : "[\\u0027]"
@@ -143,7 +132,6 @@ function kandb_recherche_default_search_api_index() {
               "field_programme_loc_long" : true,
               "field_programme_mtn_legale" : true,
               "field_prix_tva_20" : true,
-              "field_promotion_mention_legale" : true
             },
             "file" : "",
             "stopwords" : "but\\r\\ndid\\r\\nthe this that those\\r\\netc"
