@@ -161,7 +161,8 @@ if (isset($node->field_article_article_ref[LANGUAGE_NONE][0])) {
 
 <!-- [contactUs generic] start-->
 <?php
-$path_module_contact = drupal_get_path('module', 'kandb_contact') .'/templates/contact_block_page.tpl.php';
-include $path_module_contact;
+if (function_exists('kandb_contact_block_page')) {
+  kandb_contact_block_page();
+}
 ?>
 <!-- [contactUs generic] end-->
