@@ -171,7 +171,7 @@ function kandb_feed_feeds_importer_default() {
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'KbEncodingCSVParser',
       'config' => array(
         'delimiter' => '|',
         'no_headers' => 0,
@@ -219,6 +219,11 @@ function kandb_feed_feeds_importer_default() {
             'target' => 'field_document_file:uri',
             'unique' => FALSE,
           ),
+          7 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
         ),
         'update_existing' => '1',
         'update_non_existent' => 'update',
@@ -232,7 +237,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 1,
+    'process_in_background' => 0,
   );
   $export['document_import'] = $feeds_importer;
 
@@ -507,7 +512,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 1,
+    'process_in_background' => 0,
   );
   $export['kb_patrimoine_import'] = $feeds_importer;
 
@@ -796,7 +801,8 @@ function kandb_feed_feeds_importer_default() {
           23 => array(
             'source' => 'Tva',
             'target' => 'field_tva',
-            'unique' => FALSE,
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           24 => array(
             'source' => 'X',
@@ -1022,8 +1028,9 @@ function kandb_feed_feeds_importer_default() {
           ),
           9 => array(
             'source' => '7',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           10 => array(
             'source' => '8',
@@ -1042,24 +1049,28 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           13 => array(
-            'source' => '16',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'source' => '15',
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           14 => array(
-            'source' => '17',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'source' => '16',
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           15 => array(
-            'source' => '19',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'source' => '18',
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           16 => array(
-            'source' => '21',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'source' => '20',
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           17 => array(
             'source' => '27',

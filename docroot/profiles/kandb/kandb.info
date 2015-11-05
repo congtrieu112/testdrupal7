@@ -85,6 +85,7 @@ dependencies[] = kb_feeds
 dependencies[] = kb_import
 dependencies[] = kandb_habiteo
 dependencies[] = kandb_business_rules
+dependencies[] = kandb_alias_dossier_article
 
 ; Features
 dependencies[] = kandb_domains
@@ -114,6 +115,7 @@ dependencies[] = kandb_tmp_content
 dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
+dependencies[] = kand_contactus_export_views
 
 ; Blocks
 dependencies[] = kandb_recherche

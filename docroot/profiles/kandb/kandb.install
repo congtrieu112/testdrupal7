@@ -101,12 +101,12 @@ function kandb_install_finished(&$install_state) {
  *  + "K&B Context"
  *  + "K&B Views"
  */
-function kandb_install_update_7100(&$sandbox){
-  if(!module_exists('kandb_context')){
+function kandb_install_update_7100(&$sandbox) {
+  if (!module_exists('kandb_context')) {
     module_enable(array('kandb_context'), TRUE);
   }
 
-  if(!module_exists('kandb_views')){
+  if (!module_exists('kandb_views')) {
     module_enable(array('kandb_views'), TRUE);
   }
 }
@@ -116,17 +116,17 @@ function kandb_install_update_7100(&$sandbox){
  *  + "Views"
  *  + "Views UI"
  */
-function kandb_install_update_7101(&$sandbox){
-  if(!module_exists('views')){
+function kandb_install_update_7101(&$sandbox) {
+  if (!module_exists('views')) {
     module_enable(array('views'), TRUE);
   }
 
-  if(!module_exists('views_ui')){
+  if (!module_exists('views_ui')) {
     module_enable(array('views_ui'), TRUE);
   }
 
-  if(!module_exists('ds_ui')){
-        module_enable(array('ds_ui'), TRUE);
+  if (!module_exists('ds_ui')) {
+    module_enable(array('ds_ui'), TRUE);
   }
 }
 
@@ -174,6 +174,7 @@ function kandb_update_7107(&$sandbox) {
     module_enable(array('webform'), TRUE);
   }
 }
+
 /**
  * Enable "Kandb" feature
  */
@@ -191,6 +192,7 @@ function kandb_update_7109(&$sandbox) {
     module_enable(array('youtube'), TRUE);
   }
 }
+
 /**
  * Enable "Kandb article" feature
  */
@@ -252,7 +254,6 @@ function kandb_update_7116(&$sandbox) {
   if (module_exists('kandb_tmp_content')) {
     module_disable(array('kandb_tmp_content'), TRUE);
     drupal_uninstall_modules(array('kandb_tmp_content'));
-
   }
 }
 
@@ -322,7 +323,7 @@ function kandb_update_7123(&$sandbox) {
 /**
  * Enable Webform Ajax module
  */
-function kandb_update_7124(){
+function kandb_update_7124() {
   if (!module_exists('webform_ajax')) {
     module_enable(array('webform_ajax'), TRUE);
   }
@@ -331,8 +332,26 @@ function kandb_update_7124(){
 /**
  * Enable Webform domain_views module
  */
-function kandb_update_7125(){
+function kandb_update_7125() {
   if (!module_exists('domain_views')) {
     module_enable(array('domain_views'), TRUE);
+  }
+}
+
+/**
+ * Enable "Feature K&B Contact-us Export Views" feature
+ */
+function kandb_update_7126() {
+  if (!module_exists('kand_contactus_export_views')) {
+    module_enable(array('kand_contactus_export_views'), TRUE);
+  }
+}
+
+/**
+ * Enable "Set alias for article in dossier" Module
+ */
+function kandb_update_7127() {
+  if (!module_exists('kandb_alias_dossier_article')) {
+    module_enable(array('kandb_alias_dossier_article'), TRUE);
   }
 }
