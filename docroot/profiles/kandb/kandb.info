@@ -114,6 +114,7 @@ dependencies[] = kandb_tmp_content
 dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
+dependencies[] = kand_contactus_export_views
 
 ; Blocks
 dependencies[] = kandb_recherche
