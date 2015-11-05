@@ -336,3 +336,12 @@ function kandb_update_7125(){
     module_enable(array('domain_views'), TRUE);
   }
 }
+
+/**
+ * Enable "Feature K&B Contact-us Export Views" feature
+ */
+function kandb_update_7126(){
+  if (!module_exists('kand_contactus_export_views')) {
+    module_enable(array('kand_contactus_export_views'), TRUE);
+  }
+}
