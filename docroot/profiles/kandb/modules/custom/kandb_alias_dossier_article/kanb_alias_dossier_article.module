@@ -42,37 +42,6 @@ function kandb_set_alias_submit($form, &$form_state) {
       }
     }
   }
-
-  /*
-    //set alias for block 2
-    if (isset($form['field_articles_block2_ref']['und']) && count($form['field_articles_block2_ref']['und'])) {
-    $array_article = $form['field_articles_block2_ref']['und'];
-    foreach ($array_article as $index => $article) {
-    // if numeric --> is article id
-    if (is_numeric($index)) {
-    if (isset($article['target_id']['#entity']->field_articles_block2_ref['und'][$index]['target_id']))
-    $id_article = $article['target_id']['#entity']->field_articles_block2_ref['und'][$index]['target_id'];
-    if ($id_article) {
-    kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article);
-    }
-    }
-    }
-    }
-
-    //set alias for block 3
-    if (isset($form['field_articles_block3_ref']['und']) && count($form['field_articles_block3_ref']['und'])) {
-    $array_article = $form['field_articles_block3_ref']['und'];
-    foreach ($array_article as $index => $article) {
-    // if numeric --> is article id
-    if (is_numeric($index)) {
-    if (isset($article['target_id']['#entity']->field_articles_block3_ref['und'][$index]['target_id']))
-    $id_article = $article['target_id']['#entity']->field_articles_block3_ref['und'][$index]['target_id'];
-    if ($id_article) {
-    kandb_set_alias_for_article($path_dossier, $old_path_dossier, $id_article);
-    }
-    }
-    }
-    } */
 }
 
 /**
