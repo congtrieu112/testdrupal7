@@ -292,8 +292,6 @@ class Kandb_Business_Rules {
      * @return int
      */
     public static function get_room_min_max_follow_programe($id_programe, $is_room_min = TRUE) {
-        $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
-
         $sort = "ASC";
         if (!$is_room_min) {
             $sort = "DESC";
@@ -309,16 +307,8 @@ class Kandb_Business_Rules {
         $list_pieces = $query->execute();
         if(!empty($list_pieces)){
             foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
-                $query1 = new EntityFieldQuery();
-                $query1->entityCondition('entity_type', 'node')
-                    ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-                    ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-                    ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
-                    ->fieldCondition('field_nb_pieces', 'tid', $nb_piece->tid, '=')
-                ;
-
                 // count bien follow programe and piece
-                $count_bien = intval($query1->count()->execute());
+                $count_bien = self::get_list_bien_by_program_piece($id_programe, $nb_piece->tid, TRUE);
                 if ($count_bien > 0) {  // Have item mean this is min|max piece what I need to find.
                     $tax_piece = taxonomy_term_load($nb_piece->tid);
 
@@ -398,5 +388,42 @@ class Kandb_Business_Rules {
             }
         }
     }
+    
+    /**
+     * @todo to get list bien by id_programe && id_tax_piece
+     * @param type $id_programe
+     * @param type $id_piece
+     * @param type $is_count
+     * @return type
+     */
+    public static function get_list_bien_by_program_piece($id_programe, $id_piece, $is_count = 0){
+      if(empty($id_programe) || empty($id_piece)){
+        if($is_count){
+          return $is_count;
+        }else{
+          return array();
+        }        
+      }
+      
+      $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'node')
+          ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+          ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+          ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
+          ->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=')
+      ;
 
+      if($is_count){
+        // count bien follow programe and piece
+        return intval($query->count()->execute());
+      }else{
+        $results = $query->execute();
+        if (!empty($results)) {
+            return $results["node"];
+        }
+      }
+      
+      return array();
+    }
 }

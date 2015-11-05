@@ -274,3 +274,37 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
         $form['field_tva']['#disabled'] = TRUE;
     }
 }
+
+/**
+ * @todo to get group biens follow program && nb_piece
+ * @param type $id_programme
+ * @param type $nb_piece
+ * @return array
+ */
+function bien_to_display ($id_programme, $nb_piece ="all"){  
+  $results = array();
+  if(!isset($id_programme) || empty($id_programme)){
+    return $results;
+  }
+  
+  if(is_numeric($nb_piece)){ 
+    // nb_piece is a particular nb_piece
+    $results =  Kandb_Business_Rules::get_list_bien_by_program_piece($id_programme, $nb_piece);
+  }else{
+    // nb_piece is 'all'
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'taxonomy_term')
+        ->entityCondition('bundle', TAXONOMY_NB_PIECES)
+        ->fieldOrderBy('field_id_nombre_pieces', 'value', 'ASC')
+    ;
+
+    $list_pieces = $query->execute();
+    if(!empty($list_pieces)){      
+        foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
+            $results[$nb_piece->tid] = Kandb_Business_Rules::get_list_bien_by_program_piece($id_programme, $nb_piece->tid);
+        }
+    }
+  }
+  return $results;
+}
+    
