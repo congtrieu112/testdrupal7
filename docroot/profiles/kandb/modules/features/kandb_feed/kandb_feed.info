@@ -56,6 +56,7 @@ features[feeds_tamper][] = migration_program_import-reglementationthermiquezone2
 features[feeds_tamper][] = migration_program_video_import-identifiantprogramme-trim
 features[feeds_tamper][] = migration_program_video_import-youtubeid-rewrite
 features[feeds_tamper][] = migration_program_video_import-youtubeid-trim
+features[feeds_tamper][] = parcel_feed_import-10-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-2-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-4-cast_to_int
 features[feeds_tamper][] = parcel_feed_import-4-search_term_by_field
