@@ -67,7 +67,6 @@ function kb_import_run_importer($importer = '') {
     $source = feeds_source($importer);
     $source->import();
   }
-  dpm('The importer: ' . $importer);
 }
 
 function kb_daily_import_status_list() {
@@ -108,10 +107,10 @@ function kb_import_finish_daily_import() {
   //District feed import
   if (isset($kb_daily_import_status['district_feed_import_status'])) {
     if ($kb_daily_import_status['district_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'City feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      watchdog('kb_daily_import', 'District feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
     }
     elseif ($kb_daily_import_status['district_feed_import_status'] == -1) {
-      watchdog('kb_daily_import', 'City feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      watchdog('kb_daily_import', 'District feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
     }
   }
   //Maison feed import
