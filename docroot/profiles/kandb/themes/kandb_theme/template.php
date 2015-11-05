@@ -34,6 +34,11 @@ function kandb_theme_process_page(&$variables) {
 
   // Add live chat script all page.
   drupal_add_js(WATCHEEZY, 'external');
+
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $variables['theme_hook_suggestions'][] = 'page__ajax';
+  }
 }
 
 /**
