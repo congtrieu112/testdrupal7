@@ -4803,6 +4803,10 @@ iframe {
 figure {
   margin: 0; }
 
+fieldset {
+  border: none;
+  padding: 0; }
+
 /*.touch label > * {
   display: block;
   pointer-events: none;
@@ -5190,6 +5194,7 @@ figure {
 .btn-rounded, .btn-white, .slick-slider .slick-prev,
 .slick-slider .slick-next, .searchFormular button[type=submit] {
   border-radius: 4px;
+  padding: 1.25rem;
   font-size: 1rem; }
   @media only screen and (min-width: 48em) {
     .btn-rounded, .btn-white, .slick-slider .slick-prev,
@@ -5726,8 +5731,8 @@ input[type="checkbox"] + .label-checkbox {
 @media only screen and (min-width: 48em) and (max-width: 64em) {
   .wrapper,
   .wrapper--medium-up {
-    padding-left: 2.5rem;
-    padding-right: 2.5rem; } }
+    padding-left: 3.75rem;
+    padding-right: 3.75rem; } }
 
 @media only screen and (min-width: 64.0625em) {
   .wrapper,
@@ -5743,8 +5748,8 @@ input[type="checkbox"] + .label-checkbox {
     margin-right: auto; } }
 
 .section-padding {
-  padding-top: 2.29167rem;
-  padding-bottom: 2.29167rem; }
+  padding-top: 1.66667rem;
+  padding-bottom: 1.66667rem; }
   @media only screen and (min-width: 48em) {
     .section-padding {
       padding-top: 3.125rem;
@@ -5827,14 +5832,14 @@ sup {
   .heading__title {
     font-weight: 500;
     line-height: 130%;
-    font-size: 1.5rem;
+    font-size: 1.66667rem;
     margin: 0;
     color: #003e5e;
     display: block; }
   .heading__title--sub {
     color: #199edd;
     margin-bottom: 0.625rem;
-    font-size: 1.16667rem; }
+    font-size: 1.66667rem; }
   .heading__text {
     font-weight: 500;
     font-size: 1.25rem; }
@@ -7125,6 +7130,7 @@ sup {
   font-weight: normal;
   line-height: 1;
   text-transform: none;
+  font-size: 1rem;
   -webkit-transition-property: all;
   -moz-transition-property: all;
   transition-property: all;
@@ -7414,7 +7420,6 @@ sup {
 
 @media only screen and (min-width: 48em) {
   .programParcel.slick-slider {
-    max-width: 83.75rem;
     margin-left: auto;
     margin-right: auto; }
   .programParcel .slick-slide {
@@ -7442,6 +7447,28 @@ sup {
       font-size: 1rem; }
     .programParcelItem__prices {
       font-size: 1.25rem; } }
+
+@media only screen and (min-width: 48em) and (max-width: 64em) {
+  .programParcel .slick-prev,
+  .programParcel .slick-next {
+    width: 2.5rem;
+    height: 2.5rem;
+    padding: 0; }
+    .programParcel .slick-prev .icon,
+    .programParcel .slick-next .icon {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      bottom: 0.75rem;
+      left: 0.75rem; }
+  .programParcel .slick-slide {
+    padding-left: 3.125rem;
+    padding-right: 3.125rem; } }
+
+@media only screen and (min-width: 64.0625em) {
+  .programParcel .slick-slide {
+    padding-left: 5.625rem;
+    padding-right: 5.625rem; } }
 
 .programCharacteristics {
   position: relative; }
@@ -7537,66 +7564,108 @@ sup {
     margin-top: 2.5rem; }
     .programCharacteristics .slick-prev,
     .programCharacteristics .slick-next {
-      top: 12.5rem; }
+      margin-top: -11%; }
   .programCharacteristicsItem__content {
     text-align: left;
     width: 45%;
     margin: 0 auto; } }
 
-.programDocumentDowload__item a {
-  color: #003e5e; }
+@media only screen and (min-width: 64.0625em) {
+  .programCharacteristics .slick-prev,
+  .programCharacteristics .slick-next {
+    margin-top: -8%; } }
 
-.programDocumentDowload__item .icon {
+.programDocumentDownload__items {
+  margin-bottom: 2.5rem; }
+  .programDocumentDownload__items ul {
+    list-style: none;
+    padding: 0;
+    margin: 0; }
+  .programDocumentDownload__items__item {
+    margin-bottom: 0.83333rem; }
+    .programDocumentDownload__items__item a {
+      display: table;
+      width: 100%;
+      color: #003e5e; }
+    .programDocumentDownload__items__item .icon,
+    .programDocumentDownload__items__item .heading {
+      display: table-cell;
+      vertical-align: middle; }
+    .programDocumentDownload__items__item .icon {
+      width: 7.70833rem;
+      height: 7.70833rem;
+      font-size: 3.33333rem;
+      background-color: #f2f5f6;
+      text-align: center; }
+    .programDocumentDownload__items__item .heading {
+      padding-left: 1.66667rem; }
+
+.bg-lightGrey .programDocumentDownload .icon {
   background-color: #ffffff; }
 
-@media only screen and (max-width: 47.9375em) {
-  .programDocumentDowload__item {
-    padding-top: 0.83333rem; }
-    .programDocumentDowload__item:first-child {
-      padding-top: 0; }
-    .programDocumentDowload__item a {
-      display: table;
-      width: 100%; }
-    .programDocumentDowload__item .icon {
-      display: table-cell;
-      width: 7.66667rem;
-      height: 7.66667rem;
-      font-size: 3.33333rem;
-      background-color: #ffffff;
-      vertical-align: middle;
-      text-align: center; }
-    .programDocumentDowload__item strong {
-      display: table-cell;
-      font-size: 1.25rem;
-      vertical-align: middle;
-      text-align: center; }
-  .programDocumentDowload .btn-download {
-    width: 100%;
-    margin-top: 2.5rem; } }
-
 @media only screen and (min-width: 48em) {
-  .programDocumentDowload .heading {
-    padding-top: 0; }
-  .programDocumentDowload__item:nth-child(n+5) {
-    margin-top: 1.25rem; }
-  .programDocumentDowload__item:nth-child(4n+1) {
-    clear: left; }
-  .programDocumentDowload__item .icon {
-    display: block;
-    width: 100%;
-    font-size: 6rem;
-    text-align: center; }
-    .programDocumentDowload__item .icon:before {
-      display: inline-block;
-      vertical-align: middle; }
-    .programDocumentDowload__item .icon:after {
-      content: "";
-      display: inline-block;
-      padding-top: 100%;
-      vertical-align: middle; }
-  .programDocumentDowload__item strong {
-    display: block;
-    margin-top: 0.9375rem; } }
+  .programDocumentDownload {
+    margin: 0 auto;
+    max-width: 75rem;
+    width: 100%; }
+    .programDocumentDownload:before, .programDocumentDownload:after {
+      content: " ";
+      display: table; }
+    .programDocumentDownload:after {
+      clear: both; }
+    .programDocumentDownload__heading {
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+      width: 33.33333%;
+      float: left; }
+      .programDocumentDownload__heading .heading {
+        padding-top: 0; }
+        .programDocumentDownload__heading .heading .heading__title {
+          font-size: 1.625rem;
+          margin-bottom: 1.25rem; }
+    .programDocumentDownload__items {
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+      width: 66.66667%;
+      float: left; }
+      .programDocumentDownload__items .row {
+        margin: 0 auto;
+        max-width: 75rem;
+        width: 100%; }
+        .programDocumentDownload__items .row:before, .programDocumentDownload__items .row:after {
+          content: " ";
+          display: table; }
+        .programDocumentDownload__items .row:after {
+          clear: both; }
+        .programDocumentDownload__items .row .programDocumentDownload__items__item {
+          padding-left: 0.625rem;
+          padding-right: 0.625rem;
+          width: 25%;
+          float: left; }
+          .programDocumentDownload__items .row .programDocumentDownload__items__item a {
+            display: block;
+            width: 100%;
+            height: 100%; }
+          .programDocumentDownload__items .row .programDocumentDownload__items__item .icon,
+          .programDocumentDownload__items .row .programDocumentDownload__items__item .heading {
+            display: block; }
+          .programDocumentDownload__items .row .programDocumentDownload__items__item .heading {
+            padding-left: 0;
+            padding-top: 1.25rem; }
+          .programDocumentDownload__items .row .programDocumentDownload__items__item .icon {
+            height: initial;
+            width: initial;
+            font-size: 4.375rem; }
+            .programDocumentDownload__items .row .programDocumentDownload__items__item .icon:before {
+              display: inline-block;
+              vertical-align: middle; }
+            .programDocumentDownload__items .row .programDocumentDownload__items__item .icon:after {
+              content: "";
+              display: inline-block;
+              padding-top: 100%;
+              vertical-align: middle; }
+          .programDocumentDownload__items .row .programDocumentDownload__items__item .heading__title {
+            font-size: 1rem; } }
 
 .pageHeaderNav {
   margin-top: -2.91667rem;
