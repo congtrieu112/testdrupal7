@@ -65,6 +65,7 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#group' => 'variable_tab',
   );
 
+
   $form['variable_habiteo_page']['habiteo_feed_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo feed URL'),
@@ -80,6 +81,26 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#title' => t('Habiteo feed TOKEN'),
     '#description' => t('example: 3c7070bcf6bc98a6ea813ff7ff78953d'),
     '#default_value' => variable_get('habiteo_feed_token', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_feed_programme'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo feed import programme'),
+    '#description' => t('example: http://domain/maquettes/3c7070bcf6bc98a6ea813ff7ff78953d/programmes/'),
+    '#default_value' => variable_get('habiteo_feed_programme'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_feed_bien'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo feed import bien'),
+    '#description' => t('example: http://domain/maquettes/3c7070bcf6bc98a6ea813ff7ff78953d/lots?ID=lots12345'),
+    '#default_value' => variable_get('habiteo_feed_bien'),
     '#size' => 60,
     '#maxlength' => 128,
     '#required' => TRUE,
@@ -115,7 +136,7 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
-    $form['variable_habiteo_page']['habiteo_plan-3d_url'] = array(
+  $form['variable_habiteo_page']['habiteo_plan-3d_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo plan 3d url'),
     '#description' => t('example:  http://widgets.habiteo.com/vue-etages'),
@@ -127,11 +148,21 @@ function habiteo_page_settings_form($form, &$form_state) {
 
 
 
-    $form['variable_habiteo_page']['habiteo_vue-generale_url'] = array(
+  $form['variable_habiteo_page']['habiteo_vue-generale_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo vue generale url'),
     '#description' => t('example:   http://widgets.habiteo.com/vue-generale'),
     '#default_value' => variable_get('habiteo_vue-generale_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_plan-de-quartier_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo plan de quartier url'),
+    '#description' => t('example:   http://widgets.habiteo.com/plan-de-quartier'),
+    '#default_value' => variable_get('habiteo_plan-de-quartier_url', ''),
     '#size' => 60,
     '#maxlength' => 128,
     '#required' => TRUE,
@@ -308,10 +339,10 @@ function kandb_habiteo_import_bien($id_lots) {
 
   $habiteo_feed_url = variable_get('habiteo_feed_url', '');
   $habiteo_feed_token = variable_get('habiteo_feed_token', '');
-  $params = drupal_get_query_parameters();
   if ($habiteo_feed_url && $habiteo_feed_token) {
-    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?ID=' . $id_lots;
+    $path = variable_get('habiteo_feed_bien');
     $request = drupal_http_request($path);
+    watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($request, TRUE)), WATCHDOG_INFO);
     if (isset($request->data)) {
       $imports = json_decode($request->data);
       if ($imports) {
@@ -330,12 +361,15 @@ function kandb_habiteo_import_programme() {
   $habiteo_feed_url = variable_get('habiteo_feed_url', '');
   $habiteo_feed_token = variable_get('habiteo_feed_token', '');
   if ($habiteo_feed_url && $habiteo_feed_token) {
-    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
+    $path = variable_get('habiteo_feed_programme');
     $request = drupal_http_request($path);
-    if ($request->data) {
+    watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($request, TRUE)), WATCHDOG_INFO);
+    if (isset($request->data)) {
       $imports = json_decode($request->data);
-      foreach ($imports as $item) {
-        kandb_habiteo_update_programe($item->id_partenaire, $item->id);
+      if ($imports) {
+        foreach ($imports as $item) {
+          kandb_habiteo_update_programe($item->id_partenaire, $item->id);
+        }
       }
     }
   }
