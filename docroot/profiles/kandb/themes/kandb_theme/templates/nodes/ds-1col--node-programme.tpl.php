@@ -43,6 +43,9 @@ $habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $nod
 $habiteo_key = variable_get('habiteo_widget_security_key');
 $habiteo_video_de_quartier_url = variable_get('habiteo_video-de-quartier_url');
 $habiteo_vue_generale_url = variable_get('habiteo_vue-generale_url');
+$lat = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] : '';
+$lon = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
+$video_id = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
 ?>
 <!-- [programParcel] start-->
 <section class="section-padding bg-lightGrey">
@@ -187,18 +190,34 @@ $habiteo_vue_generale_url = variable_get('habiteo_vue-generale_url');
             <div class="wrapper--medium-up">
                 <?php if ($habiteo_id): ?>
                   <div class="iframe iframe--video-de-quartier">
+                      <iframe src="" data-src="http://widgets.habiteo.com/plan-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+                  </div>
+                <?php elseif ($lon && $lat): ?>
+                  <div class="iframe iframe--video-de-quartier">
+                      <iframe src="" data-src="http://maps.google.com/?q=<?php print $lat; ?>,<?php print $lon; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no"></iframe>
+                  </div>
+                <?php endif; ?>
+            </div>
+            <div class="swapItem__1">
+                <div class="wrapper">
+                    <div class="heading heading--small text-center">
+                        <h3 class="heading__title">Batignolles, la renaissance d’un quartier</h3>
+                    </div>
+                </div>
+            </div>
+            <div class="wrapper--medium-up">
+                <?php if ($habiteo_id): ?>
+                  <div class="iframe iframe--video-de-quartier">
                       <iframe src="" data-src="<?php print $habiteo_video_de_quartier_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+                  </div>
+                <?php elseif ($video_id): ?>
+                  <div class="iframe iframe--video-de-quartier">
+                      <iframe src="" data-src="https://www.youtube.com/watch?v=<?php print $video_id; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" ></iframe>
                   </div>
                 <?php endif; ?>
             </div>
         </div>
-        <div class="swapItem__1">
-            <div class="wrapper">
-                <div class="heading heading--small text-center">
-                    <h3 class="heading__title">Batignolles, la renaissance d’un quartier</h3>
-                </div>
-            </div>
-        </div>
+
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
