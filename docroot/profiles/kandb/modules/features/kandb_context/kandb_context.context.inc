@@ -15,7 +15,7 @@ function kandb_context_context_default_contexts() {
   $context->api_version = 3;
   $context->name = 'header_and_footer';
   $context->description = '';
-  $context->tag = '';
+  $context->tag = 'Theme';
   $context->conditions = array(
     'sitewide' => array(
       'values' => array(
@@ -26,15 +26,15 @@ function kandb_context_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'system-main-menu' => array(
-          'module' => 'system',
-          'delta' => 'main-menu',
+        'kandb_context-header_empty' => array(
+          'module' => 'kandb_context',
+          'delta' => 'header_empty',
           'region' => 'header',
           'weight' => '-10',
         ),
-        'menu-menu-footer' => array(
-          'module' => 'menu',
-          'delta' => 'menu-footer',
+        'kandb_context-footer_empty' => array(
+          'module' => 'kandb_context',
+          'delta' => 'footer_empty',
           'region' => 'footer',
           'weight' => '-10',
         ),
@@ -42,6 +42,10 @@ function kandb_context_context_default_contexts() {
     ),
   );
   $context->condition_mode = 0;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Theme');
   $export['header_and_footer'] = $context;
 
   return $export;
