@@ -38,6 +38,7 @@ if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
   }
 }
 
+
 // Habitel widget
 $habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';
 $habiteo_key = variable_get('habiteo_widget_security_key');
@@ -46,136 +47,11 @@ $habiteo_vue_generale_url = variable_get('habiteo_vue-generale_url');
 $lat = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] : '';
 $lon = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
 $video_id = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
+$logementBlock = module_invoke('kandb_programme', 'block_view', 'logement_block');
+
 ?>
-<!-- [programParcel] start-->
-<section class="section-padding bg-lightGrey">
-    <div class="wrapper">
-        <header class="heading heading--bordered">
-            <h2 class="heading__title">Découvrir les logements</h2>
-        </header>
-    </div>
-    <!-- [carousel] start-->
-    <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" class="slick-slider__item-1 programParcel">
-        <div class="unwrap">
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-        </div>
-        <div class="unwrap">
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-            <article class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img ?>programParcel-small.jpg, (small)], [<?php print $path_img ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img ?>programParcel-medium.jpg" alt="test"/></noscript>
-                    <!-- [Responsive img] end-->
-                </figure>
-                <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading">5 appartements de 3/4 pièces disponibles</h3>
-                    <div class="programParcelItem__prices">
-                        <p><span>À partir de 54&nbsp;000&nbsp;€</span><span class="tva">TVA 5,5%</span></p>
-                        <p><span>À partir de 1&nbsp;684&nbsp;000&nbsp;€</span><span class="tva tva--high">TVA 20%</span></p>
-                    </div>
-                </div>
-            </article>
-        </div>
-    </div>
-    <!-- [carousel] end-->
-</section>
-<!-- [programParcel] end-->
+
+<?php print render($logementBlock['content']); ?>
 
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding">
