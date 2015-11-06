@@ -48,10 +48,11 @@ $lat = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node-
 $lon = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
 $video_id = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
 $logementBlock = module_invoke('kandb_programme', 'block_view', 'logement_block');
-
+$program_characteristic = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
 ?>
 
 <?php print render($logementBlock['content']); ?>
+
 
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding">
@@ -103,108 +104,8 @@ $logementBlock = module_invoke('kandb_programme', 'block_view', 'logement_block'
         </div>
     </div>
 </section>
-<!-- [3rd party: video-de-quartier] start-->
-<!-- [programCharacteristics] start-->
-<section class="section-padding bg-lightGrey">
-    <div class="wrapper">
-        <header class="heading heading--bordered">
-            <h2 class="heading__title">Prestations du programme</h2>
-            <div class="heading__title heading__title--sub">Un immeuble haut-de-gamme et sécurisé</div>
-        </header>
-    </div>
-    <div class="programCharacteristics">
-        <!-- Tablet and Desktop navigation-->
-        <ul role="tablist" data-slick-nav="data-slick-nav" class="show-for-medium-up programCharacteristics__nav">
-            <li><a href="#slide0" data-slick-links="data-slick-links" role="tab" aria-controls="slide0" class="active">Extérieur</a></li>
-            <li><a href="#slide1" data-slick-links="data-slick-links" role="tab" aria-controls="slide1">Intérieur</a></li>
-            <li><a href="#slide2" data-slick-links="data-slick-links" role="tab" aria-controls="slide2">Services</a></li>
-            <li><a href="#slide3" data-slick-links="data-slick-links" role="tab" aria-controls="slide03">RT 2012</a></li>
-        </ul>
-        <ul data-slick="data-slick" data-slick-responsive="medium" data-app-accordion="data-app-accordion" data-app-accordion-responsive="small-only" class="accordion fullwidth">
-            <li id="slide0">
-                <!-- mobile accordion trigger--><a href="#slide0" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link active">Extérieur<span class="display-status"></span></a>
-                <!-- [programCharacteristicsItem] start-->
-                <!-- image need to have 2 formats:
-                - small: 560 x 230 (HEAVY compression!!!)
-                - medium: 1380 x 400
-                -->
-                <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-                    <div class="programCharacteristicsItem__img">
-                        <!-- [Responsive img] start--><img alt="Photo extérieure" data-interchange="[<?php print $path_img ?>programCharacteristics-small.jpg, (small)], [<?php print $path_img ?>programCharacteristics-medium.jpg, (medium)]"/>
-                        <noscript><img src="<?php print $path_img ?>programCharacteristics-medium.jpg" alt="Photo extérieure"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                    <div class="programCharacteristicsItem__content">
-                        <h3 class="heading--tiny">Une vue somptueuse sur la ville</h3>
-                        <p>Du studio au 5 pièces, tous sans exception possèdent un prolongement extérieur, qu'il s'agisse d'un agréable balcon sur la ville, du parc ou bien d'une magnifique terrasse prête à accueillir un jardin suspendu. Partout la lumière est chez elle, pénétrant par les larges baies, et ce d'autant plus dans les appartements traversants.</p>
-                    </div>
-                </article>
-                <!-- [programCharacteristicsItem] end-->
-            </li>
-            <li id="slide1">
-                <!-- mobile accordion trigger--><a href="#slide1" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link">Intérieur<span class="display-status"></span></a>
-                <!-- [programCharacteristicsItem] start-->
-                <!-- image need to have 2 formats:
-                - small: 560 x 230 (HEAVY compression!!!)
-                - medium: 1380 x 400
-                -->
-                <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-                    <div class="programCharacteristicsItem__img">
-                        <!-- [Responsive img] start--><img alt="Photo extérieure" data-interchange="[<?php print $path_img ?>programCharacteristics-small.jpg, (small)], [<?php print $path_img ?>programCharacteristics-medium.jpg, (medium)]"/>
-                        <noscript><img src="<?php print $path_img ?>programCharacteristics-medium.jpg" alt="Photo extérieure"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                    <div class="programCharacteristicsItem__content">
-                        <h3 class="heading--tiny">Une vue somptueuse sur la ville</h3>
-                        <p>Du studio au 5 pièces, tous sans exception possèdent un prolongement extérieur, qu'il s'agisse d'un agréable balcon sur la ville, du parc ou bien d'une magnifique terrasse prête à accueillir un jardin suspendu. Partout la lumière est chez elle, pénétrant par les larges baies, et ce d'autant plus dans les appartements traversants.</p>
-                    </div>
-                </article>
-                <!-- [programCharacteristicsItem] end-->
-            </li>
-            <li id="slide2">
-                <!-- mobile accordion trigger--><a href="#slide2" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link">Services<span class="display-status"></span></a>
-                <!-- [programCharacteristicsItem] start-->
-                <!-- image need to have 2 formats:
-                - small: 560 x 230 (HEAVY compression!!!)
-                - medium: 1380 x 400
-                -->
-                <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-                    <div class="programCharacteristicsItem__img">
-                        <!-- [Responsive img] start--><img alt="Photo extérieure" data-interchange="[<?php print $path_img ?>programCharacteristics-small.jpg, (small)], [<?php print $path_img ?>programCharacteristics-medium.jpg, (medium)]"/>
-                        <noscript><img src="<?php print $path_img ?>programCharacteristics-medium.jpg" alt="Photo extérieure"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                    <div class="programCharacteristicsItem__content">
-                        <h3 class="heading--tiny">Une vue somptueuse sur la ville</h3>
-                        <p>Du studio au 5 pièces, tous sans exception possèdent un prolongement extérieur, qu'il s'agisse d'un agréable balcon sur la ville, du parc ou bien d'une magnifique terrasse prête à accueillir un jardin suspendu. Partout la lumière est chez elle, pénétrant par les larges baies, et ce d'autant plus dans les appartements traversants.</p>
-                    </div>
-                </article>
-                <!-- [programCharacteristicsItem] end-->
-            </li>
-            <li id="slide3">
-                <!-- mobile accordion trigger--><a href="#slide3" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link">RT 2012<span class="display-status"></span></a>
-                <!-- [programCharacteristicsItem] start-->
-                <!-- image need to have 2 formats:
-                - small: 560 x 230 (HEAVY compression!!!)
-                - medium: 1380 x 400
-                -->
-                <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-                    <div class="programCharacteristicsItem__img">
-                        <!-- [Responsive img] start--><img alt="Photo extérieure" data-interchange="[<?php print $path_img ?>programCharacteristics-small.jpg, (small)], [<?php print $path_img ?>programCharacteristics-medium.jpg, (medium)]"/>
-                        <noscript><img src="<?php print $path_img ?>programCharacteristics-medium.jpg" alt="Photo extérieure"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                    <div class="programCharacteristicsItem__content">
-                        <h3 class="heading--tiny">Une vue somptueuse sur la ville</h3>
-                        <p>Du studio au 5 pièces, tous sans exception possèdent un prolongement extérieur, qu'il s'agisse d'un agréable balcon sur la ville, du parc ou bien d'une magnifique terrasse prête à accueillir un jardin suspendu. Partout la lumière est chez elle, pénétrant par les larges baies, et ce d'autant plus dans les appartements traversants.</p>
-                    </div>
-                </article>
-                <!-- [programCharacteristicsItem] end-->
-            </li>
-        </ul>
-    </div>
-</section>
-<!-- [programCharacteristics] end-->
+
+<?php print render($program_characteristic['content']); ?>
 
 <!-- [3rd party: vue-generale] start-->
 <section class="section-padding show-for-medium-up">
