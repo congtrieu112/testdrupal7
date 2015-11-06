@@ -33,7 +33,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                         <?php
                         if (isset($logement_block['price_min_tva_un_20_bien'][$type]) && isset($logement_block['tva_bien'][$type])) :
                           ?>
-                          <p><span><?php print t('À partir de '); ?><?php print number_format($logement_block['price_min_tva_un_20_bien'][$type], 0, '', ' ') . '€'; ?></span><span class="tva"><?php print 'TVA ' . $logement_block['tva_bien'][$type] . '%'; ?></span></p>
+                          <p><span><?php print t('À partir de '); ?><?php print number_format($logement_block['price_min_tva_un_20_bien'][$type], 0, '', ' ') . '€'; ?></span><span class="tva"><?php print 'TVA ' . $logement_block['tva_bien'][$type]*100 . '%'; ?></span></p>
                           <?php
                         endif;
                         ?>
