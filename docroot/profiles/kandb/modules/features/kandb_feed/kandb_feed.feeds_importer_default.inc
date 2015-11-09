@@ -158,16 +158,14 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Document import',
     'description' => 'Import pdf contents from DocBibliotheque.csv',
     'fetcher' => array(
-      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'plugin_key' => 'FeedsFileFetcher',
       'config' => array(
-        'auto_detect_feeds' => 0,
-        'use_pubsubhubbub' => 0,
-        'designated_hub' => '',
-        'request_timeout' => '',
-        'auto_scheme' => 'http',
-        'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
-        'kb_url_type' => '0',
+        'allowed_extensions' => 'txt csv tsv xml opml',
+        'direct' => FALSE,
+        'directory' => 'public://feeds',
+        'allowed_schemes' => array(
+          0 => 'public',
+        ),
       ),
     ),
     'parser' => array(
@@ -178,11 +176,24 @@ function kandb_feed_feeds_importer_default() {
       ),
     ),
     'processor' => array(
-      'plugin_key' => 'KbFeedsNodeProcessor',
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
       'config' => array(
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
+        'related_importer' => array(
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'parcel_feed_import' => 0,
+          'programme_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => 'IdentifiantDocBibliotheque',
@@ -190,43 +201,43 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           1 => array(
-            'source' => 'TitreDuDocument',
-            'target' => 'title',
-            'unique' => FALSE,
-          ),
-          2 => array(
-            'source' => 'Categorie',
-            'target' => 'field_document_type',
-            'unique' => FALSE,
-          ),
-          3 => array(
-            'source' => 'DATE',
-            'target' => 'field_document_date:start',
-            'unique' => FALSE,
-          ),
-          4 => array(
-            'source' => 'Statut',
-            'target' => 'status',
-            'unique' => FALSE,
-          ),
-          5 => array(
-            'source' => 'Statut',
-            'target' => 'sticky',
-            'unique' => FALSE,
-          ),
-          6 => array(
-            'source' => 'LienFichier',
-            'target' => 'field_document_file:uri',
-            'unique' => FALSE,
-          ),
-          7 => array(
             'source' => 'IdentifiantDocBibliotheque',
             'target' => 'guid',
             'unique' => 1,
           ),
+          2 => array(
+            'source' => 'TitreDuDocument',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'Categorie',
+            'target' => 'field_document_type',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'DATE',
+            'target' => 'field_document_date:start',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'Statut',
+            'target' => 'status',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'Statut',
+            'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'LienFichier',
+            'target' => 'field_document_file:uri',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '1',
-        'update_non_existent' => 'update',
+        'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
         'skip_hash_check' => 0,
         'bundle' => 'document',
@@ -237,7 +248,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 0,
+    'process_in_background' => 1,
   );
   $export['document_import'] = $feeds_importer;
 

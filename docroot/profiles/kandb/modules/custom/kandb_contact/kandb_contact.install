@@ -3,7 +3,7 @@
 /**
  * Add contact settings variables
  */
-function kandb_contact_update_7105(){
+function kandb_contact_install(){
   // Load the files contents
   $image = file_get_contents(drupal_get_path('module', 'kandb_contact') . '/images/contactUs.jpg');
 
@@ -20,13 +20,13 @@ function kandb_contact_update_7105(){
   variable_set('kandb_contact_faq_text', 'Consulter notre FAQ');
   variable_set('kandb_contact_faq_link', '/faq');
   variable_set('kandb_contact_numero_text', 'N° vert');
-  variable_set('kandb_contact_numero_vert', ' 0 800 544 000');
+  variable_set('kandb_contact_numero_vert', '0 800 544 000');
 }
 
 /**
  * Implementation of hook_uninstall()
  */
-function kandb_contact_unistall(){
+function kandb_contact_uninstall(){
   variable_del('kandb_contact_photo');
   variable_del('kandb_contact_title');
   variable_del('kandb_contact_sub_title');

@@ -49,12 +49,6 @@ function kandb_dossier_strongarm() {
       'selection_contact' => array(
         'custom_settings' => FALSE,
       ),
-      'print' => array(
-        'custom_settings' => FALSE,
-      ),
-      'teaser_on_bien' => array(
-        'custom_settings' => FALSE,
-      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -82,10 +76,6 @@ function kandb_dossier_strongarm() {
           'teaser' => array(
             'weight' => '3',
             'visible' => TRUE,
-          ),
-          'default' => array(
-            'weight' => '47',
-            'visible' => FALSE,
           ),
         ),
       ),

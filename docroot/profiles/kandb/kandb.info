@@ -46,6 +46,7 @@ dependencies[] = module_filter
 dependencies[] = node
 dependencies[] = options
 dependencies[] = pathauto
+dependencies[] = special_menu_items
 dependencies[] = system
 dependencies[] = strongarm
 dependencies[] = taxonomy
