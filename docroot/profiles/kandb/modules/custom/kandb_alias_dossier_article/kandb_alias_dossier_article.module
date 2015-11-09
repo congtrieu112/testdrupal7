@@ -133,7 +133,7 @@ function get_first_node_dossier(){
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
       ->entityCondition('bundle', 'dossier')
-      ->propertyOrderBy('changed', 'DESC')
+      ->addTag('sort_by_weight')
       ->range(0, 1)
   ;
   
@@ -144,3 +144,8 @@ function get_first_node_dossier(){
   return array();
 }
 
+function kandb_alias_dossier_article_query_sort_by_weight_alter(QueryAlterableInterface $query) {
+  $query->join('weight_weights', 'w', 'node.nid = w.entity_id');
+  $query->fields('w', array('weight'));
+  $query->orderBy('w.weight', 'ASC');
+}

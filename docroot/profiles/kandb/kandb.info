@@ -80,6 +80,7 @@ dependencies[] = bean_uuid
 dependencies[] = image_style_quality
 dependencies[] = webform_ajax
 dependencies[] = domain_views
+dependencies[] = metatag
 
 ; Custom
 dependencies[] = kb_feeds
