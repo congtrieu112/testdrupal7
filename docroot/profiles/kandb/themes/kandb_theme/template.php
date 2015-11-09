@@ -54,23 +54,6 @@ function kandb_theme_process_page(&$variables) {
   if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $variables['theme_hook_suggestions'][] = 'page__ajax';
   }
-  
-  if(isset($variables["node"]) && $variables["node"]->type == "dossier"){
-    if(isset($variables["node"]->field_meta_title[LANGUAGE_NONE][0]["value"]) && !empty($variables["node"]->field_meta_title[LANGUAGE_NONE][0]["value"])){
-      drupal_set_title($variables["node"]->field_meta_title[LANGUAGE_NONE][0]["value"]);
-    }
-    
-    if(isset($variables["node"]->field_meta_description[LANGUAGE_NONE][0]["value"]) && !empty($variables["node"]->field_meta_description[LANGUAGE_NONE][0]["value"])){
-      $meta_description = array(
-        '#tag' => 'meta',
-        '#attributes' => array(
-          'name' => 'description',
-          'content' => $variables["node"]->field_meta_description[LANGUAGE_NONE][0]["value"],
-        ),
-      );
-      drupal_add_html_head($meta_description, 'description');
-    }
-  }
 }
 
 /**

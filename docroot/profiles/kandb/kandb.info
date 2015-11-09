@@ -82,7 +82,7 @@ dependencies[] = webform_ajax
 dependencies[] = domain_views
 dependencies[] = weight
 dependencies[] = nodeorder
-
+dependencies[] = metatag
 
 ; Custom
 dependencies[] = kb_feeds
