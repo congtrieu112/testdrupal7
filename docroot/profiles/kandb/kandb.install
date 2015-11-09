@@ -355,3 +355,12 @@ function kandb_update_7127() {
     module_enable(array('kandb_alias_dossier_article'), TRUE);
   }
 }
+
+/**
+ * Enable metatag module
+ */
+function kandb_update_7128() {
+  if (!module_exists('metatag')) {
+    module_enable(array('metatag'), TRUE);
+  }
+}

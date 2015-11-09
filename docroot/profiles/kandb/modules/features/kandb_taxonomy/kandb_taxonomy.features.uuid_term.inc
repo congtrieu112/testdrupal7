@@ -1519,6 +1519,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Réunions d\'information',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '32e0e9ef-e42e-4a56-b565-1ac6c37add6c',
+    'vocabulary_machine_name' => 'type_de_document',
+  );
+  $terms[] = array(
     'name' => 'Champagne-Ardenne',
     'description' => '',
     'format' => 'filtered_html',
@@ -2126,6 +2134,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Présentations financières',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '4dda9e67-a196-48a5-b9f9-b70f98528abb',
+    'vocabulary_machine_name' => 'type_de_document',
+  );
+  $terms[] = array(
     'name' => '39 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -2477,6 +2493,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Rapports',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '5838ee3c-817b-44ea-a2a7-35437c5629d4',
+    'vocabulary_machine_name' => 'type_de_document',
   );
   $terms[] = array(
     'name' => 'Seine Saint Denis',
@@ -3141,6 +3165,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Documents aux actionnaires',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '74fb33a5-b8f0-4f27-8286-97fce348e71d',
+    'vocabulary_machine_name' => 'type_de_document',
   );
   $terms[] = array(
     'name' => 'St Quentin en Yvelines (N118 – A12)',
@@ -4753,6 +4785,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Communiqué de presse',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'bddbac61-26b7-452d-ae2a-8842e7781976',
+    'vocabulary_machine_name' => 'type_de_document',
+  );
+  $terms[] = array(
     'name' => 'NORD-OUEST/SUD-OUEST/SUD-EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -6060,6 +6100,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Information légale',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'ec06a6f2-b0bd-4c91-b91d-91d45498f1c6',
+    'vocabulary_machine_name' => 'type_de_document',
   );
   $terms[] = array(
     'name' => 'NORD/SUD',

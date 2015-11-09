@@ -105,6 +105,14 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'type_de_document' => array(
+      'name' => 'Type de document',
+      'machine_name' => 'type_de_document',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'type_de_programme' => array(
       'name' => 'Type de programme',
       'machine_name' => 'type_de_programme',
