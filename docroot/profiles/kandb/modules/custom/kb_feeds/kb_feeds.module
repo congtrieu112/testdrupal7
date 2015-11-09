@@ -692,6 +692,7 @@ function kb_feeds_menu() {
       'description' => 'Manage error loges of feed import',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_programme_form'),
+      'type' => MENU_NORMAL_ITEM,
       'access arguments' => array('administer content types'),
       'file' => 'kb_feeds.pages.inc',
     );
@@ -701,7 +702,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -710,7 +711,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'parcel_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -719,7 +720,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'maison_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -728,7 +729,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'city_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -737,7 +738,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'district_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -746,7 +747,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'migration_program_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -755,7 +756,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'kb_patrimoine_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -764,7 +765,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'migration_program_video_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -773,7 +774,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'document_import_log'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -782,7 +783,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_ACTION,
+      'type' => MENU_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
