@@ -355,3 +355,32 @@ function kandb_update_7127() {
     module_enable(array('kandb_alias_dossier_article'), TRUE);
   }
 }
+
+/**
+ * Enable "nodeorder" Module
+ */
+function kandb_update_7128() {
+  if (!module_exists('weight')) {
+    module_enable(array('weight'), TRUE);
+  }
+}
+
+/**
+ * Enable "nodeorder" Module
+ */
+function kandb_update_7129() {
+  if (!module_exists('nodeorder')) {
+    module_enable(array('nodeorder'), TRUE);
+  }
+}
+
+/**
+ * Enable "nodeorder" Module
+ */
+function kandb_update_7130() {
+  if (!module_exists('kandb_dossier_weight_views')) {
+    module_enable(array('kandb_dossier_weight_views'), TRUE);
+  }
+}
+
+

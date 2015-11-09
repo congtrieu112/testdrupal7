@@ -80,6 +80,9 @@ dependencies[] = bean_uuid
 dependencies[] = image_style_quality
 dependencies[] = webform_ajax
 dependencies[] = domain_views
+dependencies[] = weight
+dependencies[] = nodeorder
+
 
 ; Custom
 dependencies[] = kb_feeds
@@ -117,6 +120,7 @@ dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
 dependencies[] = kand_contactus_export_views
+dependencies[] = kandb_dossier_weight_views
 
 ; Blocks
 dependencies[] = kandb_recherche
