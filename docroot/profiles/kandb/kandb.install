@@ -384,3 +384,12 @@ function kandb_update_7130() {
 }
 
 
+/**
+ * Enable "kandb_path_alias_patterns" Module
+ */
+function kandb_update_7131() {
+  if (!module_exists('kandb_path_alias_patterns')) {
+    module_enable(array('kandb_path_alias_patterns'), TRUE);
+  }
+}
+

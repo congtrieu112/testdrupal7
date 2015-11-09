@@ -121,6 +121,8 @@ dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
 dependencies[] = kand_contactus_export_views
 dependencies[] = kandb_dossier_weight_views
+dependencies[] = kandb_path_alias_patterns
+
 
 ; Blocks
 dependencies[] = kandb_recherche
