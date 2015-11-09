@@ -71,7 +71,7 @@ function kandb_recherche_page(){
     // a region or a programme, launch the search
     if(!empty($ville) || !empty($postal_code) || !empty($departement) || !empty($code_departement) || !empty($region) || !empty($programme)) {
       // Get the search view
-      $view_programme = views_get_view('search_solr');
+      $view_programme = views_get_view('solr_views');
 
       // Get the "search bien B2C" view block
       $view_programme->set_display('block');
@@ -85,7 +85,7 @@ function kandb_recherche_page(){
       // Location parameters
       $filters['field_programme_title']['value'] = $location;
       $filters['field_programme_field_programme_loc_cp']['value'] = $location;
-      $filters['field_programme_field_programme_loc_ville']['value'] = $ville;
+      $filters['field_programme_field_programme_loc_ville']['value'] = key($ville);
       $filters['field_code_departement_value']['value'] = $location;
       $filters['field_programme_field_programme_loc_department']['value'] = $location;
       $filters['field_programme_field_programme_loc_region']['value'] = $location;
@@ -94,6 +94,10 @@ function kandb_recherche_page(){
       if(isset($_GET['field_type']) && !empty($_GET['field_type'])) $filters['field_type']['value'] = $_GET['field_type'];
 
       // TODO : PRICE
+      //field_prix_tva_20 min
+      //field_prix_tva_20_1 max
+      //field_bien_low_tva_price min
+      //field_bien_low_tva_price_1 max
 
       // Pièces (field_nb_pieces_tid)
       if(isset($_GET['field_nb_pieces']) && !empty($_GET['field_nb_pieces'])) $filters['field_nb_pieces']['value'] = $_GET['field_nb_pieces'];
@@ -271,31 +275,31 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
   return array(
     // SEARCH RESULT
     'recherche' => array(
-      'template' => 'templates/recherche',
+      'template' => 'templates/recherche/recherche',
       'variables' => array(),
     ),
     'result_departement' => array(
-      'template' => 'templates/result_departement',
+      'template' => 'templates/recherche/result/result_departement',
     ),
     'result_beginning_with' => array(
-      'template' => 'templates/result_beginning_with',
+      'template' => 'templates/recherche/result/result_beginning_with',
     ),
 
     // SEARCH FORMS
     'recherche_minimal' => array(
-      'template' => 'templates/recherche_minimal',
+      'template' => 'templates/recherche/recherche_minimal',
       'variables' => array('form' => NULL),
     ),
     'recherche_simple' => array(
-      'template' => 'templates/recherche_simple',
+      'template' => 'templates/recherche/recherche_simple',
       'variables' => array('form' => NULL),
     ),
     'recherche_complete_b2c' => array(
-      'template' => 'templates/recherche_complete_b2c',
+      'template' => 'templates/recherche/recherche_complete_b2c',
       'variables' => array('form' => NULL),
     ),
     'recherche_complete_b2b' => array(
-      'template' => 'templates/recherche_complete_b2b',
+      'template' => 'templates/recherche/recherche_complete_b2b',
       'variables' => array(),
     ),
     'recherche_check_box' => array(
