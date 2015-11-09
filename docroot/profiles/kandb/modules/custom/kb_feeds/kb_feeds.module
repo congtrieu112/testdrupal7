@@ -337,7 +337,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 //              'term_name' => array(
 //                24 => 'field_tva',
 //              ),
-              'term_id' => array(
+              'term_field_id' => array(
                 2 => 'field_marque_comm',
                 3 => 'field_zone_activite',
                 4 => 'field_programme_loc_ville',
@@ -442,7 +442,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
           }
         } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-          if ($totalItems != $totalColumn) {
+          if ($totalItems != 14) {
             $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
           } else {
             $validates = array(
@@ -473,10 +473,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
               ),
             );
 
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
+            $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
           }
         } elseif ($entity->feeds_item->id == 'migration_program_video_import') {
-          if ($totalItems != 1) {
+          if ($totalItems != 2) {
             $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
           }
         } elseif($entity->feeds_item->id == 'migration_program_import') {
@@ -677,7 +677,6 @@ function save_bien_pdf_file($id_bien, $path_pdf_file) {
  * Implements hook_menu().
  */
 function kb_feeds_menu() {
-
     // Add menu for #KBC-230.
     $items['admin/import_bien_pdf'] = array(
       'title' => 'Import Bien PDF',
@@ -686,6 +685,121 @@ function kb_feeds_menu() {
       'page arguments' => array('import_bien_pdf_admin'),
       'access arguments' => array('administer'),
       'type' => MENU_NORMAL_ITEM,
+    );
+
+    $items['admin/reports/feeds_errorlog'] = array(
+      'title' => 'Feeds errorlog',
+      'description' => 'Manage error loges of feed import',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_programme_form'),
+      'access arguments' => array('administer content types'),
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/programme'] = array(
+      'title' => 'Programme',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/parcel-feed-import'] = array(
+      'title' => 'Lot',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'parcel_feed_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/maison'] = array(
+      'title' => 'Maison',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'maison_feed_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/ville'] = array(
+      'title' => 'Ville',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'city_feed_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/arrondissement'] = array(
+      'title' => 'Arrondissement',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'district_feed_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/programme-csv'] = array(
+      'title' => 'Programme (CSV)',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'migration_program_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/document-patrimoine'] = array(
+      'title' => 'Programme document patrimoine',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'kb_patrimoine_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/programme-video'] = array(
+      'title' => 'Programme video',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'migration_program_video_import'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/document-import'] = array(
+      'title' => 'Document import',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'document_import_log'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['admin/reports/feeds_errorlog/document-import-communique'] = array(
+      'title' => 'Document import communique',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse'),
+      'access arguments' => array('administer content types'),
+      'type' => MENU_LOCAL_ACTION,
+      'file' => 'kb_feeds.pages.inc',
+    );
+
+    $items['feeds-errorlog/delete/%'] = array(
+      'title' => 'Import',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('delete_feeds_errorlog_confirm_form', 2),
+      'type' => MENU_CALLBACK,
+      'access arguments' => array('administer content types'),
+    );
+
+    $items['feeds-errorlog/download/%'] = array(
+      'title' => 'Import',
+      'page callback' => 'download_feeds_errorlog',
+      'page arguments' => array(2),
+      'type' => MENU_CALLBACK,
+      'access arguments' => array('administer content types'),
     );
 
     return $items;
@@ -1004,4 +1118,62 @@ function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds
     drupal_chmod($uri);
     file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
   }
+}
+
+function delete_feeds_errorlog_confirm_form($form, $form_state, $file_name) {
+  $form['file_name'] = array(
+    '#type' => 'value',
+    '#value' => $file_name,
+  );
+
+  return confirm_form($form, t('Are you sure you want to change the availability?'), 'here_goes_your_backurl_for_cancel_link');
+}
+
+function delete_feeds_errorlog_confirm_form_submit($form, $form_state) {
+  $file_name = $form_state['values']['file_name'];
+  delete_feeds_errorlog($file_name);
+}
+
+function delete_feeds_errorlog($file_name) {
+  $path = "private://feeds/log";
+  if (file_exists($path)) {
+    $filePath = $path . '/' . $file_name;
+    if ($filePath) {
+      unlink($filePath);
+    }
+  }
+}
+
+function download_feeds_errorlog($file_name) {
+  $path = "private://feeds/log";
+  if (file_exists($path)) {
+   $filePath = $path . '/' . $file_name;
+   if ($filePath) {
+     if (file_exists($filePath)) {
+       // set headers push to download the zip
+       header("Pragma: public");
+       header("Expires: 0");
+       header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+       header("Cache-Control: public");
+       header('Content-type: application/zip');
+       header("Content-Transfer-Encoding: Binary");
+       header('Content-Disposition: attachment; filename="' . $file_name . '"');
+       header("Content-Length: " . filesize($filePath));
+
+       $fp = @fopen($filePath, "rb");
+       if ($fp) {
+         while (!feof($fp)) {
+           echo fread($fp, 8192);
+           flush();
+           if (connection_status() != 0) {
+             @fclose($filePath);
+             die();
+           }
+         }
+         @fclose($filePath);
+       }
+       //unlink($filePath);
+     }
+   }
+ }
 }

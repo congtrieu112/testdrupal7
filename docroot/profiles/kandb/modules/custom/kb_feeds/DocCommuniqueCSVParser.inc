@@ -235,11 +235,11 @@ class DocCommuniqueCSVParser extends ParserCSV{
       // End of CSV parser. We've now got all the fields of the line as strings
       // in the $fields array.
 
-      if(is_array($fields) && 14 != count($fields)){
-          $is_log = TRUE;
-          $log_text .= $line;
-          continue;
-      }
+//      if(is_array($fields) && 14 != count($fields)){
+//          $is_log = TRUE;
+//          $log_text .= $line;
+//          continue;
+//      }
       if (empty($this->columnNames)) {
         $row = $fields;
       }
@@ -289,7 +289,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
           }
           if($columnName == 'statut') {
               if (trim($field) == 'On line') {
-                 $field = 1; 
+                 $field = 1;
               }
               elseif (trim($field) == 'Off line') {
                   $field = 0;
@@ -299,7 +299,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
                   $doc_sticky = 1;
               }
           }
-          
+
           $row[$columnName] = isset($field) ? $field : '';
         }
         $row['sticky'] = $doc_sticky;
@@ -326,18 +326,18 @@ class DocCommuniqueCSVParser extends ParserCSV{
         break;
       }
     }
-    if($log_text != ''){
-        $file_log_name = 'document_import_communique_de_presse_log_' . date('Y-m-d') . '.txt';
-        $uri = 'private://feeds/log/';
-        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-        if($prepare_file){
-            $path = drupal_realpath($uri . $file_log_name);
-            $data = file_get_contents($path);
-            $log_text .= $data;
-            drupal_chmod($uri);
-            file_save_data($log_text, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-        }
-    }
+//    if($log_text != ''){
+//        $file_log_name = 'document_import_communique_de_presse_log_' . date('Y-m-d') . '.txt';
+//        $uri = 'private://feeds/log/';
+//        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+//        if($prepare_file){
+//            $path = drupal_realpath($uri . $file_log_name);
+//            $data = file_get_contents($path);
+//            $log_text .= $data;
+//            drupal_chmod($uri);
+//            file_save_data($log_text, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+//        }
+//    }
     return $rows;
   }
 }
