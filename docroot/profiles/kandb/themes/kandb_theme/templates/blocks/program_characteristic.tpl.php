@@ -57,12 +57,9 @@ if((isset($programme_variables['slider_rt2012_image_small'])
       <li id="slide0">
         <a href="#slide0" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link active"><?php print t('Extérieur') ;?><span class="display-status"></span></a>
         <?php
-          $alt = '';
+          $alt = isset($programme_variables['slider_exterieur_image_alt']) ? $programme_variables['slider_exterieur_image_alt'] : '';
           $small = isset($programme_variables['slider_exterieur_image_small']) ? $programme_variables['slider_exterieur_image_small'] : '';
           $medium = isset($programme_variables['slider_exterieur_image_medium']) ? $programme_variables['slider_exterieur_image_medium'] : '';
-          if ($medium && $small) {
-            $alt = isset($programme_variables['slider_exterieur_image_alt']) ? $programme_variables['slider_exterieur_image_alt'] : 'Photo extérieure';
-          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
           <div class="programCharacteristicsItem__img">
@@ -80,12 +77,9 @@ if((isset($programme_variables['slider_rt2012_image_small'])
       <li id="slide1">
         <a href="#slide1" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print t('Intérieur') ;?><span class="display-status"></span></a>
         <?php
-          $alt = '';
+          $alt = isset($programme_variables['slider_interieur_image_alt']) ? $programme_variables['slider_interieur_image_alt'] : '';
           $small = isset($programme_variables['slider_interieur_image_small']) ? $programme_variables['slider_interieur_image_small'] : '';
           $medium = isset($programme_variables['slider_interieur_image_medium']) ? $programme_variables['slider_interieur_image_medium'] : '';
-          if ($medium && $small) {
-            $alt = isset($programme_variables['slider_interieur_image_alt']) ? $programme_variables['slider_interieur_image_alt'] : 'Photo extérieure';
-          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
           <div class="programCharacteristicsItem__img">
@@ -103,12 +97,9 @@ if((isset($programme_variables['slider_rt2012_image_small'])
       <li id="slide2">
         <a href="#slide2" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print t('Services') ;?><span class="display-status"></span></a>
         <?php
-          $alt = '';
+          $alt = isset($programme_variables['slider_securite_image_alt']) ? $programme_variables['slider_securite_image_alt'] : '';
           $small = isset($programme_variables['slider_securite_image_small']) ? $programme_variables['slider_securite_image_small'] : '';
           $medium = isset($programme_variables['slider_securite_image_medium']) ? $programme_variables['slider_securite_image_medium'] : '';
-          if ($medium && $small) {
-            $alt = isset($programme_variables['slider_securite_image_alt']) ? $programme_variables['slider_securite_image_alt'] : 'Photo extérieure';
-          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
           <div class="programCharacteristicsItem__img">
@@ -126,12 +117,9 @@ if((isset($programme_variables['slider_rt2012_image_small'])
       <li id="slide3">
         <a href="#slide3" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print t('RT 2012') ;?><span class="display-status"></span></a>
         <?php
-          $alt = '';
+          $alt = isset($programme_variables['slider_rt2012_image_alt']) ? $programme_variables['slider_rt2012_image_alt'] : '';
           $small = isset($programme_variables['slider_rt2012_image_small']) ? $programme_variables['slider_rt2012_image_small'] : '';
           $medium = isset($programme_variables['slider_rt2012_image_medium']) ? $programme_variables['slider_rt2012_image_medium'] : '';
-          if ($medium && $small) {
-            $alt = isset($programme_variables['slider_rt2012_image_alt']) ? $programme_variables['slider_rt2012_image_alt'] : 'Photo extérieure';
-          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
           <div class="programCharacteristicsItem__img">
