@@ -1,4 +1,6 @@
 <?php
+global $base_url;
+
 $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $title = '';
 $sub_title = '';
@@ -357,8 +359,9 @@ endif;
                               $article_alias = end($article_alias);
                               $path = $article_alias;
                               $current_dossier_path = request_path();
+                              
                               $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
+                              $path = $base_url . '/' . str_replace('content/', '', $path);
                               ?>
                               <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
@@ -381,14 +384,14 @@ endif;
                       <?php if ($list_block_article_2): ?>
                         <ul class="articleList__item__infos__links">
                             <?php
-                            foreach ($list_block_article_1 as $l):
+                            foreach ($list_block_article_2 as $l):
                               $article_alias = url('node/' . $l['entity']->nid);
                               $article_alias = explode('/', $article_alias);
                               $article_alias = end($article_alias);
                               $path = $article_alias;
                               $current_dossier_path = request_path();
                               $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
+                              $path = $base_url . '/' . str_replace('content/', '', $path);
                               ?>
                               <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
@@ -411,14 +414,14 @@ endif;
                       <?php if ($list_block_article_3): ?>
                         <ul class="articleList__item__infos__links">
                             <?php
-                            foreach ($list_block_article_1 as $l):
+                            foreach ($list_block_article_3 as $l):
                               $article_alias = url('node/' . $l['entity']->nid);
                               $article_alias = explode('/', $article_alias);
                               $article_alias = end($article_alias);
                               $path = $article_alias;
                               $current_dossier_path = request_path();
                               $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
+                              $path = $base_url . '/' . str_replace('content/', '', $path);
                               ?>
                               <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
                             <?php endforeach; ?>
@@ -435,7 +438,7 @@ endif;
 
 <?php
 if (function_exists('kandb_contact_block_page')) {
-  kandb_contact_block_page();
+  print kandb_contact_block_page();
 }
 ?>
 
