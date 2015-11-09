@@ -357,10 +357,48 @@ function kandb_update_7127() {
 }
 
 /**
- * Enable metatag module
+ * Enable "nodeorder" Module
  */
 function kandb_update_7128() {
+  if (!module_exists('weight')) {
+    module_enable(array('weight'), TRUE);
+  }
+}
+
+/**
+ * Enable "nodeorder" Module
+ */
+function kandb_update_7129() {
+  if (!module_exists('nodeorder')) {
+    module_enable(array('nodeorder'), TRUE);
+  }
+}
+
+/**
+ * Enable "nodeorder" Module
+ */
+function kandb_update_7130() {
+  if (!module_exists('kandb_dossier_weight_views')) {
+    module_enable(array('kandb_dossier_weight_views'), TRUE);
+  }
+}
+
+
+/**
+ * Enable "kandb_path_alias_patterns" Module
+ */
+function kandb_update_7131() {
+  if (!module_exists('kandb_path_alias_patterns')) {
+    module_enable(array('kandb_path_alias_patterns'), TRUE);
+  }
+}
+
+/*
+ * Enable metatag module
+ */
+function kandb_update_7132() {
   if (!module_exists('metatag')) {
     module_enable(array('metatag'), TRUE);
   }
 }
+

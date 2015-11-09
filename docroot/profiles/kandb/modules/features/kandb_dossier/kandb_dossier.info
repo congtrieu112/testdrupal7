@@ -94,6 +94,7 @@ features[field_instance][] = node-dossier-field_dossier_sous_titre
 features[field_instance][] = node-dossier-field_dossier_video
 features[node][] = dossier
 features[variable][] = field_bundle_settings_node__dossier
+features[variable][] = language_content_type_dossier
 features[variable][] = menu_options_dossier
 features[variable][] = menu_parent_dossier
 features[variable][] = node_options_dossier
