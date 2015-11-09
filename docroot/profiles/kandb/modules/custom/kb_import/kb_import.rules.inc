@@ -98,58 +98,58 @@ function kb_import_finish_daily_import() {
   //City feed import
   if (isset($kb_daily_import_status['city_feed_import_status'])) {
     if ($kb_daily_import_status['city_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'City feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-102: City feed import success');
     }
     elseif ($kb_daily_import_status['city_feed_import_status'] == -1) {
-      watchdog('kb_daily_import', 'City feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-102: City feed import error');
     }
   }
   //District feed import
   if (isset($kb_daily_import_status['district_feed_import_status'])) {
     if ($kb_daily_import_status['district_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'District feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-101: District feed import success');
     }
     elseif ($kb_daily_import_status['district_feed_import_status'] == -1) {
-      watchdog('kb_daily_import', 'District feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-101: District feed import error');
     }
   }
   //Maison feed import
   if (isset($kb_daily_import_status['maison_feed_import_status'])) {
     if ($kb_daily_import_status['maison_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'Maison feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-103: Maison feed import success');
     }
     elseif ($kb_daily_import_status['maison_feed_import_status'] == -1) {
-      watchdog('kb_daily_import', 'Maison feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-103: Maison feed import error');
     }
   }
   //Programme feed import
   if (isset($kb_daily_import_status['programme_feed_import_status'])) {
     if ($kb_daily_import_status['programme_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'Programme feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-104: Programme feed import success');
     }
     elseif ($kb_daily_import_status['programme_feed_import_status'] == -1) {
       $daily_status = FALSE;
-      watchdog('kb_daily_import', 'Programme feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-104: Programme feed import error');
     }
   }
   //Parcel feed import
   if (isset($kb_daily_import_status['parcel_feed_import_status'])) {
     if ($kb_daily_import_status['parcel_feed_import_status'] == 1) {
-      watchdog('kb_daily_import', 'Parcel feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-105: Parcel feed import success');
     }
     elseif ($kb_daily_import_status['parcel_feed_import_status'] == -1) {
       $daily_status = FALSE;
-      watchdog('kb_daily_import', 'Parcel feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+      kb_daily_import_logging ('jnb-105: Parcel feed import error');
     }
     elseif ($kb_daily_import_status['parcel_feed_import_status'] == 0) {
       $daily_status = FALSE;
     }
   }
   if ($daily_status) {
-    watchdog('kb_daily_import', 'Daily feed import finish', array(), WATCHDOG_INFO, 'admin/reports/dblog/feeds');
+    kb_daily_import_logging ('daily-import: Daily import success');
   }
   else {
-    watchdog('kb_daily_import', 'Daily feed import error', array(), WATCHDOG_ERROR, 'admin/reports/dblog/feeds');
+    kb_daily_import_logging ('daily-import: Daily import error');
   }
   $kb_daily_import_status = daily_import_status_default();
   set_daily_import_status ($kb_daily_import_status);

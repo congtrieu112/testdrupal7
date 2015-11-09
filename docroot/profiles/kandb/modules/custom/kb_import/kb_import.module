@@ -12,6 +12,17 @@ function kb_import_menu() {
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
   );
+  $items['admin/config/kb-import'] = array(
+    'title' => 'Kandb import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('config_ftp_page'),
+    'file' => 'kb_import.admin.inc',
+    'access callback' => TRUE,
+  );
+  $items['admin/config/kb-import/ftp-files'] = array(
+    'title' => 'Configure ftp to get files',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+  );
 
   return $items;
 }
@@ -73,12 +84,16 @@ $kb_daily_import_importers = array(
   }
 }
 function kb_starting_daily_import(){
-//Set variable's status
-  $kb_daily_import_status = daily_import_status_default();
-  $kb_daily_import_status['start_daily_import'] = 1;
-  set_daily_import_status ($kb_daily_import_status);
-//Call event starting_daily_import
-  rules_invoke_event('starting_daily_import');
+  module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
+  $start_getting_file = kb_import_ftp_get_files();
+  if($start_getting_file) {
+  //Set variable's status
+    $kb_daily_import_status = daily_import_status_default();
+    $kb_daily_import_status['start_daily_import'] = 1;
+    set_daily_import_status ($kb_daily_import_status);
+  //Call event starting_daily_import
+    rules_invoke_event('starting_daily_import');
+  }
 }
 
 function kb_daily_import_importer_list() {
@@ -124,4 +139,11 @@ function _check_successful_importer ($feeds_source) {
     }
   }
   return $status;
+}
+function kb_daily_import_logging ($message) {
+  if(module_exists('kandb_feed') && $message != ''){
+    $uri = 'private://daily-import-log/';
+    $file_log_name = 'daily_import_log_' . date('Y-m-d') . '.txt';
+    createFileErrorLogTxt($file_log_name, $message, $uri);
+  }
 }
