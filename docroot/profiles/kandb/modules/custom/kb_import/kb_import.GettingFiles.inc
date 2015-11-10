@@ -2,8 +2,8 @@
 
 function kb_import_ftp_get_files () {
   
-  $file_name = variable_get('kb_ftp_filename', nl2br("ARRONDISSEMENT.TXT\r\nVILLE.TXT\r\nMAISON.TXT\r\nPROGRAMME.TXT\r\nLOT.TXT"));
-  $file_name_arr = array_map('trim', explode("\r\n", $file_name));
+  $file_name = variable_get('kb_ftp_filename', "ARRONDISSEMENT.TXT\nVILLE.TXT\nMAISON.TXT\nPROGRAMME.TXT\nLOT.TXT");
+  $file_name_arr = array_map('trim', explode("\n", $file_name));
   $getting_file_status = TRUE;
   $config = array(
     'server' => variable_get('kb_ftp_server', '194.150.11.65'),
