@@ -35,13 +35,13 @@ $errors = form_get_errors();
                             <li>
                                 <label class="input">
                                     <div class="input__label visually-hidden"><?php print t('Min'); ?></div>
-                                    <?php print render($form['prix_min']); ?>
+                                    <input type="number" name="prix_min" placeholder="Min" step="1000" class="input__text small-padding text-center">
                                 </label>
                             </li>
                             <li>
                                 <label class="input">
                                     <div class="input__label visually-hidden"><?php print t('Max'); ?></div>
-                                    <?php print render($form['prix_max']); ?>
+                                    <input type="number" name="prix_max" placeholder="Max" step="1000" class="input__text small-padding text-center">
                                 </label>
                             </li>
                         </ul>
