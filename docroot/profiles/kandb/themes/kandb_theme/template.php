@@ -1,10 +1,10 @@
 <?php
 
-define('WATCHEEZY', '//api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
 
 function kandb_theme_preprocess_html(&$head_elements) {
 
-  
+
   /*$meta_description = array(
            '#type' => 'html_tag',
            '#tag' => 'meta',
@@ -13,7 +13,7 @@ function kandb_theme_preprocess_html(&$head_elements) {
            'content' => 'test destiption dasdsa' //build meta tag
   ));
   drupal_add_html_head($meta_description, 'taggedy_tag');*/
-  
+
 
 }
 
@@ -163,7 +163,7 @@ function kandb_theme_preprocess_node(&$vars) {
     if ($price_tva_min != 0) {
       $vars['price_tva_min'] = $price_tva_min;
     }
-    
+
     $vars['anchor'] = FALSE;
     if ($vars['title']) {
       $vars['anchor'] = TRUE;

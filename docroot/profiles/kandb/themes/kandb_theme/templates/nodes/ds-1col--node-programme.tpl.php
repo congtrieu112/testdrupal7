@@ -69,12 +69,38 @@ $program_characteristic = module_invoke('kandb_programme', 'block_view', 'progra
                   <div class="iframe iframe--video-de-quartier">
                       <iframe src="" data-src="http://widgets.habiteo.com/plan-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
                   </div>
-                <?php elseif ($lon && $lat): ?>
-                  <div class="iframe iframe--video-de-quartier">
-                      <iframe src="" data-src="http://maps.google.com/?q=<?php print $lat; ?>,<?php print $lon; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no"></iframe>
-                  </div>
-                <?php endif; ?>
+                  <?php
+                elseif ($lon && $lat):
+                  $latitude = $lat / 1000000;
+                  $longitude = $lon / 1000000;
+
+                  $settings = array(
+                    'id' => 'mymap',
+                    'latitude' => $latitude, // center the map.
+                    'longitude' => $longitude, // on the marker.
+                    'zoom' => 10,
+                    'width' => '100%',
+                    'height' => '490px',
+                    'type' => 'Satellite',
+                  );
+
+                  $settings['markers'] = array(
+                    array(
+                      'latitude' => $latitude,
+                      'longitude' => $longitude,
+                    ),
+                  );
+
+                  $element = array(
+                    '#type' => 'gmap',
+                    '#gmap_settings' => $settings,
+                  );
+                  print drupal_render($element);
+
+                endif;
+                ?>
             </div>
+
             <div class="swapItem__1">
                 <div class="wrapper">
                     <div class="heading heading--small text-center">
@@ -82,6 +108,7 @@ $program_characteristic = module_invoke('kandb_programme', 'block_view', 'progra
                     </div>
                 </div>
             </div>
+
             <div class="wrapper--medium-up">
                 <?php if ($habiteo_id): ?>
                   <div class="iframe iframe--video-de-quartier">
@@ -89,7 +116,7 @@ $program_characteristic = module_invoke('kandb_programme', 'block_view', 'progra
                   </div>
                 <?php elseif ($video_id): ?>
                   <div class="iframe iframe--video-de-quartier">
-                      <iframe src="" data-src="https://www.youtube.com/watch?v=<?php print $video_id; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" ></iframe>
+                      <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
                   </div>
                 <?php endif; ?>
             </div>
@@ -108,21 +135,43 @@ $program_characteristic = module_invoke('kandb_programme', 'block_view', 'progra
 <?php print render($program_characteristic['content']); ?>
 
 <!-- [3rd party: vue-generale] start-->
-<section class="section-padding show-for-medium-up">
-    <div class="wrapper">
-        <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
-        </header>
-        <?php if ($habiteo_id): ?>
-          <div class="iframe iframe--vue-generale">
-              <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+<?php if ($habiteo_id): ?>
+  <section class="section-padding show-for-medium-up">
+      <div class="wrapper">
+          <header class="heading heading--bordered">
+              <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
+          </header>
+          <?php if ($habiteo_id): ?>
+            <div class="iframe iframe--vue-generale">
+                <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+            </div>
+          <?php endif; ?>
+          <div class="content-centered">
+              <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
           </div>
-        <?php endif; ?>
-        <div class="content-centered">
-            <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
-        </div>
-    </div>
-</section>
+      </div>
+  </section>
+<?php endif; ?>
+<!-- [3rd party: vue-generale] start-->
+
+<!-- [3rd party: vue-generale] start-->
+<?php if ($habiteo_id): ?>
+  <section class="section-padding show-for-medium-up">
+      <div class="wrapper">
+          <header class="heading heading--bordered">
+              <h2 class="heading__title"><?php print t('Découvrez la plan de masse 3D'); ?></h2>
+          </header>
+          <?php if ($habiteo_id): ?>
+            <div class="iframe iframe--vue-generale">
+                <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+            </div>
+          <?php endif; ?>
+          <div class="content-centered">
+              <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
+          </div>
+      </div>
+  </section>
+<?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
 <!-- [programDocumentDownload] start-->
 <section class="section-padding">
