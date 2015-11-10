@@ -71,7 +71,7 @@ function kandb_programme_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '2',
+          'weight' => '1',
         ),
         'title' => array(
           'weight' => '11',
@@ -80,10 +80,10 @@ function kandb_programme_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '15',
+          'weight' => '13',
         ),
         'redirect' => array(
-          'weight' => '14',
+          'weight' => '12',
         ),
         'domain' => array(
           'weight' => '1',
@@ -112,6 +112,13 @@ function kandb_programme_strongarm() {
     ),
   );
   $export['field_bundle_settings_node__programme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_programme';
+  $strongarm->value = '0';
+  $export['language_content_type_programme'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -152,6 +159,36 @@ function kandb_programme_strongarm() {
   $strongarm->name = 'node_submitted_programme';
   $strongarm->value = 1;
   $export['node_submitted_programme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'unique_field_comp_programme';
+  $strongarm->value = 'each';
+  $export['unique_field_comp_programme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'unique_field_fields_programme';
+  $strongarm->value = array(
+    0 => 'field_id_programme',
+  );
+  $export['unique_field_fields_programme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'unique_field_scope_programme';
+  $strongarm->value = 'type';
+  $export['unique_field_scope_programme'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'unique_field_show_matches_programme';
+  $strongarm->value = array();
+  $export['unique_field_show_matches_programme'] = $strongarm;
 
   return $export;
 }
