@@ -401,8 +401,8 @@ class Kandb_Business_Rules {
    * @param type $is_count
    * @return type
    */
-  public static function get_list_bien_by_program_piece($id_programe, $id_piece, $is_count = 0) {
-    if (empty($id_programe) || empty($id_piece)) {
+  public static function get_list_bien_by_program_piece($id_programe, $id_piece = 0, $is_count = 0) {
+    if (empty($id_programe)) {
       if ($is_count) {
         return $is_count;
       }
@@ -416,9 +416,12 @@ class Kandb_Business_Rules {
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
-        ->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=')
+        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')        
     ;
+    
+    if(!empty($id_piece)){      
+      $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
+    }
 
     if ($is_count) {
       // count bien follow programe and piece
@@ -433,5 +436,78 @@ class Kandb_Business_Rules {
 
     return array();
   }
-
+  
+  /**
+   * @todo To get cheapest or expensive bien follow programe
+   * @param type $id_programe
+   * @param type $is_min
+   * @return type
+   */
+  public static function get_cheapest_expensive_bien($id_programe, $id_piece = 0, $is_min = TRUE){
+    $sort = "ASC";
+    if(!$is_min){
+      $sort = 'DESC';
+    }
+    
+    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+        ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
+        ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
+        ->range(0, 1)
+    ;
+    
+    if(!empty($id_piece)){
+      $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
+    }
+    
+    $bien = $query->execute();
+    if (!empty($bien)) {
+      return array_shift($bien["node"]);
+    }
+    
+    return array();
+  }
+  
+  /**
+   * @todo to get list between cheapest expensive (surface) bien  follow program
+   * @param type $id_programe
+   * @param type $id_piece
+   * @param type $limit
+   * @return type
+   */
+  public static function get_between_cheapest_expensive_biens($id_programe, $id_piece = 0, $limit = 1, $exclude_bien = array()){
+    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+        ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
+        ->fieldOrderBy('field_superficie', 'value', 'ASC')
+        ->range(0, $limit)
+    ;
+    
+    if(!empty($exclude_bien)){
+      $exclude_ids = array();
+      foreach($exclude_bien as $item){
+        $exclude_ids[] = $item->nid;
+      }      
+      //$query->propertyCondition('nid', $exclude_ids, 'NOT IN');
+      $query->entityCondition('entity_id', $exclude_ids, 'NOT IN');
+    }
+    
+    if(!empty($id_piece)){
+      $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
+    }
+    
+    $bien = $query->execute();
+    
+    if (!empty($bien)) {      
+      return $bien["node"];
+    }
+    
+    return array();
+  }
 }
