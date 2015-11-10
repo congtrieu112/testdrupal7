@@ -396,6 +396,22 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
           ->execute()
           ->fetchField();
       }
+
+      if(!$entity_id) {
+        if($source->id == 'migration_program_import' || $source->id == 'programme_feed_import') {
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'programme')
+            ->fieldCondition('field_id_programme', 'value', $value);
+          $results = $query->execute();
+          if ($results["node"]) {
+            foreach($results["node"] as $node) {
+              $entity_id = $node->nid;
+            }
+          }
+        }
+      }
+      
       if (!$entity_id && !empty($targets[$target]['unique_callbacks'])) {
         if (!is_array($value)) {
           $value = array($value);

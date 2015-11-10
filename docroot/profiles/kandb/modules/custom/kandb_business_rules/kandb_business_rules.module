@@ -207,7 +207,7 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
 
     // The number of available bien is recalculated.
     Kandb_Business_Rules::recalculate_bien_to_programe();
-    
+
     // RULE Programme 102.
     Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme);
   }
@@ -254,10 +254,10 @@ function kandb_business_rules_node_update($node) {
       $programe = new stdClass();
       $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
       $arr_update_programme[] = $programe;
-    }        
-    
+    }
+
     if ($status_old != $status_new && ($status_old == $status_disponible || $status_new == $status_disponible)) {
-      // RULE BIEN 107.      
+      // RULE BIEN 107.
       Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
 
       // RULE COUNTING 106.
@@ -271,7 +271,7 @@ function kandb_business_rules_node_update($node) {
       // RULE BIEN 108.
       Kandb_Business_Rules::delete_node_option_related_bien($node->nid);
     }
-    
+
     // RULE Programme 102.
     Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme);
 
@@ -283,6 +283,9 @@ function kandb_business_rules_node_update($node) {
 function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'bien_node_form') {
     $form['field_tva']['#disabled'] = TRUE;
+  }
+  if($form_id == 'programme_node_form' && arg(2) == 'edit') {
+    $form['field_id_programme']['#disabled'] = TRUE;
   }
 }
 
