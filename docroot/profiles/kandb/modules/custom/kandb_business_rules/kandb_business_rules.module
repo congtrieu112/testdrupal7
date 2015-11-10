@@ -99,6 +99,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
 function kandb_business_rules_node_presave($node) {
   // To avoid loop from function node_save.
   $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
+  Kandb_Business_Rules::set_is_node_updating();
 
   if ($node && $node->type == 'programme' && !$is_node_updating) {
     if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
@@ -125,7 +126,7 @@ function kandb_business_rules_node_presave($node) {
       $node->field_program_low_tva_price_min = array();
       $node->field_program_low_tva_price_max = array();
     }
-
+    
     if (isset($node->nid)) {
       $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', 'node')
@@ -155,6 +156,26 @@ function kandb_business_rules_node_presave($node) {
         }
       }
     }
+  }elseif ($node && $node->type == 'bien' && !$is_node_updating) {
+    $price = 0;
+    
+    if(isset($node->field_prix_tva_20[LANGUAGE_NONE][0]['value'])):
+      $price = $node->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
+      $tva_price = 0;
+
+      if(isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])):
+        $program = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
+        
+        if(isset($program->field_tva[LANGUAGE_NONE][0]['tid'])):
+          $tva_id = $program->field_tva[LANGUAGE_NONE][0]['tid'];
+          $tva_term = taxonomy_term_load($tva_id);
+          $field_facteur = 1 + floatval($tva_term->field_facteur[LANGUAGE_NONE][0]['value']);
+          $tva_price = ($price / 1.2) * $field_facteur;
+        endif;
+      endif;
+      
+      $node->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = $tva_price;
+    endif;
   }
 }
 
