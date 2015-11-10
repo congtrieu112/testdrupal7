@@ -25,6 +25,22 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'caracteristiques_programme' => array(
+      'name' => 'Caractéristiques Programme',
+      'machine_name' => 'caracteristiques_programme',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
+    'chauffage' => array(
+      'name' => 'Chauffage',
+      'machine_name' => 'chauffage',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'departement' => array(
       'name' => 'Département',
       'machine_name' => 'departement',

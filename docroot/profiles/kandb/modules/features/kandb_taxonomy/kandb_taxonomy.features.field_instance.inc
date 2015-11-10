@@ -165,6 +165,59 @@ function kandb_taxonomy_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-caracteristiques_programme-field_picto_css_class'
+  $field_instances['taxonomy_term-caracteristiques_programme-field_picto_css_class'] = array(
+    'bundle' => 'caracteristiques_programme',
+    'default_value' => array(
+      0 => array(
+        'value' => 'icon-name',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_picto_css_class',
+    'label' => 'Picto CSS class',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'plain_text' => array(
+              'weight' => 10,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-departement-field_numero_departement'
   $field_instances['taxonomy_term-departement-field_numero_departement'] = array(
     'bundle' => 'departement',
@@ -1321,6 +1374,7 @@ function kandb_taxonomy_field_default_field_instances() {
   t('IDK');
   t('IDKA');
   t('Numéro');
+  t('Picto CSS class');
   t('Region');
 
   return $field_instances;
