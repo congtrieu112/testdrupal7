@@ -12,9 +12,8 @@ function feeds_errorlog_form($form, &$form_state, $vars) {
   $allFiles = scandir($path);
   $allFiles = array_diff($allFiles, array('.', '..'));
 
-
+  $fileInfoes = array();
   if ($allFiles) {
-    $fileInfoes = array();
     foreach ($allFiles as $file_name) {
       if (strpos($file_name, substr($vars, 1)) != FALSE) {
         $fileInfoes[] = array(
@@ -33,12 +32,14 @@ function feeds_errorlog_form($form, &$form_state, $vars) {
     'operations' => t('Operations'),
   );
   $options = array();
-  foreach ($fileInfoes as $fileInfo) {
-    $options[$fileInfo['id']] = array(
-      'importer' => $fileInfo['importer'],
-      'file_name' => $fileInfo['file_name'],
-      'operations' => $fileInfo['operations'],
-    );
+  if ($fileInfoes) {
+    foreach ($fileInfoes as $fileInfo) {
+      $options[$fileInfo['id']] = array(
+        'importer' => $fileInfo['importer'],
+        'file_name' => $fileInfo['file_name'],
+        'operations' => $fileInfo['operations'],
+      );
+    }
   }
 
   $form['errorlogs'] = array(
@@ -68,7 +69,7 @@ function feeds_errorlog_form_validate($form, &$form_state) {
     }
   }
 
-  if($status == FALSE) {
+  if ($status == FALSE) {
     drupal_set_message(t('Please select at least one item.'), 'error');
   }
 }
@@ -76,7 +77,7 @@ function feeds_errorlog_form_validate($form, &$form_state) {
 function feeds_errorlog_form_submit(&$form, &$form_state) {
   if ($form_state['values']['delete'] == $form_state['clicked_button']['#value']) {
     foreach ($form_state['values']['errorlogs'] as $name) {
-      if($name) {
+      if ($name) {
         delete_feeds_errorlog($name);
       }
     }

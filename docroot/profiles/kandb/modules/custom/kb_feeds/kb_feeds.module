@@ -542,6 +542,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
  */
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
     $file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
+    $logging = '';
     if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
         global $base_url;
         foreach ($result->items as $key => $row) {
@@ -691,7 +692,7 @@ function kb_feeds_menu() {
       'title' => 'Feeds errorlog',
       'description' => 'Manage error loges of feed import',
       'page callback' => 'drupal_get_form',
-      'page arguments' => array('feeds_errorlog_programme_form'),
+      'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
       'type' => MENU_NORMAL_ITEM,
       'access arguments' => array('administer content types'),
       'file' => 'kb_feeds.pages.inc',
@@ -702,7 +703,7 @@ function kb_feeds_menu() {
       'page callback' => 'drupal_get_form',
       'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
       'access arguments' => array('administer content types'),
-      'type' => MENU_LOCAL_TASK,
+      'type' => MENU_DEFAULT_LOCAL_TASK,
       'file' => 'kb_feeds.pages.inc',
     );
 
@@ -1114,7 +1115,10 @@ function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   if ($prepare_file) {
     $path = drupal_realpath($uri . $file_log_name);
-    $data = file_get_contents($path);
+    $data = '';
+    if(file_exists($path)) {
+      $data = file_get_contents($path);
+    }
     $logging .= $data;
     drupal_chmod($uri);
     file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
