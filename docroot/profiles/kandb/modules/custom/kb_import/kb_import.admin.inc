@@ -47,7 +47,7 @@ function config_ftp_page() {
     '#type' => 'textarea',
     '#title' => t('Filename'),
     '#description' => t('The list filename in the directory on the FTP server. Enter one file per line.'),
-    '#default_value' => variable_get('kb_ftp_filename', nl2br("ARRONDISSEMENT.TXT\r\nVILLE.TXT\r\nMAISON.TXT\r\nPROGRAMME.TXT\r\nLOT.TXT")),
+    '#default_value' => variable_get('kb_ftp_filename', "ARRONDISSEMENT.TXT\nVILLE.TXT\nMAISON.TXT\nPROGRAMME.TXT\nLOT.TXT"),
   );
   
   $form['kb_ftp_local_directory'] = array(
