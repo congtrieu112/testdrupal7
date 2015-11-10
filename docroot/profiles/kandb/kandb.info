@@ -87,6 +87,7 @@ dependencies[] = gmap
 dependencies[] = gmap_macro_builder
 dependencies[] = gmap_style_bubbles
 dependencies[] = gmap_location
+dependencies[] = unique_field
 
 ; Custom
 dependencies[] = kb_feeds

@@ -439,3 +439,10 @@ function kandb_update_7136() {
     module_enable(array('gmap_location'), TRUE);
   }
 }
+
+function kandb_update_7137() {
+  if (!module_exists('unique_field')) {
+    module_enable(array('unique_field'), TRUE);
+  }
+}
+
