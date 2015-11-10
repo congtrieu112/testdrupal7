@@ -27,6 +27,7 @@ class Kandb_Business_Rules {
   public static $_list_progame = array();
   public static $_list_progam_to_save = array();
   public static $_is_node_updating = false;
+  public static $_list_status = array();
 
   public static function set_is_feed_import($status = TRUE) {
     self::$_is_feed_import = $status;
@@ -103,6 +104,10 @@ class Kandb_Business_Rules {
    * @return type
    */
   public static function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {
+    if(isset(self::$_list_status[$term_name])){
+      return self::$_list_status[$term_name];
+    }
+    
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
@@ -120,7 +125,8 @@ class Kandb_Business_Rules {
     $results = $query->execute();
 
     if (!empty($results)) {
-      return array_shift($results["taxonomy_term"])->tid;
+      self::$_list_status[$term_name] = array_shift($results["taxonomy_term"])->tid;
+      return self::$_list_status[$term_name];
     }
 
     return $results;
