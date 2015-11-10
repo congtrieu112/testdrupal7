@@ -83,6 +83,10 @@ dependencies[] = domain_views
 dependencies[] = weight
 dependencies[] = nodeorder
 dependencies[] = metatag
+dependencies[] = gmap
+dependencies[] = gmap_macro_builder
+dependencies[] = gmap_style_bubbles
+dependencies[] = gmap_location
 
 ; Custom
 dependencies[] = kb_feeds

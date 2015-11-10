@@ -402,3 +402,40 @@ function kandb_update_7132() {
   }
 }
 
+
+/*
+ * Enable gmap module
+ */
+function kandb_update_7133() {
+  if (!module_exists('gmap')) {
+    module_enable(array('gmap'), TRUE);
+  }
+}
+
+
+/*
+ * Enable gmap_macro_builder module
+ */
+function kandb_update_7134() {
+  if (!module_exists('gmap_macro_builder')) {
+    module_enable(array('gmap_macro_builder'), TRUE);
+  }
+}
+
+/*
+ * Enable gmap_style_bubbles module
+ */
+function kandb_update_7135() {
+  if (!module_exists('gmap_style_bubbles')) {
+    module_enable(array('gmap_style_bubbles'), TRUE);
+  }
+}
+
+/*
+ * Enable gmap_location module
+ */
+function kandb_update_7136() {
+  if (!module_exists('gmap_location')) {
+    module_enable(array('gmap_location'), TRUE);
+  }
+}
