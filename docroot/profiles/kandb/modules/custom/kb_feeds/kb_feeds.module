@@ -411,6 +411,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           'term_name' => array(
             'categorie' => 'field_document_type',
           ),
+          'date_time' => array(
+            'date' => 'field_document_date'
+          ),
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
@@ -443,9 +446,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         $validates = array(
           'term_name' => array(
             'categorie' => 'field_document_type',
-          ),
-          'date_time' => array(
-            'date' => 'field_document_date'
           ),
         );
 
