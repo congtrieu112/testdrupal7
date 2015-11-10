@@ -2,17 +2,21 @@
 
 function kb_import_ftp_get_files () {
   
-  $file_name = variable_get('kb_ftp_filename', "ARRONDISSEMENT.TXT\nVILLE.TXT\nMAISON.TXT\nPROGRAMME.TXT\nLOT.TXT");
+  $file_name = variable_get('kb_ftp_filename', "");
   $file_name_arr = array_map('trim', explode("\n", $file_name));
   $getting_file_status = TRUE;
   $config = array(
-    'server' => variable_get('kb_ftp_server', '194.150.11.65'),
-    'username' => variable_get('kb_ftp_username', 'KETB_DIGITAS'),
-    'port' => variable_get('kb_ftp_port', 21),
-    'directory' => variable_get('kb_ftp_directory', '/import'),
-    'password' => variable_get('kb_ftp_password', 'Su9jW6b6'),
-    'local_directory' => variable_get('kb_ftp_local_directory', 'import'),
+    'server' => variable_get('kb_ftp_server', ''),
+    'username' => variable_get('kb_ftp_username', ''),
+    'port' => variable_get('kb_ftp_port', ''),
+    'directory' => variable_get('kb_ftp_directory', ''),
+    'password' => variable_get('kb_ftp_password', ''),
+    'local_directory' => variable_get('kb_ftp_local_directory', ''),
   );
+  if (!$config['server'] || !$config['directory'] ||  !$config['port'] ||  !$config['local_directory']) {
+    kb_daily_import_logging('Form config: Server\'s information is not configured.');
+    return $getting_file_status;
+  }
   //Connect to server
   $connect = kb_import_ftp_connection($config);
   if ($connect) {
