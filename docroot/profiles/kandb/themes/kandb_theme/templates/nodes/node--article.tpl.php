@@ -162,7 +162,7 @@ if (isset($node->field_article_article_ref[LANGUAGE_NONE][0])) {
 <!-- [contactUs generic] start-->
 <?php
 if (function_exists('kandb_contact_block_page')) {
-  kandb_contact_block_page();
+  print kandb_contact_block_page();
 }
 ?>
 <!-- [contactUs generic] end-->

@@ -334,9 +334,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
           } else {
             $validates = array(
-              'term_name' => array(
-                24 => 'field_tva',
-              ),
+//              'term_name' => array(
+//                24 => 'field_tva',
+//              ),
               'term_id' => array(
                 2 => 'field_marque_comm',
                 3 => 'field_zone_activite',
@@ -382,13 +382,13 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
               'entity_id' => array(
                 1 => 'field_programme'
               ),
-              'term_id' => array(
-                7 => 'field_caracteristique',
-                15 => 'field_caracteristique',
-                16 => 'field_caracteristique',
-                18 => 'field_caracteristique',
-                20 => 'field_caracteristique'
-              ),
+//              'term_id' => array(
+//                7 => 'field_caracteristique',
+//                15 => 'field_caracteristique',
+//                16 => 'field_caracteristique',
+//                18 => 'field_caracteristique',
+//                20 => 'field_caracteristique'
+//              ),
               'number' => array(
                 3 => 'field_prix_tva_20',
                 8 => 'field_superficie',
@@ -907,6 +907,10 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
             $term = taxonomy_term_load($item[$key]);
             if (!$term) {
               $error_term_field .= $field_name . ',';
+            } else {
+              if(!isset($term->$field_name)) {
+                $error_term_field .= $field_name . ',';
+              }
             }
           }
         }

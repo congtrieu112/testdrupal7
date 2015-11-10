@@ -385,6 +385,50 @@ class Kandb_Business_Rules {
       }
     }
   }
+  
+  /**
+   * @todo to get list bien with status is available
+   * @param type $id_progamme
+   * @return type
+   */
+  public static function get_biens_available_in_progamme ($id_progamme){    
+    if(empty($id_progamme)){
+      return -1;
+    }
+    
+    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+        ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=');
+    
+    return intval($query->count()->execute());
+  }
+  
+  /**
+   * @todo To search all progamme and set status is false If it does not have bien available
+   * @param type $list_programe
+   */
+  public static function set_status_programme_hasno_bien($list_programe = array()){
+    if (empty($list_programe)) {
+      $list_programe = self::get_list_program_contain_bien();
+    }
+
+    foreach ($list_programe as $item) {      
+      if (isset(self::$_list_progam_to_save [$item->nid])) {
+        $node_programe = self::$_list_progam_to_save [$item->nid];
+      }
+      else {
+        $node_programe = node_load($item->nid);
+      }
+      
+      $count_biens_available = self::get_biens_available_in_progamme($item->nid);      
+      if($count_biens_available == 0){
+        $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 0;
+        self::$_list_progam_to_save [$item->nid] = $node_programe;
+      }
+    }
+  }
 
   public static function node_save_list_program() {
     if (!empty(self::$_list_progam_to_save)) {

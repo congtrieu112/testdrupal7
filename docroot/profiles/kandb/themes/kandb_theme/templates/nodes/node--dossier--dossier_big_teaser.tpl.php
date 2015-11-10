@@ -6,15 +6,15 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <?php print render($title_prefix); ?>
     <?php print render($title_suffix); ?>
     <?php if ($video_id): ?>
-      <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('vidéo'); ?>" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
-          <h3 class="heading__title"><?php print t('Pourquoi acheter dans le neuf ?'); ?></h3>
+      <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print $node->title; ?>" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
+          <h3 class="heading__title"><?php print $node->title; ?></h3>
           <div class="btn-icon"><span class="button__content">
                   <span class="icon icon-play"></span><?php print t('Lire la vidéo'); ?></span>
           </div>
       </a>
     <?php else: ?>
-      <a href="#" title="<?php print t('vidéo'); ?>" data-reveal-id="" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
-          <h3 class="heading__title"><?php print t('Pourquoi acheter dans le neuf ?'); ?></h3>
+      <a href="#" title="<?php print $node->title; ?>" data-reveal-id="" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
+          <h3 class="heading__title"><?php print $node->title; ?></h3>
       </a>
     <?php endif; ?>
 
@@ -29,7 +29,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     </div>
     <!-- [popin] end-->
     <div class="homeDocs__main__desc">
-        <p class="color-jet"><?php print $node->title; ?></p>
+        <p class="color-jet"><?php print nl2br($node->field_dossier_introduction[LANGUAGE_NONE][0]['value']); ?></p>
         <div class="btn-wrapper">
             <a href="<?php print url('node/' . $node->nid); ?>" class="btn-secondary btn-rounded">
                 <?php print t('Lire le dossier'); ?>
