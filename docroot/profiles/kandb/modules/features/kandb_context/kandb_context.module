@@ -5,3 +5,35 @@
  */
 
 include_once 'kandb_context.features.inc';
+
+/**
+ * Implements hook_block_info().
+ */
+function kandb_context_block_info() {
+  $blocks = array();
+  $blocks['header_empty'] = array(
+    'info' => t('Header Empty'),
+    'cache' => DRUPAL_CACHE_GLOBAL
+  );
+
+  $blocks['footer_empty'] = array(
+    'info' => t('Footer Empty'),
+    'cache' => DRUPAL_CACHE_GLOBAL
+  );
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function kandb_context_block_view($delta = '') {
+  $block = array();
+  switch($delta){
+    case 'header_empty':
+    case 'footer_empty':
+      $block['subject'] = '';
+      $block['content'] = ' ';
+      break;
+  }
+  return $block;
+}

@@ -46,6 +46,7 @@ dependencies[] = module_filter
 dependencies[] = node
 dependencies[] = options
 dependencies[] = pathauto
+dependencies[] = special_menu_items
 dependencies[] = system
 dependencies[] = strongarm
 dependencies[] = taxonomy
@@ -79,6 +80,9 @@ dependencies[] = bean_uuid
 dependencies[] = image_style_quality
 dependencies[] = webform_ajax
 dependencies[] = domain_views
+dependencies[] = weight
+dependencies[] = nodeorder
+dependencies[] = metatag
 
 ; Custom
 dependencies[] = kb_feeds
@@ -116,6 +120,9 @@ dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
 dependencies[] = kand_contactus_export_views
+dependencies[] = kandb_dossier_weight_views
+dependencies[] = kandb_path_alias_patterns
+
 
 ; Blocks
 dependencies[] = kandb_recherche

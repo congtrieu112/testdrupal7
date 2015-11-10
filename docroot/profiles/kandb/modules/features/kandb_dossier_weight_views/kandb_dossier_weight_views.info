@@ -1,0 +1,13 @@
+name = K&B Dossier Weight Views
+description = Order of conseils
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = kandb_dossier
+dependencies[] = nodeorder
+dependencies[] = views
+dependencies[] = weight
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = dossier_weight
+features_exclude[dependencies][ctools] = ctools

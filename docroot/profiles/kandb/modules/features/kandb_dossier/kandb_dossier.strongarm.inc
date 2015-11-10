@@ -49,12 +49,6 @@ function kandb_dossier_strongarm() {
       'selection_contact' => array(
         'custom_settings' => FALSE,
       ),
-      'print' => array(
-        'custom_settings' => FALSE,
-      ),
-      'teaser_on_bien' => array(
-        'custom_settings' => FALSE,
-      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -83,15 +77,18 @@ function kandb_dossier_strongarm() {
             'weight' => '3',
             'visible' => TRUE,
           ),
-          'default' => array(
-            'weight' => '47',
-            'visible' => FALSE,
-          ),
         ),
       ),
     ),
   );
   $export['field_bundle_settings_node__dossier'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'language_content_type_dossier';
+  $strongarm->value = '0';
+  $export['language_content_type_dossier'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

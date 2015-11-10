@@ -1,4 +1,6 @@
 <?php
+global $base_url;
+
 $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $title = '';
 $sub_title = '';
@@ -157,6 +159,25 @@ if (isset($content['field_articles_block3_ref']['#object']->field_articles_block
 if (isset($content['field_articles_block3_image']['#object']->field_articles_block3_image['und'][0]['uri']))
   $image_block_article_3 = $content['field_articles_block3_image']['#object']->field_articles_block3_image['und'][0]['uri'];
 //end image block article 3
+
+
+$list_articles = array(
+  array(
+    'title' => $title_block_article_1,
+    'image' => $image_block_article_1,
+    'articles' => $list_block_article_1
+  ),
+  array(
+    'title' => $title_block_article_2,
+    'image' => $image_block_article_2,
+    'articles' => $list_block_article_2
+  ),
+  array(
+    'title' => $title_block_article_3,
+    'image' => $image_block_article_3,
+    'articles' => $list_block_article_3
+  ),
+);
 ?>
 <?php
 if (isset($content['nos_conseils'])):
@@ -337,96 +358,44 @@ endif;
             <p class="articleList__intro"><?php print $intro_main_block_article ?></p>
         </header>
         <div data-equalizer data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="articleList__list">
-            <?php if ($title_block_article_1): ?>
-              <div class="articleList__item">
-                  <?php if ($image_block_article_1): ?>
-                    <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="<?php print $title_block_article_1 ?>" data-interchange="[<?php print file_create_url($image_block_article_1) ?>, (small)], [<?php print file_create_url($image_block_article_1) ?>, (large)]"/>
-                        <noscript><img src="<?php print file_create_url($image_block_article_1) ?>" alt="<?php print $title_block_article_1 ?>"/></noscript>
-                        <!-- [Responsive img] end-->
+
+            <?php
+            $current_dossier_path = request_path();
+            foreach ($list_articles as $item) {
+              if (!empty($item["title"])) {
+                ?>
+                <div class="articleList__item">
+                    <?php if (!empty($item["image"])): ?>
+                      <div class="articleList__item__img">
+                          <!-- [Responsive img] start--><img alt="<?php print $item["title"] ?>" data-interchange="[<?php print file_create_url($item["image"]) ?>, (small)], [<?php print file_create_url($item["image"]) ?>, (large)]"/>
+                          <noscript><img src="<?php print file_create_url($item["image"]) ?>" alt="<?php print $item["title"] ?>"/></noscript>
+                          <!-- [Responsive img] end-->
+                      </div>
+                    <?php endif; ?>
+                    <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
+                        <h4 class="articleList__item__infos__heading"><?php print $item["title"] ?></h4>
+                        <?php if (!empty($item["articles"])): ?>
+                          <ul class="articleList__item__infos__links">
+                              <?php
+                              foreach ($item["articles"] as $l):
+                                $article_alias = url('node/' . $l['entity']->nid);
+                                $article_alias = explode('/', $article_alias);
+                                $article_alias = end($article_alias);
+                                $path = $article_alias;
+
+                                $path = $current_dossier_path . '/' . $path;
+                                $path = $base_url . '/' . str_replace('content/', '', $path);
+                                ?>
+                                <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
+                              <?php endforeach; ?>
+                          </ul>
+                        <?php endif; ?>
                     </div>
-                  <?php endif; ?>
-                  <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
-                      <h4 class="articleList__item__infos__heading"><?php print $title_block_article_1 ?></h4>
-                      <?php if ($list_block_article_1): ?>
-                        <ul class="articleList__item__infos__links">
-                            <?php
-                            foreach ($list_block_article_1 as $l):
-                              $article_alias = url('node/' . $l['entity']->nid);
-                              $article_alias = explode('/', $article_alias);
-                              $article_alias = end($article_alias);
-                              $path = $article_alias;
-                              $current_dossier_path = request_path();
-                              $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
-                              ?>
-                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                      <?php endif; ?>
-                  </div>
-              </div>
-            <?php endif; ?>
-            <?php if ($title_block_article_2): ?>
-              <div class="articleList__item">
-                  <?php if ($image_block_article_2): ?>
-                    <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="<?php print $title_block_article_2 ?>" data-interchange="[<?php print file_create_url($image_block_article_2) ?>, (small)], [<?php print file_create_url($image_block_article_2) ?>, (large)]"/>
-                        <noscript><img src="<?php print file_create_url($image_block_article_2) ?>" alt="<?php print $title_block_article_2 ?>"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                  <?php endif; ?>
-                  <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
-                      <h4 class="articleList__item__infos__heading"><?php print $title_block_article_2 ?></h4>
-                      <?php if ($list_block_article_2): ?>
-                        <ul class="articleList__item__infos__links">
-                            <?php
-                            foreach ($list_block_article_1 as $l):
-                              $article_alias = url('node/' . $l['entity']->nid);
-                              $article_alias = explode('/', $article_alias);
-                              $article_alias = end($article_alias);
-                              $path = $article_alias;
-                              $current_dossier_path = request_path();
-                              $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
-                              ?>
-                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                      <?php endif; ?>
-                  </div>
-              </div>
-            <?php endif; ?>
-            <?php if ($title_block_article_3): ?>
-              <div class="articleList__item">
-                  <?php if ($image_block_article_3): ?>
-                    <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="<?php print $title_block_article_3 ?>" data-interchange="[<?php print file_create_url($image_block_article_3) ?>, (small)], [<?php print file_create_url($image_block_article_3) ?>, (large)]"/>
-                        <noscript><img src="<?php print file_create_url($image_block_article_3) ?>" alt="<?php print $title_block_article_3 ?>"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                  <?php endif; ?>
-                  <div data-equalizer-watch="data-equalizer-watch" class="articleList__item__infos">
-                      <h4 class="articleList__item__infos__heading"><?php print $title_block_article_3 ?></h4>
-                      <?php if ($list_block_article_3): ?>
-                        <ul class="articleList__item__infos__links">
-                            <?php
-                            foreach ($list_block_article_1 as $l):
-                              $article_alias = url('node/' . $l['entity']->nid);
-                              $article_alias = explode('/', $article_alias);
-                              $article_alias = end($article_alias);
-                              $path = $article_alias;
-                              $current_dossier_path = request_path();
-                              $path = $current_dossier_path . '/' . $path;
-                              $path = str_replace('content/', '', $path);
-                              ?>
-                              <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                            <?php endforeach; ?>
-                        </ul>
-                      <?php endif; ?>
-                  </div>
-              </div>
-            <?php endif; ?>
+                </div>
+                <?php
+              }
+            }
+            ?>
         </div>
     </div>
 </section>
@@ -435,7 +404,7 @@ endif;
 
 <?php
 if (function_exists('kandb_contact_block_page')) {
-  kandb_contact_block_page();
+  print kandb_contact_block_page();
 }
 ?>
 
