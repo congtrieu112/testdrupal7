@@ -292,30 +292,40 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
  * @param type $nb_piece
  * @return array
  */
-function bien_to_display($id_programme, $nb_piece = "all") {
+function bien_to_display($id_programme, $nb_piece = "all") {  
   $results = array();
   if (!isset($id_programme) || empty($id_programme)) {
     return $results;
   }
-
-  if (is_numeric($nb_piece)) {
-    // nb_piece is a particular nb_piece
-    $results = Kandb_Business_Rules::get_list_bien_by_program_piece($id_programme, $nb_piece);
+  
+  if (!is_numeric($nb_piece)) {
+    // nb_piece is all
+    $nb_piece = 0;
   }
-  else {
-    // nb_piece is 'all'
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term')
-        ->entityCondition('bundle', TAXONOMY_NB_PIECES)
-        ->fieldOrderBy('field_id_nombre_pieces', 'value', 'ASC')
-    ;
+  
+  $program = node_load($id_programme);
+  $program_stock = 100;
+  if(isset($program->field_programme_stock[LANGUAGE_NONE][0]['value']) && is_numeric($program->field_programme_stock[LANGUAGE_NONE][0]['value'])){
+    $program_stock = intval($program->field_programme_stock[LANGUAGE_NONE][0]['value']);
+  }  
+    
+  $count_biens = Kandb_Business_Rules::get_list_bien_by_program_piece ($id_programme, $nb_piece, TRUE);
+  $count_biens = round($count_biens * ($program_stock / 100), 0);  
+  if($count_biens == 0){
+    return $results;
+  }
 
-    $list_pieces = $query->execute();
-    if (!empty($list_pieces)) {
-      foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
-        $results[$nb_piece->tid] = Kandb_Business_Rules::get_list_bien_by_program_piece($id_programme, $nb_piece->tid);
-      }
+  $results[] = Kandb_Business_Rules::get_cheapest_expensive_bien($id_programme, $nb_piece);  // Bien Cheapest.
+
+  if($count_biens > 1){
+    $results[] = Kandb_Business_Rules::get_cheapest_expensive_bien($id_programme, $nb_piece , FALSE); // Bien Expensive.
+    
+    if($count_biens > 2){
+      // Need to exclude 2 bien cheapest && expensive
+      $biens_between = Kandb_Business_Rules::get_between_cheapest_expensive_biens($id_programme, $nb_piece, $count_biens - 2, $results); // Bien Expensive.  
+      $results = array_merge($results, $biens_between);
     }
+    
   }
   return $results;
 }

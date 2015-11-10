@@ -21,88 +21,88 @@ define('KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID', 2);
 define('KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE', 3);
 
 function kb_feeds_feeds_plugins() {
-    $info = array();
-    $path = drupal_get_path('module', 'kb_feeds');
+  $info = array();
+  $path = drupal_get_path('module', 'kb_feeds');
 
-    $info['KbFeedsProcessor'] = array(
-      'hidden' => TRUE,
-      'handler' => array(
-        'parent' => 'FeedsPlugin',
-        'class' => 'KbFeedsProcessor',
-        'file' => 'KbFeedsProcessor.inc',
-        'path' => $path,
-      ),
-    );
+  $info['KbFeedsProcessor'] = array(
+    'hidden' => TRUE,
+    'handler' => array(
+      'parent' => 'FeedsPlugin',
+      'class' => 'KbFeedsProcessor',
+      'file' => 'KbFeedsProcessor.inc',
+      'path' => $path,
+    ),
+  );
 
-    $info['KbFeedsCSVParser'] = array(
-      'name' => 'KB CSV parser',
-      'description' => 'Parse data in Comma Separated Value format.',
-      'handler' => array(
-        'parent' => 'FeedsParser',
-        'class' => 'KbFeedsCSVParser',
-        'file' => 'KbFeedsCSVParser.inc',
-        'path' => $path,
-      ),
-    );
+  $info['KbFeedsCSVParser'] = array(
+    'name' => 'KB CSV parser',
+    'description' => 'Parse data in Comma Separated Value format.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbFeedsCSVParser',
+      'file' => 'KbFeedsCSVParser.inc',
+      'path' => $path,
+    ),
+  );
 
-    $info['KbEncodingCSVParser'] = array(
-      'name' => 'KB migration program video parser',
-      'description' => 'Only use for "Migration program video import" importer.',
-      'handler' => array(
-        'parent' => 'FeedsParser',
-        'class' => 'KbEncodingCSVParser',
-        'file' => 'KbEncodingCSVParser.inc',
-        'path' => $path,
-      ),
-    );
+  $info['KbEncodingCSVParser'] = array(
+    'name' => 'KB migration program video parser',
+    'description' => 'Only use for "Migration program video import" importer.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbEncodingCSVParser',
+      'file' => 'KbEncodingCSVParser.inc',
+      'path' => $path,
+    ),
+  );
 
-    $info['KbDocCommuniqueCSVParser'] = array(
-      'name' => 'KB migration document communique parser',
-      'description' => 'Only use for "Document import communique de presse" importer.',
-      'handler' => array(
-        'parent' => 'FeedsParser',
-        'class' => 'KbDocCommuniqueCSVParser',
-        'file' => 'KbDocCommuniqueCSVParser.inc',
-        'path' => $path,
-      ),
-    );
+  $info['KbDocCommuniqueCSVParser'] = array(
+    'name' => 'KB migration document communique parser',
+    'description' => 'Only use for "Document import communique de presse" importer.',
+    'handler' => array(
+      'parent' => 'FeedsParser',
+      'class' => 'KbDocCommuniqueCSVParser',
+      'file' => 'KbDocCommuniqueCSVParser.inc',
+      'path' => $path,
+    ),
+  );
 
-    $info['KbFeedsNodeProcessor'] = array(
-      'name' => 'KB Node processor',
-      'description' => 'Create and update nodes.',
-      'help' => 'Create and update nodes from parsed content.',
-      'handler' => array(
-        'parent' => 'FeedsProcessor',
-        'class' => 'KbFeedsNodeProcessor',
-        'file' => 'KbFeedsNodeProcessor.inc',
-        'path' => $path,
-      ),
-    );
-    $info['KbFeedsMiNodeProcessor'] = array(
-      'name' => 'KB multiple importer node processor',
-      'description' => 'Create and update nodes by 2 feeds importer.',
-      'help' => 'Create and update nodes from parsed content by 2 feeds importer.',
-      'handler' => array(
-        'parent' => 'FeedsProcessor',
-        'class' => 'KbFeedsMiNodeProcessor',
-        'file' => 'KbFeedsMiNodeProcessor.inc',
-        'path' => $path,
-      ),
-    );
-    $info['KbFeedsHTTPFetcher'] = array(
-      'name' => 'KB HTTP fetcher',
-      'description' => 'Download content from a URL.',
-      'help' => 'Download content from a URL.',
-      'handler' => array(
-        'parent' => 'FeedsFetcher',
-        'class' => 'KbFeedsHTTPFetcher',
-        'file' => 'KbFeedsHTTPFetcher.inc',
-        'path' => $path,
-      ),
-    );
+  $info['KbFeedsNodeProcessor'] = array(
+    'name' => 'KB Node processor',
+    'description' => 'Create and update nodes.',
+    'help' => 'Create and update nodes from parsed content.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'KbFeedsNodeProcessor',
+      'file' => 'KbFeedsNodeProcessor.inc',
+      'path' => $path,
+    ),
+  );
+  $info['KbFeedsMiNodeProcessor'] = array(
+    'name' => 'KB multiple importer node processor',
+    'description' => 'Create and update nodes by 2 feeds importer.',
+    'help' => 'Create and update nodes from parsed content by 2 feeds importer.',
+    'handler' => array(
+      'parent' => 'FeedsProcessor',
+      'class' => 'KbFeedsMiNodeProcessor',
+      'file' => 'KbFeedsMiNodeProcessor.inc',
+      'path' => $path,
+    ),
+  );
+  $info['KbFeedsHTTPFetcher'] = array(
+    'name' => 'KB HTTP fetcher',
+    'description' => 'Download content from a URL.',
+    'help' => 'Download content from a URL.',
+    'handler' => array(
+      'parent' => 'FeedsFetcher',
+      'class' => 'KbFeedsHTTPFetcher',
+      'file' => 'KbFeedsHTTPFetcher.inc',
+      'path' => $path,
+    ),
+  );
 
 
-    return $info;
+  return $info;
 }
 
 /**
@@ -112,157 +112,155 @@ function kb_feeds_feeds_plugins() {
  * @param type $bundle
  */
 function kb_feeds_feeds_processor_targets_alter(array &$targets, $entity_type, $bundle) {
-    if ($entity_type == 'node' && $bundle == 'bien') {
-        if (isset($targets['field_bien_statut'])) {
-            $targets['field_bien_statut']['callback'] = 'field_bien_statut_feeds_set_target';
-            $targets['field_bien_statut']['summary_callbacks'][0] = 'field_bien_statut_feeds_summary_callback';
-            $targets['field_bien_statut']['form_callbacks'][0] = 'field_bien_statut_feeds_form_callback';
-        }
+  if ($entity_type == 'node' && $bundle == 'bien') {
+    if (isset($targets['field_bien_statut'])) {
+      $targets['field_bien_statut']['callback'] = 'field_bien_statut_feeds_set_target';
+      $targets['field_bien_statut']['summary_callbacks'][0] = 'field_bien_statut_feeds_summary_callback';
+      $targets['field_bien_statut']['form_callbacks'][0] = 'field_bien_statut_feeds_form_callback';
     }
+  }
 }
 
 function field_bien_statut_feeds_form_callback(array $mapping, $target, array $form, array $form_state) {
-    return array(
-      'term_search' => array(
-        '#type' => 'select',
-        '#title' => t('Search taxonomy terms by'),
-        '#options' => array(
-          KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME => 'Term name',
-          KB_FEEDS_TAXONOMY_SEARCH_TERM_ID => 'Term ID',
-          KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID => 'GUID',
-          KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE => 'Field id file'
-        ),
-        '#default_value' => !empty($mapping['term_search']) ? $mapping['term_search'] : KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME,
+  return array(
+    'term_search' => array(
+      '#type' => 'select',
+      '#title' => t('Search taxonomy terms by'),
+      '#options' => array(
+        KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME => 'Term name',
+        KB_FEEDS_TAXONOMY_SEARCH_TERM_ID => 'Term ID',
+        KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID => 'GUID',
+        KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE => 'Field id file'
       ),
-      'autocreate' => array(
-        '#type' => 'checkbox',
-        '#title' => t('Auto create'),
-        '#description' => t("Create the term if it doesn't exist."),
-        '#default_value' => !empty($mapping['autocreate']) ? $mapping['autocreate'] : 0,
-        '#states' => array(
-          'visible' => array(
-            ':input[name$="[settings][term_search]"]' => array('value' => KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME),
-          ),
+      '#default_value' => !empty($mapping['term_search']) ? $mapping['term_search'] : KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME,
+    ),
+    'autocreate' => array(
+      '#type' => 'checkbox',
+      '#title' => t('Auto create'),
+      '#description' => t("Create the term if it doesn't exist."),
+      '#default_value' => !empty($mapping['autocreate']) ? $mapping['autocreate'] : 0,
+      '#states' => array(
+        'visible' => array(
+          ':input[name$="[settings][term_search]"]' => array('value' => KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME),
         ),
       ),
-    );
+    ),
+  );
 }
 
 function field_bien_statut_feeds_set_target(FeedsSource $source, $entity, $target, array $terms, array $mapping) {
-    // Add in default values.
-    $mapping += array(
-      'term_search' => KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME,
-      'autocreate' => FALSE,
-    );
+  // Add in default values.
+  $mapping += array(
+    'term_search' => KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME,
+    'autocreate' => FALSE,
+  );
 
-    $info = field_info_field($target);
+  $info = field_info_field($target);
 
-    $cache = &drupal_static(__FUNCTION__);
-    if (!isset($cache['allowed_values'][$target])) {
-        $cache['allowed_values'][$target] = taxonomy_allowed_values($info);
+  $cache = &drupal_static(__FUNCTION__);
+  if (!isset($cache['allowed_values'][$target])) {
+    $cache['allowed_values'][$target] = taxonomy_allowed_values($info);
+  }
+
+  if (!isset($cache['allowed_vocabularies'][$target])) {
+    foreach ($info['settings']['allowed_values'] as $tree) {
+      if ($vocabulary = taxonomy_vocabulary_machine_name_load($tree['vocabulary'])) {
+        $cache['allowed_vocabularies'][$target][$vocabulary->vid] = $vocabulary->machine_name;
+      }
+    }
+  }
+
+  // Some kind of configuration issue. Perhaps the vocabulary was deleted.
+  // Nothing we can do about it.
+  if (empty($cache['allowed_vocabularies'][$target])) {
+    return;
+  }
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term')
+    ->entityCondition('bundle', $cache['allowed_vocabularies'][$target])
+    ->range(0, 1);
+
+
+  $field = isset($entity->$target) ? $entity->$target : array('und' => array());
+
+  // Allow for multiple mappings to the same target.
+  $delta = count($field['und']);
+
+  // Iterate over all values.
+  foreach ($terms as $term) {
+
+    if ($info['cardinality'] == $delta) {
+      break;
     }
 
-    if (!isset($cache['allowed_vocabularies'][$target])) {
-        foreach ($info['settings']['allowed_values'] as $tree) {
-            if ($vocabulary = taxonomy_vocabulary_machine_name_load($tree['vocabulary'])) {
-                $cache['allowed_vocabularies'][$target][$vocabulary->vid] = $vocabulary->machine_name;
+    $tid = FALSE;
+
+    // FeedsTermElement already is a term.
+    if ($term instanceof FeedsTermElement) {
+      $tid = $term->tid;
+    } else {
+      switch ($mapping['term_search']) {
+
+        // Lookup by name.
+        case KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME:
+          $term = trim($term);
+          $name_query = clone $query;
+          if (strlen($term) && $tids = $name_query->propertyCondition('name', $term)->execute()) {
+
+            // Find the first allowed term.
+            foreach ($tids['taxonomy_term'] as $possible_term) {
+              if (isset($cache['allowed_values'][$target][$possible_term->tid])) {
+                $tid = $possible_term->tid;
+                break;
+              }
             }
-        }
-    }
-
-    // Some kind of configuration issue. Perhaps the vocabulary was deleted.
-    // Nothing we can do about it.
-    if (empty($cache['allowed_vocabularies'][$target])) {
-        return;
-    }
-
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term')
-        ->entityCondition('bundle', $cache['allowed_vocabularies'][$target])
-        ->range(0, 1);
-
-
-    $field = isset($entity->$target) ? $entity->$target : array('und' => array());
-
-    // Allow for multiple mappings to the same target.
-    $delta = count($field['und']);
-
-    // Iterate over all values.
-    foreach ($terms as $term) {
-
-        if ($info['cardinality'] == $delta) {
-            break;
-        }
-
-        $tid = FALSE;
-
-        // FeedsTermElement already is a term.
-        if ($term instanceof FeedsTermElement) {
+          } elseif ($mapping['autocreate'] && strlen($term)) {
+            $term = (object) array(
+                'name' => drupal_substr($term, 0, 255),
+                'vid' => key($cache['allowed_vocabularies'][$target]),
+                'vocabulary_machine_name' => reset($cache['allowed_vocabularies'][$target]),
+            );
+            taxonomy_term_save($term);
             $tid = $term->tid;
-        }
-        else {
-            switch ($mapping['term_search']) {
+            // Add to the list of allowed values.
+            $cache['allowed_values'][$target][$tid] = $term->name;
+          }
+          break;
 
-                // Lookup by name.
-                case KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME:
-                    $term = trim($term);
-                    $name_query = clone $query;
-                    if (strlen($term) && $tids = $name_query->propertyCondition('name', $term)->execute()) {
+        // Lookup by tid.
+        case KB_FEEDS_TAXONOMY_SEARCH_TERM_ID:
+          if (is_numeric($term)) {
+            $tid = (int) $term;
+          }
+          break;
 
-                        // Find the first allowed term.
-                        foreach ($tids['taxonomy_term'] as $possible_term) {
-                            if (isset($cache['allowed_values'][$target][$possible_term->tid])) {
-                                $tid = $possible_term->tid;
-                                break;
-                            }
-                        }
-                    }
-                    elseif ($mapping['autocreate'] && strlen($term)) {
-                        $term = (object) array(
-                              'name' => drupal_substr($term, 0, 255),
-                              'vid' => key($cache['allowed_vocabularies'][$target]),
-                              'vocabulary_machine_name' => reset($cache['allowed_vocabularies'][$target]),
-                        );
-                        taxonomy_term_save($term);
-                        $tid = $term->tid;
-                        // Add to the list of allowed values.
-                        $cache['allowed_values'][$target][$tid] = $term->name;
-                    }
-                    break;
+        case KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE:
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'taxonomy_term')
+            ->entityCondition('bundle', $cache['allowed_vocabularies'][$target])
+            ->fieldCondition('field_id_file', 'value', $term, '=')
+            ->range(0, 1);
+          $results = $query->execute();
+          foreach ($results["taxonomy_term"] as $result) {
+            $tid = $result->tid;
+          }
+          break;
 
-                // Lookup by tid.
-                case KB_FEEDS_TAXONOMY_SEARCH_TERM_ID:
-                    if (is_numeric($term)) {
-                        $tid = (int) $term;
-                    }
-                    break;
-
-                case KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE:
-                    $query = new EntityFieldQuery();
-                    $query->entityCondition('entity_type', 'taxonomy_term')
-                        ->entityCondition('bundle', $cache['allowed_vocabularies'][$target])
-                        ->fieldCondition('field_id_file', 'value', $term, '=')
-                        ->range(0, 1);
-                    $results = $query->execute();
-                    foreach ($results["taxonomy_term"] as $result) {
-                        $tid = $result->tid;
-                    }
-                    break;
-
-                // Lookup by GUID.
-                case KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID:
-                    $tid = kb_feeds_taxonomy_feeds_term_lookup_term_by_guid($term);
-                    break;
-            }
-        }
-
-        if ($tid && isset($cache['allowed_values'][$target][$tid])) {
-            $field['und'][] = array('tid' => $tid);
-            $delta++;
-        }
+        // Lookup by GUID.
+        case KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID:
+          $tid = kb_feeds_taxonomy_feeds_term_lookup_term_by_guid($term);
+          break;
+      }
     }
 
-    $entity->$target = $field;
+    if ($tid && isset($cache['allowed_values'][$target][$tid])) {
+      $field['und'][] = array('tid' => $tid);
+      $delta++;
+    }
+  }
+
+  $entity->$target = $field;
 }
 
 /**
@@ -275,43 +273,43 @@ function field_bien_statut_feeds_set_target(FeedsSource $source, $entity, $targe
  *   The term id, or FALSE if one was not found.
  */
 function kb_feeds_taxonomy_feeds_term_lookup_term_by_guid($guid) {
-    return db_select('feeds_item')
-            ->fields('feeds_item', array('entity_id'))
-            ->condition('entity_type', 'taxonomy_term')
-            ->condition('guid', $guid)
-            ->execute()
-            ->fetchField();
+  return db_select('feeds_item')
+      ->fields('feeds_item', array('entity_id'))
+      ->condition('entity_type', 'taxonomy_term')
+      ->condition('guid', $guid)
+      ->execute()
+      ->fetchField();
 }
 
 /**
  * Mapping configuration summary for taxonomy.module.
  */
 function field_bien_statut_feeds_summary_callback(array $mapping, $target, array $form, array $form_state) {
-    $options = array(
-      KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME => 'Term name',
-      KB_FEEDS_TAXONOMY_SEARCH_TERM_ID => 'Term ID',
-      KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID => 'GUID',
-      KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE => 'Field id file'
-    );
-    if (empty($mapping['term_search'])) {
-        return t('Search taxonomy terms by: <strong>@search</strong>', array('@search' => $options[FEEDS_TAXONOMY_SEARCH_TERM_NAME]));
-    }
-    return t('Search taxonomy terms by: <strong>@search</strong>', array('@search' => $options[$mapping['term_search']]));
+  $options = array(
+    KB_FEEDS_TAXONOMY_SEARCH_TERM_NAME => 'Term name',
+    KB_FEEDS_TAXONOMY_SEARCH_TERM_ID => 'Term ID',
+    KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID => 'GUID',
+    KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE => 'Field id file'
+  );
+  if (empty($mapping['term_search'])) {
+    return t('Search taxonomy terms by: <strong>@search</strong>', array('@search' => $options[FEEDS_TAXONOMY_SEARCH_TERM_NAME]));
+  }
+  return t('Search taxonomy terms by: <strong>@search</strong>', array('@search' => $options[$mapping['term_search']]));
 }
 
 function getListTidTaxonomyByName($bundle, $value) {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term')
-        ->entityCondition('bundle', $bundle)
-        ->range(0, 1);
-    $name_query = clone $query;
-    $tids = $name_query->propertyCondition('name', $value)->execute();
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term')
+    ->entityCondition('bundle', $bundle)
+    ->range(0, 1);
+  $name_query = clone $query;
+  $tids = $name_query->propertyCondition('name', $value)->execute();
 
-    foreach ($tids["taxonomy_term"] as $possible_term) {
-        $tid = $possible_term->tid;
-    }
+  foreach ($tids["taxonomy_term"] as $possible_term) {
+    $tid = $possible_term->tid;
+  }
 
-    return $tid;
+  return $tid;
 }
 
 /**
@@ -321,67 +319,67 @@ function getListTidTaxonomyByName($bundle, $value) {
  * @param type $item
  */
 function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
-    $logging = '';
-    $totalItems = count($item);
+  $logging = '';
+  $totalItems = count($item);
 
-    $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
-    $file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+  $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
+  $file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
 
-    $tid = 0;
-    if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
-        if ($entity->feeds_item->id == 'programme_feed_import') {
-          if ($totalItems != $totalColumn) {
-            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
+  $tid = 0;
+  if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
+    if ($entity->feeds_item->id == 'programme_feed_import') {
+      if ($totalItems != $totalColumn) {
+        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
 //              'term_name' => array(
 //                24 => 'field_tva',
 //              ),
-              'term_id' => array(
-                2 => 'field_marque_comm',
-                3 => 'field_zone_activite',
-                4 => 'field_programme_loc_ville',
-                5 => 'field_programme_loc_arr',
-                14 => 'field_type_programme'
-              ),
-              'number' => array(
-                7 => 'field_programme_loc_num',
-                13 => 'field_annee',
-              ),
-              'check_box' => array(
-                24 => 'field_tva_55',
-              ),
-            );
+          'term_field_id' => array(
+            2 => 'field_marque_comm',
+            3 => 'field_zone_activite',
+            4 => 'field_programme_loc_ville',
+            5 => 'field_programme_loc_arr',
+            14 => 'field_type_programme'
+          ),
+          'number' => array(
+            7 => 'field_programme_loc_num',
+            13 => 'field_annee',
+          ),
+          'check_box' => array(
+            24 => 'field_tva_55',
+          ),
+        );
 
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-            if (!$logging) {
-              if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
-                $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
-                if ($terms) {
-                    foreach ($terms as $key => $value) {
-                        $tid = $key;
-                    }
-                }
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if (!$logging) {
+          if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
+            $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
+            if ($terms) {
+              foreach ($terms as $key => $value) {
+                $tid = $key;
               }
             }
           }
-        } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
-          if ($totalItems != $totalColumn) {
-            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
-              'term_name' => array(
-                2 => 'field_type',
-                10 => 'field_orientation'
-              ),
-              'term_field_id' => array(
-                  4 => 'field_nb_pieces',
-                  5 => 'field_nb_chambres',
-                  6 => 'field_etage',
-                ),
-              'entity_id' => array(
-                1 => 'field_programme'
-              ),
+        }
+      }
+    } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
+      if ($totalItems != $totalColumn) {
+        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
+          'term_name' => array(
+            2 => 'field_type',
+            10 => 'field_orientation'
+          ),
+          'term_field_id' => array(
+            4 => 'field_nb_pieces',
+            5 => 'field_nb_chambres',
+            6 => 'field_etage',
+          ),
+          'entity_id' => array(
+            1 => 'field_programme'
+          ),
 //              'term_id' => array(
 //                7 => 'field_caracteristique',
 //                15 => 'field_caracteristique',
@@ -389,149 +387,146 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 //                18 => 'field_caracteristique',
 //                20 => 'field_caracteristique'
 //              ),
-              'number' => array(
-                3 => 'field_prix_tva_20',
-                8 => 'field_superficie',
-              ),
-            );
+          'number' => array(
+            3 => 'field_prix_tva_20',
+            8 => 'field_superficie',
+          ),
+        );
 
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-            if (!$logging) {
-              if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
-                $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
-                if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
-                    $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
-                }
-              }
-            }
-          }
-        } elseif ($entity->feeds_item->id == 'document_import') {
-          if ($totalItems != 6) {
-            $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
-              'term_name' => array(
-                'categorie' => 'field_document_type',
-              ),
-              'date_time' => array(
-                'date' => 'field_document_date'
-              ),
-            );
-
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
-            if (!$logging) {
-              $status = 0;
-              $sticky = 0;
-              switch ($entity->status) {
-                  case "On line":
-                      $status = 1;
-                      break;
-                  case "Off line":
-                      break;
-                  default:
-                      $sticky = 1;
-                      break;
-              }
-
-              $entity->status = $status;
-              $entity->sticky = $sticky;
-            }
-          }
-        } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
-          if ($totalItems != 14) {
-            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          }
-        } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-          if ($totalItems != $totalColumn) {
-            $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
-              'term_name' => array(
-                'categorie' => 'field_document_type',
-              ),
-              'date_time' => array(
-                'date' => 'field_document_date'
-              ),
-            );
-
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
-          }
-        } elseif ($entity->feeds_item->id == 'maison_feed_import') {
-          $logging = '';
-          if ($totalItems != $totalColumn) {
-            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
-              'number' => array(
-                4 => 'field_maison_nb_etage',
-                5 => 'field_maison_nb_pieces',
-                6 => 'field_maison_nb_chambres',
-                7 => 'field_maison_nb_salle_bain',
-                10 => 'field_maison_surface_sejour',
-                11 => 'field_maison_surface_cuisine',
-                12 => 'field_maison_surface_totale',
-              ),
-            );
-
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
-          }
-        } elseif ($entity->feeds_item->id == 'migration_program_video_import') {
-          if ($totalItems != 1) {
-            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          }
-        } elseif($entity->feeds_item->id == 'migration_program_import') {
-          if ($totalItems > 44 || $totalItems < 41) {
-            $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $validates = array(
-              'term_name' => array(
-                'typeprogramme' => 'field_type_programme',
-                'tva' => 'field_tva'
-              ),
-              'number' => array(
-                'affichagestock' => 'field_programme_stock',
-                'noderue' => 'field_programme_loc_num',
-                'prixmoyenm2' => 'field_programme_avg_price',
-                'prixminimum' => 'field_programme_min_price',
-                'anneelivraison' => 'field_annee'
-              ),
-              'check_box' => array(
-                'statut' => 'field_programme_statut',
-                'rt2012' => 'field_slider_rt2012_bbc'
-              )
-            );
-
-            $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
-          }
-        } elseif ($entity->feeds_item->id == 'city_feed_import') {
-          if ($totalItems != $totalColumn) {
-            $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          }
-        } elseif ($entity->feeds_item->id == 'district_feed_import') {
-          if ($totalItems != $totalColumn) {
-            $logging = $item[2] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
-          } else {
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'taxonomy_term')
-                ->entityCondition('bundle', 'ville')
-                ->fieldCondition('field_idk', 'value', $item[1]);
-
-            $results = $query->execute();
-            if(!$results["taxonomy_term"]) {
-              $logging = $item[0] . '|field_idk|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if (!$logging) {
+          if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+            $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
+            if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
+              $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
             }
           }
         }
-    }
+      }
+    } elseif ($entity->feeds_item->id == 'document_import') {
+      if ($totalItems != 6) {
+        $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
+          'term_name' => array(
+            'categorie' => 'field_document_type',
+          ),
+          'date_time' => array(
+            'date' => 'field_document_date'
+          ),
+        );
 
-    if ($logging) {
-      createFileErrorLogTxt($file_log_name, $logging);
-      $entity->feeds_item->skip = TRUE;
-    }
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
+        if (!$logging) {
+          $status = 0;
+          $sticky = 0;
+          switch ($entity->status) {
+            case "On line":
+              $status = 1;
+              break;
+            case "Off line":
+              break;
+            default:
+              $sticky = 1;
+              break;
+          }
 
-    if ($tid > 0) {
-        $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
+          $entity->status = $status;
+          $entity->sticky = $sticky;
+        }
+      }
+    } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
+      if ($totalItems != 14) {
+        $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      }
+    } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
+      if ($totalItems != 14) {
+        $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
+          'term_name' => array(
+            'categorie' => 'field_document_type',
+          ),
+        );
+
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
+      }
+    } elseif ($entity->feeds_item->id == 'maison_feed_import') {
+      $logging = '';
+      if ($totalItems != $totalColumn) {
+        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
+          'number' => array(
+            4 => 'field_maison_nb_etage',
+            5 => 'field_maison_nb_pieces',
+            6 => 'field_maison_nb_chambres',
+            7 => 'field_maison_nb_salle_bain',
+            10 => 'field_maison_surface_sejour',
+            11 => 'field_maison_surface_cuisine',
+            12 => 'field_maison_surface_totale',
+          ),
+        );
+
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+      }
+    } elseif ($entity->feeds_item->id == 'migration_program_video_import') {
+      if ($totalItems != 2) {
+        $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      }
+    } elseif ($entity->feeds_item->id == 'migration_program_import') {
+      if ($totalItems > 44 || $totalItems < 41) {
+        $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $validates = array(
+          'term_name' => array(
+            'typeprogramme' => 'field_type_programme',
+            'tva' => 'field_tva'
+          ),
+          'number' => array(
+            'affichagestock' => 'field_programme_stock',
+            'noderue' => 'field_programme_loc_num',
+            'prixmoyenm2' => 'field_programme_avg_price',
+            'prixminimum' => 'field_programme_min_price',
+            'anneelivraison' => 'field_annee'
+          ),
+          'check_box' => array(
+            'statut' => 'field_programme_statut',
+            'rt2012' => 'field_slider_rt2012_bbc'
+          )
+        );
+
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
+      }
+    } elseif ($entity->feeds_item->id == 'city_feed_import') {
+      if ($totalItems != $totalColumn) {
+        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      }
+    } elseif ($entity->feeds_item->id == 'district_feed_import') {
+      if ($totalItems != $totalColumn) {
+        $logging = $item[2] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      } else {
+        $query = new EntityFieldQuery();
+        $query->entityCondition('entity_type', 'taxonomy_term')
+          ->entityCondition('bundle', 'ville')
+          ->fieldCondition('field_idk', 'value', $item[1]);
+
+        $results = $query->execute();
+        if (!$results["taxonomy_term"]) {
+          $logging = $item[0] . '|field_idk|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+        }
+      }
     }
+  }
+
+  if ($logging) {
+    createFileErrorLogTxt($file_log_name, $logging);
+    $entity->feeds_item->skip = TRUE;
+  }
+
+  if ($tid > 0) {
+    $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
+  }
 }
 
 /**
@@ -541,100 +536,97 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
  * @param type $item
  */
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
-    $file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
-    if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
-        global $base_url;
-        foreach ($result->items as $key => $row) {
-            $list_file_id = array();    // List column have upload file
-            if ($source->id === "document_import") {
-                $list_file_id = array(
-                  "lienfichier"
-                );
-            }
-            elseif ($source->id === "kb_patrimoine_import") {
+  $file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
+  $logging = '';
+  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
+    global $base_url;
+    foreach ($result->items as $key => $row) {
+      $list_file_id = array();    // List column have upload file
+      if ($source->id === "document_import") {
+        $list_file_id = array(
+          "lienfichier"
+        );
+      } elseif ($source->id === "kb_patrimoine_import") {
 
-                $id_program = $row["identifiantprogramme"];
-                $check_exist = get_program_by_id($id_program);
-                // just use for update node, not add new.
-                if (empty($check_exist)) {
-                    unset($result->items[$key]);
-                    continue;
-                }
-
-                $list_file_id = array(
-                  "PlaquetteCommerciale",
-                  "ContratDeReservation",
-                  "EtatDesRisques",
-                  "LetterBanque",
-                  "FichesDeRenseignement",
-                  "PrestationsDuProgramme",
-                  "MandatDeGestionLocative",
-                  "PlansDeMasse",
-                  "VisuelGrandeTaille",
-                  "BailCommercial",
-                  "BonDeCommandeMobilier",
-                  "KitFiscal",
-                  "AutreDoc",
-                );
-            }
-
-            // Parse url for pdf file.
-            foreach ($list_file_id as $item_col_file) {
-                $item_col_file = strtolower($item_col_file);
-
-                $file = $row[$item_col_file];
-                if (!empty($file)) {
-                    $path_url = $base_url . '/sites/default/files';
-                    if ($file[0] === '/') {
-                        $path_url .= $file;
-                    }
-                    else {
-                        $path_url .= '/' . $file;
-                    }
-
-                    $result->items[$key][$item_col_file] = $path_url;
-                }
-            }
-        }
-    } elseif ($source->id === "city_feed_import"){
-      foreach ($result->items as $key => $row) {
-        if(!$row[1]) {
-            $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
+        $id_program = $row["identifiantprogramme"];
+        $check_exist = get_program_by_id($id_program);
+        // just use for update node, not add new.
+        if (empty($check_exist)) {
+          unset($result->items[$key]);
+          continue;
         }
 
-        if ($logging) {
-          createFileErrorLogTxt($file_log_name, $logging);
-        }
-      }
-    } elseif ($source->id === "district_feed_import") {
-      foreach ($result->items as $key => $row) {
-        if(!$row[2]) {
-          $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
-        }
-
-        if ($logging) {
-          createFileErrorLogTxt($file_log_name, $logging);
-        }
+        $list_file_id = array(
+          "PlaquetteCommerciale",
+          "ContratDeReservation",
+          "EtatDesRisques",
+          "LetterBanque",
+          "FichesDeRenseignement",
+          "PrestationsDuProgramme",
+          "MandatDeGestionLocative",
+          "PlansDeMasse",
+          "VisuelGrandeTaille",
+          "BailCommercial",
+          "BonDeCommandeMobilier",
+          "KitFiscal",
+          "AutreDoc",
+        );
       }
 
+      // Parse url for pdf file.
+      foreach ($list_file_id as $item_col_file) {
+        $item_col_file = strtolower($item_col_file);
 
+        $file = $row[$item_col_file];
+        if (!empty($file)) {
+          $path_url = $base_url . '/sites/default/files';
+          if ($file[0] === '/') {
+            $path_url .= $file;
+          } else {
+            $path_url .= '/' . $file;
+          }
+
+          $result->items[$key][$item_col_file] = $path_url;
+        }
+      }
     }
+  } elseif ($source->id === "city_feed_import") {
+    foreach ($result->items as $key => $row) {
+      if (!$row[1]) {
+        $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
+      }
+
+      if ($logging) {
+        createFileErrorLogTxt($file_log_name, $logging);
+      }
+    }
+  } elseif ($source->id === "district_feed_import") {
+    foreach ($result->items as $key => $row) {
+      if (!$row[2]) {
+        $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
+      }
+
+      if ($logging) {
+        createFileErrorLogTxt($file_log_name, $logging);
+      }
+    }
+  }
 }
 
 function get_program_by_id($id_program) {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-        ->entityCondition('bundle', 'programme')
-        ->fieldCondition('field_id_programme', 'value', $id_program, '=');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'programme')
+    ->fieldCondition('field_id_programme', 'value', $id_program, '=');
 
 
-    $results = $query->execute();
+  $results = $query->execute();
 
-    if (!empty($results)) {
-        return $results["node"];
-    }
+  if (!empty($results)) {
+    return $results["node"];
+  }
 
-    return array();
+  return array();
 }
 
 /**
@@ -645,19 +637,19 @@ function get_program_by_id($id_program) {
 function get_bien_by_bienid($id_bien) {
 
 
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-        ->entityCondition('bundle', 'bien')
-        ->fieldCondition('field_id_bien', 'value', $id_bien, 'like');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'bien')
+    ->fieldCondition('field_id_bien', 'value', $id_bien, 'like');
 
 
-    $results = $query->execute();
+  $results = $query->execute();
 
-    if (!empty($results)) {
-        return $results["node"];
-    }
+  if (!empty($results)) {
+    return $results["node"];
+  }
 
-    return array();
+  return array();
 }
 
 /**
@@ -666,29 +658,144 @@ function get_bien_by_bienid($id_bien) {
  * @param type $path_pdf_file
  */
 function save_bien_pdf_file($id_bien, $path_pdf_file) {
-    $node = node_load($id_bien);
+  $node = node_load($id_bien);
 
-    $file = file_save_data(file_get_contents($path_pdf_file), file_default_scheme() . '://' . basename($path_pdf_file));
-    $node->field_bien_plan[LANGUAGE_NONE][0] = array("fid" => $file->fid, 'display' => 1, 'description' => '', 'upload' => '');
-    node_save($node);
+  $file = file_save_data(file_get_contents($path_pdf_file), file_default_scheme() . '://' . basename($path_pdf_file));
+  $node->field_bien_plan[LANGUAGE_NONE][0] = array("fid" => $file->fid, 'display' => 1, 'description' => '', 'upload' => '');
+  node_save($node);
 }
 
 /**
  * Implements hook_menu().
  */
 function kb_feeds_menu() {
+  // Add menu for #KBC-230.
+  $items['admin/import_bien_pdf'] = array(
+    'title' => 'Import Bien PDF',
+    'description' => 'Configurate value to import Bien PDF map files',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('import_bien_pdf_admin'),
+    'access arguments' => array('administer'),
+    'type' => MENU_NORMAL_ITEM,
+  );
 
-    // Add menu for #KBC-230.
-    $items['admin/import_bien_pdf'] = array(
-      'title' => 'Import Bien PDF',
-      'description' => 'Configurate value to import Bien PDF map files',
-      'page callback' => 'drupal_get_form',
-      'page arguments' => array('import_bien_pdf_admin'),
-      'access arguments' => array('administer'),
-      'type' => MENU_NORMAL_ITEM,
-    );
+  $items['admin/reports/feeds_errorlog'] = array(
+    'title' => 'Feeds errorlog',
+    'description' => 'Manage error loges of feed import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer content types'),
+    'file' => 'kb_feeds.pages.inc',
+  );
 
-    return $items;
+  $items['admin/reports/feeds_errorlog/programme'] = array(
+    'title' => 'Programme',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/parcel-feed-import'] = array(
+    'title' => 'Lot',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'parcel_feed_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/maison'] = array(
+    'title' => 'Maison',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'maison_feed_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/ville'] = array(
+    'title' => 'Ville',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'city_feed_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/arrondissement'] = array(
+    'title' => 'Arrondissement',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'district_feed_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/programme-csv'] = array(
+    'title' => 'Programme (CSV)',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'migration_program_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/document-patrimoine'] = array(
+    'title' => 'Programme document patrimoine',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'kb_patrimoine_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/programme-video'] = array(
+    'title' => 'Programme video',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'migration_program_video_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/document-import'] = array(
+    'title' => 'Document import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'document_import_log'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/document-import-communique'] = array(
+    'title' => 'Document import communique',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['feeds-errorlog/delete/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('delete_feeds_errorlog_confirm_form', 2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
+
+  $items['feeds-errorlog/download/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'download_feeds_errorlog',
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
+
+  return $items;
 }
 
 /**
@@ -696,36 +803,36 @@ function kb_feeds_menu() {
  * Add setting page for #KBC-230
  */
 function import_bien_pdf_admin() {
-    $form['field_tabs'] = array(
-      '#type' => 'vertical_tabs',
-    );
-    $form['setting'] = array(
-      '#type' => 'fieldset',
-      '#title' => t('Import bien pdf Settings'),
-      '#group' => 'field_tabs',
-    );
+  $form['field_tabs'] = array(
+    '#type' => 'vertical_tabs',
+  );
+  $form['setting'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Import bien pdf Settings'),
+    '#group' => 'field_tabs',
+  );
 
 
-    $form['setting']['dir_parent'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Directory parent'),
-      '#default_value' => variable_get('import_bien_pdf_dir_parent', 'lot_plan/'),
-    );
+  $form['setting']['dir_parent'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Directory parent'),
+    '#default_value' => variable_get('import_bien_pdf_dir_parent', 'lot_plan/'),
+  );
 
-    $form['actions'] = array('#type' => 'actions');
-    $form['actions']['submit'] = array(
-      '#type' => 'submit',
-      '#value' => t('Save'),
-    );
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
 
-    $form['actions']['import_pdf'] = array(
-      '#type' => 'button',
-      '#value' => t('Import PDF'),
-      '#executes_submit_callback' => TRUE,
-      '#name' => 'op_import_bien_pdf',
-    );
+  $form['actions']['import_pdf'] = array(
+    '#type' => 'button',
+    '#value' => t('Import PDF'),
+    '#executes_submit_callback' => TRUE,
+    '#name' => 'op_import_bien_pdf',
+  );
 
-    return $form;
+  return $form;
 }
 
 /**
@@ -734,31 +841,29 @@ function import_bien_pdf_admin() {
  */
 function import_bien_pdf_admin_submit() {
 
-    if (isset($_REQUEST["op_import_bien_pdf"])) { // Action import bien pdf map files.
-        $dir_parent = variable_get('import_bien_pdf_dir_parent');
+  if (isset($_REQUEST["op_import_bien_pdf"])) { // Action import bien pdf map files.
+    $dir_parent = variable_get('import_bien_pdf_dir_parent');
 
-        if (empty($dir_parent)) {
-            drupal_set_message(t('Please enter field "Directory parent" first'), 'error');
-        }
-        else {
-            batch_set(import_bien_pdf_batch_operation());
-        }
+    if (empty($dir_parent)) {
+      drupal_set_message(t('Please enter field "Directory parent" first'), 'error');
+    } else {
+      batch_set(import_bien_pdf_batch_operation());
     }
-    else {  // Action save settings.
-        $dir_parent = $_REQUEST['dir_parent'];
+  } else {  // Action save settings.
+    $dir_parent = $_REQUEST['dir_parent'];
 
-        if (!empty($dir_parent) && $dir_parent[0] == '/') {
-            $dir_parent = substr($dir_parent, 1, -1);
-        }
-
-        if (!empty($dir_parent) && $dir_parent[strlen($dir_parent) - 1] != '/') {
-            $dir_parent .= '/';
-        }
-
-        variable_set('import_bien_pdf_dir_parent', $dir_parent);
-
-        drupal_set_message(t('Save data successful'));
+    if (!empty($dir_parent) && $dir_parent[0] == '/') {
+      $dir_parent = substr($dir_parent, 1, -1);
     }
+
+    if (!empty($dir_parent) && $dir_parent[strlen($dir_parent) - 1] != '/') {
+      $dir_parent .= '/';
+    }
+
+    variable_set('import_bien_pdf_dir_parent', $dir_parent);
+
+    drupal_set_message(t('Save data successful'));
+  }
 }
 
 /**
@@ -766,100 +871,96 @@ function import_bien_pdf_admin_submit() {
  * #KBC-230
  */
 function import_bien_pdf_batch_operation() {
-    drupal_set_message('Updating Bien Nodes');
+  drupal_set_message('Updating Bien Nodes');
 
-    // Build the list of operation functions and function arguments.
-    global $base_url;
-    $dir_parent = variable_get('import_bien_pdf_dir_parent');
-    $operations = array();
-    $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
-    $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
+  // Build the list of operation functions and function arguments.
+  global $base_url;
+  $dir_parent = variable_get('import_bien_pdf_dir_parent');
+  $operations = array();
+  $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
+  $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
 
-    if (is_dir($base_path)) {
-        if ($handle = opendir($base_path)) {
-            /* This is the correct way to loop over the directory. */
-            while (false !== ($id_program = readdir($handle))) {
-                if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
-                    $program = get_program_by_id($id_program);
-                    if (!empty($program)) {   // Exist node program.
-                        // Load all pdf file in folder program.
-                        if ($handle_pdf_files = opendir($base_path . $id_program)) {
-                            while (false !== ($pdf_file = readdir($handle_pdf_files))) {
-                                if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
-                                    $file_name = explode('_', $pdf_file);
-                                    $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
-                                    $id_bien = $idbien_extension[0];
-                                    $extension_file = $idbien_extension[1];
+  if (is_dir($base_path)) {
+    if ($handle = opendir($base_path)) {
+      /* This is the correct way to loop over the directory. */
+      while (false !== ($id_program = readdir($handle))) {
+        if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
+          $program = get_program_by_id($id_program);
+          if (!empty($program)) {   // Exist node program.
+            // Load all pdf file in folder program.
+            if ($handle_pdf_files = opendir($base_path . $id_program)) {
+              while (false !== ($pdf_file = readdir($handle_pdf_files))) {
+                if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
+                  $file_name = explode('_', $pdf_file);
+                  $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
+                  $id_bien = $idbien_extension[0];
+                  $extension_file = $idbien_extension[1];
 
-                                    // Just get pdf file.
-                                    if (strtolower($extension_file) == 'pdf') {
-                                        $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
-                                        if (!empty($node_biens)) {
-                                            // Sometime we will find more than 1 item.
-                                            foreach ($node_biens as $item_bien) {
-                                                $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
-                                                $data = array(
-                                                  'bien_id' => $id_bien,
-                                                  'node_id' => $item_bien->nid,
-                                                  'path_pdf' => $path_pdf,
-                                                );
+                  // Just get pdf file.
+                  if (strtolower($extension_file) == 'pdf') {
+                    $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
+                    if (!empty($node_biens)) {
+                      // Sometime we will find more than 1 item.
+                      foreach ($node_biens as $item_bien) {
+                        $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
+                        $data = array(
+                          'bien_id' => $id_bien,
+                          'node_id' => $item_bien->nid,
+                          'path_pdf' => $path_pdf,
+                        );
 
-                                                $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
-                                            }
-                                        }
-                                        else {
-                                            // Write log file : id_bien $id_bien does not exist.
-                                        }
-                                    }
-                                }
-                            }
-
-                            closedir($handle_pdf_files);
-                        }
+                        $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
+                      }
+                    } else {
+                      // Write log file : id_bien $id_bien does not exist.
                     }
-                    else {
-                        // Write log file: id_program: $id_program does not exist.
-                    }
+                  }
                 }
+              }
+
+              closedir($handle_pdf_files);
             }
-
-            closedir($handle);
+          } else {
+            // Write log file: id_program: $id_program does not exist.
+          }
         }
-    }
-    else {
-        // Write log file: $base_path . "folder does not exist".
-    }
+      }
 
-    // Build the batch instructions.
-    $batch = array(
-      'operations' => $operations,
-      'finished' => 'import_bien_pdf_batch_operation_finished',
-    );
-    return $batch;
+      closedir($handle);
+    }
+  } else {
+    // Write log file: $base_path . "folder does not exist".
+  }
+
+  // Build the batch instructions.
+  $batch = array(
+    'operations' => $operations,
+    'finished' => 'import_bien_pdf_batch_operation_finished',
+  );
+  return $batch;
 }
 
 function import_bien_pdf_batch_operation_process($data, &$context) {
-    $context['results'][] = t('Node @bien is updating', array('@bien' => $data["node_id"]));
-    $context['message'] = t('Processing bien_id @title', array('@title' => $data["bien_id"]));
+  $context['results'][] = t('Node @bien is updating', array('@bien' => $data["node_id"]));
+  $context['message'] = t('Processing bien_id @title', array('@title' => $data["bien_id"]));
 
-    save_bien_pdf_file($data["node_id"], $data["path_pdf"]);
+  save_bien_pdf_file($data["node_id"], $data["path_pdf"]);
 }
 
 /**
  * @todo Batch finished
  */
 function import_bien_pdf_batch_operation_finished($success, $results, $operations) {
-    if ($success) {
-        // Here we could do something meaningful with the results.
-        // We just display the number of nodes we processed...
-        drupal_set_message(t('@count Node Bien processed.', array('@count' => count($results))));
-    }
-    else {
-        // An error occurred.
-        // $operations contains the operations that remained unprocessed.
-        $error_operation = reset($operations);
-        drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
-    }
+  if ($success) {
+    // Here we could do something meaningful with the results.
+    // We just display the number of nodes we processed...
+    drupal_set_message(t('@count Node Bien processed.', array('@count' => count($results))));
+  } else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
+  }
 }
 
 /**
@@ -908,7 +1009,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
             if (!$term) {
               $error_term_field .= $field_name . ',';
             } else {
-              if(!isset($term->$field_name)) {
+              if (!isset($term->$field_name)) {
                 $error_term_field .= $field_name . ',';
               }
             }
@@ -920,7 +1021,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
       case 'number':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
-          if($item[$key] != "0" && !empty($item[$key])) {
+          if ($item[$key] != "0" && !empty($item[$key])) {
             if (!is_numeric($item[$key])) {
               $error_log_field .= $field_name . ',';
             } else {
@@ -954,10 +1055,10 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
           if (trim($item[$key])) {
-            if(!isset($field[LANGUAGE_NONE][0]['value'])) {
+            if (!isset($field[LANGUAGE_NONE][0]['value'])) {
               $error_checkbox_field .= $field_name . ',';
             } else {
-              if($field[LANGUAGE_NONE][0]['value'] > 1) {
+              if ($field[LANGUAGE_NONE][0]['value'] > 1) {
                 $error_checkbox_field .= $field_name . ',';
               }
             }
@@ -988,7 +1089,6 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
   return $logging;
 }
 
-
 /**
  * Create file Error Log (.txt)
  * @param type $file_log_name
@@ -999,9 +1099,70 @@ function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   if ($prepare_file) {
     $path = drupal_realpath($uri . $file_log_name);
-    $data = file_get_contents($path);
+    $data = '';
+    if (file_exists($path)) {
+      $data = file_get_contents($path);
+    }
     $logging .= $data;
     drupal_chmod($uri);
     file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+  }
+}
+
+function delete_feeds_errorlog_confirm_form($form, $form_state, $file_name) {
+  $form['file_name'] = array(
+    '#type' => 'value',
+    '#value' => $file_name,
+  );
+
+  return confirm_form($form, t('Are you sure you want to change the availability?'), 'here_goes_your_backurl_for_cancel_link');
+}
+
+function delete_feeds_errorlog_confirm_form_submit($form, $form_state) {
+  $file_name = $form_state['values']['file_name'];
+  delete_feeds_errorlog($file_name);
+}
+
+function delete_feeds_errorlog($file_name) {
+  $path = "private://feeds/log";
+  if (file_exists($path)) {
+    $filePath = $path . '/' . $file_name;
+    if ($filePath) {
+      unlink($filePath);
+    }
+  }
+}
+
+function download_feeds_errorlog($file_name) {
+  $path = "private://feeds/log";
+  if (file_exists($path)) {
+    $filePath = $path . '/' . $file_name;
+    if ($filePath) {
+      if (file_exists($filePath)) {
+        // set headers push to download the zip
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: public");
+        header('Content-type: application/zip');
+        header("Content-Transfer-Encoding: Binary");
+        header('Content-Disposition: attachment; filename="' . $file_name . '"');
+        header("Content-Length: " . filesize($filePath));
+
+        $fp = @fopen($filePath, "rb");
+        if ($fp) {
+          while (!feof($fp)) {
+            echo fread($fp, 8192);
+            flush();
+            if (connection_status() != 0) {
+              @fclose($filePath);
+              die();
+            }
+          }
+          @fclose($filePath);
+        }
+        //unlink($filePath);
+      }
+    }
   }
 }
