@@ -7,7 +7,7 @@ function config_ftp_page() {
     '#type' => 'textfield',
     '#title' => t('Server'),
     '#description' => t("Enter a server hostname or IP adress. Do not include 'ftp://' prefix."),
-    '#default_value' => variable_get('kb_ftp_server', '194.150.11.65'),
+    '#default_value' => variable_get('kb_ftp_server', ''),
     '#required' => TRUE,
   );
 
@@ -15,7 +15,7 @@ function config_ftp_page() {
     '#type' => 'textfield',
     '#title' => t('Port'),
     '#description' => t('Enter a port to connect on.'),
-    '#default_value' => variable_get('kb_ftp_port', '21'),
+    '#default_value' => variable_get('kb_ftp_port', ''),
     '#required' => TRUE,
   );
 
@@ -23,7 +23,7 @@ function config_ftp_page() {
     '#type' => 'textfield',
     '#title' => t('Username'),
     '#description' => t('The username used to connect to the FTP server.'),
-    '#default_value' => variable_get('kb_ftp_username', 'KETB_DIGITAS'),
+    '#default_value' => variable_get('kb_ftp_username', ''),
     '#required' => TRUE,
   );
 
@@ -31,15 +31,15 @@ function config_ftp_page() {
     '#type' => 'password',
     '#title' => t('Password'),
     '#description' => t('The password used to connect to the FTP server.'),
-    '#default_value' => '',
     '#required' => FALSE,
+    '#attributes' => array('value' => variable_get('kb_ftp_password', '')),
   );
 
   $form['kb_ftp_directory'] = array(
     '#type' => 'textfield',
     '#title' => t('Directory'),
     '#description' => t("The directory on the FTP server. E.g., '/import'"),
-    '#default_value' => variable_get('kb_ftp_directory', '/import'),
+    '#default_value' => variable_get('kb_ftp_directory', ''),
     '#required' => TRUE,
   );
 
@@ -47,14 +47,14 @@ function config_ftp_page() {
     '#type' => 'textarea',
     '#title' => t('Filename'),
     '#description' => t('The list filename in the directory on the FTP server. Enter one file per line.'),
-    '#default_value' => variable_get('kb_ftp_filename', "ARRONDISSEMENT.TXT\nVILLE.TXT\nMAISON.TXT\nPROGRAMME.TXT\nLOT.TXT"),
+    '#default_value' => variable_get('kb_ftp_filename', ""),
   );
   
   $form['kb_ftp_local_directory'] = array(
     '#type' => 'textfield',
     '#title' => t('Local directory'),
     '#description' => t('The directory under public:// on local to store files. Do not include "public://" prefix.'),
-    '#default_value' => variable_get('kb_ftp_local_directory', 'import'),
+    '#default_value' => variable_get('kb_ftp_local_directory', ''),
     '#required' => TRUE,
   );
   return system_settings_form($form);
