@@ -57,5 +57,42 @@ function config_ftp_page() {
     '#default_value' => variable_get('kb_ftp_local_directory', ''),
     '#required' => TRUE,
   );
+  
+  $form['#submit'][] = 'config_ftp_page_submit';
+  
   return system_settings_form($form);
+}
+
+/**
+ * Submit handler for the custom form.
+ */
+function config_ftp_page_submit($form, &$form_state) {
+
+  $config = array(
+    'server' => $form['kb_ftp_server']['#value'],
+    'username' => $form['kb_ftp_username']['#value'],
+    'port' => $form['kb_ftp_port']['#value'],
+    'directory' => $form['kb_ftp_directory']['#value'],
+    'password' => $form['kb_ftp_password']['#value'],
+    'local_directory' => $form['kb_ftp_local_directory']['#value'],
+  );
+    
+  try {
+    // Connect to FTP server.
+    if ($connect = ftp_connect($config['server'], $config['port'])) {
+      ftp_login($connect, $config['username'], $config['password']);
+      ftp_pasv($connect, TRUE);
+      ftp_chdir($connect, $config['directory']);
+      ftp_close($connect);
+      
+      drupal_set_message('Connect to ftp server: ' . $config['server']);
+    } else {
+      drupal_set_message('Failed to connect to ftp server: ' . $config['server'], 'error');
+    }
+  }
+  catch (Exception $e) {
+    drupal_set_message('Error: ' . $e->getMessage(), 'error');
+  }
+  
+  
 }

@@ -71,7 +71,7 @@ function kandb_programme_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '2',
+          'weight' => '1',
         ),
         'title' => array(
           'weight' => '11',
@@ -80,10 +80,10 @@ function kandb_programme_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '15',
+          'weight' => '13',
         ),
         'redirect' => array(
-          'weight' => '14',
+          'weight' => '12',
         ),
         'domain' => array(
           'weight' => '1',
