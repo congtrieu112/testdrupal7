@@ -303,6 +303,17 @@ function kandb_business_rules_node_update($node) {
 
 function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'bien_node_form') {
+    if(isset($form['field_caracteristique'][LANGUAGE_NONE]['#options'])) {
+      $caracteristiques = $form['field_caracteristique'][LANGUAGE_NONE]['#options'];
+      $os = array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave');
+      foreach($caracteristiques as $id => $value) {
+        if(in_array($value, $os)) {
+          unset($caracteristiques[$id]);
+        }
+      }
+      $form['field_caracteristique'][LANGUAGE_NONE]['#options'] = $caracteristiques;
+    }
+
     $form['field_tva']['#disabled'] = TRUE;
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
