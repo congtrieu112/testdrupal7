@@ -374,22 +374,21 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           ),
           'term_field_id' => array(
             4 => 'field_nb_pieces',
-            5 => 'field_nb_chambres',
-            6 => 'field_etage',
+            6 => 'field_nb_chambres',
+            7 => 'field_etage',
           ),
           'entity_id' => array(
             1 => 'field_programme'
           ),
-//              'term_id' => array(
-//                7 => 'field_caracteristique',
-//                15 => 'field_caracteristique',
-//                16 => 'field_caracteristique',
-//                18 => 'field_caracteristique',
-//                20 => 'field_caracteristique'
-//              ),
           'number' => array(
             3 => 'field_prix_tva_20',
-            8 => 'field_superficie',
+            9 => 'field_superficie',
+            16 => 'field_caracteristique_jardin',
+            17 => 'field_caracteristique_balcon',
+            19 => 'field_caracteristique_terrasse',
+            21 => 'field_caracteristique_parking',
+            22 => 'field_caracteristique_box',
+            23 => 'field_caracteristique_cave',
           ),
         );
 
