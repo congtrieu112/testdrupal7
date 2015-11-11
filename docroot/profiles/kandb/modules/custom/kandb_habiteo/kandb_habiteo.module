@@ -88,26 +88,6 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#required' => TRUE,
   );
 
-  $form['variable_habiteo_page']['habiteo_feed_programme'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Habiteo feed import programme'),
-    '#description' => t('example: http://domain/maquettes/3c7070bcf6bc98a6ea813ff7ff78953d/programmes/'),
-    '#default_value' => variable_get('habiteo_feed_programme'),
-    '#size' => 60,
-    '#maxlength' => 128,
-    '#required' => TRUE,
-  );
-
-  $form['variable_habiteo_page']['habiteo_feed_bien'] = array(
-    '#type' => 'textfield',
-    '#title' => t('Habiteo feed import bien'),
-    '#description' => t('example: http://domain/maquettes/3c7070bcf6bc98a6ea813ff7ff78953d/lots?ID=lots12345'),
-    '#default_value' => variable_get('habiteo_feed_bien'),
-    '#size' => 60,
-    '#maxlength' => 128,
-    '#required' => TRUE,
-  );
-
   $form['variable_habiteo_page']['habiteo_widget_security_key'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo widget security key'),
@@ -227,7 +207,7 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'pro
       }
     }
   } else {
-    $logging = $habiteo_id . '|programme|' . 'not exist in db' . '|' . 'nid: null' . "\n";
+    $logging = $habiteo_id . '|programme|' . $id . ' not exist in db' . '|' . 'nid: null' . "\n";
     createFileErrorLogTxt($file_log_name, $logging);
   }
 }
@@ -307,7 +287,7 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
       }
     }
   } else {
-    $logging = $habiteo_id . '|bien|' . 'not exist in db' . '|' . 'nid: null' . "\n";
+    $logging = $habiteo_id . '|bien|' . $id . ' not exist in db' . '|' . 'nid: null' . "\n";
     createFileErrorLogTxt($file_log_name, $logging);
   }
 }
