@@ -794,6 +794,24 @@ function kb_feeds_menu() {
     'access arguments' => array('administer content types'),
   );
 
+  $items['admin/reports/feeds_errorlog/habiteo_programme'] = array(
+    'title' => 'Habiteo Programme',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'habiteo_programme'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+  $items['admin/reports/feeds_errorlog/habiteo_bien'] = array(
+    'title' => 'Habiteo Bien',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'habiteo_bien'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+
   return $items;
 }
 
