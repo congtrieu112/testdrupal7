@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Views Avant Première feature.
+ */
+
+include_once 'kandb_views_avant_premiere.features.inc';
