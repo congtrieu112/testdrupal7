@@ -95,6 +95,7 @@ dependencies[] = kb_import
 dependencies[] = kandb_habiteo
 dependencies[] = kandb_business_rules
 dependencies[] = kandb_alias_dossier_article
+dependencies[] = kb_mail
 
 ; Features
 dependencies[] = kandb_domains
