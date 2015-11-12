@@ -154,7 +154,7 @@ function kandb_programme_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'caract_ristiques_programme',
+          'vocabulary' => 'caracteristiques_programme',
           'parent' => 0,
         ),
       ),

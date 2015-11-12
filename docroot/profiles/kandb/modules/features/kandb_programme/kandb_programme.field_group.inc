@@ -360,7 +360,6 @@ function kandb_programme_field_group_info() {
       13 => 'field_programme_stock',
       14 => 'field_type_programme',
       15 => 'field_zone_activite',
-      16 => 'field_programme_habiteo_bon_plan',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

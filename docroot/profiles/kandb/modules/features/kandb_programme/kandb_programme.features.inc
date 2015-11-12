@@ -55,6 +55,51 @@ function kandb_programme_image_default_styles() {
     ),
   );
 
+  // Exported image style: program_image_principale_large.
+  $styles['program_image_principale_large'] = array(
+    'label' => 'Program image principale large',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 670,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: program_image_principale_medium.
+  $styles['program_image_principale_medium'] = array(
+    'label' => 'Program image principale medium',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1024,
+          'height' => 506,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: program_image_principale_small.
+  $styles['program_image_principale_small'] = array(
+    'label' => 'Program image principale small',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 316,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   return $styles;
 }
 
