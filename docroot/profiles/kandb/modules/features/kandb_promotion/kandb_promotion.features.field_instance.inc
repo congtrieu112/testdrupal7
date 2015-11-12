@@ -10,6 +10,49 @@
 function kandb_promotion_field_default_field_instances() {
   $field_instances = array();
 
+  // Exported field_instance: 'node-promotion-field_promotion_avant_premiere'
+  $field_instances['node-promotion-field_promotion_avant_premiere'] = array(
+    'bundle' => 'promotion',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_promotion_avant_premiere',
+    'label' => 'Avant-première liée',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 12,
+    ),
+  );
+
   // Exported field_instance: 'node-promotion-field_promotion_b2c_b2b'
   $field_instances['node-promotion-field_promotion_b2c_b2b'] = array(
     'bundle' => 'promotion',
@@ -43,7 +86,7 @@ function kandb_promotion_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 33,
+      'weight' => 6,
     ),
   );
 
@@ -86,7 +129,7 @@ function kandb_promotion_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 38,
+      'weight' => 11,
     ),
   );
 
@@ -140,7 +183,7 @@ function kandb_promotion_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 32,
+      'weight' => 5,
     ),
   );
 
@@ -194,7 +237,7 @@ function kandb_promotion_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 34,
+      'weight' => 7,
     ),
   );
 
@@ -237,7 +280,7 @@ function kandb_promotion_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 37,
+      'weight' => 10,
     ),
   );
 
@@ -290,7 +333,7 @@ function kandb_promotion_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_select',
-      'weight' => 35,
+      'weight' => 8,
     ),
   );
 
@@ -343,12 +386,13 @@ function kandb_promotion_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_select',
-      'weight' => 36,
+      'weight' => 9,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Avant-première liée');
   t('B2C or B2B');
   t('Biens concernés');
   t('Date de début');
