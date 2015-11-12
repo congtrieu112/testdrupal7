@@ -440,9 +440,30 @@ function kandb_update_7136() {
   }
 }
 
+/*
+ * Enable unique_field module
+ */
 function kandb_update_7137() {
   if (!module_exists('unique_field')) {
     module_enable(array('unique_field'), TRUE);
   }
 }
 
+/*
+ * Enable kandb_avant_premiere module
+ */
+function kandb_update_7138() {
+  if (!module_exists('kandb_avant_premiere')) {
+    module_enable(array('kandb_avant_premiere'), TRUE);
+  }
+}
+
+
+/*
+ * Enable kandb_views_avant_premiere module
+ */
+function kandb_update_7139() {
+  if (!module_exists('kandb_views_avant_premiere')) {
+    module_enable(array('kandb_views_avant_premiere'), TRUE);
+  }
+}

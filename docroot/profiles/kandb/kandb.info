@@ -127,6 +127,8 @@ dependencies[] = kandb_doclib_feature
 dependencies[] = kand_contactus_export_views
 dependencies[] = kandb_dossier_weight_views
 dependencies[] = kandb_path_alias_patterns
+dependencies[] = kandb_avant_premiere
+dependencies[] = kandb_views_avant_premiere
 
 
 ; Blocks
