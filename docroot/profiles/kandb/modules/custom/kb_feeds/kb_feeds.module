@@ -1161,7 +1161,7 @@ function download_feeds_errorlog($file_name) {
         header("Expires: 0");
         header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
         header("Cache-Control: public");
-        header('Content-type: application/zip');
+        header('Content-type: application/octet-stream');
         header("Content-Transfer-Encoding: Binary");
         header('Content-Disposition: attachment; filename="' . $file_name . '"');
         header("Content-Length: " . filesize($filePath));
