@@ -14,5 +14,6 @@ __drupal_alter_by_ref[][node][homepage] = homepage
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[uuid_bean][] = 446d4873-23bd-45ea-ad3a-32c41cd63d0c
+features[uuid_bean][] = e4637126-29f3-4461-8189-d86c1d3e236c
 features[uuid_node][] = 74e7606c-c1ff-4246-a9ae-b42ff63e5f91
 features[variable][] = site_frontpage
