@@ -467,3 +467,22 @@ function kandb_update_7139() {
     module_enable(array('kandb_views_avant_premiere'), TRUE);
   }
 }
+
+
+/*
+ * Enable viewfield module
+ */
+function kandb_update_7140() {
+  if (!module_exists('viewfield')) {
+    module_enable(array('viewfield'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_offre module
+ */
+function kandb_update_7141() {
+  if (!module_exists('kandb_offre')) {
+    module_enable(array('kandb_offre'), TRUE);
+  }
+}
