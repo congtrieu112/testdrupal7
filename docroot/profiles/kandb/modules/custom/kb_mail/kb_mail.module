@@ -186,7 +186,6 @@ function kandb_webform_send_mail ($template = '', $subject = '', $send_to = 'cal
     drupal_mail('kb_mail', 'kb_webform_submit', $mailing_list, 'fr', $params = array('subject' => $subject, 'body' => $content), $from);
   }
   else {
-    $message = t('Can not send mail to @subject', array('@subject' => $subject));
-    watchdog('kandb_mail', $message, array(), WATCHDOG_ERROR);
+    watchdog('kandb_mail', "Can not send mail to: @receiver", array("@receiver" => $mailing_list), WATCHDOG_ERROR);
   }
 }
