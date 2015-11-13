@@ -3,6 +3,7 @@
     <?php print render($page['header']); ?>
 
     <main id="container">
+        <?php print $messages; ?>
         <?php print render($page['content']); ?>
     </main>
 
