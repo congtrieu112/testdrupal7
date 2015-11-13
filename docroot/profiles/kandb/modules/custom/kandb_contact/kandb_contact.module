@@ -91,7 +91,7 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
 }
 
 function kandb_contact_buttons() {
-  global $base_url;
+  global $base_url, $node;
 
   $links = array();
   $webform_machine_names = array(
@@ -103,27 +103,26 @@ function kandb_contact_buttons() {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
       $links[] = theme_link(
-        array(
-          'text' => $webform->title,
-          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
-          'options' => array(
-            'attributes' => array(
-              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
-              'data-reveal-ajax' => array('true'),
-              'data-reveal-id' => array('popinLeadForm'),
-            ),
-            'html' => FALSE,
+          array(
+            'text' => $webform->title,
+            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+            'options' => array(
+              'attributes' => array(
+                'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+                'data-reveal-ajax' => array('true'),
+                'data-reveal-id' => array('popinLeadForm'),
+              ),
+              'html' => FALSE,
+            )
           )
-        )
       );
     }
   }
 
 
-  return theme('contact_buttons',
-    array(
-      'links' => $links
-    )
+  return theme('contact_buttons', array(
+    'links' => $links
+      )
   );
 }
 
@@ -159,7 +158,7 @@ function kandb_contact_get_all_variables() {
     $variables[$name] = variable_get($name);
   }
 
-  if(!empty($variables['kandb_contact_photo'])){
+  if (!empty($variables['kandb_contact_photo'])) {
     $variables['kandb_contact_photo'] = file_load($variables['kandb_contact_photo']);
     if ($wrapper = file_stream_wrapper_get_instance_by_uri($variables['kandb_contact_photo']->uri)) {
       $variables['kandb_contact_photo']->uri = $wrapper->getExternalUrl();
@@ -168,7 +167,6 @@ function kandb_contact_get_all_variables() {
 
   return $variables;
 }
-
 
 /**
  * Admin interface
@@ -240,4 +238,61 @@ function kandb_contact_admin_validate($form, &$form_state) {
 
   // Record that the module (in this example, user module) is using the file.
   file_usage_add($file, 'user', 'user', $user->uid);
+}
+
+function kandb_contact_form_alter(&$form, $form_state, $form_id) {
+  if (($form_id == 'webform_client_form_2' || $form_id == 'webform_client_form_1') && isset($_SERVER["HTTP_REFERER"]) && !empty($_SERVER["HTTP_REFERER"])) {
+    global $base_url;
+    $referer_path = $_SERVER["HTTP_REFERER"];
+    $referer_path = str_replace($base_url . '/', '', $referer_path);
+    $id_referer_path = drupal_get_normal_path($referer_path);
+    // Get id node from path alias
+    $id_referer_path = explode('/', $id_referer_path)[1];
+
+    // If exists path alias.
+    if (is_numeric($id_referer_path)) {
+      $node = node_load($id_referer_path);
+      if ($node) {
+        $id_programme = 0;
+        $id_bien = 0;
+
+        switch ($node->type) {
+          case 'programme':
+            $id_programme = (isset($node->field_id_programme[LANGUAGE_NONE][0])) ? $node->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            break;
+
+          case 'bien':
+            if (isset($node->field_programme[LANGUAGE_NONE][0])) {
+              $programme = node_load($node->field_programme[LANGUAGE_NONE][0]["target_id"]);
+              $id_programme = (isset($programme->field_id_programme[LANGUAGE_NONE][0])) ? $programme->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            }
+
+            //$id_programme = (isset($node->field_programme[LANGUAGE_NONE][0])) ? $node->field_programme[LANGUAGE_NONE][0]["target_id"] : 0;
+            $id_bien = (isset($node->field_id_bien[LANGUAGE_NONE][0])) ? $node->field_id_bien[LANGUAGE_NONE][0]["value"] : 0;
+            break;
+
+          default:
+            break;
+        }
+
+        switch ($form_id) {
+          case 'webform_client_form_2': // Webform Prendre rendez-vous
+            $form['submitted']['rdv_idkl']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
+            $form['submitted']['rdv_idkl']["#value"] = (!empty($id_bien)) ? $id_bien : '';
+            $form['submitted']['rdv_idkl']['#type'] = 'hidden';
+
+            $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
+            $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            $form['submitted']['rdv_idkp']['#type'] = 'hidden';
+            break;
+
+          case 'webform_client_form_1':  // webform Être rappelé
+
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
 }
