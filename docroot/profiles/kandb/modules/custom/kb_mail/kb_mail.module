@@ -82,11 +82,14 @@ function kandb_webform_submit(&$form, &$form_state) {
         kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
       }
       else {
-        $subject = 'Prise de RDV - '. $variables['programme_title'] . ' / ' . $variables['programme_loc_ville'] . ' / ' . $variables['programme_loc_department'] . ' / ' . $variables['programme_idkp'];
-        kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
+        //Send to user
         $subject = 'Prise de RDV - '. $variables['programme_title'] . ' / ' . $variables['programme_loc_ville'] . ' / ' . $variables['programme_loc_department'];
-        $send_to = $variables['rdv_prenom'] . ' ' . $variables['rdv_nom'] . '<' . $variables['rdv_email'] . '>';
-        kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $send_to);
+        $send_to = $variables['rdv_email'];
+        kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $send_to, $variables);
+        //Send to call center
+        $subject .=  ' / ' . $variables['programme_idkp'];
+        kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
+
       }
     }
   }
@@ -178,13 +181,12 @@ function kandb_webform_send_mail ($template = '', $subject = '', $send_to = 'cal
     $mailing_list = $send_to;
   }
   if ($mailing_list && $subject && $content) {
-    $mailing_list = 'testkb@yopmail.com';
     $sender_name = variable_get('kb_call_center_sender_name', '');
     $sender_mail = variable_get('kb_call_center_sender_mail', '');
     $from = NULL;
     if($sender_mail) {
       $from = $sender_name . '<' . $sender_mail . '>';
     }
-    $mail = drupal_mail('kb_mail', 'kb_webform_submit', $mailing_list, 'FR', $params = array('subject' => $subject, 'body' => $content), $from);
+    drupal_mail('kb_mail', 'kb_webform_submit', $mailing_list, 'FR', $params = array('subject' => $subject, 'body' => $content), $from);
   }
 }
