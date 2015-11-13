@@ -693,7 +693,7 @@ function kb_feeds_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
     'access arguments' => array('administer content types'),
-    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',
   );
 
