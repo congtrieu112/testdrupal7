@@ -207,7 +207,7 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'pro
       }
     }
   } else {
-    $logging = $habiteo_id . '|programme|' . $id . ' not exist in db' . '|' . 'nid: null' . "\n";
+    $logging = $habiteo_id . '|programme|' . $habiteo_id . ' not exist in db' . '|' . 'nid: null' . "\n";
     createFileErrorLogTxt($file_log_name, $logging);
   }
 }
@@ -287,7 +287,7 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
       }
     }
   } else {
-    $logging = $habiteo_id . '|bien|' . $id . ' not exist in db' . '|' . 'nid: null' . "\n";
+    $logging = $habiteo_id . '|bien|' . $habiteo_id . ' not exist in db' . '|' . 'nid: null' . "\n";
     createFileErrorLogTxt($file_log_name, $logging);
   }
 }
