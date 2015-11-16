@@ -337,14 +337,18 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 //              ),
           'term_field_id' => array(
             2 => 'field_marque_comm',
-            3 => 'field_zone_activite',
             4 => 'field_programme_loc_ville',
-            5 => 'field_programme_loc_arr',
             14 => 'field_type_programme'
           ),
+          'term_field_id_warning' => array(
+            3 => 'field_zone_activite',
+            5 => 'field_programme_loc_arr',
+          ),
           'number' => array(
-            7 => 'field_programme_loc_num',
             13 => 'field_annee',
+          ),
+          'number_warning' => array(
+            7 => 'field_programme_loc_num',
           ),
           'check_box' => array(
             24 => 'field_tva_55',
@@ -352,7 +356,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-        if (!$logging) {
+        if (!$logging || strpos($logging, 'Warning') > 0) {
           if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
             $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
             if ($terms) {
@@ -520,7 +524,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
-    $entity->feeds_item->skip = TRUE;
+    if(!strpos($logging, 'Skip import')) {
+      $entity->feeds_item->skip = TRUE;
+    }
   }
 
   if ($tid > 0) {
@@ -990,20 +996,28 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
 function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0) {
   $logging = '';
   $error_log = $item[$key_id] . '|';
+
   $error_log_field = '';
   $error_term_field = '';
   $error_checkbox_field = '';
   $error_date_field = '';
 
+  $error_log_field_warning = '';
+  $error_term_field_warning = '';
+
   foreach ($validates as $type => $fields) {
     switch ($type) {
       case 'term_name':
       case 'term_field_id':
+      case 'term_field_id_warning':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
-
-          if (($item[$key] == 0 || trim($item[$key])) && !isset($field[LANGUAGE_NONE][0]['tid'])) {
-            $error_term_field .= $field_name . ',';
+          if (trim($item[$key]) == "" || (trim($item[$key]) && !isset($field[LANGUAGE_NONE][0]['tid']))) {
+            if($type == 'term_field_id') {
+              $error_term_field .= $field_name . ',';
+            } elseif($type == 'term_field_id_warning') {
+              $error_term_field_warning = $field_name . ',';
+            }
           }
         }
 
@@ -1034,13 +1048,18 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
         }
 
         break;
-
+      case 'number_warning':
       case 'number':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
           if ($item[$key] != "0" && !empty($item[$key])) {
             if (!is_numeric($item[$key])) {
-              $error_log_field .= $field_name . ',';
+              if($type == 'number_warning') {
+                $error_log_field .= $field_name . ',';
+              } elseif($type == 'number') {
+                $error_log_field_warning .= $field_name . ',';
+              }
+
             } else {
               $number = (int) $item[$key];
               if ($number == 0) {
@@ -1102,6 +1121,13 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
     $logging .= $error_log . $error_checkbox_field . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
   }
 
+  if($error_term_field_warning) {
+    $logging .= $error_log . $error_term_field_warning . '|' . 'Term value not mapping' . '|' . 'Warning' . "\n";
+  }
+
+  if($error_log_field_warning) {
+    $logging .= $error_log . $error_log_field_warning . '|' . 'Wrong format' . '|' . 'Warning' . "\n";
+  }
 
   return $logging;
 }
