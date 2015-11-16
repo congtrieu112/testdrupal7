@@ -1,0 +1,10 @@
+name = K&B Webform Contact settings
+description = K&B Webform Contact settings
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = menu
+features[features_api][] = api:2
+features[menu_custom][] = management
+features[menu_links][] = management_webform-contact-settings:admin/config/webform_contact

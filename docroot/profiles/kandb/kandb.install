@@ -486,3 +486,12 @@ function kandb_update_7141() {
     module_enable(array('kandb_offre'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_webform_contact_settings module
+ */
+function kandb_update_7142() {
+  if (!module_exists('kandb_webform_contact_settings')) {
+    module_enable(array('kandb_webform_contact_settings'), TRUE);
+  }
+}
