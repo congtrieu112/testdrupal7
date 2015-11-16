@@ -37,7 +37,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     $district = taxonomy_term_load($programme->field_programme_loc_arr[LANGUAGE_NONE][0]['tid']);
     $arrondissement = $district->name;
   }
-  
+
   if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri'])) {
     $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
   }
@@ -92,7 +92,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                     <div class="heading__title">
                         <?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> 
                         <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?> 
-                        <?php print (!isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> 
+                        <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> 
                         Lot <?php print $bien_id ?>
                     </div>
                     <div class="heading__title heading__title--sub">
@@ -151,22 +151,24 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
               </ul>
             <?php endif; ?>
 
-    
+
             <ul class="toolsList">
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections");?></span></a></li>
-                
-                <?php if(!empty($plaquette_commerciale)): ?>
-                  <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette");?></span></a></li>
+                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
+
+                <?php if (!empty($plaquette_commerciale)): ?>
+                  <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette"); ?></span></a></li>
                 <?php endif; ?>
-                                  
+
                 <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>  
-                  <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan");?></span></a></li>
+                  <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
                 <?php endif; ?>
             </ul>
             <!-- [contactUs mini] start-->
-            <aside class="contactUs-mini"><a href="tel://0800544000" class="phone-green"><span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
-                <div class="contactUs__cta"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-primary btn-rounded">Rappelez moi</a><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-secondary btn-rounded">Prendre rendez-vous</a></div>
-            </aside>
+            <?php
+            if (function_exists('kandb_contact_block_page')) {
+              print kandb_contact_block_page(TRUE);
+            }
+            ?>
             <!-- [contactUs mini] end-->
             <div class="sharing show-for-small-only">
                 <ul class="sharing__items">
@@ -177,8 +179,8 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                     <li class="sharing__items__item"><a href="#" title="partage sur Whatsapp" class="icon icon-phone-call"></a></li>
                 </ul>
             </div>
+        </div>
     </div>
-</div>
 </header>
 <!-- [bienHeader] end-->
 

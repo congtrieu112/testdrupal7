@@ -89,6 +89,10 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
       'template' => 'templates/contact_block_page',
       'variables' => array(),
     ),
+    'mini_contact_block_page' => array(
+      'template' => 'templates/mini_contact_block_page',
+      'variables' => array(),
+    ),
     'contact_block_with_sales_office' => array(
       'template' => 'templates/contact_block_with_sales_office',
       'variables' => array(),
@@ -139,10 +143,15 @@ function kandb_contact_buttons() {
 /**
  * Callback function
  */
-function kandb_contact_block_page() {
+function kandb_contact_block_page($is_mini_contact = FALSE) {
   $variables = array();
-  $variables['content'] = kandb_contact_get_all_variables();
+  $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
+  
+  if($is_mini_contact){
+    return theme('mini_contact_block_page', $variables);
+  }
+  
   return theme('contact_block_page', $variables);
 }
 
@@ -153,22 +162,30 @@ function kandb_contact_block_page() {
  *  Returns an array with
  *  variable_name => variable_value
  */
-function kandb_contact_get_all_variables() {
-  $variables = array(
-    'kandb_contact_photo' => '',
-    'kandb_contact_title' => '',
-    'kandb_contact_sub_title' => '',
-    'kandb_contact_faq_text' => '',
-    'kandb_contact_faq_link' => '',
-    'kandb_contact_numero_text' => '',
-    'kandb_contact_numero_vert' => '',
-  );
+function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
+  if(!$is_mini_contact){
+    $variables = array(
+      'kandb_contact_photo' => '',
+      'kandb_contact_title' => '',
+      'kandb_contact_sub_title' => '',
+      'kandb_contact_faq_text' => '',
+      'kandb_contact_faq_link' => '',
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }else{
+    $variables = array(
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }
+  
 
   foreach ($variables as $name => $value) {
     $variables[$name] = variable_get($name);
   }
 
-  if (!empty($variables['kandb_contact_photo'])) {
+  if (!$is_mini_contact && !empty($variables['kandb_contact_photo'])) {
     $variables['kandb_contact_photo'] = file_load($variables['kandb_contact_photo']);
     if ($wrapper = file_stream_wrapper_get_instance_by_uri($variables['kandb_contact_photo']->uri)) {
       $variables['kandb_contact_photo']->uri = $wrapper->getExternalUrl();
