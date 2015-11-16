@@ -524,7 +524,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
-    if(!strpos($logging, 'Skip import')) {
+    if(strpos($logging, 'Skip import')) {
       $entity->feeds_item->skip = TRUE;
     }
   }
@@ -1016,7 +1016,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
             if($type == 'term_field_id') {
               $error_term_field .= $field_name . ',';
             } elseif($type == 'term_field_id_warning') {
-              $error_term_field_warning = $field_name . ',';
+              $error_term_field_warning .= $field_name . ',';
             }
           }
         }
@@ -1054,9 +1054,9 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
           $field = $entity->$field_name;
           if ($item[$key] != "0" && !empty($item[$key])) {
             if (!is_numeric($item[$key])) {
-              if($type == 'number_warning') {
+              if($type == 'number') {
                 $error_log_field .= $field_name . ',';
-              } elseif($type == 'number') {
+              } elseif($type == 'number_warning') {
                 $error_log_field_warning .= $field_name . ',';
               }
 
