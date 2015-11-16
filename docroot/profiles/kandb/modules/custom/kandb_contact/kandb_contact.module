@@ -143,7 +143,7 @@ function kandb_contact_buttons() {
 /**
  * Callback function
  */
-function kandb_contact_block_page($is_mini_contact = FALSE) {
+function kandb_contact_block_page($is_mini_contact = FALSE) {  
   $variables = array();
   $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
@@ -307,6 +307,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
 
         switch ($form_id) {
           case $webform_id_rendez_vous: // Webform Prendre rendez-vous
+          case $webform_id_etre_rappele:  // webform Être rappelé
             $form['submitted']['rdv_idkl']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']["#value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']['#type'] = 'hidden';
@@ -314,10 +315,6 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']['#type'] = 'hidden';
-            break;
-
-          case $webform_id_etre_rappele:  // webform Être rappelé
-
             break;
           default:
             break;
