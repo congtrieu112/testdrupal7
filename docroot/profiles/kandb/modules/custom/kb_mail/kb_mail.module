@@ -68,12 +68,15 @@ function kandb_webform_submit(&$form, &$form_state) {
   $node = NULL;
   $values = $form_state['values'];
   if (isset($values['submitted']['rdv_idkp']) && is_numeric($values['submitted']['rdv_idkp'])) {
-    $node = node_load($values['submitted']['rdv_idkp']);
+    $db_query = db_select('field_data_field_id_programme', 'fidk');
+    $db_query->fields('fidk', array('entity_id'));
+    $db_query->condition('fidk.entity_type', 'node');
+    $db_query->condition('fidk.bundle', 'programme');
+    $db_query->condition('fidk.field_id_programme_value', $values['submitted']['rdv_idkp']);
+    $nid = $db_query->execute()->fetchField();
+    $node = node_load($nid);
   }
-  if(!$node) {
-    return;
-  }
-  if ($node->type == 'programme') {
+  if ($node) {
     $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
     if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
       $variables = kandb_webform_build_variable_mail($webform_name, $values, $node);
