@@ -94,6 +94,7 @@ function kandb_webform_submit(&$form, &$form_state) {
 
       }
     }
+  }
 }
 function kb_mail_mail($key, &$message, $params) {
   if($key == 'kb_webform_submit') {
