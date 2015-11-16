@@ -487,7 +487,7 @@ function kandb_update_7141() {
   }
 }
 
-/*
+/**
  * Enable kandb_standard_page module
  */
 function kandb_update_7142() {
@@ -495,7 +495,7 @@ function kandb_update_7142() {
     module_enable(array('kandb_standard_page'), TRUE);
   }
 }
-/*
+/**
  * Enable kandb_webform_contact_settings module
  */
 function kandb_update_7143() {
