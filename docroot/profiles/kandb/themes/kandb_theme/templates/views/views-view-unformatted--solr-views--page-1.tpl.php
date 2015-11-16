@@ -95,3 +95,6 @@ $current_id_programme = 0;
   </ul>
 </div>
 <!-- [searchResults: programmes] end-->
+
+
+<script src="https://maps.googleapis.com/maps/api/js?sensor=true&amp;libraries=places&amp;key=<?php print variable_get('gmap_api_key'); ?>"></script>
