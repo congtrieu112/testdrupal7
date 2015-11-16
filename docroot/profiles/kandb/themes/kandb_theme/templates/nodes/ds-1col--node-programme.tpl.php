@@ -338,13 +338,14 @@ foreach ($arr_slider as $field_name) {
                     'zoom' => 10,
                     'width' => '100%',
                     'height' => '490px',
-                    'type' => 'Satellite',
+                    'type' => 'Map',
                   );
 
                   $settings['markers'] = array(
                     array(
                       'latitude' => $latitude,
                       'longitude' => $longitude,
+                      'markername' => 'Kandb',
                     ),
                   );
 

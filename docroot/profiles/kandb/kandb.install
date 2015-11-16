@@ -495,3 +495,12 @@ function kandb_update_7142() {
     module_enable(array('kandb_webform_contact_settings'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_custom_gmap module
+ */
+function kandb_update_7143() {
+  if (!module_exists('kandb_custom_gmap')) {
+    module_enable(array('kandb_custom_gmap'), TRUE);
+  }
+}
