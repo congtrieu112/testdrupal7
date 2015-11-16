@@ -22,11 +22,6 @@ if (isset($node->field_id_bien[LANGUAGE_NONE][0]['value'])) {
   $bien_id = $bien_ids[count($bien_ids) - 1];
 }
 
-$file_bien_plan = '';
-if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) {
-  $file_bien_plan = file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']);
-}
-
 $ville = '';
 $arrondissement = '';
 $programme = array();
@@ -163,9 +158,9 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                 <?php if(!empty($plaquette_commerciale)): ?>
                   <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette");?></span></a></li>
                 <?php endif; ?>
-                  
-                <?php if(!empty($file_bien_plan)): ?>
-                  <li><a href="<?php print $file_bien_plan; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan");?></span></a></li>
+                                  
+                <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>  
+                  <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan");?></span></a></li>
                 <?php endif; ?>
             </ul>
             <!-- [contactUs mini] start-->
