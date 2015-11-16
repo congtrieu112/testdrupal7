@@ -153,6 +153,14 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'ville_autocomplete' => array(
+      'name' => 'Ville autocomplete',
+      'machine_name' => 'ville_autocomplete',
+      'description' => 'Ville autocomplete for Offre',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'zone_activite' => array(
       'name' => 'Zone d\'activité',
       'machine_name' => 'zone_activite',

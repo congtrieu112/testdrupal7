@@ -1,7 +1,7 @@
 name = K&B Offre
 description = CT Offre
 core = 7.x
-package = CT Programme
+package = Kaufman & Broad
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = features

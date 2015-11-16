@@ -5,7 +5,7 @@ function config_mailing_list() {
   $form['kb_call_center_sender_name'] = array(
     '#type' => 'textfield',
     '#title' => t('Sender name'),
-    '#description' => t('The username of sender.'),
+    '#description' => t('The name of sender.'),
     '#default_value' => variable_get('kb_call_center_sender_name', ''),
     '#required' => TRUE,
   );
@@ -19,7 +19,7 @@ function config_mailing_list() {
   $form['kb_call_center_mailing_list'] = array(
     '#type' => 'textarea',
     '#title' => t('Mailing list'),
-    '#description' => t('The list mail of call center to send. Enter account per line. For example: Name <email@email.com>'),
+    '#description' => t('The list mail of call center to send. Enter one email address per line.'),
     '#default_value' => variable_get('kb_call_center_mailing_list', ""),
     '#required' => TRUE,
   );

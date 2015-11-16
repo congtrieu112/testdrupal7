@@ -66,6 +66,7 @@ features[taxonomy][] = type_de_document
 features[taxonomy][] = type_de_programme
 features[taxonomy][] = type_voie
 features[taxonomy][] = ville
+features[taxonomy][] = ville_autocomplete
 features[taxonomy][] = zone_activite
 features[uuid_term][] = 0050afc0-008d-4d4d-b870-f9b8e8845218
 features[uuid_term][] = 015859b7-c7af-45ad-9bf6-0fbe00d38a07
