@@ -487,10 +487,18 @@ function kandb_update_7141() {
   }
 }
 
-/*
- * Enable kandb_webform_contact_settings module
+/**
+ * Enable kandb_standard_page module
  */
 function kandb_update_7142() {
+  if (!module_exists('kandb_standard_page')) {
+    module_enable(array('kandb_standard_page'), TRUE);
+  }
+}
+/**
+ * Enable kandb_webform_contact_settings module
+ */
+function kandb_update_7143() {
   if (!module_exists('kandb_webform_contact_settings')) {
     module_enable(array('kandb_webform_contact_settings'), TRUE);
   }
