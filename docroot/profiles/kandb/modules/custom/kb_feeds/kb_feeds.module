@@ -374,15 +374,17 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         $validates = array(
           'term_name' => array(
             2 => 'field_type',
-            10 => 'field_orientation'
           ),
-          'term_field_id' => array(
+          'entity_id' => array(
+            1 => 'field_programme'
+          ),
+          'term_field_id_warning' => array(
             4 => 'field_nb_pieces',
             6 => 'field_nb_chambres',
             7 => 'field_etage',
           ),
-          'entity_id' => array(
-            1 => 'field_programme'
+          'term_name_warning' => array(
+            10 => 'field_orientation'
           ),
           'number' => array(
             3 => 'field_prix_tva_20',
@@ -439,11 +441,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         }
       }
     } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
-      if ($totalItems != 14) {
+      if ($totalItems != 16) {
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       }
     } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-      if ($totalItems != 14) {
+      if ($totalItems != 16) {
         $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
@@ -1008,14 +1010,15 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
   foreach ($validates as $type => $fields) {
     switch ($type) {
       case 'term_name':
+      case 'term_name_warning':
       case 'term_field_id':
       case 'term_field_id_warning':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
           if (trim($item[$key]) == "" || (trim($item[$key]) && !isset($field[LANGUAGE_NONE][0]['tid']))) {
-            if($type == 'term_field_id') {
+            if($type == 'term_field_id' || $type == 'term_name') {
               $error_term_field .= $field_name . ',';
-            } elseif($type == 'term_field_id_warning') {
+            } elseif($type == 'term_field_id_warning' || $type == 'term_name_warning') {
               $error_term_field_warning .= $field_name . ',';
             }
           }
