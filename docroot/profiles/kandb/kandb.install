@@ -486,3 +486,12 @@ function kandb_update_7141() {
     module_enable(array('kandb_offre'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_standard_page module
+ */
+function kandb_update_7142() {
+  if (!module_exists('kandb_standard_page')) {
+    module_enable(array('kandb_standard_page'), TRUE);
+  }
+}
