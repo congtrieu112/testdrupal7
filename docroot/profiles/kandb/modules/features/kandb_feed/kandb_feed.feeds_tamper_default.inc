@@ -316,8 +316,8 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = '22';
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
-    'find' => '-',
-    'replace' => '',
+    'find' => '00000000001-',
+    'replace' => '-1',
     'case_sensitive' => 0,
     'word_boundaries' => 0,
     'whole' => 0,
@@ -356,8 +356,8 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = '23';
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
-    'find' => '-',
-    'replace' => '',
+    'find' => '00000000001-',
+    'replace' => '-1',
     'case_sensitive' => 0,
     'word_boundaries' => 0,
     'whole' => 0,
