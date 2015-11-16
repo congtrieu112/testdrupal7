@@ -133,6 +133,7 @@ dependencies[] = kandb_path_alias_patterns
 dependencies[] = kandb_avant_premiere
 dependencies[] = kandb_views_avant_premiere
 dependencies[] = kandb_offre
+dependencies[] = kandb_standard_page
 dependencies[] = kandb_webform_contact_settings
 
 

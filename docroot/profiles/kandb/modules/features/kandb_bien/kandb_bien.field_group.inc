@@ -21,7 +21,7 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Données cachées',
-    'weight' => '10',
+    'weight' => '12',
     'children' => array(
       0 => 'field_bien_habiteo_id',
       1 => 'field_tva',
@@ -50,7 +50,7 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description et options',
-    'weight' => '4',
+    'weight' => '7',
     'children' => array(
       0 => 'field_bien_plan',
       1 => 'field_caracteristique',
@@ -89,15 +89,15 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Résumé du bien',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_etage',
       1 => 'field_image_principale',
       2 => 'field_nb_chambres',
       3 => 'field_nb_pieces',
       4 => 'field_numero_lot',
-      5 => 'field_type',
-      6 => 'field_superficie',
+      5 => 'field_superficie',
+      6 => 'field_type',
       7 => 'field_prix_tva_20',
       8 => 'field_bien_low_tva_price',
       9 => 'title',
@@ -125,7 +125,7 @@ function kandb_bien_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Visite virtuel',
-    'weight' => '5',
+    'weight' => '8',
     'children' => array(
       0 => 'field_visite_3d',
       1 => 'field_visite_plan_3d',
