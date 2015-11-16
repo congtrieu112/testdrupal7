@@ -60,9 +60,12 @@ function kandb_programme_field_group_info() {
     'label' => 'Description et options',
     'weight' => '6',
     'children' => array(
-      0 => 'field_en_quelques_mots',
-      1 => 'field_en_quelques_mots_b2b',
-      2 => 'field_nouveau',
+      0 => 'field_caracteristique_chauffage',
+      1 => 'field_caracteristique_etages',
+      2 => 'field_caracteristiques',
+      3 => 'field_en_quelques_mots',
+      4 => 'field_en_quelques_mots_b2b',
+      5 => 'field_nouveau',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -360,6 +363,7 @@ function kandb_programme_field_group_info() {
       13 => 'field_programme_stock',
       14 => 'field_type_programme',
       15 => 'field_zone_activite',
+      16 => 'field_programme_habiteo_bon_plan',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
