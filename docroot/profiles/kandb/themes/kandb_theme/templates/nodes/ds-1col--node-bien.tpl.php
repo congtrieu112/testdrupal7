@@ -22,9 +22,15 @@ if (isset($node->field_id_bien[LANGUAGE_NONE][0]['value'])) {
   $bien_id = $bien_ids[count($bien_ids) - 1];
 }
 
+$file_bien_plan = '';
+if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) {
+  $file_bien_plan = file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']);
+}
+
 $ville = '';
 $arrondissement = '';
 $programme = array();
+$file_plaquette_commerciale = '';
 if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
   $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
   if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
@@ -35,6 +41,10 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
   if (isset($programme->field_programme_loc_arr[LANGUAGE_NONE][0]['tid'])) {
     $district = taxonomy_term_load($programme->field_programme_loc_arr[LANGUAGE_NONE][0]['tid']);
     $arrondissement = $district->name;
+  }
+  
+  if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri'])) {
+    $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
   }
 }
 ?>
@@ -146,11 +156,17 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
               </ul>
             <?php endif; ?>
 
+    
             <ul class="toolsList">
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
-                <li><a href="#" class="btn-white"><span class="icon icon-flyer"></span><span class="text">Télécharger la plaquette</span></a></li>
-                <li><a href="#" class="btn-white"><span class="icon icon-flyer"></span><span class="text">Télécharger la plaquette</span></a></li>
-                <li><a href="#" class="btn-white"><span class="icon icon-leaf"></span><span class="text">Espace de vente</span></a></li>
+                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections");?></span></a></li>
+                
+                <?php if(!empty($plaquette_commerciale)): ?>
+                  <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette");?></span></a></li>
+                <?php endif; ?>
+                  
+                <?php if(!empty($file_bien_plan)): ?>
+                  <li><a href="<?php print $file_bien_plan; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan");?></span></a></li>
+                <?php endif; ?>
             </ul>
             <!-- [contactUs mini] start-->
             <aside class="contactUs-mini"><a href="tel://0800544000" class="phone-green"><span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
