@@ -695,7 +695,7 @@ function kb_feeds_menu() {
   );
 
   $items['admin/reports/feeds_errorlog/programme'] = array(
-    'title' => 'Programme',
+    'title' => 'Programme (TXT)',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'programme_feed_import'),
     'access arguments' => array('administer content types'),
