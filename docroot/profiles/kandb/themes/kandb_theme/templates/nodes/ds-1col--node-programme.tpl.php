@@ -210,43 +210,61 @@ foreach ($arr_slider as $field_name) {
                   <div class="tag tag--important"><?php print t('Nouveauté'); ?><sup>1</sup></div>
                 <?php endif; ?>
             </div>
-            <?php if($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
-            <p class="toolbox__intro">
-                <strong><?php print t('Livraison'); ?></strong>
-                <?php print t('à partir du'); ?>
-                <?php if ($trimstre) : print $trimstre; endif; ?>
-                <?php if ($annee) : print $annee . "<br>"; endif;?>
-                <?php if ($flat_available) : print $flat_available; endif;?>
-                <?php if ($de_a_pieces) : print ', ' . $de_a_pieces; endif;?>
-            </p>
+            <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
+              <p class="toolbox__intro">
+                  <strong><?php print t('Livraison'); ?></strong>
+                  <?php print t('à partir du'); ?>
+                  <?php
+                  if ($trimstre) : print $trimstre;
+                  endif;
+                  ?>
+                  <?php
+                  if ($annee) : print $annee . "<br>";
+                  endif;
+                  ?>
+                  <?php
+                  if ($flat_available) : print $flat_available;
+                  endif;
+                  ?>
+                  <?php
+                  if ($de_a_pieces) : print ', ' . $de_a_pieces;
+                  endif;
+                  ?>
+              </p>
             <?php endif; ?>
 
-            <?php if($de_a_price_tva || $de_a_price) : ?>
-            <ul class="content-price">
-                <?php if($de_a_price_tva) : ?>
-                <li class="content-price__item">
-                  <span class="text">
-                    <?php if ($de_a_price_tva) : print $de_a_price_tva; endif;?>
-                  </span>
-                  <span class="tags">
-                    <?php if ($tva) : ?>
-                      <div class="tva"><?php print $tva; ?></div>
-                    <?php endif; ?>
-                  <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
-                  </span>
-                </li>
-                <?php endif; ?>
-                <?php if($de_a_price) : ?>
-                <li class="content-price__item">
-                  <span class="text">
-                    <?php if ($de_a_price) : print $de_a_price; endif;?>
-                  </span>
-                  <span class="tags">
-                    <div class="tva tva--high">TVA 20%</div>
-                  </span>
-                </li>
-                <?php endif; ?>
-            </ul>
+            <?php if ($de_a_price_tva || $de_a_price) : ?>
+              <ul class="content-price">
+                  <?php if ($de_a_price_tva) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price_tva) : print $de_a_price_tva;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <?php if ($tva) : ?>
+                              <div class="tva"><?php print $tva; ?></div>
+                            <?php endif; ?>
+                            <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+                  <?php if ($de_a_price) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price) : print $de_a_price;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <div class="tva tva--high">TVA 20%</div>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+              </ul>
             <?php endif; ?>
 
 
@@ -268,9 +286,9 @@ foreach ($arr_slider as $field_name) {
         </div>
 
         <div class="programHeader__content__details">
-            <?php if($caracteristiques) : ?>
-            <ul class="characteristicList">
-                <?php
+            <?php if ($caracteristiques) : ?>
+              <ul class="characteristicList">
+                  <?php
                   foreach ($caracteristiques as $caracteristique) {
                     if (isset($caracteristique['tid'])) {
                       $carac_term = taxonomy_term_load($caracteristique['tid']);
@@ -280,8 +298,8 @@ foreach ($arr_slider as $field_name) {
                       }
                     }
                   }
-                ?>
-            </ul>
+                  ?>
+              </ul>
             <?php endif; ?>
             <?php if ($en_quelques_mots) : ?>
               <p class="intro">
@@ -320,7 +338,7 @@ foreach ($arr_slider as $field_name) {
         </header>
     </div>
     <div class="swapItem">
-        <div class="swapItem__2">
+        <div class="swapItem__2 ">
             <div class="wrapper--medium-up">
                 <?php if ($habiteo_id): ?>
                   <div class="iframe iframe--video-de-quartier">
@@ -353,8 +371,9 @@ foreach ($arr_slider as $field_name) {
                     '#type' => 'gmap',
                     '#gmap_settings' => $settings,
                   );
+                  print '<div class="show-for-medium-up">';
                   print drupal_render($element);
-
+                  print '</div>';
                 endif;
                 ?>
             </div>
