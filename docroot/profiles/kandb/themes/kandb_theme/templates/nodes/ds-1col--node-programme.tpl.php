@@ -138,7 +138,7 @@ $arr_document = array(
 $status_document = FALSE;
 foreach ($arr_document as $field_name) {
   $document = isset($node->$field_name) ? $node->$field_name : '';
-  if (isset($document[LANGUAGE_NONE][0]['value'])) {
+  if (isset($document[LANGUAGE_NONE][0]['fid'])) {
     $status_document = TRUE;
     break;
   }
@@ -270,10 +270,13 @@ foreach ($arr_slider as $field_name) {
 
             <p class="toolbox__intro"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
             <!-- [contactUs mini] start-->
-            <aside class="contactUs-mini"><a href="tel://0800544000" class="phone-green"><span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
-                <div class="contactUs__cta"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-primary btn-rounded">Rappelez moi</a><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-secondary btn-rounded">Prendre rendez-vous</a></div>
-            </aside>
-            <!-- [contactUs mini] end--><a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+            <?php
+            if (function_exists('kandb_contact_block_page')) {
+              print kandb_contact_block_page(TRUE);
+            }
+            ?>
+            <!-- [contactUs mini] end-->
+            <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
             <div class="sharing">
                 <ul class="sharing__items">
                     <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
