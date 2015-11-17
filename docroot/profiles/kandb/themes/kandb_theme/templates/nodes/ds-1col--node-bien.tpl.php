@@ -153,7 +153,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
 
 
             <ul class="toolsList">
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
+              <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">><?php print t("Ajouter à mes sélections"); ?></span></a></li>
 
                 <?php if (!empty($plaquette_commerciale)): ?>
                   <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette"); ?></span></a></li>

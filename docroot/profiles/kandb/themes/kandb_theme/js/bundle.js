@@ -37818,7 +37818,9 @@ $('form[data-ajax-form]').on('valid.fndtn.abide', function() {
   $(this).trigger('ajaxForm');
 });
 
-
+$(window).on('resize', Foundation.utils.throttle(function(e){
+  $(document).foundation('equalizer', 'reflow');
+}, 300));
 
 },{}],15:[function(require,module,exports){
 /* ======================== */
