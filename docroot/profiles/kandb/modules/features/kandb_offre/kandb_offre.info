@@ -30,3 +30,7 @@ features[variable][] = menu_parent_offre
 features[variable][] = node_options_offre
 features[variable][] = node_preview_offre
 features[variable][] = node_submitted_offre
+features[variable][] = weight_default_offre
+features[variable][] = weight_enabled_offre
+features[variable][] = weight_menu_offre
+features[variable][] = weight_range_offre
