@@ -1,0 +1,12 @@
+name = K&B Offre Menu Views
+description = Create a block view called "Menu - Nos offres"
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = views
+dependencies[] = weight
+features[ctools][] = views:views_default:3.0
+features[features_api][] = api:2
+features[views_view][] = menu_nos_offres
+features[views_view][] = offres_weight
+features_exclude[dependencies][ctools] = ctools

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Offre Menu Views feature.
+ */
+
+include_once 'kandb_offre_menu_views.features.inc';
