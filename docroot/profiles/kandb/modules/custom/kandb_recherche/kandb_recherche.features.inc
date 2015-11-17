@@ -88,10 +88,10 @@ function kandb_recherche_default_search_api_server() {
       "http_user" : "",
       "http_pass" : "",
       "excerpt" : 0,
-      "retrieve_data" : 0,
+      "retrieve_data" : 1,
       "highlight_data" : 0,
       "skip_schema_check" : 0,
-      "solr_version" : "",
+      "solr_version" : "4",
       "http_method" : "AUTO"
     },
     "enabled" : "1"

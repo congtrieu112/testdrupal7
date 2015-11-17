@@ -18161,6 +18161,147 @@ return jQuery;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],6:[function(require,module,exports){
+/*!
+ * JavaScript Cookie v2.0.4
+ * https://github.com/js-cookie/js-cookie
+ *
+ * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
+ * Released under the MIT license
+ */
+(function (factory) {
+	if (typeof define === 'function' && define.amd) {
+		define(factory);
+	} else if (typeof exports === 'object') {
+		module.exports = factory();
+	} else {
+		var _OldCookies = window.Cookies;
+		var api = window.Cookies = factory();
+		api.noConflict = function () {
+			window.Cookies = _OldCookies;
+			return api;
+		};
+	}
+}(function () {
+	function extend () {
+		var i = 0;
+		var result = {};
+		for (; i < arguments.length; i++) {
+			var attributes = arguments[ i ];
+			for (var key in attributes) {
+				result[key] = attributes[key];
+			}
+		}
+		return result;
+	}
+
+	function init (converter) {
+		function api (key, value, attributes) {
+			var result;
+
+			// Write
+
+			if (arguments.length > 1) {
+				attributes = extend({
+					path: '/'
+				}, api.defaults, attributes);
+
+				if (typeof attributes.expires === 'number') {
+					var expires = new Date();
+					expires.setMilliseconds(expires.getMilliseconds() + attributes.expires * 864e+5);
+					attributes.expires = expires;
+				}
+
+				try {
+					result = JSON.stringify(value);
+					if (/^[\{\[]/.test(result)) {
+						value = result;
+					}
+				} catch (e) {}
+
+				value = encodeURIComponent(String(value));
+				value = value.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+
+				key = encodeURIComponent(String(key));
+				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
+				key = key.replace(/[\(\)]/g, escape);
+
+				return (document.cookie = [
+					key, '=', value,
+					attributes.expires && '; expires=' + attributes.expires.toUTCString(), // use expires attribute, max-age is not supported by IE
+					attributes.path    && '; path=' + attributes.path,
+					attributes.domain  && '; domain=' + attributes.domain,
+					attributes.secure ? '; secure' : ''
+				].join(''));
+			}
+
+			// Read
+
+			if (!key) {
+				result = {};
+			}
+
+			// To prevent the for loop in the first place assign an empty array
+			// in case there are no cookies at all. Also prevents odd result when
+			// calling "get()"
+			var cookies = document.cookie ? document.cookie.split('; ') : [];
+			var rdecode = /(%[0-9A-Z]{2})+/g;
+			var i = 0;
+
+			for (; i < cookies.length; i++) {
+				var parts = cookies[i].split('=');
+				var name = parts[0].replace(rdecode, decodeURIComponent);
+				var cookie = parts.slice(1).join('=');
+
+				if (cookie.charAt(0) === '"') {
+					cookie = cookie.slice(1, -1);
+				}
+
+				try {
+					cookie = converter && converter(cookie, name) || cookie.replace(rdecode, decodeURIComponent);
+
+					if (this.json) {
+						try {
+							cookie = JSON.parse(cookie);
+						} catch (e) {}
+					}
+
+					if (key === name) {
+						result = cookie;
+						break;
+					}
+
+					if (!key) {
+						result[name] = cookie;
+					}
+				} catch (e) {}
+			}
+
+			return result;
+		}
+
+		api.get = api.set = api;
+		api.getJSON = function () {
+			return api.apply({
+				json: true
+			}, [].slice.call(arguments));
+		};
+		api.defaults = {};
+
+		api.remove = function (key, attributes) {
+			api(key, '', extend(attributes, {
+				expires: -1
+			}));
+		};
+
+		api.withConverter = init;
+
+		return api;
+	}
+
+	return init();
+}));
+
+},{}],7:[function(require,module,exports){
 (function (global){
 ; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /**
@@ -30520,7 +30661,7 @@ return jQuery;
 }).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],7:[function(require,module,exports){
+},{}],8:[function(require,module,exports){
 /*
      _ _      _       _
  ___| (_) ___| | __  (_)___
@@ -33164,7 +33305,7 @@ return jQuery;
 
 }));
 
-},{"jquery":5}],8:[function(require,module,exports){
+},{"jquery":5}],9:[function(require,module,exports){
 /*! VelocityJS.org (1.2.3). (C) 2014 Julian Shapiro. MIT @license: en.wikipedia.org/wiki/MIT_License */
 
 /*************************
@@ -37051,7 +37192,7 @@ return function (global, window, document, undefined) {
 /* The CSS spec mandates that the translateX/Y/Z transforms are %-relative to the element itself -- not its parent.
 Velocity, however, doesn't make this distinction. Thus, converting to or from the % unit with these subproperties
 will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
-},{}],9:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
 /* ============================ */
 /* accordion : app-accordion.js */
 /* ============================ */
@@ -37247,7 +37388,7 @@ if ( $(trigger).length ) {
   $(trigger).appAccordion();
 
 }
-},{}],10:[function(require,module,exports){
+},{}],11:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
 /* ======================================== */
@@ -37387,7 +37528,7 @@ function AjaxCtrl(settings) {
 
 
 App.AjaxController = new AjaxCtrl(ajaxPath);
-},{}],11:[function(require,module,exports){
+},{}],12:[function(require,module,exports){
 /* ============================ */
 /* ajax form : app-ajax-form.js */
 /* ============================ */
@@ -37550,7 +37691,7 @@ if ( $(trigger).length ) {
   $(trigger).appAjaxForm();
 
 }
-},{}],12:[function(require,module,exports){
+},{}],13:[function(require,module,exports){
 /* ============================ */
 /* ajax link : app-ajax-link.js */
 /* ============================ */
@@ -37615,7 +37756,7 @@ root.url = function( el ) {
 
 
 root.init();
-},{}],13:[function(require,module,exports){
+},{}],14:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
 /* ====================== */
@@ -37669,10 +37810,6 @@ $(document).foundation({
   }
 });
 
-$(document).on('after-height-change.fndtn.equalizer', function(){
-  console.log("height");
-});
-
 $('form[data-ajax-form]').on('submit', function(e){
   e.preventDefault();
 });
@@ -37683,7 +37820,190 @@ $('form[data-ajax-form]').on('valid.fndtn.abide', function() {
 
 
 
-},{}],14:[function(require,module,exports){
+},{}],15:[function(require,module,exports){
+/* ======================== */
+/* cookies : app-cookies.js */
+/* ======================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger = '[data-cookie]',
+    addValue = '[data-cookie-add]',
+    removeValue = '[data-cookie-remove]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+  cookieName: 'K&B-save',
+  limit: 21,
+  cookieSettings: {
+    expires: 30,
+    path: ''
+  }
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppCookies( el, opts ) {
+  this.settings = $.extend({}, defaults, opts);
+  this.item = $(el);
+  this.name = this.item.data('cookie');
+  this.value = this.item.data('cookie-add') || this.item.data('cookie-remove');
+
+  if ( this.value === "url" ) {
+    this.value = window.location.origin + window.location.pathname + window.location.search;
+  } else {
+    this.value = parseInt(this.value, 10);
+  }
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppCookies.prototype = {
+
+  init: function() {
+    var that = this;
+
+    // create cookie object
+    if ( !$.fn.Cookies( this.settings.cookieName ) ) {
+      $.fn.Cookies( this.settings.cookieName, '{}' );
+    }
+
+    // activate items in cookie
+    this.activate();
+
+    this.item.off('click.cookies').on('click.cookies', function(e) {
+      e.preventDefault();
+      var $this = $(this);
+
+      if ( $this.is(addValue) ) {
+        that.addValue();
+      } else {
+        that.removeValue();
+      }
+
+      that.debug();
+    });
+  },
+
+  activate: function() {
+    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) );
+
+    if ( _.isArray( previousValue[this.name] ) && $.inArray(this.value, previousValue[this.name]) !== -1 ) {
+      $(trigger).filter('[data-cookie-add="'+ this.value +'"]')
+        .addClass('active')
+        .removeAttr('data-cookie-add')
+        .attr('data-cookie-remove', this.value);
+    }
+  },
+
+  unActivate: function() {
+    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) );
+
+    $(trigger).filter('[data-cookie-remove="'+ this.value +'"]')
+      .removeClass('active')
+      .removeAttr('data-cookie-remove')
+      .attr('data-cookie-add', this.value);
+  },
+
+  addValue: function() {
+    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) );
+
+    // if empty set first value
+    if ( !_.isArray( previousValue[this.name] ) ) {
+      previousValue[this.name] = [this.value];
+    }
+
+    // if not empty, add value
+    if ( _.isArray( previousValue[this.name] ) && this.checkLimit( previousValue[this.name] ) ) {
+      if ( $.inArray(this.value, previousValue[this.name]) === -1 ) {
+        previousValue[this.name].unshift(this.value);
+      }
+    } else {
+      return;
+    }
+
+    $.fn.Cookies( this.settings.cookieName, previousValue );
+
+    if ( !_.isString(this.value) ) {
+      this.activate();
+    }
+  },
+
+  removeValue: function() {
+    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) );
+
+    if ( _.isArray( previousValue[this.name] ) && $.inArray(this.value, previousValue[this.name]) !== -1 ) {
+      _.pull(previousValue[this.name], this.value);
+      this.unActivate();
+      $.fn.Cookies( this.settings.cookieName, previousValue );
+    }
+  },
+
+  checkLimit: function(array) {
+    if ( array.length > this.settings.limit ) {
+      if (window.confirm(App.selections.errorMessage)) {
+        window.location = App.selections.errorRedirect;
+      }
+    }
+    return array.length <= this.settings.limit;
+  },
+
+  debug: function() {
+    if ( App.debug ) {
+      console.log( 'Cookies: ', JSON.parse($.fn.Cookies(this.settings.cookieName)) );
+    }
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$(function() {
+
+  $.fn.appCookies = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppCookies');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppCookies', new AppCookies( this, opt) );
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appCookies();
+
+  if ( App.debug ) {
+    if ( $.fn.Cookies('K&B-save') ) {
+      console.log( 'Cookies: ', JSON.parse($.fn.Cookies('K&B-save')) );
+    }
+  }
+
+});
+
+},{}],16:[function(require,module,exports){
 /* ========================== */
 /* dropdown : app-dropdown.js */
 /* ========================== */
@@ -37857,7 +38177,7 @@ $(function() {
 
 });
 
-},{}],15:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /* =================== */
 /* forms : app-form.js */
 /* =================== */
@@ -37884,7 +38204,7 @@ $('form[data-ajax-form]').on('submit', function(e){
 $('form[data-ajax-form]').on('valid.fndtn.abide', function() {
   $(this).trigger('ajaxForm');
 });
-},{}],16:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
 /* ================== */
@@ -38002,12 +38322,13 @@ Gmaps.prototype = {
   },
 
   getMarkers: function() {
+    var urlMarker = App.debug ? 'assets/images/gmaps-marker.png' : 'profiles/kandb/themes/kandb_theme/assets/images/gmaps-marker.png';
     var $items = $('[data-gmaps-marker]'),
         markers = [],
         image = {
-            url: 'assets/images/gmaps-marker.png',
+            url: urlMarker,
             origin: new google.maps.Point(0, 0),
-            anchor: new google.maps.Point(0, 32)
+            anchor: new google.maps.Point(26, 60)
           };
 
     for ( var i=0, itemsLength=$items.length ; i<itemsLength ; i++ ) {
@@ -38038,7 +38359,7 @@ $(function() {
     App.gmaps = new Gmaps(opts);
   };
 });
-},{}],17:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /* ====================================== */
 /* iframes : app-iframes.js */
 /* ====================================== */
@@ -38059,7 +38380,7 @@ App.appIframes = function( el ) {
 };
 
 App.appIframes( trigger );
-},{}],18:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
 /* ========================== */
@@ -38164,7 +38485,7 @@ $(function() {
   }
 
 });
-},{}],19:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /* ============================= */
 /* off canvas : app-offcanvas.js */
 /* ============================= */
@@ -38194,7 +38515,7 @@ $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
     $(document).off('touchmove.scroll');
   }
 });
-},{}],20:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -38219,6 +38540,15 @@ App.reveal = function() {
 
 var $siteWrapper = $('.main-wrapper');
 
+
+// you can also target data-reveal="XXX" using data-reveal-target="XXX" if you don't whant to use ID
+$('[data-reveal-trigger]').on('click', function(){
+  var target = $(this).attr('data-reveal-trigger');
+  $('[data-reveal="'+target+'"]').foundation('reveal','open');
+});
+
+
+// event on popin opening
 $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
   var $modal = $(this),
       iframes = $modal.find('iframe[data-src]');
@@ -38240,6 +38570,7 @@ $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
 });
 
 
+// event on popin opened
 $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
   var $modal = $(this);
 
@@ -38256,6 +38587,7 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
 });
 
 
+// event on popin closing
 $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
   var $modal = $(this);
 
@@ -38288,7 +38620,7 @@ App.reveal();
 App.updaters.foundation = function() {
   App.reveal();
 };
-},{}],21:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -38338,7 +38670,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],22:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -38366,7 +38698,7 @@ App.appComboSelect = function() {
 };
 
 App.appComboSelect();
-},{}],23:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -38556,7 +38888,7 @@ if ( $(trigger).length ) {
 }
 
 
-},{}],24:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39190,7 +39522,7 @@ if ( $(trigger).length ) {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],25:[function(require,module,exports){
+},{"jquery":5}],27:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -39199,11 +39531,12 @@ if ( $(trigger).length ) {
 'use strict';
 
 require('jquery');
-var _                   = require('lodash');
+require('lodash');
 var foundation          = require('foundation');
 var velocity            = require("velocity-animate");
 var slick               = require("slick-carousel");
 var pushy               = require("./../../bower_components/pushy/js/pushy.js");
+$.fn.Cookies             = require("js-cookie");
 
 
 // Fastclick
@@ -39216,6 +39549,11 @@ global.App = {
   settings: {},
   updaters: {}
 };
+
+// merge window.knbVars object present in DOM into App
+if ( window.knbVars ) {
+  _.merge(global.App, window.knbVars);
+}
 
 
 // Add front debug mode
@@ -39258,6 +39596,7 @@ var appDropdown         = require("./app-dropdown.js");
 var appSearchFormular   = require("./app-searchFormular.js");
 var appLink2map         = require("./app-link2map.js");
 var appIframes          = require("./app-iframes.js");
+var appCookies          = require("./app-cookies.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -39268,4 +39607,4 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":9,"./app-ajax-controller.js":10,"./app-ajax-form.js":11,"./app-ajax-link.js":12,"./app-common.js":13,"./app-dropdown.js":14,"./app-forms.js":15,"./app-gmaps.js":16,"./app-iframes.js":17,"./app-link2map.js":18,"./app-offcanvas.js":19,"./app-reveal.js":20,"./app-searchFormular.js":21,"./app-select.js":22,"./app-slick.js":23,"./combo-select.js":24,"foundation":2,"gmaps":4,"jquery":5,"lodash":6,"slick-carousel":7,"velocity-animate":8}]},{},[25]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax-link.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-searchFormular.js":23,"./app-select.js":24,"./app-slick.js":25,"./combo-select.js":26,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[27]);
