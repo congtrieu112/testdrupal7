@@ -904,6 +904,9 @@ function import_bien_pdf_batch_operation() {
   $operations = array();
   $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
   $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
+  
+  $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d') . '.txt';
+  $logging = '';
 
   if (is_dir($base_path)) {
     if ($handle = opendir($base_path)) {
@@ -911,6 +914,7 @@ function import_bien_pdf_batch_operation() {
       while (false !== ($id_program = readdir($handle))) {
         if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
           $program = get_program_by_id($id_program);
+          
           if (!empty($program)) {   // Exist node program.
             // Load all pdf file in folder program.
             if ($handle_pdf_files = opendir($base_path . $id_program)) {
@@ -938,6 +942,7 @@ function import_bien_pdf_batch_operation() {
                       }
                     } else {
                       // Write log file : id_bien $id_bien does not exist.
+                      $logging .= $id_bien . '|id_bien|' . 'bien_id does not exist' . '| Skip imported' . "\n";
                     }
                   }
                 }
@@ -947,6 +952,7 @@ function import_bien_pdf_batch_operation() {
             }
           } else {
             // Write log file: id_program: $id_program does not exist.
+            $logging .= $id_program . '|id_program|' . 'id_program does not exist' . '| Skip imported' . "\n";
           }
         }
       }
@@ -955,6 +961,7 @@ function import_bien_pdf_batch_operation() {
     }
   } else {
     // Write log file: $base_path . "folder does not exist".
+    $logging .= $base_path . '||' . 'Folder does not exist' . '| Skip imported' . "\n";
   }
 
   // Build the batch instructions.
@@ -962,6 +969,9 @@ function import_bien_pdf_batch_operation() {
     'operations' => $operations,
     'finished' => 'import_bien_pdf_batch_operation_finished',
   );
+  
+  createFileErrorLogTxt($file_log_name, $logging);
+  
   return $batch;
 }
 
@@ -1142,7 +1152,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
  * @param type $uri
  */
 function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds/log/') {
-  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);    
   if ($prepare_file) {
     $path = drupal_realpath($uri . $file_log_name);
     $data = '';
