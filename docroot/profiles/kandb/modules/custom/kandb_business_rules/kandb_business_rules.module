@@ -179,10 +179,11 @@ function kandb_business_rules_node_presave($node) {
     // Is node update.
     if(isset($node->nid)){
       $node_bien = node_load($node->nid);
+      $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
 
       $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
       $status_new = (isset($node->field_bien_statut[LANGUAGE_NONE][0])) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
-      if ($status_old != $status_new){
+      if ($status_old != $status_new || $status_new == $status_disponible){
         Kandb_Business_Rules::set_can_hook_update();
       }
     }
@@ -221,12 +222,13 @@ function kandb_business_rules_node_update($node) {
       $arr_update_programme[] = $programe;
     }
 
-    if ($status_old != $status_new && ($status_old == $status_disponible || $status_new == $status_disponible)) {
+    if ($status_old != $status_new || ($status_old == $status_disponible || $status_new == $status_disponible)) {
       // RULE BIEN 107.
       Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
 
       // RULE COUNTING 106.
-      Kandb_Business_Rules::calculate_programe_price($arr_update_programme);
+      $current_bien = ($status_new == $status_disponible) ? $node : array();
+      Kandb_Business_Rules::calculate_programe_price($arr_update_programme, $current_bien);
 
       // RULE COUNTING 107.
       Kandb_Business_Rules::find_room_bien_follow_programe($arr_update_programme);

@@ -285,10 +285,17 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
       if ($node) {
         $id_programme = 0;
         $id_bien = 0;
+        $program_title = '';
+        $program_ville = '';
+        $program_department = '';
+        
+        $programme = '';
 
         switch ($node->type) {
           case 'programme':
             $id_programme = (isset($node->field_id_programme[LANGUAGE_NONE][0])) ? $node->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            
+            $programme = $node;            
             break;
 
           case 'bien':
@@ -304,6 +311,21 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
           default:
             break;
         }
+        
+        if(!empty($programme)){
+          $program_title = $programme->title;
+          if(isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])){
+            $term_id_ville = $programme->field_programme_loc_ville[LANGUAGE_NONE][0]["tid"];
+            $term_ville = taxonomy_term_load($term_id_ville);
+            $program_ville = $term_ville->name;
+          }
+
+          if(isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])){
+            $term_id_department = $programme->field_programme_loc_department[LANGUAGE_NONE][0]["tid"];
+            $term_department = taxonomy_term_load($term_id_department);
+            $program_department = $term_department->field_numero_departement[LANGUAGE_NONE][0]["value"];
+          }
+        }
 
         switch ($form_id) {
           case $webform_id_rendez_vous: // Webform Prendre rendez-vous
@@ -315,6 +337,20 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']['#type'] = 'hidden';
+            
+            if($form_id == $webform_id_rendez_vous){
+              $form['submitted']['nom_prog']["#default_value"] = (!empty($program_title)) ? $program_title : '';
+              $form['submitted']['nom_prog']["#value"] = (!empty($program_title)) ? $program_title : '';
+              $form['submitted']['nom_prog']['#type'] = 'hidden';
+              
+              $form['submitted']['ville_prog']["#default_value"] = (!empty($program_ville)) ? $program_ville : '';
+              $form['submitted']['ville_prog']["#value"] = (!empty($program_ville)) ? $program_ville : '';
+              $form['submitted']['ville_prog']['#type'] = 'hidden';
+              
+              $form['submitted']['dept_prog']["#default_value"] = (!empty($program_department)) ? $program_department : '';
+              $form['submitted']['dept_prog']["#value"] = (!empty($program_department)) ? $program_department : '';
+              $form['submitted']['dept_prog']['#type'] = 'hidden';
+            }
             break;
           default:
             break;
