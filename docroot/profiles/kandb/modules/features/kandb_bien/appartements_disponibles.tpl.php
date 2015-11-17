@@ -9,11 +9,11 @@ if(!isset($biens_rows) || empty($biens_rows)){
     <div>
         <div><?php print $row['id']; ?></div>
         <div><?php print $row['caracteristiques']; ?></div>
-        <div><?php print $row['superficie']; ?> m2</div>
+        <div><?php if ($row['superficie']) { print $row['superficie'] . ' m2'; } ?></div>
         <div><?php print $row['etage']; ?></div>
         <div>
-            <span><?php print $row['prix_5_5'] ; ?> € TVA 5,5%</span>
-            <span><?php print $row['prix_20'] ; ?> € TVA 20%</span>
+            <span><?php if ($row['prix_low_tva']['value'] && $row['prix_low_tva']['suffix']) { print $row['prix_low_tva']['value'] . ' ' . $row['prix_low_tva']['suffix']; } ?></span>
+            <span><?php if ($row['prix_20']) { print $row['prix_20'] . ' € TVA 20%'; } ?></span>
         </div>
     </div>    
     <?php endforeach; ?>

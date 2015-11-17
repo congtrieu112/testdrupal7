@@ -16,6 +16,16 @@ function kandb_contact_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
+  
+  $items['admin/config/webform_contact'] = array(
+    'title' => 'Webform Contact settings',
+    'description' => 'Set ID webform for contact form.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_contact_webform'),
+    'access arguments' => array('administer'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
 
   return $items;
 }
@@ -79,6 +89,10 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
       'template' => 'templates/contact_block_page',
       'variables' => array(),
     ),
+    'mini_contact_block_page' => array(
+      'template' => 'templates/mini_contact_block_page',
+      'variables' => array(),
+    ),
     'contact_block_with_sales_office' => array(
       'template' => 'templates/contact_block_with_sales_office',
       'variables' => array(),
@@ -91,7 +105,7 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
 }
 
 function kandb_contact_buttons() {
-  global $base_url;
+  global $base_url, $node;
 
   $links = array();
   $webform_machine_names = array(
@@ -103,37 +117,41 @@ function kandb_contact_buttons() {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
       $links[] = theme_link(
-        array(
-          'text' => $webform->title,
-          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
-          'options' => array(
-            'attributes' => array(
-              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
-              'data-reveal-ajax' => array('true'),
-              'data-reveal-id' => array('popinLeadForm'),
-            ),
-            'html' => FALSE,
+          array(
+            'text' => $webform->title,
+            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+            'options' => array(
+              'attributes' => array(
+                'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+                'data-reveal-ajax' => array('true'),
+                'data-reveal-id' => array('popinLeadForm'),
+              ),
+              'html' => FALSE,
+            )
           )
-        )
       );
     }
   }
 
 
-  return theme('contact_buttons',
-    array(
-      'links' => $links
-    )
+  return theme('contact_buttons', array(
+    'links' => $links
+      )
   );
 }
 
 /**
  * Callback function
  */
-function kandb_contact_block_page() {
+function kandb_contact_block_page($is_mini_contact = FALSE) {  
   $variables = array();
-  $variables['content'] = kandb_contact_get_all_variables();
+  $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
+  
+  if($is_mini_contact){
+    return theme('mini_contact_block_page', $variables);
+  }
+  
   return theme('contact_block_page', $variables);
 }
 
@@ -144,22 +162,30 @@ function kandb_contact_block_page() {
  *  Returns an array with
  *  variable_name => variable_value
  */
-function kandb_contact_get_all_variables() {
-  $variables = array(
-    'kandb_contact_photo' => '',
-    'kandb_contact_title' => '',
-    'kandb_contact_sub_title' => '',
-    'kandb_contact_faq_text' => '',
-    'kandb_contact_faq_link' => '',
-    'kandb_contact_numero_text' => '',
-    'kandb_contact_numero_vert' => '',
-  );
+function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
+  if(!$is_mini_contact){
+    $variables = array(
+      'kandb_contact_photo' => '',
+      'kandb_contact_title' => '',
+      'kandb_contact_sub_title' => '',
+      'kandb_contact_faq_text' => '',
+      'kandb_contact_faq_link' => '',
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }else{
+    $variables = array(
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }
+  
 
   foreach ($variables as $name => $value) {
     $variables[$name] = variable_get($name);
   }
 
-  if(!empty($variables['kandb_contact_photo'])){
+  if (!$is_mini_contact && !empty($variables['kandb_contact_photo'])) {
     $variables['kandb_contact_photo'] = file_load($variables['kandb_contact_photo']);
     if ($wrapper = file_stream_wrapper_get_instance_by_uri($variables['kandb_contact_photo']->uri)) {
       $variables['kandb_contact_photo']->uri = $wrapper->getExternalUrl();
@@ -168,7 +194,6 @@ function kandb_contact_get_all_variables() {
 
   return $variables;
 }
-
 
 /**
  * Admin interface
@@ -240,4 +265,116 @@ function kandb_contact_admin_validate($form, &$form_state) {
 
   // Record that the module (in this example, user module) is using the file.
   file_usage_add($file, 'user', 'user', $user->uid);
+}
+
+function kandb_contact_form_alter(&$form, $form_state, $form_id) {
+  $webform_id_rendez_vous = variable_get('kandb_webform_rendez_vous', 'webform_client_form_2');
+  $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_1');
+  
+  if (($form_id == $webform_id_rendez_vous || $form_id == $webform_id_etre_rappele) && isset($_SERVER["HTTP_REFERER"]) && !empty($_SERVER["HTTP_REFERER"])) {
+    global $base_url;
+    $referer_path = $_SERVER["HTTP_REFERER"];
+    $referer_path = str_replace($base_url . '/', '', $referer_path);
+    $id_referer_path = drupal_get_normal_path($referer_path);
+    // Get id node from path alias
+    $id_referer_path = explode('/', $id_referer_path)[1];
+
+    // If exists path alias.
+    if (is_numeric($id_referer_path)) {
+      $node = node_load($id_referer_path);
+      if ($node) {
+        $id_programme = 0;
+        $id_bien = 0;
+
+        switch ($node->type) {
+          case 'programme':
+            $id_programme = (isset($node->field_id_programme[LANGUAGE_NONE][0])) ? $node->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            break;
+
+          case 'bien':
+            if (isset($node->field_programme[LANGUAGE_NONE][0])) {
+              $programme = node_load($node->field_programme[LANGUAGE_NONE][0]["target_id"]);
+              $id_programme = (isset($programme->field_id_programme[LANGUAGE_NONE][0])) ? $programme->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            }
+
+            //$id_programme = (isset($node->field_programme[LANGUAGE_NONE][0])) ? $node->field_programme[LANGUAGE_NONE][0]["target_id"] : 0;
+            $id_bien = (isset($node->field_id_bien[LANGUAGE_NONE][0])) ? $node->field_id_bien[LANGUAGE_NONE][0]["value"] : 0;
+            break;
+
+          default:
+            break;
+        }
+
+        switch ($form_id) {
+          case $webform_id_rendez_vous: // Webform Prendre rendez-vous
+          case $webform_id_etre_rappele:  // webform Être rappelé
+            $form['submitted']['rdv_idkl']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
+            $form['submitted']['rdv_idkl']["#value"] = (!empty($id_bien)) ? $id_bien : '';
+            $form['submitted']['rdv_idkl']['#type'] = 'hidden';
+
+            $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
+            $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            $form['submitted']['rdv_idkp']['#type'] = 'hidden';
+            break;
+          default:
+            break;
+        }
+      }
+    }
+  }
+}
+
+/**
+ * Implements hook_admin().
+ * Add setting form contact ID
+ */
+function kandb_contact_webform(){
+  $form['field_tabs'] = array(
+    '#type' => 'vertical_tabs',
+  );
+  $form['setting'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Contact form Settings'),
+    '#group' => 'field_tabs',
+  );
+
+
+  $form['setting']['webform_rendez_vous'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Webform ID Prendre rendez-vous'),
+    '#default_value' => variable_get('kandb_webform_rendez_vous', 'webform_client_form_2'),
+  );
+  
+  $form['setting']['webform_etre_rappele'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Webform ID webform Être rappelé'),
+    '#default_value' => variable_get('kandb_webform_etre_rappele', 'webform_client_form_1'),
+  );
+
+  $form['actions'] = array('#type' => 'actions');
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Save'),
+  );
+
+  return $form;
+}
+
+
+
+/**
+ * Implements hook_admin_submit().
+ * Submit setting form contact ID
+ */
+function kandb_contact_webform_submit() {
+
+  // Action save settings.
+  $webform_rendez_vous = $_REQUEST['webform_rendez_vous'];
+  $webform_etre_rappele = $_REQUEST['webform_etre_rappele'];
+
+  variable_set('kandb_webform_rendez_vous', $webform_rendez_vous);
+  variable_set('kandb_webform_etre_rappele', $webform_etre_rappele);
+
+  drupal_set_message(t('Save data successful'));
+  
 }

@@ -1,0 +1,7 @@
+name = K&B Mail
+description = "Kandb Mail"
+core = 7.x
+package = K&B Development
+
+dependencies[] = kandb_webform
+dependencies[] = smtp

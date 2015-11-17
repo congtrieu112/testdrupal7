@@ -140,22 +140,28 @@ class EncodingCSVParser extends ParserCSV {
           }
         }
       }
-      if ($this->id == 'migration_program_import') {
-        if (is_array($fields) && 44 != count($fields)) {
-          $logging .= $line;
-          continue;
-        }
-      }elseif ($this->id == 'kb_patrimoine_import') {          
-        if (is_array($fields) && 14 > count($fields)) {
-          $logging .= $line;
-          continue;
-        }
-      } else {
-        if (is_array($fields) && 2 != count($fields)) {
-          $logging .= $line;
-          continue;
-        }
-      }
+
+//      if ($this->id == 'migration_program_import') {
+//        if (is_array($fields) && 44 != count($fields)) {
+//          $logging .= $line;
+//          continue;
+//        }
+//      } elseif ($this->id == 'kb_patrimoine_import') {
+//        if (is_array($fields) && 14 > count($fields)) {
+//          $logging .= $line;
+//          continue;
+//        }
+//      } elseif ($this->id == 'document_import') {
+//        if (is_array($fields) && 6 != count($fields)) {
+//          $logging .= $line;
+//          continue;
+//        }
+//      } else {
+//        if (is_array($fields) && 2 != count($fields)) {
+//          $logging .= $line;
+//          continue;
+//        }
+//      }
       if (empty($this->columnNames)) {
         $row = $fields;
       } else {
@@ -168,11 +174,11 @@ class EncodingCSVParser extends ParserCSV {
           $row[$columnName] = isset($field) ? $field : '';
         }
       }
-      
+
       if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
         $rows[] = $row;
-      }     
-      
+      }
+
       if (!empty($maxTime) && microtime() > $maxTime) {
         $this->timeoutReached = TRUE;
         $this->lastLinePos = $lineIterator->currentPos();
@@ -185,28 +191,44 @@ class EncodingCSVParser extends ParserCSV {
       }
     }
 
-    if ($logging != '') {
-
-      $file_log_name = '';
-      if($this->id == 'migration_program_import') {
-        $file_log_name = 'migration_program_import_log_' . date('Y-m-d') . '.txt';
-      } else {
-        $file_log_name = 'migration_program_video_import_log_' . date('Y-m-d') . '.txt';
-      }
-
-      //$file_log_name = 'migration_program_video_import_log_' . date('Y-m-d') . '.txt';
-      $uri = 'private://feeds/log/';
-      $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-
-      if ($prepare_file) {
-        $path = drupal_realpath($uri . $file_log_name);
-        $data = file_get_contents($path);
-        $logging .= $data;
-        drupal_chmod($uri);
-        file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-      }
-    }
-
+//    if ($logging != '') {
+//
+//      $file_log_name = '';
+//      if($this->id == 'migration_program_import') {
+//        $file_log_name = 'migration_program_import_log_' . date('Y-m-d') . '.txt';
+//      } else {
+//        $file_log_name = 'migration_program_video_import_log_' . date('Y-m-d') . '.txt';
+//      }
+//
+//      //$file_log_name = 'migration_program_video_import_log_' . date('Y-m-d') . '.txt';
+//      $uri = 'private://feeds/log/';
+//      $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+//
+//      if ($prepare_file) {
+//        $path = drupal_realpath($uri . $file_log_name);
+//        $data = file_get_contents($path);
+//        $logging .= $data;
+//        drupal_chmod($uri);
+//        file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+//      }
+//    }
     return $rows;
   }
 }
+
+/**
+* Create file Error Log (.txt)
+* @param type $file_log_name
+* @param type $logging
+* @param type $uri
+*/
+//function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds/log/') {
+//  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+//  if ($prepare_file) {
+//    $path = drupal_realpath($uri . $file_log_name);
+//    $data = file_get_contents($path);
+//    $logging .= $data;
+//    drupal_chmod($uri);
+//    file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+//  }
+//}

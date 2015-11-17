@@ -22,16 +22,19 @@ function kandb_promotion_strongarm() {
           'weight' => '1',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '2',
         ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '3',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '4',
+        ),
+        'metatags' => array(
+          'weight' => '13',
         ),
       ),
       'display' => array(),

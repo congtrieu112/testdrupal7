@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Dossier Weight Views feature.
+ */
+
+include_once 'kandb_dossier_weight_views.features.inc';

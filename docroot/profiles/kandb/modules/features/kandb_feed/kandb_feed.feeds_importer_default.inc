@@ -158,31 +158,42 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Document import',
     'description' => 'Import pdf contents from DocBibliotheque.csv',
     'fetcher' => array(
-      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'plugin_key' => 'FeedsFileFetcher',
       'config' => array(
-        'auto_detect_feeds' => 0,
-        'use_pubsubhubbub' => 0,
-        'designated_hub' => '',
-        'request_timeout' => '',
-        'auto_scheme' => 'http',
-        'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
-        'kb_url_type' => '0',
+        'allowed_extensions' => 'txt csv tsv xml opml',
+        'direct' => FALSE,
+        'directory' => 'public://feeds',
+        'allowed_schemes' => array(
+          0 => 'public',
+        ),
       ),
     ),
     'parser' => array(
-      'plugin_key' => 'FeedsCSVParser',
+      'plugin_key' => 'KbEncodingCSVParser',
       'config' => array(
         'delimiter' => '|',
         'no_headers' => 0,
       ),
     ),
     'processor' => array(
-      'plugin_key' => 'KbFeedsNodeProcessor',
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
       'config' => array(
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
+        'related_importer' => array(
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'parcel_feed_import' => 0,
+          'programme_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => 'IdentifiantDocBibliotheque',
@@ -190,38 +201,43 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           1 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
             'source' => 'TitreDuDocument',
             'target' => 'title',
             'unique' => FALSE,
           ),
-          2 => array(
+          3 => array(
             'source' => 'Categorie',
             'target' => 'field_document_type',
             'unique' => FALSE,
           ),
-          3 => array(
+          4 => array(
             'source' => 'DATE',
             'target' => 'field_document_date:start',
             'unique' => FALSE,
           ),
-          4 => array(
+          5 => array(
             'source' => 'Statut',
             'target' => 'status',
             'unique' => FALSE,
           ),
-          5 => array(
+          6 => array(
             'source' => 'Statut',
             'target' => 'sticky',
             'unique' => FALSE,
           ),
-          6 => array(
+          7 => array(
             'source' => 'LienFichier',
             'target' => 'field_document_file:uri',
             'unique' => FALSE,
           ),
         ),
         'update_existing' => '1',
-        'update_non_existent' => 'update',
+        'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
         'skip_hash_check' => 0,
         'bundle' => 'document',
@@ -507,7 +523,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 1,
+    'process_in_background' => 0,
   );
   $export['kb_patrimoine_import'] = $feeds_importer;
 
@@ -796,7 +812,8 @@ function kandb_feed_feeds_importer_default() {
           23 => array(
             'source' => 'Tva',
             'target' => 'field_tva',
-            'unique' => FALSE,
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           24 => array(
             'source' => 'X',
@@ -950,7 +967,7 @@ function kandb_feed_feeds_importer_default() {
         'use_pubsubhubbub' => 0,
         'designated_hub' => '',
         'request_timeout' => '',
-        'auto_scheme' => 'http',
+        'auto_scheme' => '',
         'accept_invalid_cert' => 0,
         'kb_url' => 'sites/default/files/import/LOT.TXT',
         'kb_url_type' => '0',
@@ -1009,24 +1026,25 @@ function kandb_feed_feeds_importer_default() {
             'autocreate' => 0,
           ),
           7 => array(
-            'source' => '5',
+            'source' => '6',
             'target' => 'field_nb_chambres',
             'term_search' => '1',
             'autocreate' => 0,
           ),
           8 => array(
-            'source' => '6',
+            'source' => '7',
             'target' => 'field_etage',
             'term_search' => '1',
             'autocreate' => 0,
           ),
           9 => array(
-            'source' => '7',
-            'target' => 'field_caracteristiques',
-            'unique' => FALSE,
+            'source' => '8',
+            'target' => 'field_caracteristique',
+            'term_search' => '1',
+            'autocreate' => 0,
           ),
           10 => array(
-            'source' => '8',
+            'source' => '9',
             'target' => 'field_superficie',
             'unique' => FALSE,
           ),
@@ -1043,29 +1061,49 @@ function kandb_feed_feeds_importer_default() {
           ),
           13 => array(
             'source' => '16',
-            'target' => 'field_caracteristiques',
+            'target' => 'field_caracteristique_jardin',
             'unique' => FALSE,
           ),
           14 => array(
             'source' => '17',
-            'target' => 'field_caracteristiques',
+            'target' => 'field_caracteristique_balcon',
             'unique' => FALSE,
           ),
           15 => array(
             'source' => '19',
-            'target' => 'field_caracteristiques',
+            'target' => 'field_caracteristique_terrasse',
             'unique' => FALSE,
           ),
           16 => array(
             'source' => '21',
-            'target' => 'field_caracteristiques',
+            'target' => 'field_caracteristique_parking',
             'unique' => FALSE,
           ),
           17 => array(
+            'source' => '22',
+            'target' => 'field_caracteristique_box',
+            'unique' => FALSE,
+          ),
+          18 => array(
+            'source' => '23',
+            'target' => 'field_caracteristique_cave',
+            'unique' => FALSE,
+          ),
+          19 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
             'term_search' => '3',
             'autocreate' => 0,
+          ),
+          20 => array(
+            'source' => '28',
+            'target' => 'field_parking_description',
+            'unique' => FALSE,
+          ),
+          21 => array(
+            'source' => '29',
+            'target' => 'field_cave_description',
+            'unique' => FALSE,
           ),
         ),
         'update_existing' => '2',
@@ -1098,7 +1136,7 @@ function kandb_feed_feeds_importer_default() {
         'use_pubsubhubbub' => 0,
         'designated_hub' => '',
         'request_timeout' => '',
-        'auto_scheme' => 'http',
+        'auto_scheme' => '',
         'accept_invalid_cert' => 0,
         'kb_url' => 'sites/default/files/import/PROGRAMME.TXT',
         'kb_url_type' => '0',

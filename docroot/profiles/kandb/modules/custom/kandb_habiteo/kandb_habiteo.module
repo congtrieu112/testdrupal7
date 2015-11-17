@@ -5,8 +5,8 @@
  */
 function kandb_habiteo_menu() {
   $items = array();
-  $items['admin/habiteo-settings'] = array(
-    'title' => 'Habiteo setting page',
+  $items['admin/config/habiteo'] = array(
+    'title' => 'Habiteo',
     'description' => 'Habiteo webservice',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('habiteo_page_settings_form'),
@@ -47,6 +47,8 @@ function kandb_habiteo_menu() {
   );
 
 
+
+
   return $items;
 }
 
@@ -64,6 +66,7 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#title' => t('Habiteo Setting'),
     '#group' => 'variable_tab',
   );
+
 
   $form['variable_habiteo_page']['habiteo_feed_url'] = array(
     '#type' => 'textfield',
@@ -84,6 +87,69 @@ function habiteo_page_settings_form($form, &$form_state) {
     '#maxlength' => 128,
     '#required' => TRUE,
   );
+
+  $form['variable_habiteo_page']['habiteo_widget_security_key'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo widget security key'),
+    '#description' => t('example: 5dsf66U3QBz1nuLl7zI82E'),
+    '#default_value' => variable_get('habiteo_widget_security_key', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_visite-virtuelle_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo visite virtuelle url'),
+    '#description' => t('example:  http://widgets.habiteo.com/visite-virtuelle'),
+    '#default_value' => variable_get('habiteo_visite-virtuelle_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_video-de-quartier_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo video de quartier url'),
+    '#description' => t('example:  http://widgets.habiteo.com/video-de-quartier'),
+    '#default_value' => variable_get('habiteo_video-de-quartier_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_plan-3d_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo plan 3d url'),
+    '#description' => t('example:  http://widgets.habiteo.com/vue-etages'),
+    '#default_value' => variable_get('habiteo_plan-3d_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+
+
+  $form['variable_habiteo_page']['habiteo_vue-generale_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo vue generale url'),
+    '#description' => t('example:   http://widgets.habiteo.com/vue-generale'),
+    '#default_value' => variable_get('habiteo_vue-generale_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $form['variable_habiteo_page']['habiteo_plan-de-quartier_url'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Habiteo plan de quartier url'),
+    '#description' => t('example:   http://widgets.habiteo.com/plan-de-quartier'),
+    '#default_value' => variable_get('habiteo_plan-de-quartier_url', ''),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
 
   return system_settings_form($form);
 }
@@ -110,26 +176,16 @@ function render_habiteo_json($token, $type) {
  * Implement mock page for testing imports habiteo_id into CT programes.
  */
 function render_test_habiteo() {
-
-  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
-  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
-  if ($habiteo_feed_url && $habiteo_feed_token) {
-    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
-    $request = drupal_http_request($path);
-    if ($request->data) {
-      $imports = json_decode($request->data);
-      foreach ($imports as $item) {
-        kandb_habiteo_update_programe($item->id_partenaire, $item->id);
-      }
-    }
-  }
+  $path = variable_get('habiteo_feed_programme');
+  kandb_habiteo_import_programme();
   return 'Import habiteo into programme';
 }
 
 /**
  * Update field_programme_habiteo_id when field_id_programme has exist.
  */
-function kandb_habiteo_update_programe($id, $habiteo_id, $type = 'programme') {
+function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'programme') {
+  $file_log_name = 'habiteo_programme' . '_log_' . date('Y-m-d') . '.txt';
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
@@ -144,12 +200,15 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $type = 'programme') {
     if ($items) {
       foreach ($items as $item) {
         $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
+        $item->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'] = $bon_plan;
         node_save($item);
-        watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
+        $logging = $habiteo_id . '|programme|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
+        createFileErrorLogTxt($file_log_name, $logging);
       }
     }
   } else {
-    watchdog('kandb_habiteo', 'Logs: <pre>id_programme: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+    $logging = $habiteo_id . '|programme|' . $habiteo_id . ' not exist in db' . '|' . 'nid: null' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
   }
 }
 
@@ -208,6 +267,7 @@ function render_test_habiteo_bien() {
  * Update field_bien_habiteo_id when field_id_bienhas exist.
  */
 function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
+  $file_log_name = 'habiteo_bien' . '_log_' . date('Y-m-d') . '.txt';
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
@@ -222,10 +282,93 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
       foreach ($items as $item) {
         $item->field_bien_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
         node_save($item);
-        watchdog('kandb_habiteo', 'Logs: <pre>@param1</pre>', array('@param1' => print_r($item, TRUE)), WATCHDOG_INFO);
+        $logging = $habiteo_id . '|bien|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
+        createFileErrorLogTxt($file_log_name, $logging);
       }
     }
   } else {
-    watchdog('kandb_habiteo', 'Logs: <pre>id_bien: @id not exist in db</pre>', array('@id' => $id), WATCHDOG_DEBUG);
+    $logging = $habiteo_id . '|bien|' . $habiteo_id . ' not exist in db' . '|' . 'nid: null' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
+  }
+}
+
+function kandb_habiteo_cronapi($op, $job = NULL) {
+//  $items['import_habiteo_bien'] = array(
+//    'description' => 'Import habiteo bien feed 6am',
+//    'rule' => '0 6 * * 1-5',
+//    'callback' => 'kandb_habiteo_import_bien',
+//    'arguments' => array('lots'),
+//  );
+
+  $items['import_habiteo_programme'] = array(
+    'description' => 'Import habiteo programme feed 6am',
+    'rule' => '0 6 * * 1-5',
+    'callback' => 'kandb_habiteo_import_programme',
+  );
+
+
+  return $items;
+}
+
+/**
+ * Import bien_habiteo_id into bien CT.
+ */
+function kandb_habiteo_import_bien($path) {
+  $file_log_name = 'habiteo_bien' . '_log_' . date('Y-m-d') . '.txt';
+  $request = drupal_http_request($path);
+  if (isset($request->data)) {
+    $imports = json_decode($request->data);
+    if ($imports) {
+      foreach ($imports as $item) {
+        if ($item->id_partenaire) {
+          // Import bien.
+          kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+        } else {
+          $logging = $item->id . '|bien|' . 'id_partenaire is null' . '|' . $path . "\n";
+          createFileErrorLogTxt($file_log_name, $logging);
+        }
+      }
+    } else {
+      $logging = 'URL' . '|bien|' . 'URL not exist data' . '|' . $path . "\n";
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+  } else {
+    $logging = 'URL' . '|programme|' . 'URL not exist data' . '|' . $path . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
+  }
+}
+
+/**
+ * Import programme_habiteo_id into programmes CT.
+ */
+function kandb_habiteo_import_programme() {
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
+  $file_log_name = 'habiteo_programme' . '_log_' . date('Y-m-d') . '.txt';
+  if ($habiteo_feed_url && $habiteo_feed_token) {
+    $path = $habiteo_feed_url . '/' . $habiteo_feed_token . '/programmes';
+    $request = drupal_http_request($path);
+    if (isset($request->data)) {
+      $imports = json_decode($request->data);
+      if ($imports) {
+        foreach ($imports as $item) {
+          if ($item->id_partenaire) {
+            // Import programe.
+            kandb_habiteo_update_programe($item->id_partenaire, $item->id, $item->bon_plan);
+          } else {
+            $logging = $item->id . '|programme|' . 'id_partenaire is null' . '|' . $path . "\n";
+            createFileErrorLogTxt($file_log_name, $logging);
+          }
+          $path_bien = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?id=' . $item->id;
+          kandb_habiteo_import_bien($path_bien);
+        }
+      } else {
+        $logging = 'URL' . '|programme|' . 'URL not exist data' . '|' . $path . "\n";
+        createFileErrorLogTxt($file_log_name, $logging);
+      }
+    } else {
+      $logging = 'URL' . '|programme|' . 'URL not exist data' . '|' . $path . "\n";
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
   }
 }

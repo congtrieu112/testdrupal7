@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the kand_contactus_export_views feature.
+ */
+
+include_once 'kand_contactus_export_views.features.inc';

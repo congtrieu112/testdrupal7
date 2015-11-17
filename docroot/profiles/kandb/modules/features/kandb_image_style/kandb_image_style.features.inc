@@ -129,5 +129,42 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: search_medium.
+  $styles['search_medium'] = array(
+    'label' => 'Search Medium (180x180)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 180,
+          'height' => 180,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: search_small.
+  $styles['search_small'] = array(
+    'label' => 'Search Small (180x180)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 180,
+          'height' => 180,
+        ),
+        'weight' => 1,
+      ),
+      3 => array(
+        'name' => 'image_style_quality',
+        'data' => array(
+          'quality' => 5,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
   return $styles;
 }

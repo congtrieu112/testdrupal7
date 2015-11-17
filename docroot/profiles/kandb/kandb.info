@@ -46,6 +46,7 @@ dependencies[] = module_filter
 dependencies[] = node
 dependencies[] = options
 dependencies[] = pathauto
+dependencies[] = special_menu_items
 dependencies[] = system
 dependencies[] = strongarm
 dependencies[] = taxonomy
@@ -78,12 +79,25 @@ dependencies[] = bean
 dependencies[] = bean_uuid
 dependencies[] = image_style_quality
 dependencies[] = webform_ajax
+dependencies[] = domain_views
+dependencies[] = weight
+dependencies[] = nodeorder
+dependencies[] = metatag
+dependencies[] = gmap
+dependencies[] = gmap_macro_builder
+dependencies[] = gmap_style_bubbles
+dependencies[] = gmap_location
+dependencies[] = unique_field
+dependencies[] = viewfield
 
 ; Custom
 dependencies[] = kb_feeds
 dependencies[] = kb_import
 dependencies[] = kandb_habiteo
 dependencies[] = kandb_business_rules
+dependencies[] = kandb_alias_dossier_article
+dependencies[] = kb_mail
+dependencies[] = kandb_custom_gmap
 
 ; Features
 dependencies[] = kandb_domains
@@ -113,6 +127,15 @@ dependencies[] = kandb_tmp_content
 dependencies[] = kandb_image_style
 dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
+dependencies[] = kand_contactus_export_views
+dependencies[] = kandb_dossier_weight_views
+dependencies[] = kandb_path_alias_patterns
+dependencies[] = kandb_avant_premiere
+dependencies[] = kandb_views_avant_premiere
+dependencies[] = kandb_offre
+dependencies[] = kandb_standard_page
+dependencies[] = kandb_webform_contact_settings
+
 
 ; Blocks
 dependencies[] = kandb_recherche

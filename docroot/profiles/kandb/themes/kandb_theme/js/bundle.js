@@ -37056,7 +37056,23 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 /* accordion : app-accordion.js */
 /* ============================ */
 
+/*
+ul(data-app-accordion)
+  li#ID1
+    a(href="#ID1", tabindex="0", data-app-accordion-link, role="tab").active
+      | link
+    div(data-app-accordion-content)
+      | content
+
+  li#ID2
+    a(href="#ID2", tabindex="0", data-app-accordion-link, role="tab")
+      | link
+    div(data-app-accordion-content)
+      | content
+*/
+
 'use strict';
+
 
 /* ============== */
 /* MODULE TRIGGER */
@@ -37136,13 +37152,13 @@ AppAccordion.prototype = {
   },
 
   setActive: function( $activeLink ) {
-    $(unactiveLink)
+    this.item.find(unactiveLink)
       .attr({
         'aria-selected': 'false',
         'aria-expanded': 'false'
       });
 
-    $(link).removeClass('active');
+    this.item.find(link).removeClass('active');
 
     $activeLink
       .attr({
@@ -37162,13 +37178,16 @@ AppAccordion.prototype = {
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
         var $this = $(this);
-        e.preventDefault();
 
-        if ( !$this.hasClass('active') && e.type === 'click' || (e.type === 'keydown' && e.keyCode === 13) ) {
+        // allow tabulation for accessibility
+        if ( e.keyCode !== 9 ) {
+          e.preventDefault();
+        }
+
+        if ( !$this.hasClass('active') && (e.type === 'click' || e.keyCode === 13) ) {
           var $content = $( $this.attr('href') ).find(content);
 
           that.setActive($this);
-
           that.close();
 
           $content
@@ -37184,7 +37203,6 @@ AppAccordion.prototype = {
               }
             });
         }
-
       });
 
     return this;
@@ -37651,6 +37669,10 @@ $(document).foundation({
   }
 });
 
+$(document).on('after-height-change.fndtn.equalizer', function(){
+  console.log("height");
+});
+
 $('form[data-ajax-form]').on('submit', function(e){
   e.preventDefault();
 });
@@ -37687,6 +37709,8 @@ var defaults = {};
 function AppDropdown( el, opts ) {
   this.settings = $.extend({}, defaults, opts);
   this.item = $(el);
+  this.mode = this.item.data('app-dropdown');
+  this.target = $( '#' + this.item.attr('aria-controls') );
 
   this.init();
 }
@@ -37712,43 +37736,45 @@ AppDropdown.prototype = {
 
         if ( $content.is(':visible') ) {
           if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
-            that.closeAll( $(trigger) );
+            that.closeAll('all');
           }
         }
       }, 300, true));
     }
 
+    this.target.find('[data-app-dropdown-close]').off('click.dropdown-close').on('click.dropdown-close', function(e) {
+      var label = $(this).text();
+      that.item.find('.text').text(label);
+      that.close();
+    });
+
     return this;
   },
 
   toggle: function() {
-    var closed  = ( this.item.attr('aria-expanded') === "false" ) ? true : false,
-        ariaControls = this.item.attr('aria-controls'),
-        $target = $( '#' + ariaControls ),
-        mode = this.item.data('app-dropdown');
+    var closed  = ( this.item.attr('aria-expanded') === "false" ) ? true : false;
 
     if ( closed ) {
-      if ( mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
+      if ( this.mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
         this
-          .closeAll( $('[data-app-dropdown="search"]') )
-          .open( $target );
+          .closeAll('all')
+          .open();
         return this;
       }
 
-      this.open( $target );
+      this.open();
     } else {
-      this.close( this.item, $target );
+      this.close();
     }
 
     return this;
   },
 
-  open: function( $target ) {
-    var that = this,
-        mode = this.item.data('app-dropdown');
+  open: function() {
+    var that = this;
 
-    if ( mode === 'remove' ) {
-      $target.find('button').first().focus();
+    if ( this.mode === 'remove' ) {
+       this.target.find('button').first().focus();
 
       this.item.velocity("slideUp", {
           duration: 250,
@@ -37761,10 +37787,12 @@ AppDropdown.prototype = {
       this.item.attr('aria-expanded', 'true');
     }
 
-    $target.velocity("slideDown", {
+     this.target.velocity("slideDown", {
         duration: 250,
         complete: function() {
-          that.item.velocity("scroll", { duration: 200, offset: -80 });
+          if ( Modernizr.touch ) {
+            that.item.velocity("scroll", { duration: 200, offset: -80 });
+          }
         }
       })
       .attr('aria-hidden', 'false');
@@ -37772,9 +37800,9 @@ AppDropdown.prototype = {
     return this;
   },
 
-  close: function( $el, $target ) {
-    $el.attr('aria-expanded', 'false');
-    $target.velocity("slideUp", {
+  close: function() {
+    this.item.attr('aria-expanded', 'false');
+    this.target.velocity("slideUp", {
         duration: 250
       })
       .attr('aria-hidden', 'true');
@@ -37782,16 +37810,17 @@ AppDropdown.prototype = {
     return this;
   },
 
-  closeAll: function( $trigger ) {
-    var scope = this;
+  closeAll: function( all ) {
+    var that = this,
+        $target = (typeof all !== 'undefined') ? $(trigger) : this.target;
 
-    for ( var i=0, triggersLength=$trigger.length ; i<triggersLength ; i++ ) {
-      var $el = $($trigger[i]),
+    for ( var i=0, triggersLength=$target.length ; i<triggersLength ; i++ ) {
+      var $el = $($target[i]),
           ariaControls = $el.attr('aria-controls'),
           ariaExpanded = $el.attr('aria-expanded');
 
       if ( ariaExpanded === "true" ) {
-        scope.close($el, $( '#' + ariaControls ));
+        $el.trigger( 'click.dropdown-toggle' );
       }
     }
 
@@ -37880,6 +37909,7 @@ var defaults = {};
 
 function Gmaps(opts) {
   this.settings = $.extend({}, defaults, opts);
+  this.item = $(trigger);
   return this.init();
 }
 
@@ -37887,54 +37917,110 @@ function Gmaps(opts) {
 /* MODULE METHODS */
 /* ============== */
 
-Gmaps.prototype.init = function() {
-  var scope = this,
-      $trigger = $(trigger);
+Gmaps.prototype = {
 
-  if ( !$trigger.length && Foundation.utils.is_medium_up() ) {
-    return;
+  init: function() {
+    var that = this;
+
+    if ( !this.item.length && Foundation.utils.is_medium_up() ) {
+      return;
+    }
+
+    if ( this.item.attr('data-gmaps') === 'addMarkers' ) {
+      that.headerHeight = $('[data-topbar]').height();
+
+      that.newMap = new GMaps({
+        div: '.js-app-gmaps',
+        lat: 0,
+        lng: 0
+      });
+
+      that
+        .initMarkers()
+        .setHeight()
+        .setPosition();
+
+      this.newMap.fitZoom();
+
+      $(window).on('resize.gmaps', function(e){
+        that.setHeight();
+      });
+
+      $(window).on('scroll.gmaps', function(e){
+        that.setPosition();
+      });
+    }
+
+    return this;
+  },
+
+  setHeight: function() {
+    var windowHeight = (Modernizr.touch) ? window.innerHeight : $(window).height();
+    this.item[0].style.height = windowHeight - this.headerHeight + "px";
+
+    return this;
+  },
+
+  setPosition: function() {
+    var breakPoint = $(window).scrollTop() + this.headerHeight,
+        resultsTop = $('.results').offset().top;
+
+    if ( breakPoint > resultsTop ) {
+
+      if ( Modernizr.touch ) {
+        this.item.css({
+          'position': 'fixed',
+          'top': this.headerHeight
+        });
+      } else {
+        this.item[0].style.top = breakPoint + 'px';
+      }
+
+    } else {
+
+      if ( Modernizr.touch ) {
+        this.item.css({
+          'position': 'absolute',
+          'top': ''
+        });
+      } else {
+        this.item[0].style.top = '';
+      }
+
+    }
+
+    return this;
+  },
+
+  initMarkers: function() {
+    var allMarkers = this.getMarkers();
+
+    this.newMap.addMarkers( allMarkers );
+    this.newMap.fitZoom();
+
+    return this;
+  },
+
+  getMarkers: function() {
+    var $items = $('[data-gmaps-marker]'),
+        markers = [],
+        image = {
+            url: 'assets/images/gmaps-marker.png',
+            origin: new google.maps.Point(0, 0),
+            anchor: new google.maps.Point(0, 32)
+          };
+
+    for ( var i=0, itemsLength=$items.length ; i<itemsLength ; i++ ) {
+      var newMarker = $($items[i]).data('gmaps-marker');
+      newMarker.icon = image;
+      markers.push( newMarker );
+    }
+
+    return markers;
   }
 
-  if ( $trigger.attr('data-gmaps') === 'addMarkers' ) {
-    scope.newMap = new GMaps({
-      div: '.js-app-gmaps',
-      lat: 0,
-      lng: 0
-    });
-
-    scope.initMarkers();
-  }
-
-  return this;
 };
 
-Gmaps.prototype.initMarkers = function() {
-  var scope   = this,
-      allMarkers = scope.getMarkers();
-
-  scope.newMap.addMarkers( allMarkers );
-  scope.newMap.fitZoom();
-
-  return this;
-};
-
-Gmaps.prototype.getMarkers = function() {
-  var $items = $('[data-gmaps-marker]'),
-      markers = [],
-      image = {
-          url: 'assets/images/gmaps-marker.png',
-          origin: new google.maps.Point(0, 0),
-          anchor: new google.maps.Point(0, 32)
-        };
-
-  for ( var i=0, itemsLength=$items.length ; i<itemsLength ; i++ ) {
-    var newMarker = $($items[i]).data('gmaps-marker');
-    newMarker.icon = image;
-    markers.push( newMarker );
-  }
-
-  return markers;
-};
 
 
 /* =============== */
@@ -38318,40 +38404,45 @@ var defaultsMedium = {
 
 
 // link to specific slide
-var setActiveLinks = function($link) {
-  $link.closest(nav).find(link)
-    .attr({
-      'aria-selected': 'false'
-    })
-    .removeClass('active');
+var menuSlick = {
+  setActiveLinks: function($link) {
+    $link
+      .attr({
+        'aria-selected': 'true'
+      })
+      .addClass('active');
 
-  $link
-    .attr({
-      'aria-selected': 'true'
-    })
-    .addClass('active');
-};
+    return this;
+  },
 
-var initLinks = function() {
-  var $links = $(link);
+  removeActiveLinks: function($link) {
+    $link.closest(nav).find(link)
+      .attr({
+        'aria-selected': 'false'
+      })
+      .removeClass('active');
 
-  if ( $links ) {
+    return this;
+  },
 
-    setActiveLinks( $links.filter('.active') );
+  initLinks: function() {
+    var that = this,
+        $links = $(link);
 
-    $links.off('click.slickLink').on('click.slickLink', function(e) {
-      e.preventDefault();
+    if ( $links ) {
+      $links.off('click.slickLink').on('click.slickLink', function(e) {
+        e.preventDefault();
 
-      var $this = $(this),
-          $anchor = $( $this.attr('href') ),
-          $slider = $anchor.closest('.slick-slider');
+        var $this = $(this),
+            $anchor = $( $this.attr('href') ),
+            $slider = $anchor.closest('.slick-slider');
 
-      if ( !$this.hasClass('active') ) {
-        setActiveLinks( $this );
-
-        $slider.slick( 'slickGoTo', $anchor.index() );
-      }
-    });
+        if ( !$this.hasClass('active') ) {
+          that.removeActiveLinks( $this );
+          $slider.slick( 'slickGoTo', $anchor.index() );
+        }
+      });
+    }
   }
 };
 
@@ -38401,7 +38492,7 @@ AppSlick.prototype = {
       this.item.slick(that.settings);
     }
 
-    initLinks(this.item);
+    menuSlick.initLinks(this.item);
 
     that.bindEvents();
 
@@ -38412,9 +38503,12 @@ AppSlick.prototype = {
     var that = this;
 
     this.item.on('afterChange', function(event, slick, currentSlide, nextSlide){
-      var activeSlide = $(this).find('.slick-active').attr('id');
+      var activeSlide = $(this).find('.slick-active').attr('id'),
+          $tab = $('[href="#'+ activeSlide +'"]');
 
-      setActiveLinks( $('[href="#'+ activeSlide +'"]') );
+      menuSlick
+        .removeActiveLinks(  $tab )
+        .setActiveLinks(  $tab );
     });
 
     return this;
@@ -38459,7 +38553,6 @@ if ( $(trigger).length ) {
   };
 
   $(trigger).appSlick();
-
 }
 
 

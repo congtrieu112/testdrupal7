@@ -20,6 +20,60 @@ function kandb_bien_ctools_plugin_api($module = NULL, $api = NULL) {
 }
 
 /**
+ * Implements hook_image_default_styles().
+ */
+function kandb_bien_image_default_styles() {
+  $styles = array();
+
+  // Exported image style: bien_large__1380_x_670.
+  $styles['bien_large__1380_x_670'] = array(
+    'label' => 'Bien large (1380 x 670)',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 670,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: bien_medium__1024x506.
+  $styles['bien_medium__1024x506'] = array(
+    'label' => 'Bien medium (1024 x 506)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1024,
+          'height' => 506,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: bien_small__640_x_316.
+  $styles['bien_small__640_x_316'] = array(
+    'label' => 'Bien small (640 x 316)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 316,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  return $styles;
+}
+
+/**
  * Implements hook_node_info().
  */
 function kandb_bien_node_info() {

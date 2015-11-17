@@ -1,0 +1,26 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for kandb.
+ */
+
+/**
+ * Implements hook_install().
+ *
+ * Perform actions to set up the site for this profile.
+ *
+ * @see system_install()
+ */
+function kandb_habiteo_install() {
+
+  variable_set('habiteo_feed_url', 'http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes');
+  variable_set('habiteo_feed_token', '3c7070bcf6bc98a6ea813ff7ff78953d');
+  variable_set('habiteo_widget_security_key', '5dsf66U3QBz1nuLl7zI82E');
+  variable_set('habiteo_visite-virtuelle_url', 'http://widgets.habiteo.com/visite-virtuelle');
+  variable_set('habiteo_video-de-quartier_url', 'http://widgets.habiteo.com/video-de-quartier');
+  variable_set('habiteo_plan-3d_url', 'http://widgets.habiteo.com/vue-etages');
+  variable_set('habiteo_vue-generale_url', 'http://widgets.habiteo.com/vue-generale');
+
+
+}

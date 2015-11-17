@@ -68,7 +68,7 @@ function kandb_bien_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '1',
+          'weight' => '2',
         ),
         'title' => array(
           'weight' => '-5',
@@ -77,10 +77,10 @@ function kandb_bien_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '8',
+          'weight' => '11',
         ),
         'redirect' => array(
-          'weight' => '7',
+          'weight' => '10',
         ),
         'domain' => array(
           'weight' => '1',
@@ -93,7 +93,7 @@ function kandb_bien_strongarm() {
             'visible' => TRUE,
           ),
           'full' => array(
-            'weight' => '21',
+            'weight' => '44',
             'visible' => FALSE,
           ),
         ),

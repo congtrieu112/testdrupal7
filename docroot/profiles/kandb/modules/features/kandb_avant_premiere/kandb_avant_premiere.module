@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B CT Avant Première feature.
+ */
+
+include_once 'kandb_avant_premiere.features.inc';

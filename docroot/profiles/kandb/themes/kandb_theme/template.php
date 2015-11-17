@@ -1,6 +1,21 @@
 <?php
 
-define('WATCHEEZY', '//api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+
+function kandb_theme_preprocess_html(&$head_elements) {
+
+
+  /*$meta_description = array(
+           '#type' => 'html_tag',
+           '#tag' => 'meta',
+           '#attributes' => array(
+           'name' => 'description',
+           'content' => 'test destiption dasdsa' //build meta tag
+  ));
+  drupal_add_html_head($meta_description, 'taggedy_tag');*/
+
+
+}
 
 /**
  * Override or insert variables into the page template.
@@ -34,6 +49,11 @@ function kandb_theme_process_page(&$variables) {
 
   // Add live chat script all page.
   drupal_add_js(WATCHEEZY, 'external');
+
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+    $variables['theme_hook_suggestions'][] = 'page__ajax';
+  }
 }
 
 /**
@@ -121,32 +141,27 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
+    $programme = NULL;
+    if ($vars['type'] == 'programme') {
+      $programme = $vars['node'];
+    }
+    elseif (isset($vars['field_programme'][0]['entity'])) {
+      $programme = $vars['field_programme'][0]['entity'];
+    }
     $price_tva_min = $price_tva_max = 0;
-    if (!empty($variables['field_tva'])) {
-      if (isset($variables['field_programme'][0]['entity'])) {
-        $programme = $variables['field_programme'][0]['entity'];
-        if (isset($programme->field_programme_price_max[LANGUAGE_NONE][0]['value'])) {
-          $price_tva_max = $programme->field_programme_price_max[LANGUAGE_NONE][0]['value'];
-        }
-        if (isset($programme->field_programme_price_min[LANGUAGE_NONE][0]['value'])) {
-          $price_tva_min = $programme->field_programme_price_min[LANGUAGE_NONE][0]['value'];
-        }
-        $tva_facteur = 1;
-        if (($price_tva_max || $price_tva_min) && isset($variables['field_tva'][0]['taxonomy_term'])) {
-          $tva = $variables['field_tva'][0]['taxonomy_term'];
-          if (isset($tva->field_facteur[LANGUAGE_NONE][0]['value'])) {
-            $tva_facteur += (float) $tva->field_facteur[LANGUAGE_NONE][0]['value'];
-          }
-          $price_tva_max = $price_tva_max / 1.2 * $tva_facteur;
-          $price_tva_min = $price_tva_min / 1.2 * $tva_facteur;
-        }
+    if (!empty($vars['field_tva']) && $programme != NULL) {
+      if (isset($programme->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'])) {
+        $price_tva_max = $programme->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'];
+      }
+      if (isset($programme->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'])) {
+        $price_tva_min = $programme->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'];
       }
     }
     if ($price_tva_max != 0) {
-      $variables['price_tva_max'] = $price_tva_max;
+      $vars['price_tva_max'] = $price_tva_max;
     }
     if ($price_tva_min != 0) {
-      $variables['price_tva_min'] = $price_tva_min;
+      $vars['price_tva_min'] = $price_tva_min;
     }
 
     $vars['anchor'] = FALSE;
