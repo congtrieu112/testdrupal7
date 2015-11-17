@@ -227,7 +227,8 @@ function kandb_business_rules_node_update($node) {
       Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
 
       // RULE COUNTING 106.
-      Kandb_Business_Rules::calculate_programe_price($arr_update_programme, $node);
+      $current_bien = ($status_new == $status_disponible) ? $node : array();
+      Kandb_Business_Rules::calculate_programe_price($arr_update_programme, $current_bien);
 
       // RULE COUNTING 107.
       Kandb_Business_Rules::find_room_bien_follow_programe($arr_update_programme);
