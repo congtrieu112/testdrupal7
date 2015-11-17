@@ -85,11 +85,11 @@ function kandb_webform_submit(&$form, &$form_state) {
       $subject = t('Se Faire rappeler ');
       $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
       foreach ($sub_vars as $var) {
-        if ($sub_vars[$var]) {
+        if ($variables[$var]) {
           if ($has_prefix) {
             $subject .= ' / ';
           }
-          $subject .= $sub_vars[$var];
+          $subject .= $variables[$var];
           $has_prefix = TRUE;
         }
       }
@@ -100,14 +100,14 @@ function kandb_webform_submit(&$form, &$form_state) {
       $subject = t('Prise de RDV');
       $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department');
       foreach ($sub_vars as $var) {
-        if ($sub_vars[$var]) {
+        if ($variables[$var]) {
           if ($has_prefix) {
             $subject .= ' / ';
           }
           else {
             $subject .= ' - ';
           }
-          $subject .= $sub_vars[$var];
+          $subject .= $variables[$var];
           $has_prefix = TRUE;
         }
       }
