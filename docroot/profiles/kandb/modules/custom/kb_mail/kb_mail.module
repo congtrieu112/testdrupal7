@@ -76,23 +76,54 @@ function kandb_webform_submit(&$form, &$form_state) {
     $nid = $db_query->execute()->fetchField();
     $node = node_load($nid);
   }
-  if ($node) {
-    $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
-    if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
-      $variables = kandb_webform_build_variable_mail($webform_name, $values, $node);
-      if ($webform_name == '_tre_rappel_') {
-        $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
-        kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
+  $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
+  if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
+    $variables = kandb_webform_build_variable_mail($webform_name, $values, $node);
+    $has_prefix = FALSE;
+    if ($webform_name == '_tre_rappel_') {
+//      $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
+      $subject = t('Se Faire rappeler ');
+      $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
+      foreach ($sub_vars as $var) {
+        if ($variables[$var]) {
+          if ($has_prefix) {
+            $subject .= ' / ';
+          }
+          $subject .= $variables[$var];
+          $has_prefix = TRUE;
+        }
       }
-      else {
-        //Send to user
-        $subject = t('Prise de RDV - @programme_title / @programme_loc_ville / @programme_loc_department', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department']));
-        kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $variables['rdv_email'], $variables);
-        //Send to call center
-        $subject .=  ' / ' . $variables['programme_idkp'];
-        kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
-
+      kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
+    }
+    else {
+      $has_prefix = FALSE;
+      $subject = t('Prise de RDV');
+      $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department');
+      foreach ($sub_vars as $var) {
+        if ($variables[$var]) {
+          if ($has_prefix) {
+            $subject .= ' / ';
+          }
+          else {
+            $subject .= ' - ';
+          }
+          $subject .= $variables[$var];
+          $has_prefix = TRUE;
+        }
       }
+      //Send to user
+      kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $variables['rdv_email'], $variables);
+      //Send to call center
+      if ($variables['programme_idkp']) {
+          if ($has_prefix) {
+            $subject .= ' / ';
+          }
+          else {
+            $subject .= ' - ';
+          }
+          $subject .= $variables['programme_idkp'];
+      }
+      kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
     }
   }
 }
@@ -104,28 +135,34 @@ function kb_mail_mail($key, &$message, $params) {
 }
 function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL) {
   $variables = array();
-  if($webform_name && $values && $programme) {
+  if($webform_name && $values) {
+    $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
+    $variables['programme_loc_ville'] = '';
+    $variables['programme_loc_department'] = '';
+    $variables['programme_idkp'] = isset($programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_loc_type'] = isset($programme->field_programme_loc_type[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_type[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_loc_rue'] = isset($programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_nom_conseiller'] = isset($programme->field_nom_conseiller[LANGUAGE_NONE][0]['value']) ? $programme->field_nom_conseiller[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_espace_vente_adresse'] = isset($programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_espace_vente_ville'] = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
+    $variables['programme_espace_vente_horaire'] = isset($programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value'] : '';
+    if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
+      $ville = taxonomy_term_load($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
+      if (isset($ville->name)) {
+        $variables['programme_loc_ville'] = $ville->name;
+      }
+    }
+    if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) {
+      $department = taxonomy_term_load($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
+       $variables['programme_loc_department'] = isset($department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+    }
+    
     if ($webform_name == '_tre_rappel_') {
-      //Webform
       $variables['rappeler_nom'] = isset($values['submitted']['row_1']['rappeler_nom']) ? $values['submitted']['row_1']['rappeler_nom'] : '';
       $variables['rappeler_prenom'] = isset($values['submitted']['row_1']['rappeler_prenom']) ? $values['submitted']['row_1']['rappeler_prenom'] : '';
       $variables['rappeler_telephone'] = isset($values['submitted']['row_2']['rappeler_telephone']) ? $values['submitted']['row_2']['rappeler_telephone'] : '';
       $variables['rappeler_horaire'] = isset($values['submitted']['row_2']['rappeler_horaire']) ? $values['submitted']['row_2']['rappeler_horaire'] : '';
-      //Programme
-      $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
-      $variables['programme_loc_ville'] = '';
-      $variables['programme_loc_department'] = '';
-      $variables['programme_idkp'] = isset($programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
-      if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
-        $ville = taxonomy_term_load($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
-        if (isset($ville->name)) {
-          $variables['programme_loc_ville'] = $ville->name;
-        }
-      }
-      if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) {
-        $department = taxonomy_term_load($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
-         $variables['programme_loc_department'] = isset($department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
-      }
     }
     elseif ($webform_name == 'prendre_rendez_vous') {
       $book_appointment_arr = array(
@@ -145,28 +182,6 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
         $variables[$var_name] = isset($values['submitted'][$var_name]) ? $values['submitted'][$var_name] : '';
       }
       $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
-      //Programme
-      $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
-      $variables['programme_loc_type'] = isset($programme->field_programme_loc_type[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_type[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_loc_rue'] = isset($programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_nom_conseiller'] = isset($programme->field_nom_conseiller[LANGUAGE_NONE][0]['value']) ? $programme->field_nom_conseiller[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_espace_vente_adresse'] = isset($programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_espace_vente_ville'] = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_espace_vente_horaire'] = isset($programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_idkp'] = isset($programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
-      $variables['programme_loc_ville'] = '';
-      $variables['programme_loc_department'] = '';
-      if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
-        $ville = taxonomy_term_load($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
-        if (isset($ville->name)) {
-          $variables['programme_loc_ville'] = $ville->name;
-        }
-      }
-      if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) {
-        $department = taxonomy_term_load($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
-        $variables['programme_loc_department'] = isset($department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
-      }
     }
   }
   return $variables;

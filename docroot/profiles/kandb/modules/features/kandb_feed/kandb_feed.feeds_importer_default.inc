@@ -999,108 +999,113 @@ function kandb_feed_feeds_importer_default() {
             'unique' => 1,
           ),
           2 => array(
-            'source' => '1',
-            'target' => 'field_programme',
+            'source' => '0',
+            'target' => 'title',
             'unique' => FALSE,
           ),
           3 => array(
             'source' => '1',
-            'target' => 'field_tva',
+            'target' => 'field_programme',
             'unique' => FALSE,
           ),
           4 => array(
+            'source' => '1',
+            'target' => 'field_tva',
+            'unique' => FALSE,
+          ),
+          5 => array(
             'source' => '2',
             'target' => 'field_type',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          5 => array(
+          6 => array(
             'source' => '3',
             'target' => 'field_prix_tva_20',
             'unique' => FALSE,
           ),
-          6 => array(
+          7 => array(
             'source' => '4',
             'target' => 'field_nb_pieces',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          7 => array(
+          8 => array(
             'source' => '6',
             'target' => 'field_nb_chambres',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          8 => array(
+          9 => array(
             'source' => '7',
             'target' => 'field_etage',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          9 => array(
+          10 => array(
             'source' => '8',
             'target' => 'field_caracteristique',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          10 => array(
+          11 => array(
             'source' => '9',
             'target' => 'field_superficie',
             'unique' => FALSE,
           ),
-          11 => array(
+          12 => array(
             'source' => '10',
             'target' => 'field_orientation',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          12 => array(
+          13 => array(
             'source' => '11',
             'target' => 'field_description',
             'unique' => FALSE,
           ),
-          13 => array(
+          14 => array(
             'source' => '16',
             'target' => 'field_caracteristique_jardin',
             'unique' => FALSE,
           ),
-          14 => array(
+          15 => array(
             'source' => '17',
             'target' => 'field_caracteristique_balcon',
             'unique' => FALSE,
           ),
-          15 => array(
+          16 => array(
             'source' => '19',
             'target' => 'field_caracteristique_terrasse',
             'unique' => FALSE,
           ),
-          16 => array(
+          17 => array(
             'source' => '21',
             'target' => 'field_caracteristique_parking',
             'unique' => FALSE,
           ),
-          17 => array(
+          18 => array(
             'source' => '22',
             'target' => 'field_caracteristique_box',
             'unique' => FALSE,
           ),
-          18 => array(
+          19 => array(
             'source' => '23',
             'target' => 'field_caracteristique_cave',
             'unique' => FALSE,
           ),
-          19 => array(
+          20 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
             'term_search' => '3',
             'autocreate' => 0,
           ),
-          20 => array(
+          21 => array(
             'source' => '28',
             'target' => 'field_parking_description',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => '29',
             'target' => 'field_cave_description',
             'unique' => FALSE,

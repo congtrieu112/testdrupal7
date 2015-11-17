@@ -24,6 +24,7 @@ class Kandb_Business_Rules {
   public static $_list_biens = array();
   public static $_list_id_program = array();
   public static $_is_feed_import = FALSE;
+  public static $_can_hook_update = FALSE;
   public static $_list_progame = array();
   public static $_list_progam_to_save = array();
   public static $_is_node_updating = false;
@@ -43,6 +44,14 @@ class Kandb_Business_Rules {
 
   public static function get_is_node_updating() {
     return self::$_is_node_updating;
+  }
+  
+  public static function set_can_hook_update($status = TRUE) {
+    self::$_can_hook_update = $status;
+  }
+
+  public static function get_can_hook_update() {
+    return self::$_can_hook_update;
   }
 
   /**

@@ -810,7 +810,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_bien_statut']['table'] = 'search_api_index_solr_index';
   $handler->display->display_options['filters']['field_bien_statut']['field'] = 'field_bien_statut';
   $handler->display->display_options['filters']['field_bien_statut']['value'] = array(
-    207 => '207',
+    220 => '220',
   );
   $handler->display->display_options['filters']['field_bien_statut']['group'] = 1;
   /* Filter criterion: Indexed Node: Status */
