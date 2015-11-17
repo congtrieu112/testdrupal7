@@ -315,7 +315,7 @@ foreach ($arr_slider as $field_name) {
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
                 <?php if ($status_document) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                 <?php endif; ?>
