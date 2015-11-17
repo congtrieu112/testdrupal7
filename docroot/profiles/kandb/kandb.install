@@ -512,3 +512,14 @@ function kandb_update_7144() {
     module_enable(array('kandb_custom_gmap'), TRUE);
   }
 }
+
+
+/*
+ * Enable kandb_offre_menu_views module
+ */
+function kandb_update_7145() {
+  if (!module_exists('kandb_offre_menu_views')) {
+    module_enable(array('kandb_offre_menu_views'), TRUE);
+  }
+}
+
