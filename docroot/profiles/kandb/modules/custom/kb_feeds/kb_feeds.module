@@ -479,6 +479,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
       if ($totalItems != 2) {
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       }
+      if (isset($entity->is_new) && $entity->is_new == TRUE) {
+        $logging .= $item['identifiantprogramme'] . '||' . 'Item not found (Program does not exist in BO: '. $item['identifiantprogramme'] . ')| Skip imported' . "\n";
+      }
     } elseif ($entity->feeds_item->id == 'migration_program_import') {
       if ($totalItems > 44 || $totalItems < 41) {
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
