@@ -529,8 +529,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
       if ($totalItems != 46) {
         $logging = $item['identifiantlogement'] . '||' . 'Structure error (Total column diffenrence total items' . ')| Skip imported' . "\n";
       }
-      elseif (isset($entity->is_new) && $entity->is_new == TRUE) {
-        $logging .= $item['identifiantlogement'] . '||' . 'Item not found (Bien does not exist in BO: '. $item['identifiantlogement'] . ')| Skip imported' . "\n";
+      elseif (!(isset($entity->is_new) && $entity->is_new == TRUE)) {
+        $logging .= $item['identifiantlogement'] . '||' . 'Item really exist (Bien really exist in BO: '. $item['identifiantlogement'] . ')| Skip imported' . "\n";
       }
       else {
         $validates = array(
