@@ -291,7 +291,7 @@ function recherche_minimal_form($form, &$form_state) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
+    '#value' => t('Rechercher'),
     '#theme_wrappers' => array(),
     '#attributes' => array('class' => array('btn-icon')),
     '#theme' => 'recherche_button'
@@ -367,7 +367,7 @@ function recherche_simple_form($form, &$form_state) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
+    '#value' => t('Rechercher'),
     '#theme_wrappers' => array(),
     '#attributes' => array('class' => array('btn-icon')),
     '#theme' => 'recherche_button'
@@ -474,7 +474,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
 
   $form['submit'] = array(
     '#type' => 'submit',
-    '#value' => t('Trouver un bien'),
+    '#value' => t('Rechercher'),
     '#theme_wrappers' => array(),
     '#attributes' => array('class' => array('btn-icon')),
     '#theme' => 'recherche_button'
