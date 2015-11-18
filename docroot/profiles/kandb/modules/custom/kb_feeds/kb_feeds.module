@@ -525,6 +525,25 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         }
       }
     }
+    elseif ($entity->feeds_item->id == 'migration_bien_import') {
+      if ($totalItems != 46) {
+        $logging = $item['identifiantlogement'] . '||' . 'Structure error (Total column diffenrence total items' . ')| Skip imported' . "\n";
+      }
+      elseif (isset($entity->is_new) && $entity->is_new == TRUE) {
+        $logging .= $item['identifiantlogement'] . '||' . 'Item not found (Bien does not exist in BO: '. $item['identifiantlogement'] . ')| Skip imported' . "\n";
+      }
+      else {
+        $validates = array(
+          'term_field_id' => array(
+            'statutlogement' => 'field_bien_statut',
+          ),
+          'entity_id' => array(
+            'identifiantprogramme' => 'field_programme',
+          ),
+        );
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+      }
+    }
   }
 
   if ($logging) {
@@ -817,6 +836,14 @@ function kb_feeds_menu() {
     'title' => 'Habiteo Bien',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'habiteo_bien'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+  $items['admin/reports/feeds_errorlog/migration_bien_import'] = array(
+    'title' => 'Migration bien import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'migration_bien_import'),
     'access arguments' => array('administer content types'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',

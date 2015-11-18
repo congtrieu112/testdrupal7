@@ -171,6 +171,9 @@ class EncodingCSVParser extends ParserCSV {
           if ($columnName == 'identifiantprogramme') {
             $field = (int) $field;
           }
+          if ($columnName == 'identifiantlogement' && $this->id == 'migration_bien_import') {
+            $field = preg_replace('/[\r,\n]/', '', $field);
+          }
           $row[$columnName] = isset($field) ? $field : '';
         }
       }

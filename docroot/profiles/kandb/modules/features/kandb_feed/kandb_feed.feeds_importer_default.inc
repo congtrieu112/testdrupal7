@@ -709,7 +709,7 @@ function kandb_feed_feeds_importer_default() {
           ),
           2 => array(
             'source' => 'IdentifiantProgramme',
-            'target' => 'field_programme:etid',
+            'target' => 'field_programme',
             'unique' => FALSE,
           ),
           3 => array(
