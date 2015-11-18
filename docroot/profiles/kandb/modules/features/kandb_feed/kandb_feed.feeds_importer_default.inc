@@ -785,166 +785,166 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           1 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
             'source' => 'LaVieDeQuartierFr',
             'target' => 'field_quartier_sous_titre',
             'unique' => FALSE,
           ),
-          2 => array(
+          3 => array(
             'source' => 'LabelBbcZone1',
             'target' => 'field_slider_rt2012_desc',
             'unique' => FALSE,
           ),
-          3 => array(
+          4 => array(
             'source' => 'LabelBbcZone2',
             'target' => 'field_slider_rt2012_desc',
             'unique' => FALSE,
           ),
-          4 => array(
+          5 => array(
             'source' => 'LabelBbcEchelle',
             'target' => 'field_slider_rt2012_echelle',
             'unique' => FALSE,
           ),
-          5 => array(
+          6 => array(
             'source' => 'ReglementationThermiqueTitre',
             'target' => 'field_slider_rt2012_titre',
             'unique' => FALSE,
           ),
-          6 => array(
+          7 => array(
             'source' => 'ReglementationThermiqueZone1',
             'target' => 'field_slider_rt2012_desc',
             'unique' => FALSE,
           ),
-          7 => array(
+          8 => array(
             'source' => 'ReglementationThermiqueZone2',
             'target' => 'field_slider_rt2012_desc',
             'unique' => FALSE,
           ),
-          8 => array(
+          9 => array(
             'source' => 'ReglementationThermiqueEchelle',
             'target' => 'field_slider_rt2012_echelle',
             'unique' => FALSE,
           ),
-          9 => array(
+          10 => array(
             'source' => 'Statut',
             'target' => 'field_programme_statut',
             'unique' => FALSE,
           ),
-          10 => array(
+          11 => array(
             'source' => 'TypeProgramme',
             'target' => 'field_type_programme',
             'term_search' => '0',
             'autocreate' => 0,
           ),
-          11 => array(
+          12 => array(
             'source' => 'Nom',
             'target' => 'title',
             'unique' => FALSE,
           ),
-          12 => array(
+          13 => array(
             'source' => 'AffichageStock',
             'target' => 'field_programme_stock',
             'unique' => FALSE,
           ),
-          13 => array(
+          14 => array(
             'source' => 'NoDeRue',
             'target' => 'field_programme_loc_num',
             'unique' => FALSE,
           ),
-          14 => array(
+          15 => array(
             'source' => 'TypeDeVoie',
             'target' => 'field_programme_loc_type',
             'unique' => FALSE,
           ),
-          15 => array(
+          16 => array(
             'source' => 'NomRue',
             'target' => 'field_programme_loc_rue',
             'unique' => FALSE,
           ),
-          16 => array(
+          17 => array(
             'source' => 'CP',
             'target' => 'field_programme_loc_cp',
             'unique' => FALSE,
           ),
-          17 => array(
+          18 => array(
             'source' => 'PrixMoyenM2',
             'target' => 'field_programme_avg_price',
             'unique' => FALSE,
           ),
-          18 => array(
+          19 => array(
             'source' => 'PrixMinimum',
             'target' => 'field_programme_min_price',
             'unique' => FALSE,
           ),
-          19 => array(
+          20 => array(
             'source' => 'TrimestreLivraison',
             'target' => 'field_trimestre',
             'unique' => FALSE,
           ),
-          20 => array(
+          21 => array(
             'source' => 'AnneeLivraison',
             'target' => 'field_annee',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => 'DescriptifLongue',
             'target' => 'field_en_quelques_mots',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
             'source' => 'Rt2012',
             'target' => 'field_slider_rt2012_bbc',
             'unique' => FALSE,
           ),
-          23 => array(
+          24 => array(
             'source' => 'Tva',
             'target' => 'field_tva',
             'term_search' => '1',
             'autocreate' => 0,
           ),
-          24 => array(
+          25 => array(
             'source' => 'X',
             'target' => 'field_programme_loc_long',
             'unique' => FALSE,
           ),
-          25 => array(
+          26 => array(
             'source' => 'Y',
             'target' => 'field_programme_loc_lat',
             'unique' => FALSE,
           ),
-          26 => array(
+          27 => array(
             'source' => 'VendeurNom',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          27 => array(
+          28 => array(
             'source' => 'BureauDeVenteAdresse',
             'target' => 'field_espace_vente_adresse',
             'unique' => FALSE,
           ),
-          28 => array(
+          29 => array(
             'source' => 'BureauDeVenteHoraireOuverture',
             'target' => 'field_espace_vente_horaire',
             'unique' => FALSE,
           ),
-          29 => array(
+          30 => array(
             'source' => 'BureauDeVenteX',
-            'target' => 'field_espace_vente_latitude',
+            'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          30 => array(
+          31 => array(
             'source' => 'BureauDeVenteY',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
-          31 => array(
+          32 => array(
             'source' => 'DateMiseEnLigne',
             'target' => 'field_programme_online_date:start',
             'unique' => FALSE,
-          ),
-          32 => array(
-            'source' => 'IdentifiantProgramme',
-            'target' => 'guid',
-            'unique' => 1,
           ),
         ),
         'update_existing' => '2',

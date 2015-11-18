@@ -54,6 +54,7 @@ features[feeds_tamper][] = parcel_feed_import-17-find_replace
 features[feeds_tamper][] = parcel_feed_import-19-find_replace
 features[feeds_tamper][] = parcel_feed_import-2-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-21-find_replace
+features[feeds_tamper][] = parcel_feed_import-21-find_replace_parking
 features[feeds_tamper][] = parcel_feed_import-22-find_replace
 features[feeds_tamper][] = parcel_feed_import-22-find_replace_character
 features[feeds_tamper][] = parcel_feed_import-23-find_replace

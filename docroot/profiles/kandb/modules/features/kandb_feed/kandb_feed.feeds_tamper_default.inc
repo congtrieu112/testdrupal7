@@ -307,6 +307,26 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'parcel_feed_import-21-find_replace_parking';
+  $feeds_tamper->importer = 'parcel_feed_import';
+  $feeds_tamper->source = '21';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => '00000000001-',
+    'replace' => '-1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 0,
+    'whole' => 0,
+    'regex' => FALSE,
+    'func' => 'str_ireplace',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['parcel_feed_import-21-find_replace_parking'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'parcel_feed_import-22-find_replace';
   $feeds_tamper->importer = 'parcel_feed_import';
   $feeds_tamper->source = '22';
