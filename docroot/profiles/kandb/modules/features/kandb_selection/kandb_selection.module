@@ -5,3 +5,118 @@
  */
 
 include_once 'kandb_selection.features.inc';
+
+/**
+ * Define Selection URLs
+ */
+define('URL_PROJET', 'projet');
+define('URL_PROJET_AJAX', 'projet/ajax');
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_selection_menu() {
+  $menu = array();
+  $menu[URL_PROJET] = array(
+    'title' => 'Ma sélection',
+    'page callback' => 'kandb_selection_page_selection',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $menu[URL_PROJET_AJAX] = array(
+    'title' => 'Ma sélection | AJAX Callback',
+    'page callback' => 'kandb_selection_ajax_selection',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  $menu['admin/content/ketb/projet'] = array(
+    'title' => 'Mon projet',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_selection_page_admin_form'),
+    'access arguments' => array('administer selection'),
+    'file' => 'includes/kandb_selection.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
+  return $menu;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function kandb_selection_permission() {
+  return array(
+    'administer selection' => array(
+      'title' => t('Administer selection'),
+      'description' => t('Give the user the right to change texts and image on the "Mes sélections" page.'),
+    ),
+  );
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_selection_theme($existing, $type, $theme, $path) {
+  return array(
+    'page_selection' => array(
+      'template' => 'templates/page_selection',
+      'variables' => array(),
+    ),
+    'ajax_selection' => array(
+      'template' => 'templates/ajax_selection',
+      'variables' => array(),
+    ),
+    'block_recherche' => array(
+      'template' => 'templates/block_recherche',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
+ * Page Callback
+ */
+function kandb_selection_page_selection() {
+
+  $content = array();
+
+  // Get the Ids from the arguments
+  $ids_programme = explode('-', $_GET['programme']);
+  $ids_bien = explode('-', $_GET['bien']);
+  $ids_avant_premiere = explode('-', $_GET['avant_premiere']);
+  $ids_articles = explode('-', $_GET['article']);
+  $recherches = explode('-', $_GET['recherche']);
+
+  // Selection Programme Bien & Avant Premiere
+  $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
+    'views_embed_view',
+    array_merge(
+      array('selection', 'block'),
+      $ids_programme,
+      $ids_bien,
+      $ids_avant_premiere
+    )
+  );
+
+  // Selection Recherche
+  $content['recherche'] = theme('block_recherche', $recherches);
+
+  // Selection Articles
+  $content['selection_article'] = call_user_func_array(
+    'views_embed_view',
+    array_merge(
+      array('selection', 'block_1'),
+      $ids_articles
+    )
+  );
+
+  return theme('page_selection', $content);
+}
+
+/**
+ * Ajax Callback
+ */
+function kandb_selection_ajax_selection(){
+  $content = '';
+  return theme('ajax_selection', $content);
+}
+

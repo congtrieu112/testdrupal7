@@ -523,3 +523,13 @@ function kandb_update_7145() {
   }
 }
 
+/*
+ * Enable kandb_offre_menu_views module
+ */
+function kandb_update_7146() {
+  if (!module_exists('kandb_settings')) {
+    module_enable(array('kandb_settings'), TRUE);
+  }
+}
+
+

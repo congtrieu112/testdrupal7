@@ -1,0 +1,45 @@
+<?php
+/**
+ * @file
+ * Installation file
+ */
+/**
+ * Implementation of hook_install()
+ */
+function kandb_selection_install(){
+  kandb_selection_set_variables();
+}
+
+/**
+ * Set default values
+ */
+function kandb_selection_update_7101(&$sandbox){
+  kandb_selection_set_variables();
+}
+/**
+ * Implementation of hook_uninstall()
+ */
+function kandb_selection_uninstall(){
+  variable_del('kandb_selection_photo');
+  variable_del('kandb_selection_title');
+  variable_del('kandb_selection_sub_title');
+}
+
+/**
+ * Set variables
+ */
+function kandb_selection_set_variables(){
+  // Load the files contents
+  $image = file_get_contents(drupal_get_path('module', 'kandb_contact') . '/images/projet.jpg');
+
+  // Returns the new file object
+  $file = file_save_data(
+    $image,
+    'public://projet.jpg',
+    FILE_EXISTS_RENAME
+  );
+
+  variable_set('kandb_selection_photo', $file->fid);
+  variable_set('kandb_selection_title', 'Mon projet');
+  variable_set('kandb_selection_sub_title', 'Retrouvez ici vos sélections et vos recherches enregistrées');
+}
