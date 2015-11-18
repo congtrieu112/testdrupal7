@@ -70,9 +70,11 @@ class EncodingCSVParser extends ParserCSV {
     $maxTime = empty($this->timeout) ? FALSE : (microtime() + $this->timeout);
     $linesParsed = 0;
     $logging = '';
+    $concat_string = '';
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
       $line = trim($lineIterator->current(), "\r\n");
       $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+
       if (empty($line)) {
         continue;
       }
@@ -80,66 +82,82 @@ class EncodingCSVParser extends ParserCSV {
         $skipLine = FALSE;
         continue;
       }
-      $quoted = FALSE;
-      $currentIndex = 0;
-      $currentField = '';
-      $fields = array();
-      while ($currentIndex <= strlen($line)) {
-        if ($quoted) {
-          $nextQuoteIndex = strpos($line, '"', $currentIndex);
 
-          if ($nextQuoteIndex === FALSE) {
-            $currentField .= substr($line, $currentIndex);
-            $lineIterator->next();
-
-            if (!$lineIterator->valid()) {
-              $fields[] = $currentField;
-              break;
-            }
-            $currentField .= "\n";
-            $line = trim($lineIterator->current(), "\r\n");
-            $currentIndex = 0;
+      if($this->id == 'migration_program_import') {
+        $lines = explode('|', $line);
+        if(count($lines) < 44) {
+          $concat_string .= $line;
+          if(count(explode('|', $concat_string)) == 44) {
+            $line = $concat_string;
+            $concat_string = '';
+          } else {
             continue;
-          }
-
-          $currentField .= substr($line, $currentIndex, $nextQuoteIndex - $currentIndex);
-
-          if (isset($line[$nextQuoteIndex + 1]) && $line[$nextQuoteIndex + 1] === '"') {
-            $currentField .= '"';
-            $currentIndex = $nextQuoteIndex + 2;
-          } else {
-            $quoted = FALSE;
-            $currentIndex = $nextQuoteIndex + 1;
-          }
-        } else {
-          $nextQuoteIndex = strpos($line, '"', $currentIndex);
-          $nextDelimiterIndex = strpos($line, $this->delimiter, $currentIndex);
-
-          if ($nextQuoteIndex === FALSE) {
-            $nextIndex = $nextDelimiterIndex;
-          } elseif ($nextDelimiterIndex === FALSE) {
-            $nextIndex = $nextQuoteIndex;
-          } else {
-            $nextIndex = min($nextQuoteIndex, $nextDelimiterIndex);
-          }
-
-          if ($nextIndex === FALSE) {
-            $currentField .= substr($line, $currentIndex);
-            $fields[] = $currentField;
-            break;
-          } elseif ($line[$nextIndex] === $this->delimiter[0]) {
-            $length = ($nextIndex + strlen($this->delimiter) - 1) - $currentIndex;
-            $currentField .= substr($line, $currentIndex, $length);
-            $fields[] = $currentField;
-            $currentField = '';
-            $currentIndex += $length + 1;
-          } else {
-            $quoted = TRUE;
-            $currentField .= substr($line, $currentIndex, $nextIndex - $currentIndex);
-            $currentIndex = $nextIndex + 1;
           }
         }
       }
+
+      $fields = str_getcsv($line, $this->delimiter, '','\\');
+
+//      $quoted = FALSE;
+//      $currentIndex = 0;
+//      $currentField = '';
+//      $fields = array();
+//      while ($currentIndex <= strlen($line)) {
+//        if ($quoted) {
+//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
+//
+//          if ($nextQuoteIndex === FALSE) {
+//            $currentField .= substr($line, $currentIndex);
+//            $lineIterator->next();
+//
+//            if (!$lineIterator->valid()) {
+//              $fields[] = $currentField;
+//              break;
+//            }
+//            $currentField .= "\n";
+//            $line = trim($lineIterator->current(), "\r\n");
+//            $currentIndex = 0;
+//            continue;
+//          }
+//
+//          $currentField .= substr($line, $currentIndex, $nextQuoteIndex - $currentIndex);
+//
+//          if (isset($line[$nextQuoteIndex + 1]) && $line[$nextQuoteIndex + 1] === '"') {
+//            $currentField .= '"';
+//            $currentIndex = $nextQuoteIndex + 2;
+//          } else {
+//            $quoted = FALSE;
+//            $currentIndex = $nextQuoteIndex + 1;
+//          }
+//        } else {
+//          $nextQuoteIndex = strpos($line, '"', $currentIndex);
+//          $nextDelimiterIndex = strpos($line, $this->delimiter, $currentIndex);
+//
+//          if ($nextQuoteIndex === FALSE) {
+//            $nextIndex = $nextDelimiterIndex;
+//          } elseif ($nextDelimiterIndex === FALSE) {
+//            $nextIndex = $nextQuoteIndex;
+//          } else {
+//            $nextIndex = min($nextQuoteIndex, $nextDelimiterIndex);
+//          }
+//
+//          if ($nextIndex === FALSE) {
+//            $currentField .= substr($line, $currentIndex);
+//            $fields[] = $currentField;
+//            break;
+//          } elseif ($line[$nextIndex] === $this->delimiter[0]) {
+//            $length = ($nextIndex + strlen($this->delimiter) - 1) - $currentIndex;
+//            $currentField .= substr($line, $currentIndex, $length);
+//            $fields[] = $currentField;
+//            $currentField = '';
+//            $currentIndex += $length + 1;
+//          } else {
+//            $quoted = TRUE;
+//            $currentField .= substr($line, $currentIndex, $nextIndex - $currentIndex);
+//            $currentIndex = $nextIndex + 1;
+//          }
+//        }
+//      }
 
 //      if ($this->id == 'migration_program_import') {
 //        if (is_array($fields) && 44 != count($fields)) {
