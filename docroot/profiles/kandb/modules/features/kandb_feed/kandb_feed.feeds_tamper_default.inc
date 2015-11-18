@@ -107,6 +107,22 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'migration_bien_import-statutlogement-search_term_by_field';
+  $feeds_tamper->importer = 'migration_bien_import';
+  $feeds_tamper->source = 'StatutLogement';
+  $feeds_tamper->plugin_id = 'search_term_by_field';
+  $feeds_tamper->settings = array(
+    'vocabulary' => 'status_logement',
+    'field_name' => 'field_id_xls',
+    'auto_create' => 0,
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Search term by field';
+  $export['migration_bien_import-statutlogement-search_term_by_field'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'migration_program_import-labelbbczone2-rewrite';
   $feeds_tamper->importer = 'migration_program_import';
   $feeds_tamper->source = 'LabelBbcZone2';
