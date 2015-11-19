@@ -125,33 +125,27 @@ function kb_import_run_importer($importer = '') {
     //Run importer
     if($importer != 'import_bien_pdf' && function_exists('feeds_source')) {
       $source = feeds_source($importer);
-//      $source->import();
       try {
         $source->import();
       }
       catch (Exception $e){
         if ($kb_rule == 'daily_import') {
-           kb_daily_import_logging ('daily import | Error: ' . $e->getMessage());
+           kb_daily_import_logging ('daily import | ' . $importer . ' | Error: ' . $e->getMessage());
            rules_invoke_event('daily_import_importer_finish', $importer);
         }
         elseif ($kb_rule == 'migration') {
-          kb_migration_logging ('migration | Error: ' . $e->getMessage());
+          kb_migration_logging ('migration | ' . $importer . ' | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', $importer);
         }
       }
     }
     elseif ($importer != 'import_bien_pdf') {
-      batch_set(import_bien_pdf_batch_operation());
       try {
         batch_set(import_bien_pdf_batch_operation());
       }
       catch (Exception $e) {
-        if ($kb_rule == 'daily_import') {
-           kb_daily_import_logging ('daily import | Error: ' . $e->getMessage());
-           rules_invoke_event('daily_import_importer_finish', 'import_bien_pdf');
-        }
-        elseif ($kb_rule == 'migration') {
-          kb_migration_logging ('migration | Error: ' . $e->getMessage());
+        if ($kb_rule == 'migration') {
+          kb_migration_logging ('migration | import_bien_pdf | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
         }
       }
