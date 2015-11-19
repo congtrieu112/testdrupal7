@@ -158,14 +158,16 @@ function kandb_feed_feeds_importer_default() {
     'name' => 'Document import',
     'description' => 'Import pdf contents from DocBibliotheque.csv',
     'fetcher' => array(
-      'plugin_key' => 'FeedsFileFetcher',
+      'plugin_key' => 'KbFeedsHTTPFetcher',
       'config' => array(
-        'allowed_extensions' => 'txt csv tsv xml opml',
-        'direct' => FALSE,
-        'directory' => 'public://feeds',
-        'allowed_schemes' => array(
-          0 => 'public',
-        ),
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => 'http',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
+        'kb_url_type' => '0',
       ),
     ),
     'parser' => array(
