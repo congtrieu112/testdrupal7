@@ -1356,12 +1356,9 @@ function kandb_programme_field_default_field_bases() {
     ),
     'locked' => 0,
     'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-      'profile2_private' => FALSE,
-    ),
+    'settings' => array(),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'text_long',
   );
 
   // Exported field_base: 'field_quartier_titre'

@@ -8,8 +8,8 @@ function kandb_contact_menu() {
 
   $items = array();
 
-  $items['admin/content/contact'] = array(
-    'title' => 'Contact settings',
+  $items['admin/content/ketb/contact'] = array(
+    'title' => 'Contact',
     'description' => 'Change the contact information of the contact block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_admin'),
