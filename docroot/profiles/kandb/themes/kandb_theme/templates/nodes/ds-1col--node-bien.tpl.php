@@ -288,7 +288,10 @@ if(!empty($list_bien_more)):
             <td>
               <ul class="list-price">
                 <li><span class="text"><?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobal($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?><?php print t('€'); ?></span><span class="tva">TVA 5,5%</span></li>
-                <li><span class="text"><?php print (isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0])) ? numberFormatGlobal($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) : 0  ?><?php print t('€'); ?></span><span class="tva tva--high">TVA 20%</span></li>
+                
+                <?php if(isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0){?>
+                  <li><span class="text"><?php numberFormatGlobal($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) ?><?php print t('€'); ?></span><span class="tva tva--high">TVA 20%</span></li>
+                <?php } ?>
               </ul>
             </td>
           </tr>
