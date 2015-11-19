@@ -37807,6 +37807,11 @@ $(document).foundation({
     patterns: {
       number: /^[-+]?[1-9]\d*$/
     }
+  },
+
+  "equalizer": {
+    equalize_on_stack: true,
+    act_on_hidden_el: true
   }
 });
 
@@ -37819,6 +37824,15 @@ $('form[data-ajax-form]').on('valid.fndtn.abide', function() {
 });
 
 
+// after resize
+$(window).on('resize', Foundation.utils.throttle(function(e){
+  $(document).foundation('equalizer', 'reflow');
+}, 300));
+
+// after interchange
+$(document).on('replace', 'img', function (e, new_path, original_path) {
+  $(document).foundation('equalizer', 'reflow');
+});
 
 },{}],15:[function(require,module,exports){
 /* ======================== */
@@ -38282,29 +38296,45 @@ Gmaps.prototype = {
   },
 
   setPosition: function() {
-    var breakPoint = $(window).scrollTop() + this.headerHeight,
-        resultsTop = $('.results').offset().top;
+    var scrollTop     = $(window).scrollTop(),
+        breakPoint    = scrollTop + this.headerHeight,
+        resultsTop    = $('.results').offset().top,
+        windowHeight  = (Modernizr.touch) ? window.innerHeight : $(window).height(),
+        footerHeight  = $('.siteFooter').outerHeight(),
+        footerTop     = $('.siteFooter').offset().top;
 
+    // after searchFormular
     if ( breakPoint > resultsTop ) {
 
-      if ( Modernizr.touch ) {
-        this.item.css({
-          'position': 'fixed',
-          'top': this.headerHeight
-        });
+      // after footer
+      if ( scrollTop + windowHeight > footerTop ) {
+        this.item[0].style.position = 'absolute';
+        this.item[0].style.bottom = footerHeight + 'px';
+        this.item[0].style.top = '';
+
+      // before footer
       } else {
-        this.item[0].style.top = breakPoint + 'px';
+        if ( Modernizr.touch ) {
+          this.item[0].style.position = 'fixed';
+          this.item[0].style.top = this.headerHeight + 'px';
+          this.item[0].style.bottom = '';
+        } else {
+          this.item[0].style.top = breakPoint + 'px';
+          this.item[0].style.bottom = '';
+        }
+
       }
 
+    // before searchFormular
     } else {
 
       if ( Modernizr.touch ) {
-        this.item.css({
-          'position': 'absolute',
-          'top': ''
-        });
+        this.item[0].style.position = 'absolute';
+        this.item[0].style.bottom = '';
+        this.item[0].style.top = '';
       } else {
         this.item[0].style.top = '';
+        this.item[0].style.bottom = '';
       }
 
     }
