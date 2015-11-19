@@ -96,3 +96,23 @@ function config_ftp_page_submit($form, &$form_state) {
   
   
 }
+
+function migration_impor_admin_form() {
+  $form = array();
+  $form['getting_file'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Get file import via FTP'),
+  );
+  $form['actions'] = array(
+    '#type' => 'actions',
+    );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Migration'),
+  );
+  return $form;
+}
+
+function migration_impor_admin_form_submit($form, &$form_state) {
+  kb_start_migration_import($form['getting_file']['#value']);
+}

@@ -129,21 +129,23 @@ if (isset($node->field_article_article_ref[LANGUAGE_NONE][0])) {
                   $article = node_load($item["target_id"]);
                 }
 
-
-                $url = file_create_url($article->field_article_teaser_image[LANGUAGE_NONE][0]['uri']);
-                $url = parse_url($url);
-                $path_image_teaser = $base_url . $url['path'];
+                $image_small = '';
+                if(isset($article->field_article_teaser_image[LANGUAGE_NONE][0]['uri'])){
+                  $image_small = image_style_url("dossier_big_teaser_mobile", $article->field_article_teaser_image[LANGUAGE_NONE][0]['uri']);
+                }
                 ?>
                 <div class="adviceMoreArticle__item">
                     <div class="adviceMoreArticle__item__img">
-                        <!-- [Responsive img] start-->
-                        <img alt="test" data-interchange="[<?php echo $path_image_teaser; ?>, (large)]"/>
-                        <noscript><img src="<?php echo $path_image_teaser; ?>" alt="test"/></noscript>
-                        <!-- [Responsive img] end-->
+                        
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print t('kaufman et broad, illustration de') . ' ' . $article->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_small ?>, (large)]"/>
+                      <noscript><img src="<?php print $image_small ?>" alt="<?php print t('kaufman et broad, illustration de') . ' ' . $article->title; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
+                  
                     </div>
                     <div data-equalizer-watch="data-equalizer-watch" class="adviceMoreArticle__item__infos">
                         <h4 class="adviceMoreArticle__item__infos__heading"><?php print $article->title; ?></h4>
-                        <p><?php print isset($article->field_article_resume[LANGUAGE_NONE][0]["value"]) ? $article->field_article_resume[LANGUAGE_NONE][0]["value"] : ''  ?></p>
+                        <p><?php print isset($article->field_article_resume[LANGUAGE_NONE][0]["value"]) ? cut_character($article->field_article_resume[LANGUAGE_NONE][0]["value"]) : ''  ?></p>
                         <div class="btn-wrapper text-center">
                             <a href="<?php print url('node/' . $article->nid); ?>" class="btn-primary btn-rounded">
                                 <?php print t("En savoir plus"); ?>

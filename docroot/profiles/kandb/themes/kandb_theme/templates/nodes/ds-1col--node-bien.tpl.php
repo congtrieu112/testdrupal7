@@ -106,7 +106,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
             <ul class="content-price bienPrice">
                 <li class="content-price__item">
                     <span class="text">
-                        <?php print (isset($node->field_prix_tva_20[LANGUAGE_NONE][0])) ? $node->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : 0  ?> <?php print t('€'); ?>
+                        <?php print (isset($node->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobal($node->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?> <?php print t('€'); ?>
                     </span>
                     <span class="tags">
                         <div class="tva"><?php print t('TVA 5,5%'); ?></div>
@@ -118,7 +118,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                 </li>
                 <li class="content-price__item">
                     <span class="text">
-                        <?php print (isset($node->field_bien_low_tva_price[LANGUAGE_NONE][0])) ? $node->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"] : 0  ?> <?php print t('€'); ?>
+                        <?php  print (isset($node->field_bien_low_tva_price[LANGUAGE_NONE][0])) ? numberFormatGlobal($node->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) : 0  ?> <?php print t('€'); ?>
                     </span>
                     <span class="tags">
                         <div class="tva tva--high"><?php print t('TVA 20%') ?></div>
@@ -221,3 +221,87 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
 <!-- [popinLeadForm popin] start-->
 <div id="popinLeadForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" data-drupal-form="data-drupal-form" class="reveal-modal full scroll"></div>
 <!-- [popinLeadForm popin] end-->
+
+
+
+<!-- [More Available] start-->
+<?php
+$list_bien_more = array();
+if(!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])){
+  $piece_id = $node->field_nb_pieces[LANGUAGE_NONE][0]['tid'];
+  $nb_pieces = taxonomy_term_load($piece_id);
+  $list_bien_more = get_biens_follow_piece_program($programme->nid, $piece_id);
+}
+
+if(!empty($list_bien_more)):
+?>
+<section class="section-padding">
+  <div class="wrapper">
+    <header class="heading heading--bordered">
+      <h2 class="heading__title">Appartements <?php echo $nb_pieces->name ?> disponibles</h2>
+      <p class="heading__title heading__title--sub"><?php print t("sur le programme")?></p>
+    </header>
+  </div>
+  <div class="wrapper">
+    <div class="moreAvailable">
+      <table class="responsive">
+        <tbody>
+          <?php foreach($list_bien_more as $item):
+            if($item->nid == $node->nid){
+              continue;
+            }else{
+              $bien_more = node_load($item->nid);
+              $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);
+              $bien_id = $bien_id[count($bien_id) - 1];
+            }
+            ?>
+            
+          <tr>
+            <td><?php print $bien_id ?></td>
+            <td>
+              <ul class="list-item">
+                <li class="item-promotion">
+                </li>
+                <li class="item-ulities">
+                  <?php if(isset($bien_more->field_caracteristique[LANGUAGE_NONE][0])){
+                      $list_caracter = '';
+                      foreach($bien_more->field_caracteristique[LANGUAGE_NONE] as $item_caracter_id){
+                        $item_caracter = taxonomy_term_load($item_caracter_id['tid']);
+                        $list_caracter .= $item_caracter->name . ', ';
+                      }
+                      
+                      $list_caracter = substr($list_caracter, 0, -2);
+                      print $list_caracter;
+                  }
+                  ?>
+                </li>
+                <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m2' : '' ?></li>
+                <li class="item-exhibit">
+                  <?php if(isset($bien_more->field_etage[LANGUAGE_NONE][0])){
+                      $item_etage = taxonomy_term_load($bien_more->field_etage[LANGUAGE_NONE][0]['tid']);
+                      print $item_etage->name;
+                  }
+                  ?>
+                </li>
+              </ul>
+            </td>
+            <td>
+              <ul class="list-price">
+                <li><span class="text"><?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobal($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?><?php print t('€'); ?></span><span class="tva">TVA 5,5%</span></li>
+                
+                <?php if(isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0){?>
+                  <li><span class="text"><?php numberFormatGlobal($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) ?><?php print t('€'); ?></span><span class="tva tva--high">TVA 20%</span></li>
+                <?php } ?>
+              </ul>
+            </td>
+          </tr>
+          <?php endforeach; ?>
+          
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+<!-- [More Available] end-->
+
+<?php endif;
