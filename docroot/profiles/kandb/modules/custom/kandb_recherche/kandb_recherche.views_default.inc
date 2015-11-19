@@ -531,7 +531,7 @@ function kandb_recherche_views_default_views() {
   $view->name = 'solr_views';
   $view->description = '';
   $view->tag = 'default';
-  $view->base_table = 'search_api_index_solr_index';
+  $view->base_table = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $view->human_name = 'Solr Views';
   $view->core = 7;
   $view->api_version = '3.0';
@@ -551,7 +551,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   /* Field: Indexed Node: Node ID */
   $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['nid']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['nid']['field'] = 'nid';
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
@@ -560,7 +560,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['nid']['link_to_entity'] = 0;
   /* Field: Indexed Node: Type de Bien */
   $handler->display->display_options['fields']['field_type']['id'] = 'field_type';
-  $handler->display->display_options['fields']['field_type']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_type']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_type']['field'] = 'field_type';
   $handler->display->display_options['fields']['field_type']['label'] = '';
   $handler->display->display_options['fields']['field_type']['element_label_colon'] = FALSE;
@@ -569,7 +569,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_type']['bypass_access'] = 0;
   /* Field: Indexed Node: Prix TVA réduit */
   $handler->display->display_options['fields']['field_bien_low_tva_price']['id'] = 'field_bien_low_tva_price';
-  $handler->display->display_options['fields']['field_bien_low_tva_price']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_bien_low_tva_price']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_bien_low_tva_price']['field'] = 'field_bien_low_tva_price';
   $handler->display->display_options['fields']['field_bien_low_tva_price']['label'] = '';
   $handler->display->display_options['fields']['field_bien_low_tva_price']['element_label_colon'] = FALSE;
@@ -581,7 +581,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Indexed Node: Prix */
   $handler->display->display_options['fields']['field_prix_tva_20']['id'] = 'field_prix_tva_20';
-  $handler->display->display_options['fields']['field_prix_tva_20']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_prix_tva_20']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_prix_tva_20']['field'] = 'field_prix_tva_20';
   $handler->display->display_options['fields']['field_prix_tva_20']['label'] = '';
   $handler->display->display_options['fields']['field_prix_tva_20']['element_label_colon'] = FALSE;
@@ -591,7 +591,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Indexed Node: Nombre de pièces */
   $handler->display->display_options['fields']['field_nb_pieces']['id'] = 'field_nb_pieces';
-  $handler->display->display_options['fields']['field_nb_pieces']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_nb_pieces']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_nb_pieces']['field'] = 'field_nb_pieces';
   $handler->display->display_options['fields']['field_nb_pieces']['label'] = '';
   $handler->display->display_options['fields']['field_nb_pieces']['element_label_colon'] = FALSE;
@@ -600,7 +600,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_nb_pieces']['bypass_access'] = 0;
   /* Field: Indexed Node: Superficie */
   $handler->display->display_options['fields']['field_superficie']['id'] = 'field_superficie';
-  $handler->display->display_options['fields']['field_superficie']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_superficie']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_superficie']['field'] = 'field_superficie';
   $handler->display->display_options['fields']['field_superficie']['label'] = '';
   $handler->display->display_options['fields']['field_superficie']['element_label_colon'] = FALSE;
@@ -612,7 +612,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Indexed Node: Etage */
   $handler->display->display_options['fields']['field_etage']['id'] = 'field_etage';
-  $handler->display->display_options['fields']['field_etage']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_etage']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_etage']['field'] = 'field_etage';
   $handler->display->display_options['fields']['field_etage']['label'] = '';
   $handler->display->display_options['fields']['field_etage']['element_label_colon'] = FALSE;
@@ -621,18 +621,18 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_etage']['bypass_access'] = 0;
   /* Field: Indexed Node: Content type */
   $handler->display->display_options['fields']['type']['id'] = 'type';
-  $handler->display->display_options['fields']['type']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['type']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['type']['field'] = 'type';
   $handler->display->display_options['fields']['type']['link_to_entity'] = 0;
   $handler->display->display_options['fields']['type']['format_name'] = 1;
   /* Field: Indexed Node: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['title']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['title']['field'] = 'title';
   $handler->display->display_options['fields']['title']['link_to_entity'] = 0;
   /* Field: Indexed Node: Caractéristique */
   $handler->display->display_options['fields']['field_caracteristique']['id'] = 'field_caracteristique';
-  $handler->display->display_options['fields']['field_caracteristique']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_caracteristique']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_caracteristique']['field'] = 'field_caracteristique';
   $handler->display->display_options['fields']['field_caracteristique']['label'] = '';
   $handler->display->display_options['fields']['field_caracteristique']['element_label_colon'] = FALSE;
@@ -642,7 +642,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_caracteristique']['bypass_access'] = 0;
   /* Field: Indexed Node: Orientation */
   $handler->display->display_options['fields']['field_orientation']['id'] = 'field_orientation';
-  $handler->display->display_options['fields']['field_orientation']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_orientation']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_orientation']['field'] = 'field_orientation';
   $handler->display->display_options['fields']['field_orientation']['label'] = '';
   $handler->display->display_options['fields']['field_orientation']['element_label_colon'] = FALSE;
@@ -651,7 +651,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_orientation']['bypass_access'] = 0;
   /* Field: Indexed Node: URL */
   $handler->display->display_options['fields']['url']['id'] = 'url';
-  $handler->display->display_options['fields']['url']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['url']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['url']['field'] = 'url';
   $handler->display->display_options['fields']['url']['label'] = '';
   $handler->display->display_options['fields']['url']['element_label_colon'] = FALSE;
@@ -659,18 +659,18 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['url']['link_to_entity'] = 0;
   /* Field: Programme: Node ID (indexed) */
   $handler->display->display_options['fields']['field_programme_nid']['id'] = 'field_programme_nid';
-  $handler->display->display_options['fields']['field_programme_nid']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_nid']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_nid']['field'] = 'field_programme_nid';
   $handler->display->display_options['fields']['field_programme_nid']['separator'] = '';
   $handler->display->display_options['fields']['field_programme_nid']['link_to_entity'] = 0;
   /* Field: Programme: Title (indexed) */
   $handler->display->display_options['fields']['field_programme_title']['id'] = 'field_programme_title';
-  $handler->display->display_options['fields']['field_programme_title']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_title']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_title']['field'] = 'field_programme_title';
   $handler->display->display_options['fields']['field_programme_title']['link_to_entity'] = 0;
   /* Field: Programme: URL (indexed) */
   $handler->display->display_options['fields']['field_programme_url']['id'] = 'field_programme_url';
-  $handler->display->display_options['fields']['field_programme_url']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_url']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_url']['field'] = 'field_programme_url';
   $handler->display->display_options['fields']['field_programme_url']['label'] = '';
   $handler->display->display_options['fields']['field_programme_url']['element_label_colon'] = FALSE;
@@ -678,7 +678,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_url']['link_to_entity'] = 0;
   /* Field: Programme: Nombre de pièce min (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_room_min']['id'] = 'field_programme_field_programme_room_min';
-  $handler->display->display_options['fields']['field_programme_field_programme_room_min']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_room_min']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_room_min']['field'] = 'field_programme_field_programme_room_min';
   $handler->display->display_options['fields']['field_programme_field_programme_room_min']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_room_min']['element_label_colon'] = FALSE;
@@ -691,7 +691,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Programme: Nombre de pièce max (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_room_max']['id'] = 'field_programme_field_programme_room_max';
-  $handler->display->display_options['fields']['field_programme_field_programme_room_max']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_room_max']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_room_max']['field'] = 'field_programme_field_programme_room_max';
   $handler->display->display_options['fields']['field_programme_field_programme_room_max']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_room_max']['element_label_colon'] = FALSE;
@@ -704,7 +704,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Programme: TVA (indexed) */
   $handler->display->display_options['fields']['field_programme_field_tva']['id'] = 'field_programme_field_tva';
-  $handler->display->display_options['fields']['field_programme_field_tva']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_tva']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_tva']['field'] = 'field_programme_field_tva';
   $handler->display->display_options['fields']['field_programme_field_tva']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_tva']['element_label_colon'] = FALSE;
@@ -713,7 +713,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_field_tva']['bypass_access'] = 0;
   /* Field: Programme: Prix min (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_price_min']['id'] = 'field_programme_field_programme_price_min';
-  $handler->display->display_options['fields']['field_programme_field_programme_price_min']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_price_min']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_price_min']['field'] = 'field_programme_field_programme_price_min';
   $handler->display->display_options['fields']['field_programme_field_programme_price_min']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_price_min']['element_label_colon'] = FALSE;
@@ -725,7 +725,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Programme: Prix min TVA reduit (indexed) */
   $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['id'] = 'field_programme_field_program_low_tva_price_min';
-  $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['field'] = 'field_programme_field_program_low_tva_price_min';
   $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_program_low_tva_price_min']['element_label_colon'] = FALSE;
@@ -735,11 +735,11 @@ function kandb_recherche_views_default_views() {
   );
   /* Field: Programme: Code Postal (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_cp']['id'] = 'field_programme_field_programme_loc_cp';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_cp']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_cp']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_cp']['field'] = 'field_programme_field_programme_loc_cp';
   /* Field: Programme: Ville (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['id'] = 'field_programme_field_programme_loc_ville';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['field'] = 'field_programme_field_programme_loc_ville';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['element_label_colon'] = FALSE;
@@ -748,7 +748,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_field_programme_loc_ville']['bypass_access'] = 0;
   /* Field: Programme: Arrondissement (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['id'] = 'field_programme_field_programme_loc_arr';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['field'] = 'field_programme_field_programme_loc_arr';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['element_label_colon'] = FALSE;
@@ -757,7 +757,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_field_programme_loc_arr']['bypass_access'] = 0;
   /* Field: Programme: Départment (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['id'] = 'field_programme_field_programme_loc_department';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['field'] = 'field_programme_field_programme_loc_department';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['element_label_colon'] = FALSE;
@@ -766,7 +766,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_field_programme_loc_department']['bypass_access'] = 0;
   /* Field: Programme: Region (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['id'] = 'field_programme_field_programme_loc_region';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['field'] = 'field_programme_field_programme_loc_region';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['element_label_colon'] = FALSE;
@@ -775,21 +775,21 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_field_programme_loc_region']['bypass_access'] = 0;
   /* Field: Programme: Latitude (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['id'] = 'field_programme_field_programme_loc_lat';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['field'] = 'field_programme_field_programme_loc_lat';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_programme_field_programme_loc_lat']['type'] = 'text_plain';
   /* Field: Programme: Longitude (indexed) */
   $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['id'] = 'field_programme_field_programme_loc_long';
-  $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['field'] = 'field_programme_field_programme_loc_long';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['label'] = '';
   $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_programme_field_programme_loc_long']['type'] = 'text_plain';
   /* Sort criterion: Programme: Node ID (indexed) */
   $handler->display->display_options['sorts']['field_programme_nid']['id'] = 'field_programme_nid';
-  $handler->display->display_options['sorts']['field_programme_nid']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['sorts']['field_programme_nid']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['sorts']['field_programme_nid']['field'] = 'field_programme_nid';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
@@ -799,7 +799,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Indexed Node: Content type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['type']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['type']['field'] = 'type';
   $handler->display->display_options['filters']['type']['value'] = array(
     'bien' => 'bien',
@@ -807,7 +807,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['type']['group'] = 1;
   /* Filter criterion: Indexed Node: Statut du bien */
   $handler->display->display_options['filters']['field_bien_statut']['id'] = 'field_bien_statut';
-  $handler->display->display_options['filters']['field_bien_statut']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_bien_statut']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_bien_statut']['field'] = 'field_bien_statut';
   $handler->display->display_options['filters']['field_bien_statut']['value'] = array(
     220 => '220',
@@ -815,7 +815,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_bien_statut']['group'] = 1;
   /* Filter criterion: Indexed Node: Status */
   $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['status']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = array(
     1 => '1',
@@ -823,7 +823,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['status']['group'] = 1;
   /* Filter criterion: Indexed Node: Type de Bien */
   $handler->display->display_options['filters']['field_type']['id'] = 'field_type';
-  $handler->display->display_options['filters']['field_type']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_type']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_type']['field'] = 'field_type';
   $handler->display->display_options['filters']['field_type']['value'] = array();
   $handler->display->display_options['filters']['field_type']['group'] = 1;
@@ -844,7 +844,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_type']['expose']['reduce'] = 0;
   /* Filter criterion: Indexed Node: Nombre de pièces */
   $handler->display->display_options['filters']['field_nb_pieces']['id'] = 'field_nb_pieces';
-  $handler->display->display_options['filters']['field_nb_pieces']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_nb_pieces']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_nb_pieces']['field'] = 'field_nb_pieces';
   $handler->display->display_options['filters']['field_nb_pieces']['value'] = array();
   $handler->display->display_options['filters']['field_nb_pieces']['group'] = 1;
@@ -865,7 +865,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_nb_pieces']['expose']['reduce'] = 0;
   /* Filter criterion: Indexed Node: Superficie */
   $handler->display->display_options['filters']['field_superficie']['id'] = 'field_superficie';
-  $handler->display->display_options['filters']['field_superficie']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_superficie']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_superficie']['field'] = 'field_superficie';
   $handler->display->display_options['filters']['field_superficie']['operator'] = '>=';
   $handler->display->display_options['filters']['field_superficie']['group'] = 1;
@@ -884,7 +884,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Indexed Node: Caractéristique */
   $handler->display->display_options['filters']['field_caracteristique']['id'] = 'field_caracteristique';
-  $handler->display->display_options['filters']['field_caracteristique']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_caracteristique']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_caracteristique']['field'] = 'field_caracteristique';
   $handler->display->display_options['filters']['field_caracteristique']['value'] = array();
   $handler->display->display_options['filters']['field_caracteristique']['group'] = 1;
@@ -905,7 +905,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_caracteristique']['expose']['reduce'] = 0;
   /* Filter criterion: Programme: Arrondissement (indexed) */
   $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['id'] = 'field_programme_field_programme_loc_arr';
-  $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['field'] = 'field_programme_field_programme_loc_arr';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['value'] = array();
   $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['group'] = 1;
@@ -925,7 +925,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_programme_field_programme_loc_arr']['expose']['reduce'] = 0;
   /* Filter criterion: Programme: Status (indexed) */
   $handler->display->display_options['filters']['field_programme_status']['id'] = 'field_programme_status';
-  $handler->display->display_options['filters']['field_programme_status']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_status']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_status']['field'] = 'field_programme_status';
   $handler->display->display_options['filters']['field_programme_status']['value'] = array(
     1 => '1',
@@ -933,7 +933,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_programme_status']['group'] = 1;
   /* Filter criterion: Programme: Title (indexed) */
   $handler->display->display_options['filters']['field_programme_title']['id'] = 'field_programme_title';
-  $handler->display->display_options['filters']['field_programme_title']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_title']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_title']['field'] = 'field_programme_title';
   $handler->display->display_options['filters']['field_programme_title']['group'] = 2;
   $handler->display->display_options['filters']['field_programme_title']['exposed'] = TRUE;
@@ -951,7 +951,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Programme: Code Postal (indexed) */
   $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['id'] = 'field_programme_field_programme_loc_cp';
-  $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['field'] = 'field_programme_field_programme_loc_cp';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['group'] = 2;
   $handler->display->display_options['filters']['field_programme_field_programme_loc_cp']['exposed'] = TRUE;
@@ -969,7 +969,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Programme: Ville (indexed) */
   $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['id'] = 'field_programme_field_programme_loc_ville';
-  $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['field'] = 'field_programme_field_programme_loc_ville';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['value'] = array();
   $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['group'] = 2;
@@ -989,7 +989,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_programme_field_programme_loc_ville']['expose']['reduce'] = 0;
   /* Filter criterion: Programme: Départment (indexed) */
   $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['id'] = 'field_programme_field_programme_loc_department';
-  $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['field'] = 'field_programme_field_programme_loc_department';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['value'] = array();
   $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['group'] = 2;
@@ -1009,7 +1009,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_programme_field_programme_loc_department']['expose']['reduce'] = 0;
   /* Filter criterion: Programme: Region (indexed) */
   $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['id'] = 'field_programme_field_programme_loc_region';
-  $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['field'] = 'field_programme_field_programme_loc_region';
   $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['value'] = array();
   $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['group'] = 2;
@@ -1029,7 +1029,7 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['filters']['field_programme_field_programme_loc_region']['expose']['reduce'] = 0;
   /* Filter criterion: Indexed Node: Prix */
   $handler->display->display_options['filters']['field_prix_tva_20']['id'] = 'field_prix_tva_20';
-  $handler->display->display_options['filters']['field_prix_tva_20']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_prix_tva_20']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_prix_tva_20']['field'] = 'field_prix_tva_20';
   $handler->display->display_options['filters']['field_prix_tva_20']['operator'] = '>=';
   $handler->display->display_options['filters']['field_prix_tva_20']['group'] = 3;
@@ -1048,7 +1048,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Indexed Node: Prix TVA réduit */
   $handler->display->display_options['filters']['field_bien_low_tva_price']['id'] = 'field_bien_low_tva_price';
-  $handler->display->display_options['filters']['field_bien_low_tva_price']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_bien_low_tva_price']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_bien_low_tva_price']['field'] = 'field_bien_low_tva_price';
   $handler->display->display_options['filters']['field_bien_low_tva_price']['operator'] = '>=';
   $handler->display->display_options['filters']['field_bien_low_tva_price']['group'] = 3;
@@ -1067,7 +1067,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Indexed Node: Prix */
   $handler->display->display_options['filters']['field_prix_tva_20_1']['id'] = 'field_prix_tva_20_1';
-  $handler->display->display_options['filters']['field_prix_tva_20_1']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_prix_tva_20_1']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_prix_tva_20_1']['field'] = 'field_prix_tva_20';
   $handler->display->display_options['filters']['field_prix_tva_20_1']['operator'] = '<=';
   $handler->display->display_options['filters']['field_prix_tva_20_1']['group'] = 4;
@@ -1086,7 +1086,7 @@ function kandb_recherche_views_default_views() {
   );
   /* Filter criterion: Indexed Node: Prix TVA réduit */
   $handler->display->display_options['filters']['field_bien_low_tva_price_1']['id'] = 'field_bien_low_tva_price_1';
-  $handler->display->display_options['filters']['field_bien_low_tva_price_1']['table'] = 'search_api_index_solr_index';
+  $handler->display->display_options['filters']['field_bien_low_tva_price_1']['table'] = 'search_api_index_acquia_solr_indexsearch_api_index_acquia_solr_index';
   $handler->display->display_options['filters']['field_bien_low_tva_price_1']['field'] = 'field_bien_low_tva_price';
   $handler->display->display_options['filters']['field_bien_low_tva_price_1']['operator'] = '<=';
   $handler->display->display_options['filters']['field_bien_low_tva_price_1']['group'] = 4;
