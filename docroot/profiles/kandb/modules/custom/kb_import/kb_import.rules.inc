@@ -139,7 +139,7 @@ function kb_import_run_importer($importer = '') {
         }
       }
     }
-    elseif ($importer != 'import_bien_pdf') {
+    elseif ($importer == 'import_bien_pdf') {
       try {
         batch_set(import_bien_pdf_batch_operation());
       }
@@ -273,6 +273,7 @@ function kb_programme_migration_finish () {
     //Check other status
     if ($kb_migration_status['migration_document_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
+      kb_migration_logging ('migration : migration success');
     }
     else {
       $kb_migration_status['migration_program_status'] = $migration_document_status;
@@ -307,6 +308,7 @@ function kb_bien_migration_finish () {
   }
   if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_document_status'] != 0) {
     set_migration_status(migration_status_default());
+    kb_migration_logging ('migration : migration success');
   }
   else {
     $kb_migration_status['migration_bien_status'] = $migration_bien_status;
@@ -326,6 +328,7 @@ function kb_document_migration_finish () {
     }
     if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
+      kb_migration_logging ('migration : migration success');
     }
     else {
       $kb_migration_status['migration_document_status'] = $migration_document_status;
