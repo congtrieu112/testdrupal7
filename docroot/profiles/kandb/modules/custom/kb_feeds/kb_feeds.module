@@ -501,7 +501,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             'statut' => 'field_programme_statut',
             'rt2012' => 'field_slider_rt2012_bbc'
           ),
-          'check_box' => array(
+          'check_box_warning' => array(
             'tva' => 'field_tva_55'
           ),
           'custom_echelle_options_warning' => array(
