@@ -90,30 +90,30 @@ if ($pieces_min && $pieces_max) {
   $de_a_pieces = $pieces_min . ' ' . t('pièces');
 }
 
-$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? $node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] : '';
-$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? $node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] : '';
+$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price_tva = '';
 if ($price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
 } elseif (!$price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
 } elseif ($price_tva_min && !$price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€';
 }
 
 $tva = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 
-$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] : '';
-$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] : '';
+$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price = '';
 if ($price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
 } elseif (!$price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
 } elseif ($price_min && !$price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_min, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€';
 }
 
 $en_quelques_mots = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
