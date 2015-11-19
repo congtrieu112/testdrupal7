@@ -8,8 +8,8 @@ function kandb_contact_menu() {
 
   $items = array();
 
-  $items['admin/content/contact'] = array(
-    'title' => 'Contact settings',
+  $items['admin/content/ketb/contact'] = array(
+    'title' => 'Contact',
     'description' => 'Change the contact information of the contact block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_admin'),
@@ -89,6 +89,10 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
       'template' => 'templates/contact_block_page',
       'variables' => array(),
     ),
+    'mini_contact_block_page' => array(
+      'template' => 'templates/mini_contact_block_page',
+      'variables' => array(),
+    ),
     'contact_block_with_sales_office' => array(
       'template' => 'templates/contact_block_with_sales_office',
       'variables' => array(),
@@ -139,10 +143,15 @@ function kandb_contact_buttons() {
 /**
  * Callback function
  */
-function kandb_contact_block_page() {
+function kandb_contact_block_page($is_mini_contact = FALSE) {  
   $variables = array();
-  $variables['content'] = kandb_contact_get_all_variables();
+  $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
+  
+  if($is_mini_contact){
+    return theme('mini_contact_block_page', $variables);
+  }
+  
   return theme('contact_block_page', $variables);
 }
 
@@ -153,22 +162,30 @@ function kandb_contact_block_page() {
  *  Returns an array with
  *  variable_name => variable_value
  */
-function kandb_contact_get_all_variables() {
-  $variables = array(
-    'kandb_contact_photo' => '',
-    'kandb_contact_title' => '',
-    'kandb_contact_sub_title' => '',
-    'kandb_contact_faq_text' => '',
-    'kandb_contact_faq_link' => '',
-    'kandb_contact_numero_text' => '',
-    'kandb_contact_numero_vert' => '',
-  );
+function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
+  if(!$is_mini_contact){
+    $variables = array(
+      'kandb_contact_photo' => '',
+      'kandb_contact_title' => '',
+      'kandb_contact_sub_title' => '',
+      'kandb_contact_faq_text' => '',
+      'kandb_contact_faq_link' => '',
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }else{
+    $variables = array(
+      'kandb_contact_numero_text' => '',
+      'kandb_contact_numero_vert' => '',
+    );
+  }
+  
 
   foreach ($variables as $name => $value) {
     $variables[$name] = variable_get($name);
   }
 
-  if (!empty($variables['kandb_contact_photo'])) {
+  if (!$is_mini_contact && !empty($variables['kandb_contact_photo'])) {
     $variables['kandb_contact_photo'] = file_load($variables['kandb_contact_photo']);
     if ($wrapper = file_stream_wrapper_get_instance_by_uri($variables['kandb_contact_photo']->uri)) {
       $variables['kandb_contact_photo']->uri = $wrapper->getExternalUrl();
@@ -268,10 +285,17 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
       if ($node) {
         $id_programme = 0;
         $id_bien = 0;
+        $program_title = '';
+        $program_ville = '';
+        $program_department = '';
+        
+        $programme = '';
 
         switch ($node->type) {
           case 'programme':
             $id_programme = (isset($node->field_id_programme[LANGUAGE_NONE][0])) ? $node->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
+            
+            $programme = $node;            
             break;
 
           case 'bien':
@@ -287,9 +311,25 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
           default:
             break;
         }
+        
+        if(!empty($programme)){
+          $program_title = $programme->title;
+          if(isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])){
+            $term_id_ville = $programme->field_programme_loc_ville[LANGUAGE_NONE][0]["tid"];
+            $term_ville = taxonomy_term_load($term_id_ville);
+            $program_ville = $term_ville->name;
+          }
+
+          if(isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])){
+            $term_id_department = $programme->field_programme_loc_department[LANGUAGE_NONE][0]["tid"];
+            $term_department = taxonomy_term_load($term_id_department);
+            $program_department = $term_department->field_numero_departement[LANGUAGE_NONE][0]["value"];
+          }
+        }
 
         switch ($form_id) {
           case $webform_id_rendez_vous: // Webform Prendre rendez-vous
+          case $webform_id_etre_rappele:  // webform Être rappelé
             $form['submitted']['rdv_idkl']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']["#value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']['#type'] = 'hidden';
@@ -297,10 +337,20 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']['#type'] = 'hidden';
-            break;
-
-          case $webform_id_etre_rappele:  // webform Être rappelé
-
+            
+            if($form_id == $webform_id_rendez_vous){
+              $form['submitted']['nom_prog']["#default_value"] = (!empty($program_title)) ? $program_title : '';
+              $form['submitted']['nom_prog']["#value"] = (!empty($program_title)) ? $program_title : '';
+              $form['submitted']['nom_prog']['#type'] = 'hidden';
+              
+              $form['submitted']['ville_prog']["#default_value"] = (!empty($program_ville)) ? $program_ville : '';
+              $form['submitted']['ville_prog']["#value"] = (!empty($program_ville)) ? $program_ville : '';
+              $form['submitted']['ville_prog']['#type'] = 'hidden';
+              
+              $form['submitted']['dept_prog']["#default_value"] = (!empty($program_department)) ? $program_department : '';
+              $form['submitted']['dept_prog']["#value"] = (!empty($program_department)) ? $program_department : '';
+              $form['submitted']['dept_prog']['#type'] = 'hidden';
+            }
             break;
           default:
             break;

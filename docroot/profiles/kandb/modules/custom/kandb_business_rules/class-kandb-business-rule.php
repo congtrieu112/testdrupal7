@@ -24,6 +24,7 @@ class Kandb_Business_Rules {
   public static $_list_biens = array();
   public static $_list_id_program = array();
   public static $_is_feed_import = FALSE;
+  public static $_can_hook_update = FALSE;
   public static $_list_progame = array();
   public static $_list_progam_to_save = array();
   public static $_is_node_updating = false;
@@ -43,6 +44,14 @@ class Kandb_Business_Rules {
 
   public static function get_is_node_updating() {
     return self::$_is_node_updating;
+  }
+  
+  public static function set_can_hook_update($status = TRUE) {
+    self::$_can_hook_update = $status;
+  }
+
+  public static function get_can_hook_update() {
+    return self::$_can_hook_update;
   }
 
   /**
@@ -270,7 +279,7 @@ class Kandb_Business_Rules {
    * @todo To calculate min price and max price for programe
    * RULE COUNTING 106
    */
-  public static function calculate_programe_price($list_programe = array()) {
+  public static function calculate_programe_price($list_programe = array(), $current_bien = array()) {
     if (empty($list_programe)) {
       $list_programe = self::get_list_program_contain_bien();
     }
@@ -278,15 +287,43 @@ class Kandb_Business_Rules {
     foreach ($list_programe as $item) {
       $min_price = self::get_programe_min_max_price($item->nid);
       $max_price = self::get_programe_min_max_price($item->nid, FALSE);
-
+      
+      if(!empty($current_bien)){
+        $current_bien_price = (isset($current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"])) ? $current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : -1;
+        if($current_bien_price > $max_price){
+          $max_price = $current_bien_price;
+        }
+        if($current_bien_price != -1 && $min_price > $current_bien_price){
+          $min_price = $current_bien_price;
+        }
+      }
+      
       if (isset(self::$_list_progam_to_save [$item->nid])) {
         $node_programe = self::$_list_progam_to_save [$item->nid];
       }
       else {
         $node_programe = node_load($item->nid);
       }
+      
+      $tva_tid = isset($node_programe->field_tva[LANGUAGE_NONE][0]['tid']) ? $node_programe->field_tva[LANGUAGE_NONE][0]['tid'] : 0;
+      $tva = 0;
+      if ($tva_tid) {
+        $terms = taxonomy_term_load($tva_tid);
+        if ($terms) {
+          $tva = $terms->field_facteur[LANGUAGE_NONE][0]['value'];
+        }
+      }
+      if ($tva) {
+        $node_programe->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = ($min_price / 1.2) * ($tva + 1);
+        $node_programe->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] = ($max_price / 1.2) * ($tva + 1);
+      }
+      else {
+        $node_programe->field_program_low_tva_price_min = array();
+        $node_programe->field_program_low_tva_price_max = array();
+      }
 
       $node_programe->field_programme_price_min[LANGUAGE_NONE][0]["value"] = $min_price;
+      $node_programe->field_programme_min_price[LANGUAGE_NONE][0]["value"] = $min_price / 1.2;
       $node_programe->field_programme_price_max[LANGUAGE_NONE][0]["value"] = $max_price;
 
       self::$_list_progam_to_save [$item->nid] = $node_programe;

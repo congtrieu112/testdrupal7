@@ -16,20 +16,12 @@ function kandb_alias_dossier_article_form_dossier_node_form_alter(&$form, &$form
  * @return type
  */
 function kandb_alias_dossier_article_set_alias_submit($form, &$form_state) {
-  //path dossier  
-  if(isset($form_state["input"]["field_meta_url_trunc"][LANGUAGE_NONE][0]["value"])){
-    $input_url_trunc = $form_state["input"]["field_meta_url_trunc"][LANGUAGE_NONE][0]["value"];
-    $input_url_trunc = str_replace(' ', '-', $input_url_trunc);
-    
-    // update path alias by field url_trunc
-    $form_state["values"]["path"]["alias"] = $input_url_trunc;
-  }
-  
-  $old_path_dossier = $form['additional_settings']['group']['#groups']['additional_settings'][4]['alias']['#default_value'];
+  $old_path_dossier = (isset($form_state["values"]["path"]["original"]["alias"])) ? $form_state["values"]["path"]["original"]["alias"] : '';
   $path_dossier = $form_state["values"]["path"]["alias"];
-  if (!$path_dossier || !$old_path_dossier) {
+  
+  /*if (!$path_dossier || !$old_path_dossier) {
     return;
-  }
+  }*/
   $array_block_article = array('field_articles_block1_ref', 'field_articles_block2_ref', 'field_articles_block3_ref');
   foreach ($array_block_article as $block) {    
     //set alias for block 1
@@ -73,6 +65,7 @@ function kandb_alias_dossier_article_set_alias_for_article($path_dossier, $old_p
     $path_article = $alias[1];
     $new_alias .= $path_article;
     $old_alias .= $path_article;
+      
     //check if it has old alias, so we delete the old alias
     if (strcmp($new_alias, $old_alias)) {
       $query = db_select('url_alias', 'n')
@@ -87,6 +80,7 @@ function kandb_alias_dossier_article_set_alias_for_article($path_dossier, $old_p
         ->fields('n', array('alias'))
         ->condition('alias', $new_alias);
     $exist_alias = $query->execute()->fetchCol();
+    
     if (!count($exist_alias)) {
       $path = array('source' => "node/$id_article", 'alias' => $new_alias);
       path_save($path);

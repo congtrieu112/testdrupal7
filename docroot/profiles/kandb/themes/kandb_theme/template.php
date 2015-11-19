@@ -1,6 +1,11 @@
 <?php
 
 define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+define('ARTICLE_LIMIT_CONTENT', 250);
+
+if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
+  define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');  
+}
 
 function kandb_theme_preprocess_html(&$head_elements) {
 
@@ -169,4 +174,85 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+}
+
+
+function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
+  if ($limit <= 0 || !is_numeric($limit) || strlen($content) < $limit) {
+      return $content;
+  }
+  
+  $i = $limit - 1;
+  while(1){
+    if($i + 15 > $limit){
+      break;
+    }
+    if($content[$i + 1] != ' '){
+      $i++;
+    }else{
+      break;
+    }
+  }
+
+  $end = '';
+  if (mb_strlen($content, "UTF-8") > $limit) {
+    $end = '...';
+  }
+  if (function_exists('mb_substr')) {
+      $content = mb_substr($content, 0, $i, "UTF-8");
+  } else {
+      $content = substr($content, 0, $i);
+  }
+  return $content . $end;
+}
+
+/**
+   * @todo to get taxonomy status du logement by name
+   * @param type $term_name
+   * @return type
+   */
+function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {    
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'taxonomy_term');
+    //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
+
+    if (!$search_by_name) {
+      $query->fieldCondition('field_id_file', 'value', $term_name, '=');
+    }
+    else {
+      $query->propertyCondition('name', $term_name);
+    }
+
+    $query->range(0, 1);
+    $results = $query->execute();
+    if (!empty($results)) {
+      return array_shift($results["taxonomy_term"])->tid;
+    }
+
+    return $results;
+  }
+
+/**
+ * @todo to get list bien follow piece && programme
+ * @param type $id_programme
+ * @param type $id_piece
+ */
+function get_biens_follow_piece_program($id_programme, $id_piece = 0){
+  $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+      ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+      ->fieldCondition('field_programme', 'target_id', $id_programme, '=')        
+  ;
+
+  if(!empty($id_piece)){      
+    $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
+  }
+  $results = $query->execute();
+  if (!empty($results)) {
+    return $results["node"];
+  }
+  
+  return array();
 }
