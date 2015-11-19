@@ -145,10 +145,10 @@ function kb_starting_daily_import(){
     rules_invoke_event('starting_daily_import');
   }
 }
-function kb_start_migration_import($getting_file = FALSE){
+function kb_start_migration_import($getting_file = TRUE){
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = TRUE;
-  if ($getting_file) {
+  if ($getting_file !== 0) {
     $start_getting_file = kb_import_ftp_get_files();
   }
   if($start_getting_file) {
