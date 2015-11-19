@@ -120,7 +120,7 @@ $kb_daily_import_importers = array(
     rules_invoke_event('daily_import_importer_finish', $id);
   }
   $kb_migration_status = get_migration_status();
-  if (isset($kb_daily_import_status['start_daily_import']) && $kb_daily_import_status['start_daily_import'] == 1) {
+  if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
     if (isset($source->exception) || !_check_successful_importer($source)) {
       $status = -1;
     }
