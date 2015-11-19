@@ -1,6 +1,7 @@
 <?php
 
 define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
+define('ARTICLE_LIMIT_CONTENT', 250);
 
 function kandb_theme_preprocess_html(&$head_elements) {
 
@@ -169,4 +170,34 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+}
+
+
+function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
+  if ($limit <= 0 || !is_numeric($limit) || strlen($content) < $limit) {
+      return $content;
+  }
+  
+  $i = $limit - 1;
+  while(1){
+    if($i + 15 > $limit){
+      break;
+    }
+    if($content[$i + 1] != ' '){
+      $i++;
+    }else{
+      break;
+    }
+  }
+
+  $end = '';
+  if (mb_strlen($content, "UTF-8") > $limit) {
+    $end = '...';
+  }
+  if (function_exists('mb_substr')) {
+      $content = mb_substr($content, 0, $i, "UTF-8");
+  } else {
+      $content = substr($content, 0, $i);
+  }
+  return $content . $end;
 }
