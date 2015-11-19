@@ -488,7 +488,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           ),
           'term_name' => array(
             'typeprogramme' => 'field_type_programme',
-            'tva' => 'field_tva'
           ),
           'number' => array(
             'affichagestock' => 'field_programme_stock',
@@ -501,6 +500,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           'check_box' => array(
             'statut' => 'field_programme_statut',
             'rt2012' => 'field_slider_rt2012_bbc'
+          ),
+          'check_box' => array(
+            'tva' => 'field_tva_55'
           ),
           'custom_echelle_options_warning' => array(
             'labelbbcechelle' => 'field_slider_rt2012_echelle',
