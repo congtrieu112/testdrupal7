@@ -166,7 +166,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => 'http',
         'accept_invalid_cert' => 0,
-        'kb_url' => 'sites/all/default/files/import/DocBibliotheque.csv',
+        'kb_url' => 'sites/default/files/import/DocBibliotheque.csv',
         'kb_url_type' => '0',
       ),
     ),
