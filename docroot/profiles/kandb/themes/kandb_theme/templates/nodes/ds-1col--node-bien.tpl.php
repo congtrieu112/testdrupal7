@@ -304,4 +304,101 @@ if(!empty($list_bien_more)):
 </section>
 <!-- [More Available] end-->
 
-<?php endif;
+<?php endif;?>
+
+
+<!-- [More info] start-->
+<section class="section-padding bg-lightGrey">
+    <div class="wrapper">
+        <header class="heading heading--bordered">
+            <h2 class="heading__title">Plus d'infos</h2>
+            <p class="heading__title heading__title--sub">sur le programme</p>
+        </header>
+    </div>
+    <div class="wrapper">
+        <div data-equalizer data-equalizer-mq="medium-up" class="moreInfoProgram">
+            <figure data-equalizer-watch class="moreInfoProgram__figure">
+
+
+                <?php
+                $id_programme = $nodeprogramme = "";
+                if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
+                    $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
+                    $param = array(
+                      'type' => 'programme',
+                      'status' => 1,
+                    );
+                    $nodeprogramme = node_load($param, $id_programme);
+                }
+
+                global $base_url;
+                $url_principale = "";
+                $url_principale = $base_url . "/" . drupal_lookup_path('alias', "node/" . $id_programme);
+                $title_principale = isset($nodeprogramme->title) ? $nodeprogramme->title : '';
+                $title_principale_ville = isset($nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
+                $image_principale = isset($nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
+                $image_principale_small = '';
+                $image_principale_large = '';
+                $image_principale_medium = '';
+                if ($image_principale) {
+                    $image_principale_small = image_style_url('program_image_principale_small', $image_principale);
+                    $image_principale_medium = image_style_url('program_image_principale_medium', $image_principale);
+                    $image_principale_large = image_style_url('program_image_principale_large', $image_principale);
+                }
+
+
+                $pieces_min = isset($nodeprogramme->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
+                $pieces_max = isset($nodeprogramme->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+
+                $de_a_pieces = '';
+                if ($pieces_min && $pieces_max) {
+                    $de_a_pieces = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+                }
+                elseif (!$pieces_min && $pieces_max) {
+                    $de_a_pieces = $pieces_max . ' ' . t('pièces');
+                }
+                elseif ($pieces_min && !$pieces_max) {
+                    $de_a_pieces = $pieces_min . ' ' . t('pièces');
+                }
+
+
+                $price_min = isset($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+                $price_max = isset($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+
+                $de_a_price = '';
+                if ($price_min && $price_max) {
+                    $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
+                }
+                elseif (!$price_min && $price_max) {
+                    $de_a_price = 'De' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
+                }
+                elseif ($price_min && !$price_max) {
+                    $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€';
+                }
+                ?>
+                <!-- images need to have 2 formats see data-exchange attribute:
+                - small: 560 x 214 (heavy compression)
+                - medium: 632 x 241
+                - large: 780 x 298
+                -->
+                <!-- [Responsive img] start--><img alt="Sur le programme" data-interchange="[<?php print ($image_principale_small); ?>, (small)], [<?php print ($image_principale_medium); ?>, (medium)], [<?php print ($image_principale_large); ?>, (large)]"/>
+                <noscript><img src="<?php print ($image_principale_medium); ?>" alt="<?php print $title_principale; ?>"/></noscript>
+                <!-- [Responsive img] end-->
+
+
+            </figure>
+            <div data-equalizer-watch class="moreInfoProgram__content">
+                <div class="moreInfoProgram__content__inner">
+                    <div class="heading heading--small">
+                        <h3 class="heading__title"><?php print $title_principale_ville . " " . $title_principale; ?></h3>
+                        <p class="heading__title heading__title--sub"><?php print $de_a_pieces; ?> <br><?php print $de_a_price; ?></p>
+                    </div>
+                    <p class="moreInfoProgram__description"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
+                    <div class="btn-wrapper"><a href="<?php print $url_principale; ?>" title="<?php print $title_principale; ?>" class="btn-primary btn-rounded btn-download"><?php print $title_principale; ?><span class="icon icon-arrow"></span></a></div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- [More info] end-->
