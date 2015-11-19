@@ -28,6 +28,7 @@ function kb_import_ftp_get_files () {
       kb_daily_import_logging('Unabled to list remote directory: ' . $config['directory']);
     }
     elseif (empty ($files)) {
+      $getting_file_status = FALSE;
       kb_daily_import_logging('Directory empty: ' . $config['directory']);
     }
     else {

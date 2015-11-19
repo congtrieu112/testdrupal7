@@ -1046,6 +1046,17 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
     $error_operation = reset($operations);
     drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
   }
+  $kb_migration_status = get_migration_status();
+  if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
+    if ($success) {
+      $kb_migration_status['import_bien_pdf_status'] = 1;
+    }
+    else {
+      $kb_migration_status['import_bien_pdf_status'] = -1;
+    }
+    set_migration_status($kb_migration_status);
+    rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
+  }
 }
 
 /**
