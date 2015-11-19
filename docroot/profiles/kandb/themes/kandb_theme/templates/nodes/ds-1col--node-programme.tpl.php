@@ -461,25 +461,30 @@ $list_document = array();
 if (!empty($file_plaquette_commerciale)) {
   $list_document[] = array(
     'document' => $file_plaquette_commerciale,
-    'title' => t('Plaquette commerciale')
+    'title' => t('Plaquette commerciale'),
+    'icon'  => 'icon-flyer'
   );
 }
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
-    'title' => t('Kit juridique')
+    'title' => t('Fiche Renseignement'),
+    'icon'  => 'icon-file'
   );
 }
+
 if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
-    'title' => t('Kit fiscal')
+    'title' => t('Plan du bâtiment'),
+    'icon'  => 'icon-plan '
   );
 }
-if (!empty($file_plan_batiment)) {
+if (!empty($file_kit_fiscal)) {
   $list_document[] = array(
-    'document' => $file_plan_batiment,
-    'title' => t('Plan du bâtiment')
+    'document' => $file_kit_fiscal,
+    'title' => t('Kit fiscal'),
+    'icon'  => 'icon-calculator'
   );
 }
 
@@ -503,7 +508,8 @@ if (!empty($list_document)):
                   <ul class="row">
                       <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
-                            <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> ><span class="icon icon-flyer"></span>
+                            <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
+                                <span class="icon <?php print $item["icon"] ?>"></span>
                                 <div class="heading heading--small">
                                     <div class="heading__title"><?php print $item["title"] ?></div>
                                 </div>
