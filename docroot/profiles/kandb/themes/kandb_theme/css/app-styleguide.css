@@ -9119,12 +9119,20 @@ a.tag.tag--important:active {
     border-bottom: 1px solid #e0e0e0; }
   .bienHeader .sharing {
     width: 100%; }
-  .bienHeader .toolsList li a {
-    -webkit-tap-highlight-color: transparent; }
-    .bienHeader .toolsList li a:focus {
-      box-shadow: none;
-      border: none;
-      background: none; } }
+  .bienHeader .toolsList li {
+    padding-right: 0.3125rem; }
+    .bienHeader .toolsList li a {
+      display: block;
+      height: auto;
+      min-height: 40px;
+      padding-left: 2.8125rem; }
+      .bienHeader .toolsList li a .icon {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        margin-top: -22px; }
+      .bienHeader .toolsList li a .text {
+        padding-left: 0; } }
 
 .moreInfoProgram__content__inner {
   background-color: #ffffff;
@@ -9217,12 +9225,16 @@ a.tag.tag--important:active {
   background-color: #ffffff; }
 
 .moreAvailable td {
+  padding: 0.9375rem 0.625rem;
   border: none;
   vertical-align: middle; }
   .moreAvailable td:first-child {
-    width: 3.33333rem;
+    width: 2.79167rem;
     font-weight: bold;
     text-align: center; }
+  .moreAvailable td:last-child {
+    text-align: right;
+    padding-right: 0.3125rem; }
 
 .moreAvailable .list-item,
 .moreAvailable .list-price {
@@ -9255,7 +9267,7 @@ a.tag.tag--important:active {
   .moreAvailable .item-area {
     width: 7.8125rem; }
   .moreAvailable .item-exhibit {
-    width: 6.5625rem; }
+    width: 5.3125rem; }
   .moreAvailable .list-price .text {
     margin-right: 0.83333rem; } }
 
@@ -9265,7 +9277,7 @@ a.tag.tag--important:active {
     .moreAvailable td:first-child {
       width: 5.3125rem; }
     .moreAvailable td:last-child {
-      width: 10.3125rem; }
+      width: 11.5625rem; }
   .moreAvailable .item-promotion {
     width: 14.0625rem; }
   .moreAvailable .item-area {
@@ -9277,7 +9289,7 @@ a.tag.tag--important:active {
   .moreAvailable td:first-child {
     width: 7.5rem; }
   .moreAvailable td:last-child {
-    width: 11.25rem; } }
+    width: 12.5rem; } }
 
 @media only screen and (max-width: 47.9375em) {
   .moreAvailable {
@@ -9287,7 +9299,12 @@ a.tag.tag--important:active {
       padding-left: 0;
       padding-right: 0;
       font-size: 0.8125rem; }
-    .moreAvailable .list-price li {
+      .moreAvailable table td:first-child {
+        padding-top: 0.9375rem;
+        vertical-align: top; }
+    .moreAvailable .tag--important {
+      padding: 0.3125rem; }
+    .moreAvailable .list-item li {
       font-size: 0.8125rem; }
     .moreAvailable .list-price li:last-child {
       margin-top: 0.5rem; }
