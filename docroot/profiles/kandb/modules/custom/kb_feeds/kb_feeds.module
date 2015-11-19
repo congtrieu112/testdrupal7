@@ -382,7 +382,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           'term_name_warning' => array(
             10 => 'field_orientation'
           ),
-          'number' => array(
+          'number_warning' => array(
             3 => 'field_prix_tva_20',
             9 => 'field_superficie',
             16 => 'field_caracteristique_jardin',
