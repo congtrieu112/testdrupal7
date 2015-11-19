@@ -126,7 +126,7 @@ function _get_logement_block_content() {
           . 'inner join {node} n on n.nid=program.field_programme_target_id '
           . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
           . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name', array(':tid' => $tid, ':key' => $key));
+          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
 
         if ($listBien->rowCount() > 0) {
           $listBien = $listBien->fetchAll();
