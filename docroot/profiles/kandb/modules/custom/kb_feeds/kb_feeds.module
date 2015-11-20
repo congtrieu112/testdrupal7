@@ -352,7 +352,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-        if (!$logging || strpos($logging, 'Warning') > 0) {
+        if (!$logging || !strpos($logging, 'Skip import')) {
           if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
             $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
             if ($terms) {
@@ -395,7 +395,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-        if (!$logging) {
+        if (!$logging || !strpos($logging, 'Skip import')) {
           if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
             $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
             if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
@@ -418,7 +418,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
-        if (!$logging) {
+        if (!$logging || !strpos($logging, 'Skip import')) {
           $status = 0;
           $sticky = 0;
           switch ($entity->status) {
@@ -502,7 +502,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             'rt2012' => 'field_slider_rt2012_bbc'
           ),
           'check_box_warning' => array(
-            'tva' => 'field_tva_55'
+            'tva' => 'field_tva'
           ),
           'custom_echelle_options_warning' => array(
             'labelbbcechelle' => 'field_slider_rt2012_echelle',
@@ -527,6 +527,24 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
+        if (!$logging || !strpos($logging, 'Skip import')) {
+          if (in_array((int)$item['tva'], array(0,1))) {
+            $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
+            if ($terms) {
+              foreach ($terms as $key => $value) {
+                $tid = $key;
+              }
+            }
+
+            if((int)$item['tva'] == 0) {
+              $entity->field_tva[LANGUAGE_NONE][0]['tid'] = 1;
+            } else {
+              $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
+            }
+
+            $tid = 0;
+          }
+        }
       }
     } elseif ($entity->feeds_item->id == 'city_feed_import') {
       if ($totalItems != $totalColumn) {
@@ -563,7 +581,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             'identifiantprogramme' => 'field_programme',
           ),
         );
-        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantlogement');
       }
     }
   }
@@ -1181,7 +1199,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
         foreach ($fields as $key => $field_name) {
           if ($item[$key] != "0" || $item[$key] != 0) {
             if(!empty($item[$key])) {
-              if(!in_array((int)$item[$key], array(0,1))) {
+              if(!is_numeric($item[$key]) || !in_array((int)$item[$key], array(0,1))) {
                 if($type == 'check_box') {
                   $error_checkbox_field .= $field_name . ',';
                 } elseif($type == 'check_box_warning') {
