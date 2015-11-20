@@ -1,6 +1,6 @@
 name = K&B Settings
 core = 7.x
-package = Features
+package = Kaufman & Broad
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = strongarm
