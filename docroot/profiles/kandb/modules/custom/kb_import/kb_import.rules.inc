@@ -138,6 +138,8 @@ function kb_import_run_importer($importer = '') {
           kb_migration_logging ('migration | ' . $importer . ' | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', $importer);
         }
+        set_migration_status(migration_status_default());
+        set_daily_import_status(daily_import_status_default());
       }
     }
     elseif ($importer == 'import_bien_pdf') {
@@ -148,6 +150,8 @@ function kb_import_run_importer($importer = '') {
         if ($kb_rule == 'migration') {
           kb_migration_logging ('migration | import_bien_pdf | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
+          set_migration_status(migration_status_default());
+          set_daily_import_status(daily_import_status_default());
         }
       }
     } 
