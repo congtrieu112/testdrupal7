@@ -36,11 +36,6 @@ function kand_contactus_export_views_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'webform_submissions';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = TRUE;
-  /* Field: Webform submissions: Serial number */
-  $handler->display->display_options['fields']['serial']['id'] = 'serial';
-  $handler->display->display_options['fields']['serial']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['serial']['field'] = 'serial';
-  $handler->display->display_options['fields']['serial']['label'] = 'IDKDC';
   /* Field: Webform submission data: Value */
   $handler->display->display_options['fields']['value_3']['id'] = 'value_3';
   $handler->display->display_options['fields']['value_3']['table'] = 'webform_submissions';
@@ -49,6 +44,7 @@ function kand_contactus_export_views_views_default_views() {
   $handler->display->display_options['fields']['value_3']['custom_label'] = 'custom';
   $handler->display->display_options['fields']['value_3']['webform_nid'] = '2';
   $handler->display->display_options['fields']['value_3']['webform_cid'] = '14';
+  $handler->display->display_options['fields']['value_3']['webform_datatype'] = 'number';
   /* Field: Webform submission data: Value */
   $handler->display->display_options['fields']['value_2']['id'] = 'value_2';
   $handler->display->display_options['fields']['value_2']['table'] = 'webform_submissions';
@@ -57,31 +53,30 @@ function kand_contactus_export_views_views_default_views() {
   $handler->display->display_options['fields']['value_2']['custom_label'] = 'custom';
   $handler->display->display_options['fields']['value_2']['webform_nid'] = '2';
   $handler->display->display_options['fields']['value_2']['webform_cid'] = '15';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing']['id'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing']['label'] = 'NOM_PROG';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing_1']['id'] = 'nothing_1';
-  $handler->display->display_options['fields']['nothing_1']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_1']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_1']['label'] = 'VILLE_PROG';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing_2']['id'] = 'nothing_2';
-  $handler->display->display_options['fields']['nothing_2']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_2']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_2']['label'] = 'ARRONDT_PROG';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing_3']['id'] = 'nothing_3';
-  $handler->display->display_options['fields']['nothing_3']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_3']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_3']['label'] = 'DEPT_PROG';
-  /* Field: Global: Custom text */
-  $handler->display->display_options['fields']['nothing_4']['id'] = 'nothing_4';
-  $handler->display->display_options['fields']['nothing_4']['table'] = 'views';
-  $handler->display->display_options['fields']['nothing_4']['field'] = 'nothing';
-  $handler->display->display_options['fields']['nothing_4']['label'] = 'LIEU_PROG';
+  /* Field: Webform submission data: Value */
+  $handler->display->display_options['fields']['value_7']['id'] = 'value_7';
+  $handler->display->display_options['fields']['value_7']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['value_7']['field'] = 'value';
+  $handler->display->display_options['fields']['value_7']['label'] = 'NOM_PROG';
+  $handler->display->display_options['fields']['value_7']['custom_label'] = 'custom';
+  $handler->display->display_options['fields']['value_7']['webform_nid'] = '2';
+  $handler->display->display_options['fields']['value_7']['webform_cid'] = '17';
+  /* Field: Webform submission data: Value */
+  $handler->display->display_options['fields']['value_9']['id'] = 'value_9';
+  $handler->display->display_options['fields']['value_9']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['value_9']['field'] = 'value';
+  $handler->display->display_options['fields']['value_9']['label'] = 'VILLE_PROG';
+  $handler->display->display_options['fields']['value_9']['custom_label'] = 'custom';
+  $handler->display->display_options['fields']['value_9']['webform_nid'] = '2';
+  $handler->display->display_options['fields']['value_9']['webform_cid'] = '18';
+  /* Field: Webform submission data: Value */
+  $handler->display->display_options['fields']['value_10']['id'] = 'value_10';
+  $handler->display->display_options['fields']['value_10']['table'] = 'webform_submissions';
+  $handler->display->display_options['fields']['value_10']['field'] = 'value';
+  $handler->display->display_options['fields']['value_10']['label'] = 'DEPT_PROG';
+  $handler->display->display_options['fields']['value_10']['custom_label'] = 'custom';
+  $handler->display->display_options['fields']['value_10']['webform_nid'] = '2';
+  $handler->display->display_options['fields']['value_10']['webform_cid'] = '19';
   /* Field: Webform submission data: Value */
   $handler->display->display_options['fields']['value_4']['id'] = 'value_4';
   $handler->display->display_options['fields']['value_4']['table'] = 'webform_submissions';
@@ -146,22 +141,6 @@ function kand_contactus_export_views_views_default_views() {
   $handler->display->display_options['fields']['value_8']['custom_label'] = 'custom';
   $handler->display->display_options['fields']['value_8']['webform_nid'] = '2';
   $handler->display->display_options['fields']['value_8']['webform_cid'] = '3';
-  /* Field: Webform submission data: Value */
-  $handler->display->display_options['fields']['value_9']['id'] = 'value_9';
-  $handler->display->display_options['fields']['value_9']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['value_9']['field'] = 'value';
-  $handler->display->display_options['fields']['value_9']['label'] = 'ADRESSE 2';
-  $handler->display->display_options['fields']['value_9']['custom_label'] = 'custom';
-  $handler->display->display_options['fields']['value_9']['webform_nid'] = '2';
-  $handler->display->display_options['fields']['value_9']['webform_cid'] = '4';
-  /* Field: Webform submission data: Value */
-  $handler->display->display_options['fields']['value_10']['id'] = 'value_10';
-  $handler->display->display_options['fields']['value_10']['table'] = 'webform_submissions';
-  $handler->display->display_options['fields']['value_10']['field'] = 'value';
-  $handler->display->display_options['fields']['value_10']['label'] = 'LIEUDIT';
-  $handler->display->display_options['fields']['value_10']['custom_label'] = 'custom';
-  $handler->display->display_options['fields']['value_10']['webform_nid'] = '2';
-  $handler->display->display_options['fields']['value_10']['webform_cid'] = '5';
   /* Field: Webform submission data: Value */
   $handler->display->display_options['fields']['value_11']['id'] = 'value_11';
   $handler->display->display_options['fields']['value_11']['table'] = 'webform_submissions';
@@ -251,16 +230,11 @@ function kand_contactus_export_views_views_default_views() {
     t('next ›'),
     t('last »'),
     t('Webform Node'),
-    t('IDKDC'),
-    t('.'),
-    t(','),
     t('IDKP'),
     t('IDKL'),
     t('NOM_PROG'),
     t('VILLE_PROG'),
-    t('ARRONDT_PROG'),
     t('DEPT_PROG'),
-    t('LIEU_PROG'),
     t('TYPE_CONTACT'),
     t('DATE'),
     t('HEURE'),
@@ -269,8 +243,6 @@ function kand_contactus_export_views_views_default_views() {
     t('TELEPHONE'),
     t('EMAIL'),
     t('ADRESSE'),
-    t('ADRESSE 2'),
-    t('LIEUDIT'),
     t('VILLE'),
     t('CODE_POSTAL'),
     t('PAYS'),

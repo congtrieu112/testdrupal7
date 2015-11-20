@@ -27,6 +27,7 @@ features[field_instance][] = node-avant_premiere-field_avant_premiere_grande_ouv
 features[field_instance][] = node-avant_premiere-field_avant_premiere_image_princ
 features[field_instance][] = node-avant_premiere-field_avant_premiere_ville
 features[node][] = avant_premiere
+features[taxonomy][] = ville_autocomplete
 features[variable][] = field_bundle_settings_node__avant_premiere
 features[variable][] = language_content_type_avant_premiere
 features[variable][] = menu_options_avant_premiere

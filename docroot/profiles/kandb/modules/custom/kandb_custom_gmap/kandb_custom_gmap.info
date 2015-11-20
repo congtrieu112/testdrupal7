@@ -1,0 +1,5 @@
+name = K&B Custom Gmap Marker
+description = "Includes K&B custom markers for use with gmap"
+package = K&B Development
+core = 7.x
+dependencies[] = gmap

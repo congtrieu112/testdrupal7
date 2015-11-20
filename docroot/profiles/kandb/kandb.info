@@ -97,6 +97,7 @@ dependencies[] = kandb_habiteo
 dependencies[] = kandb_business_rules
 dependencies[] = kandb_alias_dossier_article
 dependencies[] = kb_mail
+dependencies[] = kandb_custom_gmap
 
 ; Features
 dependencies[] = kandb_domains
@@ -132,8 +133,10 @@ dependencies[] = kandb_path_alias_patterns
 dependencies[] = kandb_avant_premiere
 dependencies[] = kandb_views_avant_premiere
 dependencies[] = kandb_offre
-
-
+dependencies[] = kandb_standard_page
+; dependencies[] = kandb_webform_contact_settings
+dependencies[] = kandb_offre_menu_views
+dependencies[] = kandb_settings
 
 ; Blocks
 dependencies[] = kandb_recherche

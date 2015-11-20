@@ -158,7 +158,6 @@ function kandb_business_rules_node_presave($node) {
     }
   }elseif ($node && $node->type == 'bien' && !$is_node_updating) {
     $price = 0;
-
     if(isset($node->field_prix_tva_20[LANGUAGE_NONE][0]['value'])):
       $price = $node->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
       $tva_price = 0;
@@ -176,6 +175,75 @@ function kandb_business_rules_node_presave($node) {
 
       $node->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = $tva_price;
     endif;
+    
+    // Is node update.
+    if(isset($node->nid)){
+      $node_bien = node_load($node->nid);
+      $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+
+      $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+      $status_new = (isset($node->field_bien_statut[LANGUAGE_NONE][0])) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+      if ($status_old != $status_new || $status_new == $status_disponible){
+        Kandb_Business_Rules::set_can_hook_update();
+      }
+    }
+    
+  }
+}
+
+/**
+ * Implements hook_node_update()
+ */
+function kandb_business_rules_node_update($node) {
+  // To avoid loop from feed import.
+  $is_feed_import = Kandb_Business_Rules::get_is_feed_import();
+
+  // To avoid loop from function node_save.
+  $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
+  $can_hook_update = Kandb_Business_Rules::get_can_hook_update();
+
+  // Is manual update node in admin.
+  if ($node->type === CONTENT_TYPE_BIEN && !$is_feed_import && (!$is_node_updating || $can_hook_update)) {
+    Kandb_Business_Rules::set_is_node_updating();
+    Kandb_Business_Rules::set_can_hook_update(FALSE);
+    $node_bien = node_load($node->nid);
+
+    $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+    $status_new = (isset($node->field_bien_statut[LANGUAGE_NONE][0])) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+
+    $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
+    $status_vendu = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_VENDU);
+    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+
+    $arr_update_programme = array();
+    if(isset($node->field_programme[LANGUAGE_NONE][0]["target_id"])){
+      $programe = new stdClass();
+      $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
+      $arr_update_programme[] = $programe;
+    }
+
+    if ($status_old != $status_new || ($status_old == $status_disponible || $status_new == $status_disponible)) {
+      // RULE BIEN 107.
+      Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
+
+      // RULE COUNTING 106.
+      $current_bien = ($status_new == $status_disponible) ? $node : array();
+      Kandb_Business_Rules::calculate_programe_price($arr_update_programme, $current_bien);
+
+      // RULE COUNTING 107.
+      Kandb_Business_Rules::find_room_bien_follow_programe($arr_update_programme);
+    }
+
+    if ($status_old != $status_new && ($status_new == $status_invisible || $status_new == $status_vendu)) {
+      // RULE BIEN 108.
+      Kandb_Business_Rules::delete_node_option_related_bien($node->nid);
+    }
+
+    // RULE Programme 102.
+    Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme);
+
+    // Save all node program
+    Kandb_Business_Rules::node_save_list_program();
   }
 }
 
@@ -248,58 +316,6 @@ function kandb_business_rules_feeds_after_import(FeedsSource $source) {
   Kandb_Business_Rules::node_save_list_program();
 }
 
-/**
- * Implements hook_node_update()
- */
-function kandb_business_rules_node_update($node) {
-  // To avoid loop from feed import.
-  $is_feed_import = Kandb_Business_Rules::get_is_feed_import();
-
-  // To avoid loop from function node_save.
-  $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
-
-  // Is manual update node in admin.
-  if ($node->type === CONTENT_TYPE_BIEN && !$is_feed_import && !$is_node_updating) {
-    Kandb_Business_Rules::set_is_node_updating();
-    $node_bien = node_load($node->nid);
-
-    $status_old = (isset($node_bien->field_bien_statut[LANGUAGE_NONE][0])) ? $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
-    $status_new = (isset($node->field_bien_statut[LANGUAGE_NONE][0])) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
-
-    $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
-    $status_vendu = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_VENDU);
-    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
-
-    $arr_update_programme = array();
-    if(isset($node->field_programme[LANGUAGE_NONE][0]["target_id"])){
-      $programe = new stdClass();
-      $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
-      $arr_update_programme[] = $programe;
-    }
-
-    if ($status_old != $status_new && ($status_old == $status_disponible || $status_new == $status_disponible)) {
-      // RULE BIEN 107.
-      Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
-
-      // RULE COUNTING 106.
-      Kandb_Business_Rules::calculate_programe_price($arr_update_programme);
-
-      // RULE COUNTING 107.
-      Kandb_Business_Rules::find_room_bien_follow_programe($arr_update_programme);
-    }
-
-    if ($status_old != $status_new && ($status_new == $status_invisible || $status_new == $status_vendu)) {
-      // RULE BIEN 108.
-      Kandb_Business_Rules::delete_node_option_related_bien($node->nid);
-    }
-
-    // RULE Programme 102.
-    Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme);
-
-    // Save all node program
-    Kandb_Business_Rules::node_save_list_program();
-  }
-}
 
 function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'bien_node_form') {

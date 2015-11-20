@@ -90,30 +90,30 @@ if ($pieces_min && $pieces_max) {
   $de_a_pieces = $pieces_min . ' ' . t('pièces');
 }
 
-$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? $node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] : '';
-$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? $node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] : '';
+$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price_tva = '';
 if ($price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
 } elseif (!$price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
 } elseif ($price_tva_min && !$price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_tva_min, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€';
 }
 
 $tva = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 
-$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] : '';
-$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] : '';
+$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price = '';
 if ($price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
 } elseif (!$price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
 } elseif ($price_min && !$price_max) {
-  $de_a_price = 'De' . ' ' . number_format($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . number_format($price_min, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€';
 }
 
 $en_quelques_mots = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
@@ -138,7 +138,7 @@ $arr_document = array(
 $status_document = FALSE;
 foreach ($arr_document as $field_name) {
   $document = isset($node->$field_name) ? $node->$field_name : '';
-  if (isset($document[LANGUAGE_NONE][0]['value'])) {
+  if (isset($document[LANGUAGE_NONE][0]['fid'])) {
     $status_document = TRUE;
     break;
   }
@@ -210,52 +210,73 @@ foreach ($arr_slider as $field_name) {
                   <div class="tag tag--important"><?php print t('Nouveauté'); ?><sup>1</sup></div>
                 <?php endif; ?>
             </div>
-            <?php if($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
-            <p class="toolbox__intro">
-                <strong><?php print t('Livraison'); ?></strong>
-                <?php print t('à partir du'); ?>
-                <?php if ($trimstre) : print $trimstre; endif; ?>
-                <?php if ($annee) : print $annee . "<br>"; endif;?>
-                <?php if ($flat_available) : print $flat_available; endif;?>
-                <?php if ($de_a_pieces) : print ', ' . $de_a_pieces; endif;?>
-            </p>
+            <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
+              <p class="toolbox__intro">
+                  <strong><?php print t('Livraison'); ?></strong>
+                  <?php print t('à partir du'); ?>
+                  <?php
+                  if ($trimstre) : print $trimstre;
+                  endif;
+                  ?>
+                  <?php
+                  if ($annee) : print $annee . "<br>";
+                  endif;
+                  ?>
+                  <?php
+                  if ($flat_available) : print $flat_available;
+                  endif;
+                  ?>
+                  <?php
+                  if ($de_a_pieces) : print ', ' . $de_a_pieces;
+                  endif;
+                  ?>
+              </p>
             <?php endif; ?>
 
-            <?php if($de_a_price_tva || $de_a_price) : ?>
-            <ul class="content-price">
-                <?php if($de_a_price_tva) : ?>
-                <li class="content-price__item">
-                  <span class="text">
-                    <?php if ($de_a_price_tva) : print $de_a_price_tva; endif;?>
-                  </span>
-                  <span class="tags">
-                    <?php if ($tva) : ?>
-                      <div class="tva"><?php print $tva; ?></div>
-                    <?php endif; ?>
-                  <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
-                  </span>
-                </li>
-                <?php endif; ?>
-                <?php if($de_a_price) : ?>
-                <li class="content-price__item">
-                  <span class="text">
-                    <?php if ($de_a_price) : print $de_a_price; endif;?>
-                  </span>
-                  <span class="tags">
-                    <div class="tva tva--high">TVA 20%</div>
-                  </span>
-                </li>
-                <?php endif; ?>
-            </ul>
+            <?php if ($de_a_price_tva || $de_a_price) : ?>
+              <ul class="content-price">
+                  <?php if ($de_a_price_tva) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price_tva) : print $de_a_price_tva;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <?php if ($tva) : ?>
+                              <div class="tva"><?php print $tva; ?></div>
+                            <?php endif; ?>
+                            <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+                  <?php if ($de_a_price) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price) : print $de_a_price;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <div class="tva tva--high">TVA 20%</div>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+              </ul>
             <?php endif; ?>
 
 
             <p class="toolbox__intro"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
             <!-- [contactUs mini] start-->
-            <aside class="contactUs-mini"><a href="tel://0800544000" class="phone-green"><span>N°&nbsp;vert&nbsp;</span>0 800 544 000</a>
-                <div class="contactUs__cta"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-primary btn-rounded">Rappelez moi</a><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-secondary btn-rounded">Prendre rendez-vous</a></div>
-            </aside>
-            <!-- [contactUs mini] end--><a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+            <?php
+            if (function_exists('kandb_contact_block_page')) {
+              print kandb_contact_block_page(TRUE);
+            }
+            ?>
+            <!-- [contactUs mini] end-->
+            <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
             <div class="sharing">
                 <ul class="sharing__items">
                     <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
@@ -268,9 +289,9 @@ foreach ($arr_slider as $field_name) {
         </div>
 
         <div class="programHeader__content__details">
-            <?php if($caracteristiques) : ?>
-            <ul class="characteristicList">
-                <?php
+            <?php if ($caracteristiques) : ?>
+              <ul class="characteristicList">
+                  <?php
                   foreach ($caracteristiques as $caracteristique) {
                     if (isset($caracteristique['tid'])) {
                       $carac_term = taxonomy_term_load($caracteristique['tid']);
@@ -280,8 +301,8 @@ foreach ($arr_slider as $field_name) {
                       }
                     }
                   }
-                ?>
-            </ul>
+                  ?>
+              </ul>
             <?php endif; ?>
             <?php if ($en_quelques_mots) : ?>
               <p class="intro">
@@ -289,12 +310,12 @@ foreach ($arr_slider as $field_name) {
               </p>
             <?php endif; ?>
             <ul class="toolsList show-for-medium-up">
-                <li><a href="#" class="btn-white"><span class="icon icon-plan"></span><span class="text">Logements disponibles</span></a></li>
+                <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
                 <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
                 <?php if ($status_document) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                 <?php endif; ?>
@@ -320,7 +341,7 @@ foreach ($arr_slider as $field_name) {
         </header>
     </div>
     <div class="swapItem">
-        <div class="swapItem__2">
+        <div class="swapItem__2 ">
             <div class="wrapper--medium-up">
                 <?php if ($habiteo_id): ?>
                   <div class="iframe iframe--video-de-quartier">
@@ -338,13 +359,14 @@ foreach ($arr_slider as $field_name) {
                     'zoom' => 10,
                     'width' => '100%',
                     'height' => '490px',
-                    'type' => 'Satellite',
+                    'type' => 'Map',
                   );
 
                   $settings['markers'] = array(
                     array(
                       'latitude' => $latitude,
                       'longitude' => $longitude,
+                      'markername' => 'Kandb',
                     ),
                   );
 
@@ -352,8 +374,9 @@ foreach ($arr_slider as $field_name) {
                     '#type' => 'gmap',
                     '#gmap_settings' => $settings,
                   );
+                  print '<div class="show-for-medium-up">';
                   print drupal_render($element);
-
+                  print '</div>';
                 endif;
                 ?>
             </div>
@@ -438,25 +461,30 @@ $list_document = array();
 if (!empty($file_plaquette_commerciale)) {
   $list_document[] = array(
     'document' => $file_plaquette_commerciale,
-    'title' => t('Plaquette commerciale')
+    'title' => t('Plaquette commerciale'),
+    'icon'  => 'icon-flyer'
   );
 }
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
-    'title' => t('Kit juridique')
+    'title' => t('Fiche Renseignement'),
+    'icon'  => 'icon-file'
   );
 }
+
 if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
-    'title' => t('Kit fiscal')
+    'title' => t('Plan du bâtiment'),
+    'icon'  => 'icon-planing '
   );
 }
-if (!empty($file_plan_batiment)) {
+if (!empty($file_kit_fiscal)) {
   $list_document[] = array(
-    'document' => $file_plan_batiment,
-    'title' => t('Plan du bâtiment')
+    'document' => $file_kit_fiscal,
+    'title' => t('Kit fiscal'),
+    'icon'  => 'icon-calculator'
   );
 }
 
@@ -480,7 +508,8 @@ if (!empty($list_document)):
                   <ul class="row">
                       <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
-                            <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> ><span class="icon icon-flyer"></span>
+                            <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
+                                <span class="icon <?php print $item["icon"] ?>"></span>
                                 <div class="heading heading--small">
                                     <div class="heading__title"><?php print $item["title"] ?></div>
                                 </div>

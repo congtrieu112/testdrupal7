@@ -23,7 +23,39 @@ function kb_import_menu() {
     'title' => 'Configure ftp to get files',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  $items['migration'] = array(
+    'title' => 'Migration import',
+    'description' => 'Run migration import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('migration_impor_admin_form'),
+    'access arguments' => array('administer'),
+    'file' => 'kb_import.admin.inc',
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/reports/migration_errorlog'] = array(
+    'title' => 'migration errorlog',
+    'description' => 'Manage error loges of migration import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('migration_errorlog_form'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer content types'),
+    'file' => 'kb_import.pages.inc',
+  );
+  $items['migration-errorlog/delete/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('delete_migration_errorlog_confirm_form', 2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
 
+  $items['migration-errorlog/download/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'download_migration_errorlog',
+    'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
   return $items;
 }
 
@@ -54,6 +86,11 @@ function kb_import_cronapi($op, $job = NULL) {
     'rule' => '0 3 * * 1-5',
     'callback' => 'kb_starting_daily_import' ,
   );
+  $items['kandb_start_migration_import'] = array(
+    'description' => 'Start migration import',
+    'rule' => '0 18 * * 1-5',
+    'callback' => 'kb_start_migration_import' ,
+  );
 
   return $items;
 }
@@ -82,7 +119,21 @@ $kb_daily_import_importers = array(
 //Call event daily_import_importer_finish
     rules_invoke_event('daily_import_importer_finish', $id);
   }
+  $kb_migration_status = get_migration_status();
+  if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
+    if (isset($source->exception) || !_check_successful_importer($source)) {
+      $status = -1;
+    }
+    else {
+      $status = 1;
+    }
+    $kb_migration_status[$id . '_status'] = $status;
+    set_migration_status($kb_migration_status);
+    kb_migration_logging ('migration : finish ' . $id);
+    rules_invoke_event('migration_importer_finish', $id);
+  }
 }
+
 function kb_starting_daily_import(){
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = kb_import_ftp_get_files();
@@ -95,30 +146,53 @@ function kb_starting_daily_import(){
     rules_invoke_event('starting_daily_import');
   }
 }
+function kb_start_migration_import($getting_file = TRUE){
+  module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
+  $start_getting_file = TRUE;
+  if ($getting_file !== 0) {
+    $start_getting_file = kb_import_ftp_get_files();
+  }
+  if($start_getting_file) {
+    kb_migration_logging ('migration : get files via FTP success');
+  //Flush data
+  $flushed = kb_flush_data ();
+  if (isset($flushed['node']) && $flushed['node'] > 0) {
+    kb_migration_logging ('migration : deleted ' . $flushed['node'] . ' nodes');
+  }
+  if (isset($flushed['term']) && $flushed['term'] > 0) {
+    kb_migration_logging ('migration : deleted ' . $flushed['term'] . ' terms');
+  }
+  //Set variable's status
+    $kb_migration_status = migration_status_default();
+    $kb_migration_status['start_migration'] = 1;
+    set_migration_status ($kb_migration_status);
+    kb_migration_logging ('migration : start migration');
+  //Call event start_migration_import
+    rules_invoke_event('start_migration_import');
+  }
+}
 
 function kb_daily_import_importer_list() {
-  $all_daily_importer = array(
-    'city_feed_import',
-    'district_feed_import',
-    'maison_feed_import',
-    'programme_feed_import',
-    'parcel_feed_import',
-  );
   $importer_ops = array();
   $importers = feeds_importer_load_all(TRUE);
   foreach($importers as $k => $importer){
-    if(in_array($k, $all_daily_importer)){
-      $name = $importer->config['name'];
-      $importer_ops[$k] = $name;
-    }
+    $name = $importer->config['name'];
+    $importer_ops[$k] = $name;
   }
+  $importer_ops['import_bien_pdf'] = 'Import bien PDF';
   return $importer_ops;
 }
 function get_daily_import_status () {
   return variable_get('kb_daily_import_status', daily_import_status_default());
 }
+function get_migration_status () {
+  return variable_get('kb_migration_status', migration_status_default());
+}
 function set_daily_import_status ($kb_daily_import_status) {
   variable_set('kb_daily_import_status', $kb_daily_import_status);
+}
+function set_migration_status ($kb_migration_status) {
+  variable_set('kb_migration_status', $kb_migration_status);
 }
 function daily_import_status_default() {
   $kb_daily_import_status = array(
@@ -131,6 +205,26 @@ function daily_import_status_default() {
   );
   return $kb_daily_import_status;
 }
+function migration_status_default() {
+  $kb_migration_status = array(
+    'start_migration' => 0,
+    'city_feed_import_status' => 0,
+    'district_feed_import_status' => 0,
+    'maison_feed_import_status' => 0,
+    'migration_program_import_status' => 0,
+    'kb_patrimoine_import_status' => 0,
+    'parcel_feed_import_status' => 0,
+    'import_bien_pdf_status' => 0,
+    'migration_bien_import_status' => 0,
+    'migration_program_video_import_status' => 0,
+    'document_import_communique_de_presse_status' => 0,
+    'document_import_status' => 0,
+    'migration_program_status' => 0,
+    'migration_bien_status' => 0,
+    'migration_document_status' => 0,
+  );
+  return $kb_migration_status;
+}
 function _check_successful_importer ($feeds_source) {
   $status = FALSE;
   if (isset($feeds_source->state['parse']->total) && $feeds_source->state['parse']->total > 0) {
@@ -142,8 +236,103 @@ function _check_successful_importer ($feeds_source) {
 }
 function kb_daily_import_logging ($message) {
   if(module_exists('kandb_feed') && $message != ''){
+    $message .= "\n";
     $uri = 'private://daily-import-log/';
     $file_log_name = 'daily_import_log_' . date('Y-m-d') . '.txt';
     createFileErrorLogTxt($file_log_name, $message, $uri);
   }
+}
+function kb_migration_logging ($message) {
+  if(module_exists('kandb_feed') && $message != ''){
+    $message .= "\n";
+    $uri = 'private://migration/';
+    $file_log_name = 'migration_log_' . date('Y-m-d') . '.txt';
+    createFileErrorLogTxt($file_log_name, $message, $uri);
+  }
+}
+function download_migration_errorlog($file_name) {
+  $path = "private://migration";
+  if (file_exists($path)) {
+    $filePath = $path . '/' . $file_name;
+    if ($filePath) {
+      if (file_exists($filePath)) {
+        // set headers push to download the zip
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Cache-Control: public");
+        header('Content-type: application/octet-stream');
+        header("Content-Transfer-Encoding: Binary");
+        header('Content-Disposition: attachment; filename="' . $file_name . '"');
+        header("Content-Length: " . filesize($filePath));
+
+        $fp = @fopen($filePath, "rb");
+        if ($fp) {
+          while (!feof($fp)) {
+            echo fread($fp, 8192);
+            flush();
+            if (connection_status() != 0) {
+              @fclose($filePath);
+              die();
+            }
+          }
+          @fclose($filePath);
+        }
+        //unlink($filePath);
+      }
+    }
+  }
+}
+function delete_migration_errorlog_confirm_form($form, $form_state, $file_name) {
+  $form['file_name'] = array(
+    '#type' => 'value',
+    '#value' => $file_name,
+  );
+  return confirm_form($form, t('Are you sure you want to change the availability?'), 'here_goes_your_backurl_for_cancel_link');
+}
+function delete_migration_errorlog_confirm_form_submit($form, $form_state) {
+  $file_name = $form_state['values']['file_name'];
+  delete_migration_errorlog($file_name);
+}
+
+function delete_migration_errorlog($file_name) {
+  $path = "private://migration";
+  if (file_exists($path)) {
+    $filePath = $path . '/' . $file_name;
+    if ($filePath) {
+      unlink($filePath);
+    }
+  }
+}
+
+function kb_flush_data () {
+  $result = array();
+  //Delete all nodes
+  $node_types = array(
+    'programme',
+    'bien',
+    'document',
+    'maison',
+  );
+  $query_node = db_select('node', 'n');
+  $query_node->fields('n', array('nid'));
+  $query_node->condition('n.type', $node_types, 'IN');
+  $nids = $query_node->execute()->fetchCol();
+  node_delete_multiple($nids);
+  $result['node'] = count($nids);
+  //Delete all terms
+  $vocs = array(
+    'arrondissement',
+    'ville',
+  );
+  $query_term = db_select('taxonomy_term_data', 't');
+  $query_term->fields('t', array('tid'));
+  $query_term->leftJoin('taxonomy_vocabulary', 'voc', 'voc.vid=t.vid');
+  $query_term->condition('voc.machine_name', $vocs, 'IN');
+  $tids = $query_term->distinct()->execute()->fetchCol();
+  foreach ($tids as $tid) {
+    taxonomy_term_delete($tid);
+  }
+  $result['term'] = count($tids);
+  return $result;
 }
