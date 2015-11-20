@@ -535,7 +535,7 @@ function kandb_update_7146() {
 /*
  * Enable kandb_xml_sitemap module
  */
-function kandb_update_7146() {
+function kandb_update_7147() {
   if (!module_exists('kandb_xml_sitemap')) {
     module_enable(array('kandb_xml_sitemap'), TRUE);
   }
