@@ -536,7 +536,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
               }
             }
 
-            if((int)$item['tva'] == 0) {
+            if((int)$item['tva'] == 0 && is_numeric($item['tva'])) {
               $entity->field_tva[LANGUAGE_NONE][0]['tid'] = 1;
             } else {
               $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
