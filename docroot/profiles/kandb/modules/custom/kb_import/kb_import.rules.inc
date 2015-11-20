@@ -120,6 +120,7 @@ function kb_import_run_importer($importer = '') {
         $kb_migration_status[$importer . '_status'] = -1;
         set_migration_status($kb_migration_status);
         $kb_rule = 'migration';
+        kb_migration_logging ('migration : start ' . $importer);
       }
     }
     //Run importer
@@ -137,9 +138,11 @@ function kb_import_run_importer($importer = '') {
           kb_migration_logging ('migration | ' . $importer . ' | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', $importer);
         }
+        set_migration_status(migration_status_default());
+        set_daily_import_status(daily_import_status_default());
       }
     }
-    elseif ($importer != 'import_bien_pdf') {
+    elseif ($importer == 'import_bien_pdf') {
       try {
         batch_set(import_bien_pdf_batch_operation());
       }
@@ -147,6 +150,8 @@ function kb_import_run_importer($importer = '') {
         if ($kb_rule == 'migration') {
           kb_migration_logging ('migration | import_bien_pdf | Error: ' . $e->getMessage());
           rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
+          set_migration_status(migration_status_default());
+          set_daily_import_status(daily_import_status_default());
         }
       }
     } 
@@ -273,6 +278,7 @@ function kb_programme_migration_finish () {
     //Check other status
     if ($kb_migration_status['migration_document_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
+      kb_migration_logging ('migration : migration success');
     }
     else {
       $kb_migration_status['migration_program_status'] = $migration_document_status;
@@ -307,6 +313,7 @@ function kb_bien_migration_finish () {
   }
   if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_document_status'] != 0) {
     set_migration_status(migration_status_default());
+    kb_migration_logging ('migration : migration success');
   }
   else {
     $kb_migration_status['migration_bien_status'] = $migration_bien_status;
@@ -326,6 +333,7 @@ function kb_document_migration_finish () {
     }
     if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
+      kb_migration_logging ('migration : migration success');
     }
     else {
       $kb_migration_status['migration_document_status'] = $migration_document_status;
