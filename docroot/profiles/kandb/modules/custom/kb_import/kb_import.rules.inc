@@ -120,6 +120,7 @@ function kb_import_run_importer($importer = '') {
         $kb_migration_status[$importer . '_status'] = -1;
         set_migration_status($kb_migration_status);
         $kb_rule = 'migration';
+        kb_migration_logging ('migration : start ' . $importer);
       }
     }
     //Run importer
