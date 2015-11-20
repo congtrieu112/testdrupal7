@@ -878,72 +878,66 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           19 => array(
-            'source' => 'PrixMinimum',
-            'target' => 'field_programme_min_price',
-            'unique' => FALSE,
-          ),
-          20 => array(
             'source' => 'TrimestreLivraison',
             'target' => 'field_trimestre',
             'unique' => FALSE,
           ),
-          21 => array(
+          20 => array(
             'source' => 'AnneeLivraison',
             'target' => 'field_annee',
             'unique' => FALSE,
           ),
-          22 => array(
+          21 => array(
             'source' => 'DescriptifLongue',
             'target' => 'field_en_quelques_mots',
             'unique' => FALSE,
           ),
-          23 => array(
+          22 => array(
             'source' => 'Rt2012',
             'target' => 'field_slider_rt2012_bbc',
             'unique' => FALSE,
           ),
-          24 => array(
+          23 => array(
             'source' => 'Tva',
             'target' => 'field_tva',
-            'term_search' => '1',
-            'autocreate' => 0,
+            'unique' => FALSE,
           ),
-          25 => array(
+          24 => array(
             'source' => 'X',
             'target' => 'field_programme_loc_long',
             'unique' => FALSE,
           ),
-          26 => array(
+          25 => array(
             'source' => 'Y',
             'target' => 'field_programme_loc_lat',
             'unique' => FALSE,
           ),
-          27 => array(
+          26 => array(
             'source' => 'VendeurNom',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          28 => array(
+          27 => array(
             'source' => 'BureauDeVenteAdresse',
             'target' => 'field_espace_vente_adresse',
             'unique' => FALSE,
           ),
-          29 => array(
+          28 => array(
             'source' => 'BureauDeVenteHoraireOuverture',
             'target' => 'field_espace_vente_horaire',
             'unique' => FALSE,
           ),
-          30 => array(
+          29 => array(
             'source' => 'BureauDeVenteX',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          31 => array(
+          30 => array(
             'source' => 'BureauDeVenteY',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
-          32 => array(
+          31 => array(
             'source' => 'DateMiseEnLigne',
             'target' => 'field_programme_online_date:start',
             'unique' => FALSE,
