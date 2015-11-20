@@ -1199,7 +1199,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
         foreach ($fields as $key => $field_name) {
           if ($item[$key] != "0" || $item[$key] != 0) {
             if(!empty($item[$key])) {
-              if(!in_array((int)$item[$key], array(0,1))) {
+              if(!is_numeric($item[$key]) || !in_array((int)$item[$key], array(0,1))) {
                 if($type == 'check_box') {
                   $error_checkbox_field .= $field_name . ',';
                 } elseif($type == 'check_box_warning') {
