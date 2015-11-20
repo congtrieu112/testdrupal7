@@ -90,7 +90,16 @@ $errors = form_get_errors();
                 </div>
 
                 <div class="form-dropdown__bottom">
-                    <?php print render($form['submit']); ?>
+                    <!-- others-->
+                    <ul class="ul-unstyled extra-checkboxes">
+
+                    </ul>
+                    <div class="submit-wrapper">
+                        <!-- "url" is a static variable: Js will take the current URL-->
+                        <button data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></button>
+                        <!-- submit-->
+                        <?php print render($form['submit']); ?>
+                    </div>
                 </div>
             </div>
 

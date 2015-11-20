@@ -136,6 +136,7 @@ dependencies[] = kandb_offre
 dependencies[] = kandb_standard_page
 ; dependencies[] = kandb_webform_contact_settings
 dependencies[] = kandb_offre_menu_views
+dependencies[] = kandb_settings
 
 ; Blocks
 dependencies[] = kandb_recherche

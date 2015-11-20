@@ -310,12 +310,12 @@ foreach ($arr_slider as $field_name) {
               </p>
             <?php endif; ?>
             <ul class="toolsList show-for-medium-up">
-                <li><a href="#" class="btn-white"><span class="icon icon-plan"></span><span class="text">Logements disponibles</span></a></li>
+                <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
                 <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
                 <?php if ($status_document) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                 <?php endif; ?>
@@ -477,7 +477,7 @@ if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
     'title' => t('Plan du bâtiment'),
-    'icon'  => 'icon-plan '
+    'icon'  => 'icon-planing '
   );
 }
 if (!empty($file_kit_fiscal)) {
