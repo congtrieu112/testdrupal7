@@ -129,6 +129,7 @@ $kb_daily_import_importers = array(
     }
     $kb_migration_status[$id . '_status'] = $status;
     set_migration_status($kb_migration_status);
+    kb_migration_logging ('migration : finish ' . $id);
     rules_invoke_event('migration_importer_finish', $id);
   }
 }
@@ -152,10 +153,20 @@ function kb_start_migration_import($getting_file = TRUE){
     $start_getting_file = kb_import_ftp_get_files();
   }
   if($start_getting_file) {
+    kb_migration_logging ('migration : get files via FTP success');
+  //Flush data
+  $flushed = kb_flush_data ();
+  if (isset($flushed['node']) && $flushed['node'] > 0) {
+    kb_migration_logging ('migration : deleted ' . $flushed['node'] . ' nodes');
+  }
+  if (isset($flushed['term']) && $flushed['term'] > 0) {
+    kb_migration_logging ('migration : deleted ' . $flushed['term'] . ' terms');
+  }
   //Set variable's status
     $kb_migration_status = migration_status_default();
     $kb_migration_status['start_migration'] = 1;
     set_migration_status ($kb_migration_status);
+    kb_migration_logging ('migration : start migration');
   //Call event start_migration_import
     rules_invoke_event('start_migration_import');
   }
@@ -292,4 +303,36 @@ function delete_migration_errorlog($file_name) {
       unlink($filePath);
     }
   }
+}
+
+function kb_flush_data () {
+  $result = array();
+  //Delete all nodes
+  $node_types = array(
+    'programme',
+    'bien',
+    'document',
+    'maison',
+  );
+  $query_node = db_select('node', 'n');
+  $query_node->fields('n', array('nid'));
+  $query_node->condition('n.type', $node_types, 'IN');
+  $nids = $query_node->execute()->fetchCol();
+  node_delete_multiple($nids);
+  $result['node'] = count($nids);
+  //Delete all terms
+  $vocs = array(
+    'arrondissement',
+    'ville',
+  );
+  $query_term = db_select('taxonomy_term_data', 't');
+  $query_term->fields('t', array('tid'));
+  $query_term->leftJoin('taxonomy_vocabulary', 'voc', 'voc.vid=t.vid');
+  $query_term->condition('voc.machine_name', $vocs, 'IN');
+  $tids = $query_term->distinct()->execute()->fetchCol();
+  foreach ($tids as $tid) {
+    taxonomy_term_delete($tid);
+  }
+  $result['term'] = count($tids);
+  return $result;
 }
