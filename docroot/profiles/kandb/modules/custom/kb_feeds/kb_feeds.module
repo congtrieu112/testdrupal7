@@ -323,7 +323,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
   $totalItems = count($item);
 
   $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
-  $file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+  //$file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+  $file_log_name = variable_get($entity->feeds_item->id . '_log_name');
 
   $tid = 0;
   if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
@@ -586,9 +587,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
     }
   }
 
+  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
     if(strpos($logging, 'Skip import')) {
+      variable_set($entity->feeds_item->id . '_rejected', $rejected + 1);
       $entity->feeds_item->skip = TRUE;
     }
   }
@@ -605,7 +608,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
  * @param type $item
  */
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
-  $file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
+  //$file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
+  $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
   if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
     global $base_url;
@@ -665,7 +669,9 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
       }
 
+      $rejected = variable_get($source->id . '_rejected', 0);
       if ($logging) {
+        variable_set($source->id . '_rejected', $rejected + 1);
         createFileErrorLogTxt($file_log_name, $logging);
       }
     }
@@ -675,7 +681,9 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         $logging = $row[0] . '|term_name|' . 'Term name is required' . '|' . 'Skip import' . "\n";
       }
 
+      $rejected = variable_get($source->id . '_rejected', 0);
       if ($logging) {
+        variable_set($source->id . '_rejected', $rejected + 1);
         createFileErrorLogTxt($file_log_name, $logging);
       }
     }
@@ -1107,6 +1115,15 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $error_datetime_programe_field_warning = '';
   $error_custom_echelle_options_field_warning = '';
 
+  $value_log_field = '';
+  $value_term_field = '';
+  $value_checkbox_field = '';
+  $value_date_field = '';
+  $value_text_box_field = '';
+  $value_custom_trimestre_options_field = '';
+  $value_datetime_programe_field = '';
+  $value_custom_echelle_options_field = '';
+
   foreach ($validates as $type => $fields) {
     switch ($type) {
       case 'term_name':
@@ -1118,9 +1135,11 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
           if (trim($item[$key]) == "" || (trim($item[$key]) && !isset($field[LANGUAGE_NONE][0]['tid']))) {
             if($type == 'term_field_id' || $type == 'term_name') {
               $error_term_field .= $field_name . ',';
+              $value_term_field .= $field_name . ': ' . $item[$key] . ', ';
             } elseif($type == 'term_field_id_warning' || $type == 'term_name_warning') {
               if(trim($item[$key]) != "") {
                 $error_term_field_warning .= $field_name . ',';
+                $value_term_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           }
@@ -1132,6 +1151,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
           $field = $entity->$field_name;
           if (trim($item[$key]) && !isset($field[LANGUAGE_NONE][0]['target_id'])) {
             $error_term_field .= $field_name . ',';
+            $value_term_field .= $field_name . ': ' . $item[$key] . ', ';
           }
         }
 
@@ -1146,19 +1166,23 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
               if (!is_numeric($item[$key])) {
                 if($type == 'number') {
                   $error_log_field .= $field_name . ',';
+                  $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
                 } elseif($type == 'number_warning') {
                   $error_log_field_warning .= $field_name . ',';
+                  $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
                 }
 
               } else {
                 $number = (int) $item[$key];
                 if ($number == 0) {
                   $error_log_field .= $field_name . ',';
+                  $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
                 }
               }
             } else {
               if($type == 'number') {
                 $error_log_field .= $field_name . ',';
+                $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           }
@@ -1172,9 +1196,11 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
           if (isset($item[$key]) && trim($item[$key])) {
             if (!isset($field[LANGUAGE_NONE][0]['value'])) {
               $error_date_field .= $field_name . ',';
+              $value_date_field .= $field_name . ': ' . $item[$key] . ', ';
             } else {
               if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) 00:00:00$/", $item[$key])) {
                 $error_date_field .= $field_name . ',';
+                $value_date_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           }
@@ -1190,13 +1216,16 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
               if(!is_numeric($item[$key]) || !in_array((int)$item[$key], array(0,1))) {
                 if($type == 'check_box') {
                   $error_checkbox_field .= $field_name . ',';
+                  $value_checkbox_field .= $field_name . ': ' . $item[$key] . ', ';
                 } elseif($type == 'check_box_warning') {
                   $error_checkbox_field_warning .= $field_name . ',';
+                  $value_checkbox_field .= $field_name . ': ' . $item[$key] . ', ';
                 }
               }
             } else {
               if($type == 'check_box') {
                 $error_checkbox_field .= $field_name . ',';
+                $value_checkbox_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           }
@@ -1209,6 +1238,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
           if(isset($item[$key]) && !trim($item[$key])) {
             if($type == 'text_box') {
               $error_text_box_field .= $field_name . ',';
+              $value_text_box_field .= $field_name . ': ' . $item[$key] . ', ';
             }
           }
         }
@@ -1222,13 +1252,16 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
             if(!in_array((int)$item[$key], array(1,2,3,4))) {
               if($type == 'custom_trimestre_options') {
                 $error_custom_trimestre_options_field .= $field_name . ',';
+                $value_custom_trimestre_options_field .= $field_name . ': ' . $item[$key] . ', ';
               } elseif ($type == 'custom_trimestre_options_warning') {
                 $error_custom_trimestre_options_field_warning .= $field_name . ',';
+                $value_custom_trimestre_options_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           } else {
             if($type == 'custom_trimestre_options') {
               $error_custom_trimestre_options_field .= $field_name . ',';
+              $value_custom_trimestre_options_field .= $field_name . ': ' . $item[$key] . ', ';
             }
           }
         }
@@ -1240,6 +1273,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
           if(isset($item[$key]) && trim($item[$key])) {
             if(!in_array((int)$item[$key], array(1,2,3))) {
               $error_custom_echelle_options_field_warning .= $field_name . ',';
+              $value_custom_echelle_options_field .= $field_name . ': ' . $item[$key] . ', ';
             }
           }
         }
@@ -1253,13 +1287,16 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
             if(!strtotime($item[$key])) {
               if($type == 'date_time_programme') {
                 $error_datetime_programe_field .= $field_name . ',';
+                $value_datetime_programe_field .= $field_name . ': ' . $item[$key] . ', ';
               } elseif($type == 'date_time_programme_warning') {
                 $error_datetime_programe_field_warning .= $field_name . ',';
+                $value_datetime_programe_field .= $field_name . ': ' . $item[$key] . ', ';
               }
             }
           } else {
             if($type == 'date_time_programme') {
               $error_datetime_programe_field .= $field_name . ',';
+              $value_datetime_programe_field .= $field_name . ': ' . $item[$key] . ', ';
             }
           }
         }
@@ -1270,60 +1307,60 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
   // Skip import
   if ($error_term_field) {
-    $logging .= $error_log . rtrim($error_term_field, ',') . '|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_term_field, ',') . '|' . rtrim($value_term_field, ',') . '|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_log_field) {
-    $logging .= $error_log . rtrim($error_log_field, ',') . '|' . 'Wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_log_field, ',') . '|' . rtrim($value_log_field, ',') . '|' . 'Wrong format' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_date_field) {
-    $logging .= $error_log . rtrim($error_date_field, ',') . '|' . 'Datetime wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_date_field, ',') .  '|' . rtrim($value_date_field, ',') . '|' . 'Datetime wrong format' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_checkbox_field) {
-    $logging .= $error_log . rtrim($error_checkbox_field, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_checkbox_field, ',') .  '|' . rtrim($value_checkbox_field, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_text_box_field) {
-    $logging .= $error_log . rtrim($error_text_box_field, ',') . '|' . 'Fields is mantory' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_text_box_field, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is mantory' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_custom_trimestre_options_field) {
-    $logging .= $error_log . rtrim($error_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_custom_trimestre_options_field, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_datetime_programe_field) {
-    $logging .= $error_log . rtrim($error_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_datetime_programe_field, ',') .  '|' . rtrim($value_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Skip import' . "\n";
   }
 
   // Warning
   if($error_term_field_warning) {
-    $logging .= $error_log . rtrim($error_term_field_warning, ',') . '|' . 'Term value not mapping' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_term_field_warning, ',') .  '|' . rtrim($value_term_field, ',') . '|' . 'Term value not mapping' . '|' . 'Warning' . "\n";
   }
 
   if($error_log_field_warning) {
-    $logging .= $error_log . rtrim($error_log_field_warning, ',') . '|' . 'Wrong format' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_log_field_warning, ',') .  '|' . rtrim($value_log_field, ',') . '|' . 'Wrong format' . '|' . 'Warning' . "\n";
   }
 
   if ($error_checkbox_field_warning) {
-    $logging .= $error_log . rtrim($error_checkbox_field_warning, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_checkbox_field_warning, ',') .  '|' . rtrim($value_checkbox_field, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Warning' . "\n";
   }
 
   if ($error_text_box_field_warning) {
-    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') . '|' . 'Fields is mantory' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is mantory' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_trimestre_options_field_warning) {
-    $logging .= $error_log . rtrim($error_custom_trimestre_options_field_warning, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_trimestre_options_field_warning, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Warning' . "\n";
   }
 
   if ($error_datetime_programe_field_warning) {
-    $logging .= $error_log . rtrim($error_datetime_programe_field_warning, ',') . '|' . 'Date time programme wrong format' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_datetime_programe_field_warning, ',') .  '|' . rtrim($value_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_echelle_options_field_warning) {
-    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') . '|' . 'Echelle must is number(1,2,3)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') .  '|' . rtrim($value_custom_echelle_options_field, ',') . '|' . 'Echelle must is number(1,2,3)' . '|' . 'Warning' . "\n";
   }
 
   return $logging;
@@ -1406,3 +1443,31 @@ function download_feeds_errorlog($file_name) {
     }
   }
 }
+
+/**
+ * Implements hook_feeds_after_import().
+ * @param FeedsSource $source\
+ */
+function kb_feeds_feeds_after_import(FeedsSource $source) {
+  $file_log_name = variable_get($source->importer()->id . '_log_name');
+  $total_rows = variable_get($source->importer()->id . '_total', 0);
+  $created = (int) $source->state(FEEDS_PROCESS)->created;
+  $updated = (int) $source->state(FEEDS_PROCESS)->updated;
+  $imported = $created + $updated;
+  $rejected = variable_get($source->importer()->id . '_rejected', 0);
+  $logging = '';
+
+  if($file_log_name && ($total_rows || $imported || $rejected)) {
+    $logging = '/**' . "\n";
+    $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
+    $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
+    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ')' . "\n";
+    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+    $logging .= ' */' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
+    variable_del($source->importer()->id . '_log_name');
+    variable_del($source->importer()->id . '_total');
+    variable_del($source->importer()->id . '_rejected');
+  }
+}
+

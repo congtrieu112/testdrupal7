@@ -212,6 +212,10 @@ class EncodingCSVParser extends ParserCSV {
       }
     }
 
+    if($linesParsed > 0) {
+      variable_set($this->id . '_total', $linesParsed);
+
+    }
 //    if ($logging != '') {
 //
 //      $file_log_name = '';
