@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B xml sitemap feature.
+ */
+
+include_once 'kandb_xml_sitemap.features.inc';

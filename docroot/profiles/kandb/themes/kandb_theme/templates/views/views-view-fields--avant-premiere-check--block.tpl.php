@@ -24,7 +24,7 @@
  */
 $style = $row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_avant_premiere_ville[0]['rendered']['#title']) ? $row->field_field_avant_premiere_ville[0]['rendered']['#title'] : '';
-$departement_tax = $row->field_field_avant_premiere_department[0]['rendered']['#options']['entity'];
+$departement_tax = isset($row->field_field_avant_premiere_department[0]['rendered']['#options']['entity']) ? $row->field_field_avant_premiere_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 $status_promotion = $row->field_promotion_avant_premiere_node_status;
 $available = false;

@@ -9,7 +9,7 @@
 ?>
 
 <?php $_SESSION['avant_promotion_uncheck'] = 0; ?>
-<ul class="small-block-grid-1 medium-block-grid-3">
+<ul data-app-filter-target="prochainement" class="flex-content ul-unstyled">
 <?php foreach ($rows as $id => $row): ?>
   <?php print $row; ?>
 <?php endforeach; ?>

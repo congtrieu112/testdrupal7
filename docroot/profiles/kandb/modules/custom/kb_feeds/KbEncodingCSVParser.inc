@@ -24,6 +24,12 @@ class KbEncodingCSVParser extends FeedsCSVParser {
       $parser->setColumnNames($header);
     }
 
+    $importer_id = $source->importer()->id;
+    if (isset($importer_id) && !variable_get($importer_id . '_log_name', 0)) {
+      $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
+      variable_set($importer_id . '_log_name', $file_log_name);
+    }
+
     // Determine section to parse, parse.
     $start = $state->pointer ? $state->pointer : $parser->lastLinePos();
     $limit = $source->importer->getLimit();
@@ -33,7 +39,7 @@ class KbEncodingCSVParser extends FeedsCSVParser {
     $state->pointer = $parser->lastLinePos();
     $progress = $parser->lastLinePos() ? $parser->lastLinePos() : $state->total;
     $state->progress($state->total, $progress);
-
+   
     // Create a result object and return it.
     return new FeedsParserResult($rows, $source->feed_nid);
   }

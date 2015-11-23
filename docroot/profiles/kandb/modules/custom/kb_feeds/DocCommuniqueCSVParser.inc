@@ -19,6 +19,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
     $this->startByte = 0;
     $this->lineLimit = 0;
     $this->lastLinePos = 0;
+    $this->id = '';
     ini_set('auto_detect_line_endings', TRUE);
   }
 
@@ -100,6 +101,10 @@ class DocCommuniqueCSVParser extends ParserCSV{
     return $this->lastLinePos;
   }
 
+  public function setId($id) {
+    return $this->id = $id;
+  }
+
   /**
    * Set the byte where file should be started to read.
    *
@@ -144,6 +149,19 @@ class DocCommuniqueCSVParser extends ParserCSV{
       if ($skipLine) {
         $skipLine = FALSE;
         continue;
+      }
+      $lines = explode('|', $line);
+      if($this->id == 'document_import_communique_de_presse') {
+        $lines = explode('|', $line);
+        if(count($lines) < 14) {
+          $concat_string .= $line;
+          if(count(explode('|', $concat_string)) == 14) {
+            $line = $concat_string;
+            $concat_string = '';
+          } else {
+            continue;
+          }
+        }
       }
 
       // The actual parser. explode() is unfortunately not suitable because the
@@ -294,12 +312,12 @@ class DocCommuniqueCSVParser extends ParserCSV{
               elseif (trim($field) == 'Off line') {
                   $field = 0;
               }
-              elseif (trim($fields) == 'On line + mise en avant') {
+              elseif (trim($field) == 'On line + mise en avant') {
                   $field = 1;
                   $doc_sticky = 1;
               }
           }
-
+          
           $row[$columnName] = isset($field) ? $field : '';
         }
         $row['sticky'] = $doc_sticky;
@@ -326,6 +344,11 @@ class DocCommuniqueCSVParser extends ParserCSV{
         break;
       }
     }
+
+    if($linesParsed > 0) {
+      variable_set($this->id . '_total', $linesParsed);
+    }
+
 //    if($log_text != ''){
 //        $file_log_name = 'document_import_communique_de_presse_log_' . date('Y-m-d') . '.txt';
 //        $uri = 'private://feeds/log/';

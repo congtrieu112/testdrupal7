@@ -33,17 +33,15 @@ function kandb_validate_avant_premiere(&$form, &$form_state) {
  */
 function kandb_validate_get_dates_from_range($start, $end) {
   $interval = new DateInterval('P1D');
-
+  $array = array();
   $realEnd = new DateTime($end);
   $realEnd->add($interval);
 
   $period = new DatePeriod(
     new DateTime($start), $interval, $realEnd
   );
-
   foreach ($period as $date) {
     $array[] = $date->format('d');
   }
-
   return $array;
 }
