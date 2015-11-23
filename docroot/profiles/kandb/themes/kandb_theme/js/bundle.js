@@ -38710,21 +38710,37 @@ searchInit();
 var trigger = 'select[data-app-select]';
 
 App.appComboSelect = function() {
-  $(trigger).comboSelect({
-    comboClass         : 'combo-select', /* outer container class */
-    comboArrowClass    : 'combo-select-arrow', /* arrow class */
-    comboDropDownClass : 'combo-dropdown', /* dropdown class */
-    inputClass         : 'combobox-input text-input', /* Input element class */
-    disabledClass      : 'option-disabled', /* Disabled class */
-    hoverClass         : 'option-hover', /* dropdown list hover class */
-    selectedClass      : 'option-selected', /* dropdown list selected class */
-    markerClass        : 'combo-marker', /* Search marker class */
-    maxHeight          : 200, /* Max height of dropdown */
-    themeClass         : '', /* Theme using external classes */
-    extendStyle        : true, /* Copy all inline styles from original select */
-    focusInput         : false,
-    filter             : false
-  });
+  $(trigger)
+    .comboSelect({
+        comboClass         : 'combo-select', /* outer container class */
+        comboArrowClass    : 'combo-select-arrow', /* arrow class */
+        comboDropDownClass : 'combo-dropdown', /* dropdown class */
+        inputClass         : 'combobox-input text-input', /* Input element class */
+        disabledClass      : 'option-disabled', /* Disabled class */
+        hoverClass         : 'option-hover', /* dropdown list hover class */
+        selectedClass      : 'option-selected', /* dropdown list selected class */
+        markerClass        : 'combo-marker', /* Search marker class */
+        maxHeight          : 200, /* Max height of dropdown */
+        themeClass         : '', /* Theme using external classes */
+        extendStyle        : true, /* Copy all inline styles from original select */
+        focusInput         : false,
+        filter             : false
+      })
+
+    // front display filter
+    .off('change.comboSelect').on('change.comboSelect', function(e){
+      var $this = $(this);
+
+      if ( typeof( $this.data('app-filter') ) !== 'undefined' ) {
+        var filter = $this.data('app-filter'),
+            $target = $('[data-app-filter-target="'+ filter +'"]').find('[data-app-filter-item]').show(),
+            item = $this.val();
+
+        if ( item ) {
+          $target.not('[data-app-filter-item="'+ item +'"]').hide();
+        }
+      }
+    });
 };
 
 App.appComboSelect();

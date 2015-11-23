@@ -5829,12 +5829,20 @@ _:-ms-lang(x), .infotip:after {
   margin-top: 0.83333rem; }
   .filter > * {
     margin-bottom: 0; }
+  .filter .combo-select {
+    display: inline-block;
+    width: 65%;
+    max-width: 18.75rem; }
+    .filter .combo-select input[type=text] {
+      border-width: 1px;
+      margin-bottom: 0; }
   .filter .form-dropdown__content--last {
     right: 0; }
   .filter__label {
     font-weight: 500;
     text-align: right;
-    margin-right: 1.25rem; }
+    margin-right: 1.25rem;
+    display: inline-block; }
   .filter__item {
     -webkit-align-self: flex-end;
     -moz-align-self: flex-end;
@@ -5866,7 +5874,13 @@ _:-ms-lang(x), .infotip:after {
     -ms-flex-align: center; }
     .filter-aside .filter {
       margin-top: 0;
-      margin-left: auto; } }
+      margin-left: auto;
+      -webkit-flex-grow: 2;
+      -moz-flex-grow: 2;
+      flex-grow: 2;
+      -ms-flex-positive: 2; }
+      .filter-aside .filter .combo-select {
+        max-width: 12.5rem; } }
 
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea {
   height: 3.1875rem;
@@ -6152,6 +6166,30 @@ input[type="checkbox"] + .label-checkbox {
     -moz-flex: 2;
     -ms-flex: 2;
     flex: 2; }
+
+@media only screen and (min-width: 48em) {
+  .flex-content {
+    /*@include display(flex);
+    @include flex-wrap(wrap);
+    @include justify-content(flex-start);
+
+    > * {
+      @include flex(0 0 32%);
+      margin: 1% 0;
+    }
+
+    > .flex-content__middle {
+      margin-left: 2%;
+      margin-right: 2%;
+    }*/
+    font-size: 0;
+    margin-left: -1% !important;
+    margin-right: -1% !important; }
+    .flex-content > * {
+      display: inline-block;
+      width: 31.3333%;
+      margin-left: 1% !important;
+      margin-right: 1% !important; } }
 
 html,
 body {
@@ -7599,10 +7637,14 @@ a.tag.tag--important:active {
   .combo-select input[type=text] {
     height: 3.1875rem;
     padding: 1rem;
+    padding-right: 2.5rem;
     font-size: 1rem;
     font-family: "Helvetica Neue", Helvetica, Arial, Roboto, sans-serif;
     font-weight: 400;
-    border: 2px solid #e0e0e0; }
+    border: 2px solid #e0e0e0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
     .combo-select input[type=text][readonly] {
       background: #ffffff; }
 

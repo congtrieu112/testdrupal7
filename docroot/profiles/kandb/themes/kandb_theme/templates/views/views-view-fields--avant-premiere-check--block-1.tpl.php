@@ -24,6 +24,7 @@
  */
 $style = $row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_avant_premiere_ville[0]['rendered']['#title']) ? $row->field_field_avant_premiere_ville[0]['rendered']['#title'] : '';
+$ville_id = isset($row->field_field_avant_premiere_ville[0]['raw']['tid']) ? $row->field_field_avant_premiere_ville[0]['raw']['tid'] : '';
 $departement_tax = $row->field_field_avant_premiere_department[0]['rendered']['#options']['entity'];
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 $status_promotion = $row->field_promotion_avant_premiere_node_status;
@@ -38,38 +39,15 @@ if ($row->field_promotion_avant_premiere_node_title):
   endif;
 endif;
 ?>
-<li>
+<li data-app-filter-item="<?php print $ville_id; ?>">
     <!-- [squaredImageItem] start-->
     <article class="squaredImageItem false">
         <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_avant_premiere_image_princ[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion_uncheck'] < 3): ?>
                   <li>
-                      <div class="tag tag--important">Plus que deux T3 disponibles</div>
-                  </li>
-                  <li>
-                      <button data-reveal-trigger="promotion-1-<?php print $row->nid; ?>" class="tag">TVA 7%<sup>(2)</sup></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="promotion-1-<?php print $row->nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
-                  </li>
-                  <li>
-                      <button data-reveal-trigger="promotion-2-<?php print $row->nid; ?>" class="tag">Livraison immédiate<sup>(1)</sup></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="promotion-2-<?php print $row->nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
+                      <div class="tag tag--important"><?php $row->field_promotion_avant_premiere_node_title; ?></div>
+                      <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                   </li>
                   <?php
                   $_SESSION['avant_promotion_uncheck'] += 1;
