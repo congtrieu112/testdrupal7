@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View nouveaute feature.
+ */
+
+include_once 'kandb_view_nouveaute.features.inc';
