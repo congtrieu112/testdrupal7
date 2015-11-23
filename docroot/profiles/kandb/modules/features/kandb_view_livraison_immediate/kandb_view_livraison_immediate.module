@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View Livraison Immediate feature.
+ */
+
+include_once 'kandb_view_livraison_immediate.features.inc';

@@ -286,7 +286,6 @@ function recherche_minimal_form($form, &$form_state) {
     '#type' => 'textfield',
     '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['place'],
   );
 
   $form['submit'] = array(
@@ -333,7 +332,6 @@ function recherche_simple_form($form, &$form_state) {
     '#type' => 'textfield',
     '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['place'],
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
@@ -354,7 +352,6 @@ function recherche_simple_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_min'],
   );
 
   $form['prix_max'] = array(
@@ -362,7 +359,6 @@ function recherche_simple_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
     '#theme_wrappers' => array(),
-    '#default_value' => $_GET['prix_max'],
   );
 
   $form['submit'] = array(
