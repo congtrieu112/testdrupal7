@@ -533,11 +533,37 @@ function kandb_update_7146() {
 }
 
 /*
- * Enable kandb_validate module
+ * Enable views_php module
  */
 function kandb_update_7147() {
+  if (!module_exists('views_php')) {
+    module_enable(array('views_php'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_view_nouveaute module
+ */
+function kandb_update_7148() {
+  if (!module_exists('kandb_view_nouveaute')) {
+    module_enable(array('kandb_view_nouveaute'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_view_livraison_immediate module
+ */
+function kandb_update_7149() {
+  if (!module_exists('kandb_view_livraison_immediate')) {
+    module_enable(array('kandb_view_livraison_immediate'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_validate module
+ */
+function kandb_update_7150() {
   if (!module_exists('kandb_validate')) {
     module_enable(array('kandb_validate'), TRUE);
   }
 }
-
