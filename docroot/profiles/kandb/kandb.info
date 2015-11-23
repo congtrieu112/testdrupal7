@@ -98,6 +98,7 @@ dependencies[] = kandb_business_rules
 dependencies[] = kandb_alias_dossier_article
 dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
+dependencies[] = kandb_validate
 
 ; Features
 dependencies[] = kandb_domains
