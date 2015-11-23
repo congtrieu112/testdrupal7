@@ -124,6 +124,11 @@ class KbParserCSV extends ParserCSV{
         break;
       }
     }
+
+    if($linesParsed > 0) {
+      variable_set($this->currentParser->id . '_total', $linesParsed);
+    }
+
 //    if($logging != ''){
 //        $file_log_name = $this->currentParser->id . '_log_' . date('Y-m-d') . '.txt';
 //        $uri = 'private://feeds/log/';

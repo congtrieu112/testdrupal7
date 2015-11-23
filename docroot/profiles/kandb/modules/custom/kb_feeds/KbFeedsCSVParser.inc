@@ -19,6 +19,13 @@ class KbFeedsCSVParser extends FeedsCSVParser {
       }
       $parser->setColumnNames($header);
     }
+    
+    $importer_id = $source->importer()->id;
+    if (isset($importer_id) && !variable_get($importer_id . '_log_name', 0)) {
+      $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
+      variable_set($importer_id . '_log_name', $file_log_name);
+    }
+
     $start = $state->pointer ? $state->pointer : $parser->lastLinePos();
     $limit = $source->importer->getLimit();
     $rows = $this->parseItems($parser, $iterator, $start, $limit);
