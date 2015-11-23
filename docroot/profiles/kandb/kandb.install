@@ -558,3 +558,12 @@ function kandb_update_7149() {
     module_enable(array('kandb_view_livraison_immediate'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_validate module
+ */
+function kandb_update_7150() {
+  if (!module_exists('kandb_validate')) {
+    module_enable(array('kandb_validate'), TRUE);
+  }
+}

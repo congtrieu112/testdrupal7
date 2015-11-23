@@ -81,7 +81,7 @@ function kandb_offre_strongarm() {
         'domain' => array(
           'default' => array(
             'weight' => '1',
-            'visible' => TRUE,
+            'visible' => FALSE,
           ),
         ),
       ),

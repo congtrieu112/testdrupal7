@@ -37,46 +37,29 @@ if ($row->field_promotion_avant_premiere_node_title):
     $available = true;
   endif;
 endif;
+$node = node_load($row->nid);
+$date_range_string = '';
+if (module_exists('kandb_validate')) {
+  $start_date = $node->field_avant_premiere_date_debut[LANGUAGE_NONE][0]['value'];
+  $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
+  $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
+  $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
+}
 ?>
 <div class="slick-slider__item">
 
     <!-- [squaredImageItem] start-->
     <article class="squaredImageItem false">
         <aside>
-            <p class="squaredImageItem__date">24 &amp; 25 &amp; 26 Décembre</p>
+            <p class="squaredImageItem__date"><?php print $date_range_string; ?></p>
         </aside>
-        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_avant_premiere_image_princ[0]['raw']['alt'];?>"/></a>
+        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_avant_premiere_image_princ[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
 
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion'] < 3): ?>
                   <li>
                       <div class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></div>
                       <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
-                  </li>
-
-                  <li>
-                      <button data-reveal-trigger="promotion-1-<?php print $row->nid; ?>" class="tag">TVA 7%<sup>(2)</sup></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="promotion-1-<?php print $row->nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
-                  </li>
-                  <li>
-                      <button data-reveal-trigger="promotion-2-<?php print $row->nid; ?>" class="tag">Livraison immédiate<sup>(1)</sup></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="promotion-2-<?php print $row->nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
                   </li>
                   <?php
                   $_SESSION['avant_promotion'] += 1;

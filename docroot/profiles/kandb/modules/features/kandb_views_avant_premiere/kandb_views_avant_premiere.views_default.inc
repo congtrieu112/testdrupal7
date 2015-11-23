@@ -137,8 +137,8 @@ function kandb_views_avant_premiere_views_default_views() {
     1 => '1',
   );
 
-  /* Display: Avant Première by checked */
-  $handler = $view->new_display('block', 'Avant Première by checked', 'block');
+  /* Display: Avant Première (carrousel) */
+  $handler = $view->new_display('block', 'Avant Première (carrousel)', 'block');
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -163,8 +163,8 @@ function kandb_views_avant_premiere_views_default_views() {
     1 => '1',
   );
 
-  /* Display: Avant Première by unchecked */
-  $handler = $view->new_display('block', 'Avant Première by unchecked', 'block_1');
+  /* Display: Avant Première (List) */
+  $handler = $view->new_display('block', 'Avant Première (List)', 'block_1');
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -207,8 +207,8 @@ function kandb_views_avant_premiere_views_default_views() {
     t('Nid promotion'),
     t('Published'),
     t('Mentions Légales'),
-    t('Avant Première by checked'),
-    t('Avant Première by unchecked'),
+    t('Avant Première (carrousel)'),
+    t('Avant Première (List)'),
   );
   $export['avant_premiere_check'] = $view;
 

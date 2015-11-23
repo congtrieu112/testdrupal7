@@ -1,0 +1,49 @@
+<?php
+
+/**
+ * Implement hook_form_Form_ID_alter().
+ */
+function kandb_validate_form_avant_premiere_node_form_alter(&$form, &$form_state) {
+  $form['#validate'][] = 'kandb_validate_avant_premiere';
+}
+
+/**
+ * Custom validate start date and end date for avant_premiere ct.
+ */
+function kandb_validate_avant_premiere(&$form, &$form_state) {
+  $input_val = $form_state['input'];
+  $start_date = $input_val['field_avant_premiere_date_debut'][LANGUAGE_NONE][0]['value'];
+  $end_date = $input_val['field_avant_premiere_date_fin'][LANGUAGE_NONE][0]['value'];
+  if (($start_date['year'] == $end_date['year']) && ($start_date['month'] == $end_date['month'])) {
+    if ($start_date['day'] < $end_date['day']) {
+      $date_diff = intval($end_date['day']) - intval($start_date['day']);
+      if ($date_diff > 2) {
+        form_set_error('field_avant_premiere_date_fin', t('the range between begin date and end date is from 1 - 3 days.'));
+      }
+    } else {
+      form_set_error('field_avant_premiere_date_debut', t('The end date should be greater than begin date'));
+    }
+  } else {
+    form_set_error('field_avant_premiere_date_debut', t('Both begin date and end date should be same year and month'));
+  }
+}
+
+/**
+ * Custom ger date range.
+ */
+function kandb_validate_get_dates_from_range($start, $end) {
+  $interval = new DateInterval('P1D');
+
+  $realEnd = new DateTime($end);
+  $realEnd->add($interval);
+
+  $period = new DatePeriod(
+    new DateTime($start), $interval, $realEnd
+  );
+
+  foreach ($period as $date) {
+    $array[] = $date->format('d');
+  }
+
+  return $array;
+}
