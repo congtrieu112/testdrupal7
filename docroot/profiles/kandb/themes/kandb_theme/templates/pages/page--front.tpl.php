@@ -53,3 +53,4 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
         <?php print render($page['content']); ?>
     </main>
 </div>
+ <?php print render($page['footer']); ?>
