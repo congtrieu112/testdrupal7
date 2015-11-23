@@ -28,6 +28,12 @@ function kandb_install() {
 
   // Disable bartik and seven.
   theme_disable(array('bartik', 'seven', 'ember'));
+
+  // Disable KandB Content TMP after install
+  if (module_exists('kandb_tmp_content')) {
+    module_disable(array('kandb_tmp_content'), TRUE);
+    drupal_uninstall_modules(array('kandb_tmp_content'));
+  }
 }
 
 /**
