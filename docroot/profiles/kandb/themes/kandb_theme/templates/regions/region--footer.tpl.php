@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @file
  * Default theme implementation to display a region.
@@ -30,23 +29,22 @@
 ?>
 
 <?php if ($content): ?>
-  <div class="<?php print $classes; ?>">
-    <?php print $content; ?>
-  </div>
+    <div class="<?php print $classes; ?>">
+        <?php print $content; ?>
+    </div>
 <?php endif; ?>
 <?php
 $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
 global $base_url;
 $link_custom = $base_url;
-if(theme_get_setting('footer_link_custom')){
-  $link_custom = theme_get_setting('footer_link_custom');  
+if (theme_get_setting('footer_link_custom')) {
+    $link_custom = theme_get_setting('footer_link_custom');
 }
-
 ?>
 <footer class="siteFooter">
     <div class="wrapper">
-        <div class="siteFooter__head"><a href="<?php print $base_url; ?>" title="retour à l'accueil" class="logo"><img src="<?php print $logo_svg;?>" alt="Kaufman&amp;Board"></a>
+        <div class="siteFooter__head"><a href="<?php print $base_url; ?>" title="retour à l'accueil" class="logo"><img src="<?php print $logo_svg; ?>" alt="Kaufman&amp;Board"></a>
             <div class="prescripteurs"><a href="<?php print $link_custom; ?>" class="btn-white">Espace prescripteur<span class="icon icon-arrow"></span></a></div>
             <aside class="aside"><span class="sharing-label">suivez-nous sur</span>
                 <?php
@@ -75,36 +73,65 @@ if(theme_get_setting('footer_link_custom')){
         </div>
         <nav class="siteFooter__nav">
             <?php
-            $menu_one = $menu_two = $menu_three = "";
-            if (!empty(menu_navigation_links('menu-footer-one')) && count(menu_navigation_links('menu-footer-one')) > 0) {
-                $menu_one = menu_navigation_links('menu-footer-one');
+            $menu_one = "";
+            if (!empty(menu_navigation_links('menu-footer')) && count(menu_navigation_links('menu-footer-one')) > 0) {
+                $menu_one = menu_navigation_links('menu-footer');
+                ksort($menu_one);
+                $i = 0;
                 ?>
                 <ul class="show-for-medium-up searchItems">
-                <?php foreach ($menu_one as $item) { ?>
-                        <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                    <?php } ?>
+                    <?php
+                    foreach ($menu_one as $item) {
+                        if ($i < 3) {
+                            ?>
+                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
+                            <?php
+                            
+                        }
+                        $i++;
+                    }
+                    ?>
 
                 </ul>
             <?php } ?>
             <?php
-            if (!empty(menu_navigation_links('menu-footer-two')) && count(menu_navigation_links('menu-footer-two')) > 0) {
-                $menu_two = menu_navigation_links('menu-footer-two');
+            if ($menu_one && count($menu_one) > 2) {
+               
+               
+                $i = 0;
                 ?>
-                <ul >
-                    <?php foreach ($menu_tow as $item) { ?>
-                        <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                    <?php } ?>
+                <ul>
+                    <?php
+                    foreach ($menu_one as $item) {
+                        
+
+                        if ($i > 2 && $i < 6) {
+                            ?>
+                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
+                            <?php
+                        }
+                        $i++;
+                    }
+                    ?>
 
                 </ul>
             <?php } ?>
             <?php
-            if (!empty(menu_navigation_links('menu-footer-three')) && count(menu_navigation_links('menu-footer-three')) > 0) {
-                $menu_three = menu_navigation_links('menu-footer-three');
+            if ($menu_one && count($menu_one) > 5) {
+                $i = 0;
                 ?>
-                <ul >
-                    <?php foreach ($menu_three as $item) { ?>
-                        <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                        <?php } ?>
+                <ul>
+                    <?php
+                    foreach ($menu_one as $item) {
+                        $i++;
+                        if ($i > 5 && $i < 9) {
+                            ?>
+                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
+                                <?php
+                            }
+                            $i++;
+                        }
+                        ?>
 
                 </ul>
             <?php } ?>
