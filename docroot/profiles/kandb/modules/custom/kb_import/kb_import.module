@@ -156,11 +156,15 @@ function kb_start_migration_import($getting_file = TRUE){
     kb_migration_logging ('migration : get files via FTP success');
   //Flush data
   $flushed = kb_flush_data ();
-  if (isset($flushed['node']) && $flushed['node'] > 0) {
-    kb_migration_logging ('migration : deleted ' . $flushed['node'] . ' nodes');
+  if (isset($flushed['node'])) {
+    foreach ($flushed['node'] as $type => $total_nodes) {
+      kb_migration_logging ('migration : deleted ' . $total_nodes . ' nodes ' . $type);
+    }
   }
   if (isset($flushed['term']) && $flushed['term'] > 0) {
-    kb_migration_logging ('migration : deleted ' . $flushed['term'] . ' terms');
+    foreach ($flushed['node'] as $type => $total_terms) {
+      kb_migration_logging ('migration : deleted ' . $total_terms . ' terms ' . $type);
+    }
   }
   //Set variable's status
     $kb_migration_status = migration_status_default();
@@ -315,11 +319,13 @@ function kb_flush_data () {
     'maison',
   );
   $query_node = db_select('node', 'n');
-  $query_node->fields('n', array('nid'));
+  $query_node->fields('n', array('nid', 'type'));
   $query_node->condition('n.type', $node_types, 'IN');
-  $nids = $query_node->execute()->fetchCol();
-  node_delete_multiple($nids);
-  $result['node'] = count($nids);
+  $nodes = $query_node->execute()->fetchAll();
+  foreach ($nodes as $node) {
+    node_delete($node->nid);
+    $result['node'][$node->type]++;
+  }
   //Delete all terms
   $vocs = array(
     'arrondissement',
@@ -329,10 +335,11 @@ function kb_flush_data () {
   $query_term->fields('t', array('tid'));
   $query_term->leftJoin('taxonomy_vocabulary', 'voc', 'voc.vid=t.vid');
   $query_term->condition('voc.machine_name', $vocs, 'IN');
-  $tids = $query_term->distinct()->execute()->fetchCol();
-  foreach ($tids as $tid) {
-    taxonomy_term_delete($tid);
+  $query_term->addField('voc', 'machine_name');
+  $terms = $query_term->distinct()->execute()->fetchAll();
+  foreach ($terms as $term) {
+    taxonomy_term_delete($term->tid);
+    $result['term'][$term->machine_name]++;
   }
-  $result['term'] = count($tids);
   return $result;
 }

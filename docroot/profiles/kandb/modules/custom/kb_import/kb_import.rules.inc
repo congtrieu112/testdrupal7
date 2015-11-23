@@ -281,7 +281,7 @@ function kb_programme_migration_finish () {
       kb_migration_logging ('migration : migration success');
     }
     else {
-      $kb_migration_status['migration_program_status'] = $migration_document_status;
+      $kb_migration_status['migration_program_status'] = $migration_programme_status;
       set_migration_status($kb_migration_status);
     }
   }
