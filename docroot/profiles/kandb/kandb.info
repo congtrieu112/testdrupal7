@@ -89,6 +89,7 @@ dependencies[] = gmap_style_bubbles
 dependencies[] = gmap_location
 dependencies[] = unique_field
 dependencies[] = viewfield
+dependencies[] = views_php
 
 ; Custom
 dependencies[] = kb_feeds
@@ -138,6 +139,8 @@ dependencies[] = kandb_standard_page
 dependencies[] = kandb_offre_menu_views
 dependencies[] = kandb_settings
 dependencies[] = kandb_xml_sitemap
+dependencies[] = kandb_view_nouveaute
+dependencies[] = kandb_view_livraison_immediate
 
 ; Blocks
 dependencies[] = kandb_recherche

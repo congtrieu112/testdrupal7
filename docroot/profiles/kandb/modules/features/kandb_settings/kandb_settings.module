@@ -1,8 +1,10 @@
 <?php
 /**
  * @file
- * Settings for K&B Website
+ * Code for the K&B Settings feature.
  */
+
+include_once 'kandb_settings.features.inc';
 
 /**
  * Implements hook_menu().
