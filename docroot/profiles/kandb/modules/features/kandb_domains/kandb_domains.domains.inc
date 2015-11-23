@@ -79,6 +79,21 @@ function kandb_domains_domain_alias_default_aliases() {
       'redirect' => 0,
       'machine_name' => 'kandb_b2c',
     ),
+    'kaufmanetbroaddev.prod.acquia-sites.com' => array(
+      'pattern' => 'kaufmanetbroaddev.prod.acquia-sites.com',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2c',
+    ),
+    'kaufmanetbroadstg.prod.acquia-sites.com' => array(
+      'pattern' => 'kaufmanetbroadstg.prod.acquia-sites.com',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2c',
+    ),
+    'kaufmanetbroad.prod.acquia-sites.com' => array(
+      'pattern' => 'kaufmanetbroad.prod.acquia-sites.com',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2c',
+    ),
   );
 
   return $domain_aliases;
