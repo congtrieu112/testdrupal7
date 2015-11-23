@@ -74,7 +74,7 @@ if (theme_get_setting('footer_link_custom')) {
         <nav class="siteFooter__nav">
             <?php
             $menu_one = "";
-            if (!empty(menu_navigation_links('menu-footer')) && count(menu_navigation_links('menu-footer-one')) > 0) {
+            if (!empty(menu_navigation_links('menu-footer')) && count(menu_navigation_links('menu-footer')) > 0) {
                 $menu_one = menu_navigation_links('menu-footer');
                 ksort($menu_one);
                 $i = 0;
