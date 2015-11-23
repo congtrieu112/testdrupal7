@@ -484,18 +484,22 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
       } else {
         $validates = array(
           'text_box' => array(
-            0 => 'field_id_programme',
+            'identifiantprogramme' => 'field_id_programme',
           ),
-          'term_name' => array(
+          'term_name_warning' => array(
             'typeprogramme' => 'field_type_programme',
           ),
           'number' => array(
             'affichagestock' => 'field_programme_stock',
-            'noderue' => 'field_programme_loc_num',
-            'anneelivraison' => 'field_annee'
           ),
-          'number_warning' => array(
+          'number_warning' =>  array(
+            'anneelivraison' => 'field_annee',
+            'noderue' => 'field_programme_loc_num',
             'prixmoyenm2' => 'field_programme_avg_price',
+            'bureaudeventex' => 'field_espace_vente_longitude',
+            'bureaudeventey' => 'field_espace_vente_latitude',
+            'x' => 'field_programme_loc_long',
+            'y' => 'field_programme_loc_lat',
           ),
           'check_box' => array(
             'statut' => 'field_programme_statut',
@@ -506,9 +510,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
           ),
           'custom_echelle_options_warning' => array(
             'labelbbcechelle' => 'field_slider_rt2012_echelle',
-            'ReglementationThermiqueEchelle' => 'field_slider_rt2012_echelle',
+            'reglementationthermiqueechelle' => 'field_slider_rt2012_echelle',
           ),
-          'custom_trimestre_options' => array(
+          'custom_trimestre_options_warning' => array(
             'trimestrelivraison' => 'field_trimestre'
           ),
           'text_box' => array(
@@ -516,12 +520,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             'typedevoie' => 'field_programme_loc_type',
             'nomrue' => 'field_programme_loc_rue',
             'cp' => 'field_programme_loc_cp',
-            'descriptiflongue' => 'field_en_quelques_mots',
-            'x' => 'field_programme_loc_long',
-            'y' => 'field_programme_loc_lat',
-            'vendeurnom' => 'nom_conseiller'
           ),
-          'date_time_programme' => array(
+          'date_time_programme_warning' => array(
             'datemiseenligne' => 'field_programme_online_date'
           )
         );
@@ -1086,9 +1086,9 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
  * @param type $entity
  * @return error_log
  */
-function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0) {
+function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0, $default = '') {
   $logging = '';
-  $key_log = !empty($item[$key_id]) ? $item[$key_id] : $item[$key_id +1];
+  $key_log = !empty($item[$key_id]) ? $item[$key_id] : $item[$key_id]+1;
   $error_log = $key_log . '|';
 
   $error_log_field = '';
@@ -1102,7 +1102,9 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
   $error_log_field_warning = '';
   $error_term_field_warning = '';
   $error_checkbox_field_warning = '';
+  $error_text_box_field_warning = '';
   $error_custom_trimestre_options_field_warning = '';
+  $error_datetime_programe_field_warning = '';
   $error_custom_echelle_options_field_warning = '';
 
   foreach ($validates as $type => $fields) {
@@ -1117,7 +1119,9 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
             if($type == 'term_field_id' || $type == 'term_name') {
               $error_term_field .= $field_name . ',';
             } elseif($type == 'term_field_id_warning' || $type == 'term_name_warning') {
-              $error_term_field_warning .= $field_name . ',';
+              if(trim($item[$key]) != "") {
+                $error_term_field_warning .= $field_name . ',';
+              }
             }
           }
         }
@@ -1133,27 +1137,11 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
 
         break;
 
-      case 'term_id':
-        foreach ($fields as $key => $field_name) {
-          $field = $entity->$field_name;
-          if (trim($item[$key])) {
-            $term = taxonomy_term_load($item[$key]);
-            if (!$term) {
-              $error_term_field .= $field_name . ',';
-            } else {
-              if (!isset($term->$field_name)) {
-                $error_term_field .= $field_name . ',';
-              }
-            }
-          }
-        }
-
-        break;
       case 'number_warning':
       case 'number':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
-          if ($item[$key] != "0" || $item[$key] != 0) {
+          if (isset($item[$key]) && ($item[$key] != "0" || $item[$key] != 0)) {
             if(!empty($item[$key])) {
               if (!is_numeric($item[$key])) {
                 if($type == 'number') {
@@ -1181,7 +1169,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
       case 'date_time':
         foreach ($fields as $key => $field_name) {
           $field = $entity->$field_name;
-          if (trim($item[$key])) {
+          if (isset($item[$key]) && trim($item[$key])) {
             if (!isset($field[LANGUAGE_NONE][0]['value'])) {
               $error_date_field .= $field_name . ',';
             } else {
@@ -1198,7 +1186,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
       case 'check_box_warning':
         foreach ($fields as $key => $field_name) {
           if ($item[$key] != "0" || $item[$key] != 0) {
-            if(!empty($item[$key])) {
+            if(isset($item[$key]) && !empty($item[$key])) {
               if(!is_numeric($item[$key]) || !in_array((int)$item[$key], array(0,1))) {
                 if($type == 'check_box') {
                   $error_checkbox_field .= $field_name . ',';
@@ -1218,8 +1206,10 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
 
       case 'text_box':
         foreach ($fields as $key => $field_name) {
-          if(!trim($item[$key])) {
-            $error_text_box_field .= $field_name . ',';
+          if(isset($item[$key]) && !trim($item[$key])) {
+            if($type == 'text_box') {
+              $error_text_box_field .= $field_name . ',';
+            }
           }
         }
 
@@ -1228,7 +1218,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
       case 'custom_trimestre_options':
       case 'custom_trimestre_options_warning':
         foreach ($fields as $key => $field_name) {
-          if(trim($item[$key])) {
+          if(isset($item[$key]) && trim($item[$key])) {
             if(!in_array((int)$item[$key], array(1,2,3,4))) {
               if($type == 'custom_trimestre_options') {
                 $error_custom_trimestre_options_field .= $field_name . ',';
@@ -1247,7 +1237,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
 
       case 'custom_echelle_options_warning':
         foreach ($fields as $key => $field_name) {
-          if(trim($item[$key])) {
+          if(isset($item[$key]) && trim($item[$key])) {
             if(!in_array((int)$item[$key], array(1,2,3))) {
               $error_custom_echelle_options_field_warning .= $field_name . ',';
             }
@@ -1257,13 +1247,20 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
         break;
 
       case 'date_time_programme':
+      case 'date_time_programme_warning':
         foreach ($fields as $key => $field_name) {
-          if(trim($item[$key])) {
+          if(isset($item[$key]) && trim($item[$key])) {
             if(!strtotime($item[$key])) {
-              $error_datetime_programe_field .= $field_name . ',';
+              if($type == 'date_time_programme') {
+                $error_datetime_programe_field .= $field_name . ',';
+              } elseif($type == 'date_time_programme_warning') {
+                $error_datetime_programe_field_warning .= $field_name . ',';
+              }
             }
           } else {
-            $error_datetime_programe_field .= $field_name . ',';
+            if($type == 'date_time_programme') {
+              $error_datetime_programe_field .= $field_name . ',';
+            }
           }
         }
 
@@ -1313,14 +1310,21 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0)
     $logging .= $error_log . rtrim($error_checkbox_field_warning, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Warning' . "\n";
   }
 
+  if ($error_text_box_field_warning) {
+    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') . '|' . 'Fields is mantory' . '|' . 'Warning' . "\n";
+  }
+
   if ($error_custom_trimestre_options_field_warning) {
     $logging .= $error_log . rtrim($error_custom_trimestre_options_field_warning, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Warning' . "\n";
+  }
+
+  if ($error_datetime_programe_field_warning) {
+    $logging .= $error_log . rtrim($error_datetime_programe_field_warning, ',') . '|' . 'Date time programme wrong format' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_echelle_options_field_warning) {
     $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') . '|' . 'Echelle must is number(1,2,3)' . '|' . 'Warning' . "\n";
   }
-
 
   return $logging;
 }
