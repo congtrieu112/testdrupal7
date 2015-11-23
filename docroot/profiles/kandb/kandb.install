@@ -532,7 +532,7 @@ function kandb_update_7146() {
   }
 }
 
-/*
+/**
  * Enable views_php module
  */
 function kandb_update_7147() {
@@ -559,10 +559,20 @@ function kandb_update_7149() {
   }
 }
 
+
+/**
+ * Enable kandb_xml_sitemap module
+ */
+function kandb_update_7150() {
+  if (!module_exists('kandb_xml_sitemap')) {
+    module_enable(array('kandb_xml_sitemap'), TRUE);
+  }
+ }
+ 
 /*
  * Enable kandb_validate module
  */
-function kandb_update_7150() {
+function kandb_update_7151() {
   if (!module_exists('kandb_validate')) {
     module_enable(array('kandb_validate'), TRUE);
   }
