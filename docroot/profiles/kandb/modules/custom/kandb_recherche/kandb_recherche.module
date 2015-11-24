@@ -284,7 +284,7 @@ function kandb_recherche_theme($existing, $type, $theme, $path) {
 function recherche_minimal_form($form, &$form_state) {
   $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search'), 'pattern' => '(.){2,}$'),
     '#theme_wrappers' => array(),
   );
 
@@ -330,7 +330,7 @@ function recherche_minimal_form_submit() {
 function recherche_simple_form($form, &$form_state) {
   $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search'), 'pattern' => '(.){2,}$'),
     '#theme_wrappers' => array(),
   );
 
@@ -403,7 +403,7 @@ function recherche_simple_form_submit() {
 function recherche_complete_b2c_form($form, &$form_state) {
   $form['place'] = array(
     '#type' => 'textfield',
-    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search')),
+    '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search'), 'pattern' => '(.){2,}$'),
     '#theme_wrappers' => array(),
     '#default_value' => isset($_GET['place']) ? $_GET['place'] : NULL,
   );
