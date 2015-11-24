@@ -7,21 +7,6 @@ if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
   define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');  
 }
 
-function kandb_theme_preprocess_html(&$head_elements) {
-
-
-  /*$meta_description = array(
-           '#type' => 'html_tag',
-           '#tag' => 'meta',
-           '#attributes' => array(
-           'name' => 'description',
-           'content' => 'test destiption dasdsa' //build meta tag
-  ));
-  drupal_add_html_head($meta_description, 'taggedy_tag');*/
-
-
-}
-
 /**
  * Override or insert variables into the page template.
  */
@@ -59,6 +44,38 @@ function kandb_theme_process_page(&$variables) {
   if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $variables['theme_hook_suggestions'][] = 'page__ajax';
   }
+}
+
+/**
+ * Returns HTML for primary and secondary local tasks.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_menu_local_tasks(&$variables) {
+  $output = '';
+
+  // Style the tabs
+  // programCharacteristics__nav clearfix
+  if($variables['primary']){
+
+    if ($primary = menu_primary_local_tasks()) {
+      $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
+      foreach($primary as $tab){
+        $tab['#link']['localized_options']['attributes']['class'][] = 'test';
+        $tab['#link']['localized_options']['attributes']['style'][] = 'margin:0px;';
+        $output .= render($tab);
+      }
+      $output .= '</ul>';
+    }
+    if ($secondary = menu_secondary_local_tasks()) {
+      $output .= '<ul class="tabs secondary">';
+      foreach($secondary as $tab) {
+        $output .= render($tab);
+      }
+      $output .= "</ul>";
+    }
+  }
+  return $output;
 }
 
 /**
