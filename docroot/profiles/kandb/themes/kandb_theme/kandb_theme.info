@@ -10,10 +10,3 @@ regions[header] = Header
 regions[content] = Content
 regions[footer] = Footer
 
-settings[shortcut_module_link] = 0
-settings[footer_link_face] = 'https://facebook.com'
-settings[footer_link_youtube] = 'https://youtube.com'
-settings[footer_link_twiiter] = 'https://twiiter.com'
-settings[social_display] = 1
-settings[footer_link_custom] = ''
-

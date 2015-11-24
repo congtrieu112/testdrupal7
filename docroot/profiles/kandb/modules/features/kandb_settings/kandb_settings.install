@@ -1,0 +1,39 @@
+<?php
+/**
+ * @file
+ * Installation file
+ */
+/**
+ * Implementation of hook_install()
+ */
+function kandb_settings_install(){
+  kandb_settings_set_variables();
+}
+
+/**
+ * Set default variables
+ */
+function kandb_settings_update_7101(&$sandbox){
+  kandb_settings_set_variables();
+}
+/**
+ * Implementation of hook_uninstall()
+ */
+function kandb_settings_uninstall(){
+  variable_del('kandb_settings_social_display');
+  variable_del('kandb_settings_footer_link_face');
+  variable_del('kandb_settings_footer_link_youtube');
+  variable_del('kandb_settings_footer_link_twitter');
+  variable_del('kandb_settings_footer_link_espace_collaborateur');
+}
+
+/**
+ * Set variables
+ */
+function kandb_settings_set_variables() {
+  variable_set('kandb_settings_social_display', 1);
+  variable_set('kandb_settings_footer_link_face', 'https://www.facebook.com/kaufmanetbroad');
+  variable_set('kandb_settings_footer_link_youtube', 'https://www.youtube.com/user/kaufmanetbroad');
+  variable_set('kandb_settings_footer_link_twitter', 'https://twitter.com/kaufmanetbroad');
+  variable_set('kandb_settings_footer_link_espace_collaborateur', 'http://www.kbpatrimoine.com');
+}

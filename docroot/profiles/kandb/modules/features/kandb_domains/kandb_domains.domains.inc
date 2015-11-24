@@ -241,10 +241,10 @@ function kandb_domains_domain_conf_default_variables() {
     'maintenance_mode_message' => 'Kaufman &amp; Broad is currently under maintenance. We should be back shortly. Thank you for your patience.',
     'language_default' => 'domain-conf-ignore',
     'menu_main_links_source' => 'main-menu',
-    'menu_secondary_links_source' => 0,
+    'menu_secondary_links_source' => 'menu-footer',
     'menu_options_article' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -253,7 +253,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_article' => 'main-menu:0',
     'menu_options_bien' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -261,7 +261,7 @@ function kandb_domains_domain_conf_default_variables() {
     ),
     'menu_parent_bien' => 'main-menu:0',
     'menu_options_dossier' => array(
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'main-menu' => 0,
       'management' => 0,
@@ -271,7 +271,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_dossier' => 'main-menu:0',
     'menu_options_homepage' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -279,7 +279,7 @@ function kandb_domains_domain_conf_default_variables() {
     ),
     'menu_parent_homepage' => 'main-menu:0',
     'menu_options_maison' => array(
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'main-menu' => 0,
       'management' => 0,
@@ -289,7 +289,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_maison' => 'main-menu:0',
     'menu_options_options' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -298,7 +298,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_options' => 'main-menu:0',
     'menu_options_programme' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -307,7 +307,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_programme' => 'main-menu:0',
     'menu_options_prospect_b2b' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -316,7 +316,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_prospect_b2b' => 'main-menu:0',
     'menu_options_reservation' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -325,7 +325,7 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_reservation' => 'main-menu:0',
     'menu_options_selection' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
@@ -334,13 +334,58 @@ function kandb_domains_domain_conf_default_variables() {
     'menu_parent_selection' => 'main-menu:0',
     'menu_options_webform' => array(
       'main-menu' => 'main-menu',
-      'devel' => 0,
+      'menu-b2c-public-menu' => 0,
       'menu-footer' => 0,
       'management' => 0,
       'navigation' => 0,
       'user-menu' => 0,
     ),
     'menu_parent_webform' => 'main-menu:0',
+    'menu_options_avant_premiere' => array(
+      'main-menu' => 'main-menu',
+      'menu-b2c-public-menu' => 0,
+      'menu-footer' => 0,
+      'management' => 0,
+      'navigation' => 0,
+      'user-menu' => 0,
+    ),
+    'menu_parent_avant_premiere' => 'main-menu:0',
+    'menu_options_document' => array(
+      'main-menu' => 'main-menu',
+      'menu-b2c-public-menu' => 0,
+      'menu-footer' => 0,
+      'management' => 0,
+      'navigation' => 0,
+      'user-menu' => 0,
+    ),
+    'menu_parent_document' => 'main-menu:0',
+    'menu_options_offre' => array(
+      'main-menu' => 'main-menu',
+      'menu-b2c-public-menu' => 0,
+      'menu-footer' => 0,
+      'management' => 0,
+      'navigation' => 0,
+      'user-menu' => 0,
+    ),
+    'menu_parent_offre' => 'main-menu:0',
+    'menu_options_promotion' => array(
+      'main-menu' => 'main-menu',
+      'menu-b2c-public-menu' => 0,
+      'menu-footer' => 0,
+      'management' => 0,
+      'navigation' => 0,
+      'user-menu' => 0,
+    ),
+    'menu_parent_promotion' => 'main-menu:0',
+    'menu_options_standard_page' => array(
+      'menu-b2c-public-menu' => 0,
+      'menu-footer' => 0,
+      'main-menu' => 0,
+      'management' => 0,
+      'navigation' => 0,
+      'user-menu' => 0,
+    ),
+    'menu_parent_standard_page' => 'main-menu:0',
   );
 
   return $domain_variables;

@@ -13,9 +13,10 @@ function kandb_settings_menu() {
   $menu = array();
   $menu['admin/content/ketb'] = array(
     'title' => 'K&B',
-    'page callback' => 'kandb_setttings_page_content',
-    // 'access callback' => array('administer K&B content'),
     'type' => MENU_LOCAL_TASK,
+    'page callback' => 'kandb_setttings_page_content',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B content'),
   );
 
   $menu['admin/content/ketb/list'] = array(
@@ -23,6 +24,16 @@ function kandb_settings_menu() {
     'type' => MENU_DEFAULT_LOCAL_TASK,
     'weight' => -10,
   );
+
+  $menu['admin/content/ketb/footer'] = array(
+    'title' => 'Footer',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_selection_page_footer_form'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B content'),
+  );
+
   return $menu;
 }
 
@@ -58,4 +69,54 @@ function kandb_setttings_page_content(){
   $menu_render = menu_tree_output($children);
 
   return '<div class="content-sub-menu content-padder">' . drupal_render(menu_tree_output($children)) . '</div>';
+}
+
+/**
+ * Form callback
+ */
+function kandb_selection_page_footer_form(){
+
+  $form = array();
+
+  $form['kandb_settings_social_display'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Display social icon'),
+    '#default_value' => variable_get('kandb_settings_social_display'),
+  );
+  $form['kandb_settings_footer_link_face'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Facebook'),
+    '#default_value' => variable_get('kandb_settings_footer_link_face'),
+  );
+  $form['kandb_settings_footer_link_youtube'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Youtube'),
+    '#default_value' => variable_get('kandb_settings_footer_link_youtube'),
+  );
+  $form['kandb_settings_footer_link_twitter'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Twitter'),
+    '#default_value' => variable_get('kandb_settings_footer_link_twitter'),
+  );
+  $form['kandb_settings_footer_link_espace_collaborateur'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Espace prescripteur'),
+    '#default_value' => variable_get('kandb_settings_footer_link_espace_collaborateur'),
+  );
+
+  return system_settings_form($form);
+}
+
+/**
+ * hook_form_validate()
+ */
+function kandb_selection_page_footer_validate($form, &$form_state) {
+
+}
+
+/**
+ * hook_form_submit()
+ */
+function kandb_selection_page_footer_submit($form, &$form_state) {
+
 }

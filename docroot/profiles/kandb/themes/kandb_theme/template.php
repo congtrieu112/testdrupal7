@@ -176,6 +176,45 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 }
 
+/**
+ * Implemnts hook_preprocess_region().
+ */
+function kandb_theme_preprocess_region(&$vars){
+  // Header
+  if ($vars['region'] == 'header'){
+    // Main menu
+    $vars['main_menu'] = false;
+    $menu_main_links_source = variable_get('menu_main_links_source', false);
+    if ($menu_main_links_source) {
+      $vars['main_menu'] = menu_navigation_links($menu_main_links_source);
+    }
+  }
+
+  // Footer
+  if ($vars['region'] == 'footer'){
+
+    // Get variables
+    $vars['icon_setting'] = variable_get('kandb_settings_social_display', FALSE);
+    $vars['facebook'] = variable_get('kandb_settings_footer_link_face', FALSE);
+    $vars['youtube'] = variable_get('kandb_settings_footer_link_youtube', FALSE);
+    $vars['twitter'] = variable_get('kandb_settings_footer_link_twitter', FALSE);
+    $vars['link_prescripteur'] = variable_get('kandb_settings_footer_link_espace_collaborateur', FALSE);
+
+    // Logo and link "Espace prescripteur"
+    $vars['path_img'] = kandb_theme_get_path('test_assets', 'kandb_theme');
+    $vars['logo_svg'] = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
+    if (theme_get_setting('footer_link_custom')) {
+      $vars['link_custom'] = theme_get_setting('footer_link_custom');
+    }
+
+    // Menu footer
+    $vars['menu_footer'] = false;
+    $menu_secondary_links_source = variable_get('menu_secondary_links_source', false);
+    if ($menu_secondary_links_source) {
+      $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
+    }
+  }
+}
 
 function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
   if ($limit <= 0 || !is_numeric($limit) || strlen($content) < $limit) {
