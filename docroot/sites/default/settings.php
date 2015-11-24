@@ -581,6 +581,12 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 if (drupal_is_cli()){
   ini_set('memory_limit', '1024M');
 }
+// Increase memory limit for admin
+if ( (strpos($_GET['q'], 'admin') === 0) ||
+  (strpos($_GET['q'], 'node/add') === 0) ||
+  (strpos($_GET['q'], 'node/') === 0 && preg_match('/^node\/[\d]+\/edit/', $_GET['q']) === 1)) {
+  ini_set('memory_limit', '512M');
+}
 
 // Include Acquia Drupal settings
 if (file_exists('/var/www/site-php')) {
