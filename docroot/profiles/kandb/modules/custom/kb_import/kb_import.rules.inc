@@ -127,7 +127,9 @@ function kb_import_run_importer($importer = '') {
     if($importer != 'import_bien_pdf' && function_exists('feeds_source')) {
       $source = feeds_source($importer);
       try {
-        while (FEEDS_BATCH_COMPLETE != $source->import());
+        while (FEEDS_BATCH_COMPLETE != $source->import()) {
+          sleep(15);
+        }
       }
       catch (Exception $e){
         if ($kb_rule == 'daily_import') {

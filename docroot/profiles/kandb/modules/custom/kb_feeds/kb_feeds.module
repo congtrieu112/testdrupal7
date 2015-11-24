@@ -1084,6 +1084,7 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
       $kb_migration_status['import_bien_pdf_status'] = -1;
     }
     set_migration_status($kb_migration_status);
+    sleep(15);
     rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
   }
 }
