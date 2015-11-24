@@ -5829,12 +5829,20 @@ _:-ms-lang(x), .infotip:after {
   margin-top: 0.83333rem; }
   .filter > * {
     margin-bottom: 0; }
+  .filter .combo-select {
+    display: inline-block;
+    width: 65%;
+    max-width: 18.75rem; }
+    .filter .combo-select input[type=text] {
+      border-width: 1px;
+      margin-bottom: 0; }
   .filter .form-dropdown__content--last {
     right: 0; }
   .filter__label {
     font-weight: 500;
     text-align: right;
-    margin-right: 1.25rem; }
+    margin-right: 1.25rem;
+    display: inline-block; }
   .filter__item {
     -webkit-align-self: flex-end;
     -moz-align-self: flex-end;
@@ -5866,7 +5874,13 @@ _:-ms-lang(x), .infotip:after {
     -ms-flex-align: center; }
     .filter-aside .filter {
       margin-top: 0;
-      margin-left: auto; } }
+      margin-left: auto;
+      -webkit-flex-grow: 2;
+      -moz-flex-grow: 2;
+      flex-grow: 2;
+      -ms-flex-positive: 2; }
+      .filter-aside .filter .combo-select {
+        max-width: 12.5rem; } }
 
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea {
   height: 3.1875rem;
@@ -6152,6 +6166,30 @@ input[type="checkbox"] + .label-checkbox {
     -moz-flex: 2;
     -ms-flex: 2;
     flex: 2; }
+
+@media only screen and (min-width: 48em) {
+  .flex-content {
+    /*@include display(flex);
+    @include flex-wrap(wrap);
+    @include justify-content(flex-start);
+
+    > * {
+      @include flex(0 0 32%);
+      margin: 1% 0;
+    }
+
+    > .flex-content__middle {
+      margin-left: 2%;
+      margin-right: 2%;
+    }*/
+    font-size: 0;
+    margin-left: -1% !important;
+    margin-right: -1% !important; }
+    .flex-content > * {
+      display: inline-block;
+      width: 31.3333%;
+      margin-left: 1% !important;
+      margin-right: 1% !important; } }
 
 html,
 body {
@@ -7599,10 +7637,14 @@ a.tag.tag--important:active {
   .combo-select input[type=text] {
     height: 3.1875rem;
     padding: 1rem;
+    padding-right: 2.5rem;
     font-size: 1rem;
     font-family: "Helvetica Neue", Helvetica, Arial, Roboto, sans-serif;
     font-weight: 400;
-    border: 2px solid #e0e0e0; }
+    border: 2px solid #e0e0e0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
     .combo-select input[type=text][readonly] {
       background: #ffffff; }
 
@@ -7691,7 +7733,7 @@ a.tag.tag--important:active {
   appearance: none;
   opacity: 0; }
 
-@media only screen and (min-width: 48em) {
+@media only screen and (min-width: 64.0625em) {
   .combo-select select {
     left: -1px;
     top: -1px;
@@ -9225,85 +9267,91 @@ a.tag.tag--important:active {
   background-color: #ffffff; }
 
 .moreAvailable td {
-  padding: 0.9375rem 0.625rem;
+  padding: 0.9375rem 0.3125rem;
   border: none;
-  vertical-align: middle; }
+  vertical-align: top; }
   .moreAvailable td:first-child {
-    width: 2.79167rem;
-    font-weight: bold;
+    font-weight: 500;
     text-align: center; }
   .moreAvailable td:last-child {
-    text-align: right;
-    padding-right: 0.3125rem; }
+    text-align: right; }
 
 .moreAvailable .list-item,
-.moreAvailable .list-price {
+.moreAvailable .list-price,
+.moreAvailable .list-characteristics ul,
+.moreAvailable .item-ulities ul {
   list-style: none;
   margin: 0; }
+
+.moreAvailable .item-ulities ul li {
+  white-space: nowrap;
+  display: inline-block; }
+
+.moreAvailable .list-price li {
+  white-space: nowrap; }
 
 .moreAvailable .list-price li:last-child {
   margin-top: 0.5rem; }
 
-.moreAvailable .list-price .text {
-  margin-right: 0.33333rem;
-  vertical-align: middle;
-  font-weight: bold; }
-
+.moreAvailable .list-price .text,
 .moreAvailable .list-price .tva {
   vertical-align: middle;
-  font-weight: bold; }
+  font-weight: 500; }
+
+.moreAvailable .list-price .text {
+  margin-right: 0.33333rem; }
 
 @media only screen and (min-width: 48em) {
+  .moreAvailable td {
+    vertical-align: middle;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem; }
   .moreAvailable td:first-child {
-    font-size: 1rem; }
+    font-size: 1.125rem;
+    width: 4.375rem; }
   .moreAvailable .list-item {
     display: table;
     width: 100%; }
-    .moreAvailable .list-item li {
+    .moreAvailable .list-item > * {
       display: table-cell;
       vertical-align: middle; }
   .moreAvailable .item-promotion {
-    width: 17.1875rem; }
+    width: 25%; }
   .moreAvailable .item-area {
     width: 7.8125rem; }
   .moreAvailable .item-exhibit {
     width: 5.3125rem; }
+  .moreAvailable .list-characteristics > ul {
+    display: table;
+    width: 100%;
+    margin: 0; }
+    .moreAvailable .list-characteristics > ul > * {
+      display: table-cell;
+      vertical-align: top;
+      padding: 0 0.9375rem; }
+  .moreAvailable .list-characteristics .item-ulities ul li:before {
+    content: "- "; }
+  .moreAvailable .list-characteristics .item-ulities ul li:first-child:before {
+    content: ""; }
   .moreAvailable .list-price .text {
     margin-right: 0.83333rem; } }
-
-@media only screen and (min-width: 48em) and (max-width: 64em) {
-  .moreAvailable td {
-    font-size: 0.8125rem; }
-    .moreAvailable td:first-child {
-      width: 5.3125rem; }
-    .moreAvailable td:last-child {
-      width: 11.5625rem; }
-  .moreAvailable .item-promotion {
-    width: 14.0625rem; }
-  .moreAvailable .item-area {
-    width: 6.25rem; }
-  .moreAvailable .item-exhibit {
-    width: 5rem; } }
-
-@media only screen and (min-width: 64.0625em) {
-  .moreAvailable td:first-child {
-    width: 7.5rem; }
-  .moreAvailable td:last-child {
-    width: 12.5rem; } }
 
 @media only screen and (max-width: 47.9375em) {
   .moreAvailable {
     margin: -1.66667rem;
     padding-top: 1.45833rem; }
     .moreAvailable table td {
-      padding-left: 0;
-      padding-right: 0;
       font-size: 0.8125rem; }
       .moreAvailable table td:first-child {
-        padding-top: 0.9375rem;
+        padding-top: 1.1875rem;
+        padding-left: 0.625rem;
         vertical-align: top; }
+      .moreAvailable table td:last-child {
+        vertical-align: middle;
+        padding-right: 0.625rem; }
     .moreAvailable .tag--important {
-      padding: 0.3125rem; }
+      padding: 0.3125rem;
+      position: relative; }
     .moreAvailable .list-item li {
       font-size: 0.8125rem; }
     .moreAvailable .list-price li:last-child {

@@ -47,7 +47,6 @@ if (module_exists('kandb_validate')) {
 }
 ?>
 <div class="slick-slider__item">
-
     <!-- [squaredImageItem] start-->
     <article class="squaredImageItem false">
         <aside>

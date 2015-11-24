@@ -37771,6 +37771,10 @@ if ( Foundation.utils.is_small_only() ) {
 }
 
 
+// prevent mobile device to keep :active state
+document.addEventListener("touchstart", function() {},false);
+
+
 // touch hack to prevent autoscroll on form elements focus (TABLET)
 if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
   $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
@@ -38728,7 +38732,8 @@ App.appComboSelect = function() {
       })
 
     // front display filter
-    .off('change.comboSelect').on('change.comboSelect', function(e){
+    .off('change.comboSelect')
+    .on('change.comboSelect', function(e){
       var $this = $(this);
 
       if ( typeof( $this.data('app-filter') ) !== 'undefined' ) {
@@ -39071,7 +39076,7 @@ if ( $(trigger).length ) {
       this._build();
 
       // Append Input
-      this.$input = $('<input type="text"' + (isMobile? 'tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container)
+      this.$input = $('<input type="text"' + (isMobile? ' tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container)
 
       // Update input text
       this._updateInput()
