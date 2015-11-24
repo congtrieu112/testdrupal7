@@ -1,7 +1,7 @@
 <?php
 
 function kb_import_enable() {
-  variable_set('feeds_process_limit', 10000);
+  variable_set('feeds_process_limit', 1000);
   $daily_import_status = daily_import_status_default();
   set_daily_import_status($daily_import_status);
   $migration_status = migration_status_default();
@@ -18,4 +18,13 @@ function kb_import_disable() {
  */
 function kb_import_update_7100(&$sandbox) {
   variable_set('feeds_process_limit', 10000);
+}
+
+/**
+ * Set feeds process limit to 1000
+ */
+function kb_import_update_7101(&$sandbox) {
+  variable_set('feeds_process_limit', 1000);
+  set_daily_import_status(daily_import_status_default());
+  set_migration_status(migration_status_default());
 }
