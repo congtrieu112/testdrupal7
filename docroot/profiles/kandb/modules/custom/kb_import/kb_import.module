@@ -137,7 +137,7 @@ $kb_daily_import_importers = array(
 function kb_starting_daily_import(){
   $kb_migration_status = get_migration_status();
   if ($kb_migration_status['start_migration'] == 1) {
-    kb_daily_import_logging ('daily-import: can not start : migration import running');
+    kb_daily_import_logging ('daily-import: can not start because migration import is running');
     return;
   }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
@@ -155,7 +155,7 @@ function kb_starting_daily_import(){
 function kb_start_migration_import($getting_file = TRUE){
   $kb_daily_import_status = get_daily_import_status();
   if ($kb_daily_import_status['start_daily_import'] == 1) {
-    kb_migration_logging ('migration : can not start : daily import running');
+    kb_migration_logging ('migration : can not start because the daily import is running');
     return;
   }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
