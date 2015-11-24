@@ -89,6 +89,30 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if (empty($entity->field_bien_statut[LANGUAGE_NONE]) && ($status_in_file == TAXONOMY_STATUS_LOGEMENT_L || $status_in_file == TAXONOMY_STATUS_LOGEMENT_R)) {
         $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = Kandb_Business_Rules::get_tax_status_du_logement_by_name($status_in_file, FALSE);
       }
+
+      // RULE BIEN B.109 http://confluence.digitas.fr/pages/viewpage.action?pageId=8227393
+      if (isset($entity->field_prix_tva_20[LANGUAGE_NONE][0]['value']) && isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+        $programme = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
+        if($programme) {
+          if(isset($programme->field_tva[LANGUAGE_NONE][0]['tid'])) {
+            $tva_tid = $programme->field_tva[LANGUAGE_NONE][0]['tid'];
+            if($tva_tid) {
+              $tva_term = taxonomy_term_load($tva_tid);
+              if($tva_term) {
+                if(isset($tva_term->field_facteur[LANGUAGE_NONE][0]['value'])) {
+                  $tva = (float) $tva_term->field_facteur[LANGUAGE_NONE][0]['value'];
+                  $bien_price = (float) $entity->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
+                  if($bien_price >= 0 && $tva) {
+                    $bien_low_tva_price = $bien_price / 1.2 * ($tva + 1);
+                    $entity->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = round($bien_low_tva_price,2);
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
     }
   }
 }
@@ -175,7 +199,7 @@ function kandb_business_rules_node_presave($node) {
 
       $node->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = $tva_price;
     endif;
-    
+
     // Is node update.
     if(isset($node->nid)){
       $node_bien = node_load($node->nid);
@@ -187,7 +211,7 @@ function kandb_business_rules_node_presave($node) {
         Kandb_Business_Rules::set_can_hook_update();
       }
     }
-    
+
   }
 }
 
