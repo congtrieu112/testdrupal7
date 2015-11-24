@@ -22,8 +22,11 @@
  *
  * @ingroup views_templates
  */
+//krumo($row);
+//die();
 $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
+$ville_id = isset($row->field_field_programme_loc_ville[0]['raw']['tid']) ? $row->field_field_programme_loc_ville[0]['raw']['tid'] : '';
 $departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 $status_promotion = $row->field_promotion_programme_node_status;
@@ -38,37 +41,35 @@ if ($row->field_promotion_programme_node_title):
   endif;
 endif;
 ?>
-<div class="slick-slider__item">
-    <article class="squaredImageItem squaredImageItem--stacked false">
-        <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="squaredImageItem__img">
-            <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
+<li data-app-filter-item="<?php print $ville_id; ?>">
+    <!-- [squaredImageItem] start-->
+    <article class="squaredImageItem false">
+        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
-                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
+                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['nouveaute_promotion'] < 3): ?>
                   <li>
                       <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
                       <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                   </li>
                   <?php
-                  $_SESSION['promotion'] += 1;
+                  $_SESSION['nouveaute_promotion'] += 1;
                   ?>
                 <?php endif; ?>
-                <!--                <li>
-                                    <div class="tag">TVA 7%<sup>(2)</sup></div>
-                                </li>
-                                <li>
-                                    <div class="tag">Livraison immédiate<sup>(1)</sup></div>
-                                </li>-->
             </ul>
-        </a>
+        </div>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
-                <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print t('Go to programme page'); ?>" class="heading heading--small">
-                    <p class="heading__title">
-                        <?php print $ville_name . ' / ' . $departement_code; ?>
-                    </p>
-                    <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
-                </a>
+                <div class="heading-favorite">
+                    <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="heading heading--small">
+                        <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
+                        <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
+                    </a>
+                    <a href="" title="<?php print t('Add item to favorites'); ?>" data-cookie="offres" data-cookie-add="<?php print $row->nid; ?>" class="btn-icon--only">
+                        <span class="icon icon-love"></span>
+                    </a>
+                </div>
             </div>
         </div>
     </article>
-</div>
+    <!-- [squaredImageItem] end-->
+</li>
