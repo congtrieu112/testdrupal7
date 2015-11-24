@@ -3,7 +3,6 @@ description = CT Offre
 core = 7.x
 package = Kaufman & Broad
 version = 7.x-1.0
-dependencies[] = ctools
 dependencies[] = ds
 dependencies[] = features
 dependencies[] = strongarm
