@@ -17,6 +17,7 @@ class KbDocCommuniqueCSVParser extends FeedsCSVParser {
 
     $iterator = new ParserCSVIterator($fetcher_result->getFilePath());
     if (empty($source_config['no_headers'])) {
+      $parser->setId($source->id);
       // Get first line and use it for column names, convert them to lower case.
       $header = $this->parseHeader($parser, $iterator);
       if (!$header) {
@@ -24,6 +25,12 @@ class KbDocCommuniqueCSVParser extends FeedsCSVParser {
         return new FeedsParserResult();
       }
       $parser->setColumnNames($header);
+    }
+
+    $importer_id = $source->importer()->id;
+    if (isset($importer_id) && !variable_get($importer_id . '_log_name', 0)) {
+      $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
+      variable_set($importer_id . '_log_name', $file_log_name);
     }
 
     // Determine section to parse, parse.

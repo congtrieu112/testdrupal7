@@ -80,7 +80,7 @@ function action_delete_nodes() {
  * @return string
  */
 function kb_import_cronapi($op, $job = NULL) {
-//Starting daily import 
+//Starting daily import
   $items['kandb_starting_daily_import'] = array(
     'description' => 'Starting daily import',
     'rule' => '0 3 * * 1-5',
@@ -135,6 +135,11 @@ $kb_daily_import_importers = array(
 }
 
 function kb_starting_daily_import(){
+  $kb_migration_status = get_migration_status();
+  if ($kb_migration_status['start_migration'] == 1) {
+    kb_daily_import_logging ('daily-import: can not start because migration import is running');
+    return;
+  }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = kb_import_ftp_get_files();
   if($start_getting_file) {
@@ -142,25 +147,41 @@ function kb_starting_daily_import(){
     $kb_daily_import_status = daily_import_status_default();
     $kb_daily_import_status['start_daily_import'] = 1;
     set_daily_import_status ($kb_daily_import_status);
+    set_migration_status($kb_migration_status);
   //Call event starting_daily_import
     rules_invoke_event('starting_daily_import');
   }
 }
 function kb_start_migration_import($getting_file = TRUE){
+  $kb_daily_import_status = get_daily_import_status();
+  if ($kb_daily_import_status['start_daily_import'] == 1) {
+    kb_migration_logging ('migration : can not start because the daily import is running');
+    return;
+  }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = TRUE;
   if ($getting_file !== 0) {
     $start_getting_file = kb_import_ftp_get_files();
   }
   if($start_getting_file) {
-    kb_migration_logging ('migration : get files via FTP success');
+    if ($getting_file !== 0) {
+      kb_migration_logging ('migration : get files via FTP success');
+    }
   //Flush data
   $flushed = kb_flush_data ();
-  if (isset($flushed['node']) && $flushed['node'] > 0) {
-    kb_migration_logging ('migration : deleted ' . $flushed['node'] . ' nodes');
+  $logging = '';
+  if (isset($flushed['node'])) {
+    foreach ($flushed['node'] as $type => $total_nodes) {
+      $logging .= 'migration : deleted ' . $total_nodes . ' nodes ' . $type . "\n";
+    }
   }
   if (isset($flushed['term']) && $flushed['term'] > 0) {
-    kb_migration_logging ('migration : deleted ' . $flushed['term'] . ' terms');
+    foreach ($flushed['term'] as $type => $total_terms) {
+      $logging .= 'migration : deleted ' . $total_terms . ' terms ' . $type . "\n";
+    }
+  }
+  if ($logging != '') {
+    kb_migration_logging (rtrim($logging, "\n"));
   }
   //Set variable's status
     $kb_migration_status = migration_status_default();
@@ -168,6 +189,7 @@ function kb_start_migration_import($getting_file = TRUE){
     set_migration_status ($kb_migration_status);
     kb_migration_logging ('migration : start migration');
   //Call event start_migration_import
+    set_daily_import_status ($kb_daily_import_status);
     rules_invoke_event('start_migration_import');
   }
 }
@@ -244,7 +266,7 @@ function kb_daily_import_logging ($message) {
 }
 function kb_migration_logging ($message) {
   if(module_exists('kandb_feed') && $message != ''){
-    $message .= "\n";
+    $message = date("Y-m-d h:i A") . "\n" . $message . "\n";
     $uri = 'private://migration/';
     $file_log_name = 'migration_log_' . date('Y-m-d') . '.txt';
     createFileErrorLogTxt($file_log_name, $message, $uri);
@@ -315,11 +337,13 @@ function kb_flush_data () {
     'maison',
   );
   $query_node = db_select('node', 'n');
-  $query_node->fields('n', array('nid'));
+  $query_node->fields('n', array('nid', 'type'));
   $query_node->condition('n.type', $node_types, 'IN');
-  $nids = $query_node->execute()->fetchCol();
-  node_delete_multiple($nids);
-  $result['node'] = count($nids);
+  $nodes = $query_node->execute()->fetchAll();
+  foreach ($nodes as $node) {
+    node_delete($node->nid);
+    $result['node'][$node->type]++;
+  }
   //Delete all terms
   $vocs = array(
     'arrondissement',
@@ -329,10 +353,11 @@ function kb_flush_data () {
   $query_term->fields('t', array('tid'));
   $query_term->leftJoin('taxonomy_vocabulary', 'voc', 'voc.vid=t.vid');
   $query_term->condition('voc.machine_name', $vocs, 'IN');
-  $tids = $query_term->distinct()->execute()->fetchCol();
-  foreach ($tids as $tid) {
-    taxonomy_term_delete($tid);
+  $query_term->addField('voc', 'machine_name');
+  $terms = $query_term->distinct()->execute()->fetchAll();
+  foreach ($terms as $term) {
+    taxonomy_term_delete($term->tid);
+    $result['term'][$term->machine_name]++;
   }
-  $result['term'] = count($tids);
   return $result;
 }
