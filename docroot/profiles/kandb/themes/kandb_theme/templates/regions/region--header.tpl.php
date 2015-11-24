@@ -33,13 +33,13 @@ $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
 $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
 ?>
 <!-- [siteHeader] start-->
-<aside class="hide-for-large-up pushy pushy-left">
+<div>
   <?php if($main_menu) : ?>
-    <ul class="pushy__menu">
+    <ul>
       <?php foreach ($main_menu as $item) : ?>
-        <li class="pushy__menu__item"><a href="<?php echo $item['link']; ?>"><?php echo $item['title']; ?></a></li>
+        <li><a href="<?php echo $item['href']; ?>"><?php echo $item['title']; ?></a></li>
       <?php endforeach; ?>
     </ul>
   <?php endif; ?>
-</aside>
+</div>
 <!-- [siteHeader] end-->
