@@ -330,6 +330,7 @@ function delete_migration_errorlog($file_name) {
 function kb_flush_data () {
   $result = array();
   //Delete all nodes
+  $nodes = array();
   $node_types = array(
     'programme',
     'bien',
@@ -339,12 +340,19 @@ function kb_flush_data () {
   $query_node = db_select('node', 'n');
   $query_node->fields('n', array('nid', 'type'));
   $query_node->condition('n.type', $node_types, 'IN');
-  $nodes = $query_node->execute()->fetchAll();
-  foreach ($nodes as $node) {
-    node_delete($node->nid);
-    $result['node'][$node->type]++;
-  }
+  $query_node->range(0, 1000);
+  do {
+    $nodes = $query_node->execute()->fetchAll();
+    foreach ($nodes as $node) {
+      node_delete($node->nid);
+      $result['node'][$node->type]++;
+    }
+    if (!empty ($nodes)) {
+      sleep(15);
+    }
+  } while (!empty ($nodes));
   //Delete all terms
+  $terms = array();
   $vocs = array(
     'arrondissement',
     'ville',
@@ -354,10 +362,16 @@ function kb_flush_data () {
   $query_term->leftJoin('taxonomy_vocabulary', 'voc', 'voc.vid=t.vid');
   $query_term->condition('voc.machine_name', $vocs, 'IN');
   $query_term->addField('voc', 'machine_name');
-  $terms = $query_term->distinct()->execute()->fetchAll();
-  foreach ($terms as $term) {
-    taxonomy_term_delete($term->tid);
-    $result['term'][$term->machine_name]++;
-  }
+  $query_term->range(0, 1000);
+  do {
+    $terms = $query_term->distinct()->execute()->fetchAll();
+    foreach ($terms as $term) {
+      taxonomy_term_delete($term->tid);
+      $result['term'][$term->machine_name]++;
+    }
+    if (!empty ($terms)) {
+      sleep(15);
+    }
+  } while (!empty ($terms));
   return $result;
 }
