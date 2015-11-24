@@ -24,8 +24,7 @@ endif;
 <!-- [Avant-premiere] end-->
 <!-- [Prochainement] start-->
 <?php
-$vocal = taxonomy_vocabulary_machine_name_load('ville_autocomplete');
-$terms = taxonomy_get_tree($vocal->vid);
+$terms = kandb_validate_get_ville_avant();
 ?>
 <section id="shortly" class="wrapper section-padding">
     <header class="heading heading--bordered filter-aside">
@@ -38,7 +37,7 @@ $terms = taxonomy_get_tree($vocal->vid);
                 if ($terms):
                   foreach ($terms as $key => $term) :
                     ?>
-                    <option value="<?php print $term->tid; ?>"><?php print $term->name; ?></option>
+                    <option value="<?php print $key; ?>"><?php print $term; ?></option>
                     <?php
                   endforeach;
                 endif;
