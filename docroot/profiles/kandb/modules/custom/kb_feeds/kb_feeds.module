@@ -1064,6 +1064,7 @@ function import_bien_pdf_batch_operation_process($data, &$context) {
  * @todo Batch finished
  */
 function import_bien_pdf_batch_operation_finished($success, $results, $operations) {
+  kb_migration_logging ('migration : finish import_bien_pdf');
   if ($success) {
     // Here we could do something meaningful with the results.
     // We just display the number of nodes we processed...

@@ -135,6 +135,11 @@ $kb_daily_import_importers = array(
 }
 
 function kb_starting_daily_import(){
+  $kb_migration_status = get_migration_status();
+  if ($kb_migration_status['start_migration'] == 1) {
+    kb_daily_import_logging ('daily-import: can not start : migration import running');
+    return;
+  }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = kb_import_ftp_get_files();
   if($start_getting_file) {
@@ -147,6 +152,11 @@ function kb_starting_daily_import(){
   }
 }
 function kb_start_migration_import($getting_file = TRUE){
+  $kb_daily_import_status = get_daily_import_status();
+  if ($kb_daily_import_status['start_daily_import'] == 1) {
+    kb_migration_logging ('migration : can not start : daily import running');
+    return;
+  }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = TRUE;
   if ($getting_file !== 0) {
@@ -156,15 +166,19 @@ function kb_start_migration_import($getting_file = TRUE){
     kb_migration_logging ('migration : get files via FTP success');
   //Flush data
   $flushed = kb_flush_data ();
+  $logging = '';
   if (isset($flushed['node'])) {
     foreach ($flushed['node'] as $type => $total_nodes) {
-      kb_migration_logging ('migration : deleted ' . $total_nodes . ' nodes ' . $type);
+      $logging .= 'migration : deleted ' . $total_nodes . ' nodes ' . $type . "\n";
     }
   }
   if (isset($flushed['term']) && $flushed['term'] > 0) {
-    foreach ($flushed['node'] as $type => $total_terms) {
-      kb_migration_logging ('migration : deleted ' . $total_terms . ' terms ' . $type);
+    foreach ($flushed['term'] as $type => $total_terms) {
+      $logging .= 'migration : deleted ' . $total_terms . ' terms ' . $type . "\n";
     }
+  }
+  if ($logging != '') {
+    kb_migration_logging (rtrim($logging, "\n"));
   }
   //Set variable's status
     $kb_migration_status = migration_status_default();
@@ -248,7 +262,7 @@ function kb_daily_import_logging ($message) {
 }
 function kb_migration_logging ($message) {
   if(module_exists('kandb_feed') && $message != ''){
-    $message .= "\n";
+    $message = date("Y-m-d h:i A") . "\n" . $message . "\n";
     $uri = 'private://migration/';
     $file_log_name = 'migration_log_' . date('Y-m-d') . '.txt';
     createFileErrorLogTxt($file_log_name, $message, $uri);
