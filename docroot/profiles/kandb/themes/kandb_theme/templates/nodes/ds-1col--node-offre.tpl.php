@@ -24,11 +24,30 @@ endif;
   </section>
   <!-- [Avant-premiere] end-->
 <?php endif; ?>
-<?php if (isset($content['field_offre_view2'])): ?>
+<?php
+if (isset($content['field_offre_view2'])):
+  $terms = kandb_validate_get_ville_has_reference($content['field_offre_view2'][0]['#view_name']);
+  ?>
+
   <!-- [Prochainement] start-->
   <section id="shortly" class="wrapper section-padding">
       <header class="heading heading--bordered filter-aside">
           <h2 class="heading__title"><?php print $content['field_offre_title2'][0]['#markup']; ?></h2>
+          <form class="filter">
+              <label for="offersFilter" class="filter__label"><?php print t('Trier par'); ?></label>
+              <select id="offersFilter" data-app-select data-app-filter="prochainement" name="offersFilter" class="filter__select">
+                  <option value="">-</option>
+                  <?php
+                  if ($terms):
+                    foreach ($terms as $key => $term) :
+                      ?>
+                      <option value="<?php print $key; ?>"><?php print $term; ?></option>
+                      <?php
+                    endforeach;
+                  endif;
+                  ?>
+              </select>
+          </form>
       </header>
       <?php print render($content['field_offre_view2']); ?>
   </section>

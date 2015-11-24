@@ -23,8 +23,8 @@
  * @ingroup views_templates
  */
 $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
-$ville_name = $row->field_field_programme_loc_ville[0]['rendered']['#title'];
-$departement_tax = $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'];
+$ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
+$departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
 $status_promotion = $row->field_promotion_programme_node_status;
 $available = false;
