@@ -516,9 +516,26 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = '7';
   $feeds_tamper->plugin_id = 'cast_to_int';
   $feeds_tamper->settings = array();
-  $feeds_tamper->weight = 0;
+  $feeds_tamper->weight = 4;
   $feeds_tamper->description = 'Cast to integer';
   $export['parcel_feed_import-7-cast_to_int'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'parcel_feed_import-7-find_replace_regex';
+  $feeds_tamper->importer = 'parcel_feed_import';
+  $feeds_tamper->source = '7';
+  $feeds_tamper->plugin_id = 'find_replace_regex';
+  $feeds_tamper->settings = array(
+    'find' => '/(?:(?!00[1-9])0([0-9]+)|(00[0-9]+))/',
+    'replace' => '\\1',
+    'limit' => '',
+    'real_limit' => -1,
+  );
+  $feeds_tamper->weight = 2;
+  $feeds_tamper->description = 'Find replace REGEX';
+  $export['parcel_feed_import-7-find_replace_regex'] = $feeds_tamper;
 
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
@@ -532,7 +549,7 @@ function kandb_feed_feeds_tamper_default() {
     'field_name' => 'field_id_etage',
     'auto_create' => 0,
   );
-  $feeds_tamper->weight = 1;
+  $feeds_tamper->weight = 3;
   $feeds_tamper->description = 'Search term by field';
   $export['parcel_feed_import-7-search_term_by_field'] = $feeds_tamper;
 

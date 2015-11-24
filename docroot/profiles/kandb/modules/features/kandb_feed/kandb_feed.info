@@ -67,6 +67,7 @@ features[feeds_tamper][] = parcel_feed_import-5-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-6-cast_to_int
 features[feeds_tamper][] = parcel_feed_import-6-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-7-cast_to_int
+features[feeds_tamper][] = parcel_feed_import-7-find_replace_regex
 features[feeds_tamper][] = parcel_feed_import-7-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-9-find_replace
 features[feeds_tamper][] = programme_feed_import-14-search_term_by_field
