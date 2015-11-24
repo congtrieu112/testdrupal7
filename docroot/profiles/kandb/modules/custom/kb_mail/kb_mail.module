@@ -192,8 +192,8 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       if (isset($bien_type->name)) {
         $variables['bien_type'] = $bien_type->name;
       }
-      if (strpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') !== FALSE) {
-        $variables['bien_lot_id'] = trim(substr($bien->field_id_bien[LANGUAGE_NONE][0]['value'], strpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') + 1));
+      if (strrpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') !== FALSE) {
+        $variables['bien_lot_id'] = trim(substr($bien->field_id_bien[LANGUAGE_NONE][0]['value'], strrpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') + 1));
       }
       else {
         $variables['bien_lot_id'] = $bien->field_id_bien[LANGUAGE_NONE][0]['value'];
