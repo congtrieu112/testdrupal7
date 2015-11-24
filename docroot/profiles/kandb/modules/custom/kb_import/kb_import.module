@@ -147,6 +147,7 @@ function kb_starting_daily_import(){
     $kb_daily_import_status = daily_import_status_default();
     $kb_daily_import_status['start_daily_import'] = 1;
     set_daily_import_status ($kb_daily_import_status);
+    set_migration_status($kb_migration_status);
   //Call event starting_daily_import
     rules_invoke_event('starting_daily_import');
   }
@@ -163,7 +164,9 @@ function kb_start_migration_import($getting_file = TRUE){
     $start_getting_file = kb_import_ftp_get_files();
   }
   if($start_getting_file) {
-    kb_migration_logging ('migration : get files via FTP success');
+    if ($getting_file !== 0) {
+      kb_migration_logging ('migration : get files via FTP success');
+    }
   //Flush data
   $flushed = kb_flush_data ();
   $logging = '';
@@ -186,6 +189,7 @@ function kb_start_migration_import($getting_file = TRUE){
     set_migration_status ($kb_migration_status);
     kb_migration_logging ('migration : start migration');
   //Call event start_migration_import
+    set_daily_import_status ($kb_daily_import_status);
     rules_invoke_event('start_migration_import');
   }
 }
