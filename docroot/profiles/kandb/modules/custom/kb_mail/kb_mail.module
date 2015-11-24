@@ -66,7 +66,13 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
 }
 function kandb_webform_submit(&$form, &$form_state) {
   $node = NULL;
+  $bien = NULL;
   $values = $form_state['values'];
+  if (isset($values['submitted']['row_2']['rappeler_horaire'])) {
+    if (isset ($form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']])) {
+      $values['submitted']['row_2']['rappeler_horaire'] = $form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']];
+    }
+  }
   if (isset($values['submitted']['rdv_idkp']) && is_numeric($values['submitted']['rdv_idkp'])) {
     $db_query = db_select('field_data_field_id_programme', 'fidk');
     $db_query->fields('fidk', array('entity_id'));
@@ -76,9 +82,18 @@ function kandb_webform_submit(&$form, &$form_state) {
     $nid = $db_query->execute()->fetchField();
     $node = node_load($nid);
   }
+  if (isset($values['submitted']['rdv_idkl'])) {
+    $db_query = db_select('field_data_field_id_bien', 'fidkl');
+    $db_query->fields('fidkl', array('entity_id'));
+    $db_query->condition('fidkl.entity_type', 'node');
+    $db_query->condition('fidkl.bundle', 'bien');
+    $db_query->condition('fidkl.field_id_bien_value', $values['submitted']['rdv_idkl']);
+    $nid = $db_query->execute()->fetchField();
+    $bien = node_load($nid);
+  }
   $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
   if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
-    $variables = kandb_webform_build_variable_mail($webform_name, $values, $node);
+    $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien);
     $has_prefix = FALSE;
     if ($webform_name == '_tre_rappel_') {
 //      $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
@@ -133,7 +148,7 @@ function kb_mail_mail($key, &$message, $params) {
     $message['body'][] = $params['body'];
   }
 }
-function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL) {
+function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL) {
   $variables = array();
   if($webform_name && $values) {
     $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
@@ -155,9 +170,35 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
     }
     if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) {
       $department = taxonomy_term_load($programme->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
-       $variables['programme_loc_department'] = isset($department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+      $variables['programme_loc_department'] = isset($department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
     }
-    
+    $variables['bien_type'] = '';
+    $variables['bien_nb_pieces'] = '';
+    $variables['bien_lot_id'] = '';
+    $variables['bien_superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] . ' m2' : '';
+    if (isset($bien->field_type[LANGUAGE_NONE][0]['tid'])) {
+      $bien_type = taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']);
+      if (isset($bien_type->name)) {
+        $variables['bien_type'] = $bien_type->name;
+      }
+    }
+    if (isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
+      $nb_pieces = taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+      if (isset($nb_pieces->name)) {
+        $variables['bien_nb_pieces'] = $nb_pieces->name;
+      }
+    }
+    if (isset($bien->field_id_bien[LANGUAGE_NONE][0]['value'])) {
+      if (isset($bien_type->name)) {
+        $variables['bien_type'] = $bien_type->name;
+      }
+      if (strpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') !== FALSE) {
+        $variables['bien_lot_id'] = trim(substr($bien->field_id_bien[LANGUAGE_NONE][0]['value'], strpos($bien->field_id_bien[LANGUAGE_NONE][0]['value'], '-') + 1));
+      }
+      else {
+        $variables['bien_lot_id'] = $bien->field_id_bien[LANGUAGE_NONE][0]['value'];
+      }
+    }
     if ($webform_name == '_tre_rappel_') {
       $variables['rappeler_nom'] = isset($values['submitted']['row_1']['rappeler_nom']) ? $values['submitted']['row_1']['rappeler_nom'] : '';
       $variables['rappeler_prenom'] = isset($values['submitted']['row_1']['rappeler_prenom']) ? $values['submitted']['row_1']['rappeler_prenom'] : '';
