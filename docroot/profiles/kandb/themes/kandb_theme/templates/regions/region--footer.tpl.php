@@ -72,77 +72,33 @@ if (theme_get_setting('footer_link_custom')) {
             </aside>
         </div>
         <nav class="siteFooter__nav">
-            <?php
-            $menu_one = "";
+          <?php            
             if (!empty(menu_navigation_links('menu-footer')) && count(menu_navigation_links('menu-footer')) > 0) {
-                $menu_one = menu_navigation_links('menu-footer');
-                ksort($menu_one);
-                $i = 0;
-                ?>
-                <ul class="show-for-medium-up searchItems">
-                    <?php
-                    foreach ($menu_one as $item) {
-                        if ($i < 3) {
-                            ?>
-                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                            <?php
-                            
-                        }
-                        $i++;
+                $footer_menu = menu_navigation_links('menu-footer');
+                $i = $j = 0;
+                $html = '';
+                $count_item = count($footer_menu);
+                foreach ($footer_menu as $item) {
+                    if ($i == 0 || ($i % 3) == 0) {
+                        $class = ($j == 0) ? 'class="show-for-medium-up searchItems"' : '';
+                        $html .= '<ul ' . $class . '>';
+                        $i = 0;
                     }
-                    ?>
+                    
+                    $html .= '<li><a href="' . $item['href'] . '" title="' . $item['title'] . '" class="textLink">' . $item['title'] . '</a></li>';
 
-                </ul>
-            <?php } ?>
-            <?php
-            if ($menu_one && count($menu_one) > 2) {
-               
-               
-                $i = 0;
-                ?>
-                <ul>
-                    <?php
-                    foreach ($menu_one as $item) {
-                        
-
-                        if ($i > 2 && $i < 6) {
-                            ?>
-                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                            <?php
-                        }
-                        $i++;
+                    if ($i == 2 || $j == ($count_item - 1)) {
+                        $html .= '</ul>';
                     }
-                    ?>
 
-                </ul>
-            <?php } ?>
-            <?php
-            if ($menu_one && count($menu_one) > 5) {
-                $i = 0;
-                ?>
-                <ul>
-                    <?php
-                    foreach ($menu_one as $item) {
-                        $i++;
-                        if ($i > 5 && $i < 9) {
-                            ?>
-                            <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                                <?php
-                            }
-                            $i++;
-                        }
-                        ?>
+                    $j++;
+                    $i++;
+                }
 
-                </ul>
-            <?php } ?>
+                print $html;                
+            }
+          ?>
         </nav>
     </div>
 </footer>
 </div>
-
-
-
-
-
-
-
