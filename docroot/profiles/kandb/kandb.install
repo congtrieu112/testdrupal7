@@ -574,7 +574,7 @@ function kandb_update_7150() {
     module_enable(array('kandb_xml_sitemap'), TRUE);
   }
  }
- 
+
 /*
  * Enable kandb_validate module
  */
@@ -583,3 +583,13 @@ function kandb_update_7151() {
     module_enable(array('kandb_validate'), TRUE);
   }
 }
+
+/*
+ * Enable stringoverrides module
+ */
+function kandb_update_7152() {
+  if (!module_exists('stringoverrides')) {
+    module_enable(array('stringoverrides'), TRUE);
+  }
+}
+
