@@ -1074,11 +1074,25 @@ function kandb_feed_feeds_importer_default() {
       ),
     ),
     'processor' => array(
-      'plugin_key' => 'KbFeedsNodeProcessor',
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
       'config' => array(
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
+        'related_importer' => array(
+          'migration_bien_import' => 'migration_bien_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'programme_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => '0',
@@ -1189,8 +1203,7 @@ function kandb_feed_feeds_importer_default() {
           20 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
-            'term_search' => '3',
-            'autocreate' => 0,
+            'unique' => FALSE,
           ),
           21 => array(
             'source' => '28',
@@ -1204,7 +1217,7 @@ function kandb_feed_feeds_importer_default() {
           ),
         ),
         'update_existing' => '2',
-        'update_non_existent' => 'update',
+        'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
         'skip_hash_check' => 1,
         'bundle' => 'bien',

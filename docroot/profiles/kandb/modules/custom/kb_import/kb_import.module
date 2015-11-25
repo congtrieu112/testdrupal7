@@ -61,7 +61,7 @@ function kb_import_menu() {
 
 function action_delete_nodes() {
   $KBAPI = new KAndBAPI();
-  $results = $KBAPI->getListNodeByBundle('node', 'bien');
+  $results = $KBAPI->getListNodeByBundle('node', 'programme');
 
   foreach ($results as $id => $value) {
     $nids[] = $id;
