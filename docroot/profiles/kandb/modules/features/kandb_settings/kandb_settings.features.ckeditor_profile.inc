@@ -136,12 +136,11 @@ function kandb_settings_ckeditor_profile_defaults() {
       'settings' => array(
         'ss' => 2,
         'toolbar' => '[
-    [\'Styles\',\'Format\',\'FontSize\'],
+    [\'Format\'],
     [\'Bold\',\'Italic\',\'Underline\',\'Strike\'],
     [\'JustifyLeft\',\'JustifyCenter\',\'JustifyRight\',\'JustifyBlock\'],
-    \'/\',
     [\'BulletedList\',\'NumberedList\',\'Indent\',\'Outdent\'],
-    [\'Table\',\'Link\',\'Unlink\'],
+    [\'Table\',\'Link\',\'Unlink\',\'Anchor\'],
     [\'Copy\',\'Paste\',\'PasteText\',\'PasteFromWord\']
 ]',
         'expand' => 't',
