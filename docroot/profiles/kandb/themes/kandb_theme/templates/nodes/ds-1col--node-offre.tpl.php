@@ -26,7 +26,8 @@ endif;
 <?php endif; ?>
 <?php
 if (isset($content['field_offre_view2'])):
-  $terms = kandb_validate_get_ville_has_reference($content['field_offre_view2'][0]['#view_name']);
+  $result = isset($content['field_offre_view2'][0]['#view']->result) ? $content['field_offre_view2'][0]['#view']->result : '';
+  $terms = kandb_validate_get_ville_has_reference($content['field_offre_view2'][0]['#view_name'], $result);
   ?>
 
   <!-- [Prochainement] start-->

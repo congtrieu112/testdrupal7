@@ -49,7 +49,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
 /**
  * Implement get ville that has reference with node and grande_ouve unchecked.
  */
-function kandb_validate_get_ville_has_reference($view_name) {
+function kandb_validate_get_ville_has_reference($view_name, $result) {
   $type_options_existed = array();
   if ($view_name == 'avant_premiere_check') {
     $type_options_query = db_select('field_data_field_avant_premiere_ville', 'a');
@@ -78,6 +78,19 @@ function kandb_validate_get_ville_has_reference($view_name) {
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
     $type_options_existed += $type_options_query->execute()->fetchAllKeyed();
+  }
+
+  if ($view_name == 'livraison_immediate') {
+    if ($result) {
+      foreach ($result as $item) {
+        $name = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name : '';
+        $tid = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->tid) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->tid : '';
+        if ($name && $tid) {
+          $type_options_existed[$tid] = $name;
+        }
+        $type_options_existed = array_unique($type_options_existed);
+      }
+    }
   }
 
   return $type_options_existed;
