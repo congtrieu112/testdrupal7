@@ -421,3 +421,10 @@ function kandb_theme_select($variables) {
   $variables['element']['#attributes']['data-app-select'] = '';
   return theme_select($variables);
 }
+
+/**
+ * Implementation of hook_css_alter()
+ */
+function kandb_theme_css_alter(&$css){
+  unset($css['modules/system/system.messages.css']);
+}
