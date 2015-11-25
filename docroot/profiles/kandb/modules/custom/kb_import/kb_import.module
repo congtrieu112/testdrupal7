@@ -161,13 +161,18 @@ function kb_start_migration_import($getting_file = TRUE){
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
   $start_getting_file = TRUE;
   if ($getting_file !== 0) {
+    kb_migration_logging ('migration : start get files via FTP');
     $start_getting_file = kb_import_ftp_get_files();
-  }
-  if($start_getting_file) {
-    if ($getting_file !== 0) {
+    if ($start_getting_file) {
       kb_migration_logging ('migration : get files via FTP success');
     }
+    else {
+      kb_migration_logging ('migration : get files via FTP error');
+    }
+  }
+  if($start_getting_file) {
   //Flush data
+  kb_migration_logging ('migration : start flush data');
   $flushed = kb_flush_data ();
   $logging = '';
   if (isset($flushed['node'])) {
@@ -266,7 +271,7 @@ function kb_daily_import_logging ($message) {
 }
 function kb_migration_logging ($message) {
   if(module_exists('kandb_feed') && $message != ''){
-    $message = date("Y-m-d h:i A") . "\n" . $message . "\n";
+    $message = date("Y-m-d h:i A") . "\n" . $message . "\n\n";
     $uri = 'private://migration/';
     $file_log_name = 'migration_log_' . date('Y-m-d') . '.txt';
     createFileErrorLogTxt($file_log_name, $message, $uri);
