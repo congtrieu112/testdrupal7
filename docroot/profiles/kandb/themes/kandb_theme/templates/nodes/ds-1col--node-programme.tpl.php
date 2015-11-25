@@ -281,9 +281,6 @@ foreach ($arr_slider as $field_name) {
                 <ul class="sharing__items">
                     <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                     <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Whatsapp" class="icon icon-phone-call"></a></li>
                 </ul>
             </div>
         </div>
