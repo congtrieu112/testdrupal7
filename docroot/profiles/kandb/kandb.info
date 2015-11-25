@@ -90,6 +90,7 @@ dependencies[] = gmap_location
 dependencies[] = unique_field
 dependencies[] = viewfield
 dependencies[] = views_php
+dependencies[] = stringoverrides
 
 ; Custom
 dependencies[] = kb_feeds

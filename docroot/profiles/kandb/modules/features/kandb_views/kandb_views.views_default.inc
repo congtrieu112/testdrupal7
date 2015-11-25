@@ -161,8 +161,32 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
   $handler->display->display_options['filters']['current_all']['value'] = '1';
 
-  /* Display: Block */
-  $handler = $view->new_display('block', 'Block', 'block');
+  /* Display: Block Carrousel in homepage */
+  $handler = $view->new_display('block', 'Block Carrousel in homepage', 'block');
+
+  /* Display: Block bottom carrousel in programme Page */
+  $handler = $view->new_display('block', 'Block bottom carrousel in programme Page', 'block_1');
+  $handler->display->display_options['display_description'] = 'Having the carrousel nottom of programm page  on the program page the carousel display the other program from the same "region" ';
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Has taxonomy term ID */
+  $handler->display->display_options['arguments']['tid']['id'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['table'] = 'taxonomy_index';
+  $handler->display->display_options['arguments']['tid']['field'] = 'tid';
+  $handler->display->display_options['arguments']['tid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['tid']['default_argument_type'] = 'taxonomy_tid';
+  $handler->display->display_options['arguments']['tid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['tid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['tid']['summary_options']['items_per_page'] = '25';
+  /* Contextual filter: Content: Nid */
+  $handler->display->display_options['arguments']['nid']['id'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['table'] = 'node';
+  $handler->display->display_options['arguments']['nid']['field'] = 'nid';
+  $handler->display->display_options['arguments']['nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['nid']['not'] = TRUE;
   $translatables['nos_dernieres_offres'] = array(
     t('Master'),
     t('Nos dernières offres'),
@@ -183,7 +207,10 @@ function kandb_views_views_default_views() {
     t('Nid'),
     t('Title'),
     t('Published promotion'),
-    t('Block'),
+    t('Block Carrousel in homepage'),
+    t('Block bottom carrousel in programme Page'),
+    t('Having the carrousel nottom of programm page  on the program page the carousel display the other program from the same "region" '),
+    t('All'),
   );
   $export['nos_dernieres_offres'] = $view;
 
