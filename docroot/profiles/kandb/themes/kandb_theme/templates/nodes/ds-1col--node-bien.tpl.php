@@ -134,9 +134,6 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                     <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                         <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Whatsapp" class="icon icon-phone-call"></a></li>
                     </ul>
                 </div>
             </div>
@@ -335,7 +332,7 @@ if (!empty($list_bien_more)):
 
                 global $base_url;
                 $url_principale = "";
-                $url_principale = $base_url . "/" . drupal_lookup_path('alias', "node/" . $id_programme);
+                $url_principale = url('node/' . $id_programme);
                 $title_principale = isset($nodeprogramme->title) ? $nodeprogramme->title : '';
                 $title_principale_ville = isset($nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
                 $image_principale = isset($nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
