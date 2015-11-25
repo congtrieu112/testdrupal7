@@ -8,6 +8,25 @@ if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
 }
 
 /**
+ * Override or insert variables into the html template.
+ */
+function kandb_theme_preprocess_html(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'html__ajax';
+  }
+}
+
+/**
+ * Override or insert variables into the block template.
+ */
+function kandb_theme_preprocess_block(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'block__ajax';
+  }
+}
+/**
  * Override or insert variables into the page template.
  */
 function kandb_theme_process_page(&$variables) {
@@ -191,6 +210,11 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+  if ($vars['type'] == 'webform') {
+    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+      $vars['theme_hook_suggestions'][] = 'node__webform__ajax';
+    }
+  }
 }
 
 /**
@@ -230,6 +254,10 @@ function kandb_theme_preprocess_region(&$vars){
     if ($menu_secondary_links_source) {
       $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
     }
+  }
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $vars['theme_hook_suggestions'][] = 'region__ajax';
   }
 }
 
