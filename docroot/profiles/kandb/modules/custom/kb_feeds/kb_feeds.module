@@ -545,6 +545,25 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
 
             $tid = 0;
           }
+
+          if(isset($entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'])) {
+            $echelle_value = $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'];
+
+            switch ($echelle_value) {
+              case 'A':
+                $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'] = 1;
+                break;
+              case 'B':
+                $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'] = 2;
+                break;
+              case 'Void':
+                $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'] = 3;
+                break;
+              default:
+                $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'] = 0;
+                break;
+            }
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'city_feed_import') {
@@ -1273,7 +1292,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
       case 'custom_echelle_options_warning':
         foreach ($fields as $key => $field_name) {
           if(isset($item[$key]) && trim($item[$key])) {
-            if(!in_array((int)$item[$key], array(1,2,3))) {
+            if(!in_array($item[$key], array('A', 'B', 'Void'))) {
               $error_custom_echelle_options_field_warning .= $field_name . ',';
               $value_custom_echelle_options_field .= $field_name . ': ' . $item[$key] . ', ';
             }
@@ -1362,7 +1381,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   }
 
   if ($error_custom_echelle_options_field_warning) {
-    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') .  '|' . rtrim($value_custom_echelle_options_field, ',') . '|' . 'Echelle must is number(1,2,3)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') .  '|' . rtrim($value_custom_echelle_options_field, ',') . '|' . 'Echelle must is "A" Or "B" Or "Void"' . '|' . 'Warning' . "\n";
   }
 
   return $logging;
