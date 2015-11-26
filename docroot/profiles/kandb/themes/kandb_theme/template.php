@@ -222,11 +222,6 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
-  if ($vars['type'] == 'webform') {
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-      $vars['theme_hook_suggestions'][] = 'node__webform__ajax';
-    }
-  }
 
   // Implement redirect bien detail if status is Indisponible;
   if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
