@@ -28,7 +28,8 @@ function kandb_view_livraison_immediate_views_default_views() {
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '200';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['style_options']['default_row_class'] = FALSE;
@@ -113,39 +114,64 @@ function kandb_view_livraison_immediate_views_default_views() {
   $handler->display->display_options['sorts']['changed']['table'] = 'node';
   $handler->display->display_options['sorts']['changed']['field'] = 'changed';
   $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['filter_groups']['operator'] = 'OR';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
+  /* Filter criterion: Content: Année (field_annee) */
+  $handler->display->display_options['filters']['field_annee_value']['id'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['table'] = 'field_data_field_annee';
+  $handler->display->display_options['filters']['field_annee_value']['field'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['value']['value'] = '2015';
+  $handler->display->display_options['filters']['field_annee_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_annee_value']['expose']['operator_id'] = 'field_annee_value_op';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['label'] = 'Année (field_annee)';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['operator'] = 'field_annee_value_op';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['identifier'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['label'] = 'Année (field_annee)';
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['identifier'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  /* Filter criterion: Content: Trimestre (field_trimestre) */
+  $handler->display->display_options['filters']['field_trimestre_value']['id'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value']['table'] = 'field_data_field_trimestre';
+  $handler->display->display_options['filters']['field_trimestre_value']['field'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value']['value'] = array(
+    4 => '4',
+  );
+  $handler->display->display_options['filters']['field_trimestre_value']['group'] = 1;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Global: PHP */
-  $handler->display->display_options['filters']['php']['id'] = 'php';
-  $handler->display->display_options['filters']['php']['table'] = 'views';
-  $handler->display->display_options['filters']['php']['field'] = 'php';
-  $handler->display->display_options['filters']['php']['use_php_setup'] = 0;
-  $handler->display->display_options['filters']['php']['php_filter'] = '$row_quarter = (isset($data->_field_data[\'nid\'][\'entity\']->field_trimestre[\'und\'][\'0\'][\'value\'])) ? $data->_field_data[\'nid\'][\'entity\']->field_trimestre[\'und\'][\'0\'][\'value\'] : \'\';
-$row_year = (isset($data->_field_data[\'nid\'][\'entity\']->field_annee[\'und\'][\'0\'][\'value\'])) ? intval($data->_field_data[\'nid\'][\'entity\']->field_annee[\'und\'][\'0\'][\'value\']) : 0;
-
-if(empty($row_quarter) || empty($row_year)){
-  return TRUE;
-}
-
-$cur_year = intval(date("Y", time()));
-$cur_month = date("m", time());
-$cur_quarter = ceil($cur_month / 3);
-$next_quarter = 1;
-if($cur_quarter != 4){
-  $next_quarter = $cur_quarter + 1;
-}
-
-$result = TRUE;
-if(($row_year == $cur_year && $row_quarter == $cur_quarter) || ($row_year == $cur_year + 1 && $row_quarter == $next_quarter)){
-  $result = FALSE;
-}
-
-return $result;';
+  /* Filter criterion: Content: Année (field_annee) */
+  $handler->display->display_options['filters']['field_annee_value_1']['id'] = 'field_annee_value_1';
+  $handler->display->display_options['filters']['field_annee_value_1']['table'] = 'field_data_field_annee';
+  $handler->display->display_options['filters']['field_annee_value_1']['field'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value_1']['value']['value'] = '2016';
+  $handler->display->display_options['filters']['field_annee_value_1']['group'] = 2;
+  /* Filter criterion: Content: Trimestre (field_trimestre) */
+  $handler->display->display_options['filters']['field_trimestre_value_1']['id'] = 'field_trimestre_value_1';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['table'] = 'field_data_field_trimestre';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['field'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_trimestre_value_1']['group'] = 2;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'node';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
 
   /* Display: Livraison Immediate */
   $handler = $view->new_display('block', 'Livraison Immediate', 'block');
@@ -168,6 +194,7 @@ return $result;';
     t('Published'),
     t('Nid'),
     t('Mentions Légales'),
+    t('Année (field_annee)'),
   );
   $export['livraison_immediate'] = $view;
 

@@ -7,6 +7,9 @@ if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
   define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');  
 }
 
+// Constant to see if the page is loaded in AJAX
+define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
+
 /**
  * Override or insert variables into the html template.
  */
@@ -60,10 +63,12 @@ function kandb_theme_process_page(&$variables) {
   drupal_add_js(WATCHEEZY, 'external');
 
   // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+  if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'page__ajax';
   }
 }
+
+
 
 /**
  * Returns HTML for primary and secondary local tasks.
@@ -95,6 +100,15 @@ function kandb_theme_menu_local_tasks(&$variables) {
     }
   }
   return $output;
+}
+
+/**
+ * Implementation theme_preprocess_form_element_label()
+ */
+function kandb_theme_preprocess_form_element_label(&$variables) {
+  if ($variables['element']['#theme'] == 'checkbox') {
+    $variables['element']['#attributes']['class'][] = 'label-checkbox';
+  }
 }
 
 /**
@@ -339,4 +353,106 @@ function get_biens_follow_piece_program($id_programme, $id_piece = 0){
   }
   
   return array();
+}
+
+/**
+ * Returns HTML for a form element label and required marker.
+ *
+ * Form element labels include the #title and a #required marker. The label is
+ * associated with the element itself by the element #id. Labels may appear
+ * before or after elements, depending on theme_form_element() and
+ * #title_display.
+ *
+ * This function will not be called for elements with no labels, depending on
+ * #title_display. For elements that have an empty #title and are not required,
+ * this function will output no label (''). For required elements that have an
+ * empty #title, this will output the required marker alone within the label.
+ * The label will use the #id to associate the marker with the field that is
+ * required. That is especially important for screenreader users to know
+ * which field is required.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #required, #title, #id, #value, #description.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_form_element_label($variables) {
+  $element = $variables['element'];
+  // This is also used in the installer, pre-database setup.
+  $t = get_t();
+
+  // If title and required marker are both empty, output no label.
+  if ((!isset($element['#title']) || $element['#title'] === '') && empty($element['#required'])) {
+    return '';
+  }
+
+  // If the element is required, a required marker is appended to the label.
+  $required = !empty($element['#required']) ? theme('form_required_marker', array('element' => $element)) : '';
+
+  $title = filter_xss_admin($element['#title']);
+
+  $attributes = array();
+  // Style the label as class option to display inline with the element.
+  if ($element['#title_display'] == 'after') {
+    $attributes['class'] = 'option';
+  }
+  // Show label only to screen readers to avoid disruption in visual flows.
+  elseif ($element['#title_display'] == 'invisible') {
+    $attributes['class'] = 'element-invisible';
+  }
+
+  if (!empty($variables['element']['#attributes']['class'])) {
+    $attributes['class'] .= ' ' . implode(' ', $variables['element']['#attributes']['class']);
+  }
+
+  if (!empty($element['#id'])) {
+    $attributes['for'] = $element['#id'];
+  }
+
+  // The leading whitespace helps visually separate fields from inline labels.
+  return ' <label' . drupal_attributes($attributes) . '><span>' . $t('!title !required', array('!title' => $title, '!required' => $required)) . "</span></label>\n";
+}
+
+/**
+ * Returns HTML for a checkbox form element.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #name, #attributes, #checked, #return_value.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_checkbox($variables) {
+  $variables['element']['#attributes']['class'][] = 'input-checkbox';
+  return theme_checkbox($variables);
+}
+
+/**
+ * Returns HTML for a select form element.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_select($variables) {
+  $variables['element']['#attributes']['data-app-select'] = '';
+  return theme_select($variables);
+}
+
+/**
+ * Implementation of hook_css_alter()
+ */
+function kandb_theme_css_alter(&$css){
+  unset($css['modules/system/system.messages.css']);
 }

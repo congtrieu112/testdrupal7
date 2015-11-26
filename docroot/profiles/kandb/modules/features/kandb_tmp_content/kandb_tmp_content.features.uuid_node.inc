@@ -146,5 +146,2444 @@ function kandb_tmp_content_uuid_features_default_content() {
   'data' => 'b:0;',
   'date' => '2015-11-05 09:53:52 +0700',
 );
+  $nodes[] = array(
+    'uid' => 1,
+    'title' => 'Conditions générales d\'utilisation et de services',
+    'log' => '',
+    'status' => 1,
+    'comment' => 0,
+    'promote' => 1,
+    'sticky' => 0,
+    'vuuid' => '2a9f1a91-b1ba-4e46-b2b1-a08c4da1bbaa',
+    'type' => 'standard_page',
+    'language' => 'en',
+    'created' => 1448472102,
+    'tnid' => 0,
+    'translate' => 0,
+    'uuid' => '5ea7e11b-5aaf-497c-91eb-8d97bec13a3f',
+    'revision_uid' => 1,
+    'body' => array(
+      'und' => array(
+        0 => array(
+          'value' => '<div>
+<div>
+<h2><strong>PRÉAMBULE</strong></h2>
+
+<p>Les présentes Conditions Générales d’utilisation et de services (ci-après CGU) régissent l’ensemble des différentes utilisations du site internet accessible à l’adresse URL http://www.ketb.com/ (ci-après le SITE) édité par la société KAUFMAN&amp;BROAD SA, ci-après dénommée « KAUFMAN&amp;BROAD».</p>
+</div>
+
+<div>
+<p>Elles sont conclues entre l’UTILISATEUR et « KAUFMAN&amp;BROAD» et ci-après collectivement dénommées les « PARTIES»</p>
+
+<table border="1" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td rowspan="8" style="text-align:center; vertical-align:middle">KAUFMAN &amp; BROAD</td>
+			<td style="text-align:center; vertical-align:baseline">Dénomination sociale</td>
+			<td style="text-align:center; vertical-align:baseline">KAUFMAN&amp;BROAD SA</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Capital social</td>
+			<td style="text-align:center; vertical-align:baseline">5.612.011,08 euros</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Forme sociale</td>
+			<td style="text-align:center; vertical-align:baseline">Société Anonyme à conseil d\'administration</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">RCS</td>
+			<td style="text-align:center; vertical-align:baseline">NANTERRE - B 702 022 724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">TVA Intracommunautaire</td>
+			<td style="text-align:center; vertical-align:baseline">FR13 702022724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Adresse du siège social</td>
+			<td style="text-align:center; vertical-align:baseline">127 avenue Charles de Gaulle 92207 NEUILLY SUR SEINE Cedex</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Représentant légal</td>
+			<td style="text-align:center; vertical-align:baseline">Mr Nordine HACHEMI</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Téléphone</td>
+			<td style="text-align:center; vertical-align:baseline">01.41.43.43.43</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><u>Important</u><br />
+TOUTE UTILISATION EFFECTUEE A QUEL QUE TITRE QUE CE SOIT DU SITE IMPLIQUE OBLIGATOIREMENT L\'ACCEPTATION SANS RESERVE, PAR L’UTILISATEUR, DES PRESENTES CGU.</p>
+
+<h2><strong>1. DEFINITIONS</strong></h2>
+
+<ul>
+	<li>COMPTE : désigne l’interface dans laquelle est regroupé l’ensemble des données fournies par le MEMBRE.</li>
+	<li>Ces données comprennent les informations relatives à l’UTILISATEUR comme son adresse de courrier électronique, ses informations personnelles, mais également le cas échéant les informations relatives à son projet immobilier, etc.</li>
+	<li>Il est précisé qu’un COMPTE ne peut pas faire l’objet d’une cession à un tiers.</li>
+	<li>IDENTIFIANT : désigne l’adresse de messagerie électronique et le mot de passe choisis par le MEMBRE lors de son inscription et dont la saisie permet la connexion au COMPTE.</li>
+	<li>INFORMATIONS : désigne l’ensemble des informations rendues accessibles aux UTILISATEURS sur le SITE comprenant les données, conseils, recommandations, programmes informatiques (notamment de simulations financières), travaux et autres informations dont KAUFMAN&amp;BROAD est propriétaire, ou que KAUFMAN&amp;BROAD est autorisé à utiliser et à divulguer.</li>
+	<li>MEMBRE : désigne tout UTILISATEUR majeur qui s’inscrit sur le SITE afin de bénéficier des différents services et fonctionnalités proposés par KAUFMAN&amp;BROAD.</li>
+	<li>SITE : désigne le site internet accessible à l’adresse http://www.ketb.com/; Le SITE regroupe l’ensemble des pages web, services et fonctionnalités proposés aux UTILISATEURS via http://www.ketb.com/.</li>
+	<li>UTILISATEUR : désigne toute personne qui accède et navigue sur le SITE.</li>
+</ul>
+
+<h2><strong>2. OBJET</strong></h2>
+
+<h6><strong>2.1. Objet du SITE</strong></h6>
+
+<p>Le SITE a pour objet de permettre à ses UTILISATEURS d’obtenir des renseignements concernant l’offre et l’activité de KAUFMAN&amp;BROAD.<br />
+La finalité du SITE est :</p>
+
+<ul>
+	<li>D’informer les UTILISATEURS et plus particulièrement les MEMBRES des offres particulières de KAUFMAN&amp;BROAD ;</li>
+	<li>De permettre aux utilisateurs et plus particulièrement aux MEMBRES de définir et de préciser leur projet immobilier.</li>
+</ul>
+
+<h6><strong>2.2. Objet des CGU</strong></h6>
+
+<p>Les présentes CGU ont pour objet de fixer les dispositions contractuelles relatives aux droits et obligations respectifs de KAUFMAN&amp;BROAD et des UTILISATEURS.</p>
+
+<h2><strong>3. ROLE DE KAUFMAN&amp;BROAD</strong></h2>
+
+<p>KAUFMAN&amp;BROAD, par l’intermédiaire du SITE, offre certains services et fonctionnalités aux UTILISATEURS.<br />
+Les CGU ne confèrent en aucun cas aux UTILISATEURS la qualité de salarié, mandataire, agent ou représentant de KAUFMAN&amp;BROAD.<br />
+Les parties déclarent en outre que ces CGU ne peuvent en aucun cas être considérées comme un acte constitutif de personne morale ou d’une entité juridique quelconque, et que toute forme « d’affectio societatis » est formellement exclu de leur relations.</p>
+
+<h2><strong>4. ACCEPTATION DES CGU</strong></h2>
+
+<p>L’UTILISATEUR s’engage à lire attentivement et à accepter sans réserve les présentes CGU lors de l’accès au SITE. Il est également invité à télécharger les CGU, les imprimer et à en conserver une copie.<br />
+Les présentes CGU sont référencées en bas de chaque page du SITE au moyen d’un lien hypertexte et peuvent ainsi être consultées à tout moment.&nbsp;<br />
+Le MEMBRE confirme l’acceptation des présentes CGU lors de la création de son COMPTE.</p>
+
+<h2><strong>5. CONDITIONS D’INSCRIPTION</strong></h2>
+
+<h6><strong>5.1. Qualité de MEMBRE</strong></h6>
+
+<p>Seules les personnes physiques, majeures et capables, ou toute personne morale agissant par l’intermédiaire d’une personne physique disposant de la capacité juridique pour contracter au nom et pour le compte de la personne morale, peuvent s’inscrire pour devenir MEMBRE.<br />
+Seuls les MEMBRES peuvent accéder à l’ensemble des fonctionnalités et services du SITE.</p>
+
+<h6><strong>5.2. Conditions d’inscription</strong></h6>
+
+<p>L’inscription sur le SITE en tant que MEMBRE est gratuite.&nbsp;<br />
+Le VISITEUR est invité à fournir des informations permettant de l’identifier en complétant le formulaire disponible sur le SITE. En remplissant ce formulaire, le VISITEUR devient un MEMBRE et déclare avoir pris connaissance des présentes CGU et les accepter sans réserve.<br />
+Le MEMBRE s’engage à fournir de manière loyale à KAUFMAN&amp;BROAD des données exactes et complètes (nom, prénom, adresse électronique, adresse, ville, téléphone, etc.) qui ne portent pas atteinte, à quel que titre que ce soit, aux droits de tiers, quels qu’ils soient.&nbsp;<br />
+Le MEMBRE s’engage à mettre les informations précitées à jour et à corriger les éventuelles erreurs les affectant.<br />
+Le MEMBRE s’engage à ne créer qu’un seul COMPTE correspondant à son profil.</p>
+
+<h6><strong>5.3. Spécifications techniques</strong></h6>
+
+<p>Le MEMBRE reconnait disposer des moyens et compétences nécessaires à l’utilisation du SITE. Les équipements nécessaires à l’accès et à l’utilisation du SITE sont à la charge du MEMBRE, de même que les frais de télécommunications induits par leur utilisation.</p>
+
+<h6><strong>5.4. Gestion des IDENTIFIANTS</strong></h6>
+
+<p>Chaque MEMBRE recevra, à l’adresse de messagerie électronique renseignée dans son formulaire d’inscription, un récapitulatif de ses IDENTIFIANTS.<br />
+Les IDENTIFIANTS sont personnels. Le choix des IDENTIFIANTS doit s’opérer dans le respect de la législation en vigueur, notamment celle relative à l’usurpation d’identité (Article 434-23 du Code pénal) ou à la contrefaçon de marque ou de droits d’auteur (Articles L.335-2 et suivants ou L.713-1 et suivants du Code de la Propriété intellectuelle).&nbsp;<br />
+Il appartient au MEMBRE d’assurer la confidentialité de ses IDENTIFIANTS. Toute connexion au COMPTE d’un MEMBRE à partir des IDENTIFIANTS sera présumée avoir été faite par le MEMBRE lui-même.&nbsp;<br />
+Le MEMBRE est seul responsable de l\'utilisation de ses IDENTIFIANTS par des tiers ou des actions ou déclarations faites par l\'intermédiaire de son COMPTE, qu\'elles soient frauduleuses ou non.&nbsp;<br />
+C’est pourquoi le MEMBRE garantit KAUFMAN&amp;BROAD contre toute demande faite à ce titre. En effet, il est rappelé que KAUFMAN&amp;BROAD n\'a pas pour obligation de vérifier l\'identité de chaque MEMBRE.&nbsp;<br />
+En cas d’usurpation d’identité d’un MEMBRE, KAUFMAN&amp;BROAD ne saurait être tenue pour responsable. En tout état de cause, si un MEMBRE suspecte une utilisation frauduleuse de son COMPTE, il devra immédiatement en avertir KAUFMAN&amp;BROAD.<br />
+KAUFMAN&amp;BROAD s’engage à préserver la confidentialité et la sécurité des IDENTIFIANTS du MEMBRE.</p>
+
+<h2><strong>6. OBLIGATIONS</strong></h2>
+
+<h6><strong>6.1. Obligations des UTILISATEURS</strong></h6>
+
+<p>Dans le cadre de l\'utilisation du SITE, chaque UTILISATEUR s\'engage à ne pas porter atteinte à l’ordre public et à se conformer aux lois et règlements en vigueur, à respecter les droits des tiers et les dispositions des présentes CGU.<br />
+Chaque UTILISATEUR a pour obligation de :</p>
+
+<ul>
+	<li>Se comporter de façon loyale et en bon père de famille à l’égard de KAUFMAN&amp;BROAD et des tiers ;</li>
+	<li>Etre honnête et sincère dans les informations fournies à KAUFMAN&amp;BROAD et, le cas échéant aux tiers ;</li>
+	<li>Utiliser le SITE conformément à la finalité décrite dans les présentes CGU ;</li>
+	<li>Ne pas détourner la finalité du SITE pour commettre des crimes, délits ou contraventions réprimées par le Code pénal ou toute autre loi ;</li>
+	<li>Respecter la vie privée des tiers et la confidentialité des échanges avec les UTILISATEURS, et en particulier à ne pas utiliser les données de contact des MEMBRES ;</li>
+	<li>Ne pas tenter de détourner les UTILISATEURS vers un autre site ou service ;</li>
+	<li>Ne pas chercher à porter atteinte au sens des articles 323-1 et suivants du Code pénal aux systèmes de traitement automatisés de données mis en œuvre sur le SITE ;</li>
+	<li>Ne pas modifier les INFORMATIONS mis en lignes par KAUFMAN&amp;BROAD ;</li>
+	<li>Ne pas insérer de liens hypertextes renvoyant vers un site internet commercial sans autorisation préalable express de KAUFMAN&amp;BRAOD ;</li>
+	<li>Ne pas utiliser le SITE pour envoyer massivement des messages non sollicités (publicitaires ou autres) ;</li>
+	<li>Ne pas diffuser des données ayant pour effet de diminuer, de désorganiser, de ralentir ou d’interrompre la circulation normale des informations entre les UTILISATEURS.</li>
+</ul>
+
+<h6><strong>6.2. Obligations de KAUFMAN&amp;BROAD</strong></h6>
+
+<p>L’obligation générale de KAUFMAN&amp;BROAD est une obligation de moyens. Il ne pèse sur KAUFMAN&amp;BROAD aucune obligation de résultat ou de moyens renforcée d’aucune sorte.&nbsp;<br />
+KAUFMAN&amp;BROAD s’engage à mettre tous les moyens en œuvre pour assurer une continuité d’accès et d’utilisation du SITE, 7 jours sur 7 et 24 heures sur 24.<br />
+KAUFMAN&amp;BROAD attire toutefois l’attention des UTILISATEURS sur le fait que les protocoles actuels de communication via Internet ne permettent pas d’assurer de manière certaine et continue la transmission des échanges électroniques (messages, documents, identité de l’émetteur ou du destinataire). Les UTILISATEURS reconnaissent par la présente que la responsabilité de KAUFMAN&amp;BROAD ne saurait être engagée en cas de dysfonctionnements ou d’interruptions desdits réseaux de transmission. KAUFMAN&amp;BROAD décline ainsi toute responsabilité en cas de perte de données, intrusions, virus, rupture de service ou autres problèmes étrangers à KAUFMAN&amp;BROAD.</p>
+
+<h2><strong>7. MESURES DE SANCTION</strong></h2>
+
+<p>Sans préjudice des autres dispositions des présentes, en cas de manquement du MEMBRE à l’une quelconque de ses obligations, KAUFMAN&amp;BROAD se réserve le droit de procéder aux mesures suivantes à l’encontre du MEMBRE concerné :</p>
+
+<ul>
+	<li>Limitation d’utilisation à tout ou partie du SITE, de façon temporaire ou définitive</li>
+	<li>Suspension du COMPTE</li>
+	<li>Suppression du COMPTE</li>
+</ul>
+
+<p>Le MEMBRE sera informé par courrier électronique de la mesure prise (limitation, suspension, suppression). En cas de suppression du COMPTE, les données du MEMBRE seront détruites à sa demande ou à l\'expiration des délais légaux courant à compter de la suppression du COMPTE.<br />
+Les MEMBRES faisant l’objet des sanctions, et en particulier de limitation d’utilisation du SITE ou de suspension s’engagent à ne pas ouvrir de nouveau COMPTE sur le SITE.</p>
+
+<h2><strong>8. PROPRIETE INTELLECTUELLE</strong></h2>
+
+<h6><strong>8.1. Titularité des droits de propriété intellectuelle</strong></h6>
+
+<p>Les marques, logos, slogans, graphismes, photographies, animations, vidéos et textes contenus sur le SITE sont la propriété intellectuelle exclusive de KAUFMAN&amp;BROAD, ses filiales et partenaires et ne peuvent être reproduits, utilisés ou représentés sans l\'autorisation expresse de ces derniers sous peine de poursuites judiciaires.</p>
+
+<p>Toute représentation ou reproduction, totale ou partielle, du SITE et de son contenu, par quel que procédé que ce soit, sans l’autorisation préalable expresse de KAUFMAN&amp;BROAD est interdite et constituera une contrefaçon sanctionnée par les articles L.335-2 et suivants et les articles L.713-1 et suivants du Code de la Propriété intellectuelle.<br />
+En particulier, KAUFMAN&amp;BROAD interdit expressément :</p>
+
+<ul>
+	<li>L\'extraction, par transfert permanent ou temporaire de la totalité ou d\'une partie qualitativement ou quantitativement substantielle du contenu d\'une base de données sur un autre support, par tout moyen et sous toute forme que ce soit ;</li>
+	<li>La réutilisation, par la mise à la disposition du public de la totalité ou d\'une partie qualitativement ou quantitativement substantielle du contenu de la base, quelle qu\'en soit la forme.</li>
+</ul>
+
+<p>L’acceptation des présentes CGU vaut reconnaissance par les UTILISATEURS des droits de propriété intellectuelle de KAUFMAN&amp;BROAD et l’engagement de les respecter.</p>
+
+<h6><strong>8.2. Licence d’utilisation du SITE</strong></h6>
+
+<p>KAUFMAN&amp;BROAD accorde une licence personnelle, non-exclusive et non cessible aux UTILISATEURS les autorisant à utiliser le SITE et les données qu’il contient conformément aux présentes CGU.<br />
+Toute autre exploitation du SITE et de son contenu est exclue du domaine de la présente licence et ne pourra être effectué sans l’autorisation préalable expresse de KAUFMAN&amp;BROAD.</p>
+
+<h2><strong>9. INFORMATIONS</strong></h2>
+
+<p>KAUFMAN&amp;BROAD met tout en œuvre pour offrir aux UTILISATEURS des INFORMATIONS et/ou outils disponibles et vérifiés.&nbsp;<br />
+KAUFMAN&amp;BROAD ne peut cependant en garantir l\'exhaustivité ou l\'absence de modification par un tiers (intrusion, virus)<br />
+Il est expressément convenu que les INFORMATIONS sont non contractuelles, peuvent contenir des inexactitudes techniques ou typographiques et sont sujettes à modification sans préavis.&nbsp;<br />
+A ce titre, la responsabilité de KAUFMAN&amp;BROAD ne saurait être retenue en cas de dommages indirects tels que, sans que cette liste soit exhaustive, les pertes découlant des transactions effectuées sur la base des INFORMATIONS, les pertes de profit, pertes d\'affaires, pertes découlant d\'une interruption du service, l\'augmentation des coûts d\'accès et de traitement des informations.<br />
+L’UTILISATEUR s’engage à faire un usage personnel et non commercial des INFORMATIONS.<br />
+Plus particulièrement, les INFORMATIONS relatives aux domaines bancaires et financiers sont indicatives et ne sauraient constituer de la part de KAUFMAN&amp;BROAD ni une offre d\'achat, de vente ou de souscription de produits ou services financiers.</p>
+
+<p>Lorsque des simulations sont présentées, les données obtenues ne sont que des prévisions qui ne constituent pas des indicateurs fiables quant aux résultats futurs de l’opération envisagée.</p>
+
+<h2><strong>10. RESPONSABILITES</strong></h2>
+
+<p>La responsabilité de KAUFMAN&amp;BROAD ne pourra en aucun cas être engagée :</p>
+
+<ul>
+	<li>en cas d’impossibilité d\'accéder temporairement au SITE pour des opérations de maintenance technique ou d’actualisation des informations publiées ;</li>
+	<li>en cas d’attaques virales ;</li>
+	<li>en cas d’utilisation anormale ou d’une exploitation illicite du SITE ;</li>
+	<li>relativement au contenu des sites internet tiers vers lesquels renvoient des liens hypertextes présents sur le SITE ;</li>
+	<li>en cas de non-respect des présentes CGU imputables aux MEMBRES, (renseignements incomplets ou erronés notamment) ;</li>
+	<li>en cas de retard ou d’inexécution de ses obligations, lorsque la cause du retard ou de l’inexécution est liée à un cas de force majeure telle qu’elle est définie par la jurisprudence française ;</li>
+	<li>en cas de cause étrangère non imputable à KAUFMAN&amp;BROAD;</li>
+	<li>pour tous dommages indirects ou immatériels tels que perte de chance, perte de profit, perte de contrat ou préjudice d’image.</li>
+</ul>
+
+<p>Par ailleurs, KAUFMAN&amp;BROAD ne saurait garantir l\'exactitude, l’exhaustivité, l\'absence d\'erreurs, la véracité, le caractère actuel, la qualité loyale et marchande, la justesse, la pertinence, le caractère non-contrefaisant et la disponibilité des INFORMATIONS.</p>
+
+<p>IMPORTANT<br />
+Il est effet rappelé que les outils de simulation et données relatives aux projets immobiliers de l’UTILISATEUR sont délivrés à titre indicatif et ne sauraient remplacer la consultation d’un professionnel.</p>
+
+<h2><strong>11. PROTECTION DES DONNEES A CARACTERE PERSONNEL</strong></h2>
+
+<p>Dans le cadre de l’exploitation du SITE, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel.</p>
+
+<p>Ces données sont nécessaires à la gestion du SITE et des COMPTES, et le cas échéant à l’envoi de newsletter et autres alertes aux UTILISATEURS qui en ont fait la demande. Ces données seront traitées conformément aux finalités prévues lors de la collecte.</p>
+
+<p>A ce titre, l’UTILISATEUR est invité à consulter la Politique de Confidentialité du SITE qui lui donnera plus amples informations relatives à la protection des données à caractère personnel, et aux traitements effectués via le SITE.</p>
+
+<p>Il est toutefois rappelé que conformément à la loi française « informatique et liberté » n°78-17 du 6 janvier 1978 modifiée, l’UTILISATEUR bénéficie d\'un droit d\'accès et de rectification aux informations qui le concerne.</p>
+
+<p>Pour cela l’UTILISATEUR doit contacter le service client à l’adresse email suivante&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier à :</p>
+
+<p><br />
+KAUFMAN&amp;BROAD SA<br />
+Département Internet&nbsp;<br />
+127 avenue Charles DE GAULLE<br />
+92207 NEUILLY SUR SEINE CEDEX<br />
+Par ailleurs, afin de permettre une navigation simplifiée et personnalisée, le SITE a recourt à l’usage de cookies.</p>
+
+<h2><strong>12. RECLAMATIONS</strong></h2>
+
+<p>KAUFMAN&amp;BROAD met à la disposition des UTILISATEURS un « Service téléphonique Client » au numéro suivant : 0805 08 31 66 (numéro non surtaxé). L’UTILISATEUR peut également transmettre toutes réclamations par la voie postale à KAUFMAN&amp;BROAD :</p>
+
+<p><br />
+KAUFMAN&amp;BROAD SA<br />
+Service Client<br />
+127 avenue Charles DE GAULLE<br />
+92207 NEUILLY SUR SEINE CEDEX</p>
+
+<h2><strong>13. VALIDITE DES CGU</strong></h2>
+
+<p>Toute modification de la législation ou de la réglementation en vigueur, ou toute décision d’un tribunal compétent invalidant une ou plusieurs clauses des présentes CGU ne saurait affecter la validité des présentes CGU.</p>
+
+<p>Une telle modification ou décision n’autorise en aucun cas les UTILISATEURS à méconnaître les présentes CGU.</p>
+
+<h2><strong>14. MODIFICATION DES CGU</strong></h2>
+
+<p>Les présentes CGU s’appliquent à tout UTILISATEUR navigant sur le SITE.</p>
+
+<p>Les CGU pourront être modifiées et mises à jour par KAUFMAN&amp;BROAD à tout moment, notamment pour s’adapter à l’évolution législative ou réglementaire.</p>
+
+<p>Les CGU applicables sont celles en vigueur au moment de la navigation sur le SITE (et/ou de la connexion au COMPTE pour les MEMBRES).</p>
+
+<h2><strong>15. COMPETENCE ET DROIT APPLICABLE</strong></h2>
+
+<p>Les présentes CGU ainsi que les relations entre l’UTILISATEUR et KAUFMAN&amp;BROAD sont régies par le droit français.</p>
+
+<p>En cas de litige, seuls les tribunaux français seront compétents.</p>
+
+<p>Toutefois, préalablement à tout recours judiciaire, la négociation dans un esprit de loyauté et de bonne foi sera privilégiée en vue de parvenir à un accord amiable lors de la survenance de tout conflit relatif aux présentes Conditions Générales, y compris portant sur leur validité.</p>
+
+<p>La partie souhaitant mettre en œuvre le processus de négociation devra en informer l’autre partie par lettre recommandée avec accusé de réception en indiquant les éléments du conflit. Si au terme d’un délai de quinze (15) jours, les parties ne parvenaient pas à s’entendre, le différend serait soumis à la juridiction compétente désignée ci-après.</p>
+
+<p>Durant tout le processus de négociation et jusqu’à son issue, les parties s’interdisent d’exercer toute action en justice l’une contre l’autre et pour le conflit objet de la négociation. Par exception, les parties sont autorisées à saisir la juridiction des référés ou à solliciter le prononcé d’une ordonnance sur requête. Une éventuelle action devant la juridiction des référés ou la mise en œuvre d’une procédure sur requête n’entraîne de la part des parties aucune renonciation à la clause d’arrangement amiable, sauf volonté contraire expresse.</p>
+</div>
+</div>
+
+<div><a id="cookies" name="cookies"></a>
+
+<div>
+<h2><u>CHARTE DE GESTION DES COOKIES</u></h2>
+</div>
+
+<div>
+<h2><strong>1. PRÉAMBULE</strong></h2>
+
+<p>La présente Charte de gestion des Cookies s’adresse aux utilisateurs du site internet http://www.ketb.com/, (ci-après le « SITE »), à savoir, toute personne qui accède et navigue sur le SITE, et notamment les membres inscrits sur le SITE ou les internautes visiteurs.</p>
+
+<p>En navigant sur le SITE, vous consentez à ce que les cookies tels que décrits ci-dessous puissent être placés sur votre terminal conformément à la présente Charte de gestion des Cookies.</p>
+
+<h2><strong>2. QUI COLLECTE MES DONNEES ?</strong></h2>
+
+<p>Le responsable des traitements des données des utilisateurs collectées via le SITE est la Société KAUFMAN&amp;BROAD, société anonyme à conseil d\'administration au capital social de 5.612.011,08 euros, immatriculée au R.C.S de NANTERRE sous le numéro B 702 022 724, sise 127 avenue Charles de Gaulle - 92207 NEUILLY SUR SEINE Cedex, et ayant comme numéro de TVA intracommunautaire : FR13 702022724 (ci-après dénommée « KAUFMAN&amp;BROAD »).</p>
+
+<h2><strong>3. QU’EST-CE QU’UN COOKIE ?</strong></h2>
+
+<p>Un cookie est un petit fichier texte déposé sur le disque dur de votre terminal lors de votre visite sur un site internet. Il enregistre certaines informations sur votre navigation ou sur votre comportement en ligne qui nous permettent d’améliorer et de faciliter votre expérience en qualité d’internaute.</p>
+
+<h2><strong>4. A QUOI SERVENT LES COOKIES ?</strong></h2>
+
+<p>Le SITE utilise des cookies afin de différencier les internautes pour améliorer leur navigation et les services qui leur sont proposés. En pratique, les cookies permettent ainsi de vous authentifier et de vous identifier, ils peuvent, le cas échéant, enregistrer vos préférences ou mesurer les différents usages du SITE.</p>
+
+<h2><strong>5. LES COOKIES DU SITE ET LEUR FINALITE</strong></h2>
+
+<p>KAUFMAN&amp;BROAD privilégie la transparence dans le traitement de vos données. A ce titre et pour que votre information soit la plus claire possible, vous trouverez ci-dessous différents cookies utilisés sur le SITE et leur finalité :</p>
+
+<p><strong>5.1.</strong> Les cookies KAUFMAN&amp;BROAD (cookies propriétaires)</p>
+
+<p><strong>5.1.1.</strong> Les cookies fonctionnels et techniques permettant majoritairement d’améliorer votre navigation sur le SITE. Ce sont eux qui vont envoyer des informations à notre site et à votre navigateur : mémorisation des informations relatives à un formulaire (identifiant, adresse), les préférences d’affichage de votre terminal (langue, résolution), des mesures de sécurité comme l’expiration de votre session etc.</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="7" style="text-align:center; vertical-align:middle">Kaufman et Broad</td>
+			<td style="text-align:center; vertical-align:baseline">USERLOGIN</td>
+			<td style="vertical-align:baseline">Stocke l’identifiant de l’utilisateur FIDELISATION qui se loggue sur son espace personnel</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KETBDKRK</td>
+			<td style="vertical-align:baseline">Stocke l’ID Région Kaufman et Broad et le choix par défaut dans les menus déroulants</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KETBCULTURE</td>
+			<td style="vertical-align:baseline">Stocke la langue du site pour pouvoir afficher le site en différentes versions</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">PROVENANCE</td>
+			<td style="vertical-align:baseline">Stocke la provenance de l’utilisateur qui est passé en query string pour les différents formulaires</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KBOINVEST</td>
+			<td style="vertical-align:baseline">Stocke la valeur pour faire apparaitre le module investisseur en BO</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KBCLIENTS</td>
+			<td style="vertical-align:baseline">Si le cookie est créé, le cookie IDGUID va être sauvegardé</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">IDGUID</td>
+			<td style="vertical-align:baseline">Stocke l’identifiant de l’utilisateur Client qui se loggue sur son espace client pour l’onglet premier plan</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>Attention, la navigation sur le SITE et/ou l’utilisation de certaines fonctionnalités pourraient être altérées si vous choisissez de désactiver ces cookies.</p>
+
+<p><strong>5.2.</strong> Les cookies tiers En vous rendant sur le SITE, il est possible que des sociétés partenaires implantent des cookies sur votre terminal. L’utilisation de ces cookies est soumise aux mêmes restrictions sur la protection des données personnelles établies par la loi « Informatique et Libertés ». Dans les paramétrages de votre navigateur, vous pourrez désactiver ces cookies tiers seuls ou en même temps que les nôtres. Il y a en particulier :</p>
+
+<p><strong>5.2.1.</strong> Les cookies techniques de statistiques et de mesure d’audience du SITE nous aident à mieux comprendre l’utilisation qui est faite du SITE et vous proposer des services de qualité :</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">Xiti</td>
+			<td style="text-align:center; vertical-align:baseline">idrxvr</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">tmst</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td rowspan="4" style="text-align:center; vertical-align:middle">Google Analytics</td>
+			<td style="text-align:center; vertical-align:baseline">__utmt</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utma</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utmb</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utmz</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td rowspan="5" style="text-align:center; vertical-align:middle">Facebook</td>
+			<td style="text-align:center; vertical-align:baseline">cms</td>
+			<td style="vertical-align:baseline">Vérifie la sécurité de l\'authentification</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">datr</td>
+			<td style="vertical-align:baseline">Identifie le navigateur de connexion à Facebook (sécurité)</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">p</td>
+			<td style="vertical-align:baseline">Utilisé par diverses fonctionnalités de Facebook pour les utilisateurs connectés</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">xs</td>
+			<td style="vertical-align:baseline">Identifiant unique à chaque visite de Facebook</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">lu</td>
+			<td style="vertical-align:baseline">Gère le processus de connexion, garde en mémoire la visite utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="4" style="text-align:center; vertical-align:middle">Accounts.google.com</td>
+			<td style="text-align:center; vertical-align:baseline">LSID</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">LSOSID</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">GAPS</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">ACCOUNT_CHOOSER</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td rowspan="3" style="text-align:center; vertical-align:middle">Google.com</td>
+			<td style="text-align:center; vertical-align:baseline">NID</td>
+			<td style="vertical-align:baseline">Utilisés par Google pour stocker les préférences de l\'utilisateur et des informations lors de l\'affichage des pages avec cartes Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">PREF</td>
+			<td style="vertical-align:baseline">Utilisés par Google pour stocker les préférences de l\'utilisateur et des informations lors de l\'affichage des pages avec cartes Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">SID</td>
+			<td style="vertical-align:baseline">Utilisé par Google en combinaison avec HSID pour vérifier un compte utilisateur Google et la dernière connexion</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><strong>5.2.2.</strong> Les cookies liés aux opérations relatives à la publicité : Ces cookies sont utilisés par des prestataires publicitaires sur le SITE. Les cookies contenus au sein même des publicités ont pour objectif de fournir des informations et des statistiques sur la pertinence de leur diffusion (nombre d’utilisateurs cliquant sur la publicité, nombre de fois où elle est affichée etc.)</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="3" style="text-align:center; vertical-align:middle">.adnxs.com</td>
+			<td style="text-align:center; vertical-align:baseline">uuid2</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">anj</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">sess</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">doubleClick.net</td>
+			<td style="text-align:center; vertical-align:baseline">id</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">_drt_</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">Facebook</td>
+			<td style="text-align:center; vertical-align:baseline">presence</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur (connexion utilisateurs "chat")</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">c_user</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:middle">Twitter</td>
+			<td style="text-align:center; vertical-align:baseline">guest_id</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><strong>5.2.3.</strong> Les cookies liés aux réseaux sociaux : Nous incluons au sein d’une majorité de pages du SITE des applications informatiques qui permettent le partage en temps réel du contenu du SITE avec d’autres personnes. C’est notamment le cas des boutons « Partager », « J’aime », ou « +1 » etc. des réseaux sociaux.</p>
+
+<p>Il est précisé que tout réseau social peut vous identifier ou suivre votre navigation à l’aide de l’un de ces boutons même sans que vous ayez cliqué dessus, du moment que votre session est ouverte dans votre navigateur. Chaque réseau social dispose de ses propres politiques de protection des données et KAUFMAN&amp;BROAD ne dispose d’aucun contrôle sur l’utilisation des cookies et autres traceurs émis par ces sociétés tiers. Nous vous invitons à vous renseigner auprès de ces réseaux sociaux pour en savoir plus sur les paramétrages possibles vis-à-vis de la confidentialité de votre compte (Facebook, Twitter etc.)</p>
+
+<h2><strong>6. INSTALLER CES COOKIES : C’EST VOTRE CHOIX</strong></h2>
+
+<p>Sur vos ordinateurs, Smartphones et autres terminaux d’accès à Internet, par défaut le logiciel de navigation accepte les cookies présents sur les sites internet.</p>
+
+<p>Mais vous restez maître de l’installation de ces cookies car vous avez la possibilité de configurer votre logiciel de navigation pour :</p>
+
+<ul>
+	<li>accepter ou refuser les cookies se trouvant sur le SITE</li>
+	<li>refuser systématiquement tous les cookies</li>
+	<li>demander votre consentement sur chacun des cookies que vous rencontrez lors de votre navigation sur internet.</li>
+</ul>
+
+<p>Pour ce faire, il vous suffit de vous reporter à vos logiciels de navigation et de suivre leurs instructions. A titre d’exemple :</p>
+
+<ul>
+	<li><strong>Avec Internet Explorer™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Options internet&nbsp;►&nbsp;Onglet Confidentialité&nbsp;►&nbsp;choisissez le niveau souhaité</li>
+	<li><strong>Avec Firefox™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Options&nbsp;►&nbsp;Onglet Vie privée&nbsp;►&nbsp;choisissez les options souhaitées</li>
+	<li><strong>Avec Chrome™</strong>&nbsp;: menu de configuration (logo paramètres)&nbsp;►&nbsp;Paramètres&nbsp;►&nbsp;Paramètres avancés&nbsp;►&nbsp;Paramètres de contenu&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+	<li><strong>Avec Safari™</strong>&nbsp;: Safari (logo paramètres)&nbsp;►&nbsp;Préférences&nbsp;►&nbsp;Sécurité&nbsp;►&nbsp;Afficher les cookies&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+	<li><strong>Avec Opera™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Préférences&nbsp;►&nbsp;Onglet Avancé&nbsp;►&nbsp;Rubrique Cookies&nbsp;►&nbsp;Gérer les cookies&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+</ul>
+
+<p>Comme indiqué précédemment, en choisissant de bloquer nos cookies, nous tenons à vous informer que la navigation sur le SITE et/ou l’utilisation de certaines fonctionnalités pourraient être altérées. En tout état de cause, si vous choisissez de supprimer tous les cookies, votre expérience utilisateur en sera fortement affectée et vos préférences de navigation seront effacées.</p>
+
+<h2><strong>7. VOTRE CONSENTEMENT</strong></h2>
+
+<p>En navigant sur le SITE, vous acceptez que KAUFMAN&amp;BROAD installe des cookies dits « techniques » qui accèdent, inscrivent et consultent des informations stockées dans votre équipement terminal :</p>
+
+<ul>
+	<li>ayant pour finalité exclusive de permettre ou faciliter la communication par voie électronique ;</li>
+	<li>strictement nécessaires à la fourniture du service de communication en ligne du SITE.</li>
+</ul>
+
+<p>Lors de votre inscription sur le SITE, vous avez également été informés de la présence de cookies traceurs destinés notamment à vous proposer des offres adaptées à vos centres d’intérêts et à réaliser des statistiques de visites et de la possibilité de vous y opposer en accédant à la présente Charte de gestion des cookies.</p>
+
+<h2><strong>8. VOS DROITS D’ACCES, DE SUPPRESSION, D’OPPOSITION</strong></h2>
+
+<p>Comme pour les autres données, vous pouvez exercer vos droits d’accès, de suppression et d’opposition sur vos données en en faisant la demande par e-mail à l’adresse webmaster@ketb.com ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en indiquant dans l’objet « Informatique et libertés » et en justifiant de votre identité.</p>
+
+<p>En outre, si votre navigateur internet le permet, vous pouvez à tout moment désactiver ces cookies en vous référant aux procédures détaillées ci-avant.</p>
+
+<h2><strong>9. DUREE DE CONSERVATION</strong></h2>
+
+<p>En tout état de cause, les cookies stockés dans votre terminal ou tout autre élément utilisé pour vous identifier à des fins de statistiques ou d’audience auront une durée de vie limitée à 6 mois maximum, cette durée n’étant pas prorogée automatiquement lors de vos nouvelles visites sur le SITE. Au-delà, les données de fréquentation brutes associées à un identifiant sont soit supprimées soit anonymisées.</p>
+</div>
+</div>
+',
+          'summary' => '',
+          'format' => 'simple',
+          'safe_value' => '<div>
+<div>
+<h2><strong>PRÉAMBULE</strong></h2>
+
+<p>Les présentes Conditions Générales d’utilisation et de services (ci-après CGU) régissent l’ensemble des différentes utilisations du site internet accessible à l’adresse URL http://www.ketb.com/ (ci-après le SITE) édité par la société KAUFMAN&amp;BROAD SA, ci-après dénommée « KAUFMAN&amp;BROAD».</p>
+</div>
+
+<div>
+<p>Elles sont conclues entre l’UTILISATEUR et « KAUFMAN&amp;BROAD» et ci-après collectivement dénommées les « PARTIES»</p>
+
+<table border="1" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td rowspan="8" style="text-align:center; vertical-align:middle">KAUFMAN &amp; BROAD</td>
+			<td style="text-align:center; vertical-align:baseline">Dénomination sociale</td>
+			<td style="text-align:center; vertical-align:baseline">KAUFMAN&amp;BROAD SA</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Capital social</td>
+			<td style="text-align:center; vertical-align:baseline">5.612.011,08 euros</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Forme sociale</td>
+			<td style="text-align:center; vertical-align:baseline">Société Anonyme à conseil d\'administration</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">RCS</td>
+			<td style="text-align:center; vertical-align:baseline">NANTERRE - B 702 022 724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">TVA Intracommunautaire</td>
+			<td style="text-align:center; vertical-align:baseline">FR13 702022724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Adresse du siège social</td>
+			<td style="text-align:center; vertical-align:baseline">127 avenue Charles de Gaulle 92207 NEUILLY SUR SEINE Cedex</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Représentant légal</td>
+			<td style="text-align:center; vertical-align:baseline">Mr Nordine HACHEMI</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Téléphone</td>
+			<td style="text-align:center; vertical-align:baseline">01.41.43.43.43</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><u>Important</u><br />
+TOUTE UTILISATION EFFECTUEE A QUEL QUE TITRE QUE CE SOIT DU SITE IMPLIQUE OBLIGATOIREMENT L\'ACCEPTATION SANS RESERVE, PAR L’UTILISATEUR, DES PRESENTES CGU.</p>
+
+<h2><strong>1. DEFINITIONS</strong></h2>
+
+<ul>
+	<li>COMPTE : désigne l’interface dans laquelle est regroupé l’ensemble des données fournies par le MEMBRE.</li>
+	<li>Ces données comprennent les informations relatives à l’UTILISATEUR comme son adresse de courrier électronique, ses informations personnelles, mais également le cas échéant les informations relatives à son projet immobilier, etc.</li>
+	<li>Il est précisé qu’un COMPTE ne peut pas faire l’objet d’une cession à un tiers.</li>
+	<li>IDENTIFIANT : désigne l’adresse de messagerie électronique et le mot de passe choisis par le MEMBRE lors de son inscription et dont la saisie permet la connexion au COMPTE.</li>
+	<li>INFORMATIONS : désigne l’ensemble des informations rendues accessibles aux UTILISATEURS sur le SITE comprenant les données, conseils, recommandations, programmes informatiques (notamment de simulations financières), travaux et autres informations dont KAUFMAN&amp;BROAD est propriétaire, ou que KAUFMAN&amp;BROAD est autorisé à utiliser et à divulguer.</li>
+	<li>MEMBRE : désigne tout UTILISATEUR majeur qui s’inscrit sur le SITE afin de bénéficier des différents services et fonctionnalités proposés par KAUFMAN&amp;BROAD.</li>
+	<li>SITE : désigne le site internet accessible à l’adresse http://www.ketb.com/; Le SITE regroupe l’ensemble des pages web, services et fonctionnalités proposés aux UTILISATEURS via http://www.ketb.com/.</li>
+	<li>UTILISATEUR : désigne toute personne qui accède et navigue sur le SITE.</li>
+</ul>
+
+<h2><strong>2. OBJET</strong></h2>
+
+<h6><strong>2.1. Objet du SITE</strong></h6>
+
+<p>Le SITE a pour objet de permettre à ses UTILISATEURS d’obtenir des renseignements concernant l’offre et l’activité de KAUFMAN&amp;BROAD.<br />
+La finalité du SITE est :</p>
+
+<ul>
+	<li>D’informer les UTILISATEURS et plus particulièrement les MEMBRES des offres particulières de KAUFMAN&amp;BROAD ;</li>
+	<li>De permettre aux utilisateurs et plus particulièrement aux MEMBRES de définir et de préciser leur projet immobilier.</li>
+</ul>
+
+<h6><strong>2.2. Objet des CGU</strong></h6>
+
+<p>Les présentes CGU ont pour objet de fixer les dispositions contractuelles relatives aux droits et obligations respectifs de KAUFMAN&amp;BROAD et des UTILISATEURS.</p>
+
+<h2><strong>3. ROLE DE KAUFMAN&amp;BROAD</strong></h2>
+
+<p>KAUFMAN&amp;BROAD, par l’intermédiaire du SITE, offre certains services et fonctionnalités aux UTILISATEURS.<br />
+Les CGU ne confèrent en aucun cas aux UTILISATEURS la qualité de salarié, mandataire, agent ou représentant de KAUFMAN&amp;BROAD.<br />
+Les parties déclarent en outre que ces CGU ne peuvent en aucun cas être considérées comme un acte constitutif de personne morale ou d’une entité juridique quelconque, et que toute forme « d’affectio societatis » est formellement exclu de leur relations.</p>
+
+<h2><strong>4. ACCEPTATION DES CGU</strong></h2>
+
+<p>L’UTILISATEUR s’engage à lire attentivement et à accepter sans réserve les présentes CGU lors de l’accès au SITE. Il est également invité à télécharger les CGU, les imprimer et à en conserver une copie.<br />
+Les présentes CGU sont référencées en bas de chaque page du SITE au moyen d’un lien hypertexte et peuvent ainsi être consultées à tout moment.&nbsp;<br />
+Le MEMBRE confirme l’acceptation des présentes CGU lors de la création de son COMPTE.</p>
+
+<h2><strong>5. CONDITIONS D’INSCRIPTION</strong></h2>
+
+<h6><strong>5.1. Qualité de MEMBRE</strong></h6>
+
+<p>Seules les personnes physiques, majeures et capables, ou toute personne morale agissant par l’intermédiaire d’une personne physique disposant de la capacité juridique pour contracter au nom et pour le compte de la personne morale, peuvent s’inscrire pour devenir MEMBRE.<br />
+Seuls les MEMBRES peuvent accéder à l’ensemble des fonctionnalités et services du SITE.</p>
+
+<h6><strong>5.2. Conditions d’inscription</strong></h6>
+
+<p>L’inscription sur le SITE en tant que MEMBRE est gratuite.&nbsp;<br />
+Le VISITEUR est invité à fournir des informations permettant de l’identifier en complétant le formulaire disponible sur le SITE. En remplissant ce formulaire, le VISITEUR devient un MEMBRE et déclare avoir pris connaissance des présentes CGU et les accepter sans réserve.<br />
+Le MEMBRE s’engage à fournir de manière loyale à KAUFMAN&amp;BROAD des données exactes et complètes (nom, prénom, adresse électronique, adresse, ville, téléphone, etc.) qui ne portent pas atteinte, à quel que titre que ce soit, aux droits de tiers, quels qu’ils soient.&nbsp;<br />
+Le MEMBRE s’engage à mettre les informations précitées à jour et à corriger les éventuelles erreurs les affectant.<br />
+Le MEMBRE s’engage à ne créer qu’un seul COMPTE correspondant à son profil.</p>
+
+<h6><strong>5.3. Spécifications techniques</strong></h6>
+
+<p>Le MEMBRE reconnait disposer des moyens et compétences nécessaires à l’utilisation du SITE. Les équipements nécessaires à l’accès et à l’utilisation du SITE sont à la charge du MEMBRE, de même que les frais de télécommunications induits par leur utilisation.</p>
+
+<h6><strong>5.4. Gestion des IDENTIFIANTS</strong></h6>
+
+<p>Chaque MEMBRE recevra, à l’adresse de messagerie électronique renseignée dans son formulaire d’inscription, un récapitulatif de ses IDENTIFIANTS.<br />
+Les IDENTIFIANTS sont personnels. Le choix des IDENTIFIANTS doit s’opérer dans le respect de la législation en vigueur, notamment celle relative à l’usurpation d’identité (Article 434-23 du Code pénal) ou à la contrefaçon de marque ou de droits d’auteur (Articles L.335-2 et suivants ou L.713-1 et suivants du Code de la Propriété intellectuelle).&nbsp;<br />
+Il appartient au MEMBRE d’assurer la confidentialité de ses IDENTIFIANTS. Toute connexion au COMPTE d’un MEMBRE à partir des IDENTIFIANTS sera présumée avoir été faite par le MEMBRE lui-même.&nbsp;<br />
+Le MEMBRE est seul responsable de l\'utilisation de ses IDENTIFIANTS par des tiers ou des actions ou déclarations faites par l\'intermédiaire de son COMPTE, qu\'elles soient frauduleuses ou non.&nbsp;<br />
+C’est pourquoi le MEMBRE garantit KAUFMAN&amp;BROAD contre toute demande faite à ce titre. En effet, il est rappelé que KAUFMAN&amp;BROAD n\'a pas pour obligation de vérifier l\'identité de chaque MEMBRE.&nbsp;<br />
+En cas d’usurpation d’identité d’un MEMBRE, KAUFMAN&amp;BROAD ne saurait être tenue pour responsable. En tout état de cause, si un MEMBRE suspecte une utilisation frauduleuse de son COMPTE, il devra immédiatement en avertir KAUFMAN&amp;BROAD.<br />
+KAUFMAN&amp;BROAD s’engage à préserver la confidentialité et la sécurité des IDENTIFIANTS du MEMBRE.</p>
+
+<h2><strong>6. OBLIGATIONS</strong></h2>
+
+<h6><strong>6.1. Obligations des UTILISATEURS</strong></h6>
+
+<p>Dans le cadre de l\'utilisation du SITE, chaque UTILISATEUR s\'engage à ne pas porter atteinte à l’ordre public et à se conformer aux lois et règlements en vigueur, à respecter les droits des tiers et les dispositions des présentes CGU.<br />
+Chaque UTILISATEUR a pour obligation de :</p>
+
+<ul>
+	<li>Se comporter de façon loyale et en bon père de famille à l’égard de KAUFMAN&amp;BROAD et des tiers ;</li>
+	<li>Etre honnête et sincère dans les informations fournies à KAUFMAN&amp;BROAD et, le cas échéant aux tiers ;</li>
+	<li>Utiliser le SITE conformément à la finalité décrite dans les présentes CGU ;</li>
+	<li>Ne pas détourner la finalité du SITE pour commettre des crimes, délits ou contraventions réprimées par le Code pénal ou toute autre loi ;</li>
+	<li>Respecter la vie privée des tiers et la confidentialité des échanges avec les UTILISATEURS, et en particulier à ne pas utiliser les données de contact des MEMBRES ;</li>
+	<li>Ne pas tenter de détourner les UTILISATEURS vers un autre site ou service ;</li>
+	<li>Ne pas chercher à porter atteinte au sens des articles 323-1 et suivants du Code pénal aux systèmes de traitement automatisés de données mis en œuvre sur le SITE ;</li>
+	<li>Ne pas modifier les INFORMATIONS mis en lignes par KAUFMAN&amp;BROAD ;</li>
+	<li>Ne pas insérer de liens hypertextes renvoyant vers un site internet commercial sans autorisation préalable express de KAUFMAN&amp;BRAOD ;</li>
+	<li>Ne pas utiliser le SITE pour envoyer massivement des messages non sollicités (publicitaires ou autres) ;</li>
+	<li>Ne pas diffuser des données ayant pour effet de diminuer, de désorganiser, de ralentir ou d’interrompre la circulation normale des informations entre les UTILISATEURS.</li>
+</ul>
+
+<h6><strong>6.2. Obligations de KAUFMAN&amp;BROAD</strong></h6>
+
+<p>L’obligation générale de KAUFMAN&amp;BROAD est une obligation de moyens. Il ne pèse sur KAUFMAN&amp;BROAD aucune obligation de résultat ou de moyens renforcée d’aucune sorte.&nbsp;<br />
+KAUFMAN&amp;BROAD s’engage à mettre tous les moyens en œuvre pour assurer une continuité d’accès et d’utilisation du SITE, 7 jours sur 7 et 24 heures sur 24.<br />
+KAUFMAN&amp;BROAD attire toutefois l’attention des UTILISATEURS sur le fait que les protocoles actuels de communication via Internet ne permettent pas d’assurer de manière certaine et continue la transmission des échanges électroniques (messages, documents, identité de l’émetteur ou du destinataire). Les UTILISATEURS reconnaissent par la présente que la responsabilité de KAUFMAN&amp;BROAD ne saurait être engagée en cas de dysfonctionnements ou d’interruptions desdits réseaux de transmission. KAUFMAN&amp;BROAD décline ainsi toute responsabilité en cas de perte de données, intrusions, virus, rupture de service ou autres problèmes étrangers à KAUFMAN&amp;BROAD.</p>
+
+<h2><strong>7. MESURES DE SANCTION</strong></h2>
+
+<p>Sans préjudice des autres dispositions des présentes, en cas de manquement du MEMBRE à l’une quelconque de ses obligations, KAUFMAN&amp;BROAD se réserve le droit de procéder aux mesures suivantes à l’encontre du MEMBRE concerné :</p>
+
+<ul>
+	<li>Limitation d’utilisation à tout ou partie du SITE, de façon temporaire ou définitive</li>
+	<li>Suspension du COMPTE</li>
+	<li>Suppression du COMPTE</li>
+</ul>
+
+<p>Le MEMBRE sera informé par courrier électronique de la mesure prise (limitation, suspension, suppression). En cas de suppression du COMPTE, les données du MEMBRE seront détruites à sa demande ou à l\'expiration des délais légaux courant à compter de la suppression du COMPTE.<br />
+Les MEMBRES faisant l’objet des sanctions, et en particulier de limitation d’utilisation du SITE ou de suspension s’engagent à ne pas ouvrir de nouveau COMPTE sur le SITE.</p>
+
+<h2><strong>8. PROPRIETE INTELLECTUELLE</strong></h2>
+
+<h6><strong>8.1. Titularité des droits de propriété intellectuelle</strong></h6>
+
+<p>Les marques, logos, slogans, graphismes, photographies, animations, vidéos et textes contenus sur le SITE sont la propriété intellectuelle exclusive de KAUFMAN&amp;BROAD, ses filiales et partenaires et ne peuvent être reproduits, utilisés ou représentés sans l\'autorisation expresse de ces derniers sous peine de poursuites judiciaires.</p>
+
+<p>Toute représentation ou reproduction, totale ou partielle, du SITE et de son contenu, par quel que procédé que ce soit, sans l’autorisation préalable expresse de KAUFMAN&amp;BROAD est interdite et constituera une contrefaçon sanctionnée par les articles L.335-2 et suivants et les articles L.713-1 et suivants du Code de la Propriété intellectuelle.<br />
+En particulier, KAUFMAN&amp;BROAD interdit expressément :</p>
+
+<ul>
+	<li>L\'extraction, par transfert permanent ou temporaire de la totalité ou d\'une partie qualitativement ou quantitativement substantielle du contenu d\'une base de données sur un autre support, par tout moyen et sous toute forme que ce soit ;</li>
+	<li>La réutilisation, par la mise à la disposition du public de la totalité ou d\'une partie qualitativement ou quantitativement substantielle du contenu de la base, quelle qu\'en soit la forme.</li>
+</ul>
+
+<p>L’acceptation des présentes CGU vaut reconnaissance par les UTILISATEURS des droits de propriété intellectuelle de KAUFMAN&amp;BROAD et l’engagement de les respecter.</p>
+
+<h6><strong>8.2. Licence d’utilisation du SITE</strong></h6>
+
+<p>KAUFMAN&amp;BROAD accorde une licence personnelle, non-exclusive et non cessible aux UTILISATEURS les autorisant à utiliser le SITE et les données qu’il contient conformément aux présentes CGU.<br />
+Toute autre exploitation du SITE et de son contenu est exclue du domaine de la présente licence et ne pourra être effectué sans l’autorisation préalable expresse de KAUFMAN&amp;BROAD.</p>
+
+<h2><strong>9. INFORMATIONS</strong></h2>
+
+<p>KAUFMAN&amp;BROAD met tout en œuvre pour offrir aux UTILISATEURS des INFORMATIONS et/ou outils disponibles et vérifiés.&nbsp;<br />
+KAUFMAN&amp;BROAD ne peut cependant en garantir l\'exhaustivité ou l\'absence de modification par un tiers (intrusion, virus)<br />
+Il est expressément convenu que les INFORMATIONS sont non contractuelles, peuvent contenir des inexactitudes techniques ou typographiques et sont sujettes à modification sans préavis.&nbsp;<br />
+A ce titre, la responsabilité de KAUFMAN&amp;BROAD ne saurait être retenue en cas de dommages indirects tels que, sans que cette liste soit exhaustive, les pertes découlant des transactions effectuées sur la base des INFORMATIONS, les pertes de profit, pertes d\'affaires, pertes découlant d\'une interruption du service, l\'augmentation des coûts d\'accès et de traitement des informations.<br />
+L’UTILISATEUR s’engage à faire un usage personnel et non commercial des INFORMATIONS.<br />
+Plus particulièrement, les INFORMATIONS relatives aux domaines bancaires et financiers sont indicatives et ne sauraient constituer de la part de KAUFMAN&amp;BROAD ni une offre d\'achat, de vente ou de souscription de produits ou services financiers.</p>
+
+<p>Lorsque des simulations sont présentées, les données obtenues ne sont que des prévisions qui ne constituent pas des indicateurs fiables quant aux résultats futurs de l’opération envisagée.</p>
+
+<h2><strong>10. RESPONSABILITES</strong></h2>
+
+<p>La responsabilité de KAUFMAN&amp;BROAD ne pourra en aucun cas être engagée :</p>
+
+<ul>
+	<li>en cas d’impossibilité d\'accéder temporairement au SITE pour des opérations de maintenance technique ou d’actualisation des informations publiées ;</li>
+	<li>en cas d’attaques virales ;</li>
+	<li>en cas d’utilisation anormale ou d’une exploitation illicite du SITE ;</li>
+	<li>relativement au contenu des sites internet tiers vers lesquels renvoient des liens hypertextes présents sur le SITE ;</li>
+	<li>en cas de non-respect des présentes CGU imputables aux MEMBRES, (renseignements incomplets ou erronés notamment) ;</li>
+	<li>en cas de retard ou d’inexécution de ses obligations, lorsque la cause du retard ou de l’inexécution est liée à un cas de force majeure telle qu’elle est définie par la jurisprudence française ;</li>
+	<li>en cas de cause étrangère non imputable à KAUFMAN&amp;BROAD;</li>
+	<li>pour tous dommages indirects ou immatériels tels que perte de chance, perte de profit, perte de contrat ou préjudice d’image.</li>
+</ul>
+
+<p>Par ailleurs, KAUFMAN&amp;BROAD ne saurait garantir l\'exactitude, l’exhaustivité, l\'absence d\'erreurs, la véracité, le caractère actuel, la qualité loyale et marchande, la justesse, la pertinence, le caractère non-contrefaisant et la disponibilité des INFORMATIONS.</p>
+
+<p>IMPORTANT<br />
+Il est effet rappelé que les outils de simulation et données relatives aux projets immobiliers de l’UTILISATEUR sont délivrés à titre indicatif et ne sauraient remplacer la consultation d’un professionnel.</p>
+
+<h2><strong>11. PROTECTION DES DONNEES A CARACTERE PERSONNEL</strong></h2>
+
+<p>Dans le cadre de l’exploitation du SITE, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel.</p>
+
+<p>Ces données sont nécessaires à la gestion du SITE et des COMPTES, et le cas échéant à l’envoi de newsletter et autres alertes aux UTILISATEURS qui en ont fait la demande. Ces données seront traitées conformément aux finalités prévues lors de la collecte.</p>
+
+<p>A ce titre, l’UTILISATEUR est invité à consulter la Politique de Confidentialité du SITE qui lui donnera plus amples informations relatives à la protection des données à caractère personnel, et aux traitements effectués via le SITE.</p>
+
+<p>Il est toutefois rappelé que conformément à la loi française « informatique et liberté » n°78-17 du 6 janvier 1978 modifiée, l’UTILISATEUR bénéficie d\'un droit d\'accès et de rectification aux informations qui le concerne.</p>
+
+<p>Pour cela l’UTILISATEUR doit contacter le service client à l’adresse email suivante&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier à :</p>
+
+<p><br />
+KAUFMAN&amp;BROAD SA<br />
+Département Internet&nbsp;<br />
+127 avenue Charles DE GAULLE<br />
+92207 NEUILLY SUR SEINE CEDEX<br />
+Par ailleurs, afin de permettre une navigation simplifiée et personnalisée, le SITE a recourt à l’usage de cookies.</p>
+
+<h2><strong>12. RECLAMATIONS</strong></h2>
+
+<p>KAUFMAN&amp;BROAD met à la disposition des UTILISATEURS un « Service téléphonique Client » au numéro suivant : 0805 08 31 66 (numéro non surtaxé). L’UTILISATEUR peut également transmettre toutes réclamations par la voie postale à KAUFMAN&amp;BROAD :</p>
+
+<p><br />
+KAUFMAN&amp;BROAD SA<br />
+Service Client<br />
+127 avenue Charles DE GAULLE<br />
+92207 NEUILLY SUR SEINE CEDEX</p>
+
+<h2><strong>13. VALIDITE DES CGU</strong></h2>
+
+<p>Toute modification de la législation ou de la réglementation en vigueur, ou toute décision d’un tribunal compétent invalidant une ou plusieurs clauses des présentes CGU ne saurait affecter la validité des présentes CGU.</p>
+
+<p>Une telle modification ou décision n’autorise en aucun cas les UTILISATEURS à méconnaître les présentes CGU.</p>
+
+<h2><strong>14. MODIFICATION DES CGU</strong></h2>
+
+<p>Les présentes CGU s’appliquent à tout UTILISATEUR navigant sur le SITE.</p>
+
+<p>Les CGU pourront être modifiées et mises à jour par KAUFMAN&amp;BROAD à tout moment, notamment pour s’adapter à l’évolution législative ou réglementaire.</p>
+
+<p>Les CGU applicables sont celles en vigueur au moment de la navigation sur le SITE (et/ou de la connexion au COMPTE pour les MEMBRES).</p>
+
+<h2><strong>15. COMPETENCE ET DROIT APPLICABLE</strong></h2>
+
+<p>Les présentes CGU ainsi que les relations entre l’UTILISATEUR et KAUFMAN&amp;BROAD sont régies par le droit français.</p>
+
+<p>En cas de litige, seuls les tribunaux français seront compétents.</p>
+
+<p>Toutefois, préalablement à tout recours judiciaire, la négociation dans un esprit de loyauté et de bonne foi sera privilégiée en vue de parvenir à un accord amiable lors de la survenance de tout conflit relatif aux présentes Conditions Générales, y compris portant sur leur validité.</p>
+
+<p>La partie souhaitant mettre en œuvre le processus de négociation devra en informer l’autre partie par lettre recommandée avec accusé de réception en indiquant les éléments du conflit. Si au terme d’un délai de quinze (15) jours, les parties ne parvenaient pas à s’entendre, le différend serait soumis à la juridiction compétente désignée ci-après.</p>
+
+<p>Durant tout le processus de négociation et jusqu’à son issue, les parties s’interdisent d’exercer toute action en justice l’une contre l’autre et pour le conflit objet de la négociation. Par exception, les parties sont autorisées à saisir la juridiction des référés ou à solliciter le prononcé d’une ordonnance sur requête. Une éventuelle action devant la juridiction des référés ou la mise en œuvre d’une procédure sur requête n’entraîne de la part des parties aucune renonciation à la clause d’arrangement amiable, sauf volonté contraire expresse.</p>
+</div>
+</div>
+
+<div><a id="cookies" name="cookies"></a>
+
+<div>
+<h2><u>CHARTE DE GESTION DES COOKIES</u></h2>
+</div>
+
+<div>
+<h2><strong>1. PRÉAMBULE</strong></h2>
+
+<p>La présente Charte de gestion des Cookies s’adresse aux utilisateurs du site internet http://www.ketb.com/, (ci-après le « SITE »), à savoir, toute personne qui accède et navigue sur le SITE, et notamment les membres inscrits sur le SITE ou les internautes visiteurs.</p>
+
+<p>En navigant sur le SITE, vous consentez à ce que les cookies tels que décrits ci-dessous puissent être placés sur votre terminal conformément à la présente Charte de gestion des Cookies.</p>
+
+<h2><strong>2. QUI COLLECTE MES DONNEES ?</strong></h2>
+
+<p>Le responsable des traitements des données des utilisateurs collectées via le SITE est la Société KAUFMAN&amp;BROAD, société anonyme à conseil d\'administration au capital social de 5.612.011,08 euros, immatriculée au R.C.S de NANTERRE sous le numéro B 702 022 724, sise 127 avenue Charles de Gaulle - 92207 NEUILLY SUR SEINE Cedex, et ayant comme numéro de TVA intracommunautaire : FR13 702022724 (ci-après dénommée « KAUFMAN&amp;BROAD »).</p>
+
+<h2><strong>3. QU’EST-CE QU’UN COOKIE ?</strong></h2>
+
+<p>Un cookie est un petit fichier texte déposé sur le disque dur de votre terminal lors de votre visite sur un site internet. Il enregistre certaines informations sur votre navigation ou sur votre comportement en ligne qui nous permettent d’améliorer et de faciliter votre expérience en qualité d’internaute.</p>
+
+<h2><strong>4. A QUOI SERVENT LES COOKIES ?</strong></h2>
+
+<p>Le SITE utilise des cookies afin de différencier les internautes pour améliorer leur navigation et les services qui leur sont proposés. En pratique, les cookies permettent ainsi de vous authentifier et de vous identifier, ils peuvent, le cas échéant, enregistrer vos préférences ou mesurer les différents usages du SITE.</p>
+
+<h2><strong>5. LES COOKIES DU SITE ET LEUR FINALITE</strong></h2>
+
+<p>KAUFMAN&amp;BROAD privilégie la transparence dans le traitement de vos données. A ce titre et pour que votre information soit la plus claire possible, vous trouverez ci-dessous différents cookies utilisés sur le SITE et leur finalité :</p>
+
+<p><strong>5.1.</strong> Les cookies KAUFMAN&amp;BROAD (cookies propriétaires)</p>
+
+<p><strong>5.1.1.</strong> Les cookies fonctionnels et techniques permettant majoritairement d’améliorer votre navigation sur le SITE. Ce sont eux qui vont envoyer des informations à notre site et à votre navigateur : mémorisation des informations relatives à un formulaire (identifiant, adresse), les préférences d’affichage de votre terminal (langue, résolution), des mesures de sécurité comme l’expiration de votre session etc.</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="7" style="text-align:center; vertical-align:middle">Kaufman et Broad</td>
+			<td style="text-align:center; vertical-align:baseline">USERLOGIN</td>
+			<td style="vertical-align:baseline">Stocke l’identifiant de l’utilisateur FIDELISATION qui se loggue sur son espace personnel</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KETBDKRK</td>
+			<td style="vertical-align:baseline">Stocke l’ID Région Kaufman et Broad et le choix par défaut dans les menus déroulants</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KETBCULTURE</td>
+			<td style="vertical-align:baseline">Stocke la langue du site pour pouvoir afficher le site en différentes versions</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">PROVENANCE</td>
+			<td style="vertical-align:baseline">Stocke la provenance de l’utilisateur qui est passé en query string pour les différents formulaires</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KBOINVEST</td>
+			<td style="vertical-align:baseline">Stocke la valeur pour faire apparaitre le module investisseur en BO</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">KBCLIENTS</td>
+			<td style="vertical-align:baseline">Si le cookie est créé, le cookie IDGUID va être sauvegardé</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">IDGUID</td>
+			<td style="vertical-align:baseline">Stocke l’identifiant de l’utilisateur Client qui se loggue sur son espace client pour l’onglet premier plan</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>Attention, la navigation sur le SITE et/ou l’utilisation de certaines fonctionnalités pourraient être altérées si vous choisissez de désactiver ces cookies.</p>
+
+<p><strong>5.2.</strong> Les cookies tiers En vous rendant sur le SITE, il est possible que des sociétés partenaires implantent des cookies sur votre terminal. L’utilisation de ces cookies est soumise aux mêmes restrictions sur la protection des données personnelles établies par la loi « Informatique et Libertés ». Dans les paramétrages de votre navigateur, vous pourrez désactiver ces cookies tiers seuls ou en même temps que les nôtres. Il y a en particulier :</p>
+
+<p><strong>5.2.1.</strong> Les cookies techniques de statistiques et de mesure d’audience du SITE nous aident à mieux comprendre l’utilisation qui est faite du SITE et vous proposer des services de qualité :</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">Xiti</td>
+			<td style="text-align:center; vertical-align:baseline">idrxvr</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">tmst</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td rowspan="4" style="text-align:center; vertical-align:middle">Google Analytics</td>
+			<td style="text-align:center; vertical-align:baseline">__utmt</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utma</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utmb</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">__utmz</td>
+			<td style="vertical-align:baseline">Permet de suivre le comportement des visiteurs web et de mesurer les performances du site</td>
+		</tr>
+		<tr>
+			<td rowspan="5" style="text-align:center; vertical-align:middle">Facebook</td>
+			<td style="text-align:center; vertical-align:baseline">cms</td>
+			<td style="vertical-align:baseline">Vérifie la sécurité de l\'authentification</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">datr</td>
+			<td style="vertical-align:baseline">Identifie le navigateur de connexion à Facebook (sécurité)</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">p</td>
+			<td style="vertical-align:baseline">Utilisé par diverses fonctionnalités de Facebook pour les utilisateurs connectés</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">xs</td>
+			<td style="vertical-align:baseline">Identifiant unique à chaque visite de Facebook</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">lu</td>
+			<td style="vertical-align:baseline">Gère le processus de connexion, garde en mémoire la visite utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="4" style="text-align:center; vertical-align:middle">Accounts.google.com</td>
+			<td style="text-align:center; vertical-align:baseline">LSID</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">LSOSID</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">GAPS</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">ACCOUNT_CHOOSER</td>
+			<td style="vertical-align:baseline">Utilisé par Google pour vérifier un compte utilisateur Google</td>
+		</tr>
+		<tr>
+			<td rowspan="3" style="text-align:center; vertical-align:middle">Google.com</td>
+			<td style="text-align:center; vertical-align:baseline">NID</td>
+			<td style="vertical-align:baseline">Utilisés par Google pour stocker les préférences de l\'utilisateur et des informations lors de l\'affichage des pages avec cartes Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">PREF</td>
+			<td style="vertical-align:baseline">Utilisés par Google pour stocker les préférences de l\'utilisateur et des informations lors de l\'affichage des pages avec cartes Google</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">SID</td>
+			<td style="vertical-align:baseline">Utilisé par Google en combinaison avec HSID pour vérifier un compte utilisateur Google et la dernière connexion</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><strong>5.2.2.</strong> Les cookies liés aux opérations relatives à la publicité : Ces cookies sont utilisés par des prestataires publicitaires sur le SITE. Les cookies contenus au sein même des publicités ont pour objectif de fournir des informations et des statistiques sur la pertinence de leur diffusion (nombre d’utilisateurs cliquant sur la publicité, nombre de fois où elle est affichée etc.)</p>
+
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Cookie posé par</td>
+			<td style="text-align:center; vertical-align:baseline">Nom du cookie</td>
+			<td style="text-align:center; vertical-align:baseline">Finalité du cookie</td>
+		</tr>
+		<tr>
+			<td rowspan="3" style="text-align:center; vertical-align:middle">.adnxs.com</td>
+			<td style="text-align:center; vertical-align:baseline">uuid2</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">anj</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">sess</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">doubleClick.net</td>
+			<td style="text-align:center; vertical-align:baseline">id</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">_drt_</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td rowspan="2" style="text-align:center; vertical-align:middle">Facebook</td>
+			<td style="text-align:center; vertical-align:baseline">presence</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur (connexion utilisateurs "chat")</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">c_user</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:middle">Twitter</td>
+			<td style="text-align:center; vertical-align:baseline">guest_id</td>
+			<td style="vertical-align:baseline">Contient des données permettant un ciblage publicitaire de l\'utilisateur</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p><strong>5.2.3.</strong> Les cookies liés aux réseaux sociaux : Nous incluons au sein d’une majorité de pages du SITE des applications informatiques qui permettent le partage en temps réel du contenu du SITE avec d’autres personnes. C’est notamment le cas des boutons « Partager », « J’aime », ou « +1 » etc. des réseaux sociaux.</p>
+
+<p>Il est précisé que tout réseau social peut vous identifier ou suivre votre navigation à l’aide de l’un de ces boutons même sans que vous ayez cliqué dessus, du moment que votre session est ouverte dans votre navigateur. Chaque réseau social dispose de ses propres politiques de protection des données et KAUFMAN&amp;BROAD ne dispose d’aucun contrôle sur l’utilisation des cookies et autres traceurs émis par ces sociétés tiers. Nous vous invitons à vous renseigner auprès de ces réseaux sociaux pour en savoir plus sur les paramétrages possibles vis-à-vis de la confidentialité de votre compte (Facebook, Twitter etc.)</p>
+
+<h2><strong>6. INSTALLER CES COOKIES : C’EST VOTRE CHOIX</strong></h2>
+
+<p>Sur vos ordinateurs, Smartphones et autres terminaux d’accès à Internet, par défaut le logiciel de navigation accepte les cookies présents sur les sites internet.</p>
+
+<p>Mais vous restez maître de l’installation de ces cookies car vous avez la possibilité de configurer votre logiciel de navigation pour :</p>
+
+<ul>
+	<li>accepter ou refuser les cookies se trouvant sur le SITE</li>
+	<li>refuser systématiquement tous les cookies</li>
+	<li>demander votre consentement sur chacun des cookies que vous rencontrez lors de votre navigation sur internet.</li>
+</ul>
+
+<p>Pour ce faire, il vous suffit de vous reporter à vos logiciels de navigation et de suivre leurs instructions. A titre d’exemple :</p>
+
+<ul>
+	<li><strong>Avec Internet Explorer™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Options internet&nbsp;►&nbsp;Onglet Confidentialité&nbsp;►&nbsp;choisissez le niveau souhaité</li>
+	<li><strong>Avec Firefox™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Options&nbsp;►&nbsp;Onglet Vie privée&nbsp;►&nbsp;choisissez les options souhaitées</li>
+	<li><strong>Avec Chrome™</strong>&nbsp;: menu de configuration (logo paramètres)&nbsp;►&nbsp;Paramètres&nbsp;►&nbsp;Paramètres avancés&nbsp;►&nbsp;Paramètres de contenu&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+	<li><strong>Avec Safari™</strong>&nbsp;: Safari (logo paramètres)&nbsp;►&nbsp;Préférences&nbsp;►&nbsp;Sécurité&nbsp;►&nbsp;Afficher les cookies&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+	<li><strong>Avec Opera™</strong>&nbsp;: menu Outils&nbsp;►&nbsp;Préférences&nbsp;►&nbsp;Onglet Avancé&nbsp;►&nbsp;Rubrique Cookies&nbsp;►&nbsp;Gérer les cookies&nbsp;►&nbsp;Choisissez les options souhaitées</li>
+</ul>
+
+<p>Comme indiqué précédemment, en choisissant de bloquer nos cookies, nous tenons à vous informer que la navigation sur le SITE et/ou l’utilisation de certaines fonctionnalités pourraient être altérées. En tout état de cause, si vous choisissez de supprimer tous les cookies, votre expérience utilisateur en sera fortement affectée et vos préférences de navigation seront effacées.</p>
+
+<h2><strong>7. VOTRE CONSENTEMENT</strong></h2>
+
+<p>En navigant sur le SITE, vous acceptez que KAUFMAN&amp;BROAD installe des cookies dits « techniques » qui accèdent, inscrivent et consultent des informations stockées dans votre équipement terminal :</p>
+
+<ul>
+	<li>ayant pour finalité exclusive de permettre ou faciliter la communication par voie électronique ;</li>
+	<li>strictement nécessaires à la fourniture du service de communication en ligne du SITE.</li>
+</ul>
+
+<p>Lors de votre inscription sur le SITE, vous avez également été informés de la présence de cookies traceurs destinés notamment à vous proposer des offres adaptées à vos centres d’intérêts et à réaliser des statistiques de visites et de la possibilité de vous y opposer en accédant à la présente Charte de gestion des cookies.</p>
+
+<h2><strong>8. VOS DROITS D’ACCES, DE SUPPRESSION, D’OPPOSITION</strong></h2>
+
+<p>Comme pour les autres données, vous pouvez exercer vos droits d’accès, de suppression et d’opposition sur vos données en en faisant la demande par e-mail à l’adresse webmaster@ketb.com ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en indiquant dans l’objet « Informatique et libertés » et en justifiant de votre identité.</p>
+
+<p>En outre, si votre navigateur internet le permet, vous pouvez à tout moment désactiver ces cookies en vous référant aux procédures détaillées ci-avant.</p>
+
+<h2><strong>9. DUREE DE CONSERVATION</strong></h2>
+
+<p>En tout état de cause, les cookies stockés dans votre terminal ou tout autre élément utilisé pour vous identifier à des fins de statistiques ou d’audience auront une durée de vie limitée à 6 mois maximum, cette durée n’étant pas prorogée automatiquement lors de vos nouvelles visites sur le SITE. Au-delà, les données de fréquentation brutes associées à un identifiant sont soit supprimées soit anonymisées.</p>
+</div>
+</div>
+',
+          'safe_summary' => '',
+        ),
+      ),
+    ),
+    'domains' => array(
+      2 => 2,
+      3 => 3,
+    ),
+    'domain_site' => TRUE,
+    'subdomains' => array(
+      0 => 'All affiliates',
+      1 => 'Kaufman & Broad Patrimoine',
+      2 => 'Kaufman & Broad',
+    ),
+    'locations' => array(),
+    'location' => array(),
+    'name' => 'admin',
+    'picture' => 0,
+    'data' => 'b:0;',
+    'date' => '2015-11-25 17:21:42 +0000',
+  );
+  $nodes[] = array(
+    'uid' => 1,
+    'title' => 'FAQ Immobilier',
+    'log' => '',
+    'status' => 1,
+    'comment' => 0,
+    'promote' => 1,
+    'sticky' => 0,
+    'vuuid' => 'c2a7ac1f-fc8f-4197-9687-926bf5db3146',
+    'type' => 'standard_page',
+    'language' => 'en',
+    'created' => 1448470397,
+    'tnid' => 0,
+    'translate' => 0,
+    'uuid' => '8e2d2058-699c-4a91-9464-b2a08f70686a',
+    'revision_uid' => 1,
+    'body' => array(
+      'und' => array(
+        0 => array(
+          'value' => '<div>
+<div>
+<p><a id="haut" name="haut"></a>Pour répondre à vos principales interrogations sur la vie Boursière de Kaufman &amp; Broad, vous pouvez consulter les questions / réponses ci-dessous. Pour plus d\'informations,&nbsp;contactez-nous</p>
+
+<ul>
+	<li><a href="#consultation-site">Questions sur la consultation du site</a></li>
+	<li><a href="#offre-commerciale">Questions sur notre offre commerciale</a></li>
+	<li><a href="#actualite">Questions sur notre actualité financière et boursière</a></li>
+</ul>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="consultation-site" name="consultation-site"></a>
+
+<h2>Questions sur la consultation du site</h2>
+
+<div>
+<h4><strong>Vous avez des difficultés pour consulter les documents au format PDF ?</strong></h4>
+
+<p>Pour lire les documents PDF, votre ordinateur doit être équipé du logiciel gratuit Acrobat Reader édité par la société Adobe. Vous pouvez télécharger ce logiciel qui s\'installe très facilement en allant sur le site d\'Adobe&nbsp;<a class="blueLinkInside" href="http://www.adobe.fr/" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; vertical-align: baseline; color: rgb(0, 158, 224);" target="_blank" title="http://www.adobe.fr">http://www.adobe.fr</a>&nbsp;en suivant la procédure d\'installation.</p>
+
+<h6><strong>Vous souhaitez être averti de l\'ouverture de nouveaux programmes ?</strong></h6>
+
+<p>Pour cela, rendez-vous dans notre rubrique K&amp;B Veille. Sélectionnez la localisation géographique ainsi que les caractéristiques du logement que vous recherchez. Enfin, laissez-nous vos coordonnées. Vous serez prévenu automatiquement par mail dès la mise en ligne d\'un nouveau logement répondant à vos besoins.</p>
+
+<h6><strong>Vous souhaitez recevoir nos offres promotionnelles ?</strong></h6>
+
+<p>Pour cela, inscrivez-vous à notre mailing list. Vous pourrez choisir de suivre toute notre actualité institutionnelle et/ou commerciale. Dès la mise en ligne d\'une nouvelle offre promotionnelle, vous recevrez automatiquement un e-mail.</p>
+
+<h6><strong>Vous avez des difficultés pour visionner les visites virtuelles ?</strong></h6>
+
+<p>Nous vous proposons de nombreuses visites virtuelles de quartiers ou de logements décorés visibles aussi bien sur PC que sur MAC. Afin d\'écourter les temps de chargement et d\'attente, les images s\'affichent progressivement, devenant de plus en plus nettes. Pour les consulter, votre ordinateur n\'a pas besoin d\'être équipé de logiciel particulier. Seul votre navigateur (Internet Explorer ou Netscape) doit être paramétré pour " accepter " le code java. Si vous vous connectez depuis votre lieu de travail, il se peut que le système de sécurité de votre entreprise ne vous laisse pas la possibilité de visualiser ces visites virtuelles.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="offre-commerciale" name="offre-commerciale"></a>
+
+<h2>Questions sur notre offre commerciale</h2>
+
+<div>
+<h6><strong>Est-il possible de faire cons truire une maison Kaufman &amp; Broad sur son propre terrain?</strong></h6>
+
+<p>Kaufman &amp; Broad est un&nbsp;constructeur développeur&nbsp;qui réalise des maisons individuelles en village et des appartements. Nous ne réalisons pas de maisons à l\'unité.</p>
+
+<h6><strong>Quand intervient la Signature Notariée ?</strong></h6>
+
+<p>La signature notariée intervient dans un délai de 1 à 2 mois après la signature de votre contrat de réservation. Le notaire vous transmettra un projet d\'acte accompagné de la notice descriptive détaillée (appelée Mai 68) et le règlement de copropriété afin que vous puissiez l\'étudier préalablement au rendez-vous de signature. Ce rendez-vous sera fixé avec vous par l\'étude notariale ou par notre département commercial. Lors du rendez-vous chez le notaire, il vous sera demandé le pourcentage du prix exigé en fonction de votre échéancier de paiement et de l\'avancement des travaux.</p>
+
+<h6><strong>Vous avez réservé un logement Kaufman &amp; Broad et vous souhaitez connaître les échéances de vos paiements ?</strong></h6>
+
+<p>Lors de votre signature de l\'acte de vente notarié, il vous a été remis un échéancier prévisionnel d\'appel de fonds. Ces Appels de fond vous seront transmis en fonction de cet échéancier et suivant l\'avancement des travaux. Nous vous rappelons que cet échéancier est prévisionnel. Il peut donc être modifié suivant l\'avancement du chantier.<br />
+Attention : Les versements correspondant à des demandes d\'appel de fonds doivent être envoyés par chèque à notre département financier sous 15 jours à réception du courrier.<br />
+Pendant vos vacances, pensez à communiquer à votre chargé de clientèle l\'adresse où vous séjournez.</p>
+
+<h6><strong>Comment s\'organise une livraison ?</strong></h6>
+
+<p>Un mois avant la date prévue de remise des clés de votre appartement ou de votre maison, un courrier vous indiquera le jour et l\'heure de votre rendez-vous de livraison. Le jour de la livraison il vous sera remis un dossier comprenant :<br />
+- toutes les notices techniques des appareillages électriques de votre logement (radiateurs, ballon d\'eau chaude, thermostat, chaudières, sèche serviette..)<br />
+- le guide pratique de l\'acquéreur Kaufman &amp; Broad<br />
+- les coordonnées de votre correspondant au Service Client.<br />
+- Les coordonnées de votre syndic, du centre des impôts, de votre agence France telecom…. (tous les concessionnaires auxquels vous devrez vous référer).</p>
+
+<p>Il conviendra de remettre le jour de la remise des clés de votre logement un chèque de banque concernant le solde du paiement de votre logement. (dernière échéance).</p>
+
+<p>Pendant la livraison un état des lieux sera rédigé en plusieurs exemplaires dont un vous sera remis. comportant les réserves émises de votre part.</p>
+
+<h6><strong>Qu\'est ce que l\'Etat des Lieux ?</strong></h6>
+
+<p>Lors de la remise des clés de votre logement, nous effectuons une visite d\'état des lieux concrétisée par la signature contractuelle d\'un"Procès-verbal d\'Etat des Lieux". La visite d\'état des lieux concerne les éléments d\'équipements et de finition. Tous vices apparents sur ces éléments sont à signaler : coups, éclats, tâches…<br />
+Important : vous disposez de 30 jours à compter de la visite d\'Etat des Lieux pour adresser une liste complémentaire par courrier recommandé et accusé de réception signalant les vices cachés.</p>
+
+<h6><strong>Quel est le rôle du Service Client ?</strong></h6>
+
+<p>Le Service Client&nbsp;a été mis en place pour vous apporter une aide efficace que ce soit pendant les premiers mois de votre emménagement ou les années suivantes. Nos responsables seront à votre disposition pour vous aider et vous conseiller. Nos conseillers après avoir reçu vos lettres, appels téléphoniques, fax ou e-mail organiseront les démarches utiles. Votre satisfaction est notre entière priorité.</p>
+
+<h6><strong>Qu\'est ce que l\'Assurance "Dommages-Ouvrage" ?</strong></h6>
+
+<p>Il s\'agit d\'une&nbsp;assurance&nbsp;qui s\'étale sur 10 ans à partir de la date de réception des travaux de ou des entreprises ayant réalisé votre bien. Elle comprend :<br />
+- La garantie de Bon fonctionnement&nbsp;(biennale)<br />
+- La garantie décennale</p>
+
+<h6><strong>Qu\'est ce que la garantie de Parfait Achèvement ?</strong></h6>
+
+<p>Il s\'agit d\'une garantie annuelle. Pendant l\'année dite&nbsp;"de parfait achèvement des travaux", chaque entreprise se doit d\'exécuter ce dont elle a été chargée et notamment d\'en supporter tous les risques.<br />
+Ainsi, dans le cas où pendant la première année de livraison, vous signaleriez des désordres à notre service client, des ouvriers se rendront chez vous pour effectuer les travaux nécessaires. Ils seront porteurs d\'un&nbsp;"Ordre de reprise"&nbsp;décrivant le travail à effectuer. Après l\'exécution des travaux, il vous incombe de signer ce document et, si vous n\'êtes pas entièrement satisfait, de noter vos réserves sur les travaux effectués au dos de ce même document.</p>
+
+<h6><strong>Qu\'est ce que la Garantie de bon fonctionnement ?&nbsp;</strong></h6>
+
+<p>La garantie de Bon fonctionnement (biennale) qui prolonge d\'un an la garantie de parfait achèvement, couvre les éléments d\'équipement que l\'on peut enlever ou démonter ou remplacer sans détériorer la construction (volets, menuiseries intérieurs, canalisations apparentes, chaudière, radiateurs, etc …)<br />
+A noter : Les éléments d\'équipements (appareils qui complètent la construction et assurent au logement son confort et son bien être ) comme par exemple les appareils ménagers, ne rentrent pas dans le cadre de cette garantie.</p>
+
+<h6><strong>Qu\'est ce que la Garantie Décennale ?</strong></h6>
+
+<p>La garantie décennale couvre pour 8 années supplémentaires les dommages qui pourraient compromettrent&nbsp;la solidité de l\'ouvrage ou le rendre impropre à sa destination&nbsp;(fissures dangereuses ou infiltrations dans le mur ou le plancher, mauvaise étanchéité des façades, fondations, ossature..)<br />
+Attention: L\'assureur dommages-ouvrage peut refuser d\'intervenir pour les dommages s\'ils ne mettent pas en péril la construction ou ne la rende pas impropre à sa destination.</p>
+
+<h6><strong>Que faire en cas de Sinistre ?</strong></h6>
+
+<p>Un sinistre est un désordre qui met en péril la solidité de l\'ouvrage ou le rend impropre à sa destination.<br />
+Dans ce cas : contacter au plus vite votre correspondant du Service Client Kaufman &amp; Broad qui vous mettra en relation avec notre service "assurance" et vous assistera dans toutes les démarches auprès des assureurs et auprès des experts.&nbsp;Dans tous les cas, signifiez le désordre au Service Client par lettre recommandée avec accusé de réception dans les 5 jours qui suivent l\'apparition des désordres.<br />
+A noter : En cas de sinistre sur les parties communes, vous devez en référer à votre Syndic ou au président de votre ASL. C\'est lui qui doit prendre contact avec notre Service Client.</p>
+
+<p><strong>Vous avez racheté un appartement ou une maison Kaufman &amp; Broad, à qui s\'adresser pour obtenir le plan de votre logement ou le règlement de copropriété ?</strong><br />
+Lors de la signature du premier acte de vente notarié, le premier propriétaire du logement a reçu un original de tous ces éléments. L\'étude notariale en a également conservé un exemplaire.<br />
+Vous pouvez donc les contacter pour obtenir une copie de ces éléments.<br />
+Autre possibilité, si vous avez racheté une maison dans un village Kaufman &amp; Broad, l\'ensemble du dossier concernant la première vente, plans et autres pièces écrites, est détenu par le président de l\'ASL (Association Syndicale Libre). De même dans le cas de l\'achat d\'un appartement Kaufman &amp; Broad, l\'ensemble du dossier est détenu par le syndic.</p>
+
+<p>Pour les maisons et appartements livrés postérieurement à 1998, notre service Client possède également une copie de ces éléments. Pour les livraisons antérieures, nos archives ayant été totalement détruites lors d\'un incendie en 1998, nous ne pourrons vous fournir d\'éléments.</p>
+
+<h6><strong>Qu\'est ce que l\'ASL?</strong></h6>
+
+<p>Dans un village de maisons Kaufman &amp; Broad, L\'ASL : Association Syndicale Libre joue le rôle du syndic. Elle est chargée de s\'occuper des parties communes telles que la voirie, les jardins non privatifs...</p>
+
+<h6><strong>Comment se répartit la copropriété ?</strong></h6>
+
+<p>Vous avez acheté un appartement Kaufman &amp; Broad :<br />
+Dans un immeuble, les choses sont simples : les copropriétaires sont également propriétaires des parties communes (toiture, entrées, cour, jardins, escaliers, combles) au prorata de la surface de leur appartement, exprimé en tantièmes.<br />
+Vous avez acheté une maison dans un village Kaufman &amp; Broad :<br />
+Le problème de la vie en communauté se pose aussi dans les maisons individuelles, pour la gestion et de la répartition des charges d\'entretien des espaces communs (voies d\'accès, jardins). Les maisons réalisées au même moment peuvent être placées sous le régime de la copropriété dite "horizontale", ou sous un régime d\'Association Syndicale Libre (ASL). Lors de la vente, si un règlement de copropriété vous est remis, vous relevez du premier régime, dit de copropriété horizontale. La totalité du sol du "nouveau village" est une partie commune. Les copropriétaires ayant l\'usage privatif et exclusif de la parcelle rattachée à leur maison. Si l\'on vous remet les statuts d\'une association, vous êtes en ASL. Ces statuts tiennent lieu de règlement et définissent le fonctionnement du "village". Dans les deux cas, le syndic ou l\'association veille à l\'entretien des ouvrages communs, à l\'application du règlement intérieur, ainsi qu\'au respect de l\'esthétique d\'ensemble.</p>
+
+<h6><strong>Propriétaire d\'une maison Kaufman &amp; Broad, vous souhaitez aménager vos combles. Quelle est la procédure à suivre ?</strong></h6>
+
+<p><u>Vos combles sont aménageables</u><br />
+Il est signifié sur votre acte de vente notarié que les combles sont prévus pour un aménagement ultérieur. Dans ce cas vous pouvez réaliser les travaux en prenant soin de respecter le permis de construire initial et en vous assurant que l\'entreprise choisie pour effectuer les travaux est qualifiée pour couvrir les garanties et les dommages éventuels. Si le permis de construire initial ne correspond pas à votre projet, il y a lieu de demander un nouveau permis de construire et de contacter les services de votre Mairie. Cette dernière procédure ne peut être entreprise qu\'une fois le certificat de conformité obtenu par Kaufman &amp; Broad.</p>
+
+<p><u>Vos combles sont des combles perdues</u><br />
+Dans votre acte de vente notarié, les combles n\'ont pas été prévus à l\'aménagement. Une fois le certificat de conformité délivré par l\'administration à Kaufman &amp; Broad, il vous appartient de vous renseigner auprès du Président de l\'ASL sur le permis de construire du village pour savoir s\'il reste de la surface SHON disponible (Surface Hors Œuvre Nette).</p>
+
+<p>Deux cas de figures sont ensuite possibles :</p>
+
+<p>- Une surface de SHON est disponible<br />
+Dans ce cas vous devez déposer une demande de permis simplifié auprès de la mairie. Après accord, vous pouvez réaliser les travaux en prenant soin de bien vous assurer que l\'entreprise choisie est qualifiée pour couvrir les garanties ou les dommages éventuels.</p>
+
+<p>- Il n\'y a pas de SHON disponible<br />
+Dans ce cas, vous devez vous renseigner auprès de votre commune sur les éventuels possibilités.&nbsp;Attention : Il est interdit de modifier une construction sans autorisation préalable. Vous vous exposeriez à une forte amende et au risque d\'être contraint de remettre votre logement en conformité initiale.</p>
+
+<h6><strong>Installer ou modifier une cheminée. Quelles données prendre en compte ?</strong></h6>
+
+<p>Votre maison peut vous être livrée avec un conduit de cheminée prévu pour l\'installation d\'une cheminée à feu ouvert ou d\'agrément. Dans le cas ou vous souhaiteriez modifier l\'utilisation de votre cheminée par la pose d\'insert par exemple, il est de la responsabilité du cheministe d\'assurer les risques que peuvent causer des modifications sur la solidité de l\'ouvrage. Ceux-ci ne sont pas couverts par l\'assurance Dommages-Ouvrage souscrite par Kaufman &amp; Broad.</p>
+
+<h6><strong>Vous souhaitez installer une piscine dans votre jardin ? Quelles démarches ?</strong></h6>
+
+<p>Avant tout projet de construction d\'une piscine, il est impératif de vous référer au cahier des charges de votre village afin de vérifier si sa construction est autorisée. Dans tous les cas, il vous faudra obtenir l\'accord de votre ASL. De plus, il vous faudra vous acquitter de démarches administratives auprès de votre mairie.<br />
+Attention, la construction d\'une piscine peut mettre en danger la solidité de votre maison et vous faire sortir du champ de vos garanties. Pensez à vérifier qu\'aucune canalisation ou évacuation d\'eau pluviale ne traverse votre terrain, que la surface de votre terrain est suffisante pour supporter l\'emprise de la piscine, que le type de sol convient à de tels travaux, etc...</p>
+
+<p>Notre conseil : Avant de réaliser tous travaux, nous vous recommandons de consulter un bureau d\'étude spécialisé pour une étude préalable.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="actualite" name="actualite"></a>
+
+<h2>Questions sur notre actualité financière et boursière</h2>
+
+<div>
+<h6><strong>Quelles sont les différentes façons de détenir des actions ?</strong></h6>
+
+<p>Les actions peuvent être détenues :</p>
+
+<p><strong>Au porteur :</strong><br />
+Elles sont gérées par l’intermédiaire financier de votre choix dans un compte titre. Il s’agit de la forme la plus fréquente en France.</p>
+
+<p><strong>Au nominatif :</strong><br />
+Les actions au nominatif peuvent être :<br />
+- au nominatif administré ; elles sont alors inscrites chez Kaufman &amp; Broad, mais conservées par l’intermédiaire financier de votre choix qui les gère ;<br />
+- au nominatif pur ; elles sont alors inscrites chez Kaufman &amp; Broad et conservées chez CACEIS Corporate Trust.</p>
+
+<h6><strong>Quels sont les avantages et les inconvénients du nominatif administré et du nominatif pur ?</strong></h6>
+
+<p><strong>Le nominatif pur :</strong><br />
+Avantages<br />
+- L’actionnaire bénéficie d’une information régulière sur l’activité du Groupe Kaufman &amp; Broad (et notamment d’une convocation aux Assemblées Générales).<br />
+- Aucun versement de droit de garde n’est demandé.<br />
+- Le dividende est rapidement versé par la Banque NSMD.<br />
+Inconvénients<br />
+- Si l’actionnaire est au nominatif pur pour l’ensemble de son portefeuille titre, il recevra autant de relevés que de comptes titres nominatifs qu’il possède, ce qui peut constituer une contrainte lors de sa déclaration d’impôts.</p>
+
+<p><strong>Le nominatif administré :</strong><br />
+Avantages<br />
+- L\'actionnaire bénéficie d\'une information régulière sur l\'activité du Groupe Kaufman &amp; Broad tout en ayant la possibilité de passer des ordres de bourse par l\'intermédiaire de son établissement financier.<br />
+- Au moment de sa déclaration d\'impôts, il ne recevra qu\'un seule et unique relevé de compte titres.<br />
+Inconvénients<br />
+- Le paiement des droits de garde est maintenu.<br />
+- Le dividende peut être payé avec retard par l\'établissement gérant le compte titre.</p>
+
+<h6><strong>Comment inscrire des actions au nominatif pur ?</strong></h6>
+
+<p>L\'actionnaire doit s\'adresser à son établissement financier afin qu\'il procède à un transfert des titres Kaufman &amp; Broad à Euro Emetteur Finance ( 48 Bd des Batignolles, 75850 Paris cedex 17) qui transformera les titres au porteur en titres au nominatif pur.<br />
+Afin de connaître les modalités pratiques du transfert, l\'actionnaire peut appeller le 01.57.78.31.51</p>
+
+<h6><strong>Quels sont la place de cotation et le code de l\'action ?</strong></h6>
+
+<p>Le titre Kaufman &amp; Broad est coté au Premier Marché sur la place de Paris, sous le code ISIN FR 000 3857813.</p>
+
+<h6><strong>Quand clôturez-vous votre exercice ?</strong></h6>
+
+<p>L\'exercice de Kaufman &amp; Broad se termine au 30 novembre de chaque année.</p>
+
+<h6><strong>Comment assister à l\'Assemblée Générale des Actionnaires ?</strong></h6>
+
+<p>L\'Assemblée Générale des Actionnaires est le moment privilégié pour l\'actionnaire de s\'informer sur la situation de la société et de s\'exprimer sur sa gestion.</p>
+
+<p>L\'actionnaire au porteur&nbsp;doit demander à son intermédiaire financier d\'immobiliser les titres, c\'est-à-dire d\'établir un certificat constatant l\'indisponibilité des titres 5 jours au moins avant la date de l\'Assemblée. Une carte d\'admission doit également être obtenue. Pour ce faire, l\'intermédiaire financier enverra à la Banque NSMD le certificat d\'immobilisation des titres accompagné d\'une demande de carte d\'admission.</p>
+
+<p>L\'actionnaire au nominatif&nbsp;doit demander directement une carte d\'admission à la Banque NSMD. Aucune autre formalité n\'est à effectuer.</p>
+
+<p>Plus d\'informations seront disponibles sur le site dans le mois précédent l\'Assemblée Générale.</p>
+
+<h6><strong>Comment voter à l\'Assemblée Générale des Actionnaires, sans y assister ?</strong></h6>
+
+<p>Il est possible de prendre part à l\'Assemblée Générale en remplissant un formulaire de vote par correspondance ou par procuration. Pour obtenir ce formulaire :</p>
+
+<p>L\'actionnaire au porteur&nbsp;doit demander à son intermédiaire financier qu\'il envoie un certificat d\'immobilisation des titres à la Banque NSMD accompagné d\'une demande de formulaire de vote par correspondance ou par procuration établi pour la quantité de titres inscrits sur le compte titres.</p>
+
+<p>L\'actionnaire au nominatif&nbsp;doit demander directement par écrit un formulaire de vote par correspondance ou par procuration à la Banque NSMD. Aucune autre formalité n\'est à effectuer.</p>
+
+<p>Le vote par correspondance :&nbsp;<br />
+Le formulaire de vote par correspondance permet d\'exprimer un vote favorable ou défavorable ou de s\'abstenir pour chacune des résolutions soumises à l\'Assemblée Générale ; une absence d\'indication sera considérée comme un vote défavorable à l\'adoption de la résolution.</p>
+
+<p>Le vote par procuration :&nbsp;<br />
+Nom, prénom et adresse doivent être indiqués sur le formulaire de vote par procuration. La procuration n\'est valable que pour une assemblée : elle vaut cependant lorsqu\'une seconde assemblée est convoquée avec le même ordre du jour (quand le quorum n\'a pas été atteint lors de la première assemblée).<br />
+La procuration peut être donnée :<br />
+- à une personne mandatée.<br />
+Celle-ci peut-être soit un autre actionnaire, soit votre conjoint qui votera selon indication.<br />
+- au Président sans indication de mandat.&nbsp;<br />
+Dans ce cas, le vote sera favorable à tous les projets de résolutions déposés par la direction de la société.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+</div>
+',
+          'summary' => '',
+          'format' => 'simple',
+          'safe_value' => '<div>
+<div>
+<p><a id="haut" name="haut"></a>Pour répondre à vos principales interrogations sur la vie Boursière de Kaufman &amp; Broad, vous pouvez consulter les questions / réponses ci-dessous. Pour plus d\'informations,&nbsp;contactez-nous</p>
+
+<ul>
+	<li><a href="#consultation-site">Questions sur la consultation du site</a></li>
+	<li><a href="#offre-commerciale">Questions sur notre offre commerciale</a></li>
+	<li><a href="#actualite">Questions sur notre actualité financière et boursière</a></li>
+</ul>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="consultation-site" name="consultation-site"></a>
+
+<h2>Questions sur la consultation du site</h2>
+
+<div>
+<h4><strong>Vous avez des difficultés pour consulter les documents au format PDF ?</strong></h4>
+
+<p>Pour lire les documents PDF, votre ordinateur doit être équipé du logiciel gratuit Acrobat Reader édité par la société Adobe. Vous pouvez télécharger ce logiciel qui s\'installe très facilement en allant sur le site d\'Adobe&nbsp;<a class="blueLinkInside" href="http://www.adobe.fr/" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; vertical-align: baseline; color: rgb(0, 158, 224);" target="_blank" title="http://www.adobe.fr">http://www.adobe.fr</a>&nbsp;en suivant la procédure d\'installation.</p>
+
+<h6><strong>Vous souhaitez être averti de l\'ouverture de nouveaux programmes ?</strong></h6>
+
+<p>Pour cela, rendez-vous dans notre rubrique K&amp;B Veille. Sélectionnez la localisation géographique ainsi que les caractéristiques du logement que vous recherchez. Enfin, laissez-nous vos coordonnées. Vous serez prévenu automatiquement par mail dès la mise en ligne d\'un nouveau logement répondant à vos besoins.</p>
+
+<h6><strong>Vous souhaitez recevoir nos offres promotionnelles ?</strong></h6>
+
+<p>Pour cela, inscrivez-vous à notre mailing list. Vous pourrez choisir de suivre toute notre actualité institutionnelle et/ou commerciale. Dès la mise en ligne d\'une nouvelle offre promotionnelle, vous recevrez automatiquement un e-mail.</p>
+
+<h6><strong>Vous avez des difficultés pour visionner les visites virtuelles ?</strong></h6>
+
+<p>Nous vous proposons de nombreuses visites virtuelles de quartiers ou de logements décorés visibles aussi bien sur PC que sur MAC. Afin d\'écourter les temps de chargement et d\'attente, les images s\'affichent progressivement, devenant de plus en plus nettes. Pour les consulter, votre ordinateur n\'a pas besoin d\'être équipé de logiciel particulier. Seul votre navigateur (Internet Explorer ou Netscape) doit être paramétré pour " accepter " le code java. Si vous vous connectez depuis votre lieu de travail, il se peut que le système de sécurité de votre entreprise ne vous laisse pas la possibilité de visualiser ces visites virtuelles.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="offre-commerciale" name="offre-commerciale"></a>
+
+<h2>Questions sur notre offre commerciale</h2>
+
+<div>
+<h6><strong>Est-il possible de faire cons truire une maison Kaufman &amp; Broad sur son propre terrain?</strong></h6>
+
+<p>Kaufman &amp; Broad est un&nbsp;constructeur développeur&nbsp;qui réalise des maisons individuelles en village et des appartements. Nous ne réalisons pas de maisons à l\'unité.</p>
+
+<h6><strong>Quand intervient la Signature Notariée ?</strong></h6>
+
+<p>La signature notariée intervient dans un délai de 1 à 2 mois après la signature de votre contrat de réservation. Le notaire vous transmettra un projet d\'acte accompagné de la notice descriptive détaillée (appelée Mai 68) et le règlement de copropriété afin que vous puissiez l\'étudier préalablement au rendez-vous de signature. Ce rendez-vous sera fixé avec vous par l\'étude notariale ou par notre département commercial. Lors du rendez-vous chez le notaire, il vous sera demandé le pourcentage du prix exigé en fonction de votre échéancier de paiement et de l\'avancement des travaux.</p>
+
+<h6><strong>Vous avez réservé un logement Kaufman &amp; Broad et vous souhaitez connaître les échéances de vos paiements ?</strong></h6>
+
+<p>Lors de votre signature de l\'acte de vente notarié, il vous a été remis un échéancier prévisionnel d\'appel de fonds. Ces Appels de fond vous seront transmis en fonction de cet échéancier et suivant l\'avancement des travaux. Nous vous rappelons que cet échéancier est prévisionnel. Il peut donc être modifié suivant l\'avancement du chantier.<br />
+Attention : Les versements correspondant à des demandes d\'appel de fonds doivent être envoyés par chèque à notre département financier sous 15 jours à réception du courrier.<br />
+Pendant vos vacances, pensez à communiquer à votre chargé de clientèle l\'adresse où vous séjournez.</p>
+
+<h6><strong>Comment s\'organise une livraison ?</strong></h6>
+
+<p>Un mois avant la date prévue de remise des clés de votre appartement ou de votre maison, un courrier vous indiquera le jour et l\'heure de votre rendez-vous de livraison. Le jour de la livraison il vous sera remis un dossier comprenant :<br />
+- toutes les notices techniques des appareillages électriques de votre logement (radiateurs, ballon d\'eau chaude, thermostat, chaudières, sèche serviette..)<br />
+- le guide pratique de l\'acquéreur Kaufman &amp; Broad<br />
+- les coordonnées de votre correspondant au Service Client.<br />
+- Les coordonnées de votre syndic, du centre des impôts, de votre agence France telecom…. (tous les concessionnaires auxquels vous devrez vous référer).</p>
+
+<p>Il conviendra de remettre le jour de la remise des clés de votre logement un chèque de banque concernant le solde du paiement de votre logement. (dernière échéance).</p>
+
+<p>Pendant la livraison un état des lieux sera rédigé en plusieurs exemplaires dont un vous sera remis. comportant les réserves émises de votre part.</p>
+
+<h6><strong>Qu\'est ce que l\'Etat des Lieux ?</strong></h6>
+
+<p>Lors de la remise des clés de votre logement, nous effectuons une visite d\'état des lieux concrétisée par la signature contractuelle d\'un"Procès-verbal d\'Etat des Lieux". La visite d\'état des lieux concerne les éléments d\'équipements et de finition. Tous vices apparents sur ces éléments sont à signaler : coups, éclats, tâches…<br />
+Important : vous disposez de 30 jours à compter de la visite d\'Etat des Lieux pour adresser une liste complémentaire par courrier recommandé et accusé de réception signalant les vices cachés.</p>
+
+<h6><strong>Quel est le rôle du Service Client ?</strong></h6>
+
+<p>Le Service Client&nbsp;a été mis en place pour vous apporter une aide efficace que ce soit pendant les premiers mois de votre emménagement ou les années suivantes. Nos responsables seront à votre disposition pour vous aider et vous conseiller. Nos conseillers après avoir reçu vos lettres, appels téléphoniques, fax ou e-mail organiseront les démarches utiles. Votre satisfaction est notre entière priorité.</p>
+
+<h6><strong>Qu\'est ce que l\'Assurance "Dommages-Ouvrage" ?</strong></h6>
+
+<p>Il s\'agit d\'une&nbsp;assurance&nbsp;qui s\'étale sur 10 ans à partir de la date de réception des travaux de ou des entreprises ayant réalisé votre bien. Elle comprend :<br />
+- La garantie de Bon fonctionnement&nbsp;(biennale)<br />
+- La garantie décennale</p>
+
+<h6><strong>Qu\'est ce que la garantie de Parfait Achèvement ?</strong></h6>
+
+<p>Il s\'agit d\'une garantie annuelle. Pendant l\'année dite&nbsp;"de parfait achèvement des travaux", chaque entreprise se doit d\'exécuter ce dont elle a été chargée et notamment d\'en supporter tous les risques.<br />
+Ainsi, dans le cas où pendant la première année de livraison, vous signaleriez des désordres à notre service client, des ouvriers se rendront chez vous pour effectuer les travaux nécessaires. Ils seront porteurs d\'un&nbsp;"Ordre de reprise"&nbsp;décrivant le travail à effectuer. Après l\'exécution des travaux, il vous incombe de signer ce document et, si vous n\'êtes pas entièrement satisfait, de noter vos réserves sur les travaux effectués au dos de ce même document.</p>
+
+<h6><strong>Qu\'est ce que la Garantie de bon fonctionnement ?&nbsp;</strong></h6>
+
+<p>La garantie de Bon fonctionnement (biennale) qui prolonge d\'un an la garantie de parfait achèvement, couvre les éléments d\'équipement que l\'on peut enlever ou démonter ou remplacer sans détériorer la construction (volets, menuiseries intérieurs, canalisations apparentes, chaudière, radiateurs, etc …)<br />
+A noter : Les éléments d\'équipements (appareils qui complètent la construction et assurent au logement son confort et son bien être ) comme par exemple les appareils ménagers, ne rentrent pas dans le cadre de cette garantie.</p>
+
+<h6><strong>Qu\'est ce que la Garantie Décennale ?</strong></h6>
+
+<p>La garantie décennale couvre pour 8 années supplémentaires les dommages qui pourraient compromettrent&nbsp;la solidité de l\'ouvrage ou le rendre impropre à sa destination&nbsp;(fissures dangereuses ou infiltrations dans le mur ou le plancher, mauvaise étanchéité des façades, fondations, ossature..)<br />
+Attention: L\'assureur dommages-ouvrage peut refuser d\'intervenir pour les dommages s\'ils ne mettent pas en péril la construction ou ne la rende pas impropre à sa destination.</p>
+
+<h6><strong>Que faire en cas de Sinistre ?</strong></h6>
+
+<p>Un sinistre est un désordre qui met en péril la solidité de l\'ouvrage ou le rend impropre à sa destination.<br />
+Dans ce cas : contacter au plus vite votre correspondant du Service Client Kaufman &amp; Broad qui vous mettra en relation avec notre service "assurance" et vous assistera dans toutes les démarches auprès des assureurs et auprès des experts.&nbsp;Dans tous les cas, signifiez le désordre au Service Client par lettre recommandée avec accusé de réception dans les 5 jours qui suivent l\'apparition des désordres.<br />
+A noter : En cas de sinistre sur les parties communes, vous devez en référer à votre Syndic ou au président de votre ASL. C\'est lui qui doit prendre contact avec notre Service Client.</p>
+
+<p><strong>Vous avez racheté un appartement ou une maison Kaufman &amp; Broad, à qui s\'adresser pour obtenir le plan de votre logement ou le règlement de copropriété ?</strong><br />
+Lors de la signature du premier acte de vente notarié, le premier propriétaire du logement a reçu un original de tous ces éléments. L\'étude notariale en a également conservé un exemplaire.<br />
+Vous pouvez donc les contacter pour obtenir une copie de ces éléments.<br />
+Autre possibilité, si vous avez racheté une maison dans un village Kaufman &amp; Broad, l\'ensemble du dossier concernant la première vente, plans et autres pièces écrites, est détenu par le président de l\'ASL (Association Syndicale Libre). De même dans le cas de l\'achat d\'un appartement Kaufman &amp; Broad, l\'ensemble du dossier est détenu par le syndic.</p>
+
+<p>Pour les maisons et appartements livrés postérieurement à 1998, notre service Client possède également une copie de ces éléments. Pour les livraisons antérieures, nos archives ayant été totalement détruites lors d\'un incendie en 1998, nous ne pourrons vous fournir d\'éléments.</p>
+
+<h6><strong>Qu\'est ce que l\'ASL?</strong></h6>
+
+<p>Dans un village de maisons Kaufman &amp; Broad, L\'ASL : Association Syndicale Libre joue le rôle du syndic. Elle est chargée de s\'occuper des parties communes telles que la voirie, les jardins non privatifs...</p>
+
+<h6><strong>Comment se répartit la copropriété ?</strong></h6>
+
+<p>Vous avez acheté un appartement Kaufman &amp; Broad :<br />
+Dans un immeuble, les choses sont simples : les copropriétaires sont également propriétaires des parties communes (toiture, entrées, cour, jardins, escaliers, combles) au prorata de la surface de leur appartement, exprimé en tantièmes.<br />
+Vous avez acheté une maison dans un village Kaufman &amp; Broad :<br />
+Le problème de la vie en communauté se pose aussi dans les maisons individuelles, pour la gestion et de la répartition des charges d\'entretien des espaces communs (voies d\'accès, jardins). Les maisons réalisées au même moment peuvent être placées sous le régime de la copropriété dite "horizontale", ou sous un régime d\'Association Syndicale Libre (ASL). Lors de la vente, si un règlement de copropriété vous est remis, vous relevez du premier régime, dit de copropriété horizontale. La totalité du sol du "nouveau village" est une partie commune. Les copropriétaires ayant l\'usage privatif et exclusif de la parcelle rattachée à leur maison. Si l\'on vous remet les statuts d\'une association, vous êtes en ASL. Ces statuts tiennent lieu de règlement et définissent le fonctionnement du "village". Dans les deux cas, le syndic ou l\'association veille à l\'entretien des ouvrages communs, à l\'application du règlement intérieur, ainsi qu\'au respect de l\'esthétique d\'ensemble.</p>
+
+<h6><strong>Propriétaire d\'une maison Kaufman &amp; Broad, vous souhaitez aménager vos combles. Quelle est la procédure à suivre ?</strong></h6>
+
+<p><u>Vos combles sont aménageables</u><br />
+Il est signifié sur votre acte de vente notarié que les combles sont prévus pour un aménagement ultérieur. Dans ce cas vous pouvez réaliser les travaux en prenant soin de respecter le permis de construire initial et en vous assurant que l\'entreprise choisie pour effectuer les travaux est qualifiée pour couvrir les garanties et les dommages éventuels. Si le permis de construire initial ne correspond pas à votre projet, il y a lieu de demander un nouveau permis de construire et de contacter les services de votre Mairie. Cette dernière procédure ne peut être entreprise qu\'une fois le certificat de conformité obtenu par Kaufman &amp; Broad.</p>
+
+<p><u>Vos combles sont des combles perdues</u><br />
+Dans votre acte de vente notarié, les combles n\'ont pas été prévus à l\'aménagement. Une fois le certificat de conformité délivré par l\'administration à Kaufman &amp; Broad, il vous appartient de vous renseigner auprès du Président de l\'ASL sur le permis de construire du village pour savoir s\'il reste de la surface SHON disponible (Surface Hors Œuvre Nette).</p>
+
+<p>Deux cas de figures sont ensuite possibles :</p>
+
+<p>- Une surface de SHON est disponible<br />
+Dans ce cas vous devez déposer une demande de permis simplifié auprès de la mairie. Après accord, vous pouvez réaliser les travaux en prenant soin de bien vous assurer que l\'entreprise choisie est qualifiée pour couvrir les garanties ou les dommages éventuels.</p>
+
+<p>- Il n\'y a pas de SHON disponible<br />
+Dans ce cas, vous devez vous renseigner auprès de votre commune sur les éventuels possibilités.&nbsp;Attention : Il est interdit de modifier une construction sans autorisation préalable. Vous vous exposeriez à une forte amende et au risque d\'être contraint de remettre votre logement en conformité initiale.</p>
+
+<h6><strong>Installer ou modifier une cheminée. Quelles données prendre en compte ?</strong></h6>
+
+<p>Votre maison peut vous être livrée avec un conduit de cheminée prévu pour l\'installation d\'une cheminée à feu ouvert ou d\'agrément. Dans le cas ou vous souhaiteriez modifier l\'utilisation de votre cheminée par la pose d\'insert par exemple, il est de la responsabilité du cheministe d\'assurer les risques que peuvent causer des modifications sur la solidité de l\'ouvrage. Ceux-ci ne sont pas couverts par l\'assurance Dommages-Ouvrage souscrite par Kaufman &amp; Broad.</p>
+
+<h6><strong>Vous souhaitez installer une piscine dans votre jardin ? Quelles démarches ?</strong></h6>
+
+<p>Avant tout projet de construction d\'une piscine, il est impératif de vous référer au cahier des charges de votre village afin de vérifier si sa construction est autorisée. Dans tous les cas, il vous faudra obtenir l\'accord de votre ASL. De plus, il vous faudra vous acquitter de démarches administratives auprès de votre mairie.<br />
+Attention, la construction d\'une piscine peut mettre en danger la solidité de votre maison et vous faire sortir du champ de vos garanties. Pensez à vérifier qu\'aucune canalisation ou évacuation d\'eau pluviale ne traverse votre terrain, que la surface de votre terrain est suffisante pour supporter l\'emprise de la piscine, que le type de sol convient à de tels travaux, etc...</p>
+
+<p>Notre conseil : Avant de réaliser tous travaux, nous vous recommandons de consulter un bureau d\'étude spécialisé pour une étude préalable.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+
+<div><a id="actualite" name="actualite"></a>
+
+<h2>Questions sur notre actualité financière et boursière</h2>
+
+<div>
+<h6><strong>Quelles sont les différentes façons de détenir des actions ?</strong></h6>
+
+<p>Les actions peuvent être détenues :</p>
+
+<p><strong>Au porteur :</strong><br />
+Elles sont gérées par l’intermédiaire financier de votre choix dans un compte titre. Il s’agit de la forme la plus fréquente en France.</p>
+
+<p><strong>Au nominatif :</strong><br />
+Les actions au nominatif peuvent être :<br />
+- au nominatif administré ; elles sont alors inscrites chez Kaufman &amp; Broad, mais conservées par l’intermédiaire financier de votre choix qui les gère ;<br />
+- au nominatif pur ; elles sont alors inscrites chez Kaufman &amp; Broad et conservées chez CACEIS Corporate Trust.</p>
+
+<h6><strong>Quels sont les avantages et les inconvénients du nominatif administré et du nominatif pur ?</strong></h6>
+
+<p><strong>Le nominatif pur :</strong><br />
+Avantages<br />
+- L’actionnaire bénéficie d’une information régulière sur l’activité du Groupe Kaufman &amp; Broad (et notamment d’une convocation aux Assemblées Générales).<br />
+- Aucun versement de droit de garde n’est demandé.<br />
+- Le dividende est rapidement versé par la Banque NSMD.<br />
+Inconvénients<br />
+- Si l’actionnaire est au nominatif pur pour l’ensemble de son portefeuille titre, il recevra autant de relevés que de comptes titres nominatifs qu’il possède, ce qui peut constituer une contrainte lors de sa déclaration d’impôts.</p>
+
+<p><strong>Le nominatif administré :</strong><br />
+Avantages<br />
+- L\'actionnaire bénéficie d\'une information régulière sur l\'activité du Groupe Kaufman &amp; Broad tout en ayant la possibilité de passer des ordres de bourse par l\'intermédiaire de son établissement financier.<br />
+- Au moment de sa déclaration d\'impôts, il ne recevra qu\'un seule et unique relevé de compte titres.<br />
+Inconvénients<br />
+- Le paiement des droits de garde est maintenu.<br />
+- Le dividende peut être payé avec retard par l\'établissement gérant le compte titre.</p>
+
+<h6><strong>Comment inscrire des actions au nominatif pur ?</strong></h6>
+
+<p>L\'actionnaire doit s\'adresser à son établissement financier afin qu\'il procède à un transfert des titres Kaufman &amp; Broad à Euro Emetteur Finance ( 48 Bd des Batignolles, 75850 Paris cedex 17) qui transformera les titres au porteur en titres au nominatif pur.<br />
+Afin de connaître les modalités pratiques du transfert, l\'actionnaire peut appeller le 01.57.78.31.51</p>
+
+<h6><strong>Quels sont la place de cotation et le code de l\'action ?</strong></h6>
+
+<p>Le titre Kaufman &amp; Broad est coté au Premier Marché sur la place de Paris, sous le code ISIN FR 000 3857813.</p>
+
+<h6><strong>Quand clôturez-vous votre exercice ?</strong></h6>
+
+<p>L\'exercice de Kaufman &amp; Broad se termine au 30 novembre de chaque année.</p>
+
+<h6><strong>Comment assister à l\'Assemblée Générale des Actionnaires ?</strong></h6>
+
+<p>L\'Assemblée Générale des Actionnaires est le moment privilégié pour l\'actionnaire de s\'informer sur la situation de la société et de s\'exprimer sur sa gestion.</p>
+
+<p>L\'actionnaire au porteur&nbsp;doit demander à son intermédiaire financier d\'immobiliser les titres, c\'est-à-dire d\'établir un certificat constatant l\'indisponibilité des titres 5 jours au moins avant la date de l\'Assemblée. Une carte d\'admission doit également être obtenue. Pour ce faire, l\'intermédiaire financier enverra à la Banque NSMD le certificat d\'immobilisation des titres accompagné d\'une demande de carte d\'admission.</p>
+
+<p>L\'actionnaire au nominatif&nbsp;doit demander directement une carte d\'admission à la Banque NSMD. Aucune autre formalité n\'est à effectuer.</p>
+
+<p>Plus d\'informations seront disponibles sur le site dans le mois précédent l\'Assemblée Générale.</p>
+
+<h6><strong>Comment voter à l\'Assemblée Générale des Actionnaires, sans y assister ?</strong></h6>
+
+<p>Il est possible de prendre part à l\'Assemblée Générale en remplissant un formulaire de vote par correspondance ou par procuration. Pour obtenir ce formulaire :</p>
+
+<p>L\'actionnaire au porteur&nbsp;doit demander à son intermédiaire financier qu\'il envoie un certificat d\'immobilisation des titres à la Banque NSMD accompagné d\'une demande de formulaire de vote par correspondance ou par procuration établi pour la quantité de titres inscrits sur le compte titres.</p>
+
+<p>L\'actionnaire au nominatif&nbsp;doit demander directement par écrit un formulaire de vote par correspondance ou par procuration à la Banque NSMD. Aucune autre formalité n\'est à effectuer.</p>
+
+<p>Le vote par correspondance :&nbsp;<br />
+Le formulaire de vote par correspondance permet d\'exprimer un vote favorable ou défavorable ou de s\'abstenir pour chacune des résolutions soumises à l\'Assemblée Générale ; une absence d\'indication sera considérée comme un vote défavorable à l\'adoption de la résolution.</p>
+
+<p>Le vote par procuration :&nbsp;<br />
+Nom, prénom et adresse doivent être indiqués sur le formulaire de vote par procuration. La procuration n\'est valable que pour une assemblée : elle vaut cependant lorsqu\'une seconde assemblée est convoquée avec le même ordre du jour (quand le quorum n\'a pas été atteint lors de la première assemblée).<br />
+La procuration peut être donnée :<br />
+- à une personne mandatée.<br />
+Celle-ci peut-être soit un autre actionnaire, soit votre conjoint qui votera selon indication.<br />
+- au Président sans indication de mandat.&nbsp;<br />
+Dans ce cas, le vote sera favorable à tous les projets de résolutions déposés par la direction de la société.</p>
+
+<div>
+<h2><a href="#haut" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12px; vertical-align: baseline; color: rgb(0, 158, 224);" title="Haut">haut</a></h2>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+
+<div>&nbsp;</div>
+</div>
+</div>
+</div>
+
+<div>
+<div>&nbsp;</div>
+</div>
+',
+          'safe_summary' => '',
+        ),
+      ),
+    ),
+    'domains' => array(
+      2 => 2,
+      3 => 3,
+    ),
+    'domain_site' => TRUE,
+    'subdomains' => array(
+      0 => 'All affiliates',
+      1 => 'Kaufman & Broad Patrimoine',
+      2 => 'Kaufman & Broad',
+    ),
+    'locations' => array(),
+    'location' => array(),
+    'name' => 'admin',
+    'picture' => 0,
+    'data' => 'b:0;',
+    'date' => '2015-11-25 16:53:17 +0000',
+  );
+  $nodes[] = array(
+    'uid' => 1,
+    'title' => 'Mentions légales',
+    'log' => '',
+    'status' => 1,
+    'comment' => 0,
+    'promote' => 1,
+    'sticky' => 0,
+    'vuuid' => 'bd2c7959-0963-430c-9b70-85b97c500666',
+    'type' => 'standard_page',
+    'language' => 'en',
+    'created' => 1448472573,
+    'tnid' => 0,
+    'translate' => 0,
+    'uuid' => 'cae3a7c1-ca97-44ab-b644-772e1cc46aba',
+    'revision_uid' => 1,
+    'body' => array(
+      'und' => array(
+        0 => array(
+          'value' => '<p><strong>Le présent site Internet http://www.kaufmanetbroad.com&nbsp;</strong>est édité et exploité par la société KAUFMAN&amp;BROAD SA, Société Anonyme à conseil d\'administration au capital social de 5.612.011,08 euros, immatriculée au R.C.S de NANTERRE sous le numéro B 702 022 724, sise 127 avenue Charles de Gaulle - 92207 NEUILLY SUR SEINE Cedex, ayant comme numéro de TVA intracommunautaire : FR13 702022724.</p>
+
+<p>Vous pouvez nous joindre par téléphone au 01.41.43.43. 43 ou par courrier électronique à l’adresse&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a><br />
+<br />
+Le directeur de la publication et responsable de la rédaction est Monsieur Julien Villeneuve.<br />
+<br />
+Ce site est hébergé par la société INTEROUTE, SAS située au 34, rue des Gardinoux – 93306 Aubervilliers Cedex, Tel : 01 41 61 45 00.<br />
+<br />
+La conception et la réalisation du site internet http://www.ketb.com/ est le travail de la société PROXIMITY BBDO.<br />
+<br />
+Les photographies présentes sur le SITE sont les œuvres de Messieurs Patrick MESSINA et Guillaume RIVIERE.</p>
+<br />
+<strong>IMMATRICULATIONS ORIAS&nbsp;</strong><br />
+&nbsp;
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; color:rgb(0, 0, 0); font-family:arial; font-size:medium; font-stretch:inherit; line-height:16px; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="vertical-align:middle">Dénomination</td>
+			<td style="vertical-align:middle; width:134px">Capital</td>
+			<td style="vertical-align:middle; width:180px">RCS</td>
+			<td style="vertical-align:middle">ORIAS</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD CÔTE D\'AZUR</strong><br />
+			400 promenade des Anglais - 06201 Nice cedex 3</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">341 001 709 R.C.S. Nice</td>
+			<td style="vertical-align:middle">14006573</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD DEVELOPPEMENT</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SAS&nbsp; au capital de<br />
+			152.449,02 €</td>
+			<td style="vertical-align:middle">340 708 858 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006316</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD FLANDRES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			7.700 €</td>
+			<td style="vertical-align:middle">434 510 624 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006090</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD GIRONDE SARL</strong><br />
+			30 allée de Tourny - 33000 Bordeaux</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">479 738 866 R.C.S. Bordeaux</td>
+			<td style="vertical-align:middle">14006097</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD HOMES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SAS&nbsp; au capital de<br />
+			2.247.403,41 €</td>
+			<td style="vertical-align:middle">379 445 679 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006098</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD LANGUEDOC-ROUSSILLON&nbsp;&nbsp;</strong><br />
+			266 place Ernest Granier - 34000 Montpellier</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">479 491 185 R.C.S. Montpellier</td>
+			<td style="vertical-align:middle">14006103</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD MEDITERRANEE</strong><br />
+			35 quai du Lazaret - Le silo d\'Arenc - 13002 Marseille</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 227 656 R.C.S. Marseille</td>
+			<td style="vertical-align:middle">14006572</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD MIDI-PYRENEES</strong><br />
+			27 bis allées Jean Jaurès&nbsp; - 31010 Toulouse cedex 6</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			2.858.910 €</td>
+			<td style="vertical-align:middle">320.955.362 R.C.S. Toulouse</td>
+			<td style="vertical-align:middle">14006102</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD NANTES</strong><br />
+			25-27 rue Paul Bellamy - 44000 Nantes</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">785 137 290 R.C.S. Nantes</td>
+			<td style="vertical-align:middle">14006319</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD PROVENCE&nbsp;</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">390 240 026 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006100</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD PYRENEES ATLANTIQUES&nbsp;&nbsp;</strong><br />
+			3 rue du 49ème régiment d\'infanterie - 64100 Bayonne</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 265 136 R.C.S. Bayonne</td>
+			<td style="vertical-align:middle">14006324</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD RHONE-ALPES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL au capital de<br />
+			1.300.000 €</td>
+			<td style="vertical-align:middle">485 265 490 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006099</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD SAVOIES</strong><br />
+			68 rue Cassiopée - Altaïs B6 - Parc Altaïs - 74650 Chavenod</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 228 076 R.C.S. Annecy</td>
+			<td style="vertical-align:middle">14006570</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>RESIDENCE BERNARD TEILLAUD</strong><br />
+			26 avenue Marcelin Berthelot - 38100 Grenoble</td>
+			<td style="vertical-align:middle">SARL au capital de<br />
+			840.000 €</td>
+			<td style="vertical-align:middle">329 680 714 R.C.S. Grenoble</td>
+			<td style="vertical-align:middle">14006106</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>&nbsp;</p>
+',
+          'summary' => '',
+          'format' => 'simple',
+          'safe_value' => '<p><strong>Le présent site Internet http://www.kaufmanetbroad.com&nbsp;</strong>est édité et exploité par la société KAUFMAN&amp;BROAD SA, Société Anonyme à conseil d\'administration au capital social de 5.612.011,08 euros, immatriculée au R.C.S de NANTERRE sous le numéro B 702 022 724, sise 127 avenue Charles de Gaulle - 92207 NEUILLY SUR SEINE Cedex, ayant comme numéro de TVA intracommunautaire : FR13 702022724.</p>
+
+<p>Vous pouvez nous joindre par téléphone au 01.41.43.43. 43 ou par courrier électronique à l’adresse&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a><br />
+<br />
+Le directeur de la publication et responsable de la rédaction est Monsieur Julien Villeneuve.<br />
+<br />
+Ce site est hébergé par la société INTEROUTE, SAS située au 34, rue des Gardinoux – 93306 Aubervilliers Cedex, Tel : 01 41 61 45 00.<br />
+<br />
+La conception et la réalisation du site internet http://www.ketb.com/ est le travail de la société PROXIMITY BBDO.<br />
+<br />
+Les photographies présentes sur le SITE sont les œuvres de Messieurs Patrick MESSINA et Guillaume RIVIERE.</p>
+<br />
+<strong>IMMATRICULATIONS ORIAS&nbsp;</strong><br />
+&nbsp;
+<table border="0" cellpadding="0" cellspacing="0" style="border-collapse:collapse; border-spacing:0px; border:0px; color:rgb(0, 0, 0); font-family:arial; font-size:medium; font-stretch:inherit; line-height:16px; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td style="vertical-align:middle">Dénomination</td>
+			<td style="vertical-align:middle; width:134px">Capital</td>
+			<td style="vertical-align:middle; width:180px">RCS</td>
+			<td style="vertical-align:middle">ORIAS</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD CÔTE D\'AZUR</strong><br />
+			400 promenade des Anglais - 06201 Nice cedex 3</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">341 001 709 R.C.S. Nice</td>
+			<td style="vertical-align:middle">14006573</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD DEVELOPPEMENT</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SAS&nbsp; au capital de<br />
+			152.449,02 €</td>
+			<td style="vertical-align:middle">340 708 858 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006316</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD FLANDRES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			7.700 €</td>
+			<td style="vertical-align:middle">434 510 624 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006090</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD GIRONDE SARL</strong><br />
+			30 allée de Tourny - 33000 Bordeaux</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">479 738 866 R.C.S. Bordeaux</td>
+			<td style="vertical-align:middle">14006097</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD HOMES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SAS&nbsp; au capital de<br />
+			2.247.403,41 €</td>
+			<td style="vertical-align:middle">379 445 679 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006098</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD LANGUEDOC-ROUSSILLON&nbsp;&nbsp;</strong><br />
+			266 place Ernest Granier - 34000 Montpellier</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">479 491 185 R.C.S. Montpellier</td>
+			<td style="vertical-align:middle">14006103</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD MEDITERRANEE</strong><br />
+			35 quai du Lazaret - Le silo d\'Arenc - 13002 Marseille</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 227 656 R.C.S. Marseille</td>
+			<td style="vertical-align:middle">14006572</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD MIDI-PYRENEES</strong><br />
+			27 bis allées Jean Jaurès&nbsp; - 31010 Toulouse cedex 6</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			2.858.910 €</td>
+			<td style="vertical-align:middle">320.955.362 R.C.S. Toulouse</td>
+			<td style="vertical-align:middle">14006102</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD NANTES</strong><br />
+			25-27 rue Paul Bellamy - 44000 Nantes</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">785 137 290 R.C.S. Nantes</td>
+			<td style="vertical-align:middle">14006319</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD PROVENCE&nbsp;</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">390 240 026 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006100</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD PYRENEES ATLANTIQUES&nbsp;&nbsp;</strong><br />
+			3 rue du 49ème régiment d\'infanterie - 64100 Bayonne</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 265 136 R.C.S. Bayonne</td>
+			<td style="vertical-align:middle">14006324</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD RHONE-ALPES</strong><br />
+			127 av Charles de Gaulle - 92207 Neuilly sur Seine Cedex</td>
+			<td style="vertical-align:middle">SARL au capital de<br />
+			1.300.000 €</td>
+			<td style="vertical-align:middle">485 265 490 R.C.S. Nanterre</td>
+			<td style="vertical-align:middle">14006099</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>KAUFMAN &amp; BROAD SAVOIES</strong><br />
+			68 rue Cassiopée - Altaïs B6 - Parc Altaïs - 74650 Chavenod</td>
+			<td style="vertical-align:middle">SARL&nbsp; au capital de<br />
+			100.000 €</td>
+			<td style="vertical-align:middle">485 228 076 R.C.S. Annecy</td>
+			<td style="vertical-align:middle">14006570</td>
+		</tr>
+		<tr>
+			<td style="vertical-align:middle"><strong>RESIDENCE BERNARD TEILLAUD</strong><br />
+			26 avenue Marcelin Berthelot - 38100 Grenoble</td>
+			<td style="vertical-align:middle">SARL au capital de<br />
+			840.000 €</td>
+			<td style="vertical-align:middle">329 680 714 R.C.S. Grenoble</td>
+			<td style="vertical-align:middle">14006106</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>&nbsp;</p>
+',
+          'safe_summary' => '',
+        ),
+      ),
+    ),
+    'domains' => array(
+      2 => 2,
+      3 => 3,
+    ),
+    'domain_site' => TRUE,
+    'subdomains' => array(
+      0 => 'All affiliates',
+      1 => 'Kaufman & Broad Patrimoine',
+      2 => 'Kaufman & Broad',
+    ),
+    'locations' => array(),
+    'location' => array(),
+    'name' => 'admin',
+    'picture' => 0,
+    'data' => 'b:0;',
+    'date' => '2015-11-25 17:29:33 +0000',
+  );
+  $nodes[] = array(
+    'uid' => 1,
+    'title' => 'POLITIQUE DE CONFIDENTIALITE',
+    'log' => '',
+    'status' => 1,
+    'comment' => 0,
+    'promote' => 1,
+    'sticky' => 0,
+    'vuuid' => '0f904669-bab0-4b28-b685-fffc416ae569',
+    'type' => 'standard_page',
+    'language' => 'en',
+    'created' => 1448469777,
+    'tnid' => 0,
+    'translate' => 0,
+    'uuid' => 'df8a413f-72d7-4d7d-8bbc-eb8cd8cbb3c1',
+    'revision_uid' => 1,
+    'body' => array(
+      'und' => array(
+        0 => array(
+          'value' => '<div>
+<h2><strong>Préambule</strong></h2>
+</div>
+
+<div>
+<p>Cette Politique de confidentialité s’adresse à vous, en votre qualité d’utilisateur du site http://www.ketb.com (ci-après dénommé le SITE) et a pour objectif de vous informer de la manière dont vos informations personnelles peuvent le cas échéant être collectées et traitées par la société KAUFMAN&amp;BROAD SA.</p>
+
+<p>Le respect de votre vie privée et de vos données à caractère personnel est une priorité pour la société KAUFMAN&amp;BROAD SA (ci-après dénommée KAUFMAN&amp;BROAD) qui s’engage à respecter la loi n°78-17 du 6 janvier 1978 modifiée dite loi « Informatique et Libertés ».<br />
+<br />
+KAUFMAN&amp;BROAD s’engage en tout état de cause à respecter les deux (2) principes essentiels suivants :</p>
+
+<ul>
+	<li>Vous restez maître de vos données à caractère personnel, raison pour laquelle KAUFMAN&amp;BROAD s’engage à collecter et traiter exclusivement des données que vous avez vous-même décidé de divulguer en les publiant volontairement sur le SITE, notamment via votre COMPTE.</li>
+	<li>Vos données sont traitées de manière transparente, confidentielle et sécurisée</li>
+</ul>
+
+<h2><strong>ARTICLE 1. DEFINITIONS</strong></h2>
+
+<ul>
+	<li>COMPTE : désigne l’interface dans laquelle est regroupé l’ensemble des données fournies par le MEMBRE. Ces données comprennent les informations relatives à l’UTILISATEUR comme son adresse de courrier électronique, ses informations personnelles, mais également le cas échéant les informations relatives à son projet immobilier, etc. Il est précisé qu’un COMPTE ne peut pas faire l’objet d’une cession à un tiers.</li>
+	<li>IDENTIFIANT : désigne l’adresse de messagerie électronique et le mot de passe choisis par le MEMBRE lors de son inscription et dont la saisie permet la connexion au COMPTE.</li>
+	<li>INFORMATIONS : désigne l’ensemble des données, conseils, recommandations, programmes informatiques (notamment de simulations financières), travaux et autres informations dont KAUFMAN&amp;BROAD est propriétaire, ou qu’il est autorisé à utiliser et à divulguer, rendues accessibles aux UTILISATEURS sur le SITE.</li>
+	<li>MEMBRE : désigne tout UTILISATEUR majeur qui s’inscrit sur le SITE afin de bénéficier des différents services et fonctionnalités proposés par KAUFMAN&amp;BROAD.</li>
+	<li>SITE : désigne le site internet accessible à l’adresse http://www.ketb.com/; Le SITE regroupe l’ensemble des pages web, services et fonctionnalités proposés aux UTILISATEURS via http://www.ketb.com/.</li>
+	<li>UTILISATEUR : désigne toute personne qui accède et navigue sur le SITE.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2><strong>ARTICLE 2. IDENTITE DU RESPONSABLE DE TRAITEMENT</strong></h2>
+
+<p>Vos données à caractère personnel sont collectées et traitées par la Société KAUFMAN&amp;BROAD représentée par son représentant légal en exercice domicilié de droit audit siège.</p>
+
+<table border="1" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td rowspan="8" style="text-align:center; vertical-align:middle">KAUFMAN &amp; BROAD</td>
+			<td style="text-align:center; vertical-align:baseline">Dénomination sociale</td>
+			<td style="text-align:center; vertical-align:baseline">KAUFMAN&amp;BROAD SA</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Capital social</td>
+			<td style="text-align:center; vertical-align:baseline">5.612.011,08 euros</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Forme sociale</td>
+			<td style="text-align:center; vertical-align:baseline">Société Anonyme à conseil d\'administration</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">RCS</td>
+			<td style="text-align:center; vertical-align:baseline">NANTERRE - B 702 022 724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">TVA Intracommunautaire</td>
+			<td style="text-align:center; vertical-align:baseline">FR13 702022724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Adresse du siège social</td>
+			<td style="text-align:center; vertical-align:baseline">127 avenue Charles de Gaulle 92207 NEUILLY SUR SEINE Cedex</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Représentant légal</td>
+			<td style="text-align:center; vertical-align:baseline">Mr Nordine HACHEMI</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Téléphone</td>
+			<td style="text-align:center; vertical-align:baseline">01.41.43.43.43</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>KAUFMAN&amp;BROAD est donc le responsable de traitement des données à caractère personnel mis en œuvre dans le cadre de l’exploitation du SITE qu’elle édite.</p>
+
+<h2><strong>ARTICLE 3. FORMALITES CNIL</strong></h2>
+
+<p>Le traitement de vos données à caractère personnel a fait l’objet d’une inscription au registre des traitements tenu par notre Correspondant Informatique et Libertés que vous pouvez contacter à l’adresse suivante : Philippe Minier, Correspondant Informatique et Libertés, 127 avenue Charles de Gaulle, 92207 Neuilly sur Seine.</p>
+
+<h2><strong>ARTICLE 4. COLLECTE &amp; TRAITEMENT DES DONNEES</strong></h2>
+
+<p>Dans le cadre de l’exploitation du SITE, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel relatives aux UTILISATEURS de son SITE. Ces données sont traitées conformément aux finalités prévues lors de la collecte.</p>
+
+<p>En particulier, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel :</p>
+
+<ul>
+	<li>Lors de votre visite du SITE</li>
+	<li>Lors de votre utilisation de fonctionnalités et/ou de services proposés sur le SITE</li>
+	<li>Lors de votre inscription, de la création et de la mise à jour de votre COMPTE</li>
+	<li>Lors d’échanges avec KAUFMAN&amp;BROAD</li>
+	<li>Via le compte Facebook de l’UTILISATEUR après autorisation de l’UTILISATEUR.</li>
+</ul>
+
+<p>Quel que soit le mode de collecte, KAUFMAN&amp;BROAD s’engage à vous informer des finalités du traitement, du caractère obligatoire ou facultatif des réponses à apporter, des conséquences éventuelles, à son égard, d’un défaut de réponse, des destinataires des données, de l’existence et des modalités d’exercice de ses droits d’accès, de rectification et d’opposition au traitement de ses données.</p>
+
+<p>Lorsque cela est nécessaire au regard de la Loi Informatique et Libertés, KAUFMAN&amp;BROAD s’engage, selon les cas, à recueillir votre consentement et/ou à vous permettre de vous opposer à l’utilisation de vos données pour certaines finalités.</p>
+
+<p>Les données susceptibles d’être collectées et traitées par KAUFMAN&amp;BROAD pour la réalisation des finalités décrites à l’article 5 de la présente politique de confidentialité concernent :</p>
+
+<ul>
+	<li>des données d’identification (civilité, nom, prénoms, coordonnées postales, téléphoniques et électroniques) aux fins de preuve de l’exercice d’un droit d’accès, de rectification ou d’opposition ou pour répondre à une obligation légale)</li>
+	<li>des données relatives à la gestion et à la sécurisation de votre COMPTE (identifiants, mots de passe)</li>
+	<li>des données relatives au suivi de la relation commerciale : demandes d’information, historique des échanges avec les services de KAUFMAN&amp;BROAD.</li>
+	<li>des données de connexion (adresses IP, logs de connexion)</li>
+</ul>
+
+<h2><strong>ARTICLE 5. FINALITES DES TRAITEMENTS</strong></h2>
+
+<p>Vos différentes données sont collectées pour assurer :</p>
+
+<ul>
+	<li>le bon fonctionnement et l’amélioration permanente du SITE, de ses services et de ses fonctionnalités,</li>
+	<li>l’envoi de newsletters</li>
+	<li>la gestion des MEMBRES (gestion des COMPTES, gestion commerciale, suivi de la relation client (enquêtes de satisfaction, SAV…)</li>
+	<li>la gestion des demandes de droit d\'accès, de rectification et d’opposition</li>
+	<li>l’élaboration de statistiques destinées à améliorer le fonctionnement du SITE et la qualité des services</li>
+</ul>
+
+<p>KAUFMAN&amp;BROAD sera également susceptible d’utiliser ces données à des fins légales et/ou règlementaires.</p>
+
+<p>En tout état de cause, KAUFMAN&amp;BROAD s’engage à traiter l’ensemble des données collectées de manière conforme à la loi n°78-17 du 6 janvier 1978 modifiée.</p>
+
+<h2><strong>ARTICLE 6. CONSENTEMENT</strong></h2>
+
+<p>Lors de l’ouverture ou de la gestion de votre COMPTE sur le SITE, vous remplissez divers formulaires et communiquez différentes données à caractère personnel vous concernant pour bénéficier de l’ensemble des services proposés par KAUFMAN&amp;BROAD. Par la communication spontanée de vos données à caractère personnel, vous consentez expressément à ce que ses données soient collectées et traitées par KAUFMAN&amp;BROAD pour les finalités qui sont portées à sa connaissance.</p>
+
+<p>En tant que simples UTILISATEURS, en naviguant sur le site et en vous y maintenant, vous consentez à ce que vos données de connexion au SITE soient collectées pour faciliter votre navigation.&nbsp;</p>
+
+<h2><strong>ARTICLE 7. DESTINATAIRES DES DONNEES</strong></h2>
+
+<p>Certaines de vos données peuvent être communiquées à des partenaires ou sous-traitants chargés de l’hébergement et de la maintenance du SITE. Vos données ne sont communiquées, vendues ou louées à aucune autre personne.</p>
+
+<p>Elles peuvent être éventuellement (ou exceptionnellement) échangées dans le cadre d’opérations de co-promotion.</p>
+
+<h2><strong>ARTICLE 8. DUREE DE CONSERVATION DES DONNEES</strong></h2>
+
+<p>KAUFMAN&amp;BROAD s’engage à ce que les données collectées soient conservées sous une forme permettant votre identification pendant une durée qui n\'excède pas la durée nécessaire aux finalités pour lesquelles ces données sont collectées et traitées.</p>
+
+<p>Vos données à caractère personnel ne peuvent ainsi être conservées au-delà d’une durée de douze (12) mois suivant la clôture ou la résiliation de votre COMPTE ; à l’exception de certaines données archivées conformément aux dispositions en vigueur (notamment celles prévues par le Code de Commerce, le Code Civil et le Code de la Consommation), lorsque leur conservation est nécessaire à l’établissement de la preuve d’un droit ou d’un contrat ou au titre du respect d’une obligation légale.</p>
+
+<p>Par exception, vos données d’identification sont conservées trois (3) ans à compter de la fin de la clôture de votre COMPTE, de leur collecte ou du dernier contact émanant de vous.</p>
+
+<h2><strong>ARTICLE 9. VOS DROITS</strong></h2>
+
+<p>Il est rappelé que, conformément aux articles 38 et suivants de la loi n°78-17 dite « Informatique et Libertés » du 6 janvier 1978 modifiée, vous disposez d’un droit d’accès, de rectification, de mise à jour, de verrouillage ou d’effacement des données à caractère personnel vous concernant, qui sont inexactes, incomplètes, équivoques, périmées, ou dont la collecte, l\'utilisation, la communication ou la conservation est interdite.</p>
+
+<p>Vous pouvez également vous opposer, pour des motifs légitimes, à ce que des données à caractère personnel vous concernant fassent l\'objet du traitement que nous mettons en œuvre.</p>
+
+<p>Ces droits peuvent être exercés, par simple demande par courrier électronique à l’adresse dédiée&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en justifiant de votre identité et d’un motif légitime lorsque celui-ci est exigé par la loi.</p>
+
+<p>En cas de communication de copie de pièce d’identité pour justifier de votre identité, nous la conserverons un (1) an ou trois (3) lorsque cette communication est effectuée dans le cadre de l’exercice d’un droit d’opposition.</p>
+
+<h2><strong>ARTICLE 10. DONNEES DE CONNEXION ET COOKIES</strong></h2>
+
+<p>KAUFMAN&amp;BROAD fait usage sur son SITE de données de connexion (date, heure, adresse Internet, protocole de l’ordinateur du visiteur, page consultée) et de cookies (petits fichiers enregistrés sur votre ordinateur) permettant de vous identifier, de mémoriser vos consultations, et de bénéficier de mesures et statistiques d’audience du SITE, notamment relatives aux pages consultées.</p>
+
+<p>En naviguant sur le SITE, vous acceptez que KAUFMAN&amp;BOAD SA installe ce type de cookies dits « techniques » qui ont pour finalité exclusive de permettre ou faciliter la communication par voie électronique de votre équipement terminal avec notre site, en facilitant la gestion et la navigation sur celui-ci.</p>
+
+<p>Notre accès aux informations stockées dans votre équipement terminal ou l\'inscription d\'informations dans ce dernier se fera donc uniquement dans les cas suivants :</p>
+
+<ul>
+	<li>Permettre ou faciliter la communication par voie électronique ;</li>
+	<li>Lorsque cela s’avère nécessaire à la fourniture de notre service de communication en ligne à votre demande expresse.</li>
+</ul>
+
+<p>Vous pouvez, comme pour les autres données, exercer votre droit d’accès à ces données de connexion en en faisant la demande par mail à l’adresse dédiée&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en justifiant de votre identité.</p>
+
+<p>Si le navigateur le permet, vous pouvez désactiver à tout moment ces cookies, en suivant la procédure indiquée par ce navigateur.&nbsp;<br />
+Cependant, KAUFMAN&amp;BROAD vous informe qu’une telle désactivation peut avoir pour conséquence de ralentir et/ou perturber l’accès au SITE.<br />
+En tout état de cause, les informations stockées dans votre terminal (ex : cookies) ou tout autre élément utilisé pour vous identifier à des fins de statistiques d’audience ne sont pas conservés au-delà d’une période de six (6) mois. Au-delà de ce délai, les données de fréquentation brutes associées à un identifiant sont soit supprimées soit anonymisées.</p>
+
+<h2><strong>ARTICLE 11. RESEAUX SOCIAUX</strong></h2>
+
+<p>Vous disposez de la possibilité de cliquer sur les icônes dédiés aux réseaux sociaux FACEBOOK et GOOGLE+ figurant sur le SITE.</p>
+
+<p>A ce titre, les informations personnelles que vous aurez indiquées comme publiques et accessibles depuis vos profils FACEBOOK et GOOGLE+ seront accessibles à KAUFMAN&amp;BROAD, ce que l’UTILISATEUR autorise expressément.</p>
+
+<p>Cependant, KAUFMAN&amp;BROAD ne crée ni n’utilise aucune base de données indépendante de FACEBOOK et GOOGLE+ à partir des informations personnelles que vous pouvez y publier et KAUFMAN&amp;BROAD n’exploitera aucune donnée relevant de votre vie privée par ce biais.</p>
+
+<p>Si vous souhaitez vous opposer à l’accès par KAUFMAN&amp;BROAD aux informations personnelles publiées sur l’espace public de vos profils ou de vos comptes sociaux, vous devrez alors utiliser les moyens mis à votre disposition par FACEBOOK et GOOGLE+ pour limiter l’accès à vos données.</p>
+
+<p>A ce titre, vous acceptez que vos données puissent être transmises à FACEBOOK et GOOGLE+ et être utilisées dans le cadre de leurs Politiques de Confidentialité respectives que KAUFMAN&amp;BROAD vous recommande de consulter.</p>
+
+<h2><strong>ARTICLE 12. SECURITE</strong></h2>
+
+<p>KAUFMAN&amp;BROAD respecte la loi Informatique et libertés en matière de sécurité et de confidentialité de vos données.</p>
+
+<p>A ce titre, KAUFMAN&amp;BROAD prend les précautions utiles, au regard de la nature de vos données et des risques présentés par notre traitement, pour préserver la sécurité des données et, notamment, empêcher qu’elles soient déformées, endommagées, ou que des tiers non autorisés y aient accès (protection physique des locaux, procédé d’authentification de nos clients avec accès personnel et sécurisé via des identifiants et mots de passe confidentiels, journalisation des connexions, chiffrement de certaines données,…).</p>
+</div>
+',
+          'summary' => '',
+          'format' => 'simple',
+          'safe_value' => '<div>
+<h2><strong>Préambule</strong></h2>
+</div>
+
+<div>
+<p>Cette Politique de confidentialité s’adresse à vous, en votre qualité d’utilisateur du site http://www.ketb.com (ci-après dénommé le SITE) et a pour objectif de vous informer de la manière dont vos informations personnelles peuvent le cas échéant être collectées et traitées par la société KAUFMAN&amp;BROAD SA.</p>
+
+<p>Le respect de votre vie privée et de vos données à caractère personnel est une priorité pour la société KAUFMAN&amp;BROAD SA (ci-après dénommée KAUFMAN&amp;BROAD) qui s’engage à respecter la loi n°78-17 du 6 janvier 1978 modifiée dite loi « Informatique et Libertés ».<br />
+<br />
+KAUFMAN&amp;BROAD s’engage en tout état de cause à respecter les deux (2) principes essentiels suivants :</p>
+
+<ul>
+	<li>Vous restez maître de vos données à caractère personnel, raison pour laquelle KAUFMAN&amp;BROAD s’engage à collecter et traiter exclusivement des données que vous avez vous-même décidé de divulguer en les publiant volontairement sur le SITE, notamment via votre COMPTE.</li>
+	<li>Vos données sont traitées de manière transparente, confidentielle et sécurisée</li>
+</ul>
+
+<h2><strong>ARTICLE 1. DEFINITIONS</strong></h2>
+
+<ul>
+	<li>COMPTE : désigne l’interface dans laquelle est regroupé l’ensemble des données fournies par le MEMBRE. Ces données comprennent les informations relatives à l’UTILISATEUR comme son adresse de courrier électronique, ses informations personnelles, mais également le cas échéant les informations relatives à son projet immobilier, etc. Il est précisé qu’un COMPTE ne peut pas faire l’objet d’une cession à un tiers.</li>
+	<li>IDENTIFIANT : désigne l’adresse de messagerie électronique et le mot de passe choisis par le MEMBRE lors de son inscription et dont la saisie permet la connexion au COMPTE.</li>
+	<li>INFORMATIONS : désigne l’ensemble des données, conseils, recommandations, programmes informatiques (notamment de simulations financières), travaux et autres informations dont KAUFMAN&amp;BROAD est propriétaire, ou qu’il est autorisé à utiliser et à divulguer, rendues accessibles aux UTILISATEURS sur le SITE.</li>
+	<li>MEMBRE : désigne tout UTILISATEUR majeur qui s’inscrit sur le SITE afin de bénéficier des différents services et fonctionnalités proposés par KAUFMAN&amp;BROAD.</li>
+	<li>SITE : désigne le site internet accessible à l’adresse http://www.ketb.com/; Le SITE regroupe l’ensemble des pages web, services et fonctionnalités proposés aux UTILISATEURS via http://www.ketb.com/.</li>
+	<li>UTILISATEUR : désigne toute personne qui accède et navigue sur le SITE.</li>
+</ul>
+
+<p>&nbsp;</p>
+
+<h2><strong>ARTICLE 2. IDENTITE DU RESPONSABLE DE TRAITEMENT</strong></h2>
+
+<p>Vos données à caractère personnel sont collectées et traitées par la Société KAUFMAN&amp;BROAD représentée par son représentant légal en exercice domicilié de droit audit siège.</p>
+
+<table border="1" style="border-collapse:collapse; border-spacing:0px; border:0px; font-size:inherit; font-stretch:inherit; font-style:inherit; font-variant:inherit; font-weight:inherit; line-height:inherit; margin:0px; padding:0px; vertical-align:baseline; width:100%">
+	<tbody>
+		<tr>
+			<td rowspan="8" style="text-align:center; vertical-align:middle">KAUFMAN &amp; BROAD</td>
+			<td style="text-align:center; vertical-align:baseline">Dénomination sociale</td>
+			<td style="text-align:center; vertical-align:baseline">KAUFMAN&amp;BROAD SA</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Capital social</td>
+			<td style="text-align:center; vertical-align:baseline">5.612.011,08 euros</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Forme sociale</td>
+			<td style="text-align:center; vertical-align:baseline">Société Anonyme à conseil d\'administration</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">RCS</td>
+			<td style="text-align:center; vertical-align:baseline">NANTERRE - B 702 022 724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">TVA Intracommunautaire</td>
+			<td style="text-align:center; vertical-align:baseline">FR13 702022724</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Adresse du siège social</td>
+			<td style="text-align:center; vertical-align:baseline">127 avenue Charles de Gaulle 92207 NEUILLY SUR SEINE Cedex</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Représentant légal</td>
+			<td style="text-align:center; vertical-align:baseline">Mr Nordine HACHEMI</td>
+		</tr>
+		<tr>
+			<td style="text-align:center; vertical-align:baseline">Téléphone</td>
+			<td style="text-align:center; vertical-align:baseline">01.41.43.43.43</td>
+		</tr>
+	</tbody>
+</table>
+&nbsp;
+
+<p>KAUFMAN&amp;BROAD est donc le responsable de traitement des données à caractère personnel mis en œuvre dans le cadre de l’exploitation du SITE qu’elle édite.</p>
+
+<h2><strong>ARTICLE 3. FORMALITES CNIL</strong></h2>
+
+<p>Le traitement de vos données à caractère personnel a fait l’objet d’une inscription au registre des traitements tenu par notre Correspondant Informatique et Libertés que vous pouvez contacter à l’adresse suivante : Philippe Minier, Correspondant Informatique et Libertés, 127 avenue Charles de Gaulle, 92207 Neuilly sur Seine.</p>
+
+<h2><strong>ARTICLE 4. COLLECTE &amp; TRAITEMENT DES DONNEES</strong></h2>
+
+<p>Dans le cadre de l’exploitation du SITE, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel relatives aux UTILISATEURS de son SITE. Ces données sont traitées conformément aux finalités prévues lors de la collecte.</p>
+
+<p>En particulier, KAUFMAN&amp;BROAD est susceptible de collecter des données à caractère personnel :</p>
+
+<ul>
+	<li>Lors de votre visite du SITE</li>
+	<li>Lors de votre utilisation de fonctionnalités et/ou de services proposés sur le SITE</li>
+	<li>Lors de votre inscription, de la création et de la mise à jour de votre COMPTE</li>
+	<li>Lors d’échanges avec KAUFMAN&amp;BROAD</li>
+	<li>Via le compte Facebook de l’UTILISATEUR après autorisation de l’UTILISATEUR.</li>
+</ul>
+
+<p>Quel que soit le mode de collecte, KAUFMAN&amp;BROAD s’engage à vous informer des finalités du traitement, du caractère obligatoire ou facultatif des réponses à apporter, des conséquences éventuelles, à son égard, d’un défaut de réponse, des destinataires des données, de l’existence et des modalités d’exercice de ses droits d’accès, de rectification et d’opposition au traitement de ses données.</p>
+
+<p>Lorsque cela est nécessaire au regard de la Loi Informatique et Libertés, KAUFMAN&amp;BROAD s’engage, selon les cas, à recueillir votre consentement et/ou à vous permettre de vous opposer à l’utilisation de vos données pour certaines finalités.</p>
+
+<p>Les données susceptibles d’être collectées et traitées par KAUFMAN&amp;BROAD pour la réalisation des finalités décrites à l’article 5 de la présente politique de confidentialité concernent :</p>
+
+<ul>
+	<li>des données d’identification (civilité, nom, prénoms, coordonnées postales, téléphoniques et électroniques) aux fins de preuve de l’exercice d’un droit d’accès, de rectification ou d’opposition ou pour répondre à une obligation légale)</li>
+	<li>des données relatives à la gestion et à la sécurisation de votre COMPTE (identifiants, mots de passe)</li>
+	<li>des données relatives au suivi de la relation commerciale : demandes d’information, historique des échanges avec les services de KAUFMAN&amp;BROAD.</li>
+	<li>des données de connexion (adresses IP, logs de connexion)</li>
+</ul>
+
+<h2><strong>ARTICLE 5. FINALITES DES TRAITEMENTS</strong></h2>
+
+<p>Vos différentes données sont collectées pour assurer :</p>
+
+<ul>
+	<li>le bon fonctionnement et l’amélioration permanente du SITE, de ses services et de ses fonctionnalités,</li>
+	<li>l’envoi de newsletters</li>
+	<li>la gestion des MEMBRES (gestion des COMPTES, gestion commerciale, suivi de la relation client (enquêtes de satisfaction, SAV…)</li>
+	<li>la gestion des demandes de droit d\'accès, de rectification et d’opposition</li>
+	<li>l’élaboration de statistiques destinées à améliorer le fonctionnement du SITE et la qualité des services</li>
+</ul>
+
+<p>KAUFMAN&amp;BROAD sera également susceptible d’utiliser ces données à des fins légales et/ou règlementaires.</p>
+
+<p>En tout état de cause, KAUFMAN&amp;BROAD s’engage à traiter l’ensemble des données collectées de manière conforme à la loi n°78-17 du 6 janvier 1978 modifiée.</p>
+
+<h2><strong>ARTICLE 6. CONSENTEMENT</strong></h2>
+
+<p>Lors de l’ouverture ou de la gestion de votre COMPTE sur le SITE, vous remplissez divers formulaires et communiquez différentes données à caractère personnel vous concernant pour bénéficier de l’ensemble des services proposés par KAUFMAN&amp;BROAD. Par la communication spontanée de vos données à caractère personnel, vous consentez expressément à ce que ses données soient collectées et traitées par KAUFMAN&amp;BROAD pour les finalités qui sont portées à sa connaissance.</p>
+
+<p>En tant que simples UTILISATEURS, en naviguant sur le site et en vous y maintenant, vous consentez à ce que vos données de connexion au SITE soient collectées pour faciliter votre navigation.&nbsp;</p>
+
+<h2><strong>ARTICLE 7. DESTINATAIRES DES DONNEES</strong></h2>
+
+<p>Certaines de vos données peuvent être communiquées à des partenaires ou sous-traitants chargés de l’hébergement et de la maintenance du SITE. Vos données ne sont communiquées, vendues ou louées à aucune autre personne.</p>
+
+<p>Elles peuvent être éventuellement (ou exceptionnellement) échangées dans le cadre d’opérations de co-promotion.</p>
+
+<h2><strong>ARTICLE 8. DUREE DE CONSERVATION DES DONNEES</strong></h2>
+
+<p>KAUFMAN&amp;BROAD s’engage à ce que les données collectées soient conservées sous une forme permettant votre identification pendant une durée qui n\'excède pas la durée nécessaire aux finalités pour lesquelles ces données sont collectées et traitées.</p>
+
+<p>Vos données à caractère personnel ne peuvent ainsi être conservées au-delà d’une durée de douze (12) mois suivant la clôture ou la résiliation de votre COMPTE ; à l’exception de certaines données archivées conformément aux dispositions en vigueur (notamment celles prévues par le Code de Commerce, le Code Civil et le Code de la Consommation), lorsque leur conservation est nécessaire à l’établissement de la preuve d’un droit ou d’un contrat ou au titre du respect d’une obligation légale.</p>
+
+<p>Par exception, vos données d’identification sont conservées trois (3) ans à compter de la fin de la clôture de votre COMPTE, de leur collecte ou du dernier contact émanant de vous.</p>
+
+<h2><strong>ARTICLE 9. VOS DROITS</strong></h2>
+
+<p>Il est rappelé que, conformément aux articles 38 et suivants de la loi n°78-17 dite « Informatique et Libertés » du 6 janvier 1978 modifiée, vous disposez d’un droit d’accès, de rectification, de mise à jour, de verrouillage ou d’effacement des données à caractère personnel vous concernant, qui sont inexactes, incomplètes, équivoques, périmées, ou dont la collecte, l\'utilisation, la communication ou la conservation est interdite.</p>
+
+<p>Vous pouvez également vous opposer, pour des motifs légitimes, à ce que des données à caractère personnel vous concernant fassent l\'objet du traitement que nous mettons en œuvre.</p>
+
+<p>Ces droits peuvent être exercés, par simple demande par courrier électronique à l’adresse dédiée&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en justifiant de votre identité et d’un motif légitime lorsque celui-ci est exigé par la loi.</p>
+
+<p>En cas de communication de copie de pièce d’identité pour justifier de votre identité, nous la conserverons un (1) an ou trois (3) lorsque cette communication est effectuée dans le cadre de l’exercice d’un droit d’opposition.</p>
+
+<h2><strong>ARTICLE 10. DONNEES DE CONNEXION ET COOKIES</strong></h2>
+
+<p>KAUFMAN&amp;BROAD fait usage sur son SITE de données de connexion (date, heure, adresse Internet, protocole de l’ordinateur du visiteur, page consultée) et de cookies (petits fichiers enregistrés sur votre ordinateur) permettant de vous identifier, de mémoriser vos consultations, et de bénéficier de mesures et statistiques d’audience du SITE, notamment relatives aux pages consultées.</p>
+
+<p>En naviguant sur le SITE, vous acceptez que KAUFMAN&amp;BOAD SA installe ce type de cookies dits « techniques » qui ont pour finalité exclusive de permettre ou faciliter la communication par voie électronique de votre équipement terminal avec notre site, en facilitant la gestion et la navigation sur celui-ci.</p>
+
+<p>Notre accès aux informations stockées dans votre équipement terminal ou l\'inscription d\'informations dans ce dernier se fera donc uniquement dans les cas suivants :</p>
+
+<ul>
+	<li>Permettre ou faciliter la communication par voie électronique ;</li>
+	<li>Lorsque cela s’avère nécessaire à la fourniture de notre service de communication en ligne à votre demande expresse.</li>
+</ul>
+
+<p>Vous pouvez, comme pour les autres données, exercer votre droit d’accès à ces données de connexion en en faisant la demande par mail à l’adresse dédiée&nbsp;<a href="mailto:webmaster@ketb.com" style="margin: 0px; padding: 0px; border: 0px; font-style: inherit; font-variant: inherit; font-weight: bold; font-stretch: inherit; font-size: inherit; vertical-align: baseline; color: rgb(0, 158, 224);">webmaster@ketb.com</a>&nbsp;ou par courrier papier à l’adresse du siège social de KAUFMAN&amp;BROAD en justifiant de votre identité.</p>
+
+<p>Si le navigateur le permet, vous pouvez désactiver à tout moment ces cookies, en suivant la procédure indiquée par ce navigateur.&nbsp;<br />
+Cependant, KAUFMAN&amp;BROAD vous informe qu’une telle désactivation peut avoir pour conséquence de ralentir et/ou perturber l’accès au SITE.<br />
+En tout état de cause, les informations stockées dans votre terminal (ex : cookies) ou tout autre élément utilisé pour vous identifier à des fins de statistiques d’audience ne sont pas conservés au-delà d’une période de six (6) mois. Au-delà de ce délai, les données de fréquentation brutes associées à un identifiant sont soit supprimées soit anonymisées.</p>
+
+<h2><strong>ARTICLE 11. RESEAUX SOCIAUX</strong></h2>
+
+<p>Vous disposez de la possibilité de cliquer sur les icônes dédiés aux réseaux sociaux FACEBOOK et GOOGLE+ figurant sur le SITE.</p>
+
+<p>A ce titre, les informations personnelles que vous aurez indiquées comme publiques et accessibles depuis vos profils FACEBOOK et GOOGLE+ seront accessibles à KAUFMAN&amp;BROAD, ce que l’UTILISATEUR autorise expressément.</p>
+
+<p>Cependant, KAUFMAN&amp;BROAD ne crée ni n’utilise aucune base de données indépendante de FACEBOOK et GOOGLE+ à partir des informations personnelles que vous pouvez y publier et KAUFMAN&amp;BROAD n’exploitera aucune donnée relevant de votre vie privée par ce biais.</p>
+
+<p>Si vous souhaitez vous opposer à l’accès par KAUFMAN&amp;BROAD aux informations personnelles publiées sur l’espace public de vos profils ou de vos comptes sociaux, vous devrez alors utiliser les moyens mis à votre disposition par FACEBOOK et GOOGLE+ pour limiter l’accès à vos données.</p>
+
+<p>A ce titre, vous acceptez que vos données puissent être transmises à FACEBOOK et GOOGLE+ et être utilisées dans le cadre de leurs Politiques de Confidentialité respectives que KAUFMAN&amp;BROAD vous recommande de consulter.</p>
+
+<h2><strong>ARTICLE 12. SECURITE</strong></h2>
+
+<p>KAUFMAN&amp;BROAD respecte la loi Informatique et libertés en matière de sécurité et de confidentialité de vos données.</p>
+
+<p>A ce titre, KAUFMAN&amp;BROAD prend les précautions utiles, au regard de la nature de vos données et des risques présentés par notre traitement, pour préserver la sécurité des données et, notamment, empêcher qu’elles soient déformées, endommagées, ou que des tiers non autorisés y aient accès (protection physique des locaux, procédé d’authentification de nos clients avec accès personnel et sécurisé via des identifiants et mots de passe confidentiels, journalisation des connexions, chiffrement de certaines données,…).</p>
+</div>
+',
+          'safe_summary' => '',
+        ),
+      ),
+    ),
+    'domains' => array(
+      2 => 2,
+      3 => 3,
+    ),
+    'domain_site' => TRUE,
+    'subdomains' => array(
+      0 => 'All affiliates',
+      1 => 'Kaufman & Broad Patrimoine',
+      2 => 'Kaufman & Broad',
+    ),
+    'locations' => array(),
+    'location' => array(),
+    'name' => 'admin',
+    'picture' => 0,
+    'data' => 'b:0;',
+    'date' => '2015-11-25 16:42:57 +0000',
+  );
+
   return $nodes;
 }
