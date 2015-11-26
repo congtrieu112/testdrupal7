@@ -84,6 +84,10 @@ function numberFormatGlobal($number) {
   return number_format($number, 0, ",", ".");
 }
 
+function numberFormatGlobalSpace($number) {
+  return number_format($number, 0, "", " ");
+}
+
 /**
  * Get logement block content.
  */
@@ -149,62 +153,76 @@ function _get_logement_block_content() {
 
             $total_bien_stock = ceil($program_list_biens->total * $program_list_biens->field_programme_stock_value / 100);
             $logement_block['total_bien_stock'][$program_list_biens->name] = $total_bien_stock;
-//            $nb_pieces_id = $program_list_biens->field_nb_pieces_tid;
-//            $least = (int) ($total / 2);
-//            $most = round($total / 2);
-//            // Get list the most expensive bien
-//            $listPriceMost = db_query_range('select field_prix_tva_20_value, name, title '
-//              . 'from {field_data_field_prix_tva_20 prize} '
-//              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-//              . 'order by field_prix_tva_20_value desc', 0, $most, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
-//
-//            // Show results
-//            if ($listPriceMost->rowCount() > 0) {
-//              $listPriceMost = $listPriceMost->fetchAll();
-//              $str_price_most = "<h6>The most experience</h6>" . "</br>";
-//              $nb_pieces_most = '';
-//              foreach ($listPriceMost as $programs_most) {
-//                $nb_pieces_most = $programs_most->name;
-//                $str_price_most .= 'Title: ' . $programs_most->title . "</br>";
-//                $str_price_most .= 'Name: ' . $programs_most->name . "</br>";
-//                $str_price_most .= 'Price:  ' . '$' . numberFormatGlobal($programs_most->field_prix_tva_20_value) . "</br>";
-//                $str_price_most .= '----------------------------------------------------------------------------------------------------------------' . "</br></br>";
-//              }
-//              $blocks['rs_price_most'][$nb_pieces_most] = $str_price_most;
-//            }
-//
-//
-//            // Sql get list the least expensive bien
-//            $listPriceLeast = db_query_range('select field_prix_tva_20_value, name, title '
-//              . 'from {field_data_field_prix_tva_20} prize '
-//              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-//              . 'order by field_prix_tva_20_value', 0, $least, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
-//
-//            // Show results
-//            if ($listPriceLeast->rowCount() > 0) {
-//              $listPriceLeast = $listPriceLeast->fetchAll();
-//              $str_price_least = "<h6>The least experience</h6>" . "</br>";
-//              $nb_pieces_least = '';
-//              foreach ($listPriceLeast as $programs_least) {
-//                $nb_pieces_least = $programs_least->name;
-//                $str_price_least .= 'Title: ' . $programs_least->title . "</br>";
-//                $str_price_least .= 'Name: ' . $programs_least->name . "</br>";
-//                $str_price_least .= 'Price:  ' . '$' . numberFormatGlobal($programs_least->field_prix_tva_20_value) . "</br>";
-//                $str_price_least .= '----------------------------------------------------------------------------------------------------------------' . "</br></br>";
-//              }
-//
-//              $blocks['rs_price_least'][$nb_pieces_least] = $str_price_least;
-//            }
+
+            $nb_pieces_id = $program_list_biens->field_nb_pieces_tid;
+            // Get list the most expensive bien
+            $listPriceMost = db_query_range('select program.entity_id, field_prix_tva_20_value, name, title '
+              . 'from {field_data_field_prix_tva_20 prize} '
+              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+              . 'inner join {node} n on n.nid=program.field_programme_target_id '
+              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+
+            $the_most_id = 0;
+            // Show results
+            if ($listPriceMost->rowCount() > 0) {
+              $listPriceMost = $listPriceMost->fetchAll();
+              foreach ($listPriceMost as $program_most) {
+                $total_bien_stock -= 1;
+                $the_most_id = $program_most->entity_id;
+                $logement_block['popin_program'][$program_most->name][] = $program_most->entity_id;
+              }
+            }
+
+
+            if ($total_bien_stock > 0) {
+              // Sql get list the least expensive bien
+              $listPriceLeast = db_query_range('select program.entity_id as entity_id, field_prix_tva_20_value, name, title '
+                . 'from {field_data_field_prix_tva_20} prize '
+                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+
+
+              // Show results
+              $the_least_id = 0;
+              if ($listPriceLeast->rowCount() > 0) {
+                $listPriceLeast = $listPriceLeast->fetchAll();
+                foreach ($listPriceLeast as $program_least) {
+                  $total_bien_stock -= 1;
+                  $the_least_id = $program_least->entity_id;
+                  $logement_block['popin_program'][$program_least->name][] = $program_least->entity_id;
+                }
+              }
+            }
+
+            if($total_bien_stock > 0) {
+              $listPriceRemain = db_query_range('select program.entity_id as entity_id, field_superficie_value, field_prix_tva_20_value, name, title '
+              . 'from {field_data_field_prix_tva_20} prize '
+              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+              . 'inner join {node} n on n.nid=program.field_programme_target_id '
+              . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
+              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
+              . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
+
+              if ($listPriceRemain->rowCount() > 0) {
+                $listPriceRemain = $listPriceRemain->fetchAll();
+                foreach ($listPriceRemain as $program_remain) {
+                  $the_least_id = $program_remain->entity_id;
+                  $logement_block['popin_program'][$program_remain->name][] = $program_remain->entity_id;
+                }
+              }
+            }
           }
         }
 
