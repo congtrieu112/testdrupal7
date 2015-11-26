@@ -143,6 +143,7 @@ dependencies[] = kandb_settings
 dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_livraison_immediate
+dependencies[] = kandb_view_offre_en_france
 
 ; Blocks
 dependencies[] = kandb_recherche
