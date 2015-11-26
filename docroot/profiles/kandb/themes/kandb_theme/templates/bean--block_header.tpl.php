@@ -41,7 +41,7 @@ if(isset($content["field_block_header_image"]["#items"][0]['uri'])){
 - small: 640 x 400 (High compression)
 - large: 1380 x 400
 -->
-<section data-interchange="[<?php print $header_image ?>.jpg, (small)], [<?php print $header_image ?>, (medium)]" 
+<section data-interchange="[<?php print $header_image ?>, (small)], [<?php print $header_image ?>, (medium)]" 
          class="narrow-header <?php print $classes; ?>" <?php print $attributes; ?>>
     <div class="wrapper" <?php print $content_attributes; ?>>
         <div class="heading heading--bordered heading--white">
