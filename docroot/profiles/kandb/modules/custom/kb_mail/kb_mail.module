@@ -73,6 +73,16 @@ function kandb_webform_submit(&$form, &$form_state) {
       $values['submitted']['row_2']['rappeler_horaire'] = $form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']];
     }
   }
+  if (isset($values['submitted']['rdv_connu'])) {
+    if (isset ($form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']])) {
+      if ($form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']] != '') {
+        $values['submitted']['rdv_connu'] = $form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']];
+      }
+      else {
+        $values['submitted']['rdv_connu'] = '';
+      }
+    }
+  }
   if (isset($values['submitted']['rdv_idkp']) && is_numeric($values['submitted']['rdv_idkp'])) {
     $db_query = db_select('field_data_field_id_programme', 'fidk');
     $db_query->fields('fidk', array('entity_id'));
@@ -149,7 +159,9 @@ function kb_mail_mail($key, &$message, $params) {
   }
 }
 function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL) {
+  global $base_url;
   $variables = array();
+  $variables['kandb_base_url'] = $base_url;
   if($webform_name && $values) {
     $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
     $variables['programme_loc_ville'] = '';
@@ -218,6 +230,7 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
         'rdv_telephone',
         'rdv_message',
         'rdv_nom',
+        'rdv_connu',
       );
       foreach ($book_appointment_arr as $var_name) {
         $variables[$var_name] = isset($values['submitted'][$var_name]) ? $values['submitted'][$var_name] : '';
