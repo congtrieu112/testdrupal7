@@ -447,6 +447,9 @@ function kandb_theme_checkbox($variables) {
  */
 function kandb_theme_select($variables) {
   $variables['element']['#attributes']['data-app-select'] = '';
+  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
+    $variables['element']['#options'][''] = '-';
+  }
   return theme_select($variables);
 }
 
