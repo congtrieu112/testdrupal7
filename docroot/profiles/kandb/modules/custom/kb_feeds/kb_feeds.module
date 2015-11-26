@@ -362,6 +362,22 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
               }
             }
           }
+
+          if($item[58] == 0) {
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item[59] == 0) {
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item[18] == 0) {
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item[19] == 0) {
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
@@ -544,6 +560,22 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             }
 
             $tid = 0;
+          }
+
+          if($item['x'] == 0) {
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item['y'] == 0) {
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item['bureaudeventex'] == 0) {
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item['bureaudeventey'] == 0) {
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = '';
           }
 
           if(isset($entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'])) {
