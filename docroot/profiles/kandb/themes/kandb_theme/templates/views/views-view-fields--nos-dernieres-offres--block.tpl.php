@@ -22,7 +22,7 @@
  *
  * @ingroup views_templates
  */
-$style = $row->field_field_image_principale[0]['rendered']['#image_style'];
+$style = isset($row->field_field_image_principale[0]['rendered']['#image_style']) ? $row->field_field_image_principale[0]['rendered']['#image_style'] : '';
 $ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
 $departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
@@ -40,7 +40,7 @@ endif;
 ?>
 <div class="slick-slider__item">
     <article class="squaredImageItem squaredImageItem--stacked false">
-        <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="squaredImageItem__img">
+        <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>" class="squaredImageItem__img">
             <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
