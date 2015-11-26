@@ -11,6 +11,25 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
 
 /**
+ * Override or insert variables into the html template.
+ */
+function kandb_theme_preprocess_html(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'html__ajax';
+  }
+}
+
+/**
+ * Override or insert variables into the block template.
+ */
+function kandb_theme_preprocess_block(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'block__ajax';
+  }
+}
+/**
  * Override or insert variables into the page template.
  */
 function kandb_theme_process_page(&$variables) {
@@ -203,6 +222,11 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+  if ($vars['type'] == 'webform') {
+    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+      $vars['theme_hook_suggestions'][] = 'node__webform__ajax';
+    }
+  }
 
   // Implement redirect bien detail if status is Indisponible;
   if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
@@ -258,6 +282,10 @@ function kandb_theme_preprocess_region(&$vars) {
     if ($menu_secondary_links_source) {
       $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
     }
+  }
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $vars['theme_hook_suggestions'][] = 'region__ajax';
   }
 }
 
@@ -432,6 +460,9 @@ function kandb_theme_checkbox($variables) {
  */
 function kandb_theme_select($variables) {
   $variables['element']['#attributes']['data-app-select'] = '';
+  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
+    $variables['element']['#options'][''] = '-';
+  }
   return theme_select($variables);
 }
 
