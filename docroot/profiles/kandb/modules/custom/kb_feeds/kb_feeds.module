@@ -1479,10 +1479,11 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   $logging = '';
 
   if($file_log_name && ($total_rows || $imported || $rejected)) {
+    $skipped = $total_rows - ($created + $updated + $rejected);
     $logging = '/**' . "\n";
     $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
     $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
-    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ')' . "\n";
+    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
     $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
     $logging .= ' */' . "\n";
     createFileErrorLogTxt($file_log_name, $logging);
