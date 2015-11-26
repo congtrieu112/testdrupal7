@@ -137,11 +137,11 @@ function kandb_programme_field_group_info() {
       2 => 'field_programme_loc_department',
       3 => 'field_programme_loc_lat',
       4 => 'field_programme_loc_long',
-      5 => 'field_programme_loc_region',
-      6 => 'field_programme_loc_rue',
-      7 => 'field_programme_loc_type',
+      5 => 'field_programme_loc_num',
+      6 => 'field_programme_loc_region',
+      7 => 'field_programme_loc_rue',
       8 => 'field_programme_loc_ville',
-      9 => 'field_programme_loc_num',
+      9 => 'field_programme_loc_type',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -364,6 +364,7 @@ function kandb_programme_field_group_info() {
       14 => 'field_programme_stock',
       15 => 'field_type_programme',
       16 => 'field_zone_activite',
+      17 => 'field_programme_gamme',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
