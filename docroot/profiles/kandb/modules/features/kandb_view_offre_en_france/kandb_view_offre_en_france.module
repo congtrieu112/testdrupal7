@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View offre en France feature.
+ */
+
+include_once 'kandb_view_offre_en_france.features.inc';
