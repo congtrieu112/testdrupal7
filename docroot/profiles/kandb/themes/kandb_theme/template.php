@@ -3,8 +3,8 @@
 define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
 define('ARTICLE_LIMIT_CONTENT', 250);
 
-if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
-  define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');  
+if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
+  define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');
 }
 
 // Constant to see if the page is loaded in AJAX
@@ -49,8 +49,6 @@ function kandb_theme_process_page(&$variables) {
   }
 }
 
-
-
 /**
  * Returns HTML for primary and secondary local tasks.
  *
@@ -61,11 +59,11 @@ function kandb_theme_menu_local_tasks(&$variables) {
 
   // Style the tabs
   // programCharacteristics__nav clearfix
-  if($variables['primary']){
+  if ($variables['primary']) {
 
     if ($primary = menu_primary_local_tasks()) {
       $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
-      foreach($primary as $tab){
+      foreach ($primary as $tab) {
         $tab['#link']['localized_options']['attributes']['class'][] = 'test';
         $tab['#link']['localized_options']['attributes']['style'][] = 'margin:0px;';
         $output .= render($tab);
@@ -74,7 +72,7 @@ function kandb_theme_menu_local_tasks(&$variables) {
     }
     if ($secondary = menu_secondary_local_tasks()) {
       $output .= '<ul class="tabs secondary">';
-      foreach($secondary as $tab) {
+      foreach ($secondary as $tab) {
         $output .= render($tab);
       }
       $output .= "</ul>";
@@ -155,6 +153,7 @@ function kandb_theme_get_path($dir_name = NULL, $theme_name = NULL) {
  * Implemnts hook_preprocess_node().
  */
 function kandb_theme_preprocess_node(&$vars) {
+  $arg = arg();
   switch ($vars['view_mode']) {
     case 'teaser_carrousel_3':
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__teaser_carrousel_3';
@@ -180,8 +179,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $programme = NULL;
     if ($vars['type'] == 'programme') {
       $programme = $vars['node'];
-    }
-    elseif (isset($vars['field_programme'][0]['entity'])) {
+    } elseif (isset($vars['field_programme'][0]['entity'])) {
       $programme = $vars['field_programme'][0]['entity'];
     }
     $price_tva_min = $price_tva_max = 0;
@@ -205,14 +203,30 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+
+  // Implement redirect bien detail if status is Indisponible;
+  if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
+    if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
+      $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
+      if ($bien_status->name && $bien_status->name == 'Indisponible') {
+        $programme_id = $vars['field_programme'][0]['target_id'];
+        $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
+        if ($programme_status == 1) {
+          drupal_goto('node/' . $programme_id);
+        } else {
+          drupal_goto('/recherche');
+        }
+      }
+    }
+  }
 }
 
 /**
  * Implemnts hook_preprocess_region().
  */
-function kandb_theme_preprocess_region(&$vars){
+function kandb_theme_preprocess_region(&$vars) {
   // Header
-  if ($vars['region'] == 'header'){
+  if ($vars['region'] == 'header') {
     // Main menu
     $vars['main_menu'] = false;
     $menu_main_links_source = variable_get('menu_main_links_source', false);
@@ -222,7 +236,7 @@ function kandb_theme_preprocess_region(&$vars){
   }
 
   // Footer
-  if ($vars['region'] == 'footer'){
+  if ($vars['region'] == 'footer') {
 
     // Get variables
     $vars['icon_setting'] = variable_get('kandb_settings_social_display', FALSE);
@@ -247,19 +261,19 @@ function kandb_theme_preprocess_region(&$vars){
   }
 }
 
-function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
+function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT) {
   if ($limit <= 0 || !is_numeric($limit) || strlen($content) < $limit) {
-      return $content;
+    return $content;
   }
-  
+
   $i = $limit - 1;
-  while(1){
-    if($i + 15 > $limit){
+  while (1) {
+    if ($i + 15 > $limit) {
       break;
     }
-    if($content[$i + 1] != ' '){
+    if ($content[$i + 1] != ' ') {
       $i++;
-    }else{
+    } else {
       break;
     }
   }
@@ -269,61 +283,60 @@ function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
     $end = '...';
   }
   if (function_exists('mb_substr')) {
-      $content = mb_substr($content, 0, $i, "UTF-8");
+    $content = mb_substr($content, 0, $i, "UTF-8");
   } else {
-      $content = substr($content, 0, $i);
+    $content = substr($content, 0, $i);
   }
   return $content . $end;
 }
 
 /**
-   * @todo to get taxonomy status du logement by name
-   * @param type $term_name
-   * @return type
-   */
-function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {    
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term');
-    //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
+ * @todo to get taxonomy status du logement by name
+ * @param type $term_name
+ * @return type
+ */
+function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term');
+  //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
 
-    if (!$search_by_name) {
-      $query->fieldCondition('field_id_file', 'value', $term_name, '=');
-    }
-    else {
-      $query->propertyCondition('name', $term_name);
-    }
-
-    $query->range(0, 1);
-    $results = $query->execute();
-    if (!empty($results)) {
-      return array_shift($results["taxonomy_term"])->tid;
-    }
-
-    return $results;
+  if (!$search_by_name) {
+    $query->fieldCondition('field_id_file', 'value', $term_name, '=');
+  } else {
+    $query->propertyCondition('name', $term_name);
   }
+
+  $query->range(0, 1);
+  $results = $query->execute();
+  if (!empty($results)) {
+    return array_shift($results["taxonomy_term"])->tid;
+  }
+
+  return $results;
+}
 
 /**
  * @todo to get list bien follow piece && programme
  * @param type $id_programme
  * @param type $id_piece
  */
-function get_biens_follow_piece_program($id_programme, $id_piece = 0){
+function get_biens_follow_piece_program($id_programme, $id_piece = 0) {
   $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-      ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-      ->fieldCondition('field_programme', 'target_id', $id_programme, '=')        
+    ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+    ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+    ->fieldCondition('field_programme', 'target_id', $id_programme, '=')
   ;
 
-  if(!empty($id_piece)){      
+  if (!empty($id_piece)) {
     $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
   }
   $results = $query->execute();
   if (!empty($results)) {
     return $results["node"];
   }
-  
+
   return array();
 }
 
@@ -425,6 +438,6 @@ function kandb_theme_select($variables) {
 /**
  * Implementation of hook_css_alter()
  */
-function kandb_theme_css_alter(&$css){
+function kandb_theme_css_alter(&$css) {
   unset($css['modules/system/system.messages.css']);
 }
