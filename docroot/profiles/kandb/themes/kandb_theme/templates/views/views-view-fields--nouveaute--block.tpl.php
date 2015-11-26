@@ -22,8 +22,6 @@
  *
  * @ingroup views_templates
  */
-//krumo($row);
-//die();
 $style = $row->field_field_image_principale[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
 $ville_id = isset($row->field_field_programme_loc_ville[0]['raw']['tid']) ? $row->field_field_programme_loc_ville[0]['raw']['tid'] : '';

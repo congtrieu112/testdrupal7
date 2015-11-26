@@ -80,7 +80,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_existed += $type_options_query->execute()->fetchAllKeyed();
   }
 
-  if ($view_name == 'livraison_immediate') {
+  if ($view_name == 'livraison_immediate' || $view_name == 'notre_offre_en_france') {
     if ($result) {
       foreach ($result as $item) {
         $name = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name : '';
@@ -99,9 +99,9 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
 /**
  * Implements hook_views_query_alter().
  */
-function kandb_validate_views_query_alter(&$view, &$query) {  
-  if ($view->name == 'livraison_immediate' && $view->current_display == 'block') {      
-    // Left join with Annee.        
+function kandb_validate_views_query_alter(&$view, &$query) {
+  if ($view->name == 'livraison_immediate' && $view->current_display == 'block') {
+    // Left join with Annee.
     $quarter = date_quarter();
     $year = date('Y');
     $next_quarter = ($quarter == 4) ? 1 : $quarter + 1;
@@ -111,7 +111,7 @@ function kandb_validate_views_query_alter(&$view, &$query) {
     $view->query->where[1]['conditions'][0]['value'] = $year;
     // Alter field_trimestre_value.
     $view->query->where[1]['conditions'][1]['value'] = $quarter;
-    
+
     // For the after quarter.
     // Alter field_annee_value.
     $view->query->where[2]['conditions'][0]['value'] = $next_year;
@@ -123,13 +123,15 @@ function kandb_validate_views_query_alter(&$view, &$query) {
 /**
  * Return the calculate the quarter.
  */
-function date_quarter()
-{
-  $month = date('n');  
+function date_quarter() {
+  $month = date('n');
 
-  if ($month <= 3) return 1;
-  if ($month <= 6) return 2;
-  if ($month <= 9) return 3;
+  if ($month <= 3)
+    return 1;
+  if ($month <= 6)
+    return 2;
+  if ($month <= 9)
+    return 3;
 
   return 4;
 }

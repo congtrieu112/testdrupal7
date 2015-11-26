@@ -19,7 +19,7 @@ Le programme qui l'intéresse :
 
 IDKP : <?php if(isset($mail_vars['programme_idkp'])) {print $mail_vars['programme_idkp']; } ?>
 
-<?php if(isset($mail_vars['bien_type'])) {print $mail_vars['bien_type']; } ?> <?php if(isset($mail_vars['bien_nb_pieces'])) {print $mail_vars['bien_nb_pieces']; } ?> <?php if(isset($mail_vars['bien_superficie'])) {print $mail_vars['bien_superficie']; } ?> <?php if(isset($mail_vars['bien_lot_id'])) {print 'Lot ' . $mail_vars['bien_lot_id']; } ?>
+<?php if(isset($mail_vars['bien_type'])) {print $mail_vars['bien_type']; } ?> <?php if(isset($mail_vars['bien_nb_pieces'])) {print $mail_vars['bien_nb_pieces']; } ?> <?php if(isset($mail_vars['bien_superficie'])) {print $mail_vars['bien_superficie']; } ?> <?php if(isset($mail_vars['bien_lot_id']) && $mail_vars['bien_lot_id'] != '') {print 'Lot ' . $mail_vars['bien_lot_id']; } ?>
  
 Cordialement,
 L'équipe internet Kaufman & Broad.

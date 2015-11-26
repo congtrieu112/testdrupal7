@@ -414,3 +414,23 @@ function kandb_contact_webform_submit() {
   drupal_set_message(t('Save data successful'));
   
 }
+
+function kandb_contact_form_webform_client_form_alter(&$form, $form_state, $form_id) {
+  array_unshift($form['#validate'], 'kandb_webform_client_validate');
+  $form['actions']['submit']['#value'] = t('Envoyer');
+}
+function kandb_webform_client_validate(&$form, &$form_state) {
+   $values = $form_state['values'];
+   if (isset($values['submitted']['row_2']['rappeler_telephone'])) {
+     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_2']['rappeler_telephone']);
+     if (trim($telephone) != '') {
+       form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
+     }
+   }
+   if (isset($values['submitted']['rdv_telephone'])) {
+     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
+     if (trim($telephone) != '') {
+       form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
+     }
+   }
+}

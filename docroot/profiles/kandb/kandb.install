@@ -593,3 +593,11 @@ function kandb_update_7152() {
   }
 }
 
+/*
+ * Enable kandb_view_offre_en_france module
+ */
+function kandb_update_7153() {
+  if (!module_exists('kandb_view_offre_en_france')) {
+    module_enable(array('kandb_view_offre_en_france'), TRUE);
+  }
+}
