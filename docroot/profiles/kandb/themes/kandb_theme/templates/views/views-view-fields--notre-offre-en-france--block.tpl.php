@@ -42,15 +42,15 @@ endif;
 <li data-app-filter-item="<?php print $ville_id; ?>">
     <!-- [squaredImageItem] start-->
     <article class="squaredImageItem false">
-        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt']; ?>"/></a>
+        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->node_field_data_field_programme_nid); ?>" title="<?php print $row->node_field_data_field_programme_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
-                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['nouveaute_promotion'] < 3): ?>
+                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['france_promotion'] < 3): ?>
                   <li>
                       <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
                       <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                   </li>
                   <?php
-                  $_SESSION['nouveaute_promotion'] += 1;
+                  $_SESSION['france_promotion'] += 1;
                   ?>
                 <?php endif; ?>
             </ul>
@@ -58,11 +58,11 @@ endif;
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
                 <div class="heading-favorite">
-                    <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="heading heading--small">
+                    <a href="<?php print url('node/' . $row->node_field_data_field_programme_nid); ?>" title="<?php print $row->node_field_data_field_programme_title; ?>" class="heading heading--small">
                         <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
-                        <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
+                        <p class="heading__title heading__title--sub"><?php print $row->node_field_data_field_programme_title; ?></p>
                     </a>
-                    <a href="" title="<?php print t('Add item to favorites'); ?>" data-cookie="offres" data-cookie-add="<?php print $row->nid; ?>" class="btn-icon--only">
+                    <a href="" title="<?php print t('Add item to favorites'); ?>" data-cookie="offres" data-cookie-add="<?php print $row->node_field_data_field_programme_nid; ?>" class="btn-icon--only">
                         <span class="icon icon-love"></span>
                     </a>
                 </div>
