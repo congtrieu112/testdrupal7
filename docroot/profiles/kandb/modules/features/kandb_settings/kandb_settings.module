@@ -1,9 +1,9 @@
 <?php
+
 /**
  * @file
  * Code for the K&B Settings feature.
  */
-
 include_once 'kandb_settings.features.inc';
 
 /**
@@ -34,6 +34,15 @@ function kandb_settings_menu() {
     'access arguments' => array('administer K&B content'),
   );
 
+  $menu['admin/content/ketb/images-default'] = array(
+    'title' => 'Images par défaut',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_images_default'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B content'),
+  );
+
   return $menu;
 }
 
@@ -52,19 +61,20 @@ function kandb_settings_permission() {
 /**
  * Page callback
  */
-function kandb_setttings_page_content(){
+function kandb_setttings_page_content() {
   $parent = menu_link_get_preferred(current_path());
   $parameters = array(
     'active_trail' => array($parent['plid']),
     'only_active_trail' => FALSE,
-    'min_depth' => $parent['depth']+1,
-    'max_depth' => $parent['depth']+1,
+    'min_depth' => $parent['depth'] + 1,
+    'max_depth' => $parent['depth'] + 1,
     'conditions' => array('plid' => $parent['mlid']),
   );
 
   $children = menu_build_tree($parent['menu_name'], $parameters);
   foreach ($children as &$data) {
-    if($data['link']['link_path'] != 'admin/content/ketb/list') $data['link']['hidden'] = false;
+    if ($data['link']['link_path'] != 'admin/content/ketb/list')
+      $data['link']['hidden'] = false;
   }
   $menu_render = menu_tree_output($children);
 
@@ -74,7 +84,7 @@ function kandb_setttings_page_content(){
 /**
  * Form callback
  */
-function kandb_selection_page_footer_form(){
+function kandb_selection_page_footer_form() {
 
   $form = array();
 
@@ -111,12 +121,65 @@ function kandb_selection_page_footer_form(){
  * hook_form_validate()
  */
 function kandb_selection_page_footer_validate($form, &$form_state) {
-
+  
 }
 
 /**
  * hook_form_submit()
  */
 function kandb_selection_page_footer_submit($form, &$form_state) {
+  
+}
 
+/**
+ * Implements of hook_form().
+ * Render the image per default on each pieces of bien and programme gamme.
+ */
+function kandb_images_default() {
+  $form = array();
+
+  $field_programme_gamme = field_info_field('field_programme_gamme');
+  $field_programme_gamme = $field_programme_gamme['settings']['allowed_values'];
+  $count_programme_gamme = count($field_programme_gamme);
+
+  $field_nb_pieces = field_info_field('field_nb_pieces');
+  $nb_pieces_voca = taxonomy_vocabulary_machine_name_load($field_nb_pieces['settings']['allowed_values'][0]['vocabulary']);
+  $nb_pieces_terms = entity_load('taxonomy_term', FALSE, array('vid' => $nb_pieces_voca->vid));
+  $count_nb_pieces_terms = count($nb_pieces_terms);
+
+  foreach ($field_programme_gamme as $tsid => $gamme) {
+    foreach ($nb_pieces_terms as $term) {
+      $form['image_default_' . $term->tid . '_' . $tsid] = array(
+        '#type' => 'managed_file',
+        '#title' => 'Image default for : ' . $term->name . ' x ' . $gamme,
+        '#default_value' => variable_get('image_default_' . $term->tid . '_' . $tsid),
+        '#upload_location' => 'public://',
+      );
+    }
+  }
+
+  return system_settings_form($form);
+}
+
+/**
+ * Implements of hook_form_validate().
+ * Save file picture on each pieces and gamme.
+ */
+function kandb_images_default_validate($form, &$form_state) {
+  global $user;
+  foreach ($form_state['values'] as $key => $value) {
+    if (preg_match('/image_default_.*/i', $key) && $value) {
+      // Load the file via file.fid.
+      $file = file_load($value);
+
+      // Change status to permanent.
+      $file->status = FILE_STATUS_PERMANENT;
+
+      // Save.
+      file_save($file);
+
+      // Record that the module (in this example, user module) is using the file.
+      file_usage_add($file, 'user', 'user', $user->uid);
+    }
+  }
 }

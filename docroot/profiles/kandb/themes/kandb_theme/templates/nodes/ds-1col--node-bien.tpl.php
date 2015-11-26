@@ -42,6 +42,11 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
   }
 }
+
+$piece_id = '';
+if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
+  $piece_id = $node->field_nb_pieces[LANGUAGE_NONE][0]['tid'];
+}
 ?>
 
 
@@ -56,30 +61,48 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     </div>
 
 
-    <?php if (isset($node->field_image_principale[LANGUAGE_NONE][0])): ?>
+    <?php
+    $image_principale = '';
+    if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
+        $node->field_image_principale[LANGUAGE_NONE][0]) {
+      $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
+    }
+    else {
+      // Get default per image on each pieces and gammes.
+      if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
+          !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
+          $piece_id
+      ) {
+        if ($file_id = variable_get('image_default_' . $piece_id . '_' . $programme->field_programme_gamme[LANGUAGE_NONE][0]['value'])) {
+          $file_load = file_load($file_id);
+          $image_principale = $file_load->uri;
+        }
+      }
+    }
+
+    if ($image_principale):
+      ?>
       <div class="programHeader__figure">
           <!-- [carousel] start-->
           <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" class="slick-slider__item-1">
               <?php
-              foreach ($node->field_image_principale[LANGUAGE_NONE] as $item):
-                $image_small = image_style_url("bien_small__640_x_316", $item["uri"]);
-                $image_medium = image_style_url("bien_medium__1024x506", $item["uri"]);
-                $image_large = image_style_url("bien_large__1380_x_670", $item["uri"]);
-                ?>
-                <article class="programHeaderFigureItem">
-                    <figure>
-                        <!-- images need to have 2 formats see data-exchange attribute:
-                        - small: 640 x 316 (heavy compression)
-                        - medium: 1024 x 506
-                        - large: 1380 x 670
-                        -->
-                        <!-- [Responsive img] start-->
-                        <img alt="Photo Bien" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
-                        <noscript><img src="<?php print $image_medium ?>" alt="Photo Bien"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </figure>
-                </article>
-              <?php endforeach; ?>
+              $image_small = image_style_url("bien_small__640_x_316", $image_principale);
+              $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
+              $image_large = image_style_url("bien_large__1380_x_670", $image_principale);
+              ?>
+              <article class="programHeaderFigureItem">
+                  <figure>
+                      <!-- images need to have 2 formats see data-exchange attribute:
+                      - small: 640 x 316 (heavy compression)
+                      - medium: 1024 x 506
+                      - large: 1380 x 670
+                      -->
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print $node->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
+                      <noscript><img src="<?php print $image_medium ?>" alt="<?php print $node->title; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
+                  </figure>
+              </article>
           </div>
           <!-- [carousel] end-->
       </div>
@@ -137,7 +160,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
                     </ul>
                 </div>
             </div>
-            
+
             <div data-equalizer-watch class="programHeader__content__details">
                 <?php if (isset($node->field_caracteristique[LANGUAGE_NONE][0])): ?>
                   <ul class="characteristicList">
@@ -222,8 +245,7 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
 <!-- [More Available] start-->
 <?php
 $list_bien_more = array();
-if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
-  $piece_id = $node->field_nb_pieces[LANGUAGE_NONE][0]['tid'];
+if ($piece_id) {
   $nb_pieces = taxonomy_term_load($piece_id);
   $list_bien_more = get_biens_follow_piece_program($programme->nid, $piece_id);
 }
@@ -288,13 +310,13 @@ if (!empty($list_bien_more)):
                                 <ul class="list-price">
                                     <li><span class="text"><?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobal($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?><?php print t('€'); ?></span><span class="tva">TVA 5,5%</span></li>
 
-    <?php if (isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0) { ?>
+                                    <?php if (isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0) { ?>
                                       <li><span class="text"><?php numberFormatGlobal($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) ?><?php print t('€'); ?></span><span class="tva tva--high">TVA 20%</span></li>
-                        <?php } ?>
+                                    <?php } ?>
                                 </ul>
                             </td>
                         </tr>
-  <?php endforeach; ?>
+                      <?php endforeach; ?>
 
                   </tbody>
               </table>
