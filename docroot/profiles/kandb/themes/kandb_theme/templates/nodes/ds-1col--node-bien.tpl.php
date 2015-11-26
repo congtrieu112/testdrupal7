@@ -386,7 +386,7 @@ if (!empty($list_bien_more)):
                 $price_min = isset($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
 //                $price_max = isset($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
 //
-//                $de_a_price = '';
+                $de_a_price = '';
 //                if ($price_min && $price_max) {
 //                  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
 //                }
