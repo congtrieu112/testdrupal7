@@ -538,6 +538,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
             'nomrue' => 'field_programme_loc_rue',
             'cp' => 'field_programme_loc_cp',
           ),
+          'text_box_warning' => array(
+            'mentionlegales' => 'field_programme_mtn_legale'
+          ),
           'date_time_programme_warning' => array(
             'datemiseenligne' => 'field_programme_online_date'
           )
@@ -907,6 +910,15 @@ function kb_feeds_menu() {
     'file' => 'kb_feeds.pages.inc',
   );
 
+  $items['admin/reports/feeds_errorlog/import-bien-pdf'] = array(
+    'title' => 'Import bien pdf',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'import_bien_pdf'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
   $items['feeds-errorlog/delete/%'] = array(
     'title' => 'Import',
     'page callback' => 'drupal_get_form',
@@ -1034,16 +1046,28 @@ function import_bien_pdf_batch_operation() {
   $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
   $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
 
-  $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d') . '.txt';
-  $logging = '';
+  $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d_H-i-j') . '.txt';
 
   if (is_dir($base_path)) {
     if ($handle = opendir($base_path)) {
       /* This is the correct way to loop over the directory. */
       while (false !== ($id_program = readdir($handle))) {
+        $updated = 0;
+        $rejected = 0;
+        $filecount = 0;
+        $logging = '';
         if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
-          $program = get_program_by_id($id_program);
+          $file_log_name = 'import_bien_pdf_log_' . $id_program . '_' . date('Y-m-d_H-i-j') . '.txt';
+          if(!variable_get('import_bien_pdf_' . $id_program . '_total', 0) && !variable_get('import_bien_pdf_' . $id_program . '_log_name', 0)) {
+            $files = glob($base_path . $id_program . "/*");
+            if ($files){
+              $filecount = count($files);
+            }
+            variable_set('import_bien_pdf_' . $id_program . '_total', $filecount);
+            variable_set('import_bien_pdf_' . $id_program . '_log_name', $file_log_name);
+          }
 
+          $program = get_program_by_id($id_program);
           if (!empty($program)) {   // Exist node program.
             // Load all pdf file in folder program.
             if ($handle_pdf_files = opendir($base_path . $id_program)) {
@@ -1066,13 +1090,20 @@ function import_bien_pdf_batch_operation() {
                           'node_id' => $item_bien->nid,
                           'path_pdf' => $path_pdf,
                         );
-
+                        $updated += 1;
+                        variable_set('import_bien_pdf_' . $id_program . '_updated', $updated);
                         $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
                       }
                     } else {
                       // Write log file : id_bien $id_bien does not exist.
-                      $logging .= $id_bien . '|id_bien|' . 'bien_id does not exist' . '| Skip imported' . "\n";
+                      $logging .= $id_program . '-%-' . $id_bien . '|id_bien|bien_id does not exist' . '| Skip imported' . "\n";
+                      $rejected += 1;
+                      variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
                     }
+                  } else {
+                    $logging .= $id_program . '||File extension must to pdf' . '| Skip imported' . "\n";
+                    $rejected += 1;
+                    variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
                   }
                 }
               }
@@ -1081,8 +1112,29 @@ function import_bien_pdf_batch_operation() {
             }
           } else {
             // Write log file: id_program: $id_program does not exist.
-            $logging .= $id_program . '|id_program|' . 'id_program does not exist' . '| Skip imported' . "\n";
+            $logging .= $id_program . '|id_program|id_program does not exist' . '| Skip imported' . "\n";
+            variable_set('import_bien_pdf_' . $id_program . '_rejected', $filecount);
           }
+        }
+
+        createFileErrorLogTxt($file_log_name, $logging);
+        $file_log_name = variable_get('import_bien_pdf_' . $id_program . '_log_name', '');
+        $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
+        $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
+        $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
+
+        if($file_log_name && ($total_rows || $updated || $rejected)) {
+          $logging = '/**' . "\n";
+          $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
+          $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
+          $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
+          $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+          $logging .= ' */' . "\n";
+          createFileErrorLogTxt($file_log_name, $logging);
+          variable_del('import_bien_pdf_' . $id_program . '_log_name');
+          variable_del('import_bien_pdf_' . $id_program . '_total');
+          variable_del('import_bien_pdf_' . $id_program . '_updated');
+          variable_del('import_bien_pdf_' . $id_program . '_rejected');
         }
       }
 
@@ -1090,7 +1142,8 @@ function import_bien_pdf_batch_operation() {
     }
   } else {
     // Write log file: $base_path . "folder does not exist".
-    $logging .= $base_path . '||' . 'Folder does not exist' . '| Skip imported' . "\n";
+    $logging .= $base_path . '||' . 'Folder root does not exist' . '| Skip imported' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
   }
 
   // Build the batch instructions.
@@ -1098,8 +1151,6 @@ function import_bien_pdf_batch_operation() {
     'operations' => $operations,
     'finished' => 'import_bien_pdf_batch_operation_finished',
   );
-
-  createFileErrorLogTxt($file_log_name, $logging);
 
   return $batch;
 }
@@ -1287,10 +1338,14 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
         break;
 
       case 'text_box':
+      case 'text_box_warning':
         foreach ($fields as $key => $field_name) {
           if(isset($item[$key]) && !trim($item[$key])) {
             if($type == 'text_box') {
               $error_text_box_field .= $field_name . ',';
+              $value_text_box_field .= $field_name . ': ' . $item[$key] . ', ';
+            } elseif ($type == 'text_box_warning') {
+              $error_text_box_field_warning .= $field_name . ',';
               $value_text_box_field .= $field_name . ': ' . $item[$key] . ', ';
             }
           }
@@ -1401,7 +1456,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   }
 
   if ($error_text_box_field_warning) {
-    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is mantory' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is empty' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_trimestre_options_field_warning) {

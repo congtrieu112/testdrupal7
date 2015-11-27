@@ -157,6 +157,37 @@ function kandb_images_default() {
       );
     }
   }
+  
+  $list_images = array(
+    array(
+      'id'    =>  'slider_exterieur_image',
+      'title' =>  'image par défault : Extérieur',
+    ),
+    
+    array(
+      'id'    =>  'slider_interieur_image',
+      'title' =>  'image par défault : Interieur',
+    ),
+    
+    array(
+      'id'    =>  'slider_securite_image',
+      'title' =>  'image par défault : Services',
+    ),
+    
+    array(
+      'id'    =>  'slider_rt2012_image',
+      'title' =>  'image par défault : RT2012',
+    ),
+  );
+  
+  foreach($list_images as $item){
+    $form['image_default_' . $item["id"]] = array(
+      '#type' => 'managed_file',
+      '#title' => $item["title"],
+      '#default_value' => variable_get('image_default_' . $item["id"]),
+      '#upload_location' => 'public://',
+    );  
+  }
 
   return system_settings_form($form);
 }
