@@ -11,25 +11,6 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
 
 /**
- * Override or insert variables into the html template.
- */
-function kandb_theme_preprocess_html(&$variables) {
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $variables['theme_hook_suggestions'][] = 'html__ajax';
-  }
-}
-
-/**
- * Override or insert variables into the block template.
- */
-function kandb_theme_preprocess_block(&$variables) {
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $variables['theme_hook_suggestions'][] = 'block__ajax';
-  }
-}
-/**
  * Override or insert variables into the page template.
  */
 function kandb_theme_process_page(&$variables) {
@@ -104,7 +85,7 @@ function kandb_theme_menu_local_tasks(&$variables) {
  * Implementation theme_preprocess_form_element_label()
  */
 function kandb_theme_preprocess_form_element_label(&$variables) {
-  if ($variables['element']['#theme'] == 'checkbox') {
+  if (isset($variables['element']['#theme']) && $variables['element']['#theme'] == 'checkbox') {
     $variables['element']['#attributes']['class'][] = 'label-checkbox';
   }
 }
@@ -278,10 +259,6 @@ function kandb_theme_preprocess_region(&$vars) {
       $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
     }
   }
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $vars['theme_hook_suggestions'][] = 'region__ajax';
-  }
 }
 
 function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT) {
@@ -402,6 +379,7 @@ function kandb_theme_form_element_label($variables) {
   $title = filter_xss_admin($element['#title']);
 
   $attributes = array();
+  $attributes['class'] = '';
   // Style the label as class option to display inline with the element.
   if ($element['#title_display'] == 'after') {
     $attributes['class'] = 'option';
@@ -411,7 +389,7 @@ function kandb_theme_form_element_label($variables) {
     $attributes['class'] = 'element-invisible';
   }
 
-  if (!empty($variables['element']['#attributes']['class'])) {
+  if (isset($variables['element']['#attributes']['class']) && !empty($variables['element']['#attributes']['class'])) {
     $attributes['class'] .= ' ' . implode(' ', $variables['element']['#attributes']['class']);
   }
 

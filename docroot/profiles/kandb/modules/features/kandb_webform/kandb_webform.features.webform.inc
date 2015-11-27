@@ -286,7 +286,7 @@ $webforms = array();
   'picture' => 0,
   'data' => 'b:0;',
   'webform_features_author' => 'admin',
-  'webform_features_revision_author' => 'admin',
+  'webform_features_revision_author' => '',
 );
   $webforms['prendre_rendez_vous'] = array(
   'title' => 'Prendre rendez-vous',
@@ -302,7 +302,7 @@ $webforms = array();
   'translate' => 0,
   'uuid' => 'edd43469-b757-4395-8820-9134e007410d',
   'webform' => array(
-    'next_serial' => 17,
+    'next_serial' => 32,
     'confirmation' => '',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
@@ -895,7 +895,7 @@ $webforms = array();
   'picture' => 0,
   'data' => 'b:0;',
   'webform_features_author' => 'admin',
-  'webform_features_revision_author' => 'admin',
+  'webform_features_revision_author' => '',
 );
   $webforms['recevez_nos_offres_privil_ges'] = array(
   'title' => 'Recevez nos offres privilèges',
@@ -991,7 +991,7 @@ $webforms = array();
   'picture' => 0,
   'data' => 'b:0;',
   'webform_features_author' => 'admin',
-  'webform_features_revision_author' => 'admin',
+  'webform_features_revision_author' => '',
 );
 return $webforms;
 }

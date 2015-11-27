@@ -90,7 +90,7 @@ function kandb_webform_submit(&$form, &$form_state) {
     $db_query->condition('fidk.bundle', 'programme');
     $db_query->condition('fidk.field_id_programme_value', $values['submitted']['rdv_idkp']);
     $nid = $db_query->execute()->fetchField();
-    $node = node_load($nid);
+    if($nid) $node = node_load($nid);
   }
   if (isset($values['submitted']['rdv_idkl'])) {
     $db_query = db_select('field_data_field_id_bien', 'fidkl');
@@ -99,7 +99,7 @@ function kandb_webform_submit(&$form, &$form_state) {
     $db_query->condition('fidkl.bundle', 'bien');
     $db_query->condition('fidkl.field_id_bien_value', $values['submitted']['rdv_idkl']);
     $nid = $db_query->execute()->fetchField();
-    $bien = node_load($nid);
+    if($nid) $bien = node_load($nid);
   }
   $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
   if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
