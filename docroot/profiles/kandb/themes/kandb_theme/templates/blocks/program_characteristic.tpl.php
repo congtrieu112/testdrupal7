@@ -72,10 +72,12 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_exterieur_titre'])) { print $programme_variables['slider_exterieur_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_exterieur_description'])) { print $programme_variables['slider_exterieur_description']; } ?></p>
@@ -101,10 +103,12 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_interieur_titre'])) { print $programme_variables['slider_interieur_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_interieur_description'])) { print $programme_variables['slider_interieur_description']; } ?></p>
@@ -130,10 +134,12 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>  
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_securite_titre'])) { print $programme_variables['slider_securite_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_securite_description'])) { print $programme_variables['slider_securite_description']; } ?></p>
@@ -159,10 +165,12 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php }?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_rt2012_titre'])) { print $programme_variables['slider_rt2012_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_rt2012_description'])) { print $programme_variables['slider_rt2012_description']; } ?></p>
