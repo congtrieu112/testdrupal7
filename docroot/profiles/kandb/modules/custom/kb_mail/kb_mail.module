@@ -11,7 +11,8 @@ function kb_mail_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('config_mailing_list'),
     'file' => 'kb_mail.admin.inc',
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
   );
   $items['admin/config/kb-mail/mailing-list'] = array(
     'title' => 'Configure list email for Call center',

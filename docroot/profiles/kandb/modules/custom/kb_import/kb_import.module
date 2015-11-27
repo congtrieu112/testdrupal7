@@ -17,7 +17,9 @@ function kb_import_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('config_ftp_page'),
     'file' => 'kb_import.admin.inc',
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+
   );
   $items['admin/config/kb-import/ftp-files'] = array(
     'title' => 'Configure ftp to get files',
