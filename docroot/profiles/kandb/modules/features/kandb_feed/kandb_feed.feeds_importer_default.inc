@@ -909,41 +909,46 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           24 => array(
+            'source' => 'MentionLegales',
+            'target' => 'field_programme_mtn_legale',
+            'unique' => FALSE,
+          ),
+          25 => array(
             'source' => 'X',
             'target' => 'field_programme_loc_long',
             'unique' => FALSE,
           ),
-          25 => array(
+          26 => array(
             'source' => 'Y',
             'target' => 'field_programme_loc_lat',
             'unique' => FALSE,
           ),
-          26 => array(
+          27 => array(
             'source' => 'VendeurNom',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          27 => array(
+          28 => array(
             'source' => 'BureauDeVenteAdresse',
             'target' => 'field_espace_vente_adresse',
             'unique' => FALSE,
           ),
-          28 => array(
+          29 => array(
             'source' => 'BureauDeVenteHoraireOuverture',
             'target' => 'field_espace_vente_horaire',
             'unique' => FALSE,
           ),
-          29 => array(
+          30 => array(
             'source' => 'BureauDeVenteX',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          30 => array(
+          31 => array(
             'source' => 'BureauDeVenteY',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
-          31 => array(
+          32 => array(
             'source' => 'DateMiseEnLigne',
             'target' => 'field_programme_online_date:start',
             'unique' => FALSE,
