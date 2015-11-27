@@ -601,3 +601,12 @@ function kandb_update_7153() {
     module_enable(array('kandb_view_offre_en_france'), TRUE);
   }
 }
+
+/*
+ * Enable menu_admin_per_menu module
+ */
+function kandb_update_7154() {
+  if (!module_exists('menu_admin_per_menu')) {
+    module_enable(array('menu_admin_per_menu'), TRUE);
+  }
+}
