@@ -37198,18 +37198,32 @@ will produce an inaccurate conversion value. The same issue exists with the cx/c
 /* ============================ */
 
 /*
-ul(data-app-accordion)
-  li#ID1
-    a(href="#ID1", tabindex="0", data-app-accordion-link, role="tab").active
-      | link
-    div(data-app-accordion-content)
-      | content
+In case of LINKS
+  ul(data-app-accordion)
+    li#ID1
+      a(href="#ID1", tabindex="0", data-app-accordion-link, role="tab").active
+        | link
+      div(data-app-accordion-content)
+        | content
 
-  li#ID2
-    a(href="#ID2", tabindex="0", data-app-accordion-link, role="tab")
-      | link
-    div(data-app-accordion-content)
-      | content
+    li#ID2
+      a(href="#ID2", tabindex="0", data-app-accordion-link, role="tab")
+        | link
+      div(data-app-accordion-content)
+        | content
+
+
+In case of hidden content
+  ul(data-app-accordion="seeMore")
+    li.active
+      .active(
+        data-app-accordion-link="#programme1"
+        role="button"
+      ) label
+
+      #programme1
+        div XXX
+        div(data-app-accordion-content)
 */
 
 'use strict';
@@ -37223,7 +37237,7 @@ var trigger       = '[data-app-accordion]',
     content       = '[data-app-accordion-content]',
     link          = '[data-app-accordion-link]',
     activeLink    = '[data-app-accordion-link].active',
-    unactiveLink  = '[data-app-accordion-link]:not(.active)';
+    sample        = '[data-app-accordion-sample]';
 
 
 /* =============== */
@@ -37240,6 +37254,8 @@ var defaults = {};
 function AppAccordion( el, opt ) {
   this.settings = $.extend({}, defaults, opt);
   this.item = $(el);
+  this.mode = this.item.data('app-accordion');
+  this.activeLink = this.item.find(activeLink);
 
   this.preInit();
 }
@@ -37273,35 +37289,59 @@ AppAccordion.prototype = {
   },
 
   hideOnLoad: function() {
-    var that        = this,
-        $activeLink = this.item.find(activeLink),
-        $target     = $( $activeLink.attr('href') ).find(content);
+    var that          = this,
+        $content      = $( this.findContent( this.activeLink ) ).find(content);
 
-    if ( $activeLink.length ) {
-      that.setActive($activeLink);
+    if ( this.activeLink.length ) {
+      that.setActiveLink();
 
+      // content to show
       this.item.find(content)
-        .attr('aria-hidden', 'true')
+        .attr({
+          'aria-hidden': 'true',
+          'tab-index': "-1"
+        })
+        .hide();
+      $content
+        .attr({
+          'aria-hidden': 'false',
+          'tab-index': "0"
+        })
+        .show();
+
+      // content to hide
+      this.item.find(sample)
+        .attr({
+          'aria-hidden': 'false',
+          'tab-index': "0"
+        })
+        .show();
+      $( this.findContent( this.activeLink ) ).closest('.accordion__link')
+        .addClass('opened')
+        .find(sample)
+        .attr({
+          'aria-hidden': 'true',
+          'tab-index': "-1"
+        })
         .hide();
 
-      $target
-        .attr('aria-hidden', 'false')
-        .show();
     }
 
     return this;
   },
 
-  setActive: function( $activeLink ) {
-    this.item.find(unactiveLink)
-      .attr({
+  setActiveLink: function( $activeLink ) {
+    if ( $activeLink ) {
+      this.activeLink = $activeLink;
+    }
+
+    this.item.find(link).attr({
         'aria-selected': 'false',
         'aria-expanded': 'false'
-      });
+      })
+      .removeClass('active');
 
-    this.item.find(link).removeClass('active');
-
-    $activeLink
+    this.activeLink
       .attr({
         'aria-selected': 'true',
         'aria-expanded': 'true'
@@ -37311,6 +37351,11 @@ AppAccordion.prototype = {
     return this;
   },
 
+  findContent: function( $el ) {
+    var target = $el.attr('href') || $el.attr('data-app-accordion-link');
+    return target;
+  },
+
   bindEvents: function() {
     var that = this;
 
@@ -37318,7 +37363,8 @@ AppAccordion.prototype = {
     $(link)
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
-        var $this = $(this);
+        var $this = $(this),
+            windowPosition = $(window).scrollTop();
 
         // allow tabulation for accessibility
         if ( e.keyCode !== 9 ) {
@@ -37326,22 +37372,34 @@ AppAccordion.prototype = {
         }
 
         if ( !$this.hasClass('active') && (e.type === 'click' || e.keyCode === 13) ) {
-          var $content = $( $this.attr('href') ).find(content);
+          var $content = $( that.findContent( $this ) ).find(content);
 
-          that.setActive($this);
+          that.setActiveLink($this);
           that.close();
+          $( that.findContent( $this ) ).closest('.accordion__link').addClass('opened');
 
           $content
-            .attr('aria-hidden', 'false')
+            .attr({
+              'aria-hidden': 'false',
+              'tab-index': "0"
+            })
             .velocity('slideDown', {
               duration: 500,
-              complete: function () {
-                $this.velocity("scroll", {
-                  duration: 200,
-                  offset: -100,
-                  mobileHA: false
-                });
+              progress: function(elements, complete, remaining, start, tweenValue) {
+                var linkPosition = $this.offset().top,
+                    moveTo = linkPosition - 100 - windowPosition,
+                    value = windowPosition + complete * moveTo;
+                $(window).scrollTop( Number(value.toFixed(2)) );
               }
+            });
+
+          $( that.findContent( that.activeLink ) ).find(sample)
+            .attr({
+              'aria-hidden': 'true',
+              'tab-index': "-1"
+            })
+            .velocity('slideUp', {
+              duration: 500
             });
         }
       });
@@ -37350,9 +37408,23 @@ AppAccordion.prototype = {
   },
 
   close: function() {
+    this.item.find('.opened').removeClass('opened');
+
     this.item.find(content).filter('[aria-hidden="false"]')
-      .attr('aria-hidden', 'true')
+      .attr({
+          'aria-hidden': 'true',
+          'tab-index': "-1"
+        })
       .velocity('slideUp', {
+        duration: 500
+      });
+
+    this.item.find(sample).filter(':hidden')
+      .attr({
+          'aria-hidden': 'false',
+          'tab-index': "0"
+        })
+      .velocity('slideDown', {
         duration: 500
       });
 
@@ -37366,7 +37438,7 @@ AppAccordion.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-if ( $(trigger).length ) {
+$(function() {
 
   $.fn.appAccordion = function(opt) {
     var args = Array.prototype.slice.call(arguments, 1);
@@ -37379,7 +37451,7 @@ if ( $(trigger).length ) {
       } else {
         // if instance already created call method
         if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
+          instance[opt].apply(instance, args);
         }
       }
     });
@@ -37387,7 +37459,7 @@ if ( $(trigger).length ) {
 
   $(trigger).appAccordion();
 
-}
+});
 },{}],11:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37692,70 +37764,168 @@ if ( $(trigger).length ) {
 
 }
 },{}],13:[function(require,module,exports){
-/* ============================ */
-/* ajax link : app-ajax-link.js */
-/* ============================ */
+/* ================== */
+/* ajax : app-ajax.js */
+/* ================== */
+
+/*
+
+*/
 
 'use strict';
 
 
-// ajax links
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
 
-var trigger = "[data-app-ajax]";
-var root    = {};
+var trigger       = '[data-app-ajax]',
+    dataUrl       = '[data-app-ajax-url]';
 
 
-root.init = function() {
-  $(document).on('click.ajaxLink', trigger, function(e) {
-    e.preventDefault();
-    e.stopPropagation();
-    root.ajaxCall( this );
-  });
-};
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
 
-root.ajaxCall = function( el ) {
-  var $el     = $(el),
-      module  = $el.data('app-ajax'),
-      $target = $('[data-app-ajax-response="'+ module +'"]');
+var defaults = {};
 
-  $target.addClass('ajax-wait');
 
-  var caller  = new App.AjaxController.Controller({
-        module: "ajaxLink",
-        parent: $target,
-        callback: ["write"]
-      });
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
 
-  if ( App.debug ) {
-    setTimeout(function(){
-      caller.send({
-        url: root.url( el ),
-        data: ""
-      });
-    }, 5000);
-  } else {
-    caller.send({
-      url: root.url( el ),
-      data: ""
+function AppAjax( el, opt ) {
+  this.settings = $.extend({}, defaults, opt);
+  this.item = $(el);
+  this.mode = (typeof this.item.data('app-ajax') !== 'undefined') ? this.item.data('app-ajax') : false;
+
+  this.init();
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppAjax.prototype = {
+
+  init: function() {
+    var that = this;
+
+    switch ( this.mode ) {
+      case 'cookies':
+        this.initCookies();
+        break;
+
+      default:
+        this.initLink();
+        break;
+    }
+
+    return this;
+  },
+
+  initLink: function() {
+    var that = this;
+
+    $(document).on('click.ajaxLink', trigger, function(e) {
+      e.preventDefault();
+      e.stopPropagation();
+      that.ajaxCall( this.item, $('[data-app-ajax-response="'+ that.mode +'"]') );
     });
+
+    return this;
+  },
+
+  initCookies: function() {
+    var that = this;
+
+    that.ajaxCall( this.item, this.item, this.cookiesData() );
+
+    return this;
+  },
+
+  ajaxCall: function( $el, $target, data ) {
+    var that = this,
+        dataAjax = typeof data !== 'undefined' ? data : "";
+
+    $target.addClass('ajax-wait');
+
+    var caller  = new App.AjaxController.Controller({
+          module: that.mode,
+          parent: $target,
+          callback: ["write"]
+        });
+
+    if ( App.debug ) {
+      setTimeout(function(){
+        caller.send({
+          url: that.url(),
+          data: dataAjax
+        });
+      }, 10);
+    } else {
+      caller.send({
+        url: that.url(),
+        data: dataAjax
+      });
+    }
+
+    return this;
+  },
+
+  url: function() {
+    var url = false;
+
+    if ( this.item.is('[href]') ) {
+      url = this.item.attr('href');
+    } else if ( this.item.is(dataUrl) ) {
+      url = this.item.data('app-ajax-url');
+    }
+
+    return url;
+  },
+
+  cookiesData: function() {
+    var cookies = $.fn.Cookies.getJSON()['K&B-save'],
+        data = "";
+
+    _.forIn(cookies, function(value, key) {
+      data += key + "=" + encodeURIComponent(value) + "&";
+    });
+
+    return  data.substring(0, data.length - 1);
   }
+
 };
 
-root.url = function( el ) {
-  var $el = $(el),
-      url = false;
 
-  if ( el.hasAttribute('href') ) {
-    url = $el.attr('href');
-  } else if ( el.closest('[data-app-ajax-url]').length ) {
-    url = el.closest('[data-app-ajax-url]').data('ajax-url');
-  }
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
 
-  return url;
-};
+if ( $(trigger).length ) {
 
+  $.fn.appAjax = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
 
-root.init();
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppAjax');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppAjax', new AppAjax(this, opt));
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appAjax();
+
+}
 },{}],14:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
@@ -37775,33 +37945,21 @@ if ( Foundation.utils.is_small_only() ) {
 document.addEventListener("touchstart", function() {},false);
 
 
-// touch hack to prevent autoscroll on form elements focus (TABLET)
-if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
-  $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
-
-    if ( $this.closest('.form-dropdown__content').length < 1 ) {
-      setTimeout(function(){
-        $this.velocity("scroll", { duration: 200, offset: -100 });
-      }, 500);
-    }
-  }, 300, true));
-}
-
-// touch hack to prevent autoscroll on form elements focus (MOBILE)
-if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
-  $(document).on('click.label', 'input[type=text], input[type=search], input[type=number]', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
-
-    setTimeout(function(){
-      $this.velocity("scroll", { duration: 200, offset: -80 });
-    }, 500);
-  }, 300, true));
-}
+/*
+// can be used to test accessibility (tab key for exemple)
+$(document).on('focus', '*', Foundation.utils.throttle(function(e){
+  console.log(e.target);
+  return;
+}, 300));
+*/
 
 
-// FORMS
 $(document).foundation({
+  "equalizer": {
+    equalize_on_stack: true,
+    act_on_hidden_el: true
+  },
+
   "abide" : {
     live_validate : false,
     validate_on_blur : false,
@@ -37811,20 +37969,7 @@ $(document).foundation({
     patterns: {
       number: /^[-+]?[1-9]\d*$/
     }
-  },
-
-  "equalizer": {
-    equalize_on_stack: true,
-    act_on_hidden_el: true
   }
-});
-
-$('form[data-ajax-form]').on('submit', function(e){
-  e.preventDefault();
-});
-
-$('form[data-ajax-form]').on('valid.fndtn.abide', function() {
-  $(this).trigger('ajaxForm');
 });
 
 
@@ -37878,6 +38023,7 @@ function AppCookies( el, opts ) {
 
   if ( this.value === "url" ) {
     this.value = window.location.origin + window.location.pathname + window.location.search;
+    this.item.attr('data-cookie-add', this.value);
   } else {
     this.value = parseInt(this.value, 10);
   }
@@ -37954,10 +38100,7 @@ AppCookies.prototype = {
     }
 
     $.fn.Cookies( this.settings.cookieName, previousValue );
-
-    if ( !_.isString(this.value) ) {
-      this.activate();
-    }
+    this.activate();
   },
 
   removeValue: function() {
@@ -38202,26 +38345,57 @@ $(function() {
 
 'use strict';
 
-$(document).foundation({
-  "abide" : {
-    live_validate : false,
-    validate_on_blur : false,
-    focus_on_invalid : false,
-    error_labels: true,
-    timeout : 500,
-    patterns: {
-      number: /^[-+]?[1-9]\d*$/
+
+// touch hack to prevent autoscroll on form elements focus (TABLET)
+if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
+  $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
+    var $this = $(this);
+
+    if ( $this.closest('.form-dropdown__content').length < 1 && !$this.hasClass('noScroll') ) {
+      console.log('scroll');
+      setTimeout(function(){
+        $this.velocity("scroll", { duration: 200, offset: -100 });
+      }, 500);
     }
-  }
-});
+  }, 300, true));
+}
 
-$('form[data-ajax-form]').on('submit', function(e){
-  e.preventDefault();
-});
+// touch hack to prevent autoscroll on form elements focus (MOBILE)
+if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
+  $(document).on('click.label', 'input[type=text], input[type=search], input[type=number], input[type=tel]', Foundation.utils.debounce(function(e) {
+    var $this = $(this);
 
-$('form[data-ajax-form]').on('valid.fndtn.abide', function() {
-  $(this).trigger('ajaxForm');
-});
+    if ( !$this.hasClass('noScroll') ) {
+      setTimeout(function(){
+        $this.velocity("scroll", { duration: 200, offset: -80 });
+      }, 500);
+    }
+  }, 300, true));
+}
+
+$('form[data-ajax-form]')
+  .on('submit', function(e){
+    e.preventDefault();
+  })
+  .on('valid.fndtn.abide', function() {
+    $(this).trigger('ajaxForm');
+  });
+
+
+/*
+// touch hack to prevent autoscroll on form elements focus (MOBILE)
+if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
+  $('input[type=text], input[type=search], input[type=number], input[type=tel]').on('focus.label', function(e) {
+    var $this = $(this);
+    console.log('focus');
+    if ( !$this.hasClass('noScroll') ) {
+      setTimeout(function(){
+        $this.velocity("scroll", { duration: 200, offset: -80 });
+      }, 500);
+    }
+  });
+}
+*/
 },{}],18:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
@@ -38248,7 +38422,12 @@ var defaults = {};
 function Gmaps(opts) {
   this.settings = $.extend({}, defaults, opts);
   this.item = $(trigger);
-  return this.init();
+
+  if ( !this.item.length && Foundation.utils.is_medium_up() ) {
+    return;
+  } else {
+    return this.init();
+  }
 }
 
 /* ============== */
@@ -38259,10 +38438,6 @@ Gmaps.prototype = {
 
   init: function() {
     var that = this;
-
-    if ( !this.item.length && Foundation.utils.is_medium_up() ) {
-      return;
-    }
 
     if ( this.item.attr('data-gmaps') === 'addMarkers' ) {
       that.headerHeight = $('[data-topbar]').height();
@@ -38287,6 +38462,17 @@ Gmaps.prototype = {
       $(window).on('scroll.gmaps', function(e){
         that.setPosition();
       });
+    }
+
+    if ( this.item.attr('data-gmaps') === 'simple' ) {
+      console.log('simple');
+      that.newMap = new GMaps({
+        div: '.js-app-gmaps',
+        lat: 0,
+        lng: 0
+      });
+
+      that.initMarkers();
     }
 
     return this;
@@ -38486,14 +38672,31 @@ Link2map.prototype.init = function() {
     e.preventDefault();
 
     var targetURL = $(this).attr('href'),
-        place = $(this).attr('data-map-link');
+        place = $(this).data('map-link');
 
     if ( isPlatform.iOS() ) {
-      targetURL = '//maps.apple.com/?q=';
+      if ( _.isObject(place) ) {
+        place = '?q='+ place.lat +','+ place.lng;
+      } else {
+        place = '?q='+ place;
+      }
+      targetURL = '//maps.apple.com/'+ place;
+
     } else if ( isPlatform.Android() ) {
-      targetURL = '//maps.google.com?q=';
+      if ( _.isObject(place) ) {
+        place = '?q='+ place.lat +','+ place.lng;
+      } else {
+        place = '?q='+ place;
+      }
+      targetURL = '//maps.google.com/'+ place;
+
     } else if ( isPlatform.Windows() ) {
-      targetURL = 'bingmaps:?where=';
+      if ( _.isObject(place) ) {
+        place = ':cp='+ place.lat +'~'+ place.lng;
+      } else {
+        place = ':?where='+ place;
+      }
+      targetURL = 'bingmaps';
     }
 
     window.self.location.href = targetURL + place;
@@ -38526,10 +38729,13 @@ $(function() {
 
 'use strict';
 
-var trigger = '.menu-btn, .site-overlay',
-    $menuBtn= $('.menu-btn');
+var trigger   = '.menu-btn, .site-overlay',
+    $menuBtn  = $('.menu-btn'),
+    $html     = $('html'),
+    $topbarSearchForm = $('.js-topbarSearch'),
+    $topbarSearchTrigger = $('[data-topbar-search]').parent(),
+    topbarSearchOpened = false;
 
-var $html = $('html');
 
 var allowScroll = function() {
   $(document).on('touchmove.scroll', function (e) {
@@ -38539,6 +38745,43 @@ var allowScroll = function() {
   });
 };
 
+var showSearchTrigger = function() {
+  $(window).on('scroll', Foundation.utils.throttle(function(e){
+    var $searchTrigger = $('.title-area__search'),
+        searchTriggerHidden = $searchTrigger.hasClass('notVisible'),
+        position = $('.searchFormular__form').offset().top;
+
+    if ( window.scrollY >= position ) {
+      if ( searchTriggerHidden ) {
+        $searchTrigger
+          .removeClass('notVisible')
+          .attr('tabindex', '0');
+      }
+
+    } else {
+      if ( !searchTriggerHidden ) {
+        $searchTrigger
+          .addClass('notVisible')
+          .attr('tabindex', '-1');
+      }
+    }
+
+  }, 300));
+};
+
+
+// move main menu into off canvas
+if ( Foundation.utils.is_small_only() ) {
+  $('.main-menu').appendTo('.pushy');
+} else {
+  if ( $('.searchFormular__form').length === 0 ) {
+    $topbarSearchTrigger.removeClass('notVisible');
+  } else {
+    showSearchTrigger();
+  }
+}
+
+
 $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
   $html.toggleClass('offCanvas--opened');
   $('.menu-btn').toggleClass('is-active');
@@ -38547,6 +38790,44 @@ $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
     allowScroll();
   } else {
     $(document).off('touchmove.scroll');
+  }
+});
+
+$topbarSearchTrigger.off('click.topbarSearch').on('click.topbarSearch', function(e){
+  e.preventDefault();
+  var $this = $(this);
+
+  $topbarSearchForm.toggleClass('opened');
+
+  if ( !topbarSearchOpened ) {
+    $topbarSearchForm
+      .attr("aria-hidden", "false")
+      .find('button, input').attr("tabindex", "0")
+      .filter('input').trigger('focus');
+    topbarSearchOpened = true;
+
+  } else {
+    $topbarSearchForm
+      .attr("aria-hidden", "true")
+      .find('button, input').attr("tabindex", "-1")
+      .filter('input').trigger('blur');
+    $topbarSearchTrigger.find('button').trigger('focus');
+    topbarSearchOpened = false;
+  }
+});
+
+
+$topbarSearchForm.find('form').on('submit', function(e){
+  var $this = $(this),
+      $input = $this.find('input'),
+      value = $input.val(),
+      pattern = new RegExp( $input.attr('pattern') );
+
+  if ( typeof value !== 'undefined' && value !== "" && value.search(pattern) !== -1 ) {
+    $this.removeClass('error');
+  } else {
+    e.preventDefault();
+    $this.addClass('error');
   }
 });
 },{}],22:[function(require,module,exports){
@@ -38614,7 +38895,6 @@ $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
       .children()
         .wrapAll('<div class="reveal-modal__wrapper"></div>');
   }
-
 
   // init select plugin
   App.appComboSelect();
@@ -39587,7 +39867,7 @@ var foundation          = require('foundation');
 var velocity            = require("velocity-animate");
 var slick               = require("slick-carousel");
 var pushy               = require("./../../bower_components/pushy/js/pushy.js");
-$.fn.Cookies             = require("js-cookie");
+$.fn.Cookies            = require("js-cookie");
 
 
 // Fastclick
@@ -39601,16 +39881,27 @@ global.App = {
   updaters: {}
 };
 
-// merge window.knbVars object present in DOM into App
-if ( window.knbVars ) {
-  _.merge(global.App, window.knbVars);
-}
-
 
 // Add front debug mode
 if ( $('html').attr('data-debug') !== undefined ) {
   App.debug = true;
 }
+
+
+// merge window.knbVars object present in DOM into App
+if ( typeof global.Drupal === 'undefined' ) {
+  global.Drupal = {
+    settings: {
+      knb: {
+        selections: {
+          errorMessage: "Vous ne pouvez pas enregistrer plus de 20 items, voulez-vous gérer vos favoris ?",
+          errorRedirect: "index.html"
+        }
+      }
+    }
+  };
+}
+_.merge(global.App.settings, global.Drupal.settings.knb);
 
 
 // refresh functions after ajax response
@@ -39625,11 +39916,6 @@ App.launchUpdaters = function(obj){
 // init Foundation
 $(document).foundation();
 
-// auto refresh Foundation after ajax response
-App.updaters.foundation = function() {
-  $(document).foundation('reflow');
-};
-
 
 // app scripts
 var Appcommon           = require("./app-common.js");
@@ -39638,7 +39924,7 @@ var reveal              = require("./app-reveal.js");
 var accordion           = require("./app-accordion.js");
 var appOffCanvas        = require("./app-offcanvas.js");
 var appAjaxCtrl         = require("./app-ajax-controller.js");
-var appAlaxLink         = require("./app-ajax-link.js");
+var appAlax             = require("./app-ajax.js");
 var appForms            = require("./app-forms.js");
 var appAlaxForm         = require("./app-ajax-form.js");
 var appSlick            = require("./app-slick.js");
@@ -39654,8 +39940,14 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var appGmaps            = require("./app-gmaps.js");
 }
 
+// auto refresh Foundation after ajax response
+App.updaters.foundation = function() {
+  $(document).foundation('reflow');
+  $('[data-app-accordion]').appAccordion();
+};
+
 // deprecated
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax-link.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-searchFormular.js":23,"./app-select.js":24,"./app-slick.js":25,"./combo-select.js":26,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[27]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-searchFormular.js":23,"./app-select.js":24,"./app-slick.js":25,"./combo-select.js":26,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[27]);
