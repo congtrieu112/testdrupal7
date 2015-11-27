@@ -1,4 +1,5 @@
 <?php
+//var_dump(variable_get('image_default_slider_exterieur_image'));die;
 if (!isset($programme_variables) || empty($programme_variables)) {
   return;
 }
@@ -60,12 +61,23 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           $alt = isset($programme_variables['slider_exterieur_image_alt']) ? $programme_variables['slider_exterieur_image_alt'] : '';
           $small = isset($programme_variables['slider_exterieur_image_small']) ? $programme_variables['slider_exterieur_image_small'] : '';
           $medium = isset($programme_variables['slider_exterieur_image_medium']) ? $programme_variables['slider_exterieur_image_medium'] : '';
+          
+          $default_image = variable_get('image_default_slider_exterieur_image');
+          if(empty($small) && !empty($default_image)){
+            $small = image_style_url("program_characteristic_small", $default_image);
+          }
+          
+          if(empty($medium) && !empty($default_image)){
+            $medium = image_style_url("program_characteristic_medium", $default_image);
+          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_exterieur_titre'])) { print $programme_variables['slider_exterieur_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_exterieur_description'])) { print $programme_variables['slider_exterieur_description']; } ?></p>
@@ -80,12 +92,23 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           $alt = isset($programme_variables['slider_interieur_image_alt']) ? $programme_variables['slider_interieur_image_alt'] : '';
           $small = isset($programme_variables['slider_interieur_image_small']) ? $programme_variables['slider_interieur_image_small'] : '';
           $medium = isset($programme_variables['slider_interieur_image_medium']) ? $programme_variables['slider_interieur_image_medium'] : '';
+          
+          $default_image = variable_get('image_default_slider_interieur_image');
+          if(empty($small) && !empty($default_image)){
+            $small = image_style_url("program_characteristic_small", $default_image);
+          }
+          
+          if(empty($medium) && !empty($default_image)){
+            $medium = image_style_url("program_characteristic_medium", $default_image);
+          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_interieur_titre'])) { print $programme_variables['slider_interieur_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_interieur_description'])) { print $programme_variables['slider_interieur_description']; } ?></p>
@@ -100,12 +123,23 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           $alt = isset($programme_variables['slider_securite_image_alt']) ? $programme_variables['slider_securite_image_alt'] : '';
           $small = isset($programme_variables['slider_securite_image_small']) ? $programme_variables['slider_securite_image_small'] : '';
           $medium = isset($programme_variables['slider_securite_image_medium']) ? $programme_variables['slider_securite_image_medium'] : '';
+          
+          $default_image = variable_get('image_default_slider_securite_image');
+          if(empty($small) && !empty($default_image)){
+            $small = image_style_url("program_characteristic_small", $default_image);
+          }
+          
+          if(empty($medium) && !empty($default_image)){
+            $medium = image_style_url("program_characteristic_medium", $default_image);
+          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>  
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php } ?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_securite_titre'])) { print $programme_variables['slider_securite_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_securite_description'])) { print $programme_variables['slider_securite_description']; } ?></p>
@@ -120,12 +154,23 @@ if((isset($programme_variables['slider_rt2012_image_small'])
           $alt = isset($programme_variables['slider_rt2012_image_alt']) ? $programme_variables['slider_rt2012_image_alt'] : '';
           $small = isset($programme_variables['slider_rt2012_image_small']) ? $programme_variables['slider_rt2012_image_small'] : '';
           $medium = isset($programme_variables['slider_rt2012_image_medium']) ? $programme_variables['slider_rt2012_image_medium'] : '';
+          
+          $default_image = variable_get('image_default_slider_rt2012_image');
+          if(empty($small) && !empty($default_image)){
+            $small = image_style_url("program_characteristic_small", $default_image);
+          }
+          
+          if(empty($medium) && !empty($default_image)){
+            $medium = image_style_url("program_characteristic_medium", $default_image);
+          }
         ?>
         <article data-app-accordion-content="data-app-accordion-content" class="programCharacteristicsItem">
-          <div class="programCharacteristicsItem__img">
-            <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
-            <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
-          </div>
+          <?php if(!empty($small) || !empty($medium)){?>
+            <div class="programCharacteristicsItem__img">
+              <img alt="<?php print $alt ;?>" data-interchange="[<?php print $small ;?>, (small)], [<?php print $medium ;?>, (medium)]">
+              <noscript>&lt;img src="<?php print $medium ;?>" alt="<?php print $alt; ?>"/&gt;</noscript>
+            </div>
+          <?php }?>
           <div class="programCharacteristicsItem__content">
             <h3 class="heading--tiny"><?php if (isset($programme_variables['slider_rt2012_titre'])) { print $programme_variables['slider_rt2012_titre']; } ?></h3>
             <p><?php if (isset($programme_variables['slider_rt2012_description'])) { print $programme_variables['slider_rt2012_description']; } ?></p>
