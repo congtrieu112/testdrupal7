@@ -96,18 +96,20 @@ function kb_import_cronapi($op, $job = NULL) {
 }
 
 function kb_import_feeds_after_import($source) {
-$kb_daily_import_importers = array(
-  'city_feed_import',
-  'district_feed_import',
-  'maison_feed_import',
-  'programme_feed_import',
-  'parcel_feed_import',
-);
+  $kb_daily_import_importers = array(
+    'city_feed_import',
+    'district_feed_import',
+    'maison_feed_import',
+    'programme_feed_import',
+    'parcel_feed_import',
+  );
+  $run_business_rule = TRUE;
   $id = $source->id;
   $status = 0;
   $kb_daily_import_status = get_daily_import_status ();
   if (in_array($id, $kb_daily_import_importers) && isset($kb_daily_import_status['start_daily_import']) && $kb_daily_import_status['start_daily_import'] == 1) {
 //Set status value
+    $run_business_rule = FALSE;
     if (isset($source->exception) || !_check_successful_importer($source)) {
       $status = -1;
     }
@@ -121,6 +123,7 @@ $kb_daily_import_importers = array(
   }
   $kb_migration_status = get_migration_status();
   if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
+    $run_business_rule = FALSE;
     if (isset($source->exception) || !_check_successful_importer($source)) {
       $status = -1;
     }
@@ -131,6 +134,9 @@ $kb_daily_import_importers = array(
     set_migration_status($kb_migration_status);
     kb_migration_logging ('migration : finish ' . $id);
     rules_invoke_event('migration_importer_finish', $id);
+  }
+  if ($run_business_rule) {
+    kandb_business_rules_feeds_after_import_callback($id);
   }
 }
 
