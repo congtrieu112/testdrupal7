@@ -15,7 +15,7 @@ define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
  */
 function kandb_theme_preprocess_html(&$variables) {
   // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $variables['theme_hook_suggestions'][] = 'html__ajax';
   }
 }
@@ -25,10 +25,11 @@ function kandb_theme_preprocess_html(&$variables) {
  */
 function kandb_theme_preprocess_block(&$variables) {
   // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $variables['theme_hook_suggestions'][] = 'block__ajax';
   }
 }
+
 /**
  * Override or insert variables into the page template.
  */
@@ -173,6 +174,7 @@ function kandb_theme_get_path($dir_name = NULL, $theme_name = NULL) {
  */
 function kandb_theme_preprocess_node(&$vars) {
   $arg = arg();
+  global $user;
   switch ($vars['view_mode']) {
     case 'teaser_carrousel_3':
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__teaser_carrousel_3';
@@ -225,15 +227,17 @@ function kandb_theme_preprocess_node(&$vars) {
 
   // Implement redirect bien detail if status is Indisponible;
   if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
-    if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
-      $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
-      if ($bien_status->name && $bien_status->name == 'Indisponible') {
-        $programme_id = $vars['field_programme'][0]['target_id'];
-        $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
-        if ($programme_status == 1) {
-          drupal_goto('node/' . $programme_id);
-        } else {
-          drupal_goto('/recherche');
+    if (empty($user->uid)) {
+      if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
+        $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
+        if ($bien_status->name && $bien_status->name == 'Indisponible') {
+          $programme_id = $vars['field_programme'][0]['target_id'];
+          $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
+          if ($programme_status == 1) {
+            drupal_goto('node/' . $programme_id);
+          } else {
+            drupal_goto(URL_SEARCH_B2C);
+          }
         }
       }
     }
@@ -279,7 +283,7 @@ function kandb_theme_preprocess_region(&$vars) {
     }
   }
   // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
     $vars['theme_hook_suggestions'][] = 'region__ajax';
   }
 }
