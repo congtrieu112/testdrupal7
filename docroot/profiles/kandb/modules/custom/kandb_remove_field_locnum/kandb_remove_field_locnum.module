@@ -1,0 +1,83 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_remove_field_locnum_menu() {
+    
+    $items['remove_field_locnum'] = array(
+      'page callback' => 'func_remove_field_locnum',
+      //'page arguments' => array(1),
+          'access callback' => TRUE,
+      //'access arguments' => array('access content'),  // rights for users
+      'type' => MENU_CALLBACK,
+      'weight' => -7
+    );
+
+    return $items;
+}
+
+/**
+ * To redirect path nos-conseils to first item of node dossier
+ */
+function func_remove_field_locnum(){
+  $field = array(
+    'field_name'  =>  'field_programme_loc_num',
+    'title'       =>  'Numéro de voie',
+    'type'        =>  'text',
+    'widget'      =>  'textfield',
+    'max_length'  =>  255,
+    'weight'      =>  0,
+  );
+  create_field_program_loc_num($field);
+  die("Recreate field field_programme_loc_type successful");
+}
+
+/**
+ * Update hook to add a field to a node.
+ */
+function create_field_program_loc_num($data = array(), $content_type = 'programme') {
+  if(empty($data)){
+    return;
+  }
+  
+  $field_name = $data['field_name'];
+  // delete field if exist
+  if ($instance = field_info_instance('node', $field_name, $content_type))  {
+    field_delete_instance($instance, TRUE);
+    field_purge_batch(1);
+  }
+  
+  // Make sure the field doesn't already exist.
+  if (!field_info_field($field_name)) {
+    // Create the field.
+    $field = array(
+      'field_name' => $field_name,
+      'type' => $data['type'],
+      'settings' => array(),
+    );
+    
+    if(isset($data['max_length'])){
+      $field['settings']['max_length'] = $data['max_length'];
+    }
+    
+    field_create_field($field);
+    // Create the instance.
+    $instance = array(
+      'field_name' => $field_name,
+      'entity_type' => 'node',
+      'bundle' => $content_type,
+      'label' => $data['title'],
+      'description' => '',
+      'required' => FALSE,
+      'widget' => array(
+        'type' => $data['widget'],
+      ), 
+    );
+    
+    if(isset($data['weight'])){
+      $instance['widget']['weight'] = $data['weight'];
+    }
+    field_create_instance($instance);
+  }
+}
