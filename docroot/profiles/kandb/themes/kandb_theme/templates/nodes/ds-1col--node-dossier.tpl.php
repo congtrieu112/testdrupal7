@@ -205,7 +205,7 @@ endif;
       ?>, (small)], [<?php
             print file_create_url($image_content) . ', (medium)]';
           }
-          ?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
+          ?>" class="ourAdvices__video heading heading--white"><?php if($url_video_content) :?><span class="icon icon-play"></span><?php endif; ?></a>
     <!-- [popin] start-->
     <?php if ($url_video_content): ?>
       <div id="videoConseilMain" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
