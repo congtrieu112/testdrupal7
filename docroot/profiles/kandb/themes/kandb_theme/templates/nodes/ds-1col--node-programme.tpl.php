@@ -90,30 +90,30 @@ if ($pieces_min && $pieces_max) {
   $de_a_pieces = $pieces_min . ' ' . t('pièces');
 }
 
-$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
-$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+$price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price_tva = '';
 if ($price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
 } elseif (!$price_tva_min && $price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_max, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
 } elseif ($price_tva_min && !$price_tva_max) {
-  $de_a_price_tva = 'De' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_tva_min, 0, ",", " ") . '€';
+  $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
 }
 
 $tva = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 
-$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
-$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+$price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+$price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
 
 $de_a_price = '';
 if ($price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
 } elseif (!$price_min && $price_max) {
-  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
 } elseif ($price_min && !$price_max) {
-  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€';
+  $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
 }
 
 $en_quelques_mots = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
@@ -281,9 +281,6 @@ foreach ($arr_slider as $field_name) {
                 <ul class="sharing__items">
                     <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                     <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage sur Whatsapp" class="icon icon-phone-call"></a></li>
                 </ul>
             </div>
         </div>
@@ -462,14 +459,14 @@ if (!empty($file_plaquette_commerciale)) {
   $list_document[] = array(
     'document' => $file_plaquette_commerciale,
     'title' => t('Plaquette commerciale'),
-    'icon'  => 'icon-flyer'
+    'icon' => 'icon-flyer'
   );
 }
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
     'title' => t('Fiche Renseignement'),
-    'icon'  => 'icon-file'
+    'icon' => 'icon-file'
   );
 }
 
@@ -477,14 +474,14 @@ if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
     'title' => t('Plan du bâtiment'),
-    'icon'  => 'icon-planing '
+    'icon' => 'icon-planing '
   );
 }
 if (!empty($file_kit_fiscal)) {
   $list_document[] = array(
     'document' => $file_kit_fiscal,
     'title' => t('Kit fiscal'),
-    'icon'  => 'icon-calculator'
+    'icon' => 'icon-calculator'
   );
 }
 
@@ -535,115 +532,25 @@ if (!empty($list_document)):
   </section>
 <?php endif; ?>
 <!-- [programDocumentDownload] end-->
+<?php
+$region_id = isset($node->field_programme_loc_region[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_region[LANGUAGE_NONE][0]['tid'] : '';
+$programme_carousel = '';
+if ($region_id) {
+  $programme_carousel = views_embed_view('nos_dernieres_offres', 'block_1', array($region_id));
+}
 
-<!-- [offers] start-->
-<section class="section-padding bg-lightGrey">
-    <div class="wrapper">
-        <h2 class="heading--tiny">Les programmes les plus proches</h2>
-        <!-- [carousel] start-->
-        <div data-slick="{&quot;slidesToShow&quot;: 3, &quot;slidesToScroll&quot;: 3}" class="slick-slider__item-3">
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/>
-                        <ul class="squaredImageItem__img__tags">
-                            <li>
-                                <div class="tag tag--important">Plus que deux T3 disponibles</div>
-                            </li>
-                            <li>
-                                <div class="tag">TVA 7%<sup>(2)</sup></div>
-                            </li>
-                            <li>
-                                <div class="tag">Livraison immédiate<sup>(1)</sup></div>
-                            </li>
-                        </ul></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-            <div class="slick-slider__item">
-                <!-- [squaredImageItem] start-->
-                <article class="squaredImageItem squaredImageItem--stacked false"><a href="#" title="Go to programme page" class="squaredImageItem__img"><img src="<?php print $path_img ?>results-1.jpg" alt="description de la photo"/></a>
-                    <div class="squaredImageItem__infos">
-                        <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-                                <p class="heading__title">Appartement</p>
-                                <p class="heading__title heading__title--sub">2 pièces - 43,2&nbsp;m2</p></a>
-                        </div>
-                    </div>
-                </article>
-                <!-- [squaredImageItem] end-->
-            </div>
-        </div>
-        <!-- [carousel] end-->
-
-        <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
-        </div>
-    </div>
-</section>
-<!-- [offers] end-->
+if ($region_id && $programme_carousel):
+  ?>
+  <!-- [offers] start-->
+  <section class="section-padding bg-lightGrey">
+      <div class="wrapper">
+          <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
+          <?php print $programme_carousel; ?>
+          <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
+          </div>
+      </div>
+  </section>
+  <!-- [offers] end-->
+<?php endif; ?>
 <!-- [contactUs complete] start-->
 <!-- [contactUs complete] end-->

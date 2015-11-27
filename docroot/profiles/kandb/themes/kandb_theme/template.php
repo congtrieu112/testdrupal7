@@ -3,10 +3,32 @@
 define('WATCHEEZY', 'http://api.watcheezy.com/deliver/watcheezy.js?key=efe59c556a4504811f4170e760bf17af&install=footer&lang=FR');
 define('ARTICLE_LIMIT_CONTENT', 250);
 
-if(!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')){
-  define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');  
+if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
+  define('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE', 'Disponible / Libre');
 }
 
+// Constant to see if the page is loaded in AJAX
+define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
+
+/**
+ * Override or insert variables into the html template.
+ */
+function kandb_theme_preprocess_html(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'html__ajax';
+  }
+}
+
+/**
+ * Override or insert variables into the block template.
+ */
+function kandb_theme_preprocess_block(&$variables) {
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $variables['theme_hook_suggestions'][] = 'block__ajax';
+  }
+}
 /**
  * Override or insert variables into the page template.
  */
@@ -41,7 +63,7 @@ function kandb_theme_process_page(&$variables) {
   drupal_add_js(WATCHEEZY, 'external');
 
   // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {
+  if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'page__ajax';
   }
 }
@@ -56,11 +78,11 @@ function kandb_theme_menu_local_tasks(&$variables) {
 
   // Style the tabs
   // programCharacteristics__nav clearfix
-  if($variables['primary']){
+  if ($variables['primary']) {
 
     if ($primary = menu_primary_local_tasks()) {
       $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
-      foreach($primary as $tab){
+      foreach ($primary as $tab) {
         $tab['#link']['localized_options']['attributes']['class'][] = 'test';
         $tab['#link']['localized_options']['attributes']['style'][] = 'margin:0px;';
         $output .= render($tab);
@@ -69,13 +91,22 @@ function kandb_theme_menu_local_tasks(&$variables) {
     }
     if ($secondary = menu_secondary_local_tasks()) {
       $output .= '<ul class="tabs secondary">';
-      foreach($secondary as $tab) {
+      foreach ($secondary as $tab) {
         $output .= render($tab);
       }
       $output .= "</ul>";
     }
   }
   return $output;
+}
+
+/**
+ * Implementation theme_preprocess_form_element_label()
+ */
+function kandb_theme_preprocess_form_element_label(&$variables) {
+  if ($variables['element']['#theme'] == 'checkbox') {
+    $variables['element']['#attributes']['class'][] = 'label-checkbox';
+  }
 }
 
 /**
@@ -141,6 +172,7 @@ function kandb_theme_get_path($dir_name = NULL, $theme_name = NULL) {
  * Implemnts hook_preprocess_node().
  */
 function kandb_theme_preprocess_node(&$vars) {
+  $arg = arg();
   switch ($vars['view_mode']) {
     case 'teaser_carrousel_3':
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__teaser_carrousel_3';
@@ -166,8 +198,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $programme = NULL;
     if ($vars['type'] == 'programme') {
       $programme = $vars['node'];
-    }
-    elseif (isset($vars['field_programme'][0]['entity'])) {
+    } elseif (isset($vars['field_programme'][0]['entity'])) {
       $programme = $vars['field_programme'][0]['entity'];
     }
     $price_tva_min = $price_tva_max = 0;
@@ -191,14 +222,30 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
+
+  // Implement redirect bien detail if status is Indisponible;
+  if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
+    if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
+      $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
+      if ($bien_status->name && $bien_status->name == 'Indisponible') {
+        $programme_id = $vars['field_programme'][0]['target_id'];
+        $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
+        if ($programme_status == 1) {
+          drupal_goto('node/' . $programme_id);
+        } else {
+          drupal_goto('/recherche');
+        }
+      }
+    }
+  }
 }
 
 /**
  * Implemnts hook_preprocess_region().
  */
-function kandb_theme_preprocess_region(&$vars){
+function kandb_theme_preprocess_region(&$vars) {
   // Header
-  if ($vars['region'] == 'header'){
+  if ($vars['region'] == 'header') {
     // Main menu
     $vars['main_menu'] = false;
     $menu_main_links_source = variable_get('menu_main_links_source', false);
@@ -208,7 +255,7 @@ function kandb_theme_preprocess_region(&$vars){
   }
 
   // Footer
-  if ($vars['region'] == 'footer'){
+  if ($vars['region'] == 'footer') {
 
     // Get variables
     $vars['icon_setting'] = variable_get('kandb_settings_social_display', FALSE);
@@ -231,21 +278,25 @@ function kandb_theme_preprocess_region(&$vars){
       $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
     }
   }
+  // Change template on AJAX request
+  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
+    $vars['theme_hook_suggestions'][] = 'region__ajax';
+  }
 }
 
-function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
+function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT) {
   if ($limit <= 0 || !is_numeric($limit) || strlen($content) < $limit) {
-      return $content;
+    return $content;
   }
-  
+
   $i = $limit - 1;
-  while(1){
-    if($i + 15 > $limit){
+  while (1) {
+    if ($i + 15 > $limit) {
       break;
     }
-    if($content[$i + 1] != ' '){
+    if ($content[$i + 1] != ' ') {
       $i++;
-    }else{
+    } else {
       break;
     }
   }
@@ -255,60 +306,164 @@ function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT){
     $end = '...';
   }
   if (function_exists('mb_substr')) {
-      $content = mb_substr($content, 0, $i, "UTF-8");
+    $content = mb_substr($content, 0, $i, "UTF-8");
   } else {
-      $content = substr($content, 0, $i);
+    $content = substr($content, 0, $i);
   }
   return $content . $end;
 }
 
 /**
-   * @todo to get taxonomy status du logement by name
-   * @param type $term_name
-   * @return type
-   */
-function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {    
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'taxonomy_term');
-    //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
+ * @todo to get taxonomy status du logement by name
+ * @param type $term_name
+ * @return type
+ */
+function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term');
+  //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
 
-    if (!$search_by_name) {
-      $query->fieldCondition('field_id_file', 'value', $term_name, '=');
-    }
-    else {
-      $query->propertyCondition('name', $term_name);
-    }
-
-    $query->range(0, 1);
-    $results = $query->execute();
-    if (!empty($results)) {
-      return array_shift($results["taxonomy_term"])->tid;
-    }
-
-    return $results;
+  if (!$search_by_name) {
+    $query->fieldCondition('field_id_file', 'value', $term_name, '=');
+  } else {
+    $query->propertyCondition('name', $term_name);
   }
+
+  $query->range(0, 1);
+  $results = $query->execute();
+  if (!empty($results)) {
+    return array_shift($results["taxonomy_term"])->tid;
+  }
+
+  return $results;
+}
 
 /**
  * @todo to get list bien follow piece && programme
  * @param type $id_programme
  * @param type $id_piece
  */
-function get_biens_follow_piece_program($id_programme, $id_piece = 0){
+function get_biens_follow_piece_program($id_programme, $id_piece = 0) {
   $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-      ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-      ->fieldCondition('field_programme', 'target_id', $id_programme, '=')        
+    ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+    ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+    ->fieldCondition('field_programme', 'target_id', $id_programme, '=')
   ;
 
-  if(!empty($id_piece)){      
+  if (!empty($id_piece)) {
     $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
   }
   $results = $query->execute();
   if (!empty($results)) {
     return $results["node"];
   }
-  
+
   return array();
+}
+
+/**
+ * Returns HTML for a form element label and required marker.
+ *
+ * Form element labels include the #title and a #required marker. The label is
+ * associated with the element itself by the element #id. Labels may appear
+ * before or after elements, depending on theme_form_element() and
+ * #title_display.
+ *
+ * This function will not be called for elements with no labels, depending on
+ * #title_display. For elements that have an empty #title and are not required,
+ * this function will output no label (''). For required elements that have an
+ * empty #title, this will output the required marker alone within the label.
+ * The label will use the #id to associate the marker with the field that is
+ * required. That is especially important for screenreader users to know
+ * which field is required.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #required, #title, #id, #value, #description.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_form_element_label($variables) {
+  $element = $variables['element'];
+  // This is also used in the installer, pre-database setup.
+  $t = get_t();
+
+  // If title and required marker are both empty, output no label.
+  if ((!isset($element['#title']) || $element['#title'] === '') && empty($element['#required'])) {
+    return '';
+  }
+
+  // If the element is required, a required marker is appended to the label.
+  $required = !empty($element['#required']) ? theme('form_required_marker', array('element' => $element)) : '';
+
+  $title = filter_xss_admin($element['#title']);
+
+  $attributes = array();
+  // Style the label as class option to display inline with the element.
+  if ($element['#title_display'] == 'after') {
+    $attributes['class'] = 'option';
+  }
+  // Show label only to screen readers to avoid disruption in visual flows.
+  elseif ($element['#title_display'] == 'invisible') {
+    $attributes['class'] = 'element-invisible';
+  }
+
+  if (!empty($variables['element']['#attributes']['class'])) {
+    $attributes['class'] .= ' ' . implode(' ', $variables['element']['#attributes']['class']);
+  }
+
+  if (!empty($element['#id'])) {
+    $attributes['for'] = $element['#id'];
+  }
+
+  // The leading whitespace helps visually separate fields from inline labels.
+  return ' <label' . drupal_attributes($attributes) . '><span>' . $t('!title !required', array('!title' => $title, '!required' => $required)) . "</span></label>\n";
+}
+
+/**
+ * Returns HTML for a checkbox form element.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #id, #name, #attributes, #checked, #return_value.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_checkbox($variables) {
+  $variables['element']['#attributes']['class'][] = 'input-checkbox';
+  return theme_checkbox($variables);
+}
+
+/**
+ * Returns HTML for a select form element.
+ *
+ * It is possible to group options together; to do this, change the format of
+ * $options to an associative array in which the keys are group labels, and the
+ * values are associative arrays in the normal $options format.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #title, #value, #options, #description, #extra,
+ *     #multiple, #required, #name, #attributes, #size.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_select($variables) {
+  $variables['element']['#attributes']['data-app-select'] = '';
+  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
+    $variables['element']['#options'][''] = '-';
+  }
+  return theme_select($variables);
+}
+
+/**
+ * Implementation of hook_css_alter()
+ */
+function kandb_theme_css_alter(&$css) {
+  unset($css['modules/system/system.messages.css']);
 }

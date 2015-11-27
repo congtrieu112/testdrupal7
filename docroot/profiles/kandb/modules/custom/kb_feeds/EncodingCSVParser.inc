@@ -96,6 +96,19 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
+      if($this->id == 'kb_patrimoine_import') {
+        $lines = explode('|', $line);
+        if(count($lines) < 16) {
+          $concat_string .= $line;
+          if(count(explode('|', $concat_string)) == 16) {
+            $line = $concat_string;
+            $concat_string = '';
+          } else {
+            continue;
+          }
+        }
+      }
+
       $fields = str_getcsv($line, $this->delimiter, '','\\');
 
 //      $quoted = FALSE;
@@ -214,7 +227,6 @@ class EncodingCSVParser extends ParserCSV {
 
     if($linesParsed > 0) {
       variable_set($this->id . '_total', $linesParsed);
-
     }
 //    if ($logging != '') {
 //

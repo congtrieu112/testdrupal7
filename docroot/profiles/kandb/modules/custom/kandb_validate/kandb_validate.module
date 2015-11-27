@@ -49,7 +49,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
 /**
  * Implement get ville that has reference with node and grande_ouve unchecked.
  */
-function kandb_validate_get_ville_has_reference($view_name) {
+function kandb_validate_get_ville_has_reference($view_name, $result) {
   $type_options_existed = array();
   if ($view_name == 'avant_premiere_check') {
     $type_options_query = db_select('field_data_field_avant_premiere_ville', 'a');
@@ -80,5 +80,58 @@ function kandb_validate_get_ville_has_reference($view_name) {
     $type_options_existed += $type_options_query->execute()->fetchAllKeyed();
   }
 
+  if ($view_name == 'livraison_immediate' || $view_name == 'notre_offre_en_france') {
+    if ($result) {
+      foreach ($result as $item) {
+        $name = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name : '';
+        $tid = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->tid) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->tid : '';
+        if ($name && $tid) {
+          $type_options_existed[$tid] = $name;
+        }
+        $type_options_existed = array_unique($type_options_existed);
+      }
+    }
+  }
+
   return $type_options_existed;
+}
+
+/**
+ * Implements hook_views_query_alter().
+ */
+function kandb_validate_views_query_alter(&$view, &$query) {
+  if ($view->name == 'livraison_immediate' && $view->current_display == 'block') {
+    // Left join with Annee.
+    $quarter = date_quarter();
+    $year = date('Y');
+    $next_quarter = ($quarter == 4) ? 1 : $quarter + 1;
+    $next_year = ($quarter == 4) ? $year + 1 : $year;
+    // For the begin quarter.
+    // Alter field_annee_value.
+    $view->query->where[1]['conditions'][0]['value'] = $year;
+    // Alter field_trimestre_value.
+    $view->query->where[1]['conditions'][1]['value'] = $quarter;
+
+    // For the after quarter.
+    // Alter field_annee_value.
+    $view->query->where[2]['conditions'][0]['value'] = $next_year;
+    // Alter field_trimestre_value.
+    $view->query->where[2]['conditions'][1]['value'] = $next_quarter;
+  }
+}
+
+/**
+ * Return the calculate the quarter.
+ */
+function date_quarter() {
+  $month = date('n');
+
+  if ($month <= 3)
+    return 1;
+  if ($month <= 6)
+    return 2;
+  if ($month <= 9)
+    return 3;
+
+  return 4;
 }

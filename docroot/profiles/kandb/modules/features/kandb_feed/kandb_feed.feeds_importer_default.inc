@@ -773,18 +773,18 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
+          'kb_patrimoine_import' => 'kb_patrimoine_import',
           'migration_program_video_import' => 'migration_program_video_import',
           'programme_feed_import' => 'programme_feed_import',
+          'parcel_feed_import' => 0,
+          'node' => 0,
+          'user' => 0,
           'city_feed_import' => 0,
           'district_feed_import' => 0,
           'document_import' => 0,
           'document_import_communique_de_presse' => 0,
-          'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
           'migration_bien_import' => 0,
-          'node' => 0,
-          'user' => 0,
-          'parcel_feed_import' => 0,
         ),
         'mappings' => array(
           0 => array(
@@ -909,41 +909,46 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           24 => array(
+            'source' => 'MentionLegales',
+            'target' => 'field_programme_mtn_legale',
+            'unique' => FALSE,
+          ),
+          25 => array(
             'source' => 'X',
             'target' => 'field_programme_loc_long',
             'unique' => FALSE,
           ),
-          25 => array(
+          26 => array(
             'source' => 'Y',
             'target' => 'field_programme_loc_lat',
             'unique' => FALSE,
           ),
-          26 => array(
+          27 => array(
             'source' => 'VendeurNom',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          27 => array(
+          28 => array(
             'source' => 'BureauDeVenteAdresse',
             'target' => 'field_espace_vente_adresse',
             'unique' => FALSE,
           ),
-          28 => array(
+          29 => array(
             'source' => 'BureauDeVenteHoraireOuverture',
             'target' => 'field_espace_vente_horaire',
             'unique' => FALSE,
           ),
-          29 => array(
+          30 => array(
             'source' => 'BureauDeVenteX',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          30 => array(
+          31 => array(
             'source' => 'BureauDeVenteY',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
-          31 => array(
+          32 => array(
             'source' => 'DateMiseEnLigne',
             'target' => 'field_programme_online_date:start',
             'unique' => FALSE,
@@ -1074,11 +1079,25 @@ function kandb_feed_feeds_importer_default() {
       ),
     ),
     'processor' => array(
-      'plugin_key' => 'KbFeedsNodeProcessor',
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
       'config' => array(
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
+        'related_importer' => array(
+          'migration_bien_import' => 'migration_bien_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'programme_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => '0',
@@ -1189,8 +1208,7 @@ function kandb_feed_feeds_importer_default() {
           20 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
-            'term_search' => '3',
-            'autocreate' => 0,
+            'unique' => FALSE,
           ),
           21 => array(
             'source' => '28',
@@ -1204,7 +1222,7 @@ function kandb_feed_feeds_importer_default() {
           ),
         ),
         'update_existing' => '2',
-        'update_non_existent' => 'update',
+        'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
         'skip_hash_check' => 1,
         'bundle' => 'bien',
@@ -1254,18 +1272,18 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
+          'kb_patrimoine_import' => 'kb_patrimoine_import',
           'migration_program_import' => 'migration_program_import',
           'migration_program_video_import' => 'migration_program_video_import',
+          'parcel_feed_import' => 0,
+          'node' => 0,
+          'user' => 0,
           'city_feed_import' => 0,
           'district_feed_import' => 0,
           'document_import' => 0,
           'document_import_communique_de_presse' => 0,
-          'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
           'migration_bien_import' => 0,
-          'parcel_feed_import' => 0,
-          'node' => 0,
-          'user' => 0,
         ),
         'mappings' => array(
           0 => array(
