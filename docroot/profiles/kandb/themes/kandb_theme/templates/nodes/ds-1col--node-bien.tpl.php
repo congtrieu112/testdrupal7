@@ -151,7 +151,24 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     </li>
                 </ul>
 
-                <p class="toolbox__intro toolbox__intro--border"><?php print t('Parking extérieur à partir de 10&nbsp;000€'); ?></p>
+                <?php
+                if (isset($node->field_caracteristique_parking[LANGUAGE_NONE][0])) {
+                  $fee_parking = $node->field_caracteristique_parking[LANGUAGE_NONE][0]["value"];
+                  $msg_parking = '';
+                  if ($fee_parking > 0) {
+                    $msg_parking = t('Parking extérieur à partir de ') . numberFormatGlobal($fee_parking, 0, ",", " ") . ' ' .t('€');
+                  }
+                  elseif ($fee_parking == 0) {
+                    $msg_parking = t('Parking Compris');
+                  }
+
+                  if (!empty($msg_parking)) {
+                    ?>
+                    <p class="toolbox__intro toolbox__intro--border"><?php print $msg_parking; ?></p>
+                    <?php
+                  }
+                }
+                ?>
 
                 <div class="sharing hide-for-small-only">
                     <ul class="sharing__items">
