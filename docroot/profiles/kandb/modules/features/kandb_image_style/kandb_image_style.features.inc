@@ -10,6 +10,51 @@
 function kandb_image_style_image_default_styles() {
   $styles = array();
 
+  // Exported image style: bien_more_info_programe_large_780_x_298.
+  $styles['bien_more_info_programe_large_780_x_298'] = array(
+    'label' => 'Bien more info programe large (780 x 298)',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 780,
+          'height' => 298,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: bien_more_info_programe_medium_632_x_241.
+  $styles['bien_more_info_programe_medium_632_x_241'] = array(
+    'label' => 'Bien more info programe medium (632 x 241)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 632,
+          'height' => 241,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: bien_more_info_programe_small_560_x_214.
+  $styles['bien_more_info_programe_small_560_x_214'] = array(
+    'label' => 'Bien more info programe small (560 x 214)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 560,
+          'height' => 214,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: dossier_big_teaser.
   $styles['dossier_big_teaser'] = array(
     'label' => 'Dossier Big Teaser (1180x380)',

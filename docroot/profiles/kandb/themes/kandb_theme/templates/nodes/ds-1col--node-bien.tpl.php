@@ -344,12 +344,12 @@ if (!empty($list_bien_more)):
                 <?php
                 $id_programme = $nodeprogramme = "";
                 if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
-                  $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
-                  $param = array(
-                    'type' => 'programme',
-                    'status' => 1,
-                  );
-                  $nodeprogramme = node_load($param, $id_programme);
+                    $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
+                    $param = array(
+                      'type' => 'programme',
+                      'status' => 1,
+                    );
+                    $nodeprogramme = node_load($param, $id_programme);
                 }
 
                 global $base_url;
@@ -362,9 +362,9 @@ if (!empty($list_bien_more)):
                 $image_principale_large = '';
                 $image_principale_medium = '';
                 if ($image_principale) {
-                  $image_principale_small = image_style_url('program_image_principale_small', $image_principale);
-                  $image_principale_medium = image_style_url('program_image_principale_medium', $image_principale);
-                  $image_principale_large = image_style_url('program_image_principale_large', $image_principale);
+                    $image_principale_small = image_style_url('bien_more_info_programe_small_560_x_214', $image_principale);
+                    $image_principale_medium = image_style_url('bien_more_info_programe_medium_632_x_241', $image_principale);
+                    $image_principale_large = image_style_url('bien_more_info_programe_large_780_x_298', $image_principale);
                 }
 
 
@@ -373,32 +373,24 @@ if (!empty($list_bien_more)):
 
                 $de_a_pieces = '';
                 if ($pieces_min && $pieces_max) {
-                  $de_a_pieces = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+                    $de_a_pieces = $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
                 }
                 elseif (!$pieces_min && $pieces_max) {
-                  $de_a_pieces = $pieces_max . ' ' . t('pièces');
+                    $de_a_pieces = $pieces_max . ' ' . t('pièces');
                 }
                 elseif ($pieces_min && !$pieces_max) {
-                  $de_a_pieces = $pieces_min . ' ' . t('pièces');
+                    $de_a_pieces = $pieces_min . ' ' . t('pièces');
                 }
 
 
                 $price_min = isset($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
-//                $price_max = isset($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobal($nodeprogramme->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
-//
-                $de_a_price = '';
-//                if ($price_min && $price_max) {
-//                  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
-//                }
-//                elseif (!$price_min && $price_max) {
-//                  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_max, 0, ",", " ") . '€';
-//                }
-//                elseif ($price_min && !$price_max) {
-//                  $de_a_price = 'De' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€' . ' ' . 'à' . ' ' . numberFormatGlobal($price_min, 0, ",", " ") . '€';
-//                }
+
+
+                $de_a_price = "";
                 if ($price_min) {
-                  $de_a_price = t('à partir de @price_min€', array('@price_min' => $price_min));
+                    $de_a_price = t('à partir de ') . ' ' . numberFormatGlobal($price_min) . t('€');
                 }
+                
                 ?>
                 <!-- images need to have 2 formats see data-exchange attribute:
                 - small: 560 x 214 (heavy compression)
@@ -418,7 +410,7 @@ if (!empty($list_bien_more)):
                         <p class="heading__title heading__title--sub"><?php print $de_a_pieces; ?> <br><?php print $de_a_price; ?></p>
                     </div>
                     <p class="moreInfoProgram__description"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
-                    <div class="btn-wrapper"><a href="<?php print $url_principale; ?>" title="<?php print $title_principale; ?>" class="btn-primary btn-rounded btn-download"><?php print $title_principale; ?><span class="icon icon-arrow"></span></a></div>
+                    <div class="btn-wrapper"><a href="<?php print $url_principale; ?>" title="<?php print $title_principale; ?>" class="btn-primary btn-rounded btn-download"><?php print t('Découvrir'); ?><span class="icon icon-arrow"></span></a></div>
 
                 </div>
             </div>
