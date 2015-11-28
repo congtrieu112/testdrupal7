@@ -34,6 +34,9 @@ class KbDocCommuniqueCSVParser extends FeedsCSVParser {
 
       variable_del($importer_id . '_total');
       variable_del($importer_id . '_rejected');
+      variable_del($importer_id . '_created');
+      variable_del($importer_id . '_updated');
+      variable_del($importer_id . '_counted');
     }
 
     // Determine section to parse, parse.
