@@ -165,9 +165,9 @@ function get_tid_by_id_field($status){
     $query = db_select('field_data_field_id_xls', 't');
     $query->fields('t', array('entity_id'));
     $query->condition('field_id_xls_value', $status, '=');
-    $result = $query->execute()->fetchAll(); 
+    $result = $query->execute()->fetchObject(); 
     if (!empty($result)) {
-        return $result[0]->entity_id;
+        return $result->entity_id;
     }
     return FALSE;
 }

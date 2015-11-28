@@ -42,9 +42,7 @@ $programme_id = $node->vid;
 $flag = 0;
 $custom_bien = 0;
 $status = 1;
-$tid = "";
-if (get_tid_by_id_field($status)) {
-    $tid = get_tid_by_id_field($status);
+if ($tid = get_tid_by_id_field($status)) {
     $custom_bien = filter_bien_by_id_program($programme_id, $tid);
 }
 if ($custom_bien) {
