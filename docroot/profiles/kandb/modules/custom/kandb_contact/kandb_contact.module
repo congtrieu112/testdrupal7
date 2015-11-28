@@ -290,7 +290,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
 
     if($webforms) {
       $webform_id_rendez_vous = variable_get('kandb_webform_rendez_vous', 'webform_client_form_' . $nid);
-      $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_1' . $nid);
+      $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_' . $nid);
     }
   }
 
@@ -561,31 +561,6 @@ function webform_contact_list_submitted_data($form, $form_state) {
     'pays' => t('PAYS'),
     'PROV' => t('PROV'),
     'message' => t('MESSAGE'),
-  );
-
-  $form['type'] = array(
-    '#type' => 'select',
-    '#title' => t('Type'),
-    '#options' => array(0 => 'All') + $op_type,
-    '#prefix' => '<div class="container-inline" style="margin-bottom: 20px">',
-    '#default_value' => 'All',
-  );
-
-  $form['booking'] = array(
-    '#title' => t('Booking'),
-    '#type' => 'date_popup',
-    '#description' => t('Please select the date of booking'),
-    '#required' => TRUE,
-    '#date_format' => 'Y-m-d h:i A',
-    '#date_year_range' => '-0:+1',
-  );
-
-  $form['type1'] = array(
-    '#type' => 'select',
-    '#title' => t('Type'),
-    '#options' => array(0 => 'All') + $op_type,
-    '#suffix' => '</div>',
-    '#default_value' => 'All',
   );
 
   $form['contact_list'] = array(
