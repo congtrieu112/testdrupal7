@@ -318,7 +318,7 @@ function getListTidTaxonomyByName($bundle, $value) {
  * @param type $entity
  * @param type $item
  */
-function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
+function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $logging = '';
   $totalItems = count($item);
 
@@ -641,39 +641,17 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
     }
   }
 
-  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
     if(strpos($logging, 'Skip import')) {
-      variable_set($entity->feeds_item->id . '_rejected', $rejected + 1);
       $entity->feeds_item->skip = TRUE;
     }
   }
 
-  $file_log_name = variable_get($source->importer()->id . '_log_name');
-  $total_rows_fileimport = variable_get($source->importer()->id . '_total', 0);
-  $created = (int) $source->state(FEEDS_PROCESS)->created;
-  $updated = (int) $source->state(FEEDS_PROCESS)->updated + 1;
-  $skipped = (int) $source->state(FEEDS_PROCESS)->skipped;
-  $imported = $created + $updated;
-  $rejected = variable_get($source->importer()->id . '_rejected', 0);
-  $logging = '';
-
-  if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
-    //$skipped = $total_rows - ($created + $updated + $rejected);
-    if($total_rows_fileimport == ($created + $updated + $rejected + $skipped)) {
-      $logging = '/**' . "\n";
-      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
-      $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
-      $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
-      $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-      $logging .= ' */' . "\n";
-      createFileErrorLogTxt($file_log_name, $logging);
-      variable_del($source->importer()->id . '_log_name');
-      variable_del($source->importer()->id . '_total');
-      variable_del($source->importer()->id . '_rejected');
-    }
-  }
+  //Anchored
+  $counted = variable_get($source->importer()->id . '_counted', 0);
+  $counted += 1;
+  variable_set($source->importer()->id . '_counted', $counted);
 
   if ($tid > 0) {
     $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
@@ -1582,26 +1560,60 @@ function download_feeds_errorlog($file_name) {
  * @param FeedsSource $source\
  */
 function kb_feeds_feeds_after_import(FeedsSource $source) {
-//  $file_log_name = variable_get($source->importer()->id . '_log_name');
-//  $total_rows = variable_get($source->importer()->id . '_total', 0);
-//  $created = (int) $source->state(FEEDS_PROCESS)->created;
-//  $updated = (int) $source->state(FEEDS_PROCESS)->updated;
-//  $imported = $created + $updated;
-//  $rejected = variable_get($source->importer()->id . '_rejected', 0);
-//  $logging = '';
-//
-//  if($file_log_name && ($total_rows || $imported || $rejected)) {
-//    $skipped = $total_rows - ($created + $updated + $rejected);
-//    $logging = '/**' . "\n";
-//    $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
-//    $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
-//    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
-//    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-//    $logging .= ' */' . "\n";
-//    createFileErrorLogTxt($file_log_name, $logging);
-//    variable_del($source->importer()->id . '_log_name');
-//    variable_del($source->importer()->id . '_total');
-//    variable_del($source->importer()->id . '_rejected');
-//  }
+  variable_del($source->importer()->id . '_log_name');
+  variable_del($source->importer()->id . '_total');
+  variable_del($source->importer()->id . '_rejected');
+  variable_del($source->importer()->id . '_created');
+  variable_del($source->importer()->id . '_updated');
+  variable_del($source->importer()->id . '_counted');
 }
 
+function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
+  $created = variable_get($entity->feeds_item->id . '_created', 0);
+  $updated = variable_get($entity->feeds_item->id . '_updated', 0);
+
+  if(empty($entity_id)) {
+    $created += 1;
+    variable_set($entity->feeds_item->id . '_created', $created);
+  } else {
+    $updated += 1;
+    variable_set($entity->feeds_item->id . '_updated', $updated);
+  }
+
+  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
+  // Enable modules to skip saving at all.
+  if (!empty($entity->feeds_item->skip)) {
+    $rejected += 1;
+    variable_set($entity->feeds_item->id . '_rejected', $rejected);
+  }
+
+  $skipped = (int) $source->state(FEEDS_PROCESS)->skipped;
+  $limit = variable_get('feeds_process_limit', 1000);
+  $file_log_name = variable_get($source->importer()->id . '_log_name');
+  $total_rows_fileimport = variable_get($source->importer()->id . '_total', 0);
+  $counted = variable_get($source->importer()->id . '_counted', 0);
+  $imported = $created + $updated;
+
+  if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
+    //$skipped = $total_rows - ($created + $updated + $rejected);
+    if(($total_rows_fileimport == ($created + $updated + $rejected + $skipped)) || $counted == $limit) {
+      $logging = '/**' . "\n";
+      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
+      $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
+      $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
+      $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+      $logging .= ' */' . "\n";
+      createFileErrorLogTxt($file_log_name, $logging);
+
+      if($counted == $limit) {
+        variable_del($source->importer()->id . '_log_name');
+        variable_del($source->importer()->id . '_total');
+        variable_del($source->importer()->id . '_rejected');
+        variable_del($source->importer()->id . '_created');
+        variable_del($source->importer()->id . '_updated');
+        variable_del($source->importer()->id . '_counted');
+        $source->state(FEEDS_PROCESS)->skipped = 0;
+      }
+    }
+  }
+}
