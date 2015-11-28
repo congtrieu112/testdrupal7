@@ -311,7 +311,7 @@ class Kandb_Business_Rules {
       if ($tva_tid) {
         $terms = taxonomy_term_load($tva_tid);
         if ($terms) {
-          $tva = $terms->field_facteur[LANGUAGE_NONE][0]['value'];
+          $tva = (isset($terms->field_facteur[LANGUAGE_NONE][0]['value'])) ? $terms->field_facteur[LANGUAGE_NONE][0]['value'] : 0;
         }
       }
       if ($tva) {
