@@ -290,7 +290,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
 
     if($webforms) {
       $webform_id_rendez_vous = variable_get('kandb_webform_rendez_vous', 'webform_client_form_' . $nid);
-      $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_1' . $nid);
+      $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_' . $nid);
     }
   }
 
