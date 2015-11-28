@@ -1281,6 +1281,9 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
               } else {
                 $number = (int) $item[$key];
+                if ($field_name == 'field_caracteristique_balcon') {
+                  $number = $item[$key];
+                }
                 if ($number == 0) {
                   $error_log_field .= $field_name . ',';
                   $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
