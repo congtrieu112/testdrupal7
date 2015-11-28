@@ -161,7 +161,7 @@ function kandb_business_rules_node_presave($node) {
     if ($tva_tid) {
       $terms = taxonomy_term_load($tva_tid);
       if ($terms) {
-        $tva = $terms->field_facteur[LANGUAGE_NONE][0]['value'];
+        $tva = (isset($terms->field_facteur[LANGUAGE_NONE][0]['value'])) ? $terms->field_facteur[LANGUAGE_NONE][0]['value'] : 0;
       }
     }
 
@@ -326,7 +326,7 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
             default:
               break;
           }
-
+          
           if ($flag) {
             node_save($node);
             // Delete all node option what it related to this bien.
@@ -334,6 +334,13 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
           }
         }
       }
+    }
+    
+    $arr_update_programme = array();
+    if(isset($node->field_programme[LANGUAGE_NONE][0]["target_id"])){
+      $programe = new stdClass();
+      $programe->nid = $node->field_programme[LANGUAGE_NONE][0]["target_id"];
+      $arr_update_programme[] = $programe;
     }
 
     // The number of available bien is recalculated.
@@ -376,6 +383,28 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
+  }
+    
+  if($form_id == 'feeds_import_form'){
+    $form['#validate'][] = 'kandb_business_rules_validate_feed';
+  }
+}
+
+/**
+ * @todo to check if file import does not exist
+ * @param type $form
+ * @param type $form_state
+ */
+function kandb_business_rules_validate_feed ($form, &$form_state){
+  if(isset($form_state["values"]["feeds"]["KbFeedsHTTPFetcher"]["source"])){
+    $file_import = $form_state["values"]["feeds"]["KbFeedsHTTPFetcher"]["source"];
+    
+    $header_response = get_headers($file_import, 1);
+    if ( strpos( $header_response[0], "404" ) !== false )
+    {
+      // FILE DOES NOT EXIST
+      form_set_error('title', 'File ' . $file_import . ' does not exists.');
+    }
   }
 }
 
