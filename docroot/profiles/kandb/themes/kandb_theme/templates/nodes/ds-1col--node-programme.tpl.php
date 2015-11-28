@@ -37,6 +37,22 @@ if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
     }
   }
 }
+//check all bien status
+$programme_id = $node->vid;
+$nodebien = node_load_multiple(array(), array('type' => 'bien'));
+$programme_ids = "";
+$flag = 0;
+
+foreach ($nodebien as $key => $bien) {
+    if (!empty($bien->field_programme[LANGUAGE_NONE][0]['target_id']) && !empty($bien->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
+        $programme_ids = $bien->field_programme[LANGUAGE_NONE][0]['target_id'];
+        if ($programme_id == $programme_ids && $bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] == 220) {
+            $flag = 1;
+        }
+    }
+}
+
+//print "<pre>".print_r($nodebien,true)."</pre>";
 
 
 // Habitel widget
@@ -306,8 +322,8 @@ foreach ($arr_slider as $field_name) {
               </p>
             <?php endif; ?>
             <ul class="toolsList show-for-medium-up">
-                <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
-                <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+              <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
+              <li><a href="#" onclick="return false;" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
