@@ -610,3 +610,12 @@ function kandb_update_7154() {
     module_enable(array('menu_admin_per_menu'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_admin_content module
+ */
+function kandb_update_7155() {
+  if (!module_exists('kandb_admin_content')) {
+    module_enable(array('kandb_admin_content'), TRUE);
+  }
+}
