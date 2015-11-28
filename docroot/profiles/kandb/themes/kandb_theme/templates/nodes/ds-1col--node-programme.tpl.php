@@ -39,20 +39,15 @@ if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
 }
 //check all bien status
 $programme_id = $node->vid;
-$nodebien = node_load_multiple(array(), array('type' => 'bien'));
-$programme_ids = "";
 $flag = 0;
-
-foreach ($nodebien as $key => $bien) {
-    if (!empty($bien->field_programme[LANGUAGE_NONE][0]['target_id']) && !empty($bien->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
-        $programme_ids = $bien->field_programme[LANGUAGE_NONE][0]['target_id'];
-        if ($programme_id == $programme_ids && $bien->field_bien_statut[LANGUAGE_NONE][0]['tid'] == 220) {
-            $flag = 1;
-        }
-    }
+$custom_bien = filter_bien_by_id_program($programme_id,220);
+if($custom_bien){
+    $flag =1;
 }
 
-//print "<pre>".print_r($nodebien,true)."</pre>";
+
+
+
 
 
 // Habitel widget
