@@ -1,0 +1,5 @@
+name = K&B Admin Content
+core = 7.x
+description = Hook view admin content
+package = K&B Development
+

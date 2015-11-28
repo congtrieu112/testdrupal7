@@ -102,6 +102,7 @@ dependencies[] = kandb_alias_dossier_article
 dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
 dependencies[] = kandb_validate
+dependencies[] = kandb_admin_content
 
 ; Features
 dependencies[] = kandb_domains
