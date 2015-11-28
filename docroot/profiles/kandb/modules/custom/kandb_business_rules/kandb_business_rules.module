@@ -50,7 +50,7 @@ function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParser
         $row['rt2012'] = 0;
       }
     }
-  }
+  }    
 }
 
 /**
@@ -65,6 +65,32 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if ($entity->feeds_item->is_new == TRUE) {
         $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
       }
+      
+      // Update field_programme_loc_department by postal value
+      $postal = $item[PROGRAMME_COLUMN_POSTAL];            
+      $postal_len = strlen($postal);
+      $number_department = '';
+      
+      switch ($postal_len) {
+        case 4:
+          $number_department = '0' . $postal[0];
+          break;
+        
+        case 5:
+          $number_department = $postal[0] . $postal[1];
+          break;
+
+        default:
+          break;
+      }
+      
+      if(!empty($number_department)){
+        $id_department = Kandb_Business_Rules::get_tax_department_by_number($number_department);        
+        if(!empty($id_department)){
+          $entity->field_programme_loc_department[LANGUAGE_NONE][0]["tid"] = $id_department;
+        }
+      }
+      
     }
     elseif ($entity->feeds_item->id == FEED_ID_IMPORT_BIEN) {
 

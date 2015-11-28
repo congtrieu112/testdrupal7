@@ -28,9 +28,15 @@ class KbDocCommuniqueCSVParser extends FeedsCSVParser {
     }
 
     $importer_id = $source->importer()->id;
-    if (isset($importer_id) && !variable_get($importer_id . '_log_name', 0)) {
+    if (isset($importer_id)) {
       $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
       variable_set($importer_id . '_log_name', $file_log_name);
+
+      variable_del($importer_id . '_total');
+      variable_del($importer_id . '_rejected');
+      variable_del($importer_id . '_created');
+      variable_del($importer_id . '_updated');
+      variable_del($importer_id . '_counted');
     }
 
     // Determine section to parse, parse.

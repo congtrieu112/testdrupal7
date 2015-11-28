@@ -46,7 +46,7 @@ endif;
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion_uncheck'] < 3): ?>
                   <li>
-                      <div class="tag tag--important"><?php $row->field_promotion_avant_premiere_node_title; ?></div>
+                      <div class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></div>
                       <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                   </li>
                   <?php
@@ -70,4 +70,5 @@ endif;
         </div>
     </article>
     <!-- [squaredImageItem] end-->
+
 </li>
