@@ -1,0 +1,11 @@
+<?php
+
+/**
+ * hook_preprocess_views_view
+ * @param type $vars
+ */
+function kandb_admin_content_preprocess_views_view(&$vars){
+  if(isset($vars['view']->name) && $vars['view']->name == 'admin_views_node'){
+    drupal_add_js(drupal_get_path('module', 'kandb_admin_content') . '/js/custom_view_admin_content.js');
+  }
+}
