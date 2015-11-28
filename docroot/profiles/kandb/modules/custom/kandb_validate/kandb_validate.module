@@ -139,7 +139,7 @@ function date_quarter() {
  * filter custom bien by program 
  * 
  */
-function filter_bien_by_id_program($idprogram,$status){
+function filter_bien_by_id_program($idprogram,$tid){
     
    
     $query = db_select('node', 'n');
@@ -148,8 +148,8 @@ function filter_bien_by_id_program($idprogram,$status){
     $query->fields('n', array('vid','type'));
     $query->fields('b', array('field_programme_target_id'));
     $query->fields('c', array('field_bien_statut_tid'));
-    $query->condition('field_programme_target_id', "$idprogram", '=');
-    $query->condition('field_bien_statut_tid', "$status", '=');
+    $query->condition('field_programme_target_id', $idprogram, '=');
+    $query->condition('field_bien_statut_tid', $tid, '=');
     $result = $query->execute()->fetchAll();
     if (!empty($result)) {
         return $result;
@@ -161,13 +161,13 @@ function filter_bien_by_id_program($idprogram,$status){
  * get tid taxonomy by field field_id_xls 
  * 
  */
-function get_tid_by_id_field($id){
+function get_tid_by_id_field($status){
     $query = db_select('field_data_field_id_xls', 't');
     $query->fields('t', array('entity_id'));
-    $query->condition('field_id_xls_value', "$id", '=');
+    $query->condition('field_id_xls_value', $status, '=');
     $result = $query->execute()->fetchAll(); 
     if (!empty($result)) {
-        return $result;
+        return $result[0]->entity_id;
     }
     return FALSE;
 }
