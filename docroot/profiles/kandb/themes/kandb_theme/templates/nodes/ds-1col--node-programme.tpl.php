@@ -40,15 +40,12 @@ if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
 //check all bien status
 $programme_id = $node->vid;
 $flag = 0;
-$custom_bien = filter_bien_by_id_program($programme_id,220);
+$tid = get_tid_by_id_field(1)[0]->entity_id;
+$custom_bien = filter_bien_by_id_program($programme_id,$tid);
+
 if($custom_bien){
     $flag =1;
 }
-
-
-
-
-
 
 // Habitel widget
 $habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';

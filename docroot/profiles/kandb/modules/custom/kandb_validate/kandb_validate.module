@@ -157,3 +157,17 @@ function filter_bien_by_id_program($idprogram,$status){
     return FALSE;
 
 }
+/*
+ * get tid taxonomy by field field_id_xls 
+ * 
+ */
+function get_tid_by_id_field($id){
+    $query = db_select('field_data_field_id_xls', 't');
+    $query->fields('t', array('entity_id'));
+    $query->condition('field_id_xls_value', "$id", '=');
+    $result = $query->execute()->fetchAll(); 
+    if (!empty($result)) {
+        return $result;
+    }
+    return FALSE;
+}
