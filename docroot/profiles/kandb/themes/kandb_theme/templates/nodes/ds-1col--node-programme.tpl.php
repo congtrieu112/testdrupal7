@@ -268,7 +268,6 @@ foreach ($arr_slider as $field_name) {
             <?php endif; ?>
 
 
-            <p class="toolbox__intro"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
             <!-- [contactUs mini] start-->
             <?php
             if (function_exists('kandb_contact_block_page')) {

@@ -145,6 +145,10 @@ function kb_import_run_importer($importer = '') {
       }
     }
     elseif ($importer == 'import_bien_pdf') {
+      $dir_parrent = variable_get('import_bien_pdf_dir_parent');
+      if ($dir_parrent == NULL) {
+        variable_set('import_bien_pdf_dir_parent', 'lot_plan/');
+      }
       try {
         batch_set(import_bien_pdf_batch_operation());
       }
@@ -254,9 +258,20 @@ function kb_import_finish_daily_import() {
   }
   if ($daily_status) {
     kb_daily_import_logging ('daily-import: Daily import success');
+    kb_daily_import_logging ('daily-import: Start run business rule for programme_feed_import');
+    kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+    kb_daily_import_logging ('daily-import: Finish run business rule for programme_feed_import');
+    kb_daily_import_logging ('daily-import: Start run business rule for parcel_feed_import');
+    kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+    kb_daily_import_logging ('daily-import: Finish run business rule for parcel_feed_import');
   }
   else {
     kb_daily_import_logging ('daily-import: Daily import error');
+    if ($kb_daily_import_status['programme_feed_import_status'] == 1) {
+      kb_daily_import_logging ('daily-import: Start run business rule for programme_feed_import');
+      kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+      kb_daily_import_logging ('daily-import: Finish run business rule for programme_feed_import');
+    }
   }
   $kb_daily_import_status = daily_import_status_default();
   set_daily_import_status ($kb_daily_import_status);
@@ -281,6 +296,11 @@ function kb_programme_migration_finish () {
     if ($kb_migration_status['migration_document_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
       kb_migration_logging ('migration : migration success');
+      if ($kb_migration_status['parcel_feed_import_status'] == 1) {
+        kb_migration_logging ('daily-import: Start run business rule for parcel_feed_import');
+        kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
+      }
     }
     else {
       $kb_migration_status['migration_program_status'] = $migration_programme_status;
@@ -316,6 +336,11 @@ function kb_bien_migration_finish () {
   if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_document_status'] != 0) {
     set_migration_status(migration_status_default());
     kb_migration_logging ('migration : migration success');
+    if ($kb_migration_status['parcel_feed_import_status'] == 1) {
+      kb_migration_logging ('daily-import: Start run business rule for parcel_feed_import');
+      kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+      kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
+    }
   }
   else {
     $kb_migration_status['migration_bien_status'] = $migration_bien_status;
@@ -336,6 +361,11 @@ function kb_document_migration_finish () {
     if ($kb_migration_status['migration_program_status'] != 0 && $kb_migration_status['migration_bien_status'] != 0) {
       set_migration_status(migration_status_default());
       kb_migration_logging ('migration : migration success');
+      if ($kb_migration_status['parcel_feed_import_status'] == 1) {
+        kb_migration_logging ('daily-import: Start run business rule for parcel_feed_import');
+        kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
+      }
     }
     else {
       $kb_migration_status['migration_document_status'] = $migration_document_status;

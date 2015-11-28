@@ -91,6 +91,7 @@ dependencies[] = unique_field
 dependencies[] = viewfield
 dependencies[] = views_php
 dependencies[] = stringoverrides
+dependencies[] = menu_admin_per_menu
 
 ; Custom
 dependencies[] = kb_feeds
