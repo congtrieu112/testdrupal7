@@ -119,7 +119,6 @@ function kandb_contact_buttons() {
   $webform_machine_names = array(
     '_tre_rappel_',
     'prendre_rendez_vous',
-    'avant_contactez_nous'
   );
 
   foreach ($webform_machine_names as $name) {
@@ -569,31 +568,6 @@ function webform_contact_list_submitted_data($form, $form_state) {
     'pays' => t('PAYS'),
     'PROV' => t('PROV'),
     'message' => t('MESSAGE'),
-  );
-
-  $form['type'] = array(
-    '#type' => 'select',
-    '#title' => t('Type'),
-    '#options' => array(0 => 'All') + $op_type,
-    '#prefix' => '<div class="container-inline" style="margin-bottom: 20px">',
-    '#default_value' => 'All',
-  );
-
-  $form['booking'] = array(
-    '#title' => t('Booking'),
-    '#type' => 'date_popup',
-    '#description' => t('Please select the date of booking'),
-    '#required' => TRUE,
-    '#date_format' => 'Y-m-d h:i A',
-    '#date_year_range' => '-0:+1',
-  );
-
-  $form['type1'] = array(
-    '#type' => 'select',
-    '#title' => t('Type'),
-    '#options' => array(0 => 'All') + $op_type,
-    '#suffix' => '</div>',
-    '#default_value' => 'All',
   );
 
   $form['contact_list'] = array(
