@@ -1220,6 +1220,11 @@ function kandb_feed_feeds_importer_default() {
             'target' => 'field_cave_description',
             'unique' => FALSE,
           ),
+          23 => array(
+            'source' => '30',
+            'target' => 'field_visibilite',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'update_non_existent' => 'skip',

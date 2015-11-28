@@ -85,6 +85,9 @@ function kandb_bien_strongarm() {
         'domain' => array(
           'weight' => '1',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(
         'domain' => array(
