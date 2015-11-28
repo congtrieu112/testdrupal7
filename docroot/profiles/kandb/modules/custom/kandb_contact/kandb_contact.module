@@ -119,7 +119,6 @@ function kandb_contact_buttons() {
   $webform_machine_names = array(
     '_tre_rappel_',
     'prendre_rendez_vous',
-    'avant_contactez_nous'
   );
 
   foreach ($webform_machine_names as $name) {
