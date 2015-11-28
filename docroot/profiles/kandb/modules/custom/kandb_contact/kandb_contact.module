@@ -563,31 +563,6 @@ function webform_contact_list_submitted_data($form, $form_state) {
     'message' => t('MESSAGE'),
   );
 
-//  $form['type'] = array(
-//    '#type' => 'select',
-//    '#title' => t('Type'),
-//    '#options' => array(0 => 'All') + $op_type,
-//    '#prefix' => '<div class="container-inline" style="margin-bottom: 20px">',
-//    '#default_value' => 'All',
-//  );
-//
-//  $form['booking'] = array(
-//    '#title' => t('Booking'),
-//    '#type' => 'date_popup',
-//    '#description' => t('Please select the date of booking'),
-//    '#required' => TRUE,
-//    '#date_format' => 'Y-m-d h:i A',
-//    '#date_year_range' => '-0:+1',
-//  );
-//
-//  $form['type1'] = array(
-//    '#type' => 'select',
-//    '#title' => t('Type'),
-//    '#options' => array(0 => 'All') + $op_type,
-//    '#suffix' => '</div>',
-//    '#default_value' => 'All',
-//  );
-
   $form['contact_list'] = array(
     '#title' => 'Contact list',
     '#theme' => 'table',
