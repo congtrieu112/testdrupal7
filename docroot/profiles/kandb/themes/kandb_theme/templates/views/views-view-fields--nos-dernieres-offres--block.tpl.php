@@ -42,52 +42,73 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
   foreach ($view->promotion_duplicate as $key => $promotion_duplicate) {
     if ($key == $row->nid) {
       foreach ($promotion_duplicate as $promotion_items) {
-        $promotion[] = $promotion_items['object']->field_promotion_programme_node_title;
+        $promotion[] = $promotion_items['object'];
       }
     }
   }
 }
-
 ?>
 <div class="slick-slider__item">
-    <article class="squaredImageItem squaredImageItem--stacked false">
-        <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>" class="squaredImageItem__img">
-            <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
-            <ul class="squaredImageItem__img__tags">
-<?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
-                  <li>
-                      <div class="tag tag--important">
-                          <?php print $row->field_promotion_programme_node_title; ?>
+    <article class="squaredImageItem false">
+        <div class="squaredImageItem__img">
+            <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>" class="squaredImageItem__img">
+                <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>            
+            </a>
+        </div>
+        <ul class="squaredImageItem__img__tags">
+            <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
+              <li>
+                  <button class="tag tag--important" data-reveal-trigger="dernieres-<?php print $row->field_promotion_programme_node_nid; ?>">
+                      <?php print $row->field_promotion_programme_node_title; ?>
+                  </button>
 
-                          <?php
-                          if ($promotion) :
-                            foreach ($promotion as $value) :
-                              print '<br />' . $value;
-                            endforeach;
-                          endif;
-                          ?>                                                    
-
-
+                  <!-- [popin] start-->
+                  <div data-reveal="dernieres-<?php print $row->field_promotion_programme_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                      <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                          <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_programme_node_title; ?></strong></p>
+                          <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
                       </div>
-                      <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
+                  </div>
+                  <!-- [popin] end-->
+
+              </li>
+              <?php
+              if ($promotion) :
+                foreach ($promotion as $value) :
+                  ?>
+                  <li>
+                      <button data-reveal-trigger="dernieres-<?php print $value->field_promotion_programme_node_nid; ?>" class="tag tag--important">
+                          <?php print $value->field_promotion_programme_node_title; ?>
+                      </button>
+                      <!-- [popin] start-->
+                      <div data-reveal="dernieres-<?php print $value->field_promotion_programme_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                              <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $value->field_promotion_programme_node_title; ?></strong></p>
+                              <p><?php print $value->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                          </div>
+                      </div>
+                      <!-- [popin] end-->
                   </li>
                   <?php
-                  $_SESSION['promotion'] += 1;
-                  ?>
-<?php endif; ?>
-                <!--                <li>
-                                    <div class="tag">TVA 7%<sup>(2)</sup></div>
-                                </li>
-                                <li>
-                                    <div class="tag">Livraison immédiate<sup>(1)</sup></div>
-                                </li>-->
-            </ul>
-        </a>
+                endforeach;
+              endif;
+              ?>  
+              <?php
+              $_SESSION['promotion'] += 1;
+              ?>
+            <?php endif; ?>
+            <!--                <li>
+                                <div class="tag">TVA 7%<sup>(2)</sup></div>
+                            </li>
+                            <li>
+                                <div class="tag">Livraison immédiate<sup>(1)</sup></div>
+                            </li>-->
+        </ul>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
                 <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print t('Go to programme page'); ?>" class="heading heading--small">
                     <p class="heading__title">
-<?php print $ville_name . ' / ' . $departement_code; ?>
+                        <?php print $ville_name . ' / ' . $departement_code; ?>
                     </p>
                     <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
                 </a>

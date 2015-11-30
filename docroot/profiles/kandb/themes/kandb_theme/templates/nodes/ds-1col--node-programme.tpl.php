@@ -43,10 +43,10 @@ $flag = 0;
 $custom_bien = 0;
 $status = 1;
 if ($tid = get_tid_by_id_field($status)) {
-    $custom_bien = filter_bien_by_id_program($programme_id, $tid);
+  $custom_bien = filter_bien_by_id_program($programme_id, $tid);
 }
 if ($custom_bien) {
-    $flag = 1;
+  $flag = 1;
 }
 
 // Habitel widget
@@ -94,9 +94,11 @@ $pieces_max = isset($node->field_programme_room_max[LANGUAGE_NONE][0]['value']) 
 $de_a_pieces = '';
 if ($pieces_min && $pieces_max) {
   $de_a_pieces = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-} elseif (!$pieces_min && $pieces_max) {
+}
+elseif (!$pieces_min && $pieces_max) {
   $de_a_pieces = $pieces_max . ' ' . t('pièces');
-} elseif ($pieces_min && !$pieces_max) {
+}
+elseif ($pieces_min && !$pieces_max) {
   $de_a_pieces = $pieces_min . ' ' . t('pièces');
 }
 
@@ -106,9 +108,11 @@ $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0][
 $de_a_price_tva = '';
 if ($price_tva_min && $price_tva_max) {
   $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-} elseif (!$price_tva_min && $price_tva_max) {
+}
+elseif (!$price_tva_min && $price_tva_max) {
   $de_a_price_tva = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-} elseif ($price_tva_min && !$price_tva_max) {
+}
+elseif ($price_tva_min && !$price_tva_max) {
   $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
 }
 
@@ -120,9 +124,11 @@ $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) 
 $de_a_price = '';
 if ($price_min && $price_max) {
   $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-} elseif (!$price_min && $price_max) {
+}
+elseif (!$price_min && $price_max) {
   $de_a_price = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-} elseif ($price_min && !$price_max) {
+}
+elseif ($price_min && !$price_max) {
   $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
 }
 
@@ -177,6 +183,9 @@ foreach ($arr_slider as $field_name) {
     break;
   }
 }
+
+// Get promotion by programme nid.
+$promotions = get_nids_promotions_by_programme($nid);
 ?>
 
 <!-- [programHeader] start-->
@@ -245,72 +254,133 @@ foreach ($arr_slider as $field_name) {
                   </p>
                 <?php endif; ?>
 
-                <?php if ($de_a_price_tva || $de_a_price) : ?>
-                  <ul class="content-price">
-                      <?php if ($de_a_price_tva) : ?>
-                        <li class="content-price__item">
-                            <span class="text">
-                                <?php
-                                if ($de_a_price_tva) : print $de_a_price_tva;
-                                endif;
-                                ?>
-                            </span>
-                            <span class="tags">
-                                <?php if ($tva) : ?>
-                                  <div class="tva"><?php print $tva; ?></div>
-                                <?php endif; ?>
-                                <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
-                            </span>
-                        </li>
-                      <?php endif; ?>
-                      <?php if ($de_a_price) : ?>
-                        <li class="content-price__item">
-                            <span class="text">
-                                <?php
-                                if ($de_a_price) : print $de_a_price;
-                                endif;
-                                ?>
-                            </span>
-                            <span class="tags">
-                                <div class="tva tva--high">TVA 20%</div>
-                            </span>
-                        </li>
-                      <?php endif; ?>
-                  </ul>
-                <?php endif; ?>
+                <?php if ($promotions) : ?>
+                  <?php
+                  foreach ($promotions as $promotion) :
+                    $triger_promotion = 'promotion-' . $promotion->nid;
+                    ?>
+                    <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                    <!-- [popin] start-->
+                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                            <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                        </div>
+                    </div>
+                    <!-- [popin] end-->
+                  <?php endforeach; ?>
+                <?php endif; ?>  
 
 
-                <!-- [contactUs mini] start-->
-                <?php
-                if (function_exists('kandb_contact_block_page')) {
-                  print kandb_contact_block_page(TRUE);
-                }
-                ?>
-                <!-- [contactUs mini] end-->
-                <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
-                <div class="sharing">
-                    <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    </ul>
-                </div>
             </div>
+            <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
+              <p class="toolbox__intro">
+                  <strong><?php print t('Livraison'); ?></strong>
+                  <?php print t('à partir du'); ?>
+                  <?php
+                  if ($trimstre) : print $trimstre;
+                  endif;
+                  ?>
+                  <?php
+                  if ($annee) : print $annee . "<br>";
+                  endif;
+                  ?>
+                  <?php
+                  if ($flat_available) : print $flat_available;
+                  endif;
+                  ?>
+                  <?php
+                  if ($de_a_pieces) : print ', ' . $de_a_pieces;
+                  endif;
+                  ?>
+              </p>
+            <?php endif; ?>
 
-            <div class="programHeader__content__details">
-                <?php if ($caracteristiques) : ?>
-                  <ul class="characteristicList">
-                      <?php
-                      foreach ($caracteristiques as $caracteristique) {
-                        if (isset($caracteristique['tid'])) {
-                          $carac_term = taxonomy_term_load($caracteristique['tid']);
-                          if ($carac_term) {
-                            $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
-                          }
-                        }
+            <?php if ($de_a_price_tva || $de_a_price) : ?>
+              <ul class="content-price">
+                  <?php if ($de_a_price_tva) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price_tva) : print $de_a_price_tva;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <?php if ($tva) : ?>
+                              <div class="tva"><?php print $tva; ?></div>
+                            <?php endif; ?>
+                            <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+                  <?php if ($de_a_price) : ?>
+                    <li class="content-price__item">
+                        <span class="text">
+                            <?php
+                            if ($de_a_price) : print $de_a_price;
+                            endif;
+                            ?>
+                        </span>
+                        <span class="tags">
+                            <div class="tva tva--high">TVA 20%</div>
+                        </span>
+                    </li>
+                  <?php endif; ?>
+              </ul>
+            <?php endif; ?>
+
+
+            <!-- [contactUs mini] start-->
+            <?php
+            if (function_exists('kandb_contact_block_page')) {
+              print kandb_contact_block_page(TRUE);
+            }
+            ?>
+            <!-- [contactUs mini] end-->
+            <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+            <div class="sharing">
+                <ul class="sharing__items">
+                    <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
+                    <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="programHeader__content__details">
+            <?php if ($caracteristiques) : ?>
+              <ul class="characteristicList">
+                  <?php
+                  foreach ($caracteristiques as $caracteristique) {
+                    if (isset($caracteristique['tid'])) {
+                      $carac_term = taxonomy_term_load($caracteristique['tid']);
+                      if ($carac_term) {
+                        $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
                       }
-                      ?>
-                  </ul>
+                    }
+                  }
+                  ?>
+              </ul>
+            <?php endif; ?>
+            <?php if ($en_quelques_mots) : ?>
+              <p class="intro">
+                  <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
+              </p>
+            <?php endif; ?>
+
+            <?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
+              <p class="intro">
+                  <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
+              </p>
+            <?php endif; ?>  
+
+            <ul class="toolsList show-for-medium-up">
+                <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
+                <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                <?php if ($status_slider) : ?>
+                  <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                  >>>>>>> Stashed changes
                 <?php endif; ?>
                 <?php if ($en_quelques_mots) : ?>
                   <p class="intro">
@@ -325,8 +395,8 @@ foreach ($arr_slider as $field_name) {
                 <?php endif; ?>
 
                 <ul class="toolsList show-for-medium-up">
-                  <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
-                  <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <?php if ($flag) { ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php } ?>
+                    <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                     <?php if ($status_slider) : ?>
                       <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                     <?php endif; ?>
@@ -338,10 +408,10 @@ foreach ($arr_slider as $field_name) {
                       <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
-            </div>
         </div>
-        <!-- [programHeader__content] end -->
     </div>
+    <!-- [programHeader__content] end -->
+</div>
 </header>
 <!-- [programHeader] end-->
 

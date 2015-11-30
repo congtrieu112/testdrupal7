@@ -169,8 +169,8 @@ function get_nids_promotions_by_programme($nid) {
 /**
  * Implements of hook_views_pre_render().
  */
-function kandb_validate_views_pre_render($view) {
-  if ($view->name == 'nos_dernieres_offres' && count($view->result)) {
+function kandb_validate_views_pre_render($view) {  
+  if (in_array($view->name, array('nos_dernieres_offres', 'avant_premiere_check')) && count($view->result)) {
     $my_arr = $view->result;
     $dups = $new_arr = array();
     foreach ($my_arr as $key => $val) {
