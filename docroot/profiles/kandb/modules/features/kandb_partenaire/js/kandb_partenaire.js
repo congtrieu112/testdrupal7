@@ -1,7 +1,3 @@
-// $('#edit-field-partenaire-programmes').hide();
-// $('input[type=radio]#edit-field-partenaire-export-und-3').on( "click", function() {
-//     $('#edit-field-partenaire-programmes').show();
-// });
 (function ($) {
   Drupal.behaviors.yourBehaviorName = {
     attach: function (context, settings) {
