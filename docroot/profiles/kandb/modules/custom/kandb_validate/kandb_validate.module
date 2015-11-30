@@ -204,3 +204,39 @@ function kandb_validate_views_pre_render($view) {
     }
   }
 }
+
+/*
+ * filter custom bien by program 
+ * 
+ */
+
+function filter_bien_by_id_program($idprogram, $tid) {
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_programme', 'b', 'n.type = b.bundle');
+  $query->join('field_data_field_bien_statut', 'c', 'n.type = c.bundle');
+  $query->fields('n', array('vid', 'type'));
+  $query->fields('b', array('field_programme_target_id'));
+  $query->fields('c', array('field_bien_statut_tid'));
+  $query->condition('field_programme_target_id', $idprogram, '=');
+  $query->condition('field_bien_statut_tid', $tid, '=');
+  $result = $query->execute()->fetchAll();
+  if (!empty($result)) {
+    return $result;
+  }
+  return FALSE;
+}
+
+/*
+ * Get tid taxonomy by field field_id_xls.
+ */
+
+function get_tid_by_id_field($status) {
+  $query = db_select('field_data_field_id_xls', 't');
+  $query->fields('t', array('entity_id'));
+  $query->condition('field_id_xls_value', $status, '=');
+  $result = $query->execute()->fetchObject();
+  if (!empty($result)) {
+    return $result->entity_id;
+  }
+  return FALSE;
+}

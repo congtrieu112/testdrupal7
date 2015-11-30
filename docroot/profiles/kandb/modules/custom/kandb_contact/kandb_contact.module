@@ -109,6 +109,10 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
       'template' => 'templates/contact_on_summary',
       'variables' => array(),
     ),
+    'contact_specific_block_page' => array(
+      'template' => 'templates/contact_specific_block_page',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -125,18 +129,18 @@ function kandb_contact_buttons() {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
       $links[] = theme_link(
-          array(
-            'text' => $webform->title,
-            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
-            'options' => array(
-              'attributes' => array(
-                'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
-                'data-reveal-ajax' => array('true'),
-                'data-reveal-id' => array('popinLeadForm'),
-              ),
-              'html' => FALSE,
-            )
+        array(
+          'text' => $webform->title,
+          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+          'options' => array(
+            'attributes' => array(
+              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+              'data-reveal-ajax' => array('true'),
+              'data-reveal-id' => array('popinLeadForm'),
+            ),
+            'html' => FALSE,
           )
+        )
       );
     }
   }
@@ -144,7 +148,7 @@ function kandb_contact_buttons() {
 
   return theme('contact_buttons', array(
     'links' => $links
-      )
+    )
   );
 }
 
@@ -156,7 +160,7 @@ function kandb_contact_block_page($is_mini_contact = FALSE) {
   $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
 
-  if($is_mini_contact){
+  if ($is_mini_contact) {
     return theme('mini_contact_block_page', $variables);
   }
 
@@ -171,7 +175,7 @@ function kandb_contact_block_page($is_mini_contact = FALSE) {
  *  variable_name => variable_value
  */
 function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
-  if(!$is_mini_contact){
+  if (!$is_mini_contact) {
     $variables = array(
       'kandb_contact_photo' => '',
       'kandb_contact_title' => '',
@@ -181,7 +185,7 @@ function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
     );
-  }else{
+  } else {
     $variables = array(
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
@@ -280,11 +284,11 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
   $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_2');
   $webform_id_avant_contactez_nous = variable_get('kandb_webform_avant_contactez_nous', 'webform_client_form_3');
 
-  if($form_id == $webform_id_avant_contactez_nous) {
+  if ($form_id == $webform_id_avant_contactez_nous) {
     $nid = arg(1);
-    if(is_numeric($nid)) {
+    if (is_numeric($nid)) {
       $avant_premiere = node_load($nid);
-      if($avant_premiere) {
+      if ($avant_premiere) {
         $title = isset($avant_premiere->title) ? $avant_premiere->title : '';
 
         $form['submitted']['nom_prog']["#default_value"] = $title;
@@ -335,15 +339,15 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             break;
         }
 
-        if(!empty($programme)){
+        if (!empty($programme)) {
           $program_title = $programme->title;
-          if(isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])){
+          if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])) {
             $term_id_ville = $programme->field_programme_loc_ville[LANGUAGE_NONE][0]["tid"];
             $term_ville = taxonomy_term_load($term_id_ville);
             $program_ville = $term_ville->name;
           }
 
-          if(isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])){
+          if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])) {
             $term_id_department = $programme->field_programme_loc_department[LANGUAGE_NONE][0]["tid"];
             $term_department = taxonomy_term_load($term_id_department);
             $program_department = $term_department->field_numero_departement[LANGUAGE_NONE][0]["value"];
@@ -361,7 +365,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']['#type'] = 'hidden';
 
-            if($form_id == $webform_id_rendez_vous){
+            if ($form_id == $webform_id_rendez_vous) {
               $form['submitted']['nom_prog']["#default_value"] = (!empty($program_title)) ? $program_title : '';
               $form['submitted']['nom_prog']["#value"] = (!empty($program_title)) ? $program_title : '';
               $form['submitted']['nom_prog']['#type'] = 'hidden';
@@ -387,7 +391,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
  * Implements hook_admin().
  * Add setting form contact ID
  */
-function kandb_contact_webform(){
+function kandb_contact_webform() {
   $form['field_tabs'] = array(
     '#type' => 'vertical_tabs',
   );
@@ -425,8 +429,6 @@ function kandb_contact_webform(){
   return $form;
 }
 
-
-
 /**
  * Implements hook_admin_submit().
  * Submit setting form contact ID
@@ -450,52 +452,52 @@ function kandb_contact_form_webform_client_form_alter(&$form, $form_state, $form
 }
 
 function kandb_webform_client_validate(&$form, &$form_state) {
-   $values = $form_state['values'];
-   if (isset($values['submitted']['row_2']['rappeler_telephone'])) {
-     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_2']['rappeler_telephone']);
-     if (trim($telephone) != '') {
-       form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
-     }
-   }
-   if (isset($values['submitted']['rdv_telephone'])) {
-     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
-     if (trim($telephone) != '') {
-       form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
-     }
-   }
+  $values = $form_state['values'];
+  if (isset($values['submitted']['row_2']['rappeler_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_2']['rappeler_telephone']);
+    if (trim($telephone) != '') {
+      form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
+    }
+  }
+  if (isset($values['submitted']['rdv_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
+    if (trim($telephone) != '') {
+      form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
+    }
+  }
 }
 
 /**
  * Show list webform submitted data and link export contact list
  */
 function webform_contact_list_submitted_data($form, $form_state) {
-  module_load_include('inc','webform','includes/webform.submissions');
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
   $webforms = db_select('webform', 'w')
-     ->distinct()
-     ->fields('w', array('nid'))
-     ->condition('machine_name', array('_tre_rappel_', 'prendre_rendez_vous', 'avant_contactez_nous'), 'IN')
-     ->execute()
-     ->fetchAll();
+    ->distinct()
+    ->fields('w', array('nid'))
+    ->condition('machine_name', array('_tre_rappel_', 'prendre_rendez_vous', 'avant_contactez_nous'), 'IN')
+    ->execute()
+    ->fetchAll();
 
   $nids = array();
   $op_type = array();
-  if($webforms) {
+  if ($webforms) {
     foreach ($webforms as $webform) {
       $nids[] = $webform->nid;
       $term = node_load($webform->nid);
-      if($term) {
+      if ($term) {
         $op_type[$webform->nid] = $term->title;
       }
     }
   }
 
   $results = db_select('webform_submitted_data', 'wsd')
-     ->distinct()
-     ->fields('wsd', array('nid', 'sid'))
-     ->condition('nid', $nids, 'IN')
-     //->extend('PagerDefault')->limit(2)
-     ->execute()
-     ->fetchAll();
+    ->distinct()
+    ->fields('wsd', array('nid', 'sid'))
+    ->condition('nid', $nids, 'IN')
+    //->extend('PagerDefault')->limit(2)
+    ->execute()
+    ->fetchAll();
 
   $options = array();
 
@@ -520,9 +522,9 @@ function webform_contact_list_submitted_data($form, $form_state) {
     'message' => '',
   );
 
-  if($results) {
+  if ($results) {
     $submitted_datas = array();
-    foreach($results as $result) {
+    foreach ($results as $result) {
       $nid = $result->nid;
       $sid = $result->sid;
       $submission = webform_get_submission($nid, $sid);
@@ -530,15 +532,15 @@ function webform_contact_list_submitted_data($form, $form_state) {
       $submitted_datas['huere'] = date("H:i:j", $submission->submitted);
 
       $node = node_load($nid);
-      if($node) {
+      if ($node) {
         foreach ($node->webform['components'] as $key => $component) {
           $component_name = str_replace('rdv_', '', $component["form_key"]);
           $component_name = str_replace('rappeler_', '', $component_name);
           $component_name = str_replace('ap_', '', $component_name);
 
           $arr = array('idkp', 'idkl', 'nom_prog', 'ville_prog', 'dept_prog', 'type_contact', 'date', 'huere', 'nom', 'prenom', 'telephone', 'email', 'adresse1', 'ville', 'code_postal', 'pays', 'PROV', 'message');
-          if(isset($submission->data[$key][0])) {
-            if(in_array($component_name, $arr)) {
+          if (isset($submission->data[$key][0])) {
+            if (in_array($component_name, $arr)) {
               $submitted_datas[$component_name] = $submission->data[$key][0];
             }
           }
@@ -608,4 +610,11 @@ function webform_contact_list_submitted_data_submit($form, $form_state) {
   }
   print $output;
   exit;
+}
+
+/**
+ * Render specific contact at bottom programme and bien page.
+ */
+function kandb_contact_specific_block_page($programme) {
+  return theme('contact_specific_block_page', array('programme' => $programme));
 }
