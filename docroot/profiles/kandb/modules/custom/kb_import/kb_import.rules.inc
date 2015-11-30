@@ -151,6 +151,9 @@ function kb_import_run_importer($importer = '') {
       }
       try {
         batch_set(import_bien_pdf_batch_operation());
+        $batch = & batch_get();
+        $batch['progressive'] = FALSE;
+        batch_process();
       }
       catch (Exception $e) {
         if ($kb_rule == 'migration') {
