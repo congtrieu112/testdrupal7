@@ -320,11 +320,12 @@ function getListTidTaxonomyByName($bundle, $value) {
  */
 function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $logging = '';
-  $totalItems = count($item);
 
+  $totalItems = count($item);
   $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
-  //$file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+
   $file_log_name = variable_get($entity->feeds_item->id . '_log_name');
+  $warning_count = variable_get($entity->feeds_item->id . '_warning', 0);
 
   $tid = 0;
   if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
@@ -353,6 +354,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           if($item[58] == 0) {
             $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
@@ -403,6 +408,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
             $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
@@ -538,6 +547,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           if (in_array((int)$item['tva'], array(0,1))) {
             $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
@@ -1560,11 +1573,13 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   variable_del($source->importer()->id . '_created');
   variable_del($source->importer()->id . '_updated');
   variable_del($source->importer()->id . '_counted');
+  variable_del($source->importer()->id . '_warning');
 }
 
 function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
   $created = variable_get($entity->feeds_item->id . '_created', 0);
   $updated = variable_get($entity->feeds_item->id . '_updated', 0);
+  $warning = variable_get($entity->feeds_item->id . '_warning', 0);
 
   if(empty($entity_id)) {
     $created += 1;
@@ -1596,7 +1611,9 @@ function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_
       $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
       $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
       $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+      $logging .= ' * ' . 'Total rows warning in file: ' . $warning .  "\n";
       $logging .= ' */' . "\n";
+
       createFileErrorLogTxt($file_log_name, $logging);
 
       if($counted == $limit) {
@@ -1606,6 +1623,7 @@ function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_
         variable_del($source->importer()->id . '_created');
         variable_del($source->importer()->id . '_updated');
         variable_del($source->importer()->id . '_counted');
+        variable_del($source->importer()->id . '_warning');
         $source->state(FEEDS_PROCESS)->skipped = 0;
       }
     }
