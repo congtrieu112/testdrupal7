@@ -48,12 +48,12 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
   }
 
-  if(isset($programme->field_tva[LANGUAGE_NONE][0]['tid'])) {
+  if (isset($programme->field_tva[LANGUAGE_NONE][0]['tid'])) {
     $tva_tid = $programme->field_tva[LANGUAGE_NONE][0]['tid'];
     $tva_term = taxonomy_term_load($tva_tid);
-    if($tva_term) {
+    if ($tva_term) {
       $tva_name = $tva_term->name;
-      if(isset($tva_term->field_facteur[LANGUAGE_NONE][0]['value'])) {
+      if (isset($tva_term->field_facteur[LANGUAGE_NONE][0]['value'])) {
         $facteur = $tva_term->field_facteur[LANGUAGE_NONE][0]['value'];
         switch ($facteur) {
           case FACTEUR_TVA_5_5:
@@ -70,9 +70,9 @@ if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     }
   }
 
-  if(isset($programme->field_affichage_double_grille[LANGUAGE_NONE][0]['value'])) {
+  if (isset($programme->field_affichage_double_grille[LANGUAGE_NONE][0]['value'])) {
     $flag = $programme->field_affichage_double_grille[LANGUAGE_NONE][0]['value'];
-    if($flag) {
+    if ($flag) {
       $affichage = TRUE;
     }
   }
@@ -99,14 +99,13 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
     <?php
     $image_principale = '';
     if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
-        $node->field_image_principale[LANGUAGE_NONE][0]) {
+      $node->field_image_principale[LANGUAGE_NONE][0]) {
       $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
-    }
-    else {
+    } else {
       // Get default per image on each pieces and gammes.
       if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
-          !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
-          $piece_id
+        !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
+        $piece_id
       ) {
         if ($file_id = variable_get('image_default_' . $piece_id . '_' . $programme->field_programme_gamme[LANGUAGE_NONE][0]['value'])) {
           $file_load = file_load($file_id);
@@ -164,21 +163,21 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                 <p class="toolbox__intro"><?php print t('Quartier Batignolles PARIS 17ème') ?></p>
 
                 <ul class="content-price bienPrice">
-                    <?php if($tva) : ?>
-                      <?php if($affichage) : ?>
+                    <?php if ($tva) : ?>
+                      <?php if ($affichage) : ?>
                         <li class="content-price__item">
-                        <span class="text">
-                            <?php print (isset($node->field_bien_low_tva_price[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($node->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) : 0  ?> <?php print t('€'); ?>
-                        </span>
-                        <span class="tags">
-                            <?php if($tva_name) : ?>
-                              <div class="tva"><?php print $tva_name; ?></div>
-                            <?php endif; ?>
-                            <a href="#" class="tva--btn">
-                                <span class="icon icon-arrow"></span>
-                                <?php print t('Suis-je éligible&nbsp;?') ?>
-                            </a>
-                        </span>
+                            <span class="text">
+                                <?php print (isset($node->field_bien_low_tva_price[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($node->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) : 0  ?> <?php print t('€'); ?>
+                            </span>
+                            <span class="tags">
+                                <?php if ($tva_name) : ?>
+                                  <div class="tva"><?php print $tva_name; ?></div>
+                                <?php endif; ?>
+                                <a href="#" class="tva--btn">
+                                    <span class="icon icon-arrow"></span>
+                                    <?php print t('Suis-je éligible&nbsp;?') ?>
+                                </a>
+                            </span>
                         </li>
                         <li class="content-price__item">
                             <span class="text">
@@ -203,8 +202,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                           <span class="text">
                               <?php print (isset($node->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($node->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?> <?php print t('€'); ?>
                           </span>
-<!--                          <span class="tags">
-                              <div class="tva tva--high"><?php //print t('TVA 20%') ?></div>
+  <!--                          <span class="tags">
+                              <div class="tva tva--high"><?php //print t('TVA 20%')                                                                                           ?></div>
                           </span>-->
                       </li>
                     <?php endif; ?>
@@ -215,9 +214,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                   $fee_parking = $node->field_caracteristique_parking[LANGUAGE_NONE][0]["value"];
                   $msg_parking = '';
                   if ($fee_parking > 0) {
-                    $msg_parking = t('Parking extérieur à partir de ') . numberFormatGlobalSpace($fee_parking, 0, ",", " ") . ' ' .t('€');
-                  }
-                  elseif ($fee_parking == 0) {
+                    $msg_parking = t('Parking extérieur à partir de ') . numberFormatGlobalSpace($fee_parking, 0, ",", " ") . ' ' . t('€');
+                  } elseif ($fee_parking == 0) {
                     $msg_parking = t('Parking Compris');
                   }
 
@@ -343,8 +341,7 @@ if (!empty($list_bien_more)):
                       foreach ($list_bien_more as $item):
                         if ($item->nid == $node->nid) {
                           continue;
-                        }
-                        else {
+                        } else {
                           $bien_more = node_load($item->nid);
                           $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);
                           $bien_id = $bien_id[count($bien_id) - 1];
@@ -420,12 +417,12 @@ if (!empty($list_bien_more)):
                 <?php
                 $id_programme = $nodeprogramme = "";
                 if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
-                    $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
-                    $param = array(
-                      'type' => 'programme',
-                      'status' => 1,
-                    );
-                    $nodeprogramme = node_load($param, $id_programme);
+                  $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
+                  $param = array(
+                    'type' => 'programme',
+                    'status' => 1,
+                  );
+                  $nodeprogramme = node_load($param, $id_programme);
                 }
 
                 global $base_url;
@@ -438,9 +435,9 @@ if (!empty($list_bien_more)):
                 $image_principale_large = '';
                 $image_principale_medium = '';
                 if ($image_principale) {
-                    $image_principale_small = image_style_url('bien_more_info_programe_small_560_x_214', $image_principale);
-                    $image_principale_medium = image_style_url('bien_more_info_programe_medium_632_x_241', $image_principale);
-                    $image_principale_large = image_style_url('bien_more_info_programe_large_780_x_298', $image_principale);
+                  $image_principale_small = image_style_url('bien_more_info_programe_small_560_x_214', $image_principale);
+                  $image_principale_medium = image_style_url('bien_more_info_programe_medium_632_x_241', $image_principale);
+                  $image_principale_large = image_style_url('bien_more_info_programe_large_780_x_298', $image_principale);
                 }
 
 
@@ -449,13 +446,11 @@ if (!empty($list_bien_more)):
 
                 $de_a_pieces = '';
                 if ($pieces_min && $pieces_max) {
-                    $de_a_pieces = $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-                }
-                elseif (!$pieces_min && $pieces_max) {
-                    $de_a_pieces = $pieces_max . ' ' . t('pièces');
-                }
-                elseif ($pieces_min && !$pieces_max) {
-                    $de_a_pieces = $pieces_min . ' ' . t('pièces');
+                  $de_a_pieces = $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+                } elseif (!$pieces_min && $pieces_max) {
+                  $de_a_pieces = $pieces_max . ' ' . t('pièces');
+                } elseif ($pieces_min && !$pieces_max) {
+                  $de_a_pieces = $pieces_min . ' ' . t('pièces');
                 }
 
 
@@ -464,9 +459,8 @@ if (!empty($list_bien_more)):
 
                 $de_a_price = "";
                 if ($price_min) {
-                    $de_a_price = t('à partir de ') . ' ' . numberFormatGlobalSpace($price_min) . t('€');
+                  $de_a_price = t('à partir de ') . ' ' . numberFormatGlobalSpace($price_min) . t('€');
                 }
-
                 ?>
                 <!-- images need to have 2 formats see data-exchange attribute:
                 - small: 560 x 214 (heavy compression)
@@ -494,3 +488,13 @@ if (!empty($list_bien_more)):
     </div>
 </section>
 <!-- [More info] end-->
+<?php
+if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+  if (function_exists('kandb_contact_specific_block_page')) {
+    $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
+    print kandb_contact_specific_block_page($programme);
+  }
+}
+?>
+
+

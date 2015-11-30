@@ -305,13 +305,13 @@ foreach ($arr_slider as $field_name) {
                   <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
               </p>
             <?php endif; ?>
-            
+
             <?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
               <p class="intro">
                   <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
               </p>
-            <?php endif; ?>  
-              
+            <?php endif; ?>
+
             <ul class="toolsList show-for-medium-up">
                 <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
                 <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
@@ -560,3 +560,9 @@ if ($region_id && $programme_carousel):
 <?php endif; ?>
 <!-- [contactUs complete] start-->
 <!-- [contactUs complete] end-->
+
+<?php
+if (function_exists('kandb_contact_specific_block_page')) {
+  print kandb_contact_specific_block_page($node);
+}
+?>
