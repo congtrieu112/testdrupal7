@@ -7,8 +7,8 @@
 include_once 'kandb_partenaire.features.inc';
 
 function kandb_partenaire_form_alter(&$form, &$form_state, $form_id) {
-    if (arg(0) == 'node' && arg(1) == 'add' && arg(2) == 'partenaire') {
-        $partenaireJSPath = drupal_get_path('module', 'kandb') . 'js/kandb_partenaire.js';
+    if (arg(0) == 'node' && ((arg(1) == 'add' && arg(2) == 'partenaire') || arg(2) == 'edit')) {
+        $partenaireJSPath = drupal_get_path('profile', 'kandb') . '/modules/features/kandb_partenaire/js/kandb_partenaire.js';
         drupal_add_js($partenaireJSPath);
     }
 }
