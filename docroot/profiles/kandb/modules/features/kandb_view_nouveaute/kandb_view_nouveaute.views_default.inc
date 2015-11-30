@@ -128,7 +128,7 @@ function kandb_view_nouveaute_views_default_views() {
   $handler->display->display_options['filters']['field_programme_online_date_value']['id'] = 'field_programme_online_date_value';
   $handler->display->display_options['filters']['field_programme_online_date_value']['table'] = 'field_data_field_programme_online_date';
   $handler->display->display_options['filters']['field_programme_online_date_value']['field'] = 'field_programme_online_date_value';
-  $handler->display->display_options['filters']['field_programme_online_date_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['operator'] = 'between';
   $handler->display->display_options['filters']['field_programme_online_date_value']['exposed'] = TRUE;
   $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['operator_id'] = 'field_programme_online_date_value_op';
   $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['label'] = 'Date de mise en ligne (field_programme_online_date)';
@@ -143,13 +143,15 @@ function kandb_view_nouveaute_views_default_views() {
     42676763 => 0,
   );
   $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 30 day';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['default_to_date'] = 'now';
 
   /* Display: Block Nouveaute */
   $handler = $view->new_display('block', 'Block Nouveaute', 'block');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['title'] = 'Nouveaute';
   $handler->display->display_options['defaults']['pager'] = FALSE;
-  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['pager']['options']['items_per_page'] = '200';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';
