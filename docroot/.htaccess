@@ -141,8 +141,3 @@ DirectoryIndex index.php index.html index.htm
     </FilesMatch>
   </IfModule>
 </IfModule>
-
-AuthType Basic
-AuthName "My Protected Area"
-AuthUserFile /var/www/html/kb.digitaslbi.local.com/docroot/.htpasswd
-Require valid-user
