@@ -11,7 +11,8 @@ function kb_mail_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('config_mailing_list'),
     'file' => 'kb_mail.admin.inc',
-    'access callback' => TRUE,
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
   );
   $items['admin/config/kb-mail/mailing-list'] = array(
     'title' => 'Configure list email for Call center',
@@ -43,6 +44,18 @@ function kb_mail_theme($existing, $type, $theme, $path) {
         'mail_vars' => NULL
       ),
     ),
+    'avant_premiere_contact_us' => array(
+      'template' => 'templates/avant-premiere-contact-us',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
+    'user_confirmation_avant_premiere_contact_us' => array(
+      'template' => 'templates/user-confirmation-avant-premiere-contact-us',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
   );
 }
 /**
@@ -51,7 +64,8 @@ function kb_mail_theme($existing, $type, $theme, $path) {
 function kb_mail_form_alter(&$form, &$form_state, $form_id) {
   $all_webform = array(
     '_tre_rappel_',
-    'prendre_rendez_vous'
+    'prendre_rendez_vous',
+    'avant_contactez_nous'
   );
   $all_forms = array();
   foreach ($all_webform as $webform_name) {
@@ -60,6 +74,9 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
       $all_forms[] = 'webform_client_form_' . $webform->nid;
     }
   }
+  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+    $form['#avant_premiere_id'] = arg(1);
+  }
   if(in_array($form_id, $all_forms)) {
     array_unshift($form['#submit'], 'kandb_webform_submit'); 
   }
@@ -67,10 +84,28 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
 function kandb_webform_submit(&$form, &$form_state) {
   $node = NULL;
   $bien = NULL;
+  $avant_premiere = NULL;
   $values = $form_state['values'];
+  $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
   if (isset($values['submitted']['row_2']['rappeler_horaire'])) {
     if (isset ($form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']])) {
       $values['submitted']['row_2']['rappeler_horaire'] = $form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']];
+    }
+  }
+  if (isset($values['submitted']['rdv_connu'])) {
+    if (isset ($form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']])) {
+      if ($form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']] != '') {
+        $values['submitted']['rdv_connu'] = $form['submitted']['rdv_connu']['#options'][$values['submitted']['rdv_connu']];
+      }
+      else {
+        $values['submitted']['rdv_connu'] = '';
+      }
+    }
+  }
+  if (isset($form['#avant_premiere_id']) && is_numeric($form['#avant_premiere_id']) && $webform_name == 'avant_contactez_nous') {
+    $avant_premiere = node_load($form['#avant_premiere_id']);
+    if ($avant_premiere->type != 'avant_premiere') {
+      $avant_premiere = NULL;
     }
   }
   if (isset($values['submitted']['rdv_idkp']) && is_numeric($values['submitted']['rdv_idkp'])) {
@@ -80,7 +115,7 @@ function kandb_webform_submit(&$form, &$form_state) {
     $db_query->condition('fidk.bundle', 'programme');
     $db_query->condition('fidk.field_id_programme_value', $values['submitted']['rdv_idkp']);
     $nid = $db_query->execute()->fetchField();
-    $node = node_load($nid);
+    if($nid) $node = node_load($nid);
   }
   if (isset($values['submitted']['rdv_idkl'])) {
     $db_query = db_select('field_data_field_id_bien', 'fidkl');
@@ -89,11 +124,10 @@ function kandb_webform_submit(&$form, &$form_state) {
     $db_query->condition('fidkl.bundle', 'bien');
     $db_query->condition('fidkl.field_id_bien_value', $values['submitted']['rdv_idkl']);
     $nid = $db_query->execute()->fetchField();
-    $bien = node_load($nid);
+    if($nid) $bien = node_load($nid);
   }
-  $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
-  if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous') {
-    $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien);
+  if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous' || $webform_name == 'avant_contactez_nous') {
+    $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien, $avant_premiere);
     $has_prefix = FALSE;
     if ($webform_name == '_tre_rappel_') {
 //      $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
@@ -110,7 +144,7 @@ function kandb_webform_submit(&$form, &$form_state) {
       }
       kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
     }
-    else {
+    elseif ($webform_name == 'prendre_rendez_vous') {
       $has_prefix = FALSE;
       $subject = t('Prise de RDV');
       $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department');
@@ -140,6 +174,27 @@ function kandb_webform_submit(&$form, &$form_state) {
       }
       kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
     }
+    else {
+      $has_prefix = FALSE;
+      $subject = t('Message Avant Première');
+      $sub_vars = array('avant_premiere_title', 'avant_premiere_ville', 'avant_premiere_department');
+      foreach ($sub_vars as $var) {
+        if ($variables[$var]) {
+          if ($has_prefix) {
+            $subject .= ' / ';
+          }
+          else {
+            $subject .= ' - ';
+          }
+          $subject .= $variables[$var];
+          $has_prefix = TRUE;
+        }
+      }
+      //Send mail to user
+      kandb_webform_send_mail('user_confirmation_avant_premiere_contact_us', $subject, $variables['rdv_email'], $variables);
+      //Send mail to call center
+      kandb_webform_send_mail('avant_premiere_contact_us', $subject, 'call_center', $variables);
+    }
   }
 }
 function kb_mail_mail($key, &$message, $params) {
@@ -148,8 +203,10 @@ function kb_mail_mail($key, &$message, $params) {
     $message['body'][] = $params['body'];
   }
 }
-function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL) {
+function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL, $avant_premiere = NULL) {
+  global $base_url;
   $variables = array();
+  $variables['kandb_base_url'] = $base_url;
   if($webform_name && $values) {
     $variables['programme_title'] = isset($programme->title) ? $programme->title : '';
     $variables['programme_loc_ville'] = '';
@@ -199,6 +256,17 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
         $variables['bien_lot_id'] = $bien->field_id_bien[LANGUAGE_NONE][0]['value'];
       }
     }
+    $variables['avant_premiere_title'] = isset($avant_premiere->title) ? $avant_premiere->title : '';
+    $variables['avant_premiere_ville'] = '';
+    $variables['avant_premiere_department'] = '';
+    if (isset($avant_premiere->field_avant_premiere_ville[LANGUAGE_NONE][0]['tid'])) {
+      $avant_premiere_ville = taxonomy_term_load($avant_premiere->field_avant_premiere_ville[LANGUAGE_NONE][0]['tid']);
+      $variables['avant_premiere_ville'] = isset($avant_premiere_ville->name) ? $avant_premiere_ville->name : '';
+    }
+    if (isset($avant_premiere->field_avant_premiere_department[LANGUAGE_NONE][0]['tid'])) {
+      $avant_premiere_department = taxonomy_term_load($avant_premiere->field_avant_premiere_department[LANGUAGE_NONE][0]['tid']);
+      $variables['avant_premiere_department'] = isset($avant_premiere_department->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $avant_premiere_department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+    }
     if ($webform_name == '_tre_rappel_') {
       $variables['rappeler_nom'] = isset($values['submitted']['row_1']['rappeler_nom']) ? $values['submitted']['row_1']['rappeler_nom'] : '';
       $variables['rappeler_prenom'] = isset($values['submitted']['row_1']['rappeler_prenom']) ? $values['submitted']['row_1']['rappeler_prenom'] : '';
@@ -217,11 +285,25 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
         'rdv_email',
         'rdv_telephone',
         'rdv_message',
-        'rdv_nom',
+        'rdv_connu',
       );
       foreach ($book_appointment_arr as $var_name) {
         $variables[$var_name] = isset($values['submitted'][$var_name]) ? $values['submitted'][$var_name] : '';
       }
+      $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
+    }
+    elseif($webform_name == 'avant_contactez_nous') {
+      $variables['rdv_nom'] = isset($values['submitted']['row_1']['rdv_nom']) ? $values['submitted']['row_1']['rdv_nom'] : '';
+      $variables['rdv_prenom'] = isset($values['submitted']['row_1']['rdv_prenom']) ? $values['submitted']['row_1']['rdv_prenom'] : '';
+      $variables['rdv_code_postal'] = isset($values['submitted']['row_2']['rdv_code_postal']) ? $values['submitted']['row_2']['rdv_code_postal'] : '';
+      $variables['rdv_ville'] = isset($values['submitted']['row_2']['rdv_ville']) ? $values['submitted']['row_2']['rdv_ville'] : '';
+      $variables['rdv_adresse1'] = isset($values['submitted']['row_3']['rdv_adresse1']) ? $values['submitted']['row_3']['rdv_adresse1'] : '';
+      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['rdv_adresse2']) ? $values['submitted']['row_3']['rdv_adresse2'] : '';  
+      $variables['rdv_email'] = isset($values['submitted']['row_4']['rdv_email']) ? $values['submitted']['row_4']['rdv_email'] : '';
+      $variables['rdv_telephone'] = isset($values['submitted']['row_4']['rdv_telephone']) ? $values['submitted']['row_4']['rdv_telephone'] : '';
+      $variables['rdv_lieudit'] = isset($values['submitted']['row_5']['rdv_lieudit']) ? $values['submitted']['row_5']['rdv_lieudit'] : '';
+      $variables['rdv_message'] = isset($values['submitted']['rdv_message']) ? $values['submitted']['rdv_message'] : '';
+      $variables['rdv_connu'] = isset($values['submitted']['rdv_connu']) ? $values['submitted']['rdv_connu'] : '';
       $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
     }
   }

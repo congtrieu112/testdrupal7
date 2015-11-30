@@ -11,25 +11,6 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
 
 /**
- * Override or insert variables into the html template.
- */
-function kandb_theme_preprocess_html(&$variables) {
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $variables['theme_hook_suggestions'][] = 'html__ajax';
-  }
-}
-
-/**
- * Override or insert variables into the block template.
- */
-function kandb_theme_preprocess_block(&$variables) {
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $variables['theme_hook_suggestions'][] = 'block__ajax';
-  }
-}
-/**
  * Override or insert variables into the page template.
  */
 function kandb_theme_process_page(&$variables) {
@@ -104,7 +85,7 @@ function kandb_theme_menu_local_tasks(&$variables) {
  * Implementation theme_preprocess_form_element_label()
  */
 function kandb_theme_preprocess_form_element_label(&$variables) {
-  if ($variables['element']['#theme'] == 'checkbox') {
+  if (isset($variables['element']['#theme']) && $variables['element']['#theme'] == 'checkbox') {
     $variables['element']['#attributes']['class'][] = 'label-checkbox';
   }
 }
@@ -173,6 +154,7 @@ function kandb_theme_get_path($dir_name = NULL, $theme_name = NULL) {
  */
 function kandb_theme_preprocess_node(&$vars) {
   $arg = arg();
+  global $user;
   switch ($vars['view_mode']) {
     case 'teaser_carrousel_3':
       $vars['theme_hook_suggestions'][] = 'node__' . $vars['node']->type . '__teaser_carrousel_3';
@@ -222,24 +204,239 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['anchor'] = TRUE;
     }
   }
-  if ($vars['type'] == 'webform') {
-    if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-      $vars['theme_hook_suggestions'][] = 'node__webform__ajax';
-    }
-  }
 
   // Implement redirect bien detail if status is Indisponible;
   if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
-    if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
-      $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
-      if ($bien_status->name && $bien_status->name == 'Indisponible') {
-        $programme_id = $vars['field_programme'][0]['target_id'];
-        $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
-        if ($programme_status == 1) {
-          drupal_goto('node/' . $programme_id);
-        } else {
-          drupal_goto('/recherche');
+    if (empty($user->uid)) {
+      if (isset($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid'])) {
+        $bien_status = taxonomy_term_load($vars['field_bien_statut'][LANGUAGE_NONE][0]['tid']);
+        if ($bien_status->name && $bien_status->name == 'Indisponible') {
+          $programme_id = $vars['field_programme'][0]['target_id'];
+          $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
+          if ($programme_status == 1) {
+            drupal_goto('node/' . $programme_id);
+          } else {
+            drupal_goto(URL_SEARCH_B2C);
+          }
         }
+      }
+    }
+  }
+
+  if ($vars['view_mode'] == 'full' && $vars['type'] == 'programme') {
+
+    $content = &$vars['content'];
+    $node = &$vars['node'];
+
+    // TODO : Remove
+    // $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
+
+    /**
+     * HEADER
+     */
+    // Get promotion by programme nid.
+    $vars['promotion'] = get_nids_promotions_by_programme($node->nid);
+
+    // Information for header programme page
+    $vars['title'] = $node->title;
+    $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $node->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
+    $vars['image_principale_small'] = '';
+    $vars['image_principale_large'] = '';
+    $vars['image_principale_medium'] = '';
+
+    if ($image_principale) {
+      $vars['image_principale_small'] = image_style_url('program_image_principale_small', $image_principale);
+      $vars['image_principale_medium'] = image_style_url('program_image_principale_medium', $image_principale);
+      $vars['image_principale_large'] = image_style_url('program_image_principale_large', $image_principale);
+    }
+
+    $vars['nouveau'] = isset($node->field_nouveau[LANGUAGE_NONE][0]['value']) ? $node->field_nouveau[LANGUAGE_NONE][0]['value'] : 0;
+    $vars['caracteristiques'] = isset($node->field_caracteristiques[LANGUAGE_NONE]) ? $node->field_caracteristiques[LANGUAGE_NONE] : '';
+    $vars['program_loc_ville'] = isset($node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
+
+    $trimstre_id = isset($node->field_trimestre[LANGUAGE_NONE][0]['value']) ? $node->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
+    $vars['trimstre'] = '';
+    if ($trimstre_id) {
+      if ($trimstre_id == 1) {
+        $vars['trimstre'] = t('1er trimestre');
+      }
+      $vars['trimstre'] = $trimstre_id . t('ème trimestre');
+    }
+
+    $vars['annee'] = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
+    $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+    $pieces_min = isset($node->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
+    $pieces_max = isset($node->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+
+    $vars['de_a_pieces'] = '';
+    if ($pieces_min && $pieces_max) {
+      $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+    }
+    elseif (!$pieces_min && $pieces_max) {
+      $vars['de_a_pieces'] = $pieces_max . ' ' . t('pièces');
+    }
+    elseif ($pieces_min && !$pieces_max) {
+      $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
+    }
+
+    $price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+    $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+
+    $vars['de_a_price_tva'] = '';
+    if ($price_tva_min && $price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif (!$price_tva_min && $price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif ($price_tva_min && !$price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
+    }
+
+    $vars['tva'] = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
+
+    $price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+    $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+
+    $vars['de_a_price'] = '';
+    if ($price_min && $price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif (!$price_min && $price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif ($price_min && !$price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
+    }
+
+    $vars['en_quelques_mots'] = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+
+
+    /**
+     * BIENS
+     */
+    //check all bien status
+    $programme_id = $node->vid;
+    $vars['flag'] = 0;
+    $custom_bien = 0;
+    $status = 1;
+    if ($tid = get_tid_by_id_field($status)) {
+      $custom_bien = filter_bien_by_id_program($programme_id, $tid);
+    }
+    if ($custom_bien) {
+      $vars['flag'] = 1;
+    }
+
+
+    /**
+     * DOWNLOAD FILES
+     */
+    //get link file Plaquette commerciale
+    $vars['file_plaquette_commerciale'] = '';
+    if (isset($content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'])) {
+      $vars['file_plaquette_commerciale'] = $content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'];
+    }
+
+    //get link file fiche reseignement
+    $vars['file_fiche_renseignement'] = '';
+    if (isset($content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'])) {
+      $vars['file_fiche_renseignement'] = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
+    }
+
+    //get link file Kit fiscal
+    $vars['file_kit_fiscal'] = '';
+    if (isset($content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'])) {
+      $vars['file_kit_fiscal'] = $content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'];
+    }
+
+    //get link file Plan du bâtiment
+    $vars['file_plan_batiment'] = '';
+    if (isset($content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'])) {
+      $vars['file_plan_batiment'] = $content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'];
+    }
+
+    //get link zip file
+    $addMore = '_';
+    $nid = $node->nid;
+    $path = file_create_url('public://');
+    $real_path = drupal_realpath('public://');
+    $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+    if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
+      $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+      $linkfile = $path . 'Programme/archive/' . $nid . '/' . $fileName;
+      if ($filePath) {
+        if (file_exists($filePath)) {
+          $vars['link_to_zip'] = $linkfile;
+        }
+      }
+    }
+
+    // Hide the files area if no document are uploaded
+    $arr_document = array(
+      'field_plaquette_commerciale',
+      'field_fiche_renseignement',
+      'field_plan_batiment',
+      'field_kit_fiscal',
+      'field_contrat_reservation',
+      'field_etat_des_risques',
+      'field_lettre_de_banque',
+      'field_prestations_programme',
+      'field_mandat_gestion_locative',
+      'field_plan_masse_sous_sol',
+      'visuel_grande_taille',
+      'field_bail_commercial',
+      'bon_commande_mobilier',
+      'autre_documents'
+    );
+
+    $vars['status_document'] = FALSE;
+    foreach ($arr_document as $field_name) {
+      $document = isset($node->$field_name) ? $node->$field_name : '';
+      if (isset($document[LANGUAGE_NONE][0]['fid'])) {
+        $vars['status_document'] = TRUE;
+        break;
+      }
+    }
+
+
+    /**
+     * HABITEO
+     */
+    $vars['habiteo_id'] = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';
+    $vars['habiteo_key'] = variable_get('habiteo_widget_security_key');
+    $vars['habiteo_video_de_quartier_url'] = variable_get('habiteo_video-de-quartier_url');
+    $vars['habiteo_vue_generale_url'] = variable_get('habiteo_vue-generale_url');
+    $vars['lat'] = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] : '';
+    $vars['lon'] = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
+    $vars['video_id'] = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
+    $vars['logementBlock'] = module_invoke('kandb_programme', 'block_view', 'logement_block');
+    $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
+
+
+    /**
+     * SLIDER
+     */
+    $arr_slider = array(
+      'field_slider_exterieur_titre',
+      'field_slider_exterieur_desc',
+      'field_slider_exterieur_image',
+      'field_slider_interieur_titre',
+      'field_slider_interieur_desc',
+      'field_slider_interieur_image',
+      'field_slider_securite_titre',
+      'field_slider_securite_desc',
+      'field_slider_securite_image',
+      'field_slider_rt2012_titre',
+      'field_slider_rt2012_image',
+      'field_slider_rt2012_desc',
+    );
+
+    $vars['status_slider'] = FALSE;
+    foreach ($arr_slider as $field_name) {
+      $slider = isset($node->$field_name) ? $node->$field_name : '';
+      if (isset($slider[LANGUAGE_NONE][0]['value']) || isset($slider[LANGUAGE_NONE][0]['fid'])) {
+        $vars['status_slider'] = TRUE;
+        break;
       }
     }
   }
@@ -282,10 +479,6 @@ function kandb_theme_preprocess_region(&$vars) {
     if ($menu_secondary_links_source) {
       $vars['menu_footer'] = menu_navigation_links($menu_secondary_links_source);
     }
-  }
-  // Change template on AJAX request
-  if (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') {    
-    $vars['theme_hook_suggestions'][] = 'region__ajax';
   }
 }
 
@@ -407,6 +600,7 @@ function kandb_theme_form_element_label($variables) {
   $title = filter_xss_admin($element['#title']);
 
   $attributes = array();
+  $attributes['class'] = '';
   // Style the label as class option to display inline with the element.
   if ($element['#title_display'] == 'after') {
     $attributes['class'] = 'option';
@@ -416,7 +610,7 @@ function kandb_theme_form_element_label($variables) {
     $attributes['class'] = 'element-invisible';
   }
 
-  if (!empty($variables['element']['#attributes']['class'])) {
+  if (isset($variables['element']['#attributes']['class']) && !empty($variables['element']['#attributes']['class'])) {
     $attributes['class'] .= ' ' . implode(' ', $variables['element']['#attributes']['class']);
   }
 
@@ -471,4 +665,38 @@ function kandb_theme_select($variables) {
  */
 function kandb_theme_css_alter(&$css) {
   unset($css['modules/system/system.messages.css']);
+}
+
+/**
+ * Returns HTML for a fieldset form element and its children.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the element.
+ *     Properties used: #attributes, #children, #collapsed, #collapsible,
+ *     #description, #id, #title, #value.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_fieldset($variables) {
+  $element = $variables['element'];
+  element_set_attributes($element, array('id'));
+  _form_set_class($element, array('form-wrapper'));
+
+  $output = '<fieldset' . drupal_attributes($element['#attributes']) . '>';
+  if (!empty($element['#title'])) {
+    // Always wrap fieldset legends in a SPAN for CSS positioning.
+    $output .= '<legend><span class="fieldset-legend">' . $element['#title'] . '</span></legend>';
+  }
+  //$output .= '<div class="fieldset-wrapper">';
+  if (!empty($element['#description'])) {
+    $output .= '<div class="fieldset-description">' . $element['#description'] . '</div>';
+  }
+  $output .= $element['#children'];
+  if (isset($element['#value'])) {
+    $output .= $element['#value'];
+  }
+  //$output .= '</div>';
+  $output .= "</fieldset>\n";
+  return $output;
 }

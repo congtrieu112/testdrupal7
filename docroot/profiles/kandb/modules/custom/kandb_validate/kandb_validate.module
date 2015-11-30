@@ -20,10 +20,12 @@ function kandb_validate_avant_premiere(&$form, &$form_state) {
       if ($date_diff > 2) {
         form_set_error('field_avant_premiere_date_fin', t('the range between begin date and end date is from 1 - 3 days.'));
       }
-    } else {
+    }
+    else {
       form_set_error('field_avant_premiere_date_debut', t('The end date should be greater than begin date'));
     }
-  } else {
+  }
+  else {
     form_set_error('field_avant_premiere_date_debut', t('Both begin date and end date should be same year and month'));
   }
 }
@@ -38,7 +40,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
   $realEnd->add($interval);
 
   $period = new DatePeriod(
-    new DateTime($start), $interval, $realEnd
+      new DateTime($start), $interval, $realEnd
   );
   foreach ($period as $date) {
     $array[] = $date->format('d');
@@ -58,7 +60,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
-      ->distinct();
+        ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -73,14 +75,14 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     // Fetch only records where date_time is greater than 30 days ago.
     $type_options_query->where('d.field_programme_online_date_value > DATE_ADD(NOW(), INTERVAL -30 DAY)');
     $type_options_query->fields('a', array('field_programme_loc_ville_tid'))
-      ->distinct();
+        ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
     $type_options_existed += $type_options_query->execute()->fetchAllKeyed();
   }
 
-  if ($view_name == 'livraison_immediate') {
+  if ($view_name == 'livraison_immediate' || $view_name == 'notre_offre_en_france') {
     if ($result) {
       foreach ($result as $item) {
         $name = isset($item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name) ? $item->field_field_programme_loc_ville[0]['rendered']['#options']['entity']->name : '';
@@ -99,9 +101,9 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
 /**
  * Implements hook_views_query_alter().
  */
-function kandb_validate_views_query_alter(&$view, &$query) {  
-  if ($view->name == 'livraison_immediate' && $view->current_display == 'block') {      
-    // Left join with Annee.        
+function kandb_validate_views_query_alter(&$view, &$query) {
+  if ($view->name == 'livraison_immediate' && $view->current_display == 'block') {
+    // Left join with Annee.
     $quarter = date_quarter();
     $year = date('Y');
     $next_quarter = ($quarter == 4) ? 1 : $quarter + 1;
@@ -111,7 +113,7 @@ function kandb_validate_views_query_alter(&$view, &$query) {
     $view->query->where[1]['conditions'][0]['value'] = $year;
     // Alter field_trimestre_value.
     $view->query->where[1]['conditions'][1]['value'] = $quarter;
-    
+
     // For the after quarter.
     // Alter field_annee_value.
     $view->query->where[2]['conditions'][0]['value'] = $next_year;
@@ -123,13 +125,118 @@ function kandb_validate_views_query_alter(&$view, &$query) {
 /**
  * Return the calculate the quarter.
  */
-function date_quarter()
-{
-  $month = date('n');  
+function date_quarter() {
+  $month = date('n');
 
-  if ($month <= 3) return 1;
-  if ($month <= 6) return 2;
-  if ($month <= 9) return 3;
+  if ($month <= 3)
+    return 1;
+  if ($month <= 6)
+    return 2;
+  if ($month <= 9)
+    return 3;
 
   return 4;
+}
+
+/**
+ * Get the promotions by programme nid.
+ * 
+ * @param int $nid
+ *   The nid of programme CT.
+ * 
+ * @return object entity.
+ *   Return the object entity of Promotion CT.
+ */
+function get_nids_promotions_by_programme($nid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'promotion')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_promotion_programme', 'target_id', $nid)
+      ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
+      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $promotion_nids = array_keys($result['node']);
+    return entity_load('node', $promotion_nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Implements of hook_views_pre_render().
+ */
+function kandb_validate_views_pre_render($view) {  
+  if (in_array($view->name, array('nos_dernieres_offres', 'avant_premiere_check')) && count($view->result)) {
+    $my_arr = $view->result;
+    $dups = $new_arr = array();
+    foreach ($my_arr as $key => $val) {
+      if (!isset($new_arr[$val->nid])) {
+        $new_arr[$val->nid] = $key;
+      }
+      else {
+        if (isset($dups[$val->nid])) {
+          $dups[$val->nid][] = $key;
+        }
+        else {
+          $dups[$val->nid] = array($key);
+        }
+      }
+    }
+
+    if (count($dups)) {
+      foreach ($view->result as $result) {
+        if (array_key_exists($result->nid, $dups)) {
+          $unset_array = array_values($dups[$result->nid]);
+          foreach ($unset_array as $key_unset) {
+            if (isset($view->result[$key_unset])) {
+              $view->promotion_duplicate[$view->result[$key_unset]->nid][] = array(
+                'object' => $view->result[$key_unset],
+              );
+              unset($view->result[$key_unset]);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+/*
+ * filter custom bien by program 
+ * 
+ */
+
+function filter_bien_by_id_program($idprogram, $tid) {
+  $query = db_select('node', 'n');
+  $query->join('field_data_field_programme', 'b', 'n.type = b.bundle');
+  $query->join('field_data_field_bien_statut', 'c', 'n.type = c.bundle');
+  $query->fields('n', array('vid', 'type'));
+  $query->fields('b', array('field_programme_target_id'));
+  $query->fields('c', array('field_bien_statut_tid'));
+  $query->condition('field_programme_target_id', $idprogram, '=');
+  $query->condition('field_bien_statut_tid', $tid, '=');
+  $result = $query->execute()->fetchAll();
+  if (!empty($result)) {
+    return $result;
+  }
+  return FALSE;
+}
+
+/*
+ * Get tid taxonomy by field field_id_xls.
+ */
+
+function get_tid_by_id_field($status) {
+  $query = db_select('field_data_field_id_xls', 't');
+  $query->fields('t', array('entity_id'));
+  $query->condition('field_id_xls_value', $status, '=');
+  $result = $query->execute()->fetchObject();
+  if (!empty($result)) {
+    return $result->entity_id;
+  }
+  return FALSE;
 }

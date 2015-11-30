@@ -10,6 +10,31 @@
 function kandb_programme_field_default_field_bases() {
   $field_bases = array();
 
+  // Exported field_base: 'field_affichage_double_grille'
+  $field_bases['field_affichage_double_grille'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_affichage_double_grille',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_boolean',
+  );
+
   // Exported field_base: 'field_annee'
   $field_bases['field_annee'] = array(
     'active' => 1,
@@ -897,6 +922,32 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'number_float',
   );
 
+  // Exported field_base: 'field_programme_gamme'
+  $field_bases['field_programme_gamme'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_gamme',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        'premium' => 'Premium',
+        'medium' => 'Médium',
+        'low' => 'Bas de gamme',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
+  );
+
   // Exported field_base: 'field_programme_habiteo_bon_plan'
   $field_bases['field_programme_habiteo_bon_plan'] = array(
     'active' => 1,
@@ -1134,17 +1185,22 @@ function kandb_programme_field_default_field_bases() {
     'entity_types' => array(),
     'field_name' => 'field_programme_loc_type',
     'indexes' => array(
-      'format' => array(
-        0 => 'format',
+      'tid' => array(
+        0 => 'tid',
       ),
     ),
     'locked' => 0,
-    'module' => 'text',
+    'module' => 'taxonomy',
     'settings' => array(
-      'max_length' => 255,
+      'allowed_values' => array(
+        0 => array(
+          'vocabulary' => 'type_voie',
+          'parent' => 0,
+        ),
+      ),
     ),
     'translatable' => 0,
-    'type' => 'text',
+    'type' => 'taxonomy_term_reference',
   );
 
   // Exported field_base: 'field_programme_loc_ville'
@@ -1818,32 +1874,6 @@ function kandb_programme_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',
-  );
-
-  // Exported field_base: 'field_tva_55'
-  $field_bases['field_tva_55'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_tva_55',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => '',
-        1 => '',
-      ),
-      'allowed_values_function' => '',
-      'profile2_private' => FALSE,
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
   );
 
   // Exported field_base: 'field_type_programme'

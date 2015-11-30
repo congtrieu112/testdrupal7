@@ -16,7 +16,7 @@ function kandb_contact_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-  
+
   $items['admin/config/webform_contact'] = array(
     'title' => 'Webform Contact settings',
     'description' => 'Set ID webform for contact form.',
@@ -26,6 +26,14 @@ function kandb_contact_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
+  $items['admin/reports/webform_submitted_data'] = array(
+    'title' => 'Webform contact-list submitted data',
+    'description' => 'Manage webform contact-list submitted data',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('webform_contact_list_submitted_data'),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer'),
+  );
 
   return $items;
 }
@@ -101,6 +109,10 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
       'template' => 'templates/contact_on_summary',
       'variables' => array(),
     ),
+    'contact_specific_block_page' => array(
+      'template' => 'templates/contact_specific_block_page',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -110,25 +122,25 @@ function kandb_contact_buttons() {
   $links = array();
   $webform_machine_names = array(
     '_tre_rappel_',
-    'prendre_rendez_vous'
+    'prendre_rendez_vous',
   );
 
   foreach ($webform_machine_names as $name) {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
       $links[] = theme_link(
-          array(
-            'text' => $webform->title,
-            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
-            'options' => array(
-              'attributes' => array(
-                'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
-                'data-reveal-ajax' => array('true'),
-                'data-reveal-id' => array('popinLeadForm'),
-              ),
-              'html' => FALSE,
-            )
+        array(
+          'text' => $webform->title,
+          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+          'options' => array(
+            'attributes' => array(
+              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+              'data-reveal-ajax' => array('true'),
+              'data-reveal-id' => array('popinLeadForm'),
+            ),
+            'html' => FALSE,
           )
+        )
       );
     }
   }
@@ -136,22 +148,22 @@ function kandb_contact_buttons() {
 
   return theme('contact_buttons', array(
     'links' => $links
-      )
+    )
   );
 }
 
 /**
  * Callback function
  */
-function kandb_contact_block_page($is_mini_contact = FALSE) {  
+function kandb_contact_block_page($is_mini_contact = FALSE) {
   $variables = array();
   $variables['content'] = kandb_contact_get_all_variables($is_mini_contact);
   $variables['content']['buttons'] = kandb_contact_buttons();
-  
-  if($is_mini_contact){
+
+  if ($is_mini_contact) {
     return theme('mini_contact_block_page', $variables);
   }
-  
+
   return theme('contact_block_page', $variables);
 }
 
@@ -163,7 +175,7 @@ function kandb_contact_block_page($is_mini_contact = FALSE) {
  *  variable_name => variable_value
  */
 function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
-  if(!$is_mini_contact){
+  if (!$is_mini_contact) {
     $variables = array(
       'kandb_contact_photo' => '',
       'kandb_contact_title' => '',
@@ -173,13 +185,13 @@ function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
     );
-  }else{
+  } else {
     $variables = array(
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
     );
   }
-  
+
 
   foreach ($variables as $name => $value) {
     $variables[$name] = variable_get($name);
@@ -268,9 +280,24 @@ function kandb_contact_admin_validate($form, &$form_state) {
 }
 
 function kandb_contact_form_alter(&$form, $form_state, $form_id) {
-  $webform_id_rendez_vous = variable_get('kandb_webform_rendez_vous', 'webform_client_form_2');
-  $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_1');
-  
+  $webform_id_rendez_vous = variable_get('kandb_webform_rendez_vous', 'webform_client_form_1');
+  $webform_id_etre_rappele = variable_get('kandb_webform_etre_rappele', 'webform_client_form_2');
+  $webform_id_avant_contactez_nous = variable_get('kandb_webform_avant_contactez_nous', 'webform_client_form_3');
+
+  if ($form_id == $webform_id_avant_contactez_nous) {
+    $nid = arg(1);
+    if (is_numeric($nid)) {
+      $avant_premiere = node_load($nid);
+      if ($avant_premiere) {
+        $title = isset($avant_premiere->title) ? $avant_premiere->title : '';
+
+        $form['submitted']['nom_prog']["#default_value"] = $title;
+        $form['submitted']['nom_prog']["#value"] = $title;
+        $form['submitted']['nom_prog']['#type'] = 'hidden';
+      }
+    }
+  }
+
   if (($form_id == $webform_id_rendez_vous || $form_id == $webform_id_etre_rappele) && isset($_SERVER["HTTP_REFERER"]) && !empty($_SERVER["HTTP_REFERER"])) {
     global $base_url;
     $referer_path = $_SERVER["HTTP_REFERER"];
@@ -288,14 +315,14 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
         $program_title = '';
         $program_ville = '';
         $program_department = '';
-        
+
         $programme = '';
 
         switch ($node->type) {
           case 'programme':
             $id_programme = (isset($node->field_id_programme[LANGUAGE_NONE][0])) ? $node->field_id_programme[LANGUAGE_NONE][0]["value"] : 0;
-            
-            $programme = $node;            
+
+            $programme = $node;
             break;
 
           case 'bien':
@@ -311,16 +338,16 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
           default:
             break;
         }
-        
-        if(!empty($programme)){
+
+        if (!empty($programme)) {
           $program_title = $programme->title;
-          if(isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])){
+          if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])) {
             $term_id_ville = $programme->field_programme_loc_ville[LANGUAGE_NONE][0]["tid"];
             $term_ville = taxonomy_term_load($term_id_ville);
             $program_ville = $term_ville->name;
           }
 
-          if(isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])){
+          if (isset($programme->field_programme_loc_department[LANGUAGE_NONE][0])) {
             $term_id_department = $programme->field_programme_loc_department[LANGUAGE_NONE][0]["tid"];
             $term_department = taxonomy_term_load($term_id_department);
             $program_department = $term_department->field_numero_departement[LANGUAGE_NONE][0]["value"];
@@ -329,7 +356,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
 
         switch ($form_id) {
           case $webform_id_rendez_vous: // Webform Prendre rendez-vous
-          case $webform_id_etre_rappele:  // webform Être rappelé
+          case $webform_id_etre_rappele:  // Webform Être rappelé
             $form['submitted']['rdv_idkl']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']["#value"] = (!empty($id_bien)) ? $id_bien : '';
             $form['submitted']['rdv_idkl']['#type'] = 'hidden';
@@ -337,16 +364,16 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             $form['submitted']['rdv_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['rdv_idkp']['#type'] = 'hidden';
-            
-            if($form_id == $webform_id_rendez_vous){
+
+            if ($form_id == $webform_id_rendez_vous) {
               $form['submitted']['nom_prog']["#default_value"] = (!empty($program_title)) ? $program_title : '';
               $form['submitted']['nom_prog']["#value"] = (!empty($program_title)) ? $program_title : '';
               $form['submitted']['nom_prog']['#type'] = 'hidden';
-              
+
               $form['submitted']['ville_prog']["#default_value"] = (!empty($program_ville)) ? $program_ville : '';
               $form['submitted']['ville_prog']["#value"] = (!empty($program_ville)) ? $program_ville : '';
               $form['submitted']['ville_prog']['#type'] = 'hidden';
-              
+
               $form['submitted']['dept_prog']["#default_value"] = (!empty($program_department)) ? $program_department : '';
               $form['submitted']['dept_prog']["#value"] = (!empty($program_department)) ? $program_department : '';
               $form['submitted']['dept_prog']['#type'] = 'hidden';
@@ -364,7 +391,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
  * Implements hook_admin().
  * Add setting form contact ID
  */
-function kandb_contact_webform(){
+function kandb_contact_webform() {
   $form['field_tabs'] = array(
     '#type' => 'vertical_tabs',
   );
@@ -380,11 +407,17 @@ function kandb_contact_webform(){
     '#title' => t('Webform ID Prendre rendez-vous'),
     '#default_value' => variable_get('kandb_webform_rendez_vous', 'webform_client_form_2'),
   );
-  
+
   $form['setting']['webform_etre_rappele'] = array(
     '#type' => 'textfield',
     '#title' => t('Webform ID webform Être rappelé'),
     '#default_value' => variable_get('kandb_webform_etre_rappele', 'webform_client_form_1'),
+  );
+
+  $form['setting']['webform_avant_contactez_nous'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Webform ID webform Avant première - contactez-nous'),
+    '#default_value' => variable_get('kandb_webform_avant_contactez_nous', 'webform_client_form_3'),
   );
 
   $form['actions'] = array('#type' => 'actions');
@@ -396,41 +429,192 @@ function kandb_contact_webform(){
   return $form;
 }
 
-
-
 /**
  * Implements hook_admin_submit().
  * Submit setting form contact ID
  */
 function kandb_contact_webform_submit() {
-
   // Action save settings.
   $webform_rendez_vous = $_REQUEST['webform_rendez_vous'];
   $webform_etre_rappele = $_REQUEST['webform_etre_rappele'];
+  $webform_avant_contactez_nous = $_REQUEST['webform_avant_contactez_nous'];
 
   variable_set('kandb_webform_rendez_vous', $webform_rendez_vous);
   variable_set('kandb_webform_etre_rappele', $webform_etre_rappele);
+  variable_set('kandb_webform_avant_contactez_nous', $webform_avant_contactez_nous);
 
   drupal_set_message(t('Save data successful'));
-  
 }
 
 function kandb_contact_form_webform_client_form_alter(&$form, $form_state, $form_id) {
   array_unshift($form['#validate'], 'kandb_webform_client_validate');
   $form['actions']['submit']['#value'] = t('Envoyer');
 }
+
 function kandb_webform_client_validate(&$form, &$form_state) {
-   $values = $form_state['values'];
-   if (isset($values['submitted']['row_2']['rappeler_telephone'])) {
-     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_2']['rappeler_telephone']);
-     if (trim($telephone) != '') {
-       form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
-     }
-   }
-   if (isset($values['submitted']['rdv_telephone'])) {
-     $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
-     if (trim($telephone) != '') {
-       form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
-     }
-   }
+  $values = $form_state['values'];
+  if (isset($values['submitted']['row_2']['rappeler_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_2']['rappeler_telephone']);
+    if (trim($telephone) != '') {
+      form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
+    }
+  }
+  if (isset($values['submitted']['rdv_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
+    if (trim($telephone) != '') {
+      form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
+    }
+  }
+}
+
+/**
+ * Show list webform submitted data and link export contact list
+ */
+function webform_contact_list_submitted_data($form, $form_state) {
+  module_load_include('inc', 'webform', 'includes/webform.submissions');
+  $webforms = db_select('webform', 'w')
+    ->distinct()
+    ->fields('w', array('nid'))
+    ->condition('machine_name', array('_tre_rappel_', 'prendre_rendez_vous', 'avant_contactez_nous'), 'IN')
+    ->execute()
+    ->fetchAll();
+
+  $nids = array();
+  $op_type = array();
+  if ($webforms) {
+    foreach ($webforms as $webform) {
+      $nids[] = $webform->nid;
+      $term = node_load($webform->nid);
+      if ($term) {
+        $op_type[$webform->nid] = $term->title;
+      }
+    }
+  }
+
+  $results = db_select('webform_submitted_data', 'wsd')
+    ->distinct()
+    ->fields('wsd', array('nid', 'sid'))
+    ->condition('nid', $nids, 'IN')
+    //->extend('PagerDefault')->limit(2)
+    ->execute()
+    ->fetchAll();
+
+  $options = array();
+
+  $options_default = array(
+    'idkp' => '',
+    'idkl' => '',
+    'nom_prog' => '',
+    'ville_prog' => '',
+    'dept_prog' => '',
+    'type_contact' => '',
+    'date' => '',
+    'huere' => '',
+    'nom' => '',
+    'prenom' => '',
+    'telephone' => '',
+    'email' => '',
+    'adresse1' => '',
+    'ville' => '',
+    'code_postal' => '',
+    'pays' => '',
+    'PROV' => '',
+    'message' => '',
+  );
+
+  if ($results) {
+    $submitted_datas = array();
+    foreach ($results as $result) {
+      $nid = $result->nid;
+      $sid = $result->sid;
+      $submission = webform_get_submission($nid, $sid);
+      $submitted_datas['date'] = date("m/d/Y", $submission->submitted);
+      $submitted_datas['huere'] = date("H:i:j", $submission->submitted);
+
+      $node = node_load($nid);
+      if ($node) {
+        foreach ($node->webform['components'] as $key => $component) {
+          $component_name = str_replace('rdv_', '', $component["form_key"]);
+          $component_name = str_replace('rappeler_', '', $component_name);
+          $component_name = str_replace('ap_', '', $component_name);
+
+          $arr = array('idkp', 'idkl', 'nom_prog', 'ville_prog', 'dept_prog', 'type_contact', 'date', 'huere', 'nom', 'prenom', 'telephone', 'email', 'adresse1', 'ville', 'code_postal', 'pays', 'PROV', 'message');
+          if (isset($submission->data[$key][0])) {
+            if (in_array($component_name, $arr)) {
+              $submitted_datas[$component_name] = $submission->data[$key][0];
+            }
+          }
+        }
+      }
+
+      $options[] = array_merge($options_default, $submitted_datas);
+    }
+  }
+
+  $header = array(
+    'idkp' => t('IDKP'),
+    'idkl' => t('IDKL'),
+    'nom_prog' => t('NOM_PROG'),
+    'ville_prog' => t('VILLE_PROG'),
+    'dept_prog' => t('DEPT_PROG'),
+    'type_contact' => t('TYPE_CONTACT'),
+    'DATE' => t('DATE'),
+    'HEURE' => t('HEURE'),
+    'nom' => t('NOM'),
+    'prenom' => t('PRENOM'),
+    'telephone' => t('TELEPHONE'),
+    'email' => t('EMAIL'),
+    'adresse1' => t('ADRESSE'),
+    'ville' => t('VILLE '),
+    'code_postal' => t('CODE_POSTAL'),
+    'pays' => t('PAYS'),
+    'PROV' => t('PROV'),
+    'message' => t('MESSAGE'),
+  );
+
+  $form['contact_list'] = array(
+    '#title' => 'Contact list',
+    '#theme' => 'table',
+    '#header' => $header,
+    '#rows' => $options,
+    '#empty' => t('No contact list found'),
+  );
+
+  $form['pager'] = array('#markup' => theme('pager'));
+
+  $form['submit']['export'] = array(
+    '#type' => 'submit',
+    '#value' => t('Export'),
+  );
+
+  return $form;
+}
+
+function webform_contact_list_submitted_data_submit($form, $form_state) {
+  $variables['header'] = $form_state['complete form']['contact_list']['#header'];
+  $variables['rows'] = $form_state['complete form']['contact_list']['#rows'];
+  $filename = 'contact_list_export.csv';
+  drupal_add_http_header('Content-Type', 'text/csv; utf-8');
+  drupal_add_http_header('Content-Disposition', 'attachment; filename=' . $filename);
+
+  $output = '';
+  $keys = array();
+  foreach ($variables['header'] as $key => $value) {
+    $keys[] = $value;
+  }
+  if ($keys) {
+    $output .= implode("\t", $keys) . "\n";
+  }
+  foreach ($variables['rows'] as $value) {
+    $output .= implode("\t", $value) . "\n";
+  }
+  print $output;
+  exit;
+}
+
+/**
+ * Render specific contact at bottom programme and bien page.
+ */
+function kandb_contact_specific_block_page($programme) {
+  return theme('contact_specific_block_page', array('programme' => $programme));
 }

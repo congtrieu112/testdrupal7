@@ -45,6 +45,17 @@ if (module_exists('kandb_validate')) {
   $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
   $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
 }
+
+$promotion = array();
+if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
+  foreach ($view->promotion_duplicate as $key => $promotion_duplicate) {
+    if ($key == $row->nid) {
+      foreach ($promotion_duplicate as $promotion_items) {
+        $promotion[] = $promotion_items['object'];
+      }
+    }
+  }
+}
 ?>
 <div class="slick-slider__item">
     <!-- [squaredImageItem] start-->
@@ -57,9 +68,36 @@ if (module_exists('kandb_validate')) {
 
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion'] < 3): ?>
                   <li>
-                      <div class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></div>
-                      <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
+                      <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
+                      <!-- [popin] start-->
+                      <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                              <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_avant_premiere_node_title; ?></strong></p>
+                              <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                          </div>
+                      </div>
+                      <!-- [popin] end-->
                   </li>
+                  
+                  <?php
+                  if ($promotion) :
+                    foreach ($promotion as $value) :
+                      ?>
+                      <li>
+                          <button data-reveal-trigger="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></button>
+                          <!-- [popin] start-->
+                          <div data-reveal="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                              <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                  <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $value->field_promotion_avant_premiere_node_title; ?></strong></p>
+                                  <p><?php print $value->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                              </div>
+                          </div>
+                          <!-- [popin] end-->
+                      </li>
+                      <?php
+                    endforeach;
+                  endif;
+                  ?>
                   <?php
                   $_SESSION['avant_promotion'] += 1;
                   ?>

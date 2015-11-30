@@ -578,7 +578,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Acquia Settings
  */
 // Increase memory limit when cli
-if (drupal_is_cli()){
+if (drupal_is_cli() || preg_match('/batch/i', $_GET['q'])){
   ini_set('memory_limit', '1024M');
 }
 // Increase memory limit for admin

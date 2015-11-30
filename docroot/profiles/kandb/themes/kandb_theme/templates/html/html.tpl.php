@@ -51,6 +51,22 @@
   <title><?php print $head_title; ?></title>
   <?php print $styles; ?>
   <?php print $scripts; ?>
+  <script>
+    var MTUserId='c1114374-8ce1-41cb-a2d0-fbd1249e9b15';
+    var MTFontIds = new Array();
+
+    MTFontIds.push("1459684"); // Neue Helvetica® W04 35 Thin
+    MTFontIds.push("1459692"); // Neue Helvetica® W04 55 Roman
+    MTFontIds.push("1459700"); // Neue Helvetica® W04 75 Bold
+    (function() {
+      var mtTracking = document.createElement('script');
+      mtTracking.type='text/javascript';
+      mtTracking.async='true';
+      mtTracking.src='assets/fonts/mtiFontTrackingCode.js';
+
+      (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(mtTracking);
+    })();
+  </script>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
   <?php print $page_top; ?>

@@ -137,11 +137,11 @@ function kandb_programme_field_group_info() {
       2 => 'field_programme_loc_department',
       3 => 'field_programme_loc_lat',
       4 => 'field_programme_loc_long',
-      5 => 'field_programme_loc_region',
-      6 => 'field_programme_loc_rue',
-      7 => 'field_programme_loc_type',
-      8 => 'field_programme_loc_ville',
-      9 => 'field_programme_loc_num',
+      5 => 'field_programme_loc_num',
+      6 => 'field_programme_loc_region',
+      7 => 'field_programme_loc_rue',
+      8 => 'field_programme_loc_type',
+      9 => 'field_programme_loc_ville',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -166,7 +166,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Exterieur',
-    'weight' => '39',
+    'weight' => '23',
     'children' => array(
       0 => 'field_slider_exterieur_desc',
       1 => 'field_slider_exterieur_image',
@@ -195,7 +195,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Intérieur',
-    'weight' => '40',
+    'weight' => '24',
     'children' => array(
       0 => 'field_slider_interieur_desc',
       1 => 'field_slider_interieur_image',
@@ -224,7 +224,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'RT 2012 / BBC',
-    'weight' => '42',
+    'weight' => '26',
     'children' => array(
       0 => 'field_slider_rt2012_bbc',
       1 => 'field_slider_rt2012_desc',
@@ -256,7 +256,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = 'group_prestations_slider';
   $field_group->data = array(
     'label' => 'Sécurité',
-    'weight' => '41',
+    'weight' => '25',
     'children' => array(
       0 => 'field_slider_securite_desc',
       1 => 'field_slider_securite_image',
@@ -352,18 +352,19 @@ function kandb_programme_field_group_info() {
       2 => 'field_program_low_tva_price_min',
       3 => 'field_programme_avg_price',
       4 => 'field_programme_flat_available',
-      5 => 'field_programme_habiteo_bon_plan',
-      6 => 'field_programme_habiteo_id',
-      7 => 'field_programme_min_price',
-      8 => 'field_programme_online_date',
-      9 => 'field_programme_price_max',
-      10 => 'field_programme_price_min',
-      11 => 'field_programme_room_max',
-      12 => 'field_programme_room_min',
-      13 => 'field_programme_statut',
-      14 => 'field_programme_stock',
-      15 => 'field_type_programme',
-      16 => 'field_zone_activite',
+      5 => 'field_programme_gamme',
+      6 => 'field_programme_habiteo_bon_plan',
+      7 => 'field_programme_habiteo_id',
+      8 => 'field_programme_min_price',
+      9 => 'field_programme_online_date',
+      10 => 'field_programme_price_max',
+      11 => 'field_programme_price_min',
+      12 => 'field_programme_room_max',
+      13 => 'field_programme_room_min',
+      14 => 'field_programme_statut',
+      15 => 'field_programme_stock',
+      16 => 'field_type_programme',
+      17 => 'field_zone_activite',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -425,7 +426,7 @@ function kandb_programme_field_group_info() {
       1 => 'field_image_principale',
       2 => 'field_trimestre',
       3 => 'field_tva',
-      4 => 'field_tva_55',
+      4 => 'field_affichage_double_grille',
       5 => 'title',
     ),
     'format_type' => 'fieldset',

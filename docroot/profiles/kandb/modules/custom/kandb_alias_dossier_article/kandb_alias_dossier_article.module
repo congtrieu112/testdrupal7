@@ -143,3 +143,65 @@ function kandb_alias_dossier_article_query_sort_by_weight_alter(QueryAlterableIn
   $query->fields('w', array('weight'));
   $query->orderBy('w.weight', 'ASC');
 }
+
+function kandb_alias_dossier_article_node_update ($node) {
+  if ($node->type != 'article') {
+    return;
+  }
+  $related_nodes = array();
+  if (isset($node->field_article_article_ref[LANGUAGE_NONE])) {
+    foreach ($node->field_article_article_ref[LANGUAGE_NONE] as $related) {
+      $related_nodes[] = $related['target_id'];
+    }
+  }
+  if (empty($related_nodes)) {
+    return;
+  }
+  $path_alias = get_path_alias_dossier_of_article($node->nid);
+  if ($path_alias) {
+    foreach ($path_alias as $path) {
+      foreach ($related_nodes as $nid) {
+        kandb_alias_dossier_article_set_alias_for_article($path, $path, $nid);
+      }
+    }
+  }
+}
+
+function get_path_alias_dossier_of_article($article_id = 0) {
+  $dossier = array();
+  $path_source = array();
+  $path_alias = array();
+  $db_query = db_select('node', 'n');
+  $db_query->fields('n', array('nid'));
+  $db_query->leftJoin('field_data_field_articles_block1_ref', 'block1_ref', 'block1_ref.entity_id=n.nid');
+  $db_query->leftJoin('field_data_field_articles_block2_ref', 'block2_ref', 'block2_ref.entity_id=n.nid');
+  $db_query->leftJoin('field_data_field_articles_block3_ref', 'block3_ref', 'block3_ref.entity_id=n.nid');
+  $db_or = db_or();
+    $db_and = db_and();
+    $db_and->condition('block1_ref.field_articles_block1_ref_target_id', $article_id);
+    $db_and->condition('block1_ref.entity_type', 'node');
+    $db_and->condition('block1_ref.bundle', 'dossier');
+  $db_or->condition($db_and);
+    $db_and = db_and();
+    $db_and->condition('block2_ref.field_articles_block2_ref_target_id', $article_id);
+    $db_and->condition('block2_ref.entity_type', 'node');
+    $db_and->condition('block2_ref.bundle', 'dossier');
+  $db_or->condition($db_and);
+    $db_and = db_and();
+    $db_and->condition('block3_ref.field_articles_block3_ref_target_id', $article_id);
+    $db_and->condition('block3_ref.entity_type', 'node');
+    $db_and->condition('block3_ref.bundle', 'dossier');
+  $db_or->condition($db_and);
+  $db_query->condition($db_or);
+  $dossier = $db_query->distinct()->execute()->fetchCol();
+  foreach ($dossier as $nid) {
+    $path_source[] = 'node/' . $nid;
+  }
+  if ($path_source) {
+    $db_query_alias = db_select('url_alias', 'als');
+    $db_query_alias->fields('als', array('alias'));
+    $db_query_alias->condition('als.source', $path_source, 'IN');
+    $path_alias = $db_query_alias->distinct()->execute()->fetchCol();
+  }
+  return $path_alias;
+}

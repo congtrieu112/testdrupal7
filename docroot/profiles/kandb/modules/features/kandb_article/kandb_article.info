@@ -21,7 +21,6 @@ features[field_base][] = field_article_content
 features[field_base][] = field_article_image
 features[field_base][] = field_article_resume
 features[field_base][] = field_article_teaser_image
-features[field_group][] = group_article_more_articles|node|article|form
 features[field_instance][] = node-article-field_article_article_ref
 features[field_instance][] = node-article-field_article_content
 features[field_instance][] = node-article-field_article_image

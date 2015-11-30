@@ -91,6 +91,7 @@ dependencies[] = unique_field
 dependencies[] = viewfield
 dependencies[] = views_php
 dependencies[] = stringoverrides
+dependencies[] = menu_admin_per_menu
 
 ; Custom
 dependencies[] = kb_feeds
@@ -101,6 +102,7 @@ dependencies[] = kandb_alias_dossier_article
 dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
 dependencies[] = kandb_validate
+dependencies[] = kandb_admin_content
 
 ; Features
 dependencies[] = kandb_domains
@@ -143,6 +145,7 @@ dependencies[] = kandb_settings
 dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_livraison_immediate
+dependencies[] = kandb_view_offre_en_france
 
 ; Blocks
 dependencies[] = kandb_recherche

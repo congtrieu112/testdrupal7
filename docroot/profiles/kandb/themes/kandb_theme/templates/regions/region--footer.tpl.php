@@ -48,17 +48,20 @@ global $base_url;
         <nav class="siteFooter__nav">
             <?php $i = 0; ?>
             <?php if ($menu_footer && count($menu_footer) > 0) :?>
+                <?php $split_number = ceil(count($menu_footer) / 3); ?>
                 <?php foreach ($menu_footer as $item) : ?>
-                    <?php if ($i % 3 == 0) : ?>
+                    <?php if ($i % $split_number == 0) : ?>
                         <ul <?php print (!$i ? 'class="show-for-medium-up searchItems"' : '') ?>>
                     <?php endif; ?>
-                    <li><a href="<?php print $item['href']; ?>" title="<?php print $item['title'] ?>" class="textLink"><?php print $item['title'] ?></a></li>
-                    <?php if ($i % 3 == 2 ) : ?>
+                            <li><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink')))); ?></li>
+                    <?php if ($i % $split_number == $split_number-1 ) : ?>
                         </ul>
                     <?php endif; ?>
                     <?php $i++; ?>
-                    <?php if($i >= 9) break; ?>
                 <?php endforeach; ?>
+                <?php if ($i % $split_number != $split_number-1 ) : ?>
+                    </ul>
+                <?php endif; ?>
             <?php endif; ?>
         </nav>
     </div>

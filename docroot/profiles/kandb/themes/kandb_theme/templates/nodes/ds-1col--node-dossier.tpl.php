@@ -199,7 +199,9 @@ endif;
     <!-- images need to have 2 formats:
    - small: 560 x 350 (High compression)
    - medium: 1180 x 380
-    --><a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php
+    -->
+    <?php if ($url_video_content): ?>
+    <a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php
     if ($image_content) {
       print file_create_url($image_content);
       ?>, (small)], [<?php
@@ -207,7 +209,6 @@ endif;
           }
           ?>" class="ourAdvices__video heading heading--white"><span class="icon icon-play"></span></a>
     <!-- [popin] start-->
-    <?php if ($url_video_content): ?>
       <div id="videoConseilMain" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
           <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
               <div class="flex-video youtube">
@@ -215,6 +216,14 @@ endif;
               </div>
           </div>
       </div>
+    <?php else : ?>
+    <div data-interchange="<?php
+    if ($image_content) {
+      print file_create_url($image_content);
+      ?>, (small)], [<?php
+            print file_create_url($image_content) . ', (medium)]';
+          }
+          ?>" class="ourAdvices__video heading heading--white"></div>
     <?php endif; ?>
     <!-- [popin] end-->
 

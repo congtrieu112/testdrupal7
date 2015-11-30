@@ -1,0 +1,4 @@
+name = K&B Remove field programme_loc_num in CT Programme
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
