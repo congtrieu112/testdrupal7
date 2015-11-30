@@ -1372,46 +1372,36 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           15 => array(
-            'source' => '24',
-            'target' => 'field_tva_55',
-            'unique' => FALSE,
-          ),
-          16 => array(
-            'source' => '24',
-            'target' => 'field_tva',
-            'unique' => FALSE,
-          ),
-          17 => array(
             'source' => '49',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          18 => array(
+          16 => array(
             'source' => '50',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          19 => array(
+          17 => array(
             'source' => '51',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          20 => array(
+          18 => array(
             'source' => '52',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          21 => array(
+          19 => array(
             'source' => '56',
             'target' => 'field_espace_vente_horaire',
             'format' => 'plain_text',
           ),
-          22 => array(
+          20 => array(
             'source' => '58',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          23 => array(
+          21 => array(
             'source' => '59',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
