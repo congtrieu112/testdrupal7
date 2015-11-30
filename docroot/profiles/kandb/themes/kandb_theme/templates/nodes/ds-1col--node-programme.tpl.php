@@ -204,139 +204,143 @@ foreach ($arr_slider as $field_name) {
         <noscript><img src="<?php print $image_principale_medium; ?>" alt="Photo du programme"/></noscript>
         <!-- [Responsive img] end-->
     </div>
-    <div class="wrapper programHeader__content">
-        <div class="toolbox">
-            <!-- tablet+desktop heading-->
-            <div class="show-for-medium-up">
-                <h1 class="heading heading--bordered">
-                    <?php if ($program_loc_ville) : ?>
-                      <div class="heading__title"><?php print $program_loc_ville; ?></div>
+    <div class="wrapper">
+        <!-- [programHeader__content] start -->
+        <div class="programHeader__content">
+            <div class="toolbox">
+                <!-- tablet+desktop heading-->
+                <div class="show-for-medium-up">
+                    <h1 class="heading heading--bordered">
+                        <?php if ($program_loc_ville) : ?>
+                          <div class="heading__title"><?php print $program_loc_ville; ?></div>
+                        <?php endif; ?>
+                        <?php if ($title) : ?>
+                          <div class="heading__title heading__title--sub"><?php print $title; ?></div>
+                        <?php endif; ?>
+                    </h1>
+                    <?php if ($nouveau) : ?>
+                      <div class="tag tag--important"><?php print t('Nouveauté'); ?><sup>1</sup></div>
                     <?php endif; ?>
-                    <?php if ($title) : ?>
-                      <div class="heading__title heading__title--sub"><?php print $title; ?></div>
-                    <?php endif; ?>
-                </h1>
-                <?php if ($nouveau) : ?>
-                  <div class="tag tag--important"><?php print t('Nouveauté'); ?><sup>1</sup></div>
+                </div>
+                <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
+                  <p class="toolbox__intro">
+                      <strong><?php print t('Livraison'); ?></strong>
+                      <?php print t('à partir du'); ?>
+                      <?php
+                      if ($trimstre) : print $trimstre;
+                      endif;
+                      ?>
+                      <?php
+                      if ($annee) : print $annee . "<br>";
+                      endif;
+                      ?>
+                      <?php
+                      if ($flat_available) : print $flat_available;
+                      endif;
+                      ?>
+                      <?php
+                      if ($de_a_pieces) : print ', ' . $de_a_pieces;
+                      endif;
+                      ?>
+                  </p>
                 <?php endif; ?>
+
+                <?php if ($de_a_price_tva || $de_a_price) : ?>
+                  <ul class="content-price">
+                      <?php if ($de_a_price_tva) : ?>
+                        <li class="content-price__item">
+                            <span class="text">
+                                <?php
+                                if ($de_a_price_tva) : print $de_a_price_tva;
+                                endif;
+                                ?>
+                            </span>
+                            <span class="tags">
+                                <?php if ($tva) : ?>
+                                  <div class="tva"><?php print $tva; ?></div>
+                                <?php endif; ?>
+                                <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
+                            </span>
+                        </li>
+                      <?php endif; ?>
+                      <?php if ($de_a_price) : ?>
+                        <li class="content-price__item">
+                            <span class="text">
+                                <?php
+                                if ($de_a_price) : print $de_a_price;
+                                endif;
+                                ?>
+                            </span>
+                            <span class="tags">
+                                <div class="tva tva--high">TVA 20%</div>
+                            </span>
+                        </li>
+                      <?php endif; ?>
+                  </ul>
+                <?php endif; ?>
+
+
+                <!-- [contactUs mini] start-->
+                <?php
+                if (function_exists('kandb_contact_block_page')) {
+                  print kandb_contact_block_page(TRUE);
+                }
+                ?>
+                <!-- [contactUs mini] end-->
+                <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+                <div class="sharing">
+                    <ul class="sharing__items">
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
+                    </ul>
+                </div>
             </div>
-            <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
-              <p class="toolbox__intro">
-                  <strong><?php print t('Livraison'); ?></strong>
-                  <?php print t('à partir du'); ?>
-                  <?php
-                  if ($trimstre) : print $trimstre;
-                  endif;
-                  ?>
-                  <?php
-                  if ($annee) : print $annee . "<br>";
-                  endif;
-                  ?>
-                  <?php
-                  if ($flat_available) : print $flat_available;
-                  endif;
-                  ?>
-                  <?php
-                  if ($de_a_pieces) : print ', ' . $de_a_pieces;
-                  endif;
-                  ?>
-              </p>
-            <?php endif; ?>
 
-            <?php if ($de_a_price_tva || $de_a_price) : ?>
-              <ul class="content-price">
-                  <?php if ($de_a_price_tva) : ?>
-                    <li class="content-price__item">
-                        <span class="text">
-                            <?php
-                            if ($de_a_price_tva) : print $de_a_price_tva;
-                            endif;
-                            ?>
-                        </span>
-                        <span class="tags">
-                            <?php if ($tva) : ?>
-                              <div class="tva"><?php print $tva; ?></div>
-                            <?php endif; ?>
-                            <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>
-                        </span>
-                    </li>
-                  <?php endif; ?>
-                  <?php if ($de_a_price) : ?>
-                    <li class="content-price__item">
-                        <span class="text">
-                            <?php
-                            if ($de_a_price) : print $de_a_price;
-                            endif;
-                            ?>
-                        </span>
-                        <span class="tags">
-                            <div class="tva tva--high">TVA 20%</div>
-                        </span>
-                    </li>
-                  <?php endif; ?>
-              </ul>
-            <?php endif; ?>
+            <div class="programHeader__content__details">
+                <?php if ($caracteristiques) : ?>
+                  <ul class="characteristicList">
+                      <?php
+                      foreach ($caracteristiques as $caracteristique) {
+                        if (isset($caracteristique['tid'])) {
+                          $carac_term = taxonomy_term_load($caracteristique['tid']);
+                          if ($carac_term) {
+                            $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
+                          }
+                        }
+                      }
+                      ?>
+                  </ul>
+                <?php endif; ?>
+                <?php if ($en_quelques_mots) : ?>
+                  <p class="intro">
+                      <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
+                  </p>
+                <?php endif; ?>
 
+                <?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
+                  <p class="intro">
+                      <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
+                  </p>
+                <?php endif; ?>
 
-            <!-- [contactUs mini] start-->
-            <?php
-            if (function_exists('kandb_contact_block_page')) {
-              print kandb_contact_block_page(TRUE);
-            }
-            ?>
-            <!-- [contactUs mini] end-->
-            <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
-            <div class="sharing">
-                <ul class="sharing__items">
-                    <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                    <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
+                <ul class="toolsList show-for-medium-up">
+                  <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
+                  <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <?php if ($status_slider) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                    <?php endif; ?>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                    <?php if ($status_document) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
+                    <?php endif; ?>
+                    <?php if ($habiteo_id) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
-
-        <div class="programHeader__content__details">
-            <?php if ($caracteristiques) : ?>
-              <ul class="characteristicList">
-                  <?php
-                  foreach ($caracteristiques as $caracteristique) {
-                    if (isset($caracteristique['tid'])) {
-                      $carac_term = taxonomy_term_load($caracteristique['tid']);
-                      if ($carac_term) {
-                        $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
-                      }
-                    }
-                  }
-                  ?>
-              </ul>
-            <?php endif; ?>
-            <?php if ($en_quelques_mots) : ?>
-              <p class="intro">
-                  <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
-              </p>
-            <?php endif; ?>
-            
-            <?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
-              <p class="intro">
-                  <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
-              </p>
-            <?php endif; ?>  
-              
-            <ul class="toolsList show-for-medium-up">
-              <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
-              <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
-                <?php if ($status_slider) : ?>
-                  <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
-                <?php endif; ?>
-                <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
-                <?php if ($status_document) : ?>
-                  <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
-                <?php endif; ?>
-                <?php if ($habiteo_id) : ?>
-                  <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
-                <?php endif; ?>
-            </ul>
-        </div>
+        <!-- [programHeader__content] end -->
     </div>
 </header>
 <!-- [programHeader] end-->
