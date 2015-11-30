@@ -304,6 +304,7 @@ function kb_programme_migration_finish () {
         kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
         kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
       }
+      kb_starting_daily_import();
     }
     else {
       $kb_migration_status['migration_program_status'] = $migration_programme_status;
@@ -344,6 +345,7 @@ function kb_bien_migration_finish () {
       kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
       kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
     }
+    kb_starting_daily_import();
   }
   else {
     $kb_migration_status['migration_bien_status'] = $migration_bien_status;
@@ -369,6 +371,7 @@ function kb_document_migration_finish () {
         kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
         kb_migration_logging ('daily-import: Finish run business rule for parcel_feed_import');
       }
+      kb_starting_daily_import();
     }
     else {
       $kb_migration_status['migration_document_status'] = $migration_document_status;
