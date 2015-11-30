@@ -7949,86 +7949,6 @@ function kandb_programme_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-programme-field_tva_55'
-  $field_instances['node-programme-field_tva_55'] = array(
-    'bundle' => 'programme',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 37,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 41,
-      ),
-      'search' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 43,
-      ),
-      'search_programme' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 43,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser_carrousel_3' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 17,
-      ),
-      'teaser_carrousel_4' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 43,
-      ),
-      'teaser_on_bien' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 37,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_tva_55',
-    'label' => 'TVA 5,5%',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 15,
-    ),
-  );
-
   // Exported field_instance: 'node-programme-field_type_programme'
   $field_instances['node-programme-field_type_programme'] = array(
     'bundle' => 'programme',
@@ -8319,7 +8239,6 @@ function kandb_programme_field_default_field_instances() {
   t('Sous Titre');
   t('Statut du programme');
   t('TVA');
-  t('TVA 5,5%');
   t('Titre');
   t('Titre Video');
   t('Trimestre');

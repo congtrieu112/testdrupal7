@@ -426,9 +426,8 @@ function kandb_programme_field_group_info() {
       1 => 'field_image_principale',
       2 => 'field_trimestre',
       3 => 'field_tva',
-      4 => 'field_tva_55',
-      5 => 'field_affichage_double_grille',
-      6 => 'title',
+      4 => 'field_affichage_double_grille',
+      5 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
