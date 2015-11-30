@@ -30,6 +30,7 @@ class KbFeedsCSVParser extends FeedsCSVParser {
       variable_del($importer_id . '_created');
       variable_del($importer_id . '_updated');
       variable_del($importer_id . '_counted');
+      variable_del($importer_id . '_warning');
     }
 
     $start = $state->pointer ? $state->pointer : $parser->lastLinePos();

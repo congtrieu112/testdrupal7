@@ -37,7 +37,17 @@ if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
     }
   }
 }
-
+//check all bien status
+$programme_id = $node->vid;
+$flag = 0;
+$custom_bien = 0;
+$status = 1;
+if ($tid = get_tid_by_id_field($status)) {
+    $custom_bien = filter_bien_by_id_program($programme_id, $tid);
+}
+if ($custom_bien) {
+    $flag = 1;
+}
 
 // Habitel widget
 $habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';
@@ -313,8 +323,8 @@ foreach ($arr_slider as $field_name) {
             <?php endif; ?>
 
             <ul class="toolsList show-for-medium-up">
-                <li><a href="#" class="btn-white"><span class="icon icon-planing"></span><span class="text">Logements disponibles</span></a></li>
-                <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+              <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
+              <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
