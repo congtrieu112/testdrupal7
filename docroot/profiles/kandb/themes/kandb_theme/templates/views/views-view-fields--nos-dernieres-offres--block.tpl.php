@@ -37,21 +37,44 @@ if ($row->field_promotion_programme_node_title):
     $available = true;
   endif;
 endif;
+$promotion = array();
+if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
+  foreach ($view->promotion_duplicate as $key => $promotion_duplicate) {
+    if ($key == $row->nid) {
+      foreach ($promotion_duplicate as $promotion_items) {
+        $promotion[] = $promotion_items['object']->field_promotion_programme_node_title;
+      }
+    }
+  }
+}
+
 ?>
 <div class="slick-slider__item">
     <article class="squaredImageItem squaredImageItem--stacked false">
         <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>" class="squaredImageItem__img">
             <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt'] ?>"/>
             <ul class="squaredImageItem__img__tags">
-                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
+<?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['promotion'] < 3): ?>
                   <li>
-                      <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
+                      <div class="tag tag--important">
+                          <?php print $row->field_promotion_programme_node_title; ?>
+
+                          <?php
+                          if ($promotion) :
+                            foreach ($promotion as $value) :
+                              print '<br />' . $value;
+                            endforeach;
+                          endif;
+                          ?>                                                    
+
+
+                      </div>
                       <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
                   </li>
                   <?php
                   $_SESSION['promotion'] += 1;
                   ?>
-                <?php endif; ?>
+<?php endif; ?>
                 <!--                <li>
                                     <div class="tag">TVA 7%<sup>(2)</sup></div>
                                 </li>
@@ -64,7 +87,7 @@ endif;
             <div class="squaredImageItem__details">
                 <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print t('Go to programme page'); ?>" class="heading heading--small">
                     <p class="heading__title">
-                        <?php print $ville_name . ' / ' . $departement_code; ?>
+<?php print $ville_name . ' / ' . $departement_code; ?>
                     </p>
                     <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
                 </a>
