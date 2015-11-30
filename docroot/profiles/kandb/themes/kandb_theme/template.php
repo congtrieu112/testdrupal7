@@ -222,6 +222,224 @@ function kandb_theme_preprocess_node(&$vars) {
       }
     }
   }
+
+  if ($vars['view_mode'] == 'full' && $vars['type'] == 'programme') {
+
+    $content = &$vars['content'];
+    $node = &$vars['node'];
+
+    // TODO : Remove
+    // $path_img = kandb_theme_get_path('test_assets', 'kandb_theme');
+
+    /**
+     * HEADER
+     */
+    // Get promotion by programme nid.
+    $promotions = get_nids_promotions_by_programme($nid);
+
+    // Information for header programme page
+    $vars['title'] = $node->title;
+    $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $node->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
+    $image_principale_small = '';
+    $image_principale_large = '';
+    $image_principale_medium = '';
+
+    if ($image_principale) {
+      $image_principale_small = image_style_url('program_image_principale_small', $image_principale);
+      $image_principale_medium = image_style_url('program_image_principale_medium', $image_principale);
+      $image_principale_large = image_style_url('program_image_principale_large', $image_principale);
+    }
+
+    $nouveau = isset($node->field_nouveau[LANGUAGE_NONE][0]['value']) ? $node->field_nouveau[LANGUAGE_NONE][0]['value'] : 0;
+    $caracteristiques = isset($node->field_caracteristiques[LANGUAGE_NONE]) ? $node->field_caracteristiques[LANGUAGE_NONE] : '';
+    $program_loc_ville = isset($node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
+
+    $trimstre_id = isset($node->field_trimestre[LANGUAGE_NONE][0]['value']) ? $node->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
+    $trimstre = '';
+    if ($trimstre_id) {
+      if ($trimstre_id == 1) {
+        $trimstre = t('1er trimestre');
+      }
+      $trimstre = $trimstre_id . t('ème trimestre');
+    }
+
+    $annee = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
+    $flat_available = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+    $pieces_min = isset($node->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
+    $pieces_max = isset($node->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+
+    $de_a_pieces = '';
+    if ($pieces_min && $pieces_max) {
+      $de_a_pieces = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+    }
+    elseif (!$pieces_min && $pieces_max) {
+      $de_a_pieces = $pieces_max . ' ' . t('pièces');
+    }
+    elseif ($pieces_min && !$pieces_max) {
+      $de_a_pieces = $pieces_min . ' ' . t('pièces');
+    }
+
+    $price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+    $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+
+    $de_a_price_tva = '';
+    if ($price_tva_min && $price_tva_max) {
+      $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif (!$price_tva_min && $price_tva_max) {
+      $de_a_price_tva = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif ($price_tva_min && !$price_tva_max) {
+      $de_a_price_tva = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
+    }
+
+    $tva = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
+
+    $price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+    $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+
+    $de_a_price = '';
+    if ($price_min && $price_max) {
+      $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif (!$price_min && $price_max) {
+      $de_a_price = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif ($price_min && !$price_max) {
+      $de_a_price = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
+    }
+
+    $en_quelques_mots = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+
+
+    /**
+     * BIENS
+     */
+    //check all bien status
+    $programme_id = $node->vid;
+    $flag = 0;
+    $custom_bien = 0;
+    $status = 1;
+    if ($tid = get_tid_by_id_field($status)) {
+      $custom_bien = filter_bien_by_id_program($programme_id, $tid);
+    }
+    if ($custom_bien) {
+      $flag = 1;
+    }
+
+
+    /**
+     * DOWNLOAD FILES
+     */
+    //get link file Plaquette commerciale
+    $vars['file_plaquette_commerciale'] = '';
+    if (isset($content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'])) {
+      $vars['file_plaquette_commerciale'] = $content['field_plaquette_commerciale']['#object']->field_plaquette_commerciale['und'][0]['uri'];
+    }
+
+    //get link file fiche reseignement
+    $vars['file_fiche_renseignement'] = '';
+    if (isset($content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'])) {
+      $vars['file_fiche_renseignement'] = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
+    }
+
+    //get link file Kit fiscal
+    $vars['file_kit_fiscal'] = '';
+    if (isset($content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'])) {
+      $vars['file_kit_fiscal'] = $content['field_kit_fiscal']['#object']->field_kit_fiscal['und'][0]['uri'];
+    }
+
+    //get link file Plan du bâtiment
+    $vars['file_plan_batiment'] = '';
+    if (isset($content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'])) {
+      $vars['file_plan_batiment'] = $content['field_plan_batiment']['#object']->field_plan_batiment['und'][0]['uri'];
+    }
+
+    //get link zip file
+    $addMore = '_';
+    $nid = $node->nid;
+    $path = file_create_url('public://');
+    $real_path = drupal_realpath('public://');
+    $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+    if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
+      $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+      $linkfile = $path . 'Programme/archive/' . $nid . '/' . $fileName;
+      if ($filePath) {
+        if (file_exists($filePath)) {
+          $vars['link_to_zip'] = $linkfile;
+        }
+      }
+    }
+
+    // Hide the files area if no document are uploaded
+    $arr_document = array(
+      'field_plaquette_commerciale',
+      'field_fiche_renseignement',
+      'field_plan_batiment',
+      'field_kit_fiscal',
+      'field_contrat_reservation',
+      'field_etat_des_risques',
+      'field_lettre_de_banque',
+      'field_prestations_programme',
+      'field_mandat_gestion_locative',
+      'field_plan_masse_sous_sol',
+      'visuel_grande_taille',
+      'field_bail_commercial',
+      'bon_commande_mobilier',
+      'autre_documents'
+    );
+
+    $status_document = FALSE;
+    foreach ($arr_document as $field_name) {
+      $document = isset($node->$field_name) ? $node->$field_name : '';
+      if (isset($document[LANGUAGE_NONE][0]['fid'])) {
+        $status_document = TRUE;
+        break;
+      }
+    }
+
+
+    /**
+     * HABITEO
+     */
+    $habiteo_id = isset($node->field_programme_habiteo_id['und'][0]['value']) ? $node->field_programme_habiteo_id['und'][0]['value'] : '';
+    $habiteo_key = variable_get('habiteo_widget_security_key');
+    $habiteo_video_de_quartier_url = variable_get('habiteo_video-de-quartier_url');
+    $habiteo_vue_generale_url = variable_get('habiteo_vue-generale_url');
+    $lat = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] : '';
+    $lon = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
+    $video_id = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
+    $logementBlock = module_invoke('kandb_programme', 'block_view', 'logement_block');
+    $program_characteristic = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
+
+
+    /**
+     * SLIDER
+     */
+    $arr_slider = array(
+      'field_slider_exterieur_titre',
+      'field_slider_exterieur_desc',
+      'field_slider_exterieur_image',
+      'field_slider_interieur_titre',
+      'field_slider_interieur_desc',
+      'field_slider_interieur_image',
+      'field_slider_securite_titre',
+      'field_slider_securite_desc',
+      'field_slider_securite_image',
+      'field_slider_rt2012_titre',
+      'field_slider_rt2012_image',
+      'field_slider_rt2012_desc',
+    );
+
+    $status_slider = FALSE;
+    foreach ($arr_slider as $field_name) {
+      $slider = isset($node->$field_name) ? $node->$field_name : '';
+      if (isset($slider[LANGUAGE_NONE][0]['value']) || isset($slider[LANGUAGE_NONE][0]['fid'])) {
+        $status_slider = TRUE;
+        break;
+      }
+    }
+  }
 }
 
 /**
