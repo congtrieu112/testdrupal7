@@ -270,25 +270,6 @@ $promotions = get_nids_promotions_by_programme($nid);
                       ?>
                   </p>
                 <?php endif; ?>
-
-                <?php if ($promotions) : ?>
-                  <?php
-                  foreach ($promotions as $promotion) :
-                    $triger_promotion = 'promotion-' . $promotion->nid;
-                    ?>
-                    <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                    <!-- [popin] start-->
-                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                            <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
-                        </div>
-                    </div>
-                    <!-- [popin] end-->
-                  <?php endforeach; ?>
-                <?php endif; ?>  
-
-
             </div>
             <?php if ($trimstre || $annee || $flat_available || $de_a_pieces) : ?>
               <p class="toolbox__intro">
