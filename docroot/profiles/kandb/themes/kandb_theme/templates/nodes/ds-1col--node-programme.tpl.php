@@ -324,7 +324,7 @@ foreach ($arr_slider as $field_name) {
               
             <ul class="toolsList show-for-medium-up">
               <?php if($flag){ ?>  <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li><?php }?>
-              <li><a href="#" onclick="return false;" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+              <li><a href="javascript:void(0)"  class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
                 <?php if ($status_slider) : ?>
                   <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                 <?php endif; ?>
