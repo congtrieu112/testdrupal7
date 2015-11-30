@@ -1,7 +1,7 @@
-name = KandB Partenaire
+name = K&B Partenaire
 description = Content Type - Partenaire
 core = 7.x
-package = Features
+package = Kaufman & Broad
 dependencies[] = ctools
 dependencies[] = entityreference
 dependencies[] = features
