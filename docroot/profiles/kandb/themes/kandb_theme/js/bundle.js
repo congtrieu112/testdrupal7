@@ -37854,7 +37854,7 @@ AppAjax.prototype = {
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
           parent: $target,
-          callback: ["write"]
+          callback: ["write", that.triggerSend]
         });
 
     if ( App.debug ) {
@@ -37874,6 +37874,10 @@ AppAjax.prototype = {
     return this;
   },
 
+  triggerSend: function() {
+    $(document).trigger('ajaxResponse');
+  },
+  
   url: function() {
     var url = false;
 
@@ -37926,6 +37930,7 @@ if ( $(trigger).length ) {
   $(trigger).appAjax();
 
 }
+
 },{}],14:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
@@ -37981,6 +37986,10 @@ $(window).on('resize', Foundation.utils.throttle(function(e){
 // after interchange
 $(document).on('replace', 'img', function (e, new_path, original_path) {
   $(document).foundation('equalizer', 'reflow');
+});
+
+$(document).on('ajaxResponse', function(e){
+  $('[data-slick]').appSlick();
 });
 
 },{}],15:[function(require,module,exports){
@@ -39196,28 +39205,24 @@ AppSlick.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-if ( $(trigger).length ) {
+$.fn.appSlick = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appSlick = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('appSlick');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('appSlick');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
-  $(trigger).appSlick();
-}
-
+$(trigger).appSlick();
 
 },{}],26:[function(require,module,exports){
 /*jshint asi:true, expr:true */
