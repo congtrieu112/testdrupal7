@@ -81,19 +81,27 @@ function kandb_article_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'plain_text' => 'plain_text',
+          'full_html' => 0,
+          'plain_text' => 0,
+          'simple' => 'simple',
         ),
-        'allowed_formats_toggle' => 0,
+        'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
             'plain_text' => array(
               'weight' => 10,
+            ),
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
