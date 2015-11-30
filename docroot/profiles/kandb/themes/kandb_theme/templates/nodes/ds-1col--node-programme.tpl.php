@@ -574,3 +574,9 @@ if ($region_id && $programme_carousel):
 <?php endif; ?>
 <!-- [contactUs complete] start-->
 <!-- [contactUs complete] end-->
+
+<?php
+if (function_exists('kandb_contact_specific_block_page')) {
+  print kandb_contact_specific_block_page($node);
+}
+?>
