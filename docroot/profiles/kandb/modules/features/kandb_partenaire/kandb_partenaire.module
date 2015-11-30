@@ -1,0 +1,17 @@
+<?php
+/**
+ * @file
+ * Code for the KandB Partenaire feature.
+ */
+
+include_once 'kandb_partenaire.features.inc';
+    die('kandb_partenaire.features');
+
+function kandb_partenaire_form_alter(&$form, &$form_state, $form_id) {
+    die('kandb_partenaire_form_alter');
+    if (arg(0) == 'admin') {
+        $path = drupal_get_path('profile', 'kandb_partenaire');
+        print_r($path);
+        $form['#attached']['js'][] = $path . '/kandb_partenaire.js';
+    }
+}
