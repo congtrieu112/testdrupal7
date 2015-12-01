@@ -697,7 +697,11 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
 function kandb_recherche_programme_by_field($field_values, $begin_with = false, $available = true) {
   // Static storage
   static $programme_by_field = array();
-  $programme_by_field_key = implode('_', $field_values).'_'.($begin_with ? 'true' : 'false').'_'.($available ? 'true' : 'false');
+  $programme_by_field_key = '';
+  foreach($field_values as $field => $value){
+    $programme_by_field_key .= $field . '_' . $value . '_';
+  }
+  $programme_by_field_key .= ($begin_with ? 'true' : 'false').'_'.($available ? 'true' : 'false');
   if(isset($programme_by_field[$programme_by_field_key])) return $programme_by_field[$programme_by_field_key];
 
   // Query
