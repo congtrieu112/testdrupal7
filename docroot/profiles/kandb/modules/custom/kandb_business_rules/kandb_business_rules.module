@@ -301,8 +301,23 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
   if ($importer_id === FEED_ID_IMPORT_BIEN) {   // is import for bien.
     // RULE BIEN 103 & 104.
     // Get list node don't have in file import.
-    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+//    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+    $list_nodes_bien = array();
+    $uri = 'private://imported/';
+    $file_name = 'imported_lot.txt';
+    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+    if ($prepare_file) {
+      $path = drupal_realpath($uri . $file_name);
+      $data = '';
+      if (file_exists($path)) {
+        $data = file_get_contents($path);
+      }
+      if ($data) {
+        $list_nodes_bien = array_unique(array_map('trim', explode("\n", $data)));
+      }
+    }
     if (!empty($list_nodes_bien)) {
+      $reset_sleep = 0;
       foreach ($list_nodes_bien as $nid) {
         $node = node_load($nid);
         if (isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
@@ -332,6 +347,11 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
             // Delete all node option what it related to this bien.
             Kandb_Business_Rules::delete_node_option_related_bien($nid);
           }
+        }
+        $reset_sleep++;
+        if ($reset_sleep == 200) {
+          sleep(5);
+          $reset_sleep = 0;
         }
       }
     }
