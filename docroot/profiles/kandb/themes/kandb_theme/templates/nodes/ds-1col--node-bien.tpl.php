@@ -99,16 +99,16 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
     <?php
     $image_principale = '';
-    // check image bien
+    // Check image bien.
     if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
         $node->field_image_principale[LANGUAGE_NONE][0]) {
         $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
-    }else { // not fould image bien
-        //check image programme
-        if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) && $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
+    }else { // Not fould image bien.
+        // Check image programme.
+        if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) && 
+            $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
             $image_principale = $programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
-        }else { // not fould image programme
-
+        }else { // Not fould image programme
             // Get default per image on each pieces and gammes.
             if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
                 !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
@@ -117,14 +117,10 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                 if ($file_id = variable_get('image_default_' . $piece_id . '_' . $programme->field_programme_gamme[LANGUAGE_NONE][0]['value'])) {
                     $file_load = file_load($file_id);
                     $image_principale = $file_load->uri;
-                   
                 }
             }
         }
     }
-  
-            
-
 if ($image_principale):
       ?>
       <div class="programHeader__figure">
