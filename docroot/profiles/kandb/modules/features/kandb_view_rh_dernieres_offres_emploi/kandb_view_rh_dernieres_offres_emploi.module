@@ -1,0 +1,37 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View RH Dernières offres d'emploi feature.
+ */
+
+include_once 'kandb_view_rh_dernieres_offres_emploi.features.inc';
+
+/**
+ * Define Selection URLs
+ */
+define('URL_RH_POSTULER', 'postuler');
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_view_rh_dernieres_offres_emploi_menu() {
+    $menu = array();
+    $menu[URL_RH_POSTULER] = array(
+        'title' => 'Postuler',
+        'page callback' => 'kandb_view_rh_dernieres_offres_emploi_page',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $menu;
+}
+
+function kandb_view_rh_dernieres_offres_emploi_page() {
+    $content = array();
+    $content['last_jobs'] = call_user_func_array(
+        'views_embed_view',
+        array_merge(
+            array('nos_dernieres_offres_emploi', 'block')
+        )
+    );
+    return $content;
+}

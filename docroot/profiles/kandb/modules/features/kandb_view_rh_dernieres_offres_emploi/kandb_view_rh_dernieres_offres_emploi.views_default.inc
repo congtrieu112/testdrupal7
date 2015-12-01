@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * kb_rh_dernieres_offres_emploi_view.views_default.inc
+ * kandb_view_rh_dernieres_offres_emploi.views_default.inc
  */
 
 /**
  * Implements hook_views_default_views().
  */
-function kb_rh_dernieres_offres_emploi_view_views_default_views() {
+function kandb_view_rh_dernieres_offres_emploi_views_default_views() {
   $export = array();
 
   $view = new view();

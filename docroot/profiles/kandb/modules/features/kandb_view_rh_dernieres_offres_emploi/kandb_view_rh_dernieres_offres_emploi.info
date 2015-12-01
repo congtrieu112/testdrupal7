@@ -1,4 +1,4 @@
-name = K&B RH Dernières offres d'emploi View
+name = K&B View RH Dernières offres d'emploi
 core = 7.x
 package = Kaufman & Broad
 dependencies[] = views
