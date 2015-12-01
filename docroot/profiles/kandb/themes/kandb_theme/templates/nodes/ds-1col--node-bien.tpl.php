@@ -104,10 +104,10 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
         $node->field_image_principale[LANGUAGE_NONE][0]) {
         $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
     }else { // not fould image bien
-        //check image program
+        //check image programme
         if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) && $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
             $image_principale = $programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
-        }else { // not fould image program
+        }else { // not fould image programme
 
             // Get default per image on each pieces and gammes.
             if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
