@@ -165,8 +165,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print t('Un arrondissement'); ?></h2>
-            <p class="heading__title heading__title--sub"><?php print t('à l’image des familles'); ?></p>
+            <h2 class="heading__title"><?php print $field_quartier_titre[0]['value']; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print $field_quartier_titre[0]['value']; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -176,8 +176,7 @@
                   <div class="iframe iframe--video-de-quartier">
                       <iframe src="" data-src="http://widgets.habiteo.com/plan-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
                   </div>
-                  <?php
-                elseif ($lon && $lat):
+                <?php elseif ($lon && $lat):
                   $latitude = $lat / 1000000;
                   $longitude = $lon / 1000000;
 
@@ -206,35 +205,28 @@
                   print '<div class="show-for-medium-up">';
                   print drupal_render($element);
                   print '</div>';
-                endif;
-                ?>
-            </div>
 
-            <div class="swapItem__1">
-                <div class="wrapper">
-                    <div class="heading heading--small text-center">
-                        <h3 class="heading__title">Batignolles, la renaissance d’un quartier</h3>
-                    </div>
-                </div>
-            </div>
-
-            <div class="wrapper--medium-up">
-                <?php if ($habiteo_id): ?>
-                  <div class="iframe iframe--video-de-quartier">
-                      <iframe src="" data-src="<?php print $habiteo_video_de_quartier_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-                  </div>
-                <?php elseif ($video_id): ?>
-                  <div class="iframe iframe--video-de-quartier">
+                  if ($video_id): ?>
+                    <div class="iframe iframe--video-de-quartier">
                       <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
-                  </div>
-                <?php endif; ?>
+                    </div>
+                  <?php endif;
+                endif; ?>
+            </div>
+        </div>
+
+        <div class="swapItem__1">
+            <div class="wrapper">
+                <div class="heading heading--small text-center">
+                    <h3 class="heading__title"><?php print $field_quartier_video_titre[0]['value']; ?></h3>
+                </div>
             </div>
         </div>
 
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
+                    <p><?php print $field_quartier_video_desc[0]['value']; ?></p>
                 </div>
             </div>
         </div>
@@ -251,13 +243,10 @@
               <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
           </header>
           <?php if ($habiteo_id): ?>
-            <div class="iframe iframe--vue-generale">
-                <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-            </div>
+              <div class="iframe iframe--vue-generale">
+                  <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+              </div>
           <?php endif; ?>
-          <div class="content-centered">
-              <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
-          </div>
       </div>
   </section>
 <?php endif; ?>
@@ -276,7 +265,7 @@
             </div>
           <?php endif; ?>
           <div class="content-centered">
-              <P>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</P>
+              <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p> ?>
           </div>
       </div>
   </section>
