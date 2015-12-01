@@ -459,10 +459,16 @@ function kandb_webform_client_validate(&$form, &$form_state) {
       form_set_error('submitted][row_2][rappeler_telephone', t('Téléphone field is number only.'));
     }
   }
-  if (isset($values['submitted']['rdv_telephone'])) {
-    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['rdv_telephone']);
+  if (isset($values['submitted']['row_4']['rdv_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_4']['rdv_telephone']);
     if (trim($telephone) != '') {
-      form_set_error('submitted][rdv_telephone', t('Téléphone field is number only.'));
+      form_set_error('submitted][row_4][rdv_telephone', t('Téléphone field is number only.'));
+    }
+  }
+  if (isset($values['submitted']['row_4']['ap_telephone'])) {
+    $telephone = preg_replace("/[0-9]/", '', $values['submitted']['row_4']['ap_telephone']);
+    if (trim($telephone) != '') {
+      form_set_error('submitted][row_4][ap_telephone', t('Téléphone field is number only.'));
     }
   }
 }
