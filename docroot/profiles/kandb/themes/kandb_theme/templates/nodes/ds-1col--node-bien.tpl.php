@@ -99,25 +99,15 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
     <?php
     $image_principale = '';
-    $id_programme = $nodeprogramme = "";
-    if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
-    $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
-    $param = array(
-      'type' => 'programme',
-      'status' => 1,
-    );
-    $nodeprogramme = node_load($param, $id_programme);
-    }
- 
+    // check image bien
     if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
         $node->field_image_principale[LANGUAGE_NONE][0]) {
         $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
-    }
-    else {
-        if ($image_principale = $nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
-
-        }
-        else {
+    }else { // not fould image bien
+        //check image program
+        if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) && $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
+            $image_principale = $programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
+        }else { // not fould image program
 
             // Get default per image on each pieces and gammes.
             if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
@@ -154,7 +144,7 @@ if ($image_principale):
                       -->
                       <!-- [Responsive img] start-->
                       <img alt="<?php print $node->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
-                      <noscript><img src="http://kb.digitaslbi.sutrix.com/sites/default/files/styles/program_image_principale_large/public/anh-thien-nhien-dep-6.jpg" alt="<?php print $node->title; ?>"/></noscript>
+                      <noscript><img src="<?php print $image_medium ?>" alt="<?php print $node->title; ?>"/></noscript>
                       <!-- [Responsive img] end-->
                   </figure>
               </article>
@@ -439,9 +429,9 @@ if (!empty($list_bien_more)):
                  global $base_url;
                 $url_principale = "";
                 $url_principale = url('node/' . $id_programme);
-                $title_principale = isset($nodeprogramme->title) ? $nodeprogramme->title : '';
-                $title_principale_ville = isset($nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
-                $image_principale = isset($nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
+                $title_principale = isset($programme->title) ? $programme->title : '';
+                $title_principale_ville = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
+                $image_principale = isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $programme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
                 $image_principale_small = '';
                 $image_principale_large = '';
                 $image_principale_medium = '';
@@ -452,8 +442,8 @@ if (!empty($list_bien_more)):
                 }
 
 
-                $pieces_min = isset($nodeprogramme->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
-                $pieces_max = isset($nodeprogramme->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $nodeprogramme->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+                $pieces_min = isset($programme->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
+                $pieces_max = isset($programme->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
 
                 $de_a_pieces = '';
                 if ($pieces_min && $pieces_max) {
@@ -465,7 +455,7 @@ if (!empty($list_bien_more)):
                 }
 
 
-                $price_min = isset($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($nodeprogramme->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+                $price_min = isset($programme->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($programme->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
 
 
                 $de_a_price = "";
