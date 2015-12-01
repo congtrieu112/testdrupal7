@@ -82,6 +82,7 @@ $piece_id = '';
 if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
   $piece_id = $node->field_nb_pieces[LANGUAGE_NONE][0]['tid'];
 }
+
 ?>
 
 
@@ -98,23 +99,43 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
     <?php
     $image_principale = '';
-    if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
-      $node->field_image_principale[LANGUAGE_NONE][0]) {
-      $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
-    } else {
-      // Get default per image on each pieces and gammes.
-      if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
-        !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
-        $piece_id
-      ) {
-        if ($file_id = variable_get('image_default_' . $piece_id . '_' . $programme->field_programme_gamme[LANGUAGE_NONE][0]['value'])) {
-          $file_load = file_load($file_id);
-          $image_principale = $file_load->uri;
-        }
-      }
+    $id_programme = $nodeprogramme = "";
+    if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
+    $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
+    $param = array(
+      'type' => 'programme',
+      'status' => 1,
+    );
+    $nodeprogramme = node_load($param, $id_programme);
     }
+ 
+    if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
+        $node->field_image_principale[LANGUAGE_NONE][0]) {
+        $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
+    }
+    else {
+        if ($image_principale = $nodeprogramme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
 
-    if ($image_principale):
+        }
+        else {
+
+            // Get default per image on each pieces and gammes.
+            if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
+                !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
+                $piece_id
+            ) {
+                if ($file_id = variable_get('image_default_' . $piece_id . '_' . $programme->field_programme_gamme[LANGUAGE_NONE][0]['value'])) {
+                    $file_load = file_load($file_id);
+                    $image_principale = $file_load->uri;
+                   
+                }
+            }
+        }
+    }
+  
+            
+
+if ($image_principale):
       ?>
       <div class="programHeader__figure">
           <!-- [carousel] start-->
@@ -133,7 +154,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                       -->
                       <!-- [Responsive img] start-->
                       <img alt="<?php print $node->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
-                      <noscript><img src="<?php print $image_medium ?>" alt="<?php print $node->title; ?>"/></noscript>
+                      <noscript><img src="http://kb.digitaslbi.sutrix.com/sites/default/files/styles/program_image_principale_large/public/anh-thien-nhien-dep-6.jpg" alt="<?php print $node->title; ?>"/></noscript>
                       <!-- [Responsive img] end-->
                   </figure>
               </article>
@@ -415,17 +436,7 @@ if (!empty($list_bien_more)):
 
 
                 <?php
-                $id_programme = $nodeprogramme = "";
-                if (!empty($node->field_programme[LANGUAGE_NONE][0]['entity']->vid)) {
-                  $id_programme = $node->field_programme[LANGUAGE_NONE][0]['entity']->vid;
-                  $param = array(
-                    'type' => 'programme',
-                    'status' => 1,
-                  );
-                  $nodeprogramme = node_load($param, $id_programme);
-                }
-
-                global $base_url;
+                 global $base_url;
                 $url_principale = "";
                 $url_principale = url('node/' . $id_programme);
                 $title_principale = isset($nodeprogramme->title) ? $nodeprogramme->title : '';
