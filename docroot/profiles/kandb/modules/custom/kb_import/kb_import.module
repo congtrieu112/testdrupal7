@@ -97,6 +97,39 @@ function kb_import_cronapi($op, $job = NULL) {
   return $items;
 }
 
+function kb_import_feeds_before_import(FeedsSource $source) {
+  $file_name = 'imported_lot.txt';
+  if ($source->id == 'parcel_feed_import') {
+    $uri = 'private://imported/';
+    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+    if ($prepare_file) {
+      drupal_chmod($uri);
+      file_save_data('', $uri . $file_name, FILE_EXISTS_REPLACE);
+    }
+  }
+}
+
+function kb_import_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
+  if ($source->id == 'parcel_feed_import' && $entity_id != 0) {
+    kb_store_items_imported($entity_id . "\n");
+  }
+}
+
+function kb_store_items_imported($new_data) {
+  $uri = 'private://imported/';
+  $file_name = 'imported_lot.txt';
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $file_name);
+    $data = '';
+    if (file_exists($path)) {
+      $data = file_get_contents($path);
+    }
+    drupal_chmod($uri);
+    file_save_data($data . $new_data , $uri . $file_name, FILE_EXISTS_REPLACE);
+  }
+}
+
 function kb_import_feeds_after_import($source) {
   $kb_daily_import_importers = array(
     'city_feed_import',

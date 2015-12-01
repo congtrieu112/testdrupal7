@@ -12,6 +12,13 @@ class KbEncodingCSVParser extends FeedsCSVParser {
     $delimiter = $source_config['delimiter'] == 'TAB' ? "\t" : $source_config['delimiter'];
     $parser->setDelimiter($delimiter);
 
+    $importer_id = 0;
+    if(isset($source->getConfig()["KbFeedsHTTPFetcher"]["source"]) && isset($source->importer()->id)) {
+      $file_import = $source->getConfig()["KbFeedsHTTPFetcher"]["source"];
+      $importer_id = $source->importer()->id;
+      createLogFileFeedsImportNotExists($file_import, $importer_id);
+    }
+
     $iterator = new ParserCSVIterator($fetcher_result->getFilePath());
     if (empty($source_config['no_headers'])) {
       // Get first line and use it for column names, convert them to lower case.
@@ -24,8 +31,7 @@ class KbEncodingCSVParser extends FeedsCSVParser {
       $parser->setColumnNames($header);
     }
 
-    $importer_id = $source->importer()->id;
-    if (isset($importer_id)) {
+    if ($importer_id) {
       $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
       variable_set($importer_id . '_log_name', $file_log_name);
 

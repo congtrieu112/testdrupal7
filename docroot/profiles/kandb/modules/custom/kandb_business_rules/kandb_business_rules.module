@@ -50,7 +50,7 @@ function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParser
         $row['rt2012'] = 0;
       }
     }
-  }    
+  }
 }
 
 /**
@@ -65,17 +65,17 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if ($entity->feeds_item->is_new == TRUE) {
         $entity->field_programme_statut[LANGUAGE_NONE][0]['value'] = 0;
       }
-      
+
       // Update field_programme_loc_department by postal value
-      $postal = $item[PROGRAMME_COLUMN_POSTAL];            
+      $postal = $item[PROGRAMME_COLUMN_POSTAL];
       $postal_len = strlen($postal);
       $number_department = '';
-      
+
       switch ($postal_len) {
         case 4:
           $number_department = '0' . $postal[0];
           break;
-        
+
         case 5:
           $number_department = $postal[0] . $postal[1];
           break;
@@ -83,14 +83,14 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
         default:
           break;
       }
-      
+
       if(!empty($number_department)){
-        $id_department = Kandb_Business_Rules::get_tax_department_by_number($number_department);        
+        $id_department = Kandb_Business_Rules::get_tax_department_by_number($number_department);
         if(!empty($id_department)){
           $entity->field_programme_loc_department[LANGUAGE_NONE][0]["tid"] = $id_department;
         }
       }
-      
+
     }
     elseif ($entity->feeds_item->id == FEED_ID_IMPORT_BIEN) {
 
@@ -301,8 +301,23 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
   if ($importer_id === FEED_ID_IMPORT_BIEN) {   // is import for bien.
     // RULE BIEN 103 & 104.
     // Get list node don't have in file import.
-    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+//    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+    $list_nodes_bien = array();
+    $uri = 'private://imported/';
+    $file_name = 'imported_lot.txt';
+    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+    if ($prepare_file) {
+      $path = drupal_realpath($uri . $file_name);
+      $data = '';
+      if (file_exists($path)) {
+        $data = file_get_contents($path);
+      }
+      if ($data) {
+        $list_nodes_bien = array_unique(array_map('trim', explode("\n", $data)));
+      }
+    }
     if (!empty($list_nodes_bien)) {
+      $reset_sleep = 0;
       foreach ($list_nodes_bien as $nid) {
         $node = node_load($nid);
         if (isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
@@ -326,16 +341,21 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
             default:
               break;
           }
-          
+
           if ($flag) {
             node_save($node);
             // Delete all node option what it related to this bien.
             Kandb_Business_Rules::delete_node_option_related_bien($nid);
           }
         }
+        $reset_sleep++;
+        if ($reset_sleep == 200) {
+          sleep(5);
+          $reset_sleep = 0;
+        }
       }
     }
-    
+
     $arr_update_programme = array();
     if(isset($node->field_programme[LANGUAGE_NONE][0]["target_id"])){
       $programe = new stdClass();
@@ -383,28 +403,6 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
-  }
-    
-  if($form_id == 'feeds_import_form'){
-    $form['#validate'][] = 'kandb_business_rules_validate_feed';
-  }
-}
-
-/**
- * @todo to check if file import does not exist
- * @param type $form
- * @param type $form_state
- */
-function kandb_business_rules_validate_feed ($form, &$form_state){
-  if(isset($form_state["values"]["feeds"]["KbFeedsHTTPFetcher"]["source"])){
-    $file_import = $form_state["values"]["feeds"]["KbFeedsHTTPFetcher"]["source"];
-    
-    $header_response = get_headers($file_import, 1);
-    if ( strpos( $header_response[0], "404" ) !== false )
-    {
-      // FILE DOES NOT EXIST
-      form_set_error('title', 'File ' . $file_import . ' does not exists.');
-    }
   }
 }
 
