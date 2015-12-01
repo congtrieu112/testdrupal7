@@ -27,11 +27,24 @@ function kandb_view_rh_dernieres_offres_emploi_menu() {
 
 function kandb_view_rh_dernieres_offres_emploi_page() {
     $content = array();
-    $content['last_jobs'] = call_user_func_array(
+    $content['lastest_jobs'] = call_user_func_array(
         'views_embed_view',
         array_merge(
             array('nos_dernieres_offres_emploi', 'block')
         )
     );
-    return $content;
+
+    return theme('page_jobs', $content);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_view_rh_dernieres_offres_emploi_theme($existing, $type, $theme, $path) {
+    return array(
+        'page_jobs' => array(
+            'template' => 'templates/page_jobs',
+            'variables' => array(),
+        )
+    );
 }
