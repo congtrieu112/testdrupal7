@@ -32,6 +32,28 @@ function kandb_bean_field_default_field_bases() {
     'type' => 'image',
   );
 
+  // Exported field_base: 'field_block_header_image_small'
+  $field_bases['field_block_header_image_small'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_block_header_image_small',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_block_header_stitre'
   $field_bases['field_block_header_stitre'] = array(
     'active' => 1,
