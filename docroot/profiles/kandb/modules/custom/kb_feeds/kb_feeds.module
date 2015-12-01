@@ -1629,3 +1629,23 @@ function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_
     }
   }
 }
+
+function createLogFileFeedsImportNotExists($file_import, $importer_id) {
+  $header_response = get_headers($file_import, 1);
+  if (strpos($header_response[0], "404") !== false) {
+    if($importer_id) {
+      $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
+      if(variable_get($importer_id . '_log_name', '')) {
+        $file_log_name  = variable_get($importer_id . '_log_name');
+      }
+
+      $logging = '/**' . "\n";
+      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $importer_id)) . "\n";
+      $logging .= ' */' . "\n";
+      $logging .= 'Path: ' . $file_import . ' does not exists' . "\n";
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+
+    throw new Exception(t('Path @file_import is not exists.', array('@file_import' => $file_import)));
+  }
+}
