@@ -138,18 +138,21 @@ function kandb_recherche_page(){
         ));
 
       // Otherwise list all departement
-      }else {
-        $tree = taxonomy_get_tree( $vocabularies['departement']->vid);
-        $departement = array();
-        foreach($tree as $id => $term){
-          $departement[$id] = array(
-            'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
-            'name' => $term->name,
-          );
-        }
-        $result = theme('result_departement', array('departement' => $departement));
       }
     }
+  }
+
+  // If not result
+  if ($result == NULL) {
+    $tree = taxonomy_get_tree($vocabularies['departement']->vid);
+    $departement = array();
+    foreach ($tree as $id => $term) {
+      $departement[$id] = array(
+        'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
+        'name' => $term->name,
+      );
+    }
+    $result = theme('result_departement', array('departement' => $departement));
   }
 
   return theme('recherche', array(
