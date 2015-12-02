@@ -38,7 +38,7 @@
                         <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                             <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                                 <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
                             </div>
                         </div>
                         <!-- [popin] end-->
@@ -129,6 +129,12 @@
                   </p>
                 <?php endif; ?>
 
+                <?php if ($programme_mtn_legale) : ?>
+                  <p class="intro">
+                      <em><?php print t('Mentions Legales:'); ?>&nbsp;</em><?php print $programme_mtn_legale; ?>
+                  </p>
+                <?php endif; ?>
+
                 <ul class="toolsList show-for-medium-up">
                     <?php if ($flag) : ?>
                       <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
@@ -176,7 +182,7 @@
                   <div class="iframe iframe--video-de-quartier">
                       <iframe src="" data-src="http://widgets.habiteo.com/plan-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
                   </div>
-                <?php
+                  <?php
                 elseif ($lon && $lat):
                   $latitude = $lat / 1000000;
                   $longitude = $lon / 1000000;
@@ -212,9 +218,10 @@
                     <div class="iframe iframe--video-de-quartier">
                         <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
                     </div>
-  <?php endif;
-endif;
-?>
+                    <?php
+                  endif;
+                endif;
+                ?>
             </div>
         </div>
 
@@ -249,7 +256,7 @@ endif;
             <div class="iframe iframe--vue-generale">
                 <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
             </div>
-  <?php endif; ?>
+          <?php endif; ?>
       </div>
   </section>
 <?php endif; ?>
@@ -266,9 +273,9 @@ endif;
             <div class="iframe iframe--vue-generale">
                 <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
             </div>
-  <?php endif; ?>
+          <?php endif; ?>
           <div class="content-centered">
-  <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p>  ?>
+              <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p>   ?>
           </div>
       </div>
   </section>
@@ -314,9 +321,9 @@ if (!empty($list_document)):
   <section class="section-padding">
       <div class="wrapper">
           <div class="programDocumentDownload">
-  <?php
-  $nocontent = 'data-reveal-id="downloadInformationForm"';
-  ?>
+              <?php
+              $nocontent = 'data-reveal-id="downloadInformationForm"';
+              ?>
               <div class="programDocumentDownload__heading">
                   <header class="heading">
                       <h2 class="heading__title">Documents <br>téléchargeables</h2>
@@ -327,7 +334,7 @@ if (!empty($list_document)):
               </div>
               <div class="programDocumentDownload__items">
                   <ul class="row">
-  <?php foreach ($list_document as $item): ?>
+                      <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
                             <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
                                 <span class="icon <?php print $item["icon"] ?>"></span>
@@ -336,7 +343,7 @@ if (!empty($list_document)):
                                 </div>
                             </a>
                         </li>
-  <?php endforeach; ?>
+                      <?php endforeach; ?>
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
@@ -369,7 +376,7 @@ if ($region_id && $programme_carousel):
   <section class="section-padding bg-lightGrey">
       <div class="wrapper">
           <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
-  <?php print $programme_carousel; ?>
+          <?php print $programme_carousel; ?>
           <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
           </div>
       </div>
