@@ -393,10 +393,6 @@ function kb_migration_finish () {
     kb_migration_logging ('migration | ' . $importer . ' | Error: ' . $e->getMessage());
   }
   kb_migration_logging ('migration : finish programme_feed_import');
-  //Run business rule
-  kb_migration_logging ('migration: Start run business rule for programme_feed_import');
-  kandb_business_rules_feeds_after_import_callback('programme_feed_import');
-  kb_migration_logging ('migration: Finish run business rule for programme_feed_import');
   //Run daily import
   kb_starting_daily_import();
 }
