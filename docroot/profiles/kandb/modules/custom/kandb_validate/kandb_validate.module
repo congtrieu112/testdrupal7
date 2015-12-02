@@ -20,12 +20,10 @@ function kandb_validate_avant_premiere(&$form, &$form_state) {
       if ($date_diff > 2) {
         form_set_error('field_avant_premiere_date_fin', t('the range between begin date and end date is from 1 - 3 days.'));
       }
-    }
-    else {
+    } else {
       form_set_error('field_avant_premiere_date_debut', t('The end date should be greater than begin date'));
     }
-  }
-  else {
+  } else {
     form_set_error('field_avant_premiere_date_debut', t('Both begin date and end date should be same year and month'));
   }
 }
@@ -40,7 +38,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
   $realEnd->add($interval);
 
   $period = new DatePeriod(
-      new DateTime($start), $interval, $realEnd
+    new DateTime($start), $interval, $realEnd
   );
   foreach ($period as $date) {
     $array[] = $date->format('d');
@@ -60,7 +58,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
-        ->distinct();
+      ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -75,7 +73,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     // Fetch only records where date_time is greater than 30 days ago.
     $type_options_query->where('d.field_programme_online_date_value > DATE_ADD(NOW(), INTERVAL -30 DAY)');
     $type_options_query->fields('a', array('field_programme_loc_ville_tid'))
-        ->distinct();
+      ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -140,22 +138,22 @@ function date_quarter() {
 
 /**
  * Get the promotions by programme nid.
- * 
+ *
  * @param int $nid
  *   The nid of programme CT.
- * 
+ *
  * @return object entity.
  *   Return the object entity of Promotion CT.
  */
 function get_nids_promotions_by_programme($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'promotion')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_promotion_programme', 'target_id', $nid)
-      ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
-      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_programme', 'target_id', $nid)
+    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -169,19 +167,17 @@ function get_nids_promotions_by_programme($nid) {
 /**
  * Implements of hook_views_pre_render().
  */
-function kandb_validate_views_pre_render($view) {  
+function kandb_validate_views_pre_render($view) {
   if (in_array($view->name, array('nos_dernieres_offres', 'avant_premiere_check')) && count($view->result)) {
     $my_arr = $view->result;
     $dups = $new_arr = array();
     foreach ($my_arr as $key => $val) {
       if (!isset($new_arr[$val->nid])) {
         $new_arr[$val->nid] = $key;
-      }
-      else {
+      } else {
         if (isset($dups[$val->nid])) {
           $dups[$val->nid][] = $key;
-        }
-        else {
+        } else {
           $dups[$val->nid] = array($key);
         }
       }
@@ -206,8 +202,8 @@ function kandb_validate_views_pre_render($view) {
 }
 
 /*
- * filter custom bien by program 
- * 
+ * filter custom bien by program
+ *
  */
 
 function filter_bien_by_id_program($idprogram, $tid) {
@@ -239,4 +235,26 @@ function get_tid_by_id_field($status) {
     return $result->entity_id;
   }
   return FALSE;
+}
+
+/**
+ * Get the promotions by avant nid.
+ */
+function get_nids_promotions_by_avant($nid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
+    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $promotion_nids = array_keys($result['node']);
+    return entity_load('node', $promotion_nids);
+  }
+
+  return NULL;
 }
