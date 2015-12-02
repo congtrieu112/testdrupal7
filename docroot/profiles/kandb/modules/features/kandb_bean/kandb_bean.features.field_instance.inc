@@ -54,6 +54,50 @@ function kandb_bean_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'bean-block_header-field_block_header_image_small'
+  $field_instances['bean-block_header-field_block_header_image_small'] = array(
+    'bundle' => 'block_header',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 2,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'field_name' => 'field_block_header_image_small',
+    'label' => 'Small image',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 0,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 33,
+    ),
+  );
+
   // Exported field_instance: 'bean-block_header-field_block_header_stitre'
   $field_instances['bean-block_header-field_block_header_stitre'] = array(
     'bundle' => 'block_header',
@@ -105,6 +149,7 @@ function kandb_bean_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Image');
+  t('Small image');
   t('Sous Titre');
 
   return $field_instances;

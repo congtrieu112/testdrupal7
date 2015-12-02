@@ -30,10 +30,16 @@
 global $base_url;
 
 $header_image = '';
+$header_image_small = '';
 if(isset($content["field_block_header_image"]["#items"][0]['uri'])){
   $url = file_create_url($content["field_block_header_image"]["#items"][0]['uri']);
   $url = parse_url($url);
   $header_image = $base_url . $url['path'];
+}
+if(isset($content["field_block_header_image_small"]["#items"][0]['uri'])){
+  $url = file_create_url($content["field_block_header_image_small"]["#items"][0]['uri']);
+  $url = parse_url($url);
+  $header_image_small = $base_url . $url['path'];
 }
 ?>
 <!-- [header Advice] start-->
@@ -41,7 +47,7 @@ if(isset($content["field_block_header_image"]["#items"][0]['uri'])){
 - small: 640 x 400 (High compression)
 - large: 1380 x 400
 -->
-<section data-interchange="[<?php print $header_image ?>, (small)], [<?php print $header_image ?>, (medium)]" 
+<section data-interchange="[<?php print $header_image_small ?>, (small)], [<?php print $header_image ?>, (medium)]" 
          class="narrow-header <?php print $classes; ?>" <?php print $attributes; ?>>
     <div class="wrapper" <?php print $content_attributes; ?>>
         <div class="heading heading--bordered heading--white">
