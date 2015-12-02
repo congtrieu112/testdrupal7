@@ -1052,7 +1052,7 @@ function import_bien_pdf_batch_operation() {
   $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
 
   $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d_H-i-j') . '.txt';
-
+  variable_set('import_bien_pdf_log_name', $file_log_name);
   if (is_dir($base_path)) {
     if ($handle = opendir($base_path)) {
       /* This is the correct way to loop over the directory. */
@@ -1062,14 +1062,12 @@ function import_bien_pdf_batch_operation() {
         $filecount = 0;
         $logging = '';
         if (is_dir($base_path . $id_program) && $id_program != '.' && $id_program != '..') {
-          $file_log_name = 'import_bien_pdf_log_' . $id_program . '_' . date('Y-m-d_H-i-j') . '.txt';
-          if(!variable_get('import_bien_pdf_' . $id_program . '_total', 0) && !variable_get('import_bien_pdf_' . $id_program . '_log_name', 0)) {
+          if(!variable_get('import_bien_pdf_' . $id_program . '_total', 0)) {
             $files = glob($base_path . $id_program . "/*");
             if ($files){
               $filecount = count($files);
             }
             variable_set('import_bien_pdf_' . $id_program . '_total', $filecount);
-            variable_set('import_bien_pdf_' . $id_program . '_log_name', $file_log_name);
           }
 
           $program = get_program_by_id($id_program);
@@ -1123,7 +1121,6 @@ function import_bien_pdf_batch_operation() {
         }
 
         createFileErrorLogTxt($file_log_name, $logging);
-        $file_log_name = variable_get('import_bien_pdf_' . $id_program . '_log_name', '');
         $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
         $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
         $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
@@ -1131,12 +1128,12 @@ function import_bien_pdf_batch_operation() {
         if($file_log_name && ($total_rows || $updated || $rejected)) {
           $logging = '/**' . "\n";
           $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
+          $logging .= ' * ' . 'Programme ID: ' . $id_program . "\n";
           $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
           $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
           $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
           $logging .= ' */' . "\n";
           createFileErrorLogTxt($file_log_name, $logging);
-          variable_del('import_bien_pdf_' . $id_program . '_log_name');
           variable_del('import_bien_pdf_' . $id_program . '_total');
           variable_del('import_bien_pdf_' . $id_program . '_updated');
           variable_del('import_bien_pdf_' . $id_program . '_rejected');
