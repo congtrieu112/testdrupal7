@@ -19,6 +19,8 @@ $en_quelques_mots = isset($node->field_avant_premiere_en_quelques[LANGUAGE_NONE]
 $description = isset($node->field_avant_premiere_description[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_description[LANGUAGE_NONE][0]['value'] : '';
 
 $ouverture = isset($node->field_avant_premiere_grande_ouve['und'][0]['value']) ? $node->field_avant_premiere_grande_ouve['und'][0]['value'] : '';
+
+$promotions = get_nids_promotions_by_avant($node->nid);
 ?>
 
 <!-- [programHeader] start-->
@@ -41,6 +43,26 @@ $ouverture = isset($node->field_avant_premiere_grande_ouve['und'][0]['value']) ?
           <p class="toolbox__intro"><?php print $date_range_string; ?></p>
         <?php else: ?>
           <div class="tag tag--important"><?php print t('Avant-première'); ?></div>
+        <?php endif; ?>
+        <?php if ($promotions) : ?>
+          <ul>
+              <?php
+              foreach ($promotions as $promotion) :
+                $triger_promotion = 'promotion-' . $promotion->nid;
+                ?>
+                <li>
+                    <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                    <!-- [popin] start-->
+                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                            <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                        </div>
+                    </div>
+                </li>
+                <!-- [popin] end-->
+              <?php endforeach; ?>
+          </ul>
         <?php endif; ?>
     </div>
     <div class="programHeader__figure">
@@ -76,6 +98,23 @@ $ouverture = isset($node->field_avant_premiere_grande_ouve['und'][0]['value']) ?
                       <p class=""><?php print $date_range_string; ?></p>
                     <?php else: ?>
                       <div class="tag tag--important"><?php print t('Avant-première'); ?></div>
+                    <?php endif; ?>
+                    <?php if ($promotions) : ?>
+                      <?php
+                      foreach ($promotions as $promotion) :
+                        $triger_promotion = 'promotion-' . $promotion->nid;
+                        ?>
+                        <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                        <!-- [popin] start-->
+                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                            </div>
+                        </div>
+                        <!-- [popin] end-->
+                      <?php endforeach; ?>
+                      </ul>
                     <?php endif; ?>
                 </div>
             </div>

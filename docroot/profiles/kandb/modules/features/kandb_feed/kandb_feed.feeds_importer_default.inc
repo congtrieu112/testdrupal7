@@ -934,21 +934,31 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           29 => array(
+            'source' => 'BureauDeVenteVille',
+            'target' => 'field_espace_vente_adresse',
+            'unique' => FALSE,
+          ),
+          30 => array(
+            'source' => 'BureauDeVenteDepartement',
+            'target' => 'field_espace_vente_adresse',
+            'unique' => FALSE,
+          ),
+          31 => array(
             'source' => 'BureauDeVenteHoraireOuverture',
             'target' => 'field_espace_vente_horaire',
             'unique' => FALSE,
           ),
-          30 => array(
+          32 => array(
             'source' => 'BureauDeVenteX',
             'target' => 'field_espace_vente_longitude',
             'unique' => FALSE,
           ),
-          31 => array(
+          33 => array(
             'source' => 'BureauDeVenteY',
             'target' => 'field_espace_vente_latitude',
             'unique' => FALSE,
           ),
-          32 => array(
+          34 => array(
             'source' => 'DateMiseEnLigne',
             'target' => 'field_programme_online_date:start',
             'unique' => FALSE,

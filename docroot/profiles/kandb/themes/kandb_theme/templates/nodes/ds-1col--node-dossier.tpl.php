@@ -201,7 +201,7 @@ endif;
    - medium: 1180 x 380
     -->
     <?php if ($url_video_content): ?>
-    <a href="<?php if ($url_video_content) print $url_video_content ?>" title="vidéo" data-reveal-id="videoConseilMain" data-interchange="<?php
+    <a href="<?php if ($url_video_content) print $url_video_content ?>" title="<?php print $image_content_title; ?>" data-reveal-id="videoConseilMain" data-interchange="<?php
     if ($image_content) {
       print file_create_url($image_content);
       ?>, (small)], [<?php

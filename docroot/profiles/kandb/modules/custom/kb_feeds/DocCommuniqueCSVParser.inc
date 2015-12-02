@@ -317,7 +317,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
                   $doc_sticky = 1;
               }
           }
-          
+
           $row[$columnName] = isset($field) ? $field : '';
         }
         $row['sticky'] = $doc_sticky;
@@ -345,22 +345,11 @@ class DocCommuniqueCSVParser extends ParserCSV{
       }
     }
 
+    $total = variable_get($this->id . '_total', 0);
     if($linesParsed > 0) {
-      variable_set($this->id . '_total', $linesParsed);
+      variable_set($this->id . '_total', $linesParsed + $total);
     }
 
-//    if($log_text != ''){
-//        $file_log_name = 'document_import_communique_de_presse_log_' . date('Y-m-d') . '.txt';
-//        $uri = 'private://feeds/log/';
-//        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-//        if($prepare_file){
-//            $path = drupal_realpath($uri . $file_log_name);
-//            $data = file_get_contents($path);
-//            $log_text .= $data;
-//            drupal_chmod($uri);
-//            file_save_data($log_text, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-//        }
-//    }
     return $rows;
   }
 }

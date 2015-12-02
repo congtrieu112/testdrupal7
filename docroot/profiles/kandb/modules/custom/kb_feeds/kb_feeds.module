@@ -326,6 +326,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
 
   $file_log_name = variable_get($entity->feeds_item->id . '_log_name');
   $warning_count = variable_get($entity->feeds_item->id . '_warning', 0);
+  $skip_count = variable_get($entity->feeds_item->id . '_rejected', 0);
 
   $tid = 0;
   if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
@@ -373,6 +374,20 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
 
           if($item[19] == 0) {
             $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
+          }
+
+          if($item[8]) {
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'taxonomy_term')
+              ->fieldCondition('field_id_type_voie', 'value', $item[8]);
+            $result = $query->execute();
+            $tids = array_keys($result['taxonomy_term']);
+
+            if($tids && count($tids) == 1) {
+              $entity->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] = $tids[0];
+            } else {
+              $logging .= $item[0] . '|field_id_type_voie|field_id_type_voie:' . $item[8] . '|' . 'Term id type voie not mapping' . '|' . 'Warning' . "\n";
+            }
           }
         }
       }
@@ -648,14 +663,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
     if(strpos($logging, 'Skip import')) {
+      $skip_count += 1;
+      variable_set($entity->feeds_item->id . '_rejected', $skip_count);
       $entity->feeds_item->skip = TRUE;
     }
   }
-
-  //Anchored
-  $counted = variable_get($source->importer()->id . '_counted', 0);
-  $counted += 1;
-  variable_set($source->importer()->id . '_counted', $counted);
 
   if ($tid > 0) {
     $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
@@ -1562,72 +1574,50 @@ function download_feeds_errorlog($file_name) {
   }
 }
 
-/**
- * Implements hook_feeds_after_import().
- * @param FeedsSource $source\
- */
 function kb_feeds_feeds_after_import(FeedsSource $source) {
-  variable_del($source->importer()->id . '_log_name');
-  variable_del($source->importer()->id . '_total');
-  variable_del($source->importer()->id . '_rejected');
-  variable_del($source->importer()->id . '_created');
-  variable_del($source->importer()->id . '_updated');
-  variable_del($source->importer()->id . '_counted');
-  variable_del($source->importer()->id . '_warning');
-}
+  $config_en = isset($source->getConfig()["KbEncodingCSVParser"]["no_headers"]) ? $source->getConfig()["KbEncodingCSVParser"]["no_headers"] : 0;
+  $config_feeds = isset($source->getConfig()["KbFeedsCSVParser"]["no_headers"]) ? $source->getConfig()["KbFeedsCSVParser"]["no_headers"] : 0;
+  $config_doc = isset($source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"]) ? $source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"] : 0;
 
-function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
-  $created = variable_get($entity->feeds_item->id . '_created', 0);
-  $updated = variable_get($entity->feeds_item->id . '_updated', 0);
-  $warning = variable_get($entity->feeds_item->id . '_warning', 0);
-
-  if(empty($entity_id)) {
-    $created += 1;
-    variable_set($entity->feeds_item->id . '_created', $created);
-  } else {
-    $updated += 1;
-    variable_set($entity->feeds_item->id . '_updated', $updated);
-  }
-
-  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
-  // Enable modules to skip saving at all.
-  if (!empty($entity->feeds_item->skip)) {
-    $rejected += 1;
-    variable_set($entity->feeds_item->id . '_rejected', $rejected);
-  }
-
-  $skipped = (int) $source->state(FEEDS_PROCESS)->skipped;
-  $limit = variable_get('feeds_process_limit', 1000);
+  $state = $source->state(FEEDS_PROCESS);
+  $skipped = $state->skipped;
+  $created = $state->created;
+  $updated = $state->updated;
+  $warning = variable_get($source->importer()->id . '_warning', 0);
+  $rejected = variable_get($source->importer()->id . '_rejected', 0);
   $file_log_name = variable_get($source->importer()->id . '_log_name');
   $total_rows_fileimport = variable_get($source->importer()->id . '_total', 0);
-  $counted = variable_get($source->importer()->id . '_counted', 0);
-  $imported = $created + $updated;
-
-  if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
-    //$skipped = $total_rows - ($created + $updated + $rejected);
-    if(($total_rows_fileimport == ($created + $updated + $rejected + $skipped)) || $counted == $limit) {
-      $logging = '/**' . "\n";
-      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
-      $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
-      $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
-      $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-      $logging .= ' * ' . 'Total rows warning in file: ' . $warning .  "\n";
-      $logging .= ' */' . "\n";
-
-      createFileErrorLogTxt($file_log_name, $logging);
-
-      if($counted == $limit) {
-        variable_del($source->importer()->id . '_log_name');
-        variable_del($source->importer()->id . '_total');
-        variable_del($source->importer()->id . '_rejected');
-        variable_del($source->importer()->id . '_created');
-        variable_del($source->importer()->id . '_updated');
-        variable_del($source->importer()->id . '_counted');
-        variable_del($source->importer()->id . '_warning');
-        $source->state(FEEDS_PROCESS)->skipped = 0;
-      }
-    }
+  if($config_en == 0 && $config_feeds == 0 && $config_doc == 0) {
+    $total_rows_fileimport -= 1;
   }
+  $imported = $created + $updated;
+  if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
+    $logging = '/**' . "\n";
+    $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
+    $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
+    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
+    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+    $logging .= ' * ' . 'Total rows warning in file: ' . $warning .  "\n";
+    $logging .= ' */' . "\n";
+
+    createFileErrorLogTxt($file_log_name, $logging);
+  }
+
+  variable_del($source->importer()->id . '_updated');
+  variable_del($source->importer()->id . '_warning');
+  variable_del($source->importer()->id . '_rejected');
+  variable_del($source->importer()->id . '_log_name');
+  variable_del($source->importer()->id . '_total');
+}
+
+
+function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
+  $state = $source->state(FEEDS_PROCESS);
+  if($state->updated > 0) {
+    $updated = $state->updated + 1;
+  }
+
+  variable_set($entity->feeds_item->id . '_updated', $updated);
 }
 
 function createLogFileFeedsImportNotExists($file_import, $importer_id) {
