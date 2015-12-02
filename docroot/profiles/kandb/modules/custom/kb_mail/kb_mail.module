@@ -102,6 +102,16 @@ function kandb_webform_submit(&$form, &$form_state) {
       }
     }
   }
+  if (isset($values['submitted']['ap_connu'])) {
+    if (isset ($form['submitted']['ap_connu']['#options'][$values['submitted']['ap_connu']])) {
+      if ($form['submitted']['ap_connu']['#options'][$values['submitted']['ap_connu']] != '') {
+        $values['submitted']['ap_connu'] = $form['submitted']['ap_connu']['#options'][$values['submitted']['ap_connu']];
+      }
+      else {
+        $values['submitted']['ap_connu'] = '';
+      }
+    }
+  }
   if (isset($form['#avant_premiere_id']) && is_numeric($form['#avant_premiere_id']) && $webform_name == 'avant_contactez_nous') {
     $avant_premiere = node_load($form['#avant_premiere_id']);
     if ($avant_premiere->type != 'avant_premiere') {
@@ -274,25 +284,6 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rappeler_horaire'] = isset($values['submitted']['row_2']['rappeler_horaire']) ? $values['submitted']['row_2']['rappeler_horaire'] : '';
     }
     elseif ($webform_name == 'prendre_rendez_vous') {
-      $book_appointment_arr = array(
-        'rdv_nom',
-        'rdv_prenom',
-        'rdv_adresse1',
-        'rdv_adresse2',
-        'rdv_ville',
-        'rdv_lieudit',
-        'rdv_code_postal',
-        'rdv_email',
-        'rdv_telephone',
-        'rdv_message',
-        'rdv_connu',
-      );
-      foreach ($book_appointment_arr as $var_name) {
-        $variables[$var_name] = isset($values['submitted'][$var_name]) ? $values['submitted'][$var_name] : '';
-      }
-      $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
-    }
-    elseif($webform_name == 'avant_contactez_nous') {
       $variables['rdv_nom'] = isset($values['submitted']['row_1']['rdv_nom']) ? $values['submitted']['row_1']['rdv_nom'] : '';
       $variables['rdv_prenom'] = isset($values['submitted']['row_1']['rdv_prenom']) ? $values['submitted']['row_1']['rdv_prenom'] : '';
       $variables['rdv_code_postal'] = isset($values['submitted']['row_2']['rdv_code_postal']) ? $values['submitted']['row_2']['rdv_code_postal'] : '';
@@ -305,6 +296,20 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rdv_message'] = isset($values['submitted']['rdv_message']) ? $values['submitted']['rdv_message'] : '';
       $variables['rdv_connu'] = isset($values['submitted']['rdv_connu']) ? $values['submitted']['rdv_connu'] : '';
       $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
+    }
+    elseif($webform_name == 'avant_contactez_nous') {
+      $variables['rdv_nom'] = isset($values['submitted']['row_1']['ap_nom']) ? $values['submitted']['row_1']['ap_nom'] : '';
+      $variables['rdv_prenom'] = isset($values['submitted']['row_1']['ap_prenom']) ? $values['submitted']['row_1']['ap_prenom'] : '';
+      $variables['rdv_code_postal'] = isset($values['submitted']['row_2']['ap_code_postal']) ? $values['submitted']['row_2']['ap_code_postal'] : '';
+      $variables['rdv_ville'] = isset($values['submitted']['row_2']['ap_ville']) ? $values['submitted']['row_2']['ap_ville'] : '';
+      $variables['rdv_adresse1'] = isset($values['submitted']['row_3']['ap_adresse1']) ? $values['submitted']['row_3']['ap_adresse1'] : '';
+      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['ap_adresse2']) ? $values['submitted']['row_3']['ap_adresse2'] : '';  
+      $variables['rdv_email'] = isset($values['submitted']['row_4']['ap_email']) ? $values['submitted']['row_4']['ap_email'] : '';
+      $variables['rdv_telephone'] = isset($values['submitted']['row_4']['ap_telephone']) ? $values['submitted']['row_4']['ap_telephone'] : '';
+      $variables['rdv_lieudit'] = isset($values['submitted']['row_5']['ap_lieudit']) ? $values['submitted']['row_5']['ap_lieudit'] : '';
+      $variables['rdv_message'] = isset($values['submitted']['ap_message']) ? $values['submitted']['ap_message'] : '';
+      $variables['rdv_connu'] = isset($values['submitted']['ap_connu']) ? $values['submitted']['ap_connu'] : '';
+      $variables['rdv_newsletter'] = isset($values['submitted']['ap_newsletter'][1]) ? (bool) $values['submitted']['ap_newsletter'][1] : FALSE;
     }
   }
   return $variables;
