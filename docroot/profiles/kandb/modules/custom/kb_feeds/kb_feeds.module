@@ -1569,6 +1569,7 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   $skipped = $state->skipped;
   $created = $state->created;
   $updated = $state->updated;
+  $item_count = $source->itemCount();
   $warning = variable_get($source->importer()->id . '_warning', 0);
   $rejected = variable_get($source->importer()->id . '_rejected', 0);
   $file_log_name = variable_get($source->importer()->id . '_log_name');
@@ -1580,7 +1581,7 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
     $logging = '/**' . "\n";
     $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
-    $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
+    $logging .= ' * ' . 'Total rows: ' . $item_count . "\n";
     $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
     $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
     $logging .= ' * ' . 'Total rows warning in file: ' . $warning .  "\n";
