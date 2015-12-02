@@ -125,22 +125,11 @@ class KbParserCSV extends ParserCSV{
       }
     }
 
+    $total = variable_get($this->currentParser->id . '_total', 0);
     if($linesParsed > 0) {
-      variable_set($this->currentParser->id . '_total', $linesParsed);
+      variable_set($this->currentParser->id . '_total', $linesParsed + $total);
     }
 
-//    if($logging != ''){
-//        $file_log_name = $this->currentParser->id . '_log_' . date('Y-m-d') . '.txt';
-//        $uri = 'private://feeds/log/';
-//        $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-//        if($prepare_file){
-//            $path = drupal_realpath($uri . $file_log_name);
-//            $data = file_get_contents($path);
-//            $logging .= $data;
-//            drupal_chmod($uri);
-//            file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-//        }
-//    }
     return $rows;
   }
 }
