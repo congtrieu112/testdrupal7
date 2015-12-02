@@ -1589,8 +1589,6 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
     createFileErrorLogTxt($file_log_name, $logging);
   }
 
-  variable_del($source->importer()->id . '_skipped');
-  variable_del($source->importer()->id . '_created');
   variable_del($source->importer()->id . '_updated');
   variable_del($source->importer()->id . '_warning');
   variable_del($source->importer()->id . '_rejected');
@@ -1601,21 +1599,10 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
 
 function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
   $state = $source->state(FEEDS_PROCESS);
-  $skipped = 0; $created = 0; $updated = 0;
-  if($state->skipped > 0) {
-    $skipped = $state->skipped + 1;
-  }
-
-  if($state->created > 0) {
-    $created = $state->created + 1;
-  }
-
   if($state->updated > 0) {
     $updated = $state->updated + 1;
   }
 
-  variable_set($entity->feeds_item->id . '_skipped', $skipped);
-  variable_set($entity->feeds_item->id . '_created', $created);
   variable_set($entity->feeds_item->id . '_updated', $updated);
 }
 
