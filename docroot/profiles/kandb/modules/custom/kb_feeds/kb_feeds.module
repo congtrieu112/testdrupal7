@@ -375,6 +375,20 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           if($item[19] == 0) {
             $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
           }
+
+          if($item[8]) {
+            $query = new EntityFieldQuery();
+            $query->entityCondition('entity_type', 'taxonomy_term')
+              ->fieldCondition('field_id_type_voie', 'value', $item[8]);
+            $result = $query->execute();
+            $tids = array_keys($result['taxonomy_term']);
+
+            if($tids && count($tids) == 1) {
+              $entity->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] = $tids[0];
+            } else {
+              $logging .= $item[0] . '|field_id_type_voie|field_id_type_voie:' . $item[8] . '|' . 'Term id type voie not mapping' . '|' . 'Warning' . "\n";
+            }
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {

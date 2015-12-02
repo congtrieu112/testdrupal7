@@ -43,6 +43,7 @@ features[feeds_tamper][] = maison_feed_import-10-find_replace
 features[feeds_tamper][] = maison_feed_import-11-find_replace
 features[feeds_tamper][] = maison_feed_import-12-find_replace
 features[feeds_tamper][] = migration_bien_import-statutlogement-search_term_by_field
+features[feeds_tamper][] = migration_program_import-bureaudeventedepartement-rewrite
 features[feeds_tamper][] = migration_program_import-labelbbczone2-rewrite
 features[feeds_tamper][] = migration_program_import-reglementationthermiquezone2-rewrite
 features[feeds_tamper][] = migration_program_video_import-identifiantprogramme-trim
