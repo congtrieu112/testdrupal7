@@ -107,6 +107,8 @@ $ouverture = isset($node->field_avant_premiere_grande_ouve['und'][0]['value']) ?
             $form_contact = drupal_get_form('webform_client_form_' . $webform->nid, $node, $submission, $enabled, $preview);
             print render($form_contact);
             print '</div>';
+            $class_ajax = $form_contact['webform_ajax_wrapper_id']['#value'];
+            drupal_add_css('div#' . $class_ajax . ' .messages.status{display:none;}', 'inline');
           }
         }
         ?>

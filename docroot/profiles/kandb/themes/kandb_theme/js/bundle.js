@@ -37257,6 +37257,12 @@ function AppAccordion( el, opt ) {
   this.mode = this.item.data('app-accordion');
   this.activeLink = this.item.find(activeLink);
 
+  this.display = "block";
+
+  if ( Foundation.utils.is_medium_up() ) {
+    this.display = "flex";
+  }
+
   this.preInit();
 }
 
@@ -37385,6 +37391,7 @@ AppAccordion.prototype = {
             })
             .velocity('slideDown', {
               duration: 500,
+              display: that.display,
               progress: function(elements, complete, remaining, start, tweenValue) {
                 var linkPosition = $this.offset().top,
                     moveTo = linkPosition - 100 - windowPosition,
@@ -37408,6 +37415,7 @@ AppAccordion.prototype = {
   },
 
   close: function() {
+    var that = this;
     this.item.find('.opened').removeClass('opened');
 
     this.item.find(content).filter('[aria-hidden="false"]')
@@ -37425,7 +37433,8 @@ AppAccordion.prototype = {
           'tab-index': "0"
         })
       .velocity('slideDown', {
-        duration: 500
+        duration: 500,
+        display: that.display
       });
 
     return this;
@@ -37438,28 +37447,24 @@ AppAccordion.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appAccordion = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appAccordion = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppAccordion');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppAccordion', new AppAccordion(this, opt));
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-          instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppAccordion');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppAccordion', new AppAccordion(this, opt));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+        instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
-  $(trigger).appAccordion();
-
-});
+$(trigger).appAccordion();
 },{}],11:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37854,7 +37859,7 @@ AppAjax.prototype = {
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
           parent: $target,
-          callback: ["write"]
+          callback: ["write", that.triggerSend]
         });
 
     if ( App.debug ) {
@@ -37872,6 +37877,10 @@ AppAjax.prototype = {
     }
 
     return this;
+  },
+
+  triggerSend: function() {
+    $(document).trigger('ajaxResponse');
   },
 
   url: function() {
@@ -37926,6 +37935,7 @@ if ( $(trigger).length ) {
   $(trigger).appAjax();
 
 }
+
 },{}],14:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
@@ -37983,6 +37993,15 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
   $(document).foundation('equalizer', 'reflow');
 });
 
+
+// ajax callback
+$(document).on('ajaxResponse', function(e){
+  // reinit slick
+  $('[data-slick]').appSlick();
+
+  // rebind reveal popin's bindings
+  App.revealBind();
+});
 },{}],15:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
@@ -38465,7 +38484,6 @@ Gmaps.prototype = {
     }
 
     if ( this.item.attr('data-gmaps') === 'simple' ) {
-      console.log('simple');
       that.newMap = new GMaps({
         div: '.js-app-gmaps',
         lat: 0,
@@ -38733,7 +38751,7 @@ var trigger   = '.menu-btn, .site-overlay',
     $menuBtn  = $('.menu-btn'),
     $html     = $('html'),
     $topbarSearchForm = $('.js-topbarSearch'),
-    $topbarSearchTrigger = $('[data-topbar-search]').parent(),
+    $topbarSearchTrigger = $('[data-topbar-search]'),
     topbarSearchOpened = false;
 
 
@@ -38775,7 +38793,7 @@ if ( Foundation.utils.is_small_only() ) {
   $('.main-menu').appendTo('.pushy');
 } else {
   if ( $('.searchFormular__form').length === 0 ) {
-    $topbarSearchTrigger.removeClass('notVisible');
+    $topbarSearchTrigger.parent().removeClass('notVisible');
   } else {
     showSearchTrigger();
   }
@@ -38793,7 +38811,7 @@ $(document).off('click.offCanvas').on('click.offCanvas', trigger, function(e){
   }
 });
 
-$topbarSearchTrigger.off('click.topbarSearch').on('click.topbarSearch', function(e){
+$topbarSearchTrigger.off('click').on('click', function(e){
   e.preventDefault();
   var $this = $(this);
 
@@ -38830,6 +38848,7 @@ $topbarSearchForm.find('form').on('submit', function(e){
     $this.addClass('error');
   }
 });
+
 },{}],22:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
@@ -38851,82 +38870,85 @@ App.reveal = function() {
     }
   }).foundation('reveal', 'reflow');
 
+  App.revealBind();
+
 };
 
-var $siteWrapper = $('.main-wrapper');
+App.revealBind = function() {
+  var $siteWrapper = $('.main-wrapper');
+
+  // you can also target data-reveal="XXX" using data-reveal-target="XXX" if you don't whant to use ID
+  $(document).on('click', '[data-reveal-trigger]', function(){
+    var target = $(this).attr('data-reveal-trigger');
+    $('[data-reveal="'+target+'"]').foundation('reveal','open');
+  });
+
+  // event on popin opening
+  $(document).on('open.fndtn.reveal', '[data-reveal]', function () {
+    var $modal = $(this),
+        iframes = $modal.find('iframe[data-src]');
+
+    // init iframes into popin
+    App.appIframes( iframes );
+
+    // prevent page scrolling on mobile
+    var offsetY = window.pageYOffset;
+    if ( Modernizr.touch ) {
+      $('body, html').addClass('no-scroll');
+      $siteWrapper.css({
+        'position': 'fixed',
+        'top': '-' +offsetY + 'px'
+      });
+    } else {
+      $('body').addClass('no-scroll');
+    }
+  });
+
+  // event on popin opened
+  $(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
+    var $modal = $(this);
+
+    if ( $modal.find('.reveal-modal__wrapper').length <= 0 ) {
+      $modal
+        .prepend( '<button class="close-reveal-modal icon icon-close"></button>' )
+        .children()
+          .wrapAll('<div class="reveal-modal__wrapper"></div>');
+    }
+
+    // init select plugin
+    App.appComboSelect();
+  });
+
+  // event on popin closing
+  $(document).on('close.fndtn.reveal', '[data-reveal]', function () {
+    var $modal = $(this);
+
+    if ( Modernizr.touch ) {
+      $('body, html').removeClass('no-scroll');
+      var scrollPosition = Math.abs( $siteWrapper.position().top );
+      $siteWrapper.css({
+        'position': 'static'
+      });
+      $(window).scrollTop(scrollPosition);
+
+    } else {
+      $('body').removeClass('no-scroll');
+    }
+
+    // in case of Drupal Form
+    if ( $modal.is('[data-drupal-form]') ) {
+      $modal.empty();
+    }
+
+    // in case of front ajax forms
+    if ( $modal.find('form[data-ajax-form]').length ) {
+      $modal.find('form[data-ajax-form]').data('appAjaxForm').resetForm();
+    }
+  });
+
+};
 
 
-// you can also target data-reveal="XXX" using data-reveal-target="XXX" if you don't whant to use ID
-$('[data-reveal-trigger]').on('click', function(){
-  var target = $(this).attr('data-reveal-trigger');
-  $('[data-reveal="'+target+'"]').foundation('reveal','open');
-});
-
-
-// event on popin opening
-$(document).on('open.fndtn.reveal', '[data-reveal]', function () {
-  var $modal = $(this),
-      iframes = $modal.find('iframe[data-src]');
-
-  // init iframes into popin
-  App.appIframes( iframes );
-
-  // prevent page scrolling on mobile
-  var offsetY = window.pageYOffset;
-  if ( Modernizr.touch ) {
-    $('body, html').addClass('no-scroll');
-    $siteWrapper.css({
-      'position': 'fixed',
-      'top': '-' +offsetY + 'px'
-    });
-  } else {
-    $('body').addClass('no-scroll');
-  }
-});
-
-
-// event on popin opened
-$(document).on('opened.fndtn.reveal', '[data-reveal]', function () {
-  var $modal = $(this);
-
-  if ( $modal.find('.reveal-modal__wrapper').length <= 0 ) {
-    $modal
-      .prepend( '<button class="close-reveal-modal icon icon-close"></button>' )
-      .children()
-        .wrapAll('<div class="reveal-modal__wrapper"></div>');
-  }
-
-  // init select plugin
-  App.appComboSelect();
-});
-
-
-// event on popin closing
-$(document).on('close.fndtn.reveal', '[data-reveal]', function () {
-  var $modal = $(this);
-
-  if ( Modernizr.touch ) {
-    $('body, html').removeClass('no-scroll');
-    var scrollPosition = Math.abs( $siteWrapper.position().top );
-    $siteWrapper.css({
-      'position': 'static'
-    });
-    $(window).scrollTop(scrollPosition);
-
-  } else {
-    $('body').removeClass('no-scroll');
-  }
-
-  // in case of Drupal Form
-  if ( $modal.is('[data-drupal-form]') ) {
-    $modal.empty();
-  }
-
-  // in case of front ajax forms
-  if ( $modal.find('form[data-ajax-form]').length ) {
-    $modal.find('form[data-ajax-form]').data('appAjaxForm').resetForm();
-  }
-});
 
 App.reveal();
 
@@ -39196,28 +39218,24 @@ AppSlick.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-if ( $(trigger).length ) {
+$.fn.appSlick = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appSlick = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('appSlick');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('appSlick');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('appSlick', new AppSlick( this, opt, $(this).data('slick') ));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
-  $(trigger).appSlick();
-}
-
+$(trigger).appSlick();
 
 },{}],26:[function(require,module,exports){
 /*jshint asi:true, expr:true */

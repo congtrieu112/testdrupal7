@@ -2044,6 +2044,67 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-bien-field_visibilite'
+  $field_instances['node-bien-field_visibilite'] = array(
+    'bundle' => 'bien',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 40,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_visibilite',
+    'label' => 'Visibilité',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 33,
+    ),
+  );
+
   // Exported field_instance: 'node-bien-field_visite_3d'
   $field_instances['node-bien-field_visite_3d'] = array(
     'bundle' => 'bien',
@@ -2489,6 +2550,7 @@ function kandb_bien_field_default_field_instances() {
   t('Texte');
   t('Titre');
   t('Type de Bien');
+  t('Visibilité');
 
   return $field_instances;
 }

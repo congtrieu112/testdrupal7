@@ -318,13 +318,14 @@ function getListTidTaxonomyByName($bundle, $value) {
  * @param type $entity
  * @param type $item
  */
-function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
+function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $logging = '';
-  $totalItems = count($item);
 
+  $totalItems = count($item);
   $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
-  //$file_log_name = $entity->feeds_item->id . '_log_' . date('Y-m-d') . '.txt';
+
   $file_log_name = variable_get($entity->feeds_item->id . '_log_name');
+  $warning_count = variable_get($entity->feeds_item->id . '_warning', 0);
 
   $tid = 0;
   if ($entity->feeds_item->entity_type == 'node' || $entity->feeds_item->entity_type == 'taxonomy_term') {
@@ -353,16 +354,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
-          if ($entity->field_tva_55[LANGUAGE_NONE][0]['value']) {
-            $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
-            if ($terms) {
-              foreach ($terms as $key => $value) {
-                $tid = $key;
-              }
-            }
-          }
-
           if($item[58] == 0) {
             $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
           }
@@ -412,6 +408,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           if (isset($entity->field_programme[LANGUAGE_NONE][0]['target_id'])) {
             $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
@@ -547,6 +547,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
+        if($logging) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           if (in_array((int)$item['tva'], array(0,1))) {
             $terms = taxonomy_get_term_by_name('TVA 5.5%', 'tva');
@@ -641,14 +645,17 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item) {
     }
   }
 
-  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
   if ($logging) {
     createFileErrorLogTxt($file_log_name, $logging);
     if(strpos($logging, 'Skip import')) {
-      variable_set($entity->feeds_item->id . '_rejected', $rejected + 1);
       $entity->feeds_item->skip = TRUE;
     }
   }
+
+  //Anchored
+  $counted = variable_get($source->importer()->id . '_counted', 0);
+  $counted += 1;
+  variable_set($source->importer()->id . '_counted', $counted);
 
   if ($tid > 0) {
     $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
@@ -1278,6 +1285,9 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
               } else {
                 $number = (int) $item[$key];
+                if ($field_name == 'field_caracteristique_balcon') {
+                  $number = $item[$key];
+                }
                 if ($number == 0) {
                   $error_log_field .= $field_name . ',';
                   $value_log_field .= $field_name . ': ' . $item[$key] . ', ';
@@ -1557,26 +1567,85 @@ function download_feeds_errorlog($file_name) {
  * @param FeedsSource $source\
  */
 function kb_feeds_feeds_after_import(FeedsSource $source) {
-  $file_log_name = variable_get($source->importer()->id . '_log_name');
-  $total_rows = variable_get($source->importer()->id . '_total', 0);
-  $created = (int) $source->state(FEEDS_PROCESS)->created;
-  $updated = (int) $source->state(FEEDS_PROCESS)->updated;
-  $imported = $created + $updated;
-  $rejected = variable_get($source->importer()->id . '_rejected', 0);
-  $logging = '';
+  variable_del($source->importer()->id . '_log_name');
+  variable_del($source->importer()->id . '_total');
+  variable_del($source->importer()->id . '_rejected');
+  variable_del($source->importer()->id . '_created');
+  variable_del($source->importer()->id . '_updated');
+  variable_del($source->importer()->id . '_counted');
+  variable_del($source->importer()->id . '_warning');
+}
 
-  if($file_log_name && ($total_rows || $imported || $rejected)) {
-    $skipped = $total_rows - ($created + $updated + $rejected);
-    $logging = '/**' . "\n";
-    $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
-    $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
-    $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
-    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-    $logging .= ' */' . "\n";
-    createFileErrorLogTxt($file_log_name, $logging);
-    variable_del($source->importer()->id . '_log_name');
-    variable_del($source->importer()->id . '_total');
-    variable_del($source->importer()->id . '_rejected');
+function kb_feeds_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
+  $created = variable_get($entity->feeds_item->id . '_created', 0);
+  $updated = variable_get($entity->feeds_item->id . '_updated', 0);
+  $warning = variable_get($entity->feeds_item->id . '_warning', 0);
+
+  if(empty($entity_id)) {
+    $created += 1;
+    variable_set($entity->feeds_item->id . '_created', $created);
+  } else {
+    $updated += 1;
+    variable_set($entity->feeds_item->id . '_updated', $updated);
+  }
+
+  $rejected = variable_get($entity->feeds_item->id . '_rejected', 0);
+  // Enable modules to skip saving at all.
+  if (!empty($entity->feeds_item->skip)) {
+    $rejected += 1;
+    variable_set($entity->feeds_item->id . '_rejected', $rejected);
+  }
+
+  $skipped = (int) $source->state(FEEDS_PROCESS)->skipped;
+  $limit = variable_get('feeds_process_limit', 1000);
+  $file_log_name = variable_get($source->importer()->id . '_log_name');
+  $total_rows_fileimport = variable_get($source->importer()->id . '_total', 0);
+  $counted = variable_get($source->importer()->id . '_counted', 0);
+  $imported = $created + $updated;
+
+  if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
+    //$skipped = $total_rows - ($created + $updated + $rejected);
+    if(($total_rows_fileimport == ($created + $updated + $rejected + $skipped)) || $counted == $limit) {
+      $logging = '/**' . "\n";
+      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $source->importer()->id)) . "\n";
+      $logging .= ' * ' . 'Total rows: ' . $total_rows_fileimport . "\n";
+      $logging .= ' * ' . 'Imported: ' . $imported . ' (created: ' . $created . ' - ' . 'updated: ' . $updated . ' - ' . 'skipped: ' . $skipped .')' . "\n";
+      $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+      $logging .= ' * ' . 'Total rows warning in file: ' . $warning .  "\n";
+      $logging .= ' */' . "\n";
+
+      createFileErrorLogTxt($file_log_name, $logging);
+
+      if($counted == $limit) {
+        variable_del($source->importer()->id . '_log_name');
+        variable_del($source->importer()->id . '_total');
+        variable_del($source->importer()->id . '_rejected');
+        variable_del($source->importer()->id . '_created');
+        variable_del($source->importer()->id . '_updated');
+        variable_del($source->importer()->id . '_counted');
+        variable_del($source->importer()->id . '_warning');
+        $source->state(FEEDS_PROCESS)->skipped = 0;
+      }
+    }
   }
 }
 
+function createLogFileFeedsImportNotExists($file_import, $importer_id) {
+  $header_response = get_headers($file_import, 1);
+  if (strpos($header_response[0], "404") !== false) {
+    if($importer_id) {
+      $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
+      if(variable_get($importer_id . '_log_name', '')) {
+        $file_log_name  = variable_get($importer_id . '_log_name');
+      }
+
+      $logging = '/**' . "\n";
+      $logging .= ' * ' . 'Importer: ' . ucfirst(str_replace('_', ' ', $importer_id)) . "\n";
+      $logging .= ' */' . "\n";
+      $logging .= 'Path: ' . $file_import . ' does not exists' . "\n";
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+
+    throw new Exception(t('Path @file_import is not exists.', array('@file_import' => $file_import)));
+  }
+}

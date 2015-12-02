@@ -18,6 +18,7 @@ define('TAXONOMY_STATUS_LOGEMENT_R', 'R');
 
 define('FEED_COLUMN_ID', 0);
 define('FEED_COLUMN_STATUS', 27);
+define('PROGRAMME_COLUMN_POSTAL', 10);
 
 class Kandb_Business_Rules {
 
@@ -310,7 +311,7 @@ class Kandb_Business_Rules {
       if ($tva_tid) {
         $terms = taxonomy_term_load($tva_tid);
         if ($terms) {
-          $tva = $terms->field_facteur[LANGUAGE_NONE][0]['value'];
+          $tva = (isset($terms->field_facteur[LANGUAGE_NONE][0]['value'])) ? $terms->field_facteur[LANGUAGE_NONE][0]['value'] : 0;
         }
       }
       if ($tva) {
@@ -596,5 +597,23 @@ class Kandb_Business_Rules {
     }
     
     return array();
+  }
+  
+  public static function get_tax_department_by_number($number){
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'taxonomy_term');
+    //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
+
+    $query->fieldCondition('field_numero_departement', 'value', $number, '=');
+    $query->range(0, 1);
+    
+    $results = $query->execute();
+    
+    if (!empty($results)) {
+      $first_item = array_shift($results["taxonomy_term"]);
+      return $first_item->tid;
+    }
+    
+    return 0;    
   }
 }
