@@ -325,7 +325,7 @@ function k_b_rh_annonce_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_annonce_profile',
-    'label' => 'Profile requis',
+    'label' => 'Profil requis',
     'required' => 1,
     'settings' => array(
       'better_formats' => array(
@@ -514,7 +514,7 @@ function k_b_rh_annonce_field_default_field_instances() {
   t('Description');
   t('Expérience exigée');
   t('Fonction');
-  t('Profile requis');
+  t('Profil requis');
   t('Service');
   t('Type de contrat');
   t('Ville');
