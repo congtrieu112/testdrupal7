@@ -6,13 +6,13 @@ $title = isset($logement_block['title']) ? $logement_block['title'] : '';
 <?php
 if ($logement_block && isset($logement_block['total_bien'])) :
   ?>
-  <section class="section-padding">
+  <section class="section-padding bg-lightGrey">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print t('Découvrir les logements'); ?></h2>
           </header>
       </div>
-      <!-- [carousel] start-->
+      <!-- [carousel] start-->  
       <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" class="slick-slider__item-1 programParcel">
           <?php
           $count = 1;
@@ -21,7 +21,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
               print '<div class="unwrap">';
             endif;
             ?>
-            <article data-reveal-id="programParcel<?php print $count; ?>"  class="programParcelItem">
+            <article data-reveal-id="programParcel<?php print $count; ?>"  class="programParcelItem">                
                 <figure>
                     <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img; ?>programParcel-small.jpg, (small)], [<?php print $path_img; ?>programParcel-medium.jpg, (large)]"/>
                     <noscript><img src="<?php print $path_img; ?>programParcel-medium.jpg" alt="test"/></noscript>
@@ -132,7 +132,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                       <?php if($low_tva_price) : ?>
                                         <li><span class="text"><?php print number_format($low_tva_price, 0, '', ' '); ?>&nbsp;€</span><span class="tva tva--high">TVA 20%</span></li>
                                       <?php endif; ?>
-                                  </ul><a href="#" title="voir la page C05" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
+                                  </ul><a href="#" title="<?php print t('Voir'); ?>" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
                                 </td>
                               </tr>
                             <?php
