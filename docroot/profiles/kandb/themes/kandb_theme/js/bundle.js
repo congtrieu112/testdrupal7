@@ -38820,8 +38820,11 @@ $topbarSearchTrigger.off('click').on('click', function(e){
   if ( !topbarSearchOpened ) {
     $topbarSearchForm
       .attr("aria-hidden", "false")
-      .find('button, input').attr("tabindex", "0")
-      .filter('input').trigger('focus');
+      .find('button, input').attr("tabindex", "0");
+    /*setTimeout(function() {
+      $topbarSearchForm.find('input').trigger('focus');
+    }, 200);*/
+
     topbarSearchOpened = true;
 
   } else {
@@ -38829,7 +38832,7 @@ $topbarSearchTrigger.off('click').on('click', function(e){
       .attr("aria-hidden", "true")
       .find('button, input').attr("tabindex", "-1")
       .filter('input').trigger('blur');
-    $topbarSearchTrigger.find('button').trigger('focus');
+    //$topbarSearchTrigger.find('button').trigger('focus');
     topbarSearchOpened = false;
   }
 });
