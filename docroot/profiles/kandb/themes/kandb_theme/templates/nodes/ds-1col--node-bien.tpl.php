@@ -449,7 +449,7 @@ if (!empty($list_bien_more)):
 
                 $de_a_price = "";
                 if ($price_min) {
-                  $de_a_price = t('à partir de ') . ' ' . numberFormatGlobalSpace($price_min) . t('€');
+                  $de_a_price = t('à partir de ') . ' ' . $price_min . t('€');
                 }
                 ?>
                 <!-- images need to have 2 formats see data-exchange attribute:
