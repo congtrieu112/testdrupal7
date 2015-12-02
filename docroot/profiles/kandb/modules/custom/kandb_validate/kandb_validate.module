@@ -151,7 +151,6 @@ function get_nids_promotions_by_programme($nid) {
     ->entityCondition('bundle', 'promotion')
     ->propertyCondition('status', 1)
     ->fieldCondition('field_promotion_programme', 'target_id', $nid)
-    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
     ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
     ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
@@ -246,7 +245,6 @@ function get_nids_promotions_by_avant($nid) {
     ->entityCondition('bundle', 'promotion')
     ->propertyCondition('status', 1)
     ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
-    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
     ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
     ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();

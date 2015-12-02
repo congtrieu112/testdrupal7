@@ -33,7 +33,7 @@
                       foreach ($promotions as $promotion) :
                         $triger_promotion = 'promotion-' . $promotion->nid;
                         ?>
-                        <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
                         <!-- [popin] start-->
                         <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                             <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -51,7 +51,7 @@
                       <strong><?php print t('Livraison'); ?></strong>
                       <?php print t('à partir du'); ?>
                       <?php if ($trimstre) print $trimstre; ?>
-                      <?php if ($annee)  print $annee; ?>
+                      <?php if ($annee) print $annee; ?>
                       <br/>
                       <?php if ($flat_available) print $flat_available; ?>
                       <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
@@ -60,40 +60,40 @@
 
 
                 <?php if ($de_a_price_tva || $de_a_price) : ?>
-                    <ul class="content-price">
-                        <?php if ($de_a_price_tva) : ?>
-                          <li class="content-price__item">
-                              <span class="text">
-                                  <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
-                              </span>
-                              <span class="tags">
-                                  <?php if ($tva) : ?>
-                                    <div class="tva"><?php print $tva; ?></div>
-                                  <?php endif; ?>
-                                  <?php /* TODO : <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>-->*/ ?>
-                              </span>
-                          </li>
-                        <?php endif; ?>
-                        <?php if ($de_a_price) : ?>
-                            <li class="content-price__item">
-                                <span class="text">
-                                    <?php if ($de_a_price) print $de_a_price; ?>
-                                </span>
-                                <span class="tags">
-                                    <div class="tva tva--high">TVA 20%</div>
-                                </span>
-                            </li>
-                        <?php endif; ?>
-                    </ul>
+                  <ul class="content-price">
+                      <?php if ($de_a_price_tva) : ?>
+                        <li class="content-price__item">
+                            <span class="text">
+                                <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
+                            </span>
+                            <span class="tags">
+                                <?php if ($tva) : ?>
+                                  <div class="tva"><?php print $tva; ?></div>
+                                <?php endif; ?>
+                                <?php /* TODO : <a href="#" class="tva--btn"><span class="icon icon-arrow"></span><?php print t('Suis-je éligible?'); ?></a>--> */ ?>
+                            </span>
+                        </li>
+                      <?php endif; ?>
+                      <?php if ($de_a_price) : ?>
+                        <li class="content-price__item">
+                            <span class="text">
+                                <?php if ($de_a_price) print $de_a_price; ?>
+                            </span>
+                            <span class="tags">
+                                <div class="tva tva--high">TVA 20%</div>
+                            </span>
+                        </li>
+                      <?php endif; ?>
+                  </ul>
                 <?php endif; ?>
 
                 <?php /* TODO :<!-- <p class="toolbox__intro">Parking extérieur à partir de 10.000€</p> --> */ ?>
 
                 <!-- [contactUs mini] start-->
                 <?php
-                  if (function_exists('kandb_contact_block_page')) {
-                    print kandb_contact_block_page(TRUE);
-                  }
+                if (function_exists('kandb_contact_block_page')) {
+                  print kandb_contact_block_page(TRUE);
+                }
                 ?>
                 <!-- [contactUs mini] end-->
 
@@ -107,50 +107,50 @@
                 </div>-->
             </div>
             <div class="programHeader__content__details">
-            <?php if ($caracteristiques) : ?>
-              <ul class="characteristicList">
-                <?php
-                foreach ($caracteristiques as $caracteristique) {
-                  if (isset($caracteristique['tid'])) {
-                    $carac_term = taxonomy_term_load($caracteristique['tid']);
-                    if ($carac_term) {
-                      $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                      print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
-                    }
-                  }
-                }
-                ?>
-              </ul>
-            <?php endif; ?>
+                <?php if ($caracteristiques) : ?>
+                  <ul class="characteristicList">
+                      <?php
+                      foreach ($caracteristiques as $caracteristique) {
+                        if (isset($caracteristique['tid'])) {
+                          $carac_term = taxonomy_term_load($caracteristique['tid']);
+                          if ($carac_term) {
+                            $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
+                          }
+                        }
+                      }
+                      ?>
+                  </ul>
+                <?php endif; ?>
 
-            <?php if ($en_quelques_mots) : ?>
-              <p class="intro">
-                <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
-              </p>
-            <?php endif; ?>
+                <?php if ($en_quelques_mots) : ?>
+                  <p class="intro">
+                      <em><?php print t('En quelques mots'); ?>&nbsp;</em><?php print $en_quelques_mots; ?>
+                  </p>
+                <?php endif; ?>
 
-            <ul class="toolsList show-for-medium-up">
-              <?php if ($flag) : ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
-              <?php endif; ?>
+                <ul class="toolsList show-for-medium-up">
+                    <?php if ($flag) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
+                    <?php endif; ?>
 
-              <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
 
-              <?php if ($status_slider) : ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
-              <?php endif; ?>
+                    <?php if ($status_slider) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                    <?php endif; ?>
 
-              <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
 
-              <?php if ($status_document) : ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
-              <?php endif; ?>
+                    <?php if ($status_document) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
+                    <?php endif; ?>
 
-              <?php if ($habiteo_id) : ?>
-                <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
-              <?php endif; ?>
-            </ul>
-          </div>
+                    <?php if ($habiteo_id) : ?>
+                      <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
+                    <?php endif; ?>
+                </ul>
+            </div>
         </div>
     </div>
     <!-- [programHeader__content] end -->
@@ -176,7 +176,8 @@
                   <div class="iframe iframe--video-de-quartier">
                       <iframe src="" data-src="http://widgets.habiteo.com/plan-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
                   </div>
-                <?php elseif ($lon && $lat):
+                <?php
+                elseif ($lon && $lat):
                   $latitude = $lat / 1000000;
                   $longitude = $lon / 1000000;
 
@@ -206,12 +207,14 @@
                   print drupal_render($element);
                   print '</div>';
 
-                  if ($video_id): ?>
+                  if ($video_id):
+                    ?>
                     <div class="iframe iframe--video-de-quartier">
-                      <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
+                        <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
                     </div>
-                  <?php endif;
-                endif; ?>
+  <?php endif;
+endif;
+?>
             </div>
         </div>
 
@@ -243,10 +246,10 @@
               <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
           </header>
           <?php if ($habiteo_id): ?>
-              <div class="iframe iframe--vue-generale">
-                  <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-              </div>
-          <?php endif; ?>
+            <div class="iframe iframe--vue-generale">
+                <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+            </div>
+  <?php endif; ?>
       </div>
   </section>
 <?php endif; ?>
@@ -263,9 +266,9 @@
             <div class="iframe iframe--vue-generale">
                 <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
             </div>
-          <?php endif; ?>
+  <?php endif; ?>
           <div class="content-centered">
-              <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p> ?>
+  <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p>  ?>
           </div>
       </div>
   </section>
@@ -311,9 +314,9 @@ if (!empty($list_document)):
   <section class="section-padding">
       <div class="wrapper">
           <div class="programDocumentDownload">
-              <?php
-              $nocontent = 'data-reveal-id="downloadInformationForm"';
-              ?>
+  <?php
+  $nocontent = 'data-reveal-id="downloadInformationForm"';
+  ?>
               <div class="programDocumentDownload__heading">
                   <header class="heading">
                       <h2 class="heading__title">Documents <br>téléchargeables</h2>
@@ -324,7 +327,7 @@ if (!empty($list_document)):
               </div>
               <div class="programDocumentDownload__items">
                   <ul class="row">
-                      <?php foreach ($list_document as $item): ?>
+  <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
                             <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
                                 <span class="icon <?php print $item["icon"] ?>"></span>
@@ -333,7 +336,7 @@ if (!empty($list_document)):
                                 </div>
                             </a>
                         </li>
-                      <?php endforeach; ?>
+  <?php endforeach; ?>
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
@@ -366,7 +369,7 @@ if ($region_id && $programme_carousel):
   <section class="section-padding bg-lightGrey">
       <div class="wrapper">
           <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
-          <?php print $programme_carousel; ?>
+  <?php print $programme_carousel; ?>
           <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
           </div>
       </div>
@@ -383,7 +386,7 @@ if (function_exists('kandb_contact_specific_block_page')) {
 ?>
 
 <?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
-<div style="font-size:10px;">
-    <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
-</div>
+  <div style="font-size:10px;">
+      <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
+  </div>
 <?php endif; ?>

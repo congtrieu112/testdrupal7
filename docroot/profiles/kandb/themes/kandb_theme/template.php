@@ -235,7 +235,7 @@ function kandb_theme_preprocess_node(&$vars) {
      * HEADER
      */
     // Get promotion by programme nid.
-    $vars['promotion'] = get_nids_promotions_by_programme($node->nid);
+    $vars['promotions'] = get_nids_promotions_by_programme($node->nid);
 
     // Information for header programme page
     $vars['title'] = $node->title;
