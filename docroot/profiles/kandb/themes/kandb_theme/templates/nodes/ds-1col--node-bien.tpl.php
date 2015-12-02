@@ -424,7 +424,7 @@ if (!empty($list_bien_more)):
                 <?php
                  global $base_url;
                 $url_principale = "";
-                $url_principale = url('node/' . $id_programme);
+                $url_principale = url('node/' . $programme->nid);
                 $title_principale = isset($programme->title) ? $programme->title : '';
                 $title_principale_ville = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
                 $image_principale = isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $programme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
