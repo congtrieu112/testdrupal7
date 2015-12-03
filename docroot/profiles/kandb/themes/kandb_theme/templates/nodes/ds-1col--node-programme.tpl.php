@@ -171,8 +171,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print $field_quartier_titre[0]['value']; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print $field_quartier_titre[0]['value']; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -228,7 +228,7 @@
         <div class="swapItem__1">
             <div class="wrapper">
                 <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print $field_quartier_video_titre[0]['value']; ?></h3>
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value'])?$field_quartier_video_titre[0]['value']:''; ?></h3>
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <p><?php print $field_quartier_video_desc[0]['value']; ?></p>
+                    <p><?php print isset($field_quartier_video_desc[0]['value'])?$field_quartier_video_desc[0]['value']:''; ?></p>
                 </div>
             </div>
         </div>
