@@ -12,8 +12,13 @@ $number_of_programme = 0;
 $villes = array();
 $current_id_programme = 0;
 $number_of_bien_by_programme = array();
+$programme_promotions = array();
 foreach ($rows as $id => $row) {
   $row_result = $view->style_plugin->rendered_fields[$id];
+  $programme_promotions[$row_result['field_programme_nid']] = array();
+  foreach($row['promotions'] as $id => $promotion) {
+    $programme_promotions[$row_result['field_programme_nid']][] = $promotion;
+  }
   if ($row_result['field_programme_nid'] != $current_id_programme) {
     $number_of_bien_by_programme[$row_result['field_programme_nid']] = 1;
     $current_id_programme = $row_result['field_programme_nid'];
@@ -25,11 +30,17 @@ foreach ($rows as $id => $row) {
 }
 $number_of_villes = count(array_unique($villes));
 $current_id_programme = 0;
+$current_promotion_indice = 1;
+
+foreach($programme_promotions as $id => $promotion) {
+  $programme_promotions[$id] = array_unique($promotion);
+}
+
 ?>
 
 <header class="heading results__list__heading">
   <h1 class="heading__title">Vos résultats</h1>
-  <p class="heading__title heading__title--sub"><?php print $number_of_programme; ?> programme<?php print (count($number_of_programme) > 1 ? 's' : ''); ?> / <?php print $number_of_villes; ?> ville<?php print (count($number_of_villes) > 1 ? 's' : ''); ?></p>
+  <p class="heading__title heading__title--sub"><?php print $number_of_programme; ?> programme<?php print ($number_of_programme > 1 ? 's' : ''); ?> / <?php print $number_of_villes; ?> ville<?php print ($number_of_villes > 1 ? 's' : ''); ?></p>
 </header>
 <!-- [searchResults: programmes] start-->
 <div class="filter">
@@ -57,9 +68,9 @@ $current_id_programme = 0;
             <div class="heading heading--small">
               <h3><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span></h3>
               <div class="promotion">
-                <?php foreach($row_result['promotions'] as $id => $promotion): ?>
+                <?php foreach($programme_promotions[$row_result['field_programme_nid']] as $id => $promotion): ?>
                   <?php if ($id > 2) break; ?>
-                  <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $id+1; ?>)</sup></button>
+                  <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $current_promotion_indice; $current_promotion_indice++; ?>)</sup></button>
                   <!-- [popin] start-->
                   <div data-reveal="<?php print $current_id_programme . '_' . $id; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                       <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>

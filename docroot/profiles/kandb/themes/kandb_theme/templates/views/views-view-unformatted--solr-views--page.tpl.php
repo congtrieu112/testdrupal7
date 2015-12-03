@@ -25,11 +25,12 @@ foreach ($rows as $id => $row) {
 }
 $current_id_programme = 0;
 $current_bien_in_program = 0;
+$current_promotion_indice = 1;
 ?>
 
 <header class="heading results__list__heading">
   <h1 class="heading__title">Vos résultats</h1>
-  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> bien<?php print (count($number_of_bien) > 1 ? 's' : ''); ?> / <?php print $number_of_programme; ?> programme<?php print (count($number_of_programme) > 1 ? 's' : ''); ?></p>
+  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> bien<?php print ($number_of_bien > 1 ? 's' : ''); ?> / <?php print $number_of_programme; ?> programme<?php print ($number_of_programm) > 1 ? 's' : ''); ?></p>
 </header>
 <!-- [searchResults: programmes] start-->
 <div class="filter">
@@ -87,7 +88,7 @@ $current_bien_in_program = 0;
                         <div class="promotion">
                           <?php foreach($row_result['promotions'] as $id => $promotion): ?>
                             <?php if ($id > 2) break; ?>
-                            <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $id+1; ?>)</sup></button>
+                            <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $current_promotion_indice; $current_promotion_indice++; ?>)</sup></button>
                             <!-- [popin] start-->
                             <div data-reveal="<?php print $current_id_programme . '_' . $id; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                               <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
