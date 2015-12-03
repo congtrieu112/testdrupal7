@@ -201,6 +201,7 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'pro
       foreach ($items as $item) {
         $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
         $item->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'] = $bon_plan;
+        $item->flag_habiteo = 1;
         node_save($item);
         $logging = $habiteo_id . '|programme|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
         createFileErrorLogTxt($file_log_name, $logging);
@@ -281,6 +282,7 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
     if ($items) {
       foreach ($items as $item) {
         $item->field_bien_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
+        $item->flag_habiteo = 1;
         node_save($item);
         $logging = $habiteo_id . '|bien|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
         createFileErrorLogTxt($file_log_name, $logging);
