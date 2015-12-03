@@ -347,7 +347,11 @@ if (!empty($list_document)):
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                  <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>"><button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded btn-download">Tout télécharger (.zip)</button></a>
+                <div class="btn-wrapper btn-wrapper--center show-for-small-only">
+                  <button <?php print (isset($link_to_zip) AND !empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
+                    <?php print t('Tout télécharger (.zip)'); ?>
+                  </button>
+                </div>
               </div>
               <!-- [popin] start-->
               <div id="downloadInformationForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
