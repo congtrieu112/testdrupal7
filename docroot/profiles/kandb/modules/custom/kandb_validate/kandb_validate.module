@@ -151,7 +151,6 @@ function get_nids_promotions_by_programme($nid) {
     ->entityCondition('bundle', 'promotion')
     ->propertyCondition('status', 1)
     ->fieldCondition('field_promotion_programme', 'target_id', $nid)
-    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
     ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
     ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
@@ -202,23 +201,22 @@ function kandb_validate_views_pre_render($view) {
 }
 
 /*
- * filter custom bien by program
- *
+ * Get nid of Biens CT with specify status.
  */
+function get_status_biens($nid, $tid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+      ->entityCondition('bundle', 'bien')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_programme', 'target_id', $nid)
+      ->fieldCondition('field_bien_statut', 'tid', $tid);
 
-function filter_bien_by_id_program($idprogram, $tid) {
-  $query = db_select('node', 'n');
-  $query->join('field_data_field_programme', 'b', 'n.type = b.bundle');
-  $query->join('field_data_field_bien_statut', 'c', 'n.type = c.bundle');
-  $query->fields('n', array('vid', 'type'));
-  $query->fields('b', array('field_programme_target_id'));
-  $query->fields('c', array('field_bien_statut_tid'));
-  $query->condition('field_programme_target_id', $idprogram, '=');
-  $query->condition('field_bien_statut_tid', $tid, '=');
-  $result = $query->execute()->fetchAll();
-  if (!empty($result)) {
-    return $result;
+  $result = $query->execute();
+
+  if (isset($result['node']) && count($result['node'])) {
+    return TRUE;
   }
+
   return FALSE;
 }
 
@@ -246,7 +244,6 @@ function get_nids_promotions_by_avant($nid) {
     ->entityCondition('bundle', 'promotion')
     ->propertyCondition('status', 1)
     ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
-    ->fieldCondition('field_promotion_mention_legale', 'value', '', '<>')
     ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
     ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();

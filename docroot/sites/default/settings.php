@@ -584,7 +584,8 @@ if (drupal_is_cli() || preg_match('/batch/i', $_GET['q'])){
 // Increase memory limit for admin
 if ( (strpos($_GET['q'], 'admin') === 0) ||
   (strpos($_GET['q'], 'node/add') === 0) ||
-  (strpos($_GET['q'], 'node/') === 0 && preg_match('/^node\/[\d]+\/edit/', $_GET['q']) === 1)) {
+  (strpos($_GET['q'], 'node/') === 0 && preg_match('/^node\/[\d]+\/edit/', $_GET['q']) === 1) ||
+  (strpos($_GET['q'], 'import') === 0)) {
   ini_set('memory_limit', '512M');
 }
 

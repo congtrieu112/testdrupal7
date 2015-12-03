@@ -6,7 +6,7 @@ $title = isset($logement_block['title']) ? $logement_block['title'] : '';
 <?php
 if ($logement_block && isset($logement_block['total_bien'])) :
   ?>
-  <section class="section-padding">
+  <section class="section-padding bg-lightGrey">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print t('Découvrir les logements'); ?></h2>
@@ -132,7 +132,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                       <?php if($low_tva_price) : ?>
                                         <li><span class="text"><?php print number_format($low_tva_price, 0, '', ' '); ?>&nbsp;€</span><span class="tva tva--high">TVA 20%</span></li>
                                       <?php endif; ?>
-                                  </ul><a href="#" title="voir la page C05" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
+                                  </ul><a href="<?php print url('node/'. $biens->nid); ?>" title="<?php print t('Voir'); ?>" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
                                 </td>
                               </tr>
                             <?php

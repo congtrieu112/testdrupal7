@@ -27,6 +27,34 @@ function kandb_settings_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'nodeorder_link_to_ordering_page';
+  $strongarm->value = 1;
+  $export['nodeorder_link_to_ordering_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nodeorder_link_to_ordering_page_taxonomy_admin';
+  $strongarm->value = 1;
+  $export['nodeorder_link_to_ordering_page_taxonomy_admin'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nodeorder_override_taxonomy_page';
+  $strongarm->value = 0;
+  $export['nodeorder_override_taxonomy_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'nodeorder_show_links_on_node';
+  $strongarm->value = '0';
+  $export['nodeorder_show_links_on_node'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'page_cache_maximum_age';
   $strongarm->value = '900';
   $export['page_cache_maximum_age'] = $strongarm;

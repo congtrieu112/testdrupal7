@@ -570,32 +570,6 @@ function kandb_bien_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_visibilite'
-  $field_bases['field_visibilite'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_visibilite',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        1 => 'Site internet (B2C)',
-        2 => 'Extranet investisseur (B2B)',
-        3 => 'Site internet et extranet investisseur (B2C et B2B)',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_integer',
-  );
-
   // Exported field_base: 'field_visite_3d'
   $field_bases['field_visite_3d'] = array(
     'active' => 1,

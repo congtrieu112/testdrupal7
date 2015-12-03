@@ -621,9 +621,54 @@ function kandb_update_7155() {
 }
 
 /*
- * Enable kandb_view_finance_assemblee module
+ * Enable acquia_search_multi_subs module
  */
 function kandb_update_7156() {
+  if (!module_exists('acquia_search_multi_subs')) {
+    module_enable(array('acquia_search_multi_subs'), TRUE);
+  }
+}
+
+/*
+ * Enable taxonomy_display module
+ */
+function kandb_update_7157() {
+  if (!module_exists('taxonomy_display')) {
+    module_enable(array('taxonomy_display'), TRUE);
+  }
+}
+
+/**
+ * Enable domain_feeds module
+ */
+function kandb_update_7158() {
+  if (!module_exists('domain_feeds')) {
+    module_enable(array('domain_feeds'), TRUE);
+  }
+}
+
+/*
+ * Enable taxonomy_display module
+ */
+function kandb_update_7159() {
+  if (!module_exists('taxonomy_display')) {
+    module_disable(array('taxonomy_display'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_seo module
+ */
+function kandb_update_7161() {
+  if (!module_exists('kandb_seo')) {
+    module_enable(array('kandb_seo'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_view_finance_assemblee module
+ */
+function kandb_update_7162() {
   if (!module_exists('kandb_view_finance_assemblee')) {
     module_enable(array('kandb_view_finance_assemblee'), TRUE);
   }

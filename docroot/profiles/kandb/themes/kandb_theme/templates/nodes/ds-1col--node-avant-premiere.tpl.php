@@ -104,7 +104,7 @@ $promotions = get_nids_promotions_by_avant($node->nid);
                       foreach ($promotions as $promotion) :
                         $triger_promotion = 'promotion-' . $promotion->nid;
                         ?>
-                        <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
                         <!-- [popin] start-->
                         <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                             <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>

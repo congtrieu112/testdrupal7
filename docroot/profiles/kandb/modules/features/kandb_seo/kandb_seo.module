@@ -1,0 +1,25 @@
+<?php
+/**
+ * @file
+ * Code for the K&B SEO feature.
+ */
+
+include_once 'kandb_seo.features.inc';
+
+
+/**
+ * Implements hook_menu_alter().
+ */
+function kandb_seo_menu_alter(&$items) {
+  // Do not give access to taxonomy term list page
+  $items['taxonomy/term/%taxonomy_term']['page callback'] = 'kandb_seo_taxonomy_callback';
+  $items['taxonomy/term/%taxonomy_term/view']['page callback'] = 'kandb_seo_taxonomy_callback';
+  $items['taxonomy/term/%taxonomy_term/feed']['page callback'] = 'kandb_seo_taxonomy_callback';
+}
+
+/**
+ * Page Callback
+ */
+function kandb_seo_taxonomy_callback(){
+  print drupal_not_found();
+}

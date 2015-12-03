@@ -235,7 +235,7 @@ function kandb_theme_preprocess_node(&$vars) {
      * HEADER
      */
     // Get promotion by programme nid.
-    $vars['promotion'] = get_nids_promotions_by_programme($node->nid);
+    $vars['promotions'] = get_nids_promotions_by_programme($node->nid);
 
     // Information for header programme page
     $vars['title'] = $node->title;
@@ -252,6 +252,7 @@ function kandb_theme_preprocess_node(&$vars) {
 
     $vars['nouveau'] = isset($node->field_nouveau[LANGUAGE_NONE][0]['value']) ? $node->field_nouveau[LANGUAGE_NONE][0]['value'] : 0;
     $vars['caracteristiques'] = isset($node->field_caracteristiques[LANGUAGE_NONE]) ? $node->field_caracteristiques[LANGUAGE_NONE] : '';
+    $vars['programme_loc_arr_id'] = isset($node->field_programme_loc_arr[LANGUAGE_NONE][0]['taxonomy_term']->tid) ? $node->field_programme_loc_arr[LANGUAGE_NONE][0]['taxonomy_term']->tid : '';
     $vars['program_loc_ville'] = isset($node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 
     $trimstre_id = isset($node->field_trimestre[LANGUAGE_NONE][0]['value']) ? $node->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
@@ -271,11 +272,9 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_pieces'] = '';
     if ($pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-    }
-    elseif (!$pieces_min && $pieces_max) {
+    } elseif (!$pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = $pieces_max . ' ' . t('pièces');
-    }
-    elseif ($pieces_min && !$pieces_max) {
+    } elseif ($pieces_min && !$pieces_max) {
       $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
     }
 
@@ -285,11 +284,9 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price_tva'] = '';
     if ($price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    }
-    elseif (!$price_tva_min && $price_tva_max) {
+    } elseif (!$price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    }
-    elseif ($price_tva_min && !$price_tva_max) {
+    } elseif ($price_tva_min && !$price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
     }
 
@@ -301,15 +298,14 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price'] = '';
     if ($price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    }
-    elseif (!$price_min && $price_max) {
+    } elseif (!$price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    }
-    elseif ($price_min && !$price_max) {
+    } elseif ($price_min && !$price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
     }
 
     $vars['en_quelques_mots'] = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+    $vars['programme_mtn_legale'] = isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value']) ? $node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value'] : '';
 
 
     /**
@@ -317,14 +313,12 @@ function kandb_theme_preprocess_node(&$vars) {
      */
     //check all bien status
     $programme_id = $node->vid;
-    $vars['flag'] = 0;
-    $custom_bien = 0;
-    $status = 1;
+    $vars['flag'] = 0;    
+    $status = 1;    
     if ($tid = get_tid_by_id_field($status)) {
-      $custom_bien = filter_bien_by_id_program($programme_id, $tid);
-    }
-    if ($custom_bien) {
-      $vars['flag'] = 1;
+      // Find out the list of biens which referenced to programme.
+      $biens_status = get_status_biens($programme_id, $tid);      
+      $vars['flag'] = ($biens_status) ? 1 : 0;
     }
 
 
@@ -665,6 +659,7 @@ function kandb_theme_select($variables) {
  */
 function kandb_theme_css_alter(&$css) {
   unset($css['modules/system/system.messages.css']);
+  unset($css['modules/system/system.menus.css']);
 }
 
 /**

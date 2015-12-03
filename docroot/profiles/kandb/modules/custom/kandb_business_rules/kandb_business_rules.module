@@ -147,6 +147,11 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
+  // By pass apply rule in case apply habiteo API.
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
+  
   // No need apply BRs in case devel generate.
   if ($_GET['q'] == 'admin/config/development/generate/content' ||
     (isset($node->devel_generate) && !empty($node->devel_generate))
