@@ -603,8 +603,8 @@ function webform_contact_list_submitted_data($form, $form_state) {
 function webform_contact_list_submitted_data_submit($form, $form_state) {
   $variables['header'] = $form_state['complete form']['contact_list']['#header'];
   $variables['rows'] = $form_state['complete form']['contact_list']['#rows'];
-  $filename = 'contact_list_export.csv';
-  drupal_add_http_header('Content-Type', 'text/csv; utf-8');
+  $filename = 'contact_list_export.xls';
+  drupal_add_http_header('Content-Type', 'application/xls');
   drupal_add_http_header('Content-Disposition', 'attachment; filename=' . $filename);
 
   $output = '';
