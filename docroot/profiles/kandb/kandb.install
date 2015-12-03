@@ -659,9 +659,9 @@ function kandb_update_7159() {
 /*
  * Enable kandb_seo module
  */
-function kandb_update_7160() {
+function kandb_update_7161() {
   if (!module_exists('kandb_seo')) {
-    module_disable(array('kandb_seo'), TRUE);
+    module_enable(array('kandb_seo'), TRUE);
   }
 }
 
