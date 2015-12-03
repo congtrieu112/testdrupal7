@@ -660,6 +660,7 @@ function kandb_theme_select($variables) {
  */
 function kandb_theme_css_alter(&$css) {
   unset($css['modules/system/system.messages.css']);
+  unset($css['modules/system/system.menus.css']);
 }
 
 /**
