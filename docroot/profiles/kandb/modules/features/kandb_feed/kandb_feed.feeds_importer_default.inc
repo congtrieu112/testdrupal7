@@ -1232,7 +1232,7 @@ function kandb_feed_feeds_importer_default() {
           ),
           23 => array(
             'source' => '30',
-            'target' => 'field_visibilite',
+            'target' => 'domains:1',
             'unique' => FALSE,
           ),
         ),
