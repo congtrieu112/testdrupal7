@@ -392,8 +392,3 @@ if (function_exists('kandb_contact_specific_block_page')) {
 }
 ?>
 
-<?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
-  <div style="font-size:10px;">
-      <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
-  </div>
-<?php endif; ?>
