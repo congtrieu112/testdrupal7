@@ -98,6 +98,11 @@ $errors = form_get_errors();
                         <!-- "url" is a static variable: Js will take the current URL-->
                         <button data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></button>
                         <!-- submit-->
+                        <?php
+                            $bien_or_programme = 'programme';
+                            if(isset($_GET['bien']) && $_GET['bien'] == 1) $bien_or_programme = 'bien';
+                            print render($form[$bien_or_programme]);
+                        ?>
                         <?php print render($form['submit']); ?>
                     </div>
                 </div>
