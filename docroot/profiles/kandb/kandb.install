@@ -638,3 +638,12 @@ function kandb_update_7157() {
   }
 }
 
+/**
+ * Enable domain_feeds module
+ */
+function kandb_update_7158() {
+  if (!module_exists('domain_feeds')) {
+    module_enable(array('domain_feeds'), TRUE);
+  }
+}
+
