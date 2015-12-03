@@ -312,14 +312,12 @@ function kandb_theme_preprocess_node(&$vars) {
      */
     //check all bien status
     $programme_id = $node->vid;
-    $vars['flag'] = 0;
-    $custom_bien = 0;
-    $status = 1;
+    $vars['flag'] = 0;    
+    $status = 1;    
     if ($tid = get_tid_by_id_field($status)) {
-      $custom_bien = filter_bien_by_id_program($programme_id, $tid);
-    }
-    if ($custom_bien) {
-      $vars['flag'] = 1;
+      // Find out the list of biens which referenced to programme.
+      $biens_status = get_status_biens($programme_id, $tid);      
+      $vars['flag'] = ($biens_status) ? 1 : 0;
     }
 
 
