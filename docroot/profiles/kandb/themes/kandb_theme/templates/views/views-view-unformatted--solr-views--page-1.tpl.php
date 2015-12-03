@@ -16,7 +16,7 @@ $programme_promotions = array();
 foreach ($rows as $id => $row) {
   $row_result = $view->style_plugin->rendered_fields[$id];
   $programme_promotions[$row_result['field_programme_nid']] = array();
-  foreach($row['promotions'] as $id => $promotion) {
+  foreach($row_result['promotions'] as $id => $promotion) {
     $programme_promotions[$row_result['field_programme_nid']][] = $promotion;
   }
   if ($row_result['field_programme_nid'] != $current_id_programme) {

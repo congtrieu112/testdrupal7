@@ -30,7 +30,7 @@ $current_promotion_indice = 1;
 
 <header class="heading results__list__heading">
   <h1 class="heading__title">Vos résultats</h1>
-  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> bien<?php print ($number_of_bien > 1 ? 's' : ''); ?> / <?php print $number_of_programme; ?> programme<?php print ($number_of_programm) > 1 ? 's' : ''); ?></p>
+  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> bien<?php print ($number_of_bien > 1 ? 's' : ''); ?> / <?php print $number_of_programme; ?> programme<?php print ($number_of_programm > 1 ? 's' : ''); ?></p>
 </header>
 <!-- [searchResults: programmes] start-->
 <div class="filter">
