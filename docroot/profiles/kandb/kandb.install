@@ -638,3 +638,21 @@ function kandb_update_7157() {
   }
 }
 
+/*
+ * Enable taxonomy_display module
+ */
+function kandb_update_7158() {
+  if (!module_exists('taxonomy_display')) {
+    module_disable(array('taxonomy_display'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_seo module
+ */
+function kandb_update_7159() {
+  if (!module_exists('kandb_seo')) {
+    module_disable(array('kandb_seo'), TRUE);
+  }
+}
+

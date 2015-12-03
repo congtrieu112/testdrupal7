@@ -93,7 +93,6 @@ dependencies[] = views_php
 dependencies[] = stringoverrides
 dependencies[] = menu_admin_per_menu
 dependencies[] = acquia_search_multi_subs
-dependencies[] = taxonomy_display
 
 ; Custom
 dependencies[] = kb_feeds
@@ -148,6 +147,7 @@ dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_livraison_immediate
 dependencies[] = kandb_view_offre_en_france
+dependencies[] = kandb_seo
 
 ; Blocks
 dependencies[] = kandb_recherche
