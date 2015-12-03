@@ -282,15 +282,16 @@ function kandb_contact_admin_validate($form, &$form_state) {
 function kandb_contact_form_alter(&$form, $form_state, $form_id) {
   // Get webform Prendre rendez-vous.
   $webform_prendre_rendez_vous = webform_features_machine_name_load('prendre_rendez_vous');
-  $webform_id_rendez_vous = 'webform_client_form_' . $webform_prendre_rendez_vous->nid;
+  $webform_id_rendez_vous = isset($webform_prendre_rendez_vous->nid) ? 'webform_client_form_' . $webform_prendre_rendez_vous->nid : '';
   
   // Get webform Être rappelé.
   $webform_etre_rappele = webform_features_machine_name_load('_tre_rappel_');
-  $webform_id_etre_rappele = 'webform_client_form_' . $webform_etre_rappele->nid;
+  $webform_id_etre_rappele = isset($webform_etre_rappele->nid) ? 'webform_client_form_' . $webform_etre_rappele->nid : '';
   
   // Get webform avant_contactez_nous.
   $webform_avant_contactez_nous = webform_features_machine_name_load('avant_contactez_nous');
-  $webform_id_avant_contactez_nous = 'webform_client_form_' . $webform_avant_contactez_nous->nid;
+  $webform_id_avant_contactez_nous = isset($webform_avant_contactez_nous->nid) ? 'webform_client_form_' . $webform_avant_contactez_nous->nid : '';
+  
   if ($form_id == $webform_id_avant_contactez_nous) {
     $nid = arg(1);
     if (is_numeric($nid)) {
