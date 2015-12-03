@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the K&B Path Alias patterns feature.
- */
-
-include_once 'kandb_path_alias_patterns.features.inc';
