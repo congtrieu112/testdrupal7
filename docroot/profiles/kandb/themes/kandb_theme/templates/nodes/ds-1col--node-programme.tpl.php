@@ -19,7 +19,7 @@
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
                         <?php if ($program_loc_ville) : ?>
-                          <div class="heading__title"><?php print $program_loc_ville; ?></div>
+                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ?  print $programme_loc_arr_id : '') ?></div>
                         <?php endif; ?>
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
