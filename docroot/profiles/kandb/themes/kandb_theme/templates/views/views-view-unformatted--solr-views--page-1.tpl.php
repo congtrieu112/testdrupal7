@@ -11,12 +11,16 @@
 $number_of_programme = 0;
 $villes = array();
 $current_id_programme = 0;
+$number_of_bien_by_programme = array();
 foreach ($rows as $id => $row) {
   $row_result = $view->style_plugin->rendered_fields[$id];
   if ($row_result['field_programme_nid'] != $current_id_programme) {
+    $number_of_bien_by_programme[$row_result['field_programme_nid']] = 1;
     $current_id_programme = $row_result['field_programme_nid'];
     $number_of_programme ++;
     $villes[] = $row_result['field_programme_field_programme_loc_ville'];
+  }else{
+    $number_of_bien_by_programme[$row_result['field_programme_nid']] ++;
   }
 }
 $number_of_villes = count(array_unique($villes));
@@ -25,7 +29,7 @@ $current_id_programme = 0;
 
 <header class="heading results__list__heading">
   <h1 class="heading__title">Vos résultats</h1>
-  <p class="heading__title heading__title--sub"><?php print $number_of_programme; ?> programmes / <?php print $number_of_villes; ?> villes</p>
+  <p class="heading__title heading__title--sub"><?php print $number_of_programme; ?> programme<?php print (count($number_of_programme) > 1 ? 's' : ''); ?> / <?php print $number_of_villes; ?> ville<?php print (count($number_of_villes) > 1 ? 's' : ''); ?></p>
 </header>
 <!-- [searchResults: programmes] start-->
 <div class="filter">
@@ -55,7 +59,14 @@ $current_id_programme = 0;
               <div class="promotion">
                 <?php foreach($row_result['promotions'] as $id => $promotion): ?>
                   <?php if ($id > 2) break; ?>
-                  <div class="tag tag--important"><?php print $promotion->title; ?> <sup>(<?php print $id+1; ?>)</sup></div>
+                  <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $id+1; ?>)</sup></button>
+                  <!-- [popin] start-->
+                  <div data-reveal="<?php print $current_id_programme . '_' . $id; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                      <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                          <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                          <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                      </div>
+                  </div>
                 <?php endforeach; ?>
               </div>
             </div>
@@ -69,10 +80,9 @@ $current_id_programme = 0;
                 <noscript>&lt;img src="<?php print $row_result['search_medium']; ?>" alt="Photo programme undefined"/&gt;</noscript>
                 <!-- [Responsive img] end--></a>
               <div class="searchResultsItem__infos__details">
-                <p class="intro">Appartements disponibles de <?php print $row_result['field_programme_field_programme_room_min']; ?> à <?php print $row_result['field_programme_field_programme_room_max']; ?> pièces </p>
+                <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php print (count($number_of_bien_by_programme[$row_result['field_programme_nid']]) > 1 ? 'appartements disponibles': 'appartement disponible'); ?> de <?php print $row_result['field_programme_field_programme_room_min']; ?> à <?php print $row_result['field_programme_field_programme_room_max']; ?> pièces </p>
                 <ul class="details">
-                  <li>TODOOOOOOOO</li>
-                  <?php // print str_replace('##', '</li><li>', $row_result['field_programme_caracteristique']); ?>
+                  <li><?php print str_replace('##', '</li><li>', $row_result['field_programme_field_caracteristiques']); ?></li>
                 </ul>
                 <div class="large-column">
                   <ul class="prices">

@@ -54,9 +54,10 @@ function kandb_recherche_page(){
   $block_form = $block_form['content'];
 
   $result = NULL;
+  $vocabularies = taxonomy_vocabulary_get_names();
+
   // Result
   if(isset($_GET['place']) && !empty($_GET['place'])){
-    $vocabularies = taxonomy_vocabulary_get_names();
 
     // Check if the search localisation exists in our BDD
     $location = $_GET['place'];
@@ -477,6 +478,13 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#theme_wrappers' => array(),
     '#attributes' => array('class' => array('btn-icon')),
     '#theme' => 'recherche_button'
+  );
+
+  $bien_or_programme = 'programme';
+  if(isset($_GET['bien']) && $_GET['bien'] == 1) $bien_or_programme = 'bien';
+  $form[$bien_or_programme] = array(
+    '#type' => 'hidden',
+    '#value' => 1,
   );
 
   $form['#method'] = 'get';
