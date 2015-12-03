@@ -71,7 +71,7 @@ function habiteo_page_settings_form($form, &$form_state) {
   $form['variable_habiteo_page']['habiteo_feed_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo feed URL'),
-    '#description' => t('example: http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes"'),
+    '#description' => t('example: http://www.habiteo.com/flux"'),
     '#default_value' => variable_get('habiteo_feed_url', ''),
     '#size' => 60,
     '#maxlength' => 128,
@@ -318,14 +318,17 @@ function kandb_habiteo_import_bien($path) {
   $request = drupal_http_request($path);
   if (isset($request->data)) {
     $imports = json_decode($request->data);
-    if ($imports) {
+    if ($imports && empty($imports->error)) {
       foreach ($imports as $item) {
-        if ($item->id_partenaire) {
-          // Import bien.
-          kandb_habiteo_update_bien($item->id_partenaire, $item->id);
-        } else {
-          $logging = $item->id . '|bien|' . 'id_partenaire is null' . '|' . $path . "\n";
-          createFileErrorLogTxt($file_log_name, $logging);
+        if (!isset($item->error)) {
+          if ($item->id_partenaire) {
+            // Import bien.
+            kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+          } else {
+            $item_id = isset($item->id) ? $item->id : 'null';
+            $logging = $item_id . '|bien|' . 'id_partenaire is null' . '|' . $path . "\n";
+            createFileErrorLogTxt($file_log_name, $logging);
+          }
         }
       }
     } else {
@@ -356,7 +359,8 @@ function kandb_habiteo_import_programme() {
             // Import programe.
             kandb_habiteo_update_programe($item->id_partenaire, $item->id, $item->bon_plan);
           } else {
-            $logging = $item->id . '|programme|' . 'id_partenaire is null' . '|' . $path . "\n";
+            $item_id = ($item->id) ? $item->id : 'null';
+            $logging = $item_id . '|programme|' . 'id_partenaire is null' . '|' . $path . "\n";
             createFileErrorLogTxt($file_log_name, $logging);
           }
           $path_bien = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?id=' . $item->id;

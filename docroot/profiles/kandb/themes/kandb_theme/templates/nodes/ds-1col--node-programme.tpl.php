@@ -171,8 +171,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print $field_quartier_titre[0]['value']; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print $field_quartier_titre[0]['value']; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -228,7 +228,7 @@
         <div class="swapItem__1">
             <div class="wrapper">
                 <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print $field_quartier_video_titre[0]['value']; ?></h3>
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value'])?$field_quartier_video_titre[0]['value']:''; ?></h3>
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <p><?php print $field_quartier_video_desc[0]['value']; ?></p>
+                    <p><?php print isset($field_quartier_video_desc[0]['value'])?$field_quartier_video_desc[0]['value']:''; ?></p>
                 </div>
             </div>
         </div>
@@ -392,8 +392,3 @@ if (function_exists('kandb_contact_specific_block_page')) {
 }
 ?>
 
-<?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
-  <div style="font-size:10px;">
-      <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
-  </div>
-<?php endif; ?>
