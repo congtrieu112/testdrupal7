@@ -10,66 +10,18 @@
 function kandb_partenaire_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-partenaire-body'
-  $field_instances['node-partenaire-body'] = array(
+  // Exported field_instance: 'node-partenaire-field_id_partenaire'
+  $field_instances['node-partenaire-field_id_partenaire'] = array(
     'bundle' => 'partenaire',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
+        'label' => 'above',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(
-          'trim_length' => 600,
-        ),
-        'type' => 'text_summary_or_trimmed',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'body',
-    'label' => 'Body',
-    'required' => FALSE,
-    'settings' => array(
-      'display_summary' => TRUE,
-      'text_processing' => 1,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 20,
-        'summary_rows' => 5,
-      ),
-      'type' => 'text_textarea_with_summary',
-      'weight' => 31,
-    ),
-  );
-
-  // Exported field_instance: 'node-partenaire-field_partenaire_actif'
-  $field_instances['node-partenaire-field_partenaire_actif'] = array(
-    'bundle' => 'partenaire',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
         'weight' => 1,
       ),
       'teaser' => array(
@@ -80,31 +32,50 @@ function kandb_partenaire_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_partenaire_actif',
-    'label' => 'Transfert actif',
+    'field_name' => 'field_id_partenaire',
+    'label' => 'ID du partenaire',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
+      'module' => 'text',
       'settings' => array(
-        'display_label' => 1,
+        'rows' => 5,
       ),
-      'type' => 'options_onoff',
-      'weight' => 41,
+      'type' => 'text_textarea',
+      'weight' => 0,
     ),
   );
 
-  // Exported field_instance: 'node-partenaire-field_partenaire_avant_premiere'
-  $field_instances['node-partenaire-field_partenaire_avant_premiere'] = array(
+  // Exported field_instance: 'node-partenaire-field_partenaire_actif'
+  $field_instances['node-partenaire-field_partenaire_actif'] = array(
     'bundle' => 'partenaire',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -113,7 +84,44 @@ function kandb_partenaire_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 4,
+        'weight' => 2,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_actif',
+    'label' => 'Transfer actif',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 2,
+    ),
+  );
+
+  // Exported field_instance: 'node-partenaire-field_partenaire_avant_premiere'
+  $field_instances['node-partenaire-field_partenaire_avant_premiere'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -132,11 +140,9 @@ function kandb_partenaire_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 44,
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 5,
     ),
   );
 
@@ -152,7 +158,7 @@ function kandb_partenaire_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -173,18 +179,14 @@ function kandb_partenaire_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 46,
+      'weight' => 7,
     ),
   );
 
   // Exported field_instance: 'node-partenaire-field_partenaire_grande_perspect'
   $field_instances['node-partenaire-field_partenaire_grande_perspect'] = array(
     'bundle' => 'partenaire',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -193,7 +195,7 @@ function kandb_partenaire_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -212,65 +214,16 @@ function kandb_partenaire_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 45,
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 6,
     ),
   );
 
   // Exported field_instance: 'node-partenaire-field_partenaire_nouveau'
   $field_instances['node-partenaire-field_partenaire_nouveau'] = array(
     'bundle' => 'partenaire',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_partenaire_nouveau',
-    'label' => 'Nouveau Flux',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 42,
-    ),
-  );
-
-  // Exported field_instance: 'node-partenaire-field_partenaire_plan'
-  $field_instances['node-partenaire-field_partenaire_plan'] = array(
-    'bundle' => 'partenaire',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -289,8 +242,8 @@ function kandb_partenaire_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_partenaire_plan',
-    'label' => 'Export des Plans',
+    'field_name' => 'field_partenaire_nouveau',
+    'label' => 'Nouveau Flux',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -298,11 +251,46 @@ function kandb_partenaire_field_default_field_instances() {
     'widget' => array(
       'active' => 1,
       'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance: 'node-partenaire-field_partenaire_plan'
+  $field_instances['node-partenaire-field_partenaire_plan'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 4,
       ),
-      'type' => 'options_onoff',
-      'weight' => 43,
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_plan',
+    'label' => 'Export des Plan',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 4,
     ),
   );
 
@@ -314,10 +302,13 @@ function kandb_partenaire_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 7,
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -335,23 +326,27 @@ function kandb_partenaire_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 47,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 8,
     ),
   );
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Body');
   t('Contenu export');
   t('Envoi des programmes Avant-premières');
-  t('Export des Plans');
+  t('Export des Plan');
+  t('ID du partenaire');
   t('Images en Grande Perspective');
   t('Nouveau Flux');
   t('Programmes selectionnés');
-  t('Transfert actif');
+  t('Transfer actif');
 
   return $field_instances;
 }
