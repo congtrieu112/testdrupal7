@@ -17,7 +17,7 @@ foreach ($rows as $id => $row) {
   $row_result = $view->style_plugin->rendered_fields[$id];
   $programme_promotions[$row_result['field_programme_nid']] = array();
   foreach($row_result['promotions'] as $promotion) {
-    $programme_promotions[$row_result['field_programme_nid']][] = $promotion;
+    $programme_promotions[$row_result['field_programme_nid']][$promotion->nid] = $promotion;
   }
   if ($row_result['field_programme_nid'] != $current_id_programme) {
     $number_of_bien_by_programme[$row_result['field_programme_nid']] = 1;
@@ -31,11 +31,6 @@ foreach ($rows as $id => $row) {
 $number_of_villes = count(array_unique($villes));
 $current_id_programme = 0;
 $current_promotion_indice = 1;
-
-foreach($programme_promotions as $id => &$promotion_array) {
-  $promotion_array = array_unique($promotion_array);
-}
-
 ?>
 
 <header class="heading results__list__heading">
