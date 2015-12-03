@@ -865,11 +865,7 @@ function kandb_recherche_preprocess_views_view_unformatted(&$vars) {
 
     // Get the Promotions associated to these IDs
     // And the image style image
-    if($vars['view']->current_display == 'page') {
-      $promotions = kandb_recherche_get_promotion_from_ids($ids_bien, 'bien');
-    }else{
-      $promotions = kandb_recherche_get_promotion_from_ids($ids_programme, 'programme');
-    }
+    $promotions = kandb_recherche_get_promotion_from_ids($ids_bien, 'bien');
     $image_styles = kandb_recherche_get_images_from_ids($ids_programme, array('field_image_principale'), array('search_small', 'search_medium'));
 
     // Add Promotion information to each row
