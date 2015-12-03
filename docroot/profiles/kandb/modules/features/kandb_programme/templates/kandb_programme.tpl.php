@@ -132,7 +132,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                       <?php if($low_tva_price) : ?>
                                         <li><span class="text"><?php print number_format($low_tva_price, 0, '', ' '); ?>&nbsp;€</span><span class="tva tva--high">TVA 20%</span></li>
                                       <?php endif; ?>
-                                  </ul><a href="<?php print url('node/'. $biens->vid); ?>" title="<?php print t('Voir'); ?>" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
+                                  </ul><a href="<?php print url('node/'. $biens->nid); ?>" title="<?php print t('Voir'); ?>" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
                                 </td>
                               </tr>
                             <?php
