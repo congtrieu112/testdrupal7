@@ -106,13 +106,7 @@ function kandb_domains_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'domain_node_bien';
-  $strongarm->value = array(
-    'DOMAIN_ALL' => 'DOMAIN_ALL',
-    'DOMAIN_ACTIVE' => 0,
-    'kandb_local' => 0,
-    'kandb_b2b' => 0,
-    'kandb_b2c' => 0,
-  );
+  $strongarm->value = array();
   $export['domain_node_bien'] = $strongarm;
 
   $strongarm = new stdClass();

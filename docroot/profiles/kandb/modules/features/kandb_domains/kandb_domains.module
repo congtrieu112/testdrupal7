@@ -1,5 +1,7 @@
 <?php
 /**
  * @file
- * Drupal needs this blank file.
+ * Code for the K&B Domains feature.
  */
+
+include_once 'kandb_domains.features.inc';
