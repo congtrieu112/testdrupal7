@@ -392,6 +392,15 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
+      $entity->domains = array(1 => 1);
+      if (isset($item[30])) {
+        if ($item[30] == 1 || $item[30] == 3) {
+          $entity->domains[3] = 3;
+        }
+        if ($item[30] == 2 || $item[30] == 3) {
+          $entity->domains[2] = 2;
+        }
+      }
       if ($totalItems != $totalColumn) {
         $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {

@@ -110,11 +110,11 @@ function _get_logement_block_content() {
       if ($tid) {
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'node')
-          ->entityCondition('bundle', 'promotion')
-          ->fieldCondition('field_promotion_programme', 'target_id', $key)
-          ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-          ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-          ->range(0, 1);
+            ->entityCondition('bundle', 'promotion')
+            ->fieldCondition('field_promotion_programme', 'target_id', $key)
+            ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+            ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+            ->range(0, 1);
 
         $programme_promotion = $query->execute();
         if (isset($programme_promotion['node'])) {
@@ -122,15 +122,15 @@ function _get_logement_block_content() {
         }
 
         $listBien = db_query('select count(field_programme_target_id) as total, group_concat(program.entity_id) as bien_id, field_programme_target_id, field_nb_pieces_tid, title, name, field_programme_stock_value '
-          . 'from {field_data_field_prix_tva_20} prize '
-          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-          . 'left join {field_data_field_programme_stock} stock on stock.entity_id = program.field_programme_target_id '
-          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-          . 'inner join {node} n on n.nid=program.field_programme_target_id '
-          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
+            . 'from {field_data_field_prix_tva_20} prize '
+            . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+            . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+            . 'left join {field_data_field_programme_stock} stock on stock.entity_id = program.field_programme_target_id '
+            . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+            . 'inner join {node} n on n.nid=program.field_programme_target_id '
+            . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+            . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
+            . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
 
         if ($listBien->rowCount() > 0) {
           $listBien = $listBien->fetchAll();
@@ -139,11 +139,11 @@ function _get_logement_block_content() {
 
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'node')
-              ->entityCondition('bundle', 'promotion')
-              ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
-              ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-              ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-              ->range(0, 1);
+                ->entityCondition('bundle', 'promotion')
+                ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
+                ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+                ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+                ->range(0, 1);
 
             $bien_promotion = $query->execute();
 
@@ -157,14 +157,14 @@ function _get_logement_block_content() {
             $nb_pieces_id = $program_list_biens->field_nb_pieces_tid;
             // Get list the most expensive bien
             $listPriceMost = db_query_range('select program.entity_id, field_prix_tva_20_value, name, title '
-              . 'from {field_data_field_prix_tva_20 prize} '
-              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+                . 'from {field_data_field_prix_tva_20 prize} '
+                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+                . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
 
             $the_most_id = 0;
             // Show results
@@ -181,14 +181,14 @@ function _get_logement_block_content() {
             if ($total_bien_stock > 0) {
               // Sql get list the least expensive bien
               $listPriceLeast = db_query_range('select program.entity_id as entity_id, field_prix_tva_20_value, name, title '
-                . 'from {field_data_field_prix_tva_20} prize '
-                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-                . 'inner join {node} n on n.nid=program.field_programme_target_id '
-                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+                  . 'from {field_data_field_prix_tva_20} prize '
+                  . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                  . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                  . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                  . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                  . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                  . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+                  . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
 
 
               // Show results
@@ -203,17 +203,17 @@ function _get_logement_block_content() {
               }
             }
 
-            if($total_bien_stock > 0) {
+            if ($total_bien_stock > 0) {
               $listPriceRemain = db_query_range('select program.entity_id as entity_id, field_superficie_value, field_prix_tva_20_value, name, title '
-              . 'from {field_data_field_prix_tva_20} prize '
-              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-              . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
-              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
-              . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
+                  . 'from {field_data_field_prix_tva_20} prize '
+                  . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                  . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                  . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                  . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                  . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                  . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
+                  . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
+                  . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
 
               if ($listPriceRemain->rowCount() > 0) {
                 $listPriceRemain = $listPriceRemain->fetchAll();
@@ -227,19 +227,19 @@ function _get_logement_block_content() {
         }
 
         $listMaxMinPrice = db_query('select max(field_prix_tva_20_value) as max, min(field_prix_tva_20_value) as min, '
-          . '(select field_facteur_value '
-          . 'from {field_data_field_facteur} fact '
-          . 'where fact.entity_id=tva.field_tva_tid) as tva, '
-          . 'field_programme_target_id, field_nb_pieces_tid, name, title '
-          . 'from field_data_field_prix_tva_20 prize '
-          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-          . 'inner join {node} n on n.nid=program.field_programme_target_id '
-          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-          . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
-          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-          . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key));
+            . '(select field_facteur_value '
+            . 'from {field_data_field_facteur} fact '
+            . 'where fact.entity_id=tva.field_tva_tid) as tva, '
+            . 'field_programme_target_id, field_nb_pieces_tid, name, title '
+            . 'from field_data_field_prix_tva_20 prize '
+            . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+            . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+            . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+            . 'inner join {node} n on n.nid=program.field_programme_target_id '
+            . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+            . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
+            . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
+            . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key));
 
         // Show results
         if ($listMaxMinPrice->rowCount() > 0) {
@@ -278,7 +278,8 @@ function document_block_form_submit($form, $form_state) {
       $addMore = '';
       if ($form_state['values']['B2B'] == $form_state['clicked_button']['#value']) {
         $addMore = '_B2B_';
-      } elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
+      }
+      elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
         $addMore = '_';
       }
 
@@ -336,6 +337,11 @@ function kandb_programme_node_insert($node) {
  * @param type $node
  */
 function kandb_programme_node_presave($node) {
+  // By pass apply rule in case apply habiteo API.
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
+  
   if ($node->type == 'programme' && $node->is_new != 1) {
     createFileArchireForProgramme($node);
   }

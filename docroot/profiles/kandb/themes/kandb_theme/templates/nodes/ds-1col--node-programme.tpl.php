@@ -19,7 +19,7 @@
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
                         <?php if ($program_loc_ville) : ?>
-                          <div class="heading__title"><?php print $program_loc_ville; ?></div>
+                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ?  print $programme_loc_arr_id : '') ?></div>
                         <?php endif; ?>
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
@@ -171,8 +171,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print $field_quartier_titre[0]['value']; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print $field_quartier_titre[0]['value']; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -228,7 +228,7 @@
         <div class="swapItem__1">
             <div class="wrapper">
                 <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print $field_quartier_video_titre[0]['value']; ?></h3>
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value'])?$field_quartier_video_titre[0]['value']:''; ?></h3>
                 </div>
             </div>
         </div>
@@ -236,7 +236,7 @@
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <p><?php print $field_quartier_video_desc[0]['value']; ?></p>
+                    <p><?php print isset($field_quartier_video_desc[0]['value'])?$field_quartier_video_desc[0]['value']:''; ?></p>
                 </div>
             </div>
         </div>
@@ -347,7 +347,11 @@ if (!empty($list_document)):
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                  <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>"><button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded btn-download">Tout télécharger (.zip)</button></a>
+                <div class="btn-wrapper btn-wrapper--center show-for-small-only">
+                  <button <?php print (isset($link_to_zip) AND !empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
+                    <?php print t('Tout télécharger (.zip)'); ?>
+                  </button>
+                </div>
               </div>
               <!-- [popin] start-->
               <div id="downloadInformationForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
@@ -392,8 +396,3 @@ if (function_exists('kandb_contact_specific_block_page')) {
 }
 ?>
 
-<?php if (isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"])) : ?>
-  <div style="font-size:10px;">
-      <em><?php print t('Mentions Legales'); ?>&nbsp;</em><?php print $node->field_programme_mtn_legale[LANGUAGE_NONE][0]["value"]; ?>
-  </div>
-<?php endif; ?>

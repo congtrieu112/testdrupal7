@@ -93,6 +93,8 @@ dependencies[] = views_php
 dependencies[] = stringoverrides
 dependencies[] = menu_admin_per_menu
 dependencies[] = acquia_search_multi_subs
+dependencies[] = taxonomy_display
+dependencies[] = domain_feeds
 
 ; Custom
 dependencies[] = kb_feeds

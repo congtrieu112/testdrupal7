@@ -283,8 +283,9 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
 
 <!-- [3rd party: visite-virtuelle] start-->
-<section class="section-padding">
-    <?php if ($habiteo_id): ?>
+
+<?php if ($habiteo_id): ?>
+  <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print $node->field_visite_titre['und'][0]['value']; ?></h2>
@@ -312,8 +313,9 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
               </div>
           </div>
       </div>
-    <?php endif; ?>
-</section>
+  </section>
+<?php endif; ?>
+
 <!-- [3rd party: visite-virtuelle] start-->
 
 <!-- [More Available] start-->
@@ -322,6 +324,9 @@ $list_bien_more = array();
 if ($piece_id) {
   $nb_pieces = taxonomy_term_load($piece_id);
   $list_bien_more = get_biens_follow_piece_program($programme->nid, $piece_id);
+  if (isset($list_bien_more[$node->nid])) :
+    unset($list_bien_more[$node->nid]);
+  endif;
 }
 
 if (!empty($list_bien_more)):
@@ -419,7 +424,11 @@ if (!empty($list_bien_more)):
                 $url_principale = "";
                 $url_principale = url('node/' . $programme->nid);
                 $title_principale = isset($programme->title) ? $programme->title : '';
-                $title_principale_ville = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
+                $title_principale_ville = '';
+                if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
+                  $ville = taxonomy_term_load($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
+                  $title_principale_ville = isset($ville->name) ? $ville->name : '';
+                }
                 $image_principale = isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $programme->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
                 $image_principale_small = '';
                 $image_principale_large = '';
