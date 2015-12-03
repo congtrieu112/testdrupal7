@@ -6926,7 +6926,7 @@ a.tag.tag--important:hover {
           margin-bottom: 0;
           padding: 0.875rem 0.9375rem; }
           .header__menu .main-menu__item a.btn-primary .button__content, .header__menu .main-menu__item .searchFormular a.button-submit .button__content, .searchFormular .header__menu .main-menu__item a.button-submit .button__content {
-            padding-left: 1.5625rem; }
+            padding-left: 2.0625rem; }
   .header__search {
     background: #ffffff;
     height: 4.16667rem;
@@ -8752,25 +8752,18 @@ a.tag.tag--important:hover {
       display: -moz-flex;
       display: -ms-flexbox;
       display: flex;
-      -webkit-box-align: left;
-      -moz-box-align: left;
-      box-align: left;
-      -webkit-align-items: left;
-      -moz-align-items: left;
-      -ms-align-items: left;
-      -o-align-items: left;
-      align-items: left;
-      -ms-flex-align: left;
-      -webkit-box-orient: horizontal;
-      -moz-box-orient: horizontal;
-      box-orient: horizontal;
-      -webkit-box-direction: normal;
-      -moz-box-direction: normal;
-      box-direction: normal;
-      -webkit-flex-direction: row;
-      -moz-flex-direction: row;
-      flex-direction: row;
-      -ms-flex-direction: row;
+      -webkit-box-align: stretch;
+      -moz-box-align: stretch;
+      box-align: stretch;
+      -webkit-align-items: stretch;
+      -moz-align-items: stretch;
+      -ms-align-items: stretch;
+      -o-align-items: stretch;
+      align-items: stretch;
+      -ms-flex-align: stretch;
+      -webkit-flex-flow: row nowrap;
+      -moz-flex-flow: row nowrap;
+      flex-flow: row nowrap;
       -webkit-box-pack: justify;
       -moz-box-pack: justify;
       box-pack: justify;
@@ -8781,9 +8774,36 @@ a.tag.tag--important:hover {
       justify-content: space-between;
       -ms-flex-pack: justify;
       padding: 1.875rem 2.1875rem; }
+    .contactUs.contactUs-complete .contactUs__informations, .contactUs.contactUs-complete .contactUs__description {
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: stretch;
+      -moz-box-align: stretch;
+      box-align: stretch;
+      -webkit-align-items: stretch;
+      -moz-align-items: stretch;
+      -ms-align-items: stretch;
+      -o-align-items: stretch;
+      align-items: stretch;
+      -ms-flex-align: stretch;
+      -webkit-flex-flow: column nowrap;
+      -moz-flex-flow: column nowrap;
+      flex-flow: column nowrap;
+      width: 50%; }
+      .contactUs.contactUs-complete .contactUs__informations > *, .contactUs.contactUs-complete .contactUs__description > * {
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        box-flex: 1;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1; }
     .contactUs.contactUs-complete .contactUs__informations {
-      position: relative;
-      width: 50%;
       padding: 0 1.875rem 0 0; }
       .contactUs.contactUs-complete .contactUs__informations .contactUs__informations__heading {
         font-size: 1.5rem;
@@ -8794,30 +8814,90 @@ a.tag.tag--important:hover {
       .contactUs.contactUs-complete .contactUs__informations .contactUs__informations__phone {
         font-size: 1.5rem; }
       .contactUs.contactUs-complete .contactUs__informations .contactUs__cta {
-        padding-top: 4.375rem; }
+        padding-top: 4.375rem;
+        display: -webkit-box;
+        display: -moz-box;
+        display: box;
+        display: -webkit-flex;
+        display: -moz-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-flow: column nowrap;
+        -moz-flex-flow: column nowrap;
+        flex-flow: column nowrap;
+        -webkit-box-align: stretch;
+        -moz-box-align: stretch;
+        box-align: stretch;
+        -webkit-align-items: stretch;
+        -moz-align-items: stretch;
+        -ms-align-items: stretch;
+        -o-align-items: stretch;
+        align-items: stretch;
+        -ms-flex-align: stretch;
+        -webkit-box-pack: end;
+        -moz-box-pack: end;
+        box-pack: end;
+        -webkit-justify-content: flex-end;
+        -moz-justify-content: flex-end;
+        -ms-justify-content: flex-end;
+        -o-justify-content: flex-end;
+        justify-content: flex-end;
+        -ms-flex-pack: end; }
         .contactUs.contactUs-complete .contactUs__informations .contactUs__cta > a {
           float: none;
           width: auto;
           font-size: 1rem;
           margin-bottom: 0.8125rem;
           border-radius: 5px; }
+        .contactUs.contactUs-complete .contactUs__informations .contactUs__cta *:last-child {
+          margin-bottom: 0; }
     .contactUs.contactUs-complete .contactUs__description {
-      position: relative;
-      width: 50%;
-      margin-bottom: 0;
-      padding: 0 0 3.75rem 1.875rem;
+      padding-left: 1.875rem;
       text-align: left;
       border-left: 1px solid #e0e0e0; }
       .contactUs.contactUs-complete .contactUs__description .contactUs__description__heading {
-        font-size: 1.5rem; }
+        font-size: 1.5rem;
+        margin-bottom: 0; }
       .contactUs.contactUs-complete .contactUs__description .contactUs__description__text {
         font-size: 1rem; }
     .contactUs.contactUs-complete .contactUs__location {
-      position: absolute;
-      bottom: 0; }
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-flex-flow: row nowrap;
+      -moz-flex-flow: row nowrap;
+      flex-flow: row nowrap;
+      -webkit-box-align: end;
+      -moz-box-align: end;
+      box-align: end;
+      -webkit-align-items: flex-end;
+      -moz-align-items: flex-end;
+      -ms-align-items: flex-end;
+      -o-align-items: flex-end;
+      align-items: flex-end;
+      -ms-flex-align: end;
+      -webkit-box-pack: stretch;
+      -moz-box-pack: stretch;
+      box-pack: stretch;
+      -webkit-justify-content: stretch;
+      -moz-justify-content: stretch;
+      -ms-justify-content: stretch;
+      -o-justify-content: stretch;
+      justify-content: stretch;
+      -ms-flex-pack: stretch; }
       .contactUs.contactUs-complete .contactUs__location a {
-        margin: 0;
-        width: auto; }
+        -webkit-box-flex: 1;
+        -moz-box-flex: 1;
+        box-flex: 1;
+        -webkit-flex: 1;
+        -moz-flex: 1;
+        -ms-flex: 1;
+        flex: 1;
+        margin: 0; }
     .contactUs__img,
     .contactUs .wrapper,
     .contactUs .wrapper--narrow {
@@ -8860,8 +8940,10 @@ a.tag.tag--important:hover {
       justify-content: space-between;
       -ms-flex-pack: justify; }
     .contactUs__img {
-      width: 30%;
-      background-size: cover; }
+      width: 16.74803rem;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat; }
     .contactUs__informations {
       text-align: left;
       margin-bottom: 0;
@@ -8871,14 +8953,12 @@ a.tag.tag--important:hover {
         font-size: 1.625rem;
         font-family: "Helvetica Neue LT W04_75 Bold";
         font-weight: 300;
-        line-height: 1.2;
         margin-bottom: 0.25rem; }
       .contactUs__informations__text {
         font-size: 1.125rem;
         font-family: "Helvetica Neue LT W04_75 Bold";
         font-weight: 300;
-        margin-bottom: 0.83333rem;
-        line-height: 1.2; }
+        margin-bottom: 0.83333rem; }
       .contactUs__informations__cta > a {
         display: inline-block;
         vertical-align: top;
@@ -8887,7 +8967,14 @@ a.tag.tag--important:hover {
         border-radius: 5px; }
     .contactUs .contactUs__cta {
       width: 100%;
-      overflow: hidden; }
+      overflow: hidden;
+      display: -webkit-box;
+      display: -moz-box;
+      display: box;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: flex; }
       .contactUs .contactUs__cta > a {
         float: left;
         width: 50%;
@@ -8932,7 +9019,9 @@ a.tag.tag--important:hover {
   .contactUs {
     width: 71%; }
     .contactUs__informations__text {
-      font-size: 1.25rem; } }
+      font-size: 1.25rem; }
+    .contactUs__img {
+      width: 19.15748rem; } }
 
 .editorialContentArticle * {
   line-height: 1.3; }

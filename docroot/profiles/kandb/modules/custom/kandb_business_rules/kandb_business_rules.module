@@ -147,6 +147,13 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
+  // No need apply BRs in case devel generate.
+  if ($_GET['q'] == 'admin/config/development/generate/content' ||
+    (isset($node->devel_generate) && !empty($node->devel_generate))
+    ) {
+    return;
+  }
+
   // To avoid loop from function node_save.
   $is_node_updating = Kandb_Business_Rules::get_is_node_updating();
   Kandb_Business_Rules::set_is_node_updating();

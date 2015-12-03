@@ -235,7 +235,7 @@ function kandb_theme_preprocess_node(&$vars) {
      * HEADER
      */
     // Get promotion by programme nid.
-    $vars['promotion'] = get_nids_promotions_by_programme($node->nid);
+    $vars['promotions'] = get_nids_promotions_by_programme($node->nid);
 
     // Information for header programme page
     $vars['title'] = $node->title;
@@ -271,11 +271,9 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_pieces'] = '';
     if ($pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-    }
-    elseif (!$pieces_min && $pieces_max) {
+    } elseif (!$pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = $pieces_max . ' ' . t('pièces');
-    }
-    elseif ($pieces_min && !$pieces_max) {
+    } elseif ($pieces_min && !$pieces_max) {
       $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
     }
 
@@ -285,11 +283,9 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price_tva'] = '';
     if ($price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    }
-    elseif (!$price_tva_min && $price_tva_max) {
+    } elseif (!$price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    }
-    elseif ($price_tva_min && !$price_tva_max) {
+    } elseif ($price_tva_min && !$price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
     }
 
@@ -301,15 +297,14 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price'] = '';
     if ($price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    }
-    elseif (!$price_min && $price_max) {
+    } elseif (!$price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    }
-    elseif ($price_min && !$price_max) {
+    } elseif ($price_min && !$price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
     }
 
     $vars['en_quelques_mots'] = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+    $vars['programme_mtn_legale'] = isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value']) ? $node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value'] : '';
 
 
     /**
