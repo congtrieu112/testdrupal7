@@ -29,24 +29,24 @@ endif;
             <div class="small-wrapper">
                 <p class="contactUs__informations__text"><?php print $array_info['nom_conseiller']; ?></p>
                 <div class="show-for-medium-up">
-                    <?php if (isset($array_info['espace_vente_tel'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel']) && $array_info['espace_vente_tel']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone">
                           <span><?php print $array_info['espace_vente_tel'] ?></span>
                       </a>
                     <?php endif; ?>
-                    <?php if (isset($array_info['espace_vente_tel2'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel2']) && $array_info['espace_vente_tel2']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel2']); ?>" class="contactUs__informations__phone">
                           <span><?php print $array_info['espace_vente_tel2'] ?></span>
                       </a>
                     <?php endif; ?>
                 </div>
                 <div class="show-for-small-only">
-                    <?php if (isset($array_info['espace_vente_tel'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel']) && $array_info['espace_vente_tel']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone btn-phone">
                           <span><?php print $array_info['espace_vente_tel'] ?></span>
                       </a>
                     <?php endif; ?>
-                    <?php if (isset($array_info['espace_vente_tel2'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel2']) && $array_info['espace_vente_tel2']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel2']); ?>" class="contactUs__informations__phone btn-phone">
                           <span><?php print $array_info['espace_vente_tel2'] ?></span>
                       </a>
