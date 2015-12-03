@@ -665,3 +665,11 @@ function kandb_update_7161() {
   }
 }
 
+/*
+ * Enable kandb_view_finance_assemblee module
+ */
+function kandb_update_7162() {
+  if (!module_exists('kandb_view_finance_assemblee')) {
+    module_enable(array('kandb_view_finance_assemblee'), TRUE);
+  }
+}
