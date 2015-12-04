@@ -138,8 +138,8 @@ function _get_logement_block_content() {
             $logement_block['total_bien'][$program_list_biens->name] = $program_list_biens->total;
 
             // Images des types de Lots.
+            $img_num_piece = '';
             if (preg_match_all('/(studio|2|3|4|5)/i', $program_list_biens->name, $matches)) {
-              $img_num_piece = '';
               if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
                 $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
                 $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
