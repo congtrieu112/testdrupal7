@@ -1255,6 +1255,102 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'partenaire_import';
+  $feeds_importer->config = array(
+    'name' => 'Partenaire import',
+    'description' => 'Import partenaire from partenaire.csv file',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => '',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantPartenaire',
+            'target' => 'field_id_partenaire',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'IdentifiantPartenaire',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => 'Nom',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'TransferActif',
+            'target' => 'field_partenaire_actif',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'TypeDeFlux',
+            'target' => 'field_partenaire_nouveau',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'LotPlan',
+            'target' => 'field_partenaire_plan',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'EnvoiAvantPremier',
+            'target' => 'field_partenaire_avant_premiere',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'GrandePerspective',
+            'target' => 'field_partenaire_grande_perspect',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'TypeExport',
+            'target' => 'field_partenaire_export',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 1,
+        'bundle' => 'partenaire',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['partenaire_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'programme_feed_import';
   $feeds_importer->config = array(
     'name' => 'Programme feed import',
@@ -1372,49 +1468,29 @@ function kandb_feed_feeds_importer_default() {
             'autocreate' => 0,
           ),
           13 => array(
-            'source' => '18',
-            'target' => 'field_programme_loc_long',
-            'unique' => FALSE,
-          ),
-          14 => array(
-            'source' => '19',
-            'target' => 'field_programme_loc_lat',
-            'unique' => FALSE,
-          ),
-          15 => array(
             'source' => '49',
             'target' => 'field_nom_conseiller',
             'unique' => FALSE,
           ),
-          16 => array(
+          14 => array(
             'source' => '50',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          17 => array(
+          15 => array(
             'source' => '51',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          18 => array(
+          16 => array(
             'source' => '52',
             'target' => 'field_espace_vente_adresse',
             'format' => 'plain_text',
           ),
-          19 => array(
+          17 => array(
             'source' => '56',
             'target' => 'field_espace_vente_horaire',
             'format' => 'plain_text',
-          ),
-          20 => array(
-            'source' => '58',
-            'target' => 'field_espace_vente_longitude',
-            'unique' => FALSE,
-          ),
-          21 => array(
-            'source' => '59',
-            'target' => 'field_espace_vente_latitude',
-            'unique' => FALSE,
           ),
         ),
         'update_existing' => '2',

@@ -19,7 +19,16 @@
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
                         <?php if ($program_loc_ville) : ?>
-                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ?  print $programme_loc_arr_id : '') ?></div>
+                          <div class="heading__title">
+                            <?php print $program_loc_ville; ?>
+                               <?php 
+                                if ($programme_loc_arr_name) :
+                                  print '(' .$programme_loc_arr_name. ')';
+                                elseif ($program_loc_department) :
+                                  print '(' . $program_loc_department. ')';
+                                endif;
+                            ?>
+                          </div>
                         <?php endif; ?>
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
@@ -107,21 +116,44 @@
                 </div>-->
             </div>
             <div class="programHeader__content__details">
-                <?php if ($caracteristiques) : ?>
-                  <ul class="characteristicList">
-                      <?php
-                      foreach ($caracteristiques as $caracteristique) {
-                        if (isset($caracteristique['tid'])) {
+                <ul class="characteristicList">
+                    <?php
+                    if ($caracteristiques):
+                      foreach ($caracteristiques as $caracteristique):
+                        if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
-                          if ($carac_term) {
+                          if ($carac_term) :
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                             print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
-                          }
-                        }
-                      }
-                      ?>
-                  </ul>
-                <?php endif; ?>
+                            if ($carac_term->description) :
+                              print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $carac_term->description.'">?</span>';
+                            endif;
+                          endif;
+                        endif;
+                      endforeach;
+                    endif;
+                    $etages = field_get_items('node', $node, 'field_caracteristique_etages');
+                    if (isset($etages[0]['value']) && $etages[0]['value']) :
+                      if ($icons = array_values(taxonomy_get_term_by_name('Etages'))[0]) :
+                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
+                        if ($icons->description):
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $icons->description.'">?</span>';
+                        endif;
+                      endif;
+                    endif;
+                    $chauffage = field_get_items('node', $node, 'field_caracteristique_chauffage');
+                    if (isset($chauffage[0]['value']) && $chauffage[0]['value']) :
+                      if ($icons = array_values(taxonomy_get_term_by_name('Chauffage'))[0]) :
+                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
+                        if ($icons->description):
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $icons->description.'">?</span>';
+                        endif;
+                      endif;
+                    endif;
+                    ?>
+                </ul>
 
                 <?php if ($en_quelques_mots) : ?>
                   <p class="intro">
@@ -171,8 +203,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -184,13 +216,10 @@
                   </div>
                   <?php
                 elseif ($lon && $lat):
-                  $latitude = $lat / 1000000;
-                  $longitude = $lon / 1000000;
-
                   $settings = array(
                     'id' => 'mymap',
-                    'latitude' => $latitude, // center the map.
-                    'longitude' => $longitude, // on the marker.
+                    'latitude' => $lat, // center the map.
+                    'longitude' => $lon, // on the marker.
                     'zoom' => 10,
                     'width' => '100%',
                     'height' => '490px',
@@ -199,8 +228,8 @@
 
                   $settings['markers'] = array(
                     array(
-                      'latitude' => $latitude,
-                      'longitude' => $longitude,
+                      'latitude' => $lat,
+                      'longitude' => $lon,
                       'markername' => 'Kandb',
                     ),
                   );
@@ -228,7 +257,7 @@
         <div class="swapItem__1">
             <div class="wrapper">
                 <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value'])?$field_quartier_video_titre[0]['value']:''; ?></h3>
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
                 </div>
             </div>
         </div>
@@ -236,7 +265,7 @@
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <p><?php print isset($field_quartier_video_desc[0]['value'])?$field_quartier_video_desc[0]['value']:''; ?></p>
+                    <p><?php print isset($field_quartier_video_desc[0]['value']) ? $field_quartier_video_desc[0]['value'] : ''; ?></p>
                 </div>
             </div>
         </div>
@@ -271,7 +300,7 @@
           </header>
           <?php if ($habiteo_id): ?>
             <div class="iframe iframe--vue-generale">
-                <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+                <iframe src="" data-src="<?php print $habiteo_plan_3d_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
             </div>
           <?php endif; ?>
           <div class="content-centered">
@@ -347,11 +376,11 @@ if (!empty($list_document)):
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                  <button <?php print (isset($link_to_zip) AND !empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
-                    <?php print t('Tout télécharger (.zip)'); ?>
-                  </button>
-                </div>
+                  <div class="btn-wrapper btn-wrapper--center show-for-small-only">
+                      <button <?php print (isset($link_to_zip) AND ! empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
+                          <?php print t('Tout télécharger (.zip)'); ?>
+                      </button>
+                  </div>
               </div>
               <!-- [popin] start-->
               <div id="downloadInformationForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">

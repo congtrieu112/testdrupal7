@@ -157,39 +157,96 @@ function kandb_images_default() {
       );
     }
   }
-  
+
   $list_images = array(
     array(
-      'id'    =>  'slider_exterieur_image',
-      'title' =>  'image par défault : Extérieur',
+      'id' => 'slider_exterieur_image',
+      'title' => 'image par défault : Extérieur',
     ),
-    
     array(
-      'id'    =>  'slider_interieur_image',
-      'title' =>  'image par défault : Interieur',
+      'id' => 'slider_interieur_image',
+      'title' => 'image par défault : Interieur',
     ),
-    
     array(
-      'id'    =>  'slider_securite_image',
-      'title' =>  'image par défault : Services',
+      'id' => 'slider_securite_image',
+      'title' => 'image par défault : Services',
     ),
-    
     array(
-      'id'    =>  'slider_rt2012_image',
-      'title' =>  'image par défault : RT2012',
+      'id' => 'slider_rt2012_image',
+      'title' => 'image par défault : RT2012',
+    ),
+    array(
+      'id' => 'slider_rt2012_logo',
+      'title' => 'image par défault : RT2012 logo',
+    ),
+    array(
+      'id' => 'slider_bbc_logo',
+      'title' => 'image par défault :  BBC logo',
+    ),
+    array(
+      'id' => 'image_default_number_piece_',
+      'title' => 'image par défault :  Image',
     ),
   );
-  
-  foreach($list_images as $item){
+
+  foreach ($list_images as $item) {
     $form['image_default_' . $item["id"]] = array(
       '#type' => 'managed_file',
       '#title' => $item["title"],
       '#default_value' => variable_get('image_default_' . $item["id"]),
       '#upload_location' => 'public://',
-    );  
+    );
   }
 
+  // Get list term of number of pieces.
+  $terms_number_of_piece = taxonomy_get_tree(9);
+  foreach ($terms_number_of_piece as $term) {
+    $clean_name = clean_string($term->name);
+    $clean_name = explode('_', $clean_name);
+    if ($clean_name AND $clean_name = $clean_name[0]) {
+      $form['image_default_number_piece_' . $clean_name] = array(
+        '#type' => 'managed_file',
+        '#title' => 'Image par défault :' . $term->name,
+        '#default_value' => variable_get('image_default_number_piece_' . $clean_name),
+        '#upload_location' => 'public://',
+      );
+    }
+  }
+
+  $form['#field_uploads'] = $list_images;
+  $form['#submit'][] = 'kandb_settings_form_update_status_managed_filed';
   return system_settings_form($form);
+}
+
+/**
+ * Return the clean string in case special character.
+ * 
+ * @param string $text
+ * @return string
+ */
+function clean_string($text) {
+  $text = str_replace(array(' ', '+'), array('_', ''), trim($text));
+  $utf8 = array(
+    '/[áàâãªä]/u' => 'a',
+    '/[ÁÀÂÃÄ]/u' => 'A',
+    '/[ÍÌÎÏ]/u' => 'I',
+    '/[íìîï]/u' => 'i',
+    '/[éèêë]/u' => 'e',
+    '/[ÉÈÊË]/u' => 'E',
+    '/[óòôõºö]/u' => 'o',
+    '/[ÓÒÔÕÖ]/u' => 'O',
+    '/[úùûü]/u' => 'u',
+    '/[ÚÙÛÜ]/u' => 'U',
+    '/ç/' => 'c',
+    '/Ç/' => 'C',
+    '/ñ/' => 'n',
+    '/Ñ/' => 'N',
+    '/–/' => '-', // UTF-8 hyphen to "normal" hyphen
+    '/[’‘‹›‚]/u' => ' ', // Literally a single quote
+    '/[“”«»„]/u' => ' ', // Double quote
+    '/ /' => ' ', // nonbreaking space (equiv. to 0x160)
+  );
+  return preg_replace(array_keys($utf8), array_values($utf8), $text);
 }
 
 /**
@@ -213,4 +270,52 @@ function kandb_images_default_validate($form, &$form_state) {
       file_usage_add($file, 'user', 'user', $user->uid);
     }
   }
+}
+
+/**
+ * Managed file when users upload or delete.
+ */
+function managed_file_upload($fid_form, $fid_variable, $module_name, $type) {
+  if ($fid_form != 0 && $fid_form != $fid_variable) {
+    $file = file_load($fid_form);
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
+    file_usage_add($file, $module_name, $type, 1);
+  }
+  elseif ($fid_form == 0) {
+    if ($fid_variable) {
+      $delete_file = file_load($fid_variable);
+      if ($delete_file) {
+        file_usage_delete($delete_file, $module_name, $type, 1);
+        $status = file_delete($delete_file);
+      }
+    }
+  }
+}
+
+/**
+ * Get value from Form and put to function managed_file_upload
+ */
+function kandb_settings_form_update_status_managed_filed(&$form, &$form_state) {
+  $field_uploads = $form['#field_uploads'];
+  foreach ($field_uploads as $field) {
+    $fid_form = $form_state['values']['image_default_' . $field['id']];
+    $fid_variable = variable_get('image_default_' . $field['id'], FALSE);
+    $module_name = 'kandb_settings';
+    managed_file_upload($fid_form, $fid_variable, $module_name, 'image_default_' . $field['id']);
+  }
+}
+
+/**
+ * Get value from varibale default image.
+ */
+function kandb_settings_get_uri_by_variable($name) {
+  $file_id = variable_get($name);
+  if ($file_id) {
+    $file = file_load($file_id);
+    if ($file && $file->uri) {
+      return $file->uri;
+    }
+  }
+  return null;
 }

@@ -110,11 +110,11 @@ function _get_logement_block_content() {
       if ($tid) {
         $query = new EntityFieldQuery();
         $query->entityCondition('entity_type', 'node')
-            ->entityCondition('bundle', 'promotion')
-            ->fieldCondition('field_promotion_programme', 'target_id', $key)
-            ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-            ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-            ->range(0, 1);
+          ->entityCondition('bundle', 'promotion')
+          ->fieldCondition('field_promotion_programme', 'target_id', $key)
+          ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+          ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+          ->range(0, 1);
 
         $programme_promotion = $query->execute();
         if (isset($programme_promotion['node'])) {
@@ -122,28 +122,47 @@ function _get_logement_block_content() {
         }
 
         $listBien = db_query('select count(field_programme_target_id) as total, group_concat(program.entity_id) as bien_id, field_programme_target_id, field_nb_pieces_tid, title, name, field_programme_stock_value '
-            . 'from {field_data_field_prix_tva_20} prize '
-            . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-            . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-            . 'left join {field_data_field_programme_stock} stock on stock.entity_id = program.field_programme_target_id '
-            . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-            . 'inner join {node} n on n.nid=program.field_programme_target_id '
-            . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-            . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-            . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
+          . 'from {field_data_field_prix_tva_20} prize '
+          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+          . 'left join {field_data_field_programme_stock} stock on stock.entity_id = program.field_programme_target_id '
+          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+          . 'inner join {node} n on n.nid=program.field_programme_target_id '
+          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
+          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
 
         if ($listBien->rowCount() > 0) {
           $listBien = $listBien->fetchAll();
           foreach ($listBien as $program_list_biens) {
             $logement_block['total_bien'][$program_list_biens->name] = $program_list_biens->total;
 
+            // Images des types de Lots.
+            $img_num_piece = '';
+            if (preg_match_all('/(studio|2|3|4|5)/i', $program_list_biens->name, $matches)) {
+              if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
+                $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
+                $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
+                if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
+                  $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
+                }
+                else {
+                  $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
+                  $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
+                  $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+                }
+              }
+
+              $logement_block['programme_bien_images'][$program_list_biens->name] = $img_num_piece;
+            }
+
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'node')
-                ->entityCondition('bundle', 'promotion')
-                ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
-                ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-                ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-                ->range(0, 1);
+              ->entityCondition('bundle', 'promotion')
+              ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
+              ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+              ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+              ->range(0, 1);
 
             $bien_promotion = $query->execute();
 
@@ -157,14 +176,14 @@ function _get_logement_block_content() {
             $nb_pieces_id = $program_list_biens->field_nb_pieces_tid;
             // Get list the most expensive bien
             $listPriceMost = db_query_range('select program.entity_id, field_prix_tva_20_value, name, title '
-                . 'from {field_data_field_prix_tva_20 prize} '
-                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-                . 'inner join {node} n on n.nid=program.field_programme_target_id '
-                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-                . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+              . 'from {field_data_field_prix_tva_20 prize} '
+              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+              . 'inner join {node} n on n.nid=program.field_programme_target_id '
+              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
 
             $the_most_id = 0;
             // Show results
@@ -181,14 +200,14 @@ function _get_logement_block_content() {
             if ($total_bien_stock > 0) {
               // Sql get list the least expensive bien
               $listPriceLeast = db_query_range('select program.entity_id as entity_id, field_prix_tva_20_value, name, title '
-                  . 'from {field_data_field_prix_tva_20} prize '
-                  . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-                  . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-                  . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-                  . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-                  . 'inner join {node} n on n.nid=program.field_programme_target_id '
-                  . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-                  . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+                . 'from {field_data_field_prix_tva_20} prize '
+                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
+                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
 
 
               // Show results
@@ -205,15 +224,15 @@ function _get_logement_block_content() {
 
             if ($total_bien_stock > 0) {
               $listPriceRemain = db_query_range('select program.entity_id as entity_id, field_superficie_value, field_prix_tva_20_value, name, title '
-                  . 'from {field_data_field_prix_tva_20} prize '
-                  . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-                  . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-                  . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-                  . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-                  . 'inner join {node} n on n.nid=program.field_programme_target_id '
-                  . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
-                  . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
-                  . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
+                . 'from {field_data_field_prix_tva_20} prize '
+                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
+                . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
 
               if ($listPriceRemain->rowCount() > 0) {
                 $listPriceRemain = $listPriceRemain->fetchAll();
@@ -227,24 +246,23 @@ function _get_logement_block_content() {
         }
 
         $listMaxMinPrice = db_query('select max(field_prix_tva_20_value) as max, min(field_prix_tva_20_value) as min, '
-            . '(select field_facteur_value '
-            . 'from {field_data_field_facteur} fact '
-            . 'where fact.entity_id=tva.field_tva_tid) as tva, '
-            . 'field_programme_target_id, field_nb_pieces_tid, name, title '
-            . 'from field_data_field_prix_tva_20 prize '
-            . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-            . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-            . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-            . 'inner join {node} n on n.nid=program.field_programme_target_id '
-            . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-            . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
-            . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-            . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key));
+          . '(select field_facteur_value '
+          . 'from {field_data_field_facteur} fact '
+          . 'where fact.entity_id=tva.field_tva_tid) as tva, '
+          . 'field_programme_target_id, field_nb_pieces_tid, name, title '
+          . 'from field_data_field_prix_tva_20 prize '
+          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+          . 'inner join {node} n on n.nid=program.field_programme_target_id '
+          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+          . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
+          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
+          . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key));
 
         // Show results
         if ($listMaxMinPrice->rowCount() > 0) {
           $listMaxMinPrice = $listMaxMinPrice->fetchAll();
-
           foreach ($listMaxMinPrice as $program_prices) {
             $logement_block['price_min_tva20_bien'][$program_prices->name] = $program_prices->min;
             $tva = isset($program_prices->tva) ? $program_prices->tva : 0;
@@ -278,8 +296,7 @@ function document_block_form_submit($form, $form_state) {
       $addMore = '';
       if ($form_state['values']['B2B'] == $form_state['clicked_button']['#value']) {
         $addMore = '_B2B_';
-      }
-      elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
+      } elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
         $addMore = '_';
       }
 
@@ -341,7 +358,7 @@ function kandb_programme_node_presave($node) {
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
-  
+
   if ($node->type == 'programme' && $node->is_new != 1) {
     createFileArchireForProgramme($node);
   }
@@ -466,7 +483,7 @@ function _get_program_characteristic_content() {
       $programme_variables['prestations_sous_titre'] = isset($node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value']) ? $node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value'] : '';
       //Tab 1
       $programme_variables['slider_exterieur_titre'] = isset($node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_exterieur_image');
       if ($uri) {
         $programme_variables['slider_exterieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_exterieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -475,7 +492,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_exterieur_description'] = isset($node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 2
       $programme_variables['slider_interieur_titre'] = isset($node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_interieur_image');
       if ($uri) {
         $programme_variables['slider_interieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_interieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -484,7 +501,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_interieur_description'] = isset($node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 3
       $programme_variables['slider_securite_titre'] = isset($node->field_slider_securite_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_securite_image');
       if ($uri) {
         $programme_variables['slider_securite_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_securite_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -493,14 +510,14 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_securite_description'] = isset($node->field_slider_securite_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 4
       $programme_variables['slider_rt2012_titre'] = isset($node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_rt2012_image');
       if ($uri) {
         $programme_variables['slider_rt2012_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_rt2012_image_medium'] = image_style_url('program_characteristic_medium', $uri);
         $programme_variables['slider_rt2012_image_alt'] = $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['alt'];
       }
       $programme_variables['slider_rt2012_description'] = isset($node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value'] : '';
-      $content = theme('program_characteristic', array('programme_variables' => $programme_variables));
+      $content = theme('program_characteristic', array('programme_variables' => $programme_variables, 'node' => $node));
     }
   }
 

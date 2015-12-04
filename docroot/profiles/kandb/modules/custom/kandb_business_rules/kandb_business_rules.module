@@ -93,7 +93,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
 
     }
     elseif ($entity->feeds_item->id == FEED_ID_IMPORT_BIEN) {
-
+      $id_bien = isset($entity->field_id_bien[LANGUAGE_NONE][0]['value']) ? $entity->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
       $status_in_file = $item[FEED_COLUMN_STATUS];
 
       $entity_id = (isset($entity->nid)) ? $entity->nid : 0;
@@ -102,6 +102,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
         if (!($status_in_file === TAXONOMY_STATUS_LOGEMENT_L || $status_in_file === TAXONOMY_STATUS_LOGEMENT_R)) {
           $node_bien = node_load($entity_id);
           $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
+          kb_logging_business_rule($id_bien . ': B-101, B-102');
         }
       }
 
@@ -109,6 +110,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if (empty($entity_id)) {
         $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
         $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $status_invisible;
+        kb_logging_business_rule($id_bien . ': B-106');
       }
 
       // If node still not have status (not in rule bien), change character L or R to tax_id
@@ -131,6 +133,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
                   if($bien_price >= 0 && $tva) {
                     $bien_low_tva_price = $bien_price / 1.2 * ($tva + 1);
                     $entity->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = round($bien_low_tva_price,2);
+                    kb_logging_business_rule($id_bien . ': B-109');
                   }
                 }
               }
@@ -147,11 +150,11 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
-  // By pass apply rule in case apply habiteo API.
+  // By pass apply rule in case apply habiteo API. 
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
-  
+
   // No need apply BRs in case devel generate.
   if ($_GET['q'] == 'admin/config/development/generate/content' ||
     (isset($node->devel_generate) && !empty($node->devel_generate))
@@ -332,6 +335,8 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
       $reset_sleep = 0;
       foreach ($list_nodes_bien as $nid) {
         $node = node_load($nid);
+        $id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
+        $logging = '';
         if (isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
           $status_node = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
 
@@ -345,10 +350,12 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
             case $status_disponible:    // RULE BIEN 103.
               $flag = 1;
               $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $status_invisible;
+              $logging .= 'B-103';
               break;
             case $status_reserve:       // RULE BIEN 104.
               $flag = 1;
               $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $status_vendu;
+              $logging .= 'B-104';
               break;
             default:
               break;
@@ -359,6 +366,10 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
             // Delete all node option what it related to this bien.
             Kandb_Business_Rules::delete_node_option_related_bien($nid);
           }
+        }
+        if ($logging) {
+          $logging = $id_bien . ': ' . $logging;
+          kb_logging_business_rule ($logging);
         }
         $reset_sleep++;
         if ($reset_sleep == 200) {
@@ -379,18 +390,18 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
     Kandb_Business_Rules::recalculate_bien_to_programe();
 
     // RULE Programme 102.
-    Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme);
+    Kandb_Business_Rules::set_status_programme_hasno_bien($arr_update_programme, TRUE);
   }
 
   if ($importer_id === FEED_ID_IMPORT_BIEN || $importer_id === 'programme_feed_import') {
     // RULE COUNTING 106.
-    Kandb_Business_Rules::calculate_programe_price();
+    Kandb_Business_Rules::calculate_programe_price(array(), array(), TRUE);
 
     // RULE COUNTING 107.
-    Kandb_Business_Rules::find_room_bien_follow_programe();
+    Kandb_Business_Rules::find_room_bien_follow_programe(array(), TRUE);
 
     // RULE COUNTING 101.
-    Kandb_Business_Rules::get_total_bien_follow_programe();
+    Kandb_Business_Rules::get_total_bien_follow_programe(TRUE);
   }
 
   // Save all node program
@@ -415,6 +426,12 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
+  }
+  if($form_id == 'partenaire_node_form') {
+    $form['field_partenaire_programmes']['#access'] = FALSE;
+    if(isset($form['field_partenaire_export'][LANGUAGE_NONE]['#default_value']) && $form['field_partenaire_export'][LANGUAGE_NONE]['#default_value'] == 3) {
+      $form['field_partenaire_programmes']['#access'] = TRUE;
+    }
   }
 }
 
@@ -460,4 +477,38 @@ function bien_to_display($id_programme, $nb_piece = "all") {
 
   }
   return $results;
+}
+
+function kb_logging_business_rule ($message) {
+  $message = trim($message);
+  $uri = 'private://bussiness-rule-log/';
+  $file_log_name = 'bussiness_rule_log_' . date('Y-m-d_H_m_s', REQUEST_TIME) . '.txt';
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $file_log_name);
+    $data = '';
+    if (file_exists($path)) {
+      $data = file_get_contents($path);
+    }
+    if ($data) {
+      $old_logs = explode("\n", $data);
+      $current_id = substr($message, 0, strpos($message, ':') + 1);
+      $exist_id = FALSE;
+      foreach ($old_logs as &$log) {
+        if (strpos($log, $current_id) === 0) {
+          $log .= ',' . substr($message, strpos($message, ':') + 1);
+          $exist_id = TRUE;
+        }
+      }
+      if (!$exist_id) {
+        $old_logs[] = $message;
+      }
+      $data = implode("\n", $old_logs);
+    }
+    else {
+      $data = $message;
+    }
+    drupal_chmod($uri);
+    file_save_data($data, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+  }
 }

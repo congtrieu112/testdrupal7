@@ -462,6 +462,94 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_image_2_piece'
+  $field_bases['field_image_2_piece'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image_2_piece',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
+  // Exported field_base: 'field_image_3_piece'
+  $field_bases['field_image_3_piece'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image_3_piece',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
+  // Exported field_base: 'field_image_4_piece'
+  $field_bases['field_image_4_piece'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image_4_piece',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
+  // Exported field_base: 'field_image_5_piece'
+  $field_bases['field_image_5_piece'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image_5_piece',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
   // Exported field_base: 'field_image_principale'
   $field_bases['field_image_principale'] = array(
     'active' => 1,
@@ -479,6 +567,28 @@ function kandb_programme_field_default_field_bases() {
     'settings' => array(
       'default_image' => 0,
       'profile2_private' => FALSE,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => 0,
+    'type' => 'image',
+  );
+
+  // Exported field_base: 'field_image_studio'
+  $field_bases['field_image_studio'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_image_studio',
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'image',
+    'settings' => array(
+      'default_image' => 0,
       'uri_scheme' => 'public',
     ),
     'translatable' => 0,
@@ -1597,7 +1707,7 @@ function kandb_programme_field_default_field_bases() {
   // Exported field_base: 'field_slider_rt2012_bbc'
   $field_bases['field_slider_rt2012_bbc'] = array(
     'active' => 1,
-    'cardinality' => -1,
+    'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_slider_rt2012_bbc',
@@ -1658,7 +1768,12 @@ function kandb_programme_field_default_field_bases() {
       'allowed_values' => array(
         1 => 'A',
         2 => 'B',
-        3 => 'Void',
+        3 => 'C',
+        4 => 'D',
+        5 => 'E',
+        6 => 'F',
+        7 => 'G',
+        8 => 'Void',
       ),
       'allowed_values_function' => '',
     ),
