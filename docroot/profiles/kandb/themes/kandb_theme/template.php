@@ -313,11 +313,11 @@ function kandb_theme_preprocess_node(&$vars) {
      */
     //check all bien status
     $programme_id = $node->vid;
-    $vars['flag'] = 0;    
-    $status = 1;    
+    $vars['flag'] = 0;
+    $status = 1;
     if ($tid = get_tid_by_id_field($status)) {
       // Find out the list of biens which referenced to programme.
-      $biens_status = get_status_biens($programme_id, $tid);      
+      $biens_status = get_status_biens($programme_id, $tid);
       $vars['flag'] = ($biens_status) ? 1 : 0;
     }
 
@@ -400,6 +400,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['habiteo_key'] = variable_get('habiteo_widget_security_key');
     $vars['habiteo_video_de_quartier_url'] = variable_get('habiteo_video-de-quartier_url');
     $vars['habiteo_vue_generale_url'] = variable_get('habiteo_vue-generale_url');
+    $vars['habiteo_plan_3d_url'] = variable_get('habiteo_plan-3d_url');
     $vars['lat'] = isset($node->field_programme_loc_lat[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] : '';
     $vars['lon'] = isset($node->field_programme_loc_long[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_long[LANGUAGE_NONE][0]['value'] : '';
     $vars['video_id'] = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';

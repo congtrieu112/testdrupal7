@@ -121,7 +121,7 @@ function habiteo_page_settings_form($form, &$form_state) {
   $form['variable_habiteo_page']['habiteo_plan-3d_url'] = array(
     '#type' => 'textfield',
     '#title' => t('Habiteo plan 3d url'),
-    '#description' => t('example:  http://widgets.habiteo.com/vue-etages'),
+    '#description' => t('example:  http://widgets.habiteo.com/plan-3d'),
     '#default_value' => variable_get('habiteo_plan-3d_url', ''),
     '#size' => 60,
     '#maxlength' => 128,
