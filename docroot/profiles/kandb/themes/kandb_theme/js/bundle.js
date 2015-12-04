@@ -37257,12 +37257,6 @@ function AppAccordion( el, opt ) {
   this.mode = this.item.data('app-accordion');
   this.activeLink = this.item.find(activeLink);
 
-  this.display = "block";
-
-  if ( Foundation.utils.is_medium_up() ) {
-    this.display = "flex";
-  }
-
   this.preInit();
 }
 
@@ -37369,8 +37363,7 @@ AppAccordion.prototype = {
     $(link)
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
-        var $this = $(this),
-            windowPosition = $(window).scrollTop();
+        var $this = $(this);
 
         // allow tabulation for accessibility
         if ( e.keyCode !== 9 ) {
@@ -37391,12 +37384,13 @@ AppAccordion.prototype = {
             })
             .velocity('slideDown', {
               duration: 500,
-              display: that.display,
               progress: function(elements, complete, remaining, start, tweenValue) {
                 var linkPosition = $this.offset().top,
+                    windowPosition = $(window).scrollTop(),
                     moveTo = linkPosition - 100 - windowPosition,
                     value = windowPosition + complete * moveTo;
-                $(window).scrollTop( Number(value.toFixed(2)) );
+                    console.log(Math.round(value));
+                $(window).scrollTop( Math.round(value) );
               }
             });
 
@@ -37433,8 +37427,7 @@ AppAccordion.prototype = {
           'tab-index': "0"
         })
       .velocity('slideDown', {
-        duration: 500,
-        display: that.display
+        duration: 500
       });
 
     return this;
