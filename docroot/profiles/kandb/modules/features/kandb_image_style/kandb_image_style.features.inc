@@ -159,6 +159,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: program_image_num_piece.
+  $styles['program_image_num_piece'] = array(
+    'label' => 'Program image num piece',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 380,
+          'height' => 230,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: programme_teaser_3.
   $styles['programme_teaser_3'] = array(
     'label' => 'Programme Teaser 3 (440x440)',

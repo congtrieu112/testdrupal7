@@ -15,6 +15,7 @@ features[image][] = dossier_small_teaser
 features[image][] = dossier_small_teaser_mobile
 features[image][] = hp_search_block
 features[image][] = hp_search_block_mobile
+features[image][] = program_image_num_piece
 features[image][] = programme_teaser_3
 features[image][] = search_medium
 features[image][] = search_small

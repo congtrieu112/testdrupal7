@@ -121,14 +121,14 @@ function kandb_selection_page_footer_form() {
  * hook_form_validate()
  */
 function kandb_selection_page_footer_validate($form, &$form_state) {
-
+  
 }
 
 /**
  * hook_form_submit()
  */
 function kandb_selection_page_footer_submit($form, &$form_state) {
-
+  
 }
 
 /**
@@ -183,6 +183,10 @@ function kandb_images_default() {
       'id' => 'slider_bbc_logo',
       'title' => 'image par défault :  BBC logo',
     ),
+    array(
+      'id' => 'image_default_number_piece_',
+      'title' => 'image par défault :  Image',
+    ),
   );
 
   foreach ($list_images as $item) {
@@ -194,10 +198,55 @@ function kandb_images_default() {
     );
   }
 
-  $form['#field_uploads'] = $list_images;
+  // Get list term of number of pieces.
+  $terms_number_of_piece = taxonomy_get_tree(9);
+  foreach ($terms_number_of_piece as $term) {
+    $clean_name = clean_string($term->name);
+    $clean_name = explode('_', $clean_name);
+    if ($clean_name AND $clean_name = $clean_name[0]) {
+      $form['image_default_number_piece_' . $clean_name] = array(
+        '#type' => 'managed_file',
+        '#title' => 'Image par défault :' . $term->name,
+        '#default_value' => variable_get('image_default_number_piece_' . $clean_name),
+        '#upload_location' => 'public://',
+      );
+    }
+  }
 
+  $form['#field_uploads'] = $list_images;
   $form['#submit'][] = 'kandb_settings_form_update_status_managed_filed';
   return system_settings_form($form);
+}
+
+/**
+ * Return the clean string in case special character.
+ * 
+ * @param string $text
+ * @return string
+ */
+function clean_string($text) {
+  $text = str_replace(array(' ', '+'), array('_', ''), trim($text));
+  $utf8 = array(
+    '/[áàâãªä]/u' => 'a',
+    '/[ÁÀÂÃÄ]/u' => 'A',
+    '/[ÍÌÎÏ]/u' => 'I',
+    '/[íìîï]/u' => 'i',
+    '/[éèêë]/u' => 'e',
+    '/[ÉÈÊË]/u' => 'E',
+    '/[óòôõºö]/u' => 'o',
+    '/[ÓÒÔÕÖ]/u' => 'O',
+    '/[úùûü]/u' => 'u',
+    '/[ÚÙÛÜ]/u' => 'U',
+    '/ç/' => 'c',
+    '/Ç/' => 'C',
+    '/ñ/' => 'n',
+    '/Ñ/' => 'N',
+    '/–/' => '-', // UTF-8 hyphen to "normal" hyphen
+    '/[’‘‹›‚]/u' => ' ', // Literally a single quote
+    '/[“”«»„]/u' => ' ', // Double quote
+    '/ /' => ' ', // nonbreaking space (equiv. to 0x160)
+  );
+  return preg_replace(array_keys($utf8), array_values($utf8), $text);
 }
 
 /**
@@ -232,7 +281,8 @@ function managed_file_upload($fid_form, $fid_variable, $module_name, $type) {
     $file->status = FILE_STATUS_PERMANENT;
     file_save($file);
     file_usage_add($file, $module_name, $type, 1);
-  } elseif ($fid_form == 0) {
+  }
+  elseif ($fid_form == 0) {
     if ($fid_variable) {
       $delete_file = file_load($fid_variable);
       if ($delete_file) {

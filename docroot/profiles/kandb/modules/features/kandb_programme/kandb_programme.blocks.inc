@@ -137,6 +137,25 @@ function _get_logement_block_content() {
           foreach ($listBien as $program_list_biens) {
             $logement_block['total_bien'][$program_list_biens->name] = $program_list_biens->total;
 
+            // Images des types de Lots.
+            $img_num_piece = '';
+            if (preg_match_all('/(studio|2|3|4|5)/i', $program_list_biens->name, $matches)) {
+              if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
+                $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
+                $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
+                if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
+                  $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
+                }
+                else {
+                  $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
+                  $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
+                  $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+                }
+              }
+
+              $logement_block['programme_bien_images'][$program_list_biens->name] = $img_num_piece;
+            }
+
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'node')
               ->entityCondition('bundle', 'promotion')
@@ -244,7 +263,6 @@ function _get_logement_block_content() {
         // Show results
         if ($listMaxMinPrice->rowCount() > 0) {
           $listMaxMinPrice = $listMaxMinPrice->fetchAll();
-
           foreach ($listMaxMinPrice as $program_prices) {
             $logement_block['price_min_tva20_bien'][$program_prices->name] = $program_prices->min;
             $tva = isset($program_prices->tva) ? $program_prices->tva : 0;
