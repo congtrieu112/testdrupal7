@@ -296,8 +296,7 @@ function document_block_form_submit($form, $form_state) {
       $addMore = '';
       if ($form_state['values']['B2B'] == $form_state['clicked_button']['#value']) {
         $addMore = '_B2B_';
-      }
-      elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
+      } elseif ($form_state['values']['B2C'] == $form_state['clicked_button']['#value']) {
         $addMore = '_';
       }
 
@@ -484,7 +483,7 @@ function _get_program_characteristic_content() {
       $programme_variables['prestations_sous_titre'] = isset($node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value']) ? $node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value'] : '';
       //Tab 1
       $programme_variables['slider_exterieur_titre'] = isset($node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_exterieur_image');
       if ($uri) {
         $programme_variables['slider_exterieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_exterieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -493,7 +492,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_exterieur_description'] = isset($node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 2
       $programme_variables['slider_interieur_titre'] = isset($node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_interieur_image');
       if ($uri) {
         $programme_variables['slider_interieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_interieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -502,7 +501,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_interieur_description'] = isset($node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 3
       $programme_variables['slider_securite_titre'] = isset($node->field_slider_securite_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_securite_image');
       if ($uri) {
         $programme_variables['slider_securite_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_securite_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -511,7 +510,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_securite_description'] = isset($node->field_slider_securite_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 4
       $programme_variables['slider_rt2012_titre'] = isset($node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_rt2012_image');
       if ($uri) {
         $programme_variables['slider_rt2012_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_rt2012_image_medium'] = image_style_url('program_characteristic_medium', $uri);

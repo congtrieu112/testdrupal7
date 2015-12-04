@@ -305,3 +305,17 @@ function kandb_settings_form_update_status_managed_filed(&$form, &$form_state) {
     managed_file_upload($fid_form, $fid_variable, $module_name, 'image_default_' . $field['id']);
   }
 }
+
+/**
+ * Get value from varibale default image.
+ */
+function kandb_settings_get_uri_by_variable($name) {
+  $file_id = variable_get($name);
+  if ($file_id) {
+    $file = file_load($file_id);
+    if ($file && $file->uri) {
+      return $file->uri;
+    }
+  }
+  return null;
+}
