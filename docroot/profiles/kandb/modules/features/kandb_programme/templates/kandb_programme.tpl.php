@@ -22,7 +22,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
             endif;
             ?>
             <article data-reveal-id="programParcel<?php print $count; ?>"  class="programParcelItem">
-                <?php if ($logement_block['programme_bien_images'][$type]) : ?>
+                <?php if (isset($logement_block['programme_bien_images'][$type]) && $logement_block['programme_bien_images'][$type]) : ?>
                   <figure>
                     <!-- [Responsive img] start-->
                     <img alt="<?php print $type; ?>" data-interchange="[<?php print $logement_block['programme_bien_images'][$type]; ?>, (small)], [<?php print $logement_block['programme_bien_images'][$type]; ?>, (large)]"/>
