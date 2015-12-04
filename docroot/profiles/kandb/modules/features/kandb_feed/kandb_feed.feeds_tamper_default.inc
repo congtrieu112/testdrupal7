@@ -578,6 +578,266 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-envoiavantpremier-find_replace_avant_non';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'EnvoiAvantPremier';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Non',
+    'replace' => '0',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Non$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-envoiavantpremier-find_replace_avant_non'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-envoiavantpremier-find_replace_avant_qui';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'EnvoiAvantPremier';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Oui',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Oui$/ui',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-envoiavantpremier-find_replace_avant_qui'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-grandeperspective-find_replace_perspect_non';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'GrandePerspective';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Non',
+    'replace' => '0',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Non$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-grandeperspective-find_replace_perspect_non'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-grandeperspective-find_replace_perspect_qui';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'GrandePerspective';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Oui',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Oui$/ui',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-grandeperspective-find_replace_perspect_qui'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-lotplan-find_replace_plan_non';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'LotPlan';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Non',
+    'replace' => '0',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Non$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-lotplan-find_replace_plan_non'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-lotplan-find_replace_plan_qui';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'LotPlan';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Oui',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Oui$/ui',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-lotplan-find_replace_plan_qui'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-transferactif-find_replace_actif_non';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TransferActif';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Non',
+    'replace' => '0',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Non$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-transferactif-find_replace_actif_non'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-transferactif-find_replace_actif_qui';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TransferActif';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Oui',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Oui$/ui',
+  );
+  $feeds_tamper->weight = 2;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-transferactif-find_replace_actif_qui'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typedeflux-find_replace_flux_ancien';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeDeFlux';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Ancien',
+    'replace' => '0',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Ancien$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typedeflux-find_replace_flux_ancien'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typedeflux-find_replace_flux_nouveau';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeDeFlux';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Nouveau',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Nouveau$/ui',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typedeflux-find_replace_flux_nouveau'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace_de_prog';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeExport';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Sélection de programmes',
+    'replace' => '3',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Sélection de programmes$/ui',
+  );
+  $feeds_tamper->weight = 2;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typeexport-find_replace_de_prog'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace_prog_grand';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeExport';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Tous les programmes Grand public',
+    'replace' => '1',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Tous les programmes Grand public$/ui',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typeexport-find_replace_prog_grand'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace_prog_prescript';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeExport';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Tous les programmes Prescripteurs',
+    'replace' => '2',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Tous les programmes Prescripteurs$/ui',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typeexport-find_replace_prog_prescript'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'programme_feed_import-14-search_term_by_field';
   $feeds_tamper->importer = 'programme_feed_import';
   $feeds_tamper->source = '14';

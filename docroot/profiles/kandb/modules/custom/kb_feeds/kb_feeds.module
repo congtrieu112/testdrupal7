@@ -345,6 +345,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           'number_warning' => array(
             7 => 'field_programme_loc_num',
             13 => 'field_annee',
+            18 => 'field_programme_loc_long',
+            19 => 'field_programme_loc_lat',
+            58 => 'field_espace_vente_longitude',
+            59 => 'field_espace_vente_latitude',
           ),
           'text_box' => array(
             0 => 'field_id_programme',
@@ -388,6 +392,28 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             } else {
               $logging .= $item[0] . '|field_id_type_voie|field_id_type_voie:' . $item[8] . '|' . 'Term id type voie not mapping' . '|' . 'Warning' . "\n";
             }
+          }
+
+          //Recaculated field_programme_loc_long, field_programme_loc_lat,
+          //field_espace_vente_longitude, field_espace_vente_latitude (dividing by 1.000.000)
+          if(isset($entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'])) {
+            $loc_long = (int) $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = ($loc_long != 0) ? $loc_long / 1000000 : '';
+          }
+
+          if(isset($entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'])) {
+            $loc_lat = (int) $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = ($loc_lat != 0) ? $loc_lat / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_longitude = (int) $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = ($vente_longitude != 0) ? $vente_longitude / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
           }
         }
       }
@@ -627,6 +653,29 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
                 break;
             }
           }
+
+          //Recaculated field_programme_loc_long, field_programme_loc_lat,
+          //field_espace_vente_longitude, field_espace_vente_latitude (dividing by 1.000.000)
+          if(isset($entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'])) {
+            $loc_long = (int) $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'];
+
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = ($loc_long != 0) ? $loc_long / 1000000 : '';
+          }
+
+          if(isset($entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'])) {
+            $loc_lat = (int) $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = ($loc_lat != 0) ? $loc_lat / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_longitude = (int) $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = ($vente_longitude != 0) ? $vente_longitude / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'city_feed_import') {
@@ -665,6 +714,52 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           ),
         );
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantlogement');
+      }
+    }
+    elseif($entity->feeds_item->id == 'partenaire_import') {
+      $validates = array(
+        'check_box_warning' => array(
+          'transferactif' => 'field_partenaire_actif',
+          'typedeflux' => 'field_partenaire_nouveau',
+          'lotplan' => 'field_partenaire_plan',
+          'envoiavantpremier' => 'field_partenaire_avant_premiere',
+          'grandeperspective' => 'field_partenaire_grande_perspect',
+        ),
+        'custom_partenaire_export_options' => array(
+          'typeexport' => 'field_partenaire_export'
+        )
+      );
+
+      $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantpartenaire');
+      $arr_parten_fields = array(
+        'transferactif' => 'field_partenaire_actif',
+        'typedeflux' => 'field_partenaire_nouveau',
+        'lotplan' => 'field_partenaire_plan',
+        'envoiavantpremier' => 'field_partenaire_avant_premiere',
+        'grandeperspective' => 'field_partenaire_grande_perspect',
+        'typeexport' => 'field_partenaire_export',
+      );
+
+      foreach($arr_parten_fields as $key => $field) {
+
+        if(isset($item[$key]) && $item[$key] == "") {
+          $partenaire = &$entity->$field;
+          $partenaire[LANGUAGE_NONE][0]['value'] = -1;
+          continue;
+        }
+
+        if(isset($item[$key])) {
+          $partenaire = &$entity->$field;
+          if($key == 'typeexport'){
+            if(!in_array($item[$key], array(1,2,3))) {
+              $partenaire[LANGUAGE_NONE][0]['value'] = -1;
+            }
+          } else {
+            if(!in_array($item[$key], array('Oui' , 'Non', 'Nouveau', 'Ancien', '0', '1'))) {
+              $partenaire[LANGUAGE_NONE][0]['value'] = -1;
+            }
+          }
+        }
       }
     }
   }
@@ -942,6 +1037,15 @@ function kb_feeds_menu() {
     'title' => 'Import bien pdf',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'import_bien_pdf'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/partenaire'] = array(
+    'title' => 'Partenaire import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'partenaire_import'),
     'access arguments' => array('administer content types'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',
@@ -1235,6 +1339,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $error_text_box_field = '';
   $error_custom_trimestre_options_field = '';
   $error_datetime_programe_field = '';
+  $error_custom_partenaire_export_options_field = '';
 
   $error_log_field_warning = '';
   $error_term_field_warning = '';
@@ -1252,6 +1357,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $value_custom_trimestre_options_field = '';
   $value_datetime_programe_field = '';
   $value_custom_echelle_options_field = '';
+  $value_custom_partenaire_export_options_field = '';
 
   foreach ($validates as $type => $fields) {
     switch ($type) {
@@ -1404,6 +1510,24 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
         break;
 
+      case 'custom_partenaire_export_options':
+        foreach ($fields as $key => $field_name) {
+          if(isset($item[$key]) && trim($item[$key])) {
+            if(!in_array((int)$item[$key], array(1,2,3))) {
+              if($type == 'custom_partenaire_export_options') {
+                $error_custom_partenaire_export_options_field .= $field_name . ',';
+                $value_custom_partenaire_export_options_field .= $field_name . ': ' . $item[$key] . ', ';
+              }
+            }
+          } else {
+            if($type == 'custom_partenaire_export_options') {
+              $error_custom_partenaire_export_options_field .= $field_name . ',';
+              $value_custom_partenaire_export_options_field .= $field_name . ': ' . $item[$key] . ', ';
+            }
+          }
+        }
+
+        break;
       case 'custom_echelle_options_warning':
         foreach ($fields as $key => $field_name) {
           if(isset($item[$key]) && trim($item[$key])) {
@@ -1464,6 +1588,10 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
   if ($error_custom_trimestre_options_field) {
     $logging .= $error_log . rtrim($error_custom_trimestre_options_field, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Skip import' . "\n";
+  }
+
+  if ($error_custom_partenaire_export_options_field) {
+    $logging .= $error_log . rtrim($error_custom_partenaire_export_options_field, ',') .  '|' . rtrim($value_custom_partenaire_export_options_field, ',') . '|' . 'Partenaire export must is TouslesprogrammesGrandpublic or TouslesprogrammesPrescripteurs or Sélectiondeprogrammes' . '|' . 'Warning' . "\n";
   }
 
   if ($error_datetime_programe_field) {
@@ -1596,6 +1724,7 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   if($config_en == 0 && $config_feeds == 0 && $config_doc == 0) {
     $total_rows_fileimport -= 1;
   }
+
   $imported = $created + $updated;
   if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
     $logging = '/**' . "\n";

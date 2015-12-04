@@ -69,6 +69,7 @@ class EncodingCSVParser extends ParserCSV {
     $this->lastLinePos = 0;
     $maxTime = empty($this->timeout) ? FALSE : (microtime() + $this->timeout);
     $linesParsed = 0;
+    $mylinesParsed = 0;
     $logging = '';
     $concat_string = '';
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
@@ -209,8 +210,17 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
-        $rows[] = $row;
+      if($this->id == 'partenaire_import') {
+        $arr = array_filter($row);
+        if(count($arr) > 0) {
+          $mylinesParsed++;
+          $rows[] = $row;
+        }
+      } else {
+        if (!(isset($row['identifiantprogramme']) && $row['identifiantprogramme'] == 0)) {
+          $mylinesParsed++;
+          $rows[] = $row;
+        }
       }
 
       if (!empty($maxTime) && microtime() > $maxTime) {
@@ -226,10 +236,10 @@ class EncodingCSVParser extends ParserCSV {
     }
 
     $total = variable_get($this->id . '_total', 0);
-    if($linesParsed > 0) {
-      variable_set($this->id . '_total', $linesParsed + $total);
+    if($mylinesParsed > 0) {
+      variable_set($this->id . '_total', $mylinesParsed + $total);
     }
-    
+
     return $rows;
   }
 }
