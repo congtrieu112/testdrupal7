@@ -29,7 +29,6 @@
                                 endif;
                             ?>
                           </div>
-                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ? print $programme_loc_arr_id : '') ?></div>
                         <?php endif; ?>
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
