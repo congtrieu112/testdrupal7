@@ -25,6 +25,15 @@ function kb_import_menu() {
     'title' => 'Configure ftp to get files',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  $items['admin/config/kb-import/reset-status'] = array(
+    'title' => 'Reset variable status',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('reset_status_page'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_import.admin.inc',
+  );
   $items['migration'] = array(
     'title' => 'Migration import',
     'description' => 'Run migration import',
