@@ -345,10 +345,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           'number_warning' => array(
             7 => 'field_programme_loc_num',
             13 => 'field_annee',
-            18 => 'field_programme_loc_long',
-            19 => 'field_programme_loc_lat',
-            58 => 'field_espace_vente_longitude',
-            59 => 'field_espace_vente_latitude',
+            //18 => 'field_programme_loc_long',
+            //19 => 'field_programme_loc_lat',
+            //58 => 'field_espace_vente_longitude',
+            //59 => 'field_espace_vente_latitude',
           ),
           'text_box' => array(
             0 => 'field_id_programme',
@@ -392,28 +392,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             } else {
               $logging .= $item[0] . '|field_id_type_voie|field_id_type_voie:' . $item[8] . '|' . 'Term id type voie not mapping' . '|' . 'Warning' . "\n";
             }
-          }
-
-          //Recaculated field_programme_loc_long, field_programme_loc_lat,
-          //field_espace_vente_longitude, field_espace_vente_latitude (dividing by 1.000.000)
-          if(isset($entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'])) {
-            $loc_long = (int) $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'];
-            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = ($loc_long != 0) ? $loc_long / 1000000 : '';
-          }
-
-          if(isset($entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'])) {
-            $loc_lat = (int) $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'];
-            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = ($loc_lat != 0) ? $loc_lat / 1000000 : '';
-          }
-
-          if(isset($entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'])) {
-            $vente_longitude = (int) $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'];
-            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = ($vente_longitude != 0) ? $vente_longitude / 1000000 : '';
-          }
-
-          if(isset($entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'])) {
-            $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
-            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
           }
         }
       }

@@ -54,7 +54,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                 <li><a href="#slide2" data-slick-links="data-slick-links" role="tab" aria-controls="slide2" aria-selected="false"><?php print t('Sécurité'); ?></a></li>
               <?php endif; ?>
               <?php if ($slide3) : ?>
-                <?php if ($echelle_value != 'Void' && $echelle_value): ?>
+                <?php if ($echelle_value != 'Void' && $echelle_value && $tab_title): ?>
                   <li><a href="#slide3" data-slick-links="data-slick-links" role="tab" aria-controls="slide03" aria-selected="false"><?php print $tab_title; ?></a></li>
                 <?php endif; ?>
               <?php endif; ?>
@@ -180,7 +180,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                 </li>
               <?php endif; ?>
               <?php if ($slide3) : ?>
-                <?php if ($echelle_value != 'Void' && $echelle_value): ?>
+                <?php if ($echelle_value != 'Void' && $echelle_value && $tab_title): ?>
                   <li id="slide3">
                       <!-- mobile accordion trigger--><a href="#slide3" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print $tab_title; ?><span class="display-status"></span></a>
                       <!-- [programCharacteristicsItem] start-->
