@@ -134,6 +134,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
     $this->lastLinePos = 0;
     $maxTime = empty($this->timeout) ? FALSE : (microtime() + $this->timeout);
     $linesParsed = 0;
+    $mylinesParsed = 0;
     $log_text = '';
     $is_log = FALSE;
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
@@ -328,6 +329,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
           $log_text .= $line;
       }
       if(!(isset($row['identifiantcommunique']) && $row['identifiantcommunique'] == 0)){
+        $mylinesParsed++;
         $rows[] = $row;
       }
 
@@ -346,8 +348,8 @@ class DocCommuniqueCSVParser extends ParserCSV{
     }
 
     $total = variable_get($this->id . '_total', 0);
-    if($linesParsed > 0) {
-      variable_set($this->id . '_total', $linesParsed + $total);
+    if($mylinesParsed > 0) {
+      variable_set($this->id . '_total', $mylinesParsed + $total);
     }
 
     return $rows;
