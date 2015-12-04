@@ -19,7 +19,7 @@
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
                         <?php if ($program_loc_ville) : ?>
-                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ?  print $programme_loc_arr_id : '') ?></div>
+                          <div class="heading__title"><?php print $program_loc_ville; ?> <?php (($programme_loc_arr_id) ? print $programme_loc_arr_id : '') ?></div>
                         <?php endif; ?>
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
@@ -110,15 +110,23 @@
                 <?php if ($caracteristiques) : ?>
                   <ul class="characteristicList">
                       <?php
-                      foreach ($caracteristiques as $caracteristique) {
-                        if (isset($caracteristique['tid'])) {
+                      foreach ($caracteristiques as $caracteristique) :
+                        if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
-                          if ($carac_term) {
+                          if ($carac_term):
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span></li>';
-                          }
-                        }
-                      }
+                            ?>
+                            <li class="characteristicList__item">
+                                <span class="icon <?php print $picto_css_class; ?>"></span>
+                                <span class="text"><?php print $carac_term->name; ?> </span>
+                                <?php if ($carac_term->description): ?>
+                                  <span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="<?php print $carac_term->description; ?>">?</span>
+                                <?php endif; ?>
+                            </li>
+                            <?php
+                          endif;
+                        endif;
+                      endforeach;
                       ?>
                   </ul>
                 <?php endif; ?>
@@ -171,8 +179,8 @@
 <section class="section-padding">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value'])?$field_quartier_titre[0]['value']:''; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -228,7 +236,7 @@
         <div class="swapItem__1">
             <div class="wrapper">
                 <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value'])?$field_quartier_video_titre[0]['value']:''; ?></h3>
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
                 </div>
             </div>
         </div>
@@ -236,7 +244,7 @@
         <div class="swapItem__3">
             <div class="wrapper">
                 <div class="content-centered">
-                    <p><?php print isset($field_quartier_video_desc[0]['value'])?$field_quartier_video_desc[0]['value']:''; ?></p>
+                    <p><?php print isset($field_quartier_video_desc[0]['value']) ? $field_quartier_video_desc[0]['value'] : ''; ?></p>
                 </div>
             </div>
         </div>
@@ -347,11 +355,11 @@ if (!empty($list_document)):
                   </ul>
               </div>
               <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                <div class="btn-wrapper btn-wrapper--center show-for-small-only">
-                  <button <?php print (isset($link_to_zip) AND !empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
-                    <?php print t('Tout télécharger (.zip)'); ?>
-                  </button>
-                </div>
+                  <div class="btn-wrapper btn-wrapper--center show-for-small-only">
+                      <button <?php print (isset($link_to_zip) AND ! empty($link_to_zip)) ? 'onclick="window.location.href=\'' . $link_to_zip . '\'"' : $nocontent; ?> class="btn-primary btn-rounded btn-download">
+                          <?php print t('Tout télécharger (.zip)'); ?>
+                      </button>
+                  </div>
               </div>
               <!-- [popin] start-->
               <div id="downloadInformationForm" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
