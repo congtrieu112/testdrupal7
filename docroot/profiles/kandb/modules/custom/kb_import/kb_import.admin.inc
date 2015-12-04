@@ -137,8 +137,10 @@ function reset_status_page () {
 function reset_status_page_submit ($form, &$form_state) {
   if (isset($values['reset_migration']) && $values['reset_migration'] == 1) {
     set_migration_status(migration_status_default());
+    drupal_set_message('Migration status was reset');
   }
   if (isset($values['reset_daily_import']) && $values['reset_daily_import'] == 1) {
     set_daily_import_status(daily_import_status_default());
+    drupal_set_message('Daily import status was reset');
   }
 }
