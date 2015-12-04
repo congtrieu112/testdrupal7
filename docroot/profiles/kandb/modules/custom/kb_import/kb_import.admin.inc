@@ -116,3 +116,31 @@ function migration_impor_admin_form() {
 function migration_impor_admin_form_submit($form, &$form_state) {
   kb_start_migration_import($form['getting_file']['#value']);
 }
+
+function reset_status_page () {
+  $form = array();
+  $form['reset_migration'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Reset migration status'),
+  );
+  $form['reset_daily_import'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Reset daily import status'),
+  );
+  $form['actions']['submit'] = array(
+    '#type' => 'submit',
+    '#value' => t('Reset'),
+  );
+  return $form;
+}
+
+function reset_status_page_submit ($form, &$form_state) {
+  if (isset($form_state['values']['reset_migration']) && $form_state['values']['reset_migration'] == 1) {
+    set_migration_status(migration_status_default());
+    drupal_set_message('Migration status was reset');
+  }
+  if (isset($form_state['values']['reset_daily_import']) && $form_state['values']['reset_daily_import'] == 1) {
+    set_daily_import_status(daily_import_status_default());
+    drupal_set_message('Daily import status was reset');
+  }
+}
