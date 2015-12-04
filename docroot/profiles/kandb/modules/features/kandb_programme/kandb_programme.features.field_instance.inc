@@ -1657,47 +1657,30 @@ function kandb_programme_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_espace_vente_tel2',
-    'label' => 'Téléphone du conseiller',
+    'label' => 'Téléphone du conseiller 2',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'filtered_html' => 'filtered_html',
           'full_html' => 'full_html',
           'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
+          'simple' => 0,
         ),
         'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
-            'ds_code' => array(
-              'weight' => 12,
-            ),
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
             'full_html' => array(
               'weight' => -9,
             ),
             'plain_text' => array(
               'weight' => -8,
             ),
-            'raw_html' => array(
-              'weight' => -6,
-            ),
-            'userbase' => array(
-              'weight' => -7,
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -8453,6 +8436,7 @@ function kandb_programme_field_default_field_instances() {
   t('Type de programme');
   t('Type de voie');
   t('Téléphone du conseiller');
+  t('Téléphone du conseiller 2');
   t('Video');
   t('Ville');
   t('Visuel grande taille');
