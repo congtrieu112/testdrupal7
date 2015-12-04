@@ -38960,6 +38960,34 @@ App.updaters.foundation = function() {
   App.reveal();
 };
 },{}],23:[function(require,module,exports){
+/* ============================= */
+/* scroll to block : app-scroll-to.js */
+/* ============================= */
+
+'use strict';
+
+var headerHeight = $('.header').height();
+
+$(function() {
+  $('a[href*=#]:not([href=#])').on('click.scroll-to', function() {
+    if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
+
+      var target = $(this.hash);
+      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+
+      if (target.length && !Modernizr.touch) {
+
+        target.velocity('scroll', {
+          duration: 1000,
+          offset: - headerHeight
+        });
+        return false;
+      }
+    }
+  });
+});
+
+},{}],24:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39009,7 +39037,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39054,7 +39082,7 @@ App.appComboSelect = function() {
 };
 
 App.appComboSelect();
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39240,7 +39268,7 @@ $.fn.appSlick = function(opt) {
 
 $(trigger).appSlick();
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39874,7 +39902,7 @@ $(trigger).appSlick();
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],27:[function(require,module,exports){
+},{"jquery":5}],28:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -39955,6 +39983,7 @@ var appSearchFormular   = require("./app-searchFormular.js");
 var appLink2map         = require("./app-link2map.js");
 var appIframes          = require("./app-iframes.js");
 var appCookies          = require("./app-cookies.js");
+var appScrollTo         = require("./app-scroll-to.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -39971,4 +40000,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-searchFormular.js":23,"./app-select.js":24,"./app-slick.js":25,"./combo-select.js":26,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[27]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-scroll-to.js":23,"./app-searchFormular.js":24,"./app-select.js":25,"./app-slick.js":26,"./combo-select.js":27,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[28]);
