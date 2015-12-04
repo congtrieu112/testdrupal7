@@ -280,7 +280,7 @@ class Kandb_Business_Rules {
    * @todo To calculate min price and max price for programe
    * RULE COUNTING 106
    */
-  public static function calculate_programe_price($list_programe = array(), $current_bien = array()) {
+  public static function calculate_programe_price($list_programe = array(), $current_bien = array(), $must_logging = FALSE) {
     if (empty($list_programe)) {
       $list_programe = self::get_list_program_contain_bien();
     }
@@ -329,6 +329,9 @@ class Kandb_Business_Rules {
 
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
+      if ($must_logging) {
+        kb_logging_business_rule($item->nid . ': C-106');
+      } 
     }
   }
 
@@ -373,7 +376,7 @@ class Kandb_Business_Rules {
    * RULE COUNTING 107
    * @return type
    */
-  public static function find_room_bien_follow_programe($list_programe = array()) {
+  public static function find_room_bien_follow_programe($list_programe = array(), $must_logging = FALSE) {
     if (empty($list_programe)) {
       $list_programe = self::get_list_program_contain_bien();
     }
@@ -394,6 +397,9 @@ class Kandb_Business_Rules {
 
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
+      if ($must_logging) {
+        kb_logging_business_rule($item->nid . ': C-107');
+      }
     }
   }
 
@@ -401,7 +407,7 @@ class Kandb_Business_Rules {
    * @todo To calculate total bien follow programe
    * RULE COUNTING 101.
    */
-  public static function get_total_bien_follow_programe() {
+  public static function get_total_bien_follow_programe($must_logging = FALSE) {
     $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
     $list_programe = self::get_list_program_contain_bien();
 
@@ -426,6 +432,9 @@ class Kandb_Business_Rules {
 
         self::$_list_progam_to_save [$item->nid] = $node_programe;
         //node_save($node_programe);
+        if ($must_logging) {
+          kb_logging_business_rule($item->nid . ': C-101');
+        }
       }
     }
   }
@@ -453,7 +462,7 @@ class Kandb_Business_Rules {
    * @todo To search all progamme and set status is false If it does not have bien available
    * @param type $list_programe
    */
-  public static function set_status_programme_hasno_bien($list_programe = array()){
+  public static function set_status_programme_hasno_bien($list_programe = array(), $must_logging = FALSE){
     if (empty($list_programe)) {
       $list_programe = self::get_list_program_contain_bien();
     }
@@ -470,6 +479,9 @@ class Kandb_Business_Rules {
       if($count_biens_available == 0){
         $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 0;
         self::$_list_progam_to_save [$item->nid] = $node_programe;
+        if ($must_logging) {
+          kb_logging_business_rule($item->nid . ': P-102');
+        }
       }
     }
   }
