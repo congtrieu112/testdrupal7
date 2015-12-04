@@ -33,6 +33,7 @@ endif;
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone">
                           <span><?php print $array_info['espace_vente_tel'] ?></span>
                       </a>
+                     <br><br>
                     <?php endif; ?>
                     <?php if (isset($array_info['espace_vente_tel2']) && $array_info['espace_vente_tel2']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel2']); ?>" class="contactUs__informations__phone">

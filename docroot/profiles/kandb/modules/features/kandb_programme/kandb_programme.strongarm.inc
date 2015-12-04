@@ -89,7 +89,7 @@ function kandb_programme_strongarm() {
           'weight' => '1',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '16',
         ),
       ),
       'display' => array(

@@ -1657,47 +1657,30 @@ function kandb_programme_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_espace_vente_tel2',
-    'label' => 'Téléphone du conseiller',
+    'label' => 'Téléphone du conseiller 2',
     'required' => 0,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'ds_code' => 'ds_code',
-          'filtered_html' => 'filtered_html',
           'full_html' => 'full_html',
           'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
+          'simple' => 0,
         ),
         'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
-            'ds_code' => array(
-              'weight' => 12,
-            ),
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
             'full_html' => array(
               'weight' => -9,
             ),
             'plain_text' => array(
               'weight' => -8,
             ),
-            'raw_html' => array(
-              'weight' => -6,
-            ),
-            'userbase' => array(
-              'weight' => -7,
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
@@ -1965,6 +1948,326 @@ function kandb_programme_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-programme-field_image_2_piece'
+  $field_instances['node-programme-field_image_2_piece'] = array(
+    'bundle' => 'programme',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 97,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_on_bien' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_2_piece',
+    'label' => 'Image 2 pièces',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 69,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_image_3_piece'
+  $field_instances['node-programme-field_image_3_piece'] = array(
+    'bundle' => 'programme',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 98,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_on_bien' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_3_piece',
+    'label' => 'Image 3 pièces',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 70,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_image_4_piece'
+  $field_instances['node-programme-field_image_4_piece'] = array(
+    'bundle' => 'programme',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 99,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_on_bien' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_4_piece',
+    'label' => 'Image 4 pièces',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 71,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_image_5_piece'
+  $field_instances['node-programme-field_image_5_piece'] = array(
+    'bundle' => 'programme',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 100,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_on_bien' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_5_piece',
+    'label' => 'Image 5 pièces',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 72,
+    ),
+  );
+
   // Exported field_instance: 'node-programme-field_image_principale'
   $field_instances['node-programme-field_image_principale'] = array(
     'bundle' => 'programme',
@@ -2064,6 +2367,86 @@ function kandb_programme_field_default_field_instances() {
       ),
       'type' => 'image_image',
       'weight' => 12,
+    ),
+  );
+
+  // Exported field_instance: 'node-programme-field_image_studio'
+  $field_instances['node-programme-field_image_studio'] = array(
+    'bundle' => 'programme',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'image',
+        'settings' => array(
+          'image_link' => '',
+          'image_style' => '',
+        ),
+        'type' => 'image',
+        'weight' => 96,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_on_bien' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_image_studio',
+    'label' => 'Image Studio',
+    'required' => 0,
+    'settings' => array(
+      'alt_field' => 1,
+      'default_image' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'png gif jpg jpeg',
+      'max_filesize' => '',
+      'max_resolution' => '',
+      'min_resolution' => '',
+      'title_field' => 1,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'image',
+      'settings' => array(
+        'preview_image_style' => 'thumbnail',
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'image_image',
+      'weight' => 68,
     ),
   );
 
@@ -5012,7 +5395,7 @@ function kandb_programme_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 11,
+      'weight' => 10,
     ),
   );
 
@@ -7011,7 +7394,11 @@ function kandb_programme_field_default_field_instances() {
   // Exported field_instance: 'node-programme-field_slider_rt2012_echelle'
   $field_instances['node-programme-field_slider_rt2012_echelle'] = array(
     'bundle' => 'programme',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 8,
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -8002,7 +8389,12 @@ function kandb_programme_field_default_field_instances() {
   t('Horaire de l\'espace de vente');
   t('ID du programme');
   t('Image');
+  t('Image 2 pièces');
+  t('Image 3 pièces');
+  t('Image 4 pièces');
+  t('Image 5 pièces');
   t('Image Principale');
+  t('Image Studio');
   t('Kit fiscal');
   t('Latitude');
   t('Lettre de banque');
@@ -8044,6 +8436,7 @@ function kandb_programme_field_default_field_instances() {
   t('Type de programme');
   t('Type de voie');
   t('Téléphone du conseiller');
+  t('Téléphone du conseiller 2');
   t('Video');
   t('Ville');
   t('Visuel grande taille');

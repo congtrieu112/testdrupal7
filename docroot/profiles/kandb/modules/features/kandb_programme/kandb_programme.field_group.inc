@@ -21,19 +21,17 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contact',
-    'weight' => '10',
+    'weight' => '9',
     'children' => array(
       0 => 'field_espace_vente_adresse',
-      1 => 'field_espace_vente_dpt',
-      2 => 'field_espace_vente_email',
-      3 => 'field_espace_vente_horaire',
-      4 => 'field_espace_vente_latitude',
-      5 => 'field_espace_vente_longitude',
-      6 => 'field_espace_vente_tel',
-      7 => 'field_espace_vente_tel2',
-      8 => 'field_espace_vente_ville',
-      9 => 'field_nom_conseiller',
-      10 => 'field_photo_conseiller',
+      1 => 'field_espace_vente_email',
+      2 => 'field_espace_vente_horaire',
+      3 => 'field_espace_vente_latitude',
+      4 => 'field_espace_vente_longitude',
+      5 => 'field_espace_vente_tel',
+      6 => 'field_espace_vente_tel2',
+      7 => 'field_nom_conseiller',
+      8 => 'field_photo_conseiller',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -58,7 +56,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Description et options',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
       0 => 'field_caracteristique_chauffage',
       1 => 'field_caracteristique_etages',
@@ -90,7 +88,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Documents',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_autre_documents',
       1 => 'field_bail_commercial',
@@ -130,7 +128,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Localisation',
-    'weight' => '12',
+    'weight' => '11',
     'children' => array(
       0 => 'field_programme_loc_arr',
       1 => 'field_programme_loc_cp',
@@ -315,7 +313,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Prestations',
-    'weight' => '8',
+    'weight' => '7',
     'children' => array(
       0 => 'field_prestations_plan_masse_3d',
       1 => 'field_prestations_sous_titre',
@@ -337,6 +335,37 @@ function kandb_programme_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_programme_bien_images|node|programme|form';
+  $field_group->group_name = 'group_programme_bien_images';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'programme';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Images des types de Lots',
+    'weight' => '13',
+    'children' => array(
+      0 => 'field_image_studio',
+      1 => 'field_image_2_piece',
+      2 => 'field_image_3_piece',
+      3 => 'field_image_4_piece',
+      4 => 'field_image_5_piece',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'formatter' => 'collapsible',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-programme-bien-images field-group-fieldset',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_programme_bien_images|node|programme|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_programme_hide|node|programme|form';
   $field_group->group_name = 'group_programme_hide';
   $field_group->entity_type = 'node';
@@ -345,7 +374,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Données cachées',
-    'weight' => '13',
+    'weight' => '12',
     'children' => array(
       0 => 'field_marque_comm',
       1 => 'field_program_low_tva_price_max',
@@ -389,7 +418,7 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Quartier',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_quartier_sous_titre',
       1 => 'field_quartier_titre',
@@ -420,13 +449,13 @@ function kandb_programme_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Résumé du programme',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_annee',
-      1 => 'field_image_principale',
-      2 => 'field_trimestre',
-      3 => 'field_tva',
-      4 => 'field_affichage_double_grille',
+      0 => 'field_affichage_double_grille',
+      1 => 'field_annee',
+      2 => 'field_image_principale',
+      3 => 'field_trimestre',
+      4 => 'field_tva',
       5 => 'title',
     ),
     'format_type' => 'fieldset',
