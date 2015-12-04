@@ -60,7 +60,7 @@ $current_promotion_indice = 1;
         <li class="results__item">
           <!-- [searchResultsItem programmes] start-->
             <article data-gmaps-marker="{&quot;lat&quot;:<?php print $row_result['field_programme_field_programme_loc_lat']; ?>,&quot;lng&quot;:<?php print $row_result['field_programme_field_programme_loc_long']; ?>,&quot;infoWindow&quot;:{&quot;content&quot;:&quot;<?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?>, <?php print $row_result['field_programme_title']; ?>&quot;}}" class="searchResultsItem searchResultsItem--programmes">
-            <div class="heading heading--small">
+            <ul class="heading heading--small">
               <h3><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span></h3>
               <?php if(!empty($programme_promotions[$row_result['field_programme_nid']])) : ?>
                 <ul class="promotion">
@@ -81,7 +81,7 @@ $current_promotion_indice = 1;
  	                </li>
                     <?php $count_promotion ++; ?>
                   <?php endforeach; ?>
-                </div>
+                </ul>
               <?php endif; ?>
             </div>
             <div class="searchResultsItem__infos"><a href="<?php print $row_result['field_programme_url']; ?>" title="Aller à la page programme" class="searchResultsItem__infos__img">
