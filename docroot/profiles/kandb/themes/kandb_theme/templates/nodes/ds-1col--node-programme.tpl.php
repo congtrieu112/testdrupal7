@@ -192,13 +192,10 @@
                   </div>
                   <?php
                 elseif ($lon && $lat):
-                  $latitude = $lat / 1000000;
-                  $longitude = $lon / 1000000;
-
                   $settings = array(
                     'id' => 'mymap',
-                    'latitude' => $latitude, // center the map.
-                    'longitude' => $longitude, // on the marker.
+                    'latitude' => $lat, // center the map.
+                    'longitude' => $lon, // on the marker.
                     'zoom' => 10,
                     'width' => '100%',
                     'height' => '490px',
@@ -207,8 +204,8 @@
 
                   $settings['markers'] = array(
                     array(
-                      'latitude' => $latitude,
-                      'longitude' => $longitude,
+                      'latitude' => $lat,
+                      'longitude' => $lon,
                       'markername' => 'Kandb',
                     ),
                   );
