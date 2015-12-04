@@ -341,7 +341,7 @@ function kandb_programme_node_presave($node) {
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
-  
+
   if ($node->type == 'programme' && $node->is_new != 1) {
     createFileArchireForProgramme($node);
   }
@@ -500,7 +500,7 @@ function _get_program_characteristic_content() {
         $programme_variables['slider_rt2012_image_alt'] = $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['alt'];
       }
       $programme_variables['slider_rt2012_description'] = isset($node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value'] : '';
-      $content = theme('program_characteristic', array('programme_variables' => $programme_variables));
+      $content = theme('program_characteristic', array('programme_variables' => $programme_variables,'node' => $node));
     }
   }
 
