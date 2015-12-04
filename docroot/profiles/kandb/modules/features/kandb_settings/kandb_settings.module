@@ -121,14 +121,14 @@ function kandb_selection_page_footer_form() {
  * hook_form_validate()
  */
 function kandb_selection_page_footer_validate($form, &$form_state) {
-  
+
 }
 
 /**
  * hook_form_submit()
  */
 function kandb_selection_page_footer_submit($form, &$form_state) {
-  
+
 }
 
 /**
@@ -157,38 +157,46 @@ function kandb_images_default() {
       );
     }
   }
-  
+
   $list_images = array(
     array(
-      'id'    =>  'slider_exterieur_image',
-      'title' =>  'image par défault : Extérieur',
+      'id' => 'slider_exterieur_image',
+      'title' => 'image par défault : Extérieur',
     ),
-    
     array(
-      'id'    =>  'slider_interieur_image',
-      'title' =>  'image par défault : Interieur',
+      'id' => 'slider_interieur_image',
+      'title' => 'image par défault : Interieur',
     ),
-    
     array(
-      'id'    =>  'slider_securite_image',
-      'title' =>  'image par défault : Services',
+      'id' => 'slider_securite_image',
+      'title' => 'image par défault : Services',
     ),
-    
     array(
-      'id'    =>  'slider_rt2012_image',
-      'title' =>  'image par défault : RT2012',
+      'id' => 'slider_rt2012_image',
+      'title' => 'image par défault : RT2012',
+    ),
+    array(
+      'id' => 'slider_rt2012_logo',
+      'title' => 'image par défault : RT2012 logo',
+    ),
+    array(
+      'id' => 'slider_bbc_logo',
+      'title' => 'image par défault :  BBC logo',
     ),
   );
-  
-  foreach($list_images as $item){
+
+  foreach ($list_images as $item) {
     $form['image_default_' . $item["id"]] = array(
       '#type' => 'managed_file',
       '#title' => $item["title"],
       '#default_value' => variable_get('image_default_' . $item["id"]),
       '#upload_location' => 'public://',
-    );  
+    );
   }
 
+  $form['#field_uploads'] = $list_images;
+
+  $form['#submit'][] = 'kandb_settings_form_update_status_managed_filed';
   return system_settings_form($form);
 }
 
@@ -213,4 +221,51 @@ function kandb_images_default_validate($form, &$form_state) {
       file_usage_add($file, 'user', 'user', $user->uid);
     }
   }
+}
+
+/**
+ * Managed file when users upload or delete.
+ */
+function managed_file_upload($fid_form, $fid_variable, $module_name, $type) {
+  if ($fid_form != 0 && $fid_form != $fid_variable) {
+    $file = file_load($fid_form);
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
+    file_usage_add($file, $module_name, $type, 1);
+  } elseif ($fid_form == 0) {
+    if ($fid_variable) {
+      $delete_file = file_load($fid_variable);
+      if ($delete_file) {
+        file_usage_delete($delete_file, $module_name, $type, 1);
+        $status = file_delete($delete_file);
+      }
+    }
+  }
+}
+
+/**
+ * Get value from Form and put to function managed_file_upload
+ */
+function kandb_settings_form_update_status_managed_filed(&$form, &$form_state) {
+  $field_uploads = $form['#field_uploads'];
+  foreach ($field_uploads as $field) {
+    $fid_form = $form_state['values']['image_default_' . $field['id']];
+    $fid_variable = variable_get('image_default_' . $field['id'], FALSE);
+    $module_name = 'kandb_settings';
+    managed_file_upload($fid_form, $fid_variable, $module_name, 'image_default_' . $field['id']);
+  }
+}
+
+/**
+ * Get value from varibale default image.
+ */
+function kandb_settings_get_uri_by_variable($name) {
+  $file_id = variable_get($name);
+  if ($file_id) {
+    $file = file_load($file_id);
+    if ($file && $file->uri) {
+      return $file->uri;
+    }
+  }
+  return null;
 }

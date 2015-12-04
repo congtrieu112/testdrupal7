@@ -90,10 +90,12 @@ dependencies[] = gmap_location
 dependencies[] = unique_field
 dependencies[] = viewfield
 dependencies[] = views_php
-dependencies[] = stringoverrides
+;dependencies[] = stringoverrides
+dependencies[] = stringoverrides_advanced
 dependencies[] = menu_admin_per_menu
 dependencies[] = acquia_search_multi_subs
 dependencies[] = taxonomy_display
+dependencies[] = domain_feeds
 
 ; Custom
 dependencies[] = kb_feeds
@@ -148,6 +150,9 @@ dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_livraison_immediate
 dependencies[] = kandb_view_offre_en_france
+dependencies[] = kandb_view_finance_assemblee
+dependencies[] = kandb_seo
+dependencies[] = kandb_view_finance_archives
 
 ; Blocks
 dependencies[] = kandb_recherche

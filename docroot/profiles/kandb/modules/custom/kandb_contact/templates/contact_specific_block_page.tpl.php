@@ -25,31 +25,45 @@ endif;
     <div style="background-image: url(<?php print $array_info['photo_uri']; ?>)" class="contactUs__img show-for-medium-up"></div>
     <div class="wrapper">
         <div class="contactUs__informations">
+            <p class="contactUs__informations__heading"><?php print t('Votre conseillère'); ?></p>
             <div class="small-wrapper">
-                <p class="contactUs__informations__heading"><?php print t('Votre conseillère'); ?></p>
                 <p class="contactUs__informations__text"><?php print $array_info['nom_conseiller']; ?></p>
                 <div class="show-for-medium-up">
-                    <?php if (isset($array_info['espace_vente_tel'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel']) && $array_info['espace_vente_tel']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone">
                           <span><?php print $array_info['espace_vente_tel'] ?></span>
                       </a>
+                     <br><br>
                     <?php endif; ?>
-                    <?php if (isset($array_info['espace_vente_tel2'])): ?>
+                    <?php if (isset($array_info['espace_vente_tel2']) && $array_info['espace_vente_tel2']): ?>
                       <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel2']); ?>" class="contactUs__informations__phone">
                           <span><?php print $array_info['espace_vente_tel2'] ?></span>
                       </a>
                     <?php endif; ?>
-
                 </div>
-                <div class="show-for-small-only"><a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone btn-phone"><span><?php print $array_info['espace_vente_tel'] ?></span></a></div>
-                <?php print $array_info['buttons']; ?>
+                <div class="show-for-small-only">
+                    <?php if (isset($array_info['espace_vente_tel']) && $array_info['espace_vente_tel']): ?>
+                      <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel']); ?>" class="contactUs__informations__phone btn-phone">
+                          <span><?php print $array_info['espace_vente_tel'] ?></span>
+                      </a>
+                    <?php endif; ?>
+                    <?php if (isset($array_info['espace_vente_tel2']) && $array_info['espace_vente_tel2']): ?>
+                      <a href="tel://<?php print str_replace(' ', '', $array_info['espace_vente_tel2']); ?>" class="contactUs__informations__phone btn-phone">
+                          <span><?php print $array_info['espace_vente_tel2'] ?></span>
+                      </a>
+                    <?php endif; ?>
+                </div>
+
             </div>
+            <?php print $array_info['buttons']; ?>
         </div>
         <div class="contactUs__description">
             <p class="contactUs__description__heading"><?php print t('Votre espace de vente'); ?></p>
-            <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_adresse']); ?></p>
-            <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_horaire']); ?></p>
-<!--            <div class="contactUs__location"><a href="partials/formRendezVous.html" class="btn-icon btn-white btn-rounded"><span class="button__content"><span class="icon icon-on-map"></span>Voir sur la carte</span></a></div>-->
+            <div class="small-wrapper">
+                <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_adresse']); ?></p>
+                <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_horaire']); ?></p>
+            </div>
+<!--              <div class="contactUs__location"><a href="partials/formRendezVous.html" class="btn-icon btn-white btn-rounded"><span class="button__content"><span class="icon icon-marker"></span>Voir sur la carte</span></a></div>-->
         </div>
     </div>
 </aside>

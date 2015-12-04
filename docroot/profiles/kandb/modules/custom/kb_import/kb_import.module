@@ -25,6 +25,15 @@ function kb_import_menu() {
     'title' => 'Configure ftp to get files',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
+  $items['admin/config/kb-import/reset-status'] = array(
+    'title' => 'Reset variable status',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('reset_status_page'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_import.admin.inc',
+  );
   $items['migration'] = array(
     'title' => 'Migration import',
     'description' => 'Run migration import',
@@ -141,6 +150,16 @@ function kb_import_feeds_after_import($source) {
   $run_business_rule = TRUE;
   $id = $source->id;
   $status = 0;
+  if ($id == 'parcel_feed_import') {
+    $imported_ids = array();
+    $db_query = db_select('feeds_item', 'fi');
+    $db_query->fields('fi', array('entity_id'));
+    $db_query->condition('fi.entity_type', 'node');
+    $db_query->condition('fi.id', 'parcel_feed_import');
+    $imported_ids = $db_query->distinct()->execute()->fetchCol();
+    $new_data = implode("\n", $imported_ids);
+    kb_store_items_imported($new_data);
+  }
   $kb_daily_import_status = get_daily_import_status ();
   if (in_array($id, $kb_daily_import_importers) && isset($kb_daily_import_status['start_daily_import']) && $kb_daily_import_status['start_daily_import'] == 1) {
 //Set status value

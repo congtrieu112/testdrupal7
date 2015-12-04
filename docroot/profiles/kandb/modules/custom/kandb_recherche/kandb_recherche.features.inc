@@ -34,6 +34,7 @@ function kandb_recherche_default_search_api_index() {
         "field_nb_pieces" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_orientation" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_prix_tva_20" : { "type" : "decimal" },
+        "field_programme:field_caracteristiques" : { "type" : "list\\u003Cinteger\\u003E", "entity_type" : "taxonomy_term" },
         "field_programme:field_program_low_tva_price_min" : { "type" : "integer" },
         "field_programme:field_programme_loc_arr" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_programme:field_programme_loc_cp" : { "type" : "text" },

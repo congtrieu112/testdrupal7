@@ -203,17 +203,17 @@ function _get_logement_block_content() {
               }
             }
 
-            if($total_bien_stock > 0) {
+            if ($total_bien_stock > 0) {
               $listPriceRemain = db_query_range('select program.entity_id as entity_id, field_superficie_value, field_prix_tva_20_value, name, title '
-              . 'from {field_data_field_prix_tva_20} prize '
-              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-              . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
-              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
-              . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
+                . 'from {field_data_field_prix_tva_20} prize '
+                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
+                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
+                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
+                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
+                . 'inner join {node} n on n.nid=program.field_programme_target_id '
+                . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
+                . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
 
               if ($listPriceRemain->rowCount() > 0) {
                 $listPriceRemain = $listPriceRemain->fetchAll();
@@ -336,6 +336,11 @@ function kandb_programme_node_insert($node) {
  * @param type $node
  */
 function kandb_programme_node_presave($node) {
+  // By pass apply rule in case apply habiteo API.
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
+
   if ($node->type == 'programme' && $node->is_new != 1) {
     createFileArchireForProgramme($node);
   }
@@ -460,7 +465,7 @@ function _get_program_characteristic_content() {
       $programme_variables['prestations_sous_titre'] = isset($node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value']) ? $node->field_prestations_sous_titre[LANGUAGE_NONE][0]['value'] : '';
       //Tab 1
       $programme_variables['slider_exterieur_titre'] = isset($node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_exterieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_exterieur_image');
       if ($uri) {
         $programme_variables['slider_exterieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_exterieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -469,7 +474,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_exterieur_description'] = isset($node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_exterieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 2
       $programme_variables['slider_interieur_titre'] = isset($node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_interieur_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_interieur_image');
       if ($uri) {
         $programme_variables['slider_interieur_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_interieur_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -478,7 +483,7 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_interieur_description'] = isset($node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_interieur_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 3
       $programme_variables['slider_securite_titre'] = isset($node->field_slider_securite_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_securite_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_securite_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_securite_image');
       if ($uri) {
         $programme_variables['slider_securite_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_securite_image_medium'] = image_style_url('program_characteristic_medium', $uri);
@@ -487,14 +492,14 @@ function _get_program_characteristic_content() {
       $programme_variables['slider_securite_description'] = isset($node->field_slider_securite_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_securite_desc[LANGUAGE_NONE][0]['value'] : '';
       //Tab 4
       $programme_variables['slider_rt2012_titre'] = isset($node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_titre[LANGUAGE_NONE][0]['value'] : '';
-      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : '';
+      $uri = isset($node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri']) ? $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['uri'] : kandb_settings_get_uri_by_variable('image_default_slider_rt2012_image');
       if ($uri) {
         $programme_variables['slider_rt2012_image_small'] = image_style_url('program_characteristic_small', $uri);
         $programme_variables['slider_rt2012_image_medium'] = image_style_url('program_characteristic_medium', $uri);
         $programme_variables['slider_rt2012_image_alt'] = $node->field_slider_rt2012_image[LANGUAGE_NONE][0]['alt'];
       }
       $programme_variables['slider_rt2012_description'] = isset($node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value']) ? $node->field_slider_rt2012_desc[LANGUAGE_NONE][0]['value'] : '';
-      $content = theme('program_characteristic', array('programme_variables' => $programme_variables));
+      $content = theme('program_characteristic', array('programme_variables' => $programme_variables, 'node' => $node));
     }
   }
 

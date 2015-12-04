@@ -1,0 +1,50 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View Finance Assemblée feature.
+ */
+
+include_once 'kandb_view_finance_assemblee.features.inc';
+
+/**
+ * Define Selection URLs
+ */
+define('URL_FINANCE_ASSEMBLEE', 'assemblee-generale');
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_view_finance_assemblee_menu() {
+    $menu = array();
+    $menu[URL_FINANCE_ASSEMBLEE] = array(
+        'title' => 'Assemblée générale',
+        'page callback' => 'kandb_view_finance_assemblee_page',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $menu;
+}
+
+function kandb_view_finance_assemblee_page() {
+    $content = array();
+    $content['assemblee_documents'] = call_user_func_array(
+        'views_embed_view',
+        array_merge(
+            array('assemblee_generale', 'block')
+        )
+    );
+
+    return theme('page_finance_assemblee', $content);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_view_finance_assemblee_theme($existing, $type, $theme, $path) {
+    return array(
+        'page_finance_assemblee' => array(
+            'template' => 'templates/page_finance_assemblee',
+            'variables' => array(),
+        )
+    );
+}

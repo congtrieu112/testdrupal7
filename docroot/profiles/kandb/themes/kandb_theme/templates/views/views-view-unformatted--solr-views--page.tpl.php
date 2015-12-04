@@ -25,11 +25,12 @@ foreach ($rows as $id => $row) {
 }
 $current_id_programme = 0;
 $current_bien_in_program = 0;
+$current_promotion_indice = 1;
 ?>
 
 <header class="heading results__list__heading">
   <h1 class="heading__title">Vos résultats</h1>
-  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> biens / <?php print $number_of_programme; ?> programmes</p>
+  <p class="heading__title heading__title--sub"><?php print $number_of_bien; ?> bien<?php print ($number_of_bien > 1 ? 's' : ''); ?> / <?php print $number_of_programme; ?> programme<?php print ($number_of_programm > 1 ? 's' : ''); ?></p>
 </header>
 <!-- [searchResults: programmes] start-->
 <div class="filter">
@@ -84,12 +85,21 @@ $current_bien_in_program = 0;
                     <div class="searchResultsItem__infos__img">
                       <div class="heading heading--small">
                         <h3><span class="heading__title"><?php print $row_result['field_type']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_nb_pieces']; ?> - <?php print $row_result['field_superficie']; ?> m<sup>2</sup></span></h3>
-                        <div class="promotion">
-                          <?php foreach($row_result['promotions'] as $id => $promotion): ?>
-                            <?php if ($id > 2) break; ?>
-                            <div class="tag tag--important"><?php print $promotion->title; ?> <sup>(<?php print $id+1; ?>)</sup></div>
-                          <?php endforeach; ?>
-                        </div>
+                        <?php if(!empty($row_result['promotions'])) : ?>
+                          <div class="promotion">
+                            <?php foreach($row_result['promotions'] as $id => $promotion): ?>
+                              <?php if ($id > 2) break; ?>
+                              <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $current_promotion_indice; $current_promotion_indice++; ?>)</sup></button>
+                              <!-- [popin] start-->
+                              <div data-reveal="<?php print $current_id_programme . '_' . $id; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                  <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                  <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                                </div>
+                              </div>
+                            <?php endforeach; ?>
+                          </div>
+                        <?php endif; ?>
                       </div>
                     </div>
                     <div class="searchResultsItem__infos__details">
