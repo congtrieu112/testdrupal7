@@ -22,11 +22,14 @@ if ($logement_block && isset($logement_block['total_bien'])) :
             endif;
             ?>
             <article data-reveal-id="programParcel<?php print $count; ?>"  class="programParcelItem">
-                <figure>
-                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $path_img; ?>programParcel-small.jpg, (small)], [<?php print $path_img; ?>programParcel-medium.jpg, (large)]"/>
-                    <noscript><img src="<?php print $path_img; ?>programParcel-medium.jpg" alt="test"/></noscript>
+                <?php if ($logement_block['programme_bien_images'][$type]) : ?>
+                  <figure>
+                    <!-- [Responsive img] start-->
+                    <img alt="<?php print $type; ?>" data-interchange="[<?php print $logement_block['programme_bien_images'][$type]; ?>, (small)], [<?php print $logement_block['programme_bien_images'][$type]; ?>, (large)]"/>
+                    <noscript><img src="<?php print $logement_block['programme_bien_images'][$type]; ?>" alt="test"/></noscript>
                     <!-- [Responsive img] end-->
-                </figure>
+                  </figure>
+                <?php endif; ?>
                 <div class="programParcelItem__content">
                     <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print t('appartements de'); ?>&nbsp;<?php print $type; ?>&nbsp;<?php print t('disponibles'); ?></h3>
                     <div class="programParcelItem__prices">
