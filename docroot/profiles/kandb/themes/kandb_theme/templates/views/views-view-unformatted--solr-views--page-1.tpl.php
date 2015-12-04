@@ -15,7 +15,7 @@ $number_of_bien_by_programme = array();
 $programme_promotions = array();
 foreach ($rows as $id => $row) {
   $row_result = $view->style_plugin->rendered_fields[$id];
-  $programme_promotions[$row_result['field_programme_nid']] = array();
+  // $programme_promotions[$row_result['field_programme_nid']] = array();
   foreach($row_result['promotions'] as $promotion) {
     $programme_promotions[$row_result['field_programme_nid']][$promotion->nid] = $promotion;
   }
@@ -64,9 +64,10 @@ $current_promotion_indice = 1;
               <h3><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span></h3>
               <?php if(!empty($programme_promotions[$row_result['field_programme_nid']])) : ?>
                 <div class="promotion">
+                  <?php $count_promotion = 1; ?>
                   <?php foreach($programme_promotions[$row_result['field_programme_nid']] as $id => $promotion): ?>
-                    <?php if ($id > 2) break; ?>
-                    <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?> <sup>(<?php print $current_promotion_indice; $current_promotion_indice++; ?>)</sup></button>
+                    <?php if ($count_promotion > 2) break; ?>
+                    <button class="tag tag--important" data-reveal-trigger="<?php print $current_id_programme . '_' . $id; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?>&nbsp;<sup>(<?php print $current_promotion_indice; $current_promotion_indice++; ?>)</sup></button>
                     <!-- [popin] start-->
                     <div data-reveal="<?php print $current_id_programme . '_' . $id; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                         <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -74,6 +75,7 @@ $current_promotion_indice = 1;
                             <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
                         </div>
                     </div>
+                    <?php $count_promotion ++; ?>
                   <?php endforeach; ?>
                 </div>
               <?php endif; ?>
