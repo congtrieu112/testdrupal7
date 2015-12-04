@@ -330,7 +330,8 @@ class Kandb_Business_Rules {
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
       if ($must_logging) {
-        kb_logging_business_rule($item->nid . ': C-106');
+        $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
+        kb_logging_business_rule($programme_id . ': C-106');
       } 
     }
   }
@@ -398,7 +399,8 @@ class Kandb_Business_Rules {
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
       if ($must_logging) {
-        kb_logging_business_rule($item->nid . ': C-107');
+        $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
+        kb_logging_business_rule($programme_id . ': C-107');
       }
     }
   }
@@ -433,7 +435,8 @@ class Kandb_Business_Rules {
         self::$_list_progam_to_save [$item->nid] = $node_programe;
         //node_save($node_programe);
         if ($must_logging) {
-          kb_logging_business_rule($item->nid . ': C-101');
+          $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
+          kb_logging_business_rule($programme_id . ': C-101');
         }
       }
     }
@@ -480,7 +483,8 @@ class Kandb_Business_Rules {
         $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 0;
         self::$_list_progam_to_save [$item->nid] = $node_programe;
         if ($must_logging) {
-          kb_logging_business_rule($item->nid . ': P-102');
+          $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
+          kb_logging_business_rule($programme_id . ': P-102');
         }
       }
     }

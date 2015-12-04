@@ -93,7 +93,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
 
     }
     elseif ($entity->feeds_item->id == FEED_ID_IMPORT_BIEN) {
-
+      $id_bien = isset($entity->field_id_bien[LANGUAGE_NONE][0]['value']) ? $entity->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
       $status_in_file = $item[FEED_COLUMN_STATUS];
 
       $entity_id = (isset($entity->nid)) ? $entity->nid : 0;
@@ -102,7 +102,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
         if (!($status_in_file === TAXONOMY_STATUS_LOGEMENT_L || $status_in_file === TAXONOMY_STATUS_LOGEMENT_R)) {
           $node_bien = node_load($entity_id);
           $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
-          kb_logging_business_rule($entity_id . ': B-101, B-102');
+          kb_logging_business_rule($id_bien . ': B-101, B-102');
         }
       }
 
@@ -110,7 +110,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if (empty($entity_id)) {
         $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
         $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $status_invisible;
-        kb_logging_business_rule($entity_id . ': B-106');
+        kb_logging_business_rule($id_bien . ': B-106');
       }
 
       // If node still not have status (not in rule bien), change character L or R to tax_id
@@ -133,7 +133,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
                   if($bien_price >= 0 && $tva) {
                     $bien_low_tva_price = $bien_price / 1.2 * ($tva + 1);
                     $entity->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] = round($bien_low_tva_price,2);
-                    kb_logging_business_rule($entity_id . ': B-109');
+                    kb_logging_business_rule($id_bien . ': B-109');
                   }
                 }
               }
@@ -150,6 +150,11 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
+  // By pass apply rule in case apply habiteo API. 
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
+
   // No need apply BRs in case devel generate.
   if ($_GET['q'] == 'admin/config/development/generate/content' ||
     (isset($node->devel_generate) && !empty($node->devel_generate))
@@ -330,6 +335,7 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
       $reset_sleep = 0;
       foreach ($list_nodes_bien as $nid) {
         $node = node_load($nid);
+        $id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
         $logging = '';
         if (isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid'])) {
           $status_node = $node->field_bien_statut[LANGUAGE_NONE][0]['tid'];
@@ -343,7 +349,6 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
           switch ($status_node) { // Check status of current node.
             case $status_disponible:    // RULE BIEN 103.
               $flag = 1;
-              $logging .= '';
               $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] = $status_invisible;
               $logging .= 'B-103';
               break;
@@ -363,7 +368,7 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
           }
         }
         if ($logging) {
-          $logging = $nid . ': ' . $logging;
+          $logging = $id_bien . ': ' . $logging;
           kb_logging_business_rule ($logging);
         }
         $reset_sleep++;
@@ -475,10 +480,35 @@ function bien_to_display($id_programme, $nb_piece = "all") {
 }
 
 function kb_logging_business_rule ($message) {
-  if(module_exists('kandb_feed') && $message != ''){
-    $message .= "\n";
-    $uri = 'private://bussiness-rule-log/';
-    $file_log_name = 'bussiness_rule_log_' . date('Y-m-d', REQUEST_TIME) . '.txt';
-    createFileErrorLogTxt($file_log_name, $message, $uri);
+  $message = trim($message);
+  $uri = 'private://bussiness-rule-log/';
+  $file_log_name = 'bussiness_rule_log_' . date('Y-m-d_H_m_s', REQUEST_TIME) . '.txt';
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $file_log_name);
+    $data = '';
+    if (file_exists($path)) {
+      $data = file_get_contents($path);
+    }
+    if ($data) {
+      $old_logs = explode("\n", $data);
+      $current_id = substr($message, 0, strpos($message, ':') + 1);
+      $exist_id = FALSE;
+      foreach ($old_logs as &$log) {
+        if (strpos($log, $current_id) === 0) {
+          $log .= ',' . substr($message, strpos($message, ':') + 1);
+          $exist_id = TRUE;
+        }
+      }
+      if (!$exist_id) {
+        $old_logs[] = $message;
+      }
+      $data = implode("\n", $old_logs);
+    }
+    else {
+      $data = $message;
+    }
+    drupal_chmod($uri);
+    file_save_data($data, $uri . $file_log_name, FILE_EXISTS_REPLACE);
   }
 }
