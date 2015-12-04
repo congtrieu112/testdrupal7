@@ -345,6 +345,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           'number_warning' => array(
             7 => 'field_programme_loc_num',
             13 => 'field_annee',
+            18 => 'field_programme_loc_long',
+            19 => 'field_programme_loc_lat',
+            58 => 'field_espace_vente_longitude',
+            59 => 'field_espace_vente_latitude',
           ),
           'text_box' => array(
             0 => 'field_id_programme',
@@ -360,23 +364,23 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
         }
         if (!$logging || !strpos($logging, 'Skip import')) {
-          if($item[58] == 0) {
+          if(isset($item[58]) && $item[58] == 0) {
             $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item[59] == 0) {
+          if(isset($item[59]) && $item[59] == 0) {
             $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item[18] == 0) {
+          if(isset($item[18]) && $item[18] == 0) {
             $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item[19] == 0) {
+          if(isset($item[19]) && $item[19] == 0) {
             $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item[8]) {
+          if(isset($item[8]) && $item[8]) {
             $query = new EntityFieldQuery();
             $query->entityCondition('entity_type', 'taxonomy_term')
               ->fieldCondition('field_id_type_voie', 'value', $item[8]);
@@ -388,6 +392,28 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             } else {
               $logging .= $item[0] . '|field_id_type_voie|field_id_type_voie:' . $item[8] . '|' . 'Term id type voie not mapping' . '|' . 'Warning' . "\n";
             }
+          }
+
+          //Recaculated field_programme_loc_long, field_programme_loc_lat,
+          //field_espace_vente_longitude, field_espace_vente_latitude (dividing by 1.000.000)
+          if(isset($entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'])) {
+            $loc_long = (int) $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = ($loc_long != 0) ? $loc_long / 1000000 : '';
+          }
+
+          if(isset($entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'])) {
+            $loc_lat = (int) $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = ($loc_lat != 0) ? $loc_lat / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_longitude = (int) $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = ($vente_longitude != 0) ? $vente_longitude / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
           }
         }
       }
@@ -441,6 +467,17 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             $nodes = node_load($entity->field_programme[LANGUAGE_NONE][0]['target_id']);
             if ($nodes && !empty($nodes->field_tva[LANGUAGE_NONE])) {
               $tid = $nodes->field_tva[LANGUAGE_NONE][0]['tid'];
+            }
+          }
+          //Cut the last digits after the latest underscore of IDKL to have the short Bien numero to stored in numero_lot
+          if(isset($entity->field_id_bien[LANGUAGE_NONE][0]['value']) && $entity->field_id_bien[LANGUAGE_NONE][0]['value']) {
+            $bien_id = $entity->field_id_bien[LANGUAGE_NONE][0]['value'];
+            $arr_bien_id = explode('-', $bien_id);
+            if(count($arr_bien_id) == 3) {
+              $number_lot = (int) $arr_bien_id[2];
+              if($number_lot && is_numeric($number_lot)) {
+                $entity->field_numero_lot[LANGUAGE_NONE][0]['value'] = $number_lot;
+              }
             }
           }
         }
@@ -584,7 +621,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
               }
             }
 
-            if((int)$item['tva'] == 0) {
+            if(isset($item['tva']) && (int)$item['tva'] == 0) {
               $entity->field_tva[LANGUAGE_NONE][0]['tid'] = 1;
             } else {
               $entity->field_tva[LANGUAGE_NONE][0]['tid'] = $tid;
@@ -593,19 +630,19 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             $tid = 0;
           }
 
-          if($item['x'] == 0) {
+          if(isset($item['x']) && $item['x'] == 0) {
             $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item['y'] == 0) {
+          if(isset($item['y']) && $item['y'] == 0) {
             $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item['bureaudeventex'] == 0) {
+          if(isset($item['bureaudeventex']) && $item['bureaudeventex'] == 0) {
             $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = '';
           }
 
-          if($item['bureaudeventey'] == 0) {
+          if(isset($item['bureaudeventey']) && $item['bureaudeventey'] == 0) {
             $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = '';
           }
 
@@ -626,6 +663,29 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
                 $entity->field_slider_rt2012_echelle[LANGUAGE_NONE][0]['value'] = 0;
                 break;
             }
+          }
+
+          //Recaculated field_programme_loc_long, field_programme_loc_lat,
+          //field_espace_vente_longitude, field_espace_vente_latitude (dividing by 1.000.000)
+          if(isset($entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'])) {
+            $loc_long = (int) $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'];
+
+            $entity->field_programme_loc_long[LANGUAGE_NONE][0]['value'] = ($loc_long != 0) ? $loc_long / 1000000 : '';
+          }
+
+          if(isset($entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'])) {
+            $loc_lat = (int) $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'];
+            $entity->field_programme_loc_lat[LANGUAGE_NONE][0]['value'] = ($loc_lat != 0) ? $loc_lat / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_longitude = (int) $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] = ($vente_longitude != 0) ? $vente_longitude / 1000000 : '';
+          }
+
+          if(isset($entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'])) {
+            $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
+            $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
           }
         }
       }

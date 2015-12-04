@@ -242,7 +242,13 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
                         ?>
-                        <li class="characteristicList__item"><span class="icon <?php print (isset($caracteristique->field_icon_name[LANGUAGE_NONE][0])) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : ''  ?>"></span><span class="text"><?php print $caracteristique->name ?></span></li>
+                        <li class="characteristicList__item">
+                            <span class="icon <?php print (isset($caracteristique->field_icon_name[LANGUAGE_NONE][0])) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : ''  ?>"></span>
+                            <span class="text"><?php print $caracteristique->name ?></span>
+                            <?php if ($caracteristique->description): ?>
+                              <span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="<?php print $caracteristique->description; ?>">?</span>
+                            <?php endif; ?>
+                        </li>
                       <?php endforeach; ?>
                   </ul>
                 <?php endif; ?>

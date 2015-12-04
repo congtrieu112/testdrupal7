@@ -587,11 +587,11 @@ function kandb_update_7151() {
 /*
  * Enable stringoverrides module
  */
-function kandb_update_7152() {
-  if (!module_exists('stringoverrides')) {
-    module_enable(array('stringoverrides'), TRUE);
-  }
-}
+//function kandb_update_7152() {
+//  if (!module_exists('stringoverrides')) {
+//    module_enable(array('stringoverrides'), TRUE);
+//  }
+//}
 
 /*
  * Enable kandb_view_offre_en_france module
@@ -680,5 +680,14 @@ function kandb_update_7162() {
 function kandb_update_7163() {
   if (!module_exists('kandb_view_finance_archives')) {
     module_disable(array('kandb_view_finance_archives'), TRUE);
+  }
+}
+
+/*
+ * Enable stringoverrides_advanced module
+ */
+function kandb_update_7164() {
+  if (!module_exists('stringoverrides_advanced')) {
+    module_enable(array('stringoverrides_advanced'), TRUE);
   }
 }
