@@ -11630,17 +11630,14 @@ a.tag.tag--important:active {
     .searchResultsItem .heading {
       padding-top: 0;
       margin-bottom: 1.25rem;
-      width: 100%;
-      /*> * {
-        padding-top: rem-calc(20);
-      }
-
-      .promotion {
-        padding-top: 0;
-      }*/ }
+      width: 100%; }
       .searchResultsItem .heading .heading__title,
       .searchResultsItem .heading .heading__title--sub {
         font-size: 1.375rem; }
+      .searchResultsItem .heading > * {
+        padding-top: 1.25rem; }
+      .searchResultsItem .heading .promotion {
+        padding-top: 0; }
     .searchResultsItem__infos {
       margin: 0 auto;
       max-width: 75rem;
