@@ -6,7 +6,7 @@ $title = isset($logement_block['title']) ? $logement_block['title'] : '';
 <?php
 if ($logement_block && isset($logement_block['total_bien'])) :
   ?>
-  <section class="section-padding bg-lightGrey">
+  <section class="section-padding bg-lightGrey" id="logements-disponibles">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print t('Découvrir les logements'); ?></h2>
