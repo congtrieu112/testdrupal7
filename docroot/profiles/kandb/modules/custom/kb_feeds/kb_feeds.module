@@ -1169,14 +1169,13 @@ function import_bien_pdf_batch_operation() {
   drupal_set_message('Updating Bien Nodes');
 
   // Build the list of operation functions and function arguments.
-  global $base_url;
   $dir_parent = variable_get('import_bien_pdf_dir_parent');
   $operations = array();
   $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
-  $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
 
   $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d_H-i-j') . '.txt';
   variable_set('import_bien_pdf_log_name', $file_log_name);
+  variable_set('import_bien_pdf_processed', 0);
   if (is_dir($base_path)) {
     if ($handle = opendir($base_path)) {
       /* This is the correct way to loop over the directory. */
@@ -1193,50 +1192,9 @@ function import_bien_pdf_batch_operation() {
             }
             variable_set('import_bien_pdf_' . $id_program . '_total', $filecount);
           }
-
-          $program = get_program_by_id($id_program);
-          if (!empty($program)) {   // Exist node program.
-            // Load all pdf file in folder program.
-            if ($handle_pdf_files = opendir($base_path . $id_program)) {
-              while (false !== ($pdf_file = readdir($handle_pdf_files))) {
-                if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
-                  $file_name = explode('_', $pdf_file);
-                  $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
-                  $id_bien = $idbien_extension[0];
-                  $extension_file = $idbien_extension[1];
-
-                  // Just get pdf file.
-                  if (strtolower($extension_file) == 'pdf') {
-                    $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
-                    if (!empty($node_biens)) {
-                      // Sometime we will find more than 1 item.
-                      foreach ($node_biens as $item_bien) {
-                        $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
-                        $data = array(
-                          'bien_id' => $id_bien,
-                          'node_id' => $item_bien->nid,
-                          'path_pdf' => $path_pdf,
-                        );
-                        $updated += 1;
-                        variable_set('import_bien_pdf_' . $id_program . '_updated', $updated);
-                        $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
-                      }
-                    } else {
-                      // Write log file : id_bien $id_bien does not exist.
-                      $logging .= $id_program . '-%-' . $id_bien . '|id_bien|bien_id does not exist' . '| Skip imported' . "\n";
-                      $rejected += 1;
-                      variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
-                    }
-                  } else {
-                    $logging .= $id_program . '||File extension must to pdf' . '| Skip imported' . "\n";
-                    $rejected += 1;
-                    variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
-                  }
-                }
-              }
-
-              closedir($handle_pdf_files);
-            }
+          $program = get_program_by_id($id_program); 
+          if (!empty($program)) {
+            $operations[] = array('import_bien_pdf_batch_operation_process_per_dir', array(array('program' => $program, 'id_program' => $id_program)));
           } else {
             // Write log file: id_program: $id_program does not exist.
             $logging .= $id_program . '|id_program|id_program does not exist' . '| Skip imported' . "\n";
@@ -1245,23 +1203,6 @@ function import_bien_pdf_batch_operation() {
         }
 
         createFileErrorLogTxt($file_log_name, $logging);
-        $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
-        $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
-        $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
-
-        if($file_log_name && ($total_rows || $updated || $rejected)) {
-          $logging = '/**' . "\n";
-          $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
-          $logging .= ' * ' . 'Programme ID: ' . $id_program . "\n";
-          $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
-          $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
-          $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-          $logging .= ' */' . "\n";
-          createFileErrorLogTxt($file_log_name, $logging);
-          variable_del('import_bien_pdf_' . $id_program . '_total');
-          variable_del('import_bien_pdf_' . $id_program . '_updated');
-          variable_del('import_bien_pdf_' . $id_program . '_rejected');
-        }
       }
 
       closedir($handle);
@@ -1288,6 +1229,83 @@ function import_bien_pdf_batch_operation_process($data, &$context) {
   save_bien_pdf_file($data["node_id"], $data["path_pdf"]);
 }
 
+function import_bien_pdf_batch_operation_process_per_dir($data, &$context) {
+  global $base_url;
+  $logging = '';
+  $id_program = $data['id_program'];
+  $dir_parent = variable_get('import_bien_pdf_dir_parent');
+  $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
+  $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
+  $context['results'][] = t('Bien of programme @programme is updating', array('@programme' => $data['program']->nid));
+  $context['message'] = t('Processing bien of programme_id @programme_id', array('@programme_id' => $id_program));
+  $updated = 0;
+  $rejected = 0;
+  $file_log_name = variable_get('import_bien_pdf_log_name', '');
+  $reset_sleep = 0;
+  $processed = variable_get('import_bien_pdf_processed', 0);
+// Load all pdf file in folder program.
+  if ($handle_pdf_files = opendir($base_path . $id_program)) {
+    while (false !== ($pdf_file = readdir($handle_pdf_files))) {
+      if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
+        $file_name = explode('_', $pdf_file);
+        $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
+        $id_bien = $idbien_extension[0];
+        $extension_file = $idbien_extension[1];
+
+        // Just get pdf file.
+        if (strtolower($extension_file) == 'pdf') {
+          $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
+          if (!empty($node_biens)) {
+            // Sometime we will find more than 1 item.
+            foreach ($node_biens as $item_bien) {
+              $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
+              $updated += 1;
+              variable_set('import_bien_pdf_' . $id_program . '_updated', $updated);
+//              $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
+              save_bien_pdf_file($item_bien->nid, $path_pdf);
+              $processed++;
+            }
+          } else {
+            // Write log file : id_bien $id_bien does not exist.
+            $logging .= $id_program . '-%-' . $id_bien . '|id_bien|bien_id does not exist' . '| Skip imported' . "\n";
+            $rejected += 1;
+            variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
+          }
+        } else {
+          $logging .= $id_program . '||File extension must to pdf' . '| Skip imported' . "\n";
+          $rejected += 1;
+          variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
+        }
+      }
+      $reset_sleep++;
+      if ($reset_sleep == 50) {
+        sleep(5);
+        $reset_sleep = 0;
+      }
+    }
+    closedir($handle_pdf_files);
+  }
+  createFileErrorLogTxt($file_log_name, $logging);
+  $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
+  $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
+  $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
+
+  if($file_log_name && ($total_rows || $updated || $rejected)) {
+    $logging = '/**' . "\n";
+    $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
+    $logging .= ' * ' . 'Programme ID: ' . $id_program . "\n";
+    $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
+    $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
+    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+    $logging .= ' */' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
+    variable_del('import_bien_pdf_' . $id_program . '_total');
+    variable_del('import_bien_pdf_' . $id_program . '_updated');
+    variable_del('import_bien_pdf_' . $id_program . '_rejected');
+  }
+  variable_set('import_bien_pdf_processed', $processed);
+}
+
 /**
  * @todo Batch finished
  */
@@ -1296,7 +1314,8 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
   if ($success) {
     // Here we could do something meaningful with the results.
     // We just display the number of nodes we processed...
-    drupal_set_message(t('@count Node Bien processed.', array('@count' => count($results))));
+    $processed = variable_get('import_bien_pdf_processed', 0);
+    drupal_set_message(t('@count Node Bien processed.', array('@count' => $processed)));
   } else {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
