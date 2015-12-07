@@ -15,10 +15,10 @@ Rappel des coordonnées du conseiller commercial :
 
 <?php if(isset($mail_vars['programme_espace_vente_tel'])) {print $mail_vars['programme_espace_vente_tel']; } ?>
 
+<?php if(isset($mail_vars['programme_espace_vente_adresse']) AND $mail_vars['programme_espace_vente_adresse']) : ?>
 Bureau de vente :
-<?php if(isset($mail_vars['programme_espace_vente_adresse'])) {print $mail_vars['programme_espace_vente_adresse']; } ?>
-
-<?php if(isset($mail_vars['programme_espace_vente_ville'])) {print $mail_vars['programme_espace_vente_ville']; } ?>
+<?php print $mail_vars['programme_espace_vente_adresse']; ?>
+<?php endif ?>
 
 Horaires d'ouverture : <?php if(isset($mail_vars['programme_espace_vente_horaire'])) {print $mail_vars['programme_espace_vente_horaire']; } ?>
 Rappel de votre message : <?php if(isset($mail_vars['rdv_message'])) {print $mail_vars['rdv_message']; } ?>

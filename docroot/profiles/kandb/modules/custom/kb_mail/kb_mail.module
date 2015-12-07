@@ -288,6 +288,7 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rdv_prenom'] = isset($values['submitted']['row_1']['rdv_prenom']) ? $values['submitted']['row_1']['rdv_prenom'] : '';
       $variables['rdv_code_postal'] = isset($values['submitted']['row_2']['rdv_code_postal']) ? $values['submitted']['row_2']['rdv_code_postal'] : '';
       $variables['rdv_ville'] = isset($values['submitted']['row_2']['rdv_ville']) ? $values['submitted']['row_2']['rdv_ville'] : '';
+      $variables['rdv_pays'] = isset($values['submitted']['row_2']['rdv_pays']) ? $values['submitted']['row_2']['rdv_pays'] : '';
       $variables['rdv_adresse1'] = isset($values['submitted']['row_3']['rdv_adresse1']) ? $values['submitted']['row_3']['rdv_adresse1'] : '';
       $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['rdv_adresse2']) ? $values['submitted']['row_3']['rdv_adresse2'] : '';  
       $variables['rdv_email'] = isset($values['submitted']['row_4']['rdv_email']) ? $values['submitted']['row_4']['rdv_email'] : '';
