@@ -90,7 +90,7 @@ function kandb_selection_page_selection() {
   $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
     'views_embed_view',
     array_merge(
-      array('selection', 'block'),
+      array('mon_espace', 'block'),
       $ids_programme,
       $ids_bien,
       $ids_avant_premiere
@@ -104,7 +104,7 @@ function kandb_selection_page_selection() {
   $content['selection_article'] = call_user_func_array(
     'views_embed_view',
     array_merge(
-      array('selection', 'block_1'),
+      array('mon_espace', 'block_1'),
       $ids_articles
     )
   );
