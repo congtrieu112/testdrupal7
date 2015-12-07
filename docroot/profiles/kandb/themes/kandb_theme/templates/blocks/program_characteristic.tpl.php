@@ -44,23 +44,23 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
       </div>
       <div class="programCharacteristics">
           <ul role="tablist" data-slick-nav="data-slick-nav" class="show-for-medium-up programCharacteristics__nav">
-              <?php if ($slide0) : ?>
+              <?php if ($slide0 && $programme_variables['slider_exterieur_titre']) : ?>
                 <li><a href="#slide0" data-slick-links="data-slick-links" role="tab" aria-controls="slide0" class="active" aria-selected="true"><?php print t('Extérieur'); ?></a></li>
               <?php endif; ?>
-              <?php if ($slide1) : ?>
+              <?php if ($slide1 && $programme_variables['slider_interieur_titre']) : ?>
                 <li><a href="#slide1" data-slick-links="data-slick-links" role="tab" aria-controls="slide1" aria-selected="false"><?php print t('Intérieur'); ?></a></li>
               <?php endif; ?>
-              <?php if ($slide2) : ?>
+              <?php if ($slide2 && $programme_variables['slider_securite_titre']) : ?>
                 <li><a href="#slide2" data-slick-links="data-slick-links" role="tab" aria-controls="slide2" aria-selected="false"><?php print t('Sécurité'); ?></a></li>
               <?php endif; ?>
-              <?php if ($slide3) : ?>
+              <?php if ($slide3 && $programme_variables['slider_rt2012_titre']) : ?>
                 <?php if ($echelle_value != 'Void' && $echelle_value && $tab_title): ?>
                   <li><a href="#slide3" data-slick-links="data-slick-links" role="tab" aria-controls="slide03" aria-selected="false"><?php print $tab_title; ?></a></li>
                 <?php endif; ?>
               <?php endif; ?>
           </ul>
           <ul data-slick="data-slick" data-slick-responsive="medium" data-app-accordion="data-app-accordion" data-app-accordion-responsive="small-only" class="accordion fullwidth">
-              <?php if ($slide0) : ?>
+              <?php if ($slide0 && $programme_variables['slider_exterieur_titre']) : ?>
                 <li id="slide0">
 
                     <!-- mobile accordion trigger-->
@@ -100,7 +100,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                     <!-- [programCharacteristicsItem] end-->
                 </li>
               <?php endif; ?>
-              <?php if ($slide1) : ?>
+              <?php if ($slide1 && $programme_variables['slider_interieur_titre']) : ?>
                 <li id="slide1">
                     <!-- mobile accordion trigger-->
                     <a href="#slide1" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print t('Intérieur'); ?><span class="display-status"></span></a>
@@ -140,7 +140,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                 </li>
 
               <?php endif; ?>
-              <?php if ($slide2) : ?>
+              <?php if ($slide2 && $programme_variables['slider_securite_titre']) : ?>
                 <li id="slide2">
                     <!-- mobile accordion trigger-->
                     <a href="#slide2" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print t('Sécurité'); ?><span class="display-status"></span></a>
@@ -179,7 +179,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                     <!-- [programCharacteristicsItem] end-->
                 </li>
               <?php endif; ?>
-              <?php if ($slide3) : ?>
+              <?php if ($slide3 && $programme_variables['slider_rt2012_titre']) : ?>
                 <?php if ($echelle_value != 'Void' && $echelle_value && $tab_title): ?>
                   <li id="slide3">
                       <!-- mobile accordion trigger--><a href="#slide3" data-app-accordion-link="data-app-accordion-link" role="tab" class="show-for-small-only accordion__link"><?php print $tab_title; ?><span class="display-status"></span></a>
