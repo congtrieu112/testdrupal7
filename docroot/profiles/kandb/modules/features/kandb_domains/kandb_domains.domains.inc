@@ -19,7 +19,7 @@ function kandb_domains_domain_default_domains() {
     'machine_name' => 'kandb_b2b',
   );
   $domains['kandb_b2c'] = array(
-    'subdomain' => 'www.ketb.com',
+    'subdomain' => 'www.kaufmanbroad.fr',
     'sitename' => 'Kaufman & Broad',
     'scheme' => 'http',
     'valid' => 1,
@@ -64,13 +64,13 @@ function kandb_domains_domain_alias_default_aliases() {
       'redirect' => 0,
       'machine_name' => 'kandb_b2c',
     ),
-    'dev.ketb.com' => array(
-      'pattern' => 'dev.ketb.com',
+    'dev.kaufmanbroad.fr' => array(
+      'pattern' => 'dev.kaufmanbroad.fr',
       'redirect' => 0,
       'machine_name' => 'kandb_b2c',
     ),
-    'stage.ketb.com' => array(
-      'pattern' => 'stage.ketb.com',
+    'stage.kaufmanbroad.fr' => array(
+      'pattern' => 'stage.kaufmanbroad.fr',
       'redirect' => 0,
       'machine_name' => 'kandb_b2c',
     ),
