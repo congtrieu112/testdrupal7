@@ -35,7 +35,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
 ?>
 
 <?php if ($slide0 || $slide1 || $slide2 || $slide3) : ?>
-  <section class="section-padding bg-lightGrey">
+  <section class="section-padding bg-lightGrey" id="prestations">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print isset($programme_variables['prestations_titre']) ? $programme_variables['prestations_titre'] : ''; ?></h2>
