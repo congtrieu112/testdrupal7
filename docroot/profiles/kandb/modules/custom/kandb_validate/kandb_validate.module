@@ -258,7 +258,7 @@ function get_nids_promotions_by_avant($nid) {
 }
 
 /**
- * Get the promotions by avant nid.
+ * Get the promotions by bien nid.
  */
 function get_nids_promotions_by_bien($nid) {
   $query = new EntityFieldQuery();

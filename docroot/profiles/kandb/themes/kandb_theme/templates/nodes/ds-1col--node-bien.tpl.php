@@ -405,7 +405,7 @@ if (!empty($list_bien_more)):
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title">Appartements <?php echo $nb_pieces->name ?> disponibles</h2>
+              <h2 class="heading__title"><?php print t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
               <p class="heading__title heading__title--sub"><?php print t("sur le programme") ?></p>
           </header>
       </div>
