@@ -203,13 +203,14 @@ function kandb_validate_views_pre_render($view) {
 /*
  * Get nid of Biens CT with specify status.
  */
+
 function get_status_biens($nid, $tid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'bien')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_programme', 'target_id', $nid)
-      ->fieldCondition('field_bien_statut', 'tid', $tid);
+    ->entityCondition('bundle', 'bien')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_programme', 'target_id', $nid)
+    ->fieldCondition('field_bien_statut', 'tid', $tid);
 
   $result = $query->execute();
 
@@ -244,6 +245,27 @@ function get_nids_promotions_by_avant($nid) {
     ->entityCondition('bundle', 'promotion')
     ->propertyCondition('status', 1)
     ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $promotion_nids = array_keys($result['node']);
+    return entity_load('node', $promotion_nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Get the promotions by avant nid.
+ */
+function get_nids_promotions_by_bien($nid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_biens', 'target_id', $nid)
     ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
     ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();

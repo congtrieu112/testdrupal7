@@ -82,7 +82,6 @@ $piece_id = '';
 if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
   $piece_id = $node->field_nb_pieces[LANGUAGE_NONE][0]['tid'];
 }
-krumo($affichage);
 ?>
 
 <!-- [bienHeader] start-->
@@ -429,16 +428,26 @@ if (!empty($list_bien_more)):
                             <td>
                                 <div class="list-item">
                                     <div class="item-promotion">
-                                        <button data-reveal-trigger="promotion-1-D12" class="tag tag--important">Economisez jusqu'à 20.000€&nbsp;<sup>(1)</sup></button>
-                                        <!-- [popin] start-->
-                                        <div data-reveal="promotion-1-D12" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                                <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
+                                        <?php
+                                        $promotions = get_nids_promotions_by_bien($bien_more->nid);
+                                        if ($promotions):
+                                          foreach ($promotions as $promotion):
+                                            $triger_promotion = 'promotion-' . $promotion->nid;
+                                            ?>
+                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
+                                            <br><br>
+                                            <!-- [popin] start-->
+                                            <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                    <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- [popin] end-->
+                                            <!-- [popin] end-->
+                                            <?php
+                                          endforeach;
+                                        endif;
+                                        ?>
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
