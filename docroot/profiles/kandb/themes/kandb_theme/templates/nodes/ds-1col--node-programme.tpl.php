@@ -21,7 +21,7 @@
                         <?php if ($program_loc_ville) : ?>
                           <div class="heading__title">
                             <?php print $program_loc_ville; ?>
-                               <?php 
+                               <?php
                                 if ($programme_loc_arr_name) :
                                   print '(' .$programme_loc_arr_name. ')';
                                 elseif ($program_loc_department) :
@@ -70,7 +70,7 @@
 
                 <?php if ($de_a_price_tva || $de_a_price) : ?>
                   <ul class="content-price">
-                      <?php if ($de_a_price_tva) : ?>
+                      <?php if ($de_a_price_tva && $affichage_double_grille && $tva) : ?>
                         <li class="content-price__item">
                             <span class="text">
                                 <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
@@ -89,7 +89,9 @@
                                 <?php if ($de_a_price) print $de_a_price; ?>
                             </span>
                             <span class="tags">
-                                <div class="tva tva--high">TVA 20%</div>
+                                <?php if($tva) : ?>
+                                  <div class="tva tva--high">TVA 20%</div>
+                                <?php endif; ?>
                             </span>
                         </li>
                       <?php endif; ?>
