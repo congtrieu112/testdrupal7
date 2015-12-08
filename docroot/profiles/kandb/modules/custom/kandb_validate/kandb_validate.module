@@ -7,15 +7,32 @@ function kandb_validate_form_avant_premiere_node_form_alter(&$form, &$form_state
   $form['#validate'][] = 'kandb_validate_avant_premiere';
 }
 
+/**
+ * Implement hook_form_Form_ID_alter().
+ */
+function kandb_validate_form_partenaire_node_form_alter(&$form, &$form_state) {
+  $form['field_id_partenaire']['#disabled'] = TRUE;
+}
+
+/**
+ * Implement hook_node_presave().
+ */
 function kandb_validate_node_presave($node) {
-  $uuid = generate_uuid();
-  $path_alias = 'partenaires/' . $uuid;
-  $node->path['pathauto'] = 0;
-  $node->path['alias'] = $path;
-  $node->field_partenaire_url[LANGUAGE_NONE][0]['value'] = $uuid;
-  $oldumask = umask(0);
-  drupal_mkdir("public://". $path_alias , 0777);
-  umask($oldumask);
+  if ($node->type == 'partenaire' AND $_GET['q'] == 'node/add/partenaire' AND $node->is_new) {
+    global $base_root;
+    $uuid = generate_uuid();
+    $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] = $base_root . '/partenaires//' . $uuid;
+
+    // Create folder.
+    $partenaires_dir = 'public://partenaires/';
+    if (!is_dir($partenaires_dir)) {
+      file_prepare_directory($partenaires_dir, FILE_CREATE_DIRECTORY);
+      drupal_chmod($partenaires_dir, 0777);
+    }
+    $partenaire_dir = 'public://partenaires/' . $uuid; 
+    file_prepare_directory($partenaire_dir, FILE_CREATE_DIRECTORY);
+    drupal_chmod($partenaire_dir, 0777);
+  }
 }
 
 /**
@@ -290,7 +307,7 @@ function get_nids_promotions_by_bien($nid) {
 }
 
 /**
- * Generate UUID
+ * Generate UUID.
  */
 function generate_uuid() {
   return sprintf( '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
