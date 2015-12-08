@@ -1626,7 +1626,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   }
 
   if ($error_primary_key_field) {
-    $temp = variable_get($entity->feeds_item->id . '_rejected', 0) + 1;
+    $temp = variable_get($entity->feeds_item->id . '_rejected', 0) + variable_get($entity->feeds_item->id . '_updated', 0) + 1;
     $logging .= 'Rows: ' . $temp . '|' . rtrim($error_primary_key_field, ',') .  '|' . rtrim($value_primary_key_field, ',') . '|' . 'Primary key is mandatory' . '|' . 'Skip import' . "\n";
   }
 

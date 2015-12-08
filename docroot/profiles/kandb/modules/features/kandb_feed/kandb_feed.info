@@ -38,6 +38,7 @@ features[feeds_importer][] = migration_program_import
 features[feeds_importer][] = migration_program_video_import
 features[feeds_importer][] = parcel_feed_import
 features[feeds_importer][] = partenaire_import
+features[feeds_importer][] = partenaire_programme_import
 features[feeds_importer][] = programme_feed_import
 features[feeds_tamper][] = document_import_communique_de_presse-categorie-rewrite
 features[feeds_tamper][] = document_import_communique_de_presse-lienfichier-find_replace
