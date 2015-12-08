@@ -81,9 +81,9 @@ function kandb_article_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'full_html' => 0,
+          'full_html' => 'full_html',
           'plain_text' => 0,
-          'simple' => 'simple',
+          'simple' => 0,
         ),
         'allowed_formats_toggle' => 1,
         'default_order_toggle' => 0,
