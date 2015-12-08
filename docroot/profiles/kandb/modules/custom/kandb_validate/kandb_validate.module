@@ -203,13 +203,14 @@ function kandb_validate_views_pre_render($view) {
 /*
  * Get nid of Biens CT with specify status.
  */
+
 function get_status_biens($nid, $tid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'bien')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_programme', 'target_id', $nid)
-      ->fieldCondition('field_bien_statut', 'tid', $tid);
+    ->entityCondition('bundle', 'bien')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_programme', 'target_id', $nid)
+    ->fieldCondition('field_bien_statut', 'tid', $tid);
 
   $result = $query->execute();
 
@@ -254,4 +255,50 @@ function get_nids_promotions_by_avant($nid) {
   }
 
   return NULL;
+}
+
+/**
+ * Get the promotions by bien nid.
+ */
+function get_nids_promotions_by_bien($nid) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_biens', 'target_id', $nid)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $promotion_nids = array_keys($result['node']);
+    return entity_load('node', $promotion_nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Get number bien by status "Disponible" and public domain
+ * @param int $domain_id domain id in table domain.
+ *
+ */
+function get_total_bien_by_status_site($domain_id = 3) {
+    //1:kaufman_core_local_com ,2:kandb_b2b ,3:kandb_b2c)
+    //Get bien type
+    $bien_status_id = get_tid_by_id_field(1);
+
+    //Count total
+    $query = db_select('node', 'n');
+    $query->join('domain_access', 'da', 'n.nid = da.nid');
+    $query->join('field_data_field_bien_statut', 'bt', 'n.nid = bt.entity_id');
+    $query->addExpression('COUNT(n.nid)', 'total');
+    $query->condition('n.status',1, '=')
+      ->condition('da.gid', $domain_id, '=')
+      ->condition('bt.field_bien_statut_tid',$bien_status_id,'=');
+    $result = $query->execute()->fetchCol();
+    if ($result) {
+        return $result[0];
+    }
+  return 0;
 }

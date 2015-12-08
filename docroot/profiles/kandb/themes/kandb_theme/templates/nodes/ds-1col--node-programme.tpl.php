@@ -21,7 +21,7 @@
                         <?php if ($program_loc_ville) : ?>
                           <div class="heading__title">
                             <?php print $program_loc_ville; ?>
-                               <?php 
+                               <?php
                                 if ($programme_loc_arr_name) :
                                   print '(' .$programme_loc_arr_name. ')';
                                 elseif ($program_loc_department) :
@@ -70,7 +70,7 @@
 
                 <?php if ($de_a_price_tva || $de_a_price) : ?>
                   <ul class="content-price">
-                      <?php if ($de_a_price_tva) : ?>
+                      <?php if ($de_a_price_tva && $affichage_double_grille && $tva) : ?>
                         <li class="content-price__item">
                             <span class="text">
                                 <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
@@ -89,7 +89,9 @@
                                 <?php if ($de_a_price) print $de_a_price; ?>
                             </span>
                             <span class="tags">
-                                <div class="tva tva--high">TVA 20%</div>
+                                <?php if($tva) : ?>
+                                  <div class="tva tva--high">TVA 20%</div>
+                                <?php endif; ?>
                             </span>
                         </li>
                       <?php endif; ?>
@@ -169,23 +171,23 @@
 
                 <ul class="toolsList show-for-medium-up">
                     <?php if ($flag) : ?>
-                      <li><a href="#" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
+                      <li><a href="#logements-disponibles" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
                     <?php endif; ?>
 
-                    <li><a href="#" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <li><a href="#quartier" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
 
                     <?php if ($status_slider) : ?>
-                      <li><a href="#" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                      <li><a href="#prestations" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                     <?php endif; ?>
 
-                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t('Ajouter à mes sélections'); ?></span></a></li>
 
                     <?php if ($status_document) : ?>
-                      <li><a href="#" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
+                      <li><a href="#downloadDocument" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                     <?php endif; ?>
 
                     <?php if ($habiteo_id) : ?>
-                      <li><a href="#" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
+                      <li><a href="#Vue3D" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -200,7 +202,7 @@
 <!-- [programParcel] end-->
 
 <!-- [3rd party: video-de-quartier] start-->
-<section class="section-padding">
+<section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
             <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></h2>
@@ -276,7 +278,7 @@
 
 <!-- [3rd party: vue-generale] start-->
 <?php if ($habiteo_id): ?>
-  <section class="section-padding show-for-medium-up">
+  <section class="section-padding show-for-medium-up" id="Vue3D">
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print t('Découvrez la modélisation 3D'); ?></h2>
@@ -293,7 +295,7 @@
 
 <!-- [3rd party: vue-generale] start-->
 <?php if ($habiteo_id): ?>
-  <section class="section-padding show-for-medium-up">
+  <section class="section-padding show-for-medium-up" id="Vue3D" >
       <div class="wrapper">
           <header class="heading heading--bordered">
               <h2 class="heading__title"><?php print t('Découvrez la plan de masse 3D'); ?></h2>
@@ -349,7 +351,7 @@ if (!empty($list_document)):
   ?>
   <section class="section-padding">
       <div class="wrapper">
-          <div class="programDocumentDownload">
+          <div class="programDocumentDownload" id="downloadDocument">
               <?php
               $nocontent = 'data-reveal-id="downloadInformationForm"';
               ?>
