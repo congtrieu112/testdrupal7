@@ -703,20 +703,25 @@ function kandb_feed_feeds_importer_default() {
         'mappings' => array(
           0 => array(
             'source' => 'IdentifiantLogement',
-            'target' => 'field_id_bien',
+            'target' => 'title',
             'unique' => FALSE,
           ),
           1 => array(
             'source' => 'IdentifiantLogement',
+            'target' => 'field_id_bien',
+            'unique' => FALSE,
+          ),
+          2 => array(
+            'source' => 'IdentifiantLogement',
             'target' => 'guid',
             'unique' => 1,
           ),
-          2 => array(
+          3 => array(
             'source' => 'IdentifiantProgramme',
             'target' => 'field_programme',
             'unique' => FALSE,
           ),
-          3 => array(
+          4 => array(
             'source' => 'StatutLogement',
             'target' => 'field_bien_statut',
             'term_search' => '1',
