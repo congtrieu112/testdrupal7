@@ -128,7 +128,7 @@
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                             print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span>';
                             if ($carac_term->description) :
-                              print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $carac_term->description.'">?</span>';
+                              print '<span data-tooltip aria-haspopup="true" title="' . $carac_term->description . '" class="has-tip">?</span>';
                             endif;
                             print '</li>';
                           endif;
@@ -141,7 +141,7 @@
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $icons->description.'">?</span>';
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons->description . '" class="has-tip">?</span>';
                         endif;
                         print '</li>';
                       endif;
@@ -152,7 +152,7 @@
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihrbj73c0" aria-describedby="tooltip-ihrbj73c0" title="'. $icons->description.'">?</span>';
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons->description . '" class="has-tip">?</span>';
                         endif;
                         print '</li>';
                       endif;
