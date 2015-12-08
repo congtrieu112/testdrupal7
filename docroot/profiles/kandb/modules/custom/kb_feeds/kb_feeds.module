@@ -343,15 +343,13 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             14 => 'field_type_programme'
           ),
           'number_warning' => array(
-            7 => 'field_programme_loc_num',
             13 => 'field_annee',
-            //18 => 'field_programme_loc_long',
-            //19 => 'field_programme_loc_lat',
-            //58 => 'field_espace_vente_longitude',
-            //59 => 'field_espace_vente_latitude',
           ),
           'text_box' => array(
             0 => 'field_id_programme',
+          ),
+          'text_box_warning' => array(
+            7 => 'field_programme_loc_num',
           ),
           'custom_trimestre_options_warning' => array(
             12 => 'trimestre',
@@ -550,7 +548,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           ),
           'number_warning' =>  array(
             'anneelivraison' => 'field_annee',
-            'noderue' => 'field_programme_loc_num',
             'prixmoyenm2' => 'field_programme_avg_price',
             'bureaudeventex' => 'field_espace_vente_longitude',
             'bureaudeventey' => 'field_espace_vente_latitude',
@@ -578,7 +575,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             'cp' => 'field_programme_loc_cp',
           ),
           'text_box_warning' => array(
-            'mentionlegales' => 'field_programme_mtn_legale'
+            'mentionlegales' => 'field_programme_mtn_legale',
+            'noderue' => 'field_programme_loc_num',
           ),
           'date_time_programme_warning' => array(
             'datemiseenligne' => 'field_programme_online_date'
