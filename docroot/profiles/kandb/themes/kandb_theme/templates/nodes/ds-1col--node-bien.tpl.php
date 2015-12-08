@@ -256,11 +256,11 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     <?php
                     $jardin = field_get_items('node', $node, 'field_caracteristique_jardin');
                     if (isset($jardin[0]['value']) && $jardin[0]['value']) :
-                      if($icons = array_values(taxonomy_get_term_by_name('Jardin'))[0]):
-                      $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                      print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
+                      if ($icons = array_values(taxonomy_get_term_by_name('Jardin'))[0]):
+                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
@@ -270,7 +270,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
@@ -280,7 +280,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
@@ -290,7 +290,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
@@ -300,7 +300,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description) :
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
@@ -310,11 +310,11 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
                         if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="'.$icons->description.'">?</span>';
+                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
                         endif;
                       endif;
                     endif;
-                    ?> 
+                    ?>
                 </ul>
 
                 <ul class="toolsList">
@@ -405,7 +405,7 @@ if (!empty($list_bien_more)):
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title">Appartements <?php echo $nb_pieces->name ?> disponibles</h2>
+              <h2 class="heading__title"><?php print t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
               <p class="heading__title heading__title--sub"><?php print t("sur le programme") ?></p>
           </header>
       </div>
@@ -423,46 +423,89 @@ if (!empty($list_bien_more)):
                           $bien_id = $bien_id[count($bien_id) - 1];
                         }
                         ?>
-
                         <tr>
                             <td><?php print $bien_id ?></td>
                             <td>
-                                <ul class="list-item">
-                                    <li class="item-promotion">
-                                    </li>
-                                    <li class="item-ulities">
+                                <div class="list-item">
+                                    <div class="item-promotion">
                                         <?php
-                                        if (isset($bien_more->field_caracteristique[LANGUAGE_NONE][0])) {
-                                          $list_caracter = '';
-                                          foreach ($bien_more->field_caracteristique[LANGUAGE_NONE] as $item_caracter_id) {
-                                            $item_caracter = taxonomy_term_load($item_caracter_id['tid']);
-                                            $list_caracter .= $item_caracter->name . ', ';
-                                          }
+                                        $promotions = get_nids_promotions_by_bien($bien_more->nid);
+                                        if ($promotions):
+                                          foreach ($promotions as $promotion):
+                                            $triger_promotion = 'promotion-' . $promotion->nid;
+                                            ?>
+                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
+                                            <br><br>
+                                            <!-- [popin] start-->
+                                            <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                    <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                                </div>
+                                            </div>
+                                            <!-- [popin] end-->
+                                            <?php
+                                          endforeach;
+                                        endif;
+                                        ?>
+                                    </div>
+                                    <div class="list-characteristics">
+                                        <ul>
+                                            <li class="item-ulities">
+                                                <ul>
+                                                    <?php
+                                                    if (isset($bien_more->field_caracteristique[LANGUAGE_NONE][0])) {
+                                                      $list_caracter = '';
+                                                      foreach ($bien_more->field_caracteristique[LANGUAGE_NONE] as $item_caracter_id) {
+                                                        $item_caracter = taxonomy_term_load($item_caracter_id['tid']);
+                                                        $list_caracter .= $item_caracter->name . ', ';
+                                                      }
 
-                                          $list_caracter = substr($list_caracter, 0, -2);
-                                          print $list_caracter;
-                                        }
-                                        ?>
-                                    </li>
-                                    <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m2' : ''  ?></li>
-                                    <li class="item-exhibit">
-                                        <?php
-                                        if (isset($bien_more->field_etage[LANGUAGE_NONE][0])) {
-                                          $item_etage = taxonomy_term_load($bien_more->field_etage[LANGUAGE_NONE][0]['tid']);
-                                          print $item_etage->name;
-                                        }
-                                        ?>
-                                    </li>
-                                </ul>
+                                                      $list_caracter = substr($list_caracter, 0, -2);
+                                                      print $list_caracter;
+                                                    }
+                                                    ?>
+                                                </ul>
+                                            </li>
+                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m' : ''  ?><sup>2</sup></li>
+                                            <li class="item-exhibit">
+                                                <?php
+                                                if (isset($bien_more->field_etage[LANGUAGE_NONE][0])) {
+                                                  $item_etage = taxonomy_term_load($bien_more->field_etage[LANGUAGE_NONE][0]['tid']);
+                                                  print $item_etage->name;
+                                                }
+                                                ?>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <ul class="list-price">
-                                    <li><span class="text"><?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0  ?><?php print t('€'); ?></span><span class="tva">TVA 5,5%</span></li>
+                                    <?php if ($tva_name): ?>
+                                      <?php if ($affichage): ?>
+                                        <?php if (isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0) : ?>
+                                          <li>
+                                              <span class="text">
+                                                  <?php print numberFormatGlobalSpace($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) ?><?php print ' ' . t('€'); ?></span>
+                                              <span class="tva"><?php print $tva_name; ?></span>
+                                          </li>
+                                        <?php endif; ?>
+                                      <?php endif; ?>
+                                      <li>
+                                          <span class="text">
+                                              <?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0; ?><?php print ' ' . t('€'); ?></span>
+                                          <span class="tva tva--high"><?php print t('TVA 20%'); ?></span>
+                                      </li>
+                                    <?php else: ?>
+                                      <li>
+                                          <span class="text">
+                                              <?php print (isset($bien_more->field_prix_tva_20[LANGUAGE_NONE][0])) ? numberFormatGlobalSpace($bien_more->field_prix_tva_20[LANGUAGE_NONE][0]["value"]) : 0; ?><?php print ' ' . t('€'); ?></span>
+                                      </li>
+                                    <?php endif; ?>
 
-                                    <?php if (isset($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]) && $bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'] > 0) { ?>
-                                      <li><span class="text"><?php numberFormatGlobalSpace($bien_more->field_bien_low_tva_price[LANGUAGE_NONE][0]["value"]) ?><?php print t('€'); ?></span><span class="tva tva--high">TVA 20%</span></li>
-                                    <?php } ?>
                                 </ul>
+                                <a href="<?php print url('node/' . $bien_more->nid); ?>" title="<?php print t('voir la page') . ' ' . $bien_more->title; ?>" class="btn-primary btn-rounded"><?php print t('Voir'); ?></a>
                             </td>
                         </tr>
                       <?php endforeach; ?>

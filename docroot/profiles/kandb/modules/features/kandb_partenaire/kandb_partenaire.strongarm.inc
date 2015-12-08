@@ -19,25 +19,25 @@ function kandb_partenaire_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'domain' => array(
-          'weight' => '9',
-        ),
-        'locations' => array(
           'weight' => '10',
         ),
+        'locations' => array(
+          'weight' => '11',
+        ),
         'metatags' => array(
-          'weight' => '14',
+          'weight' => '15',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '12',
+          'weight' => '13',
         ),
         'redirect' => array(
-          'weight' => '11',
+          'weight' => '12',
         ),
         'xmlsitemap' => array(
-          'weight' => '13',
+          'weight' => '14',
         ),
       ),
       'display' => array(),

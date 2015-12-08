@@ -13,7 +13,8 @@ Ville : <?php if(isset($mail_vars['rdv_ville'])) {print $mail_vars['rdv_ville'];
 
 Code Postal : <?php if(isset($mail_vars['rdv_code_postal'])) {print $mail_vars['rdv_code_postal']; } ?>
 
-Pays : 
+Pays : <?php if(isset($mail_vars['rdv_pays'])) {print $mail_vars['rdv_pays']; } ?>
+
 E-mail : <?php if(isset($mail_vars['rdv_email'])) {print $mail_vars['rdv_email']; } ?>
 
 Telephone : <?php if(isset($mail_vars['rdv_telephone'])) {print $mail_vars['rdv_telephone']; } ?>
@@ -28,8 +29,16 @@ Le programme qui l'intéresse :
 
 <?php if(isset($mail_vars['programme_loc_type'])) {print $mail_vars['programme_loc_type']; } ?> <?php if(isset($mail_vars['programme_loc_rue'])) {print $mail_vars['programme_loc_rue']; } ?>
 
-Le bien qui l'intéresse :
-<?php if(isset($mail_vars['bien_type'])) {print $mail_vars['bien_type']; } ?> <?php if(isset($mail_vars['bien_nb_pieces'])) {print $mail_vars['bien_nb_pieces']; } ?> <?php if(isset($mail_vars['bien_superficie'])) {print $mail_vars['bien_superficie']; } ?> <?php if(isset($mail_vars['bien_lot_id']) && $mail_vars['bien_lot_id'] != '') {print 'Lot ' . $mail_vars['bien_lot_id']; } ?>
+<?php if((isset($mail_vars['bien_type']) AND $mail_vars['bien_type']) OR
+  (isset($mail_vars['bien_nb_pieces']) AND $mail_vars['bien_nb_pieces']) OR 
+  (isset($mail_vars['bien_superficie']) AND $mail_vars['bien_superficie']) OR 
+  (isset($mail_vars['bien_lot_id']) AND $mail_vars['bien_lot_id'])) : ?>
+Le bien qui l'intéresse :  
+<?php endif; ?> 
+<?php if(isset($mail_vars['bien_type']) AND $mail_vars['bien_type']) {print $mail_vars['bien_type']; } ?> 
+<?php if(isset($mail_vars['bien_nb_pieces']) AND $mail_vars['bien_nb_pieces']) {print $mail_vars['bien_nb_pieces']; } ?> 
+<?php if(isset($mail_vars['bien_superficie']) AND $mail_vars['bien_superficie']) {print $mail_vars['bien_superficie']; } ?> 
+<?php if(isset($mail_vars['bien_lot_id']) && $mail_vars['bien_lot_id'] != '') {print 'Lot ' . $mail_vars['bien_lot_id']; } ?>
 
 <?php if(isset($mail_vars['rdv_newsletter']) && $mail_vars['rdv_newsletter'] == TRUE) : ?>
 Oui je souhaite recevoir les offres de KB
