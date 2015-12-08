@@ -337,68 +337,6 @@ function kandb_partenaire_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-partenaire-field_partenaire_url'
-  $field_instances['node-partenaire-field_partenaire_url'] = array(
-    'bundle' => 'partenaire',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_partenaire_url',
-    'label' => 'Partenaire URL',
-    'required' => 0,
-    'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'full_html' => 'full_html',
-          'plain_text' => 'plain_text',
-          'simple' => 'simple',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'full_html' => array(
-              'weight' => -8,
-            ),
-            'plain_text' => array(
-              'weight' => -10,
-            ),
-            'simple' => array(
-              'weight' => -9,
-            ),
-          ),
-        ),
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 9,
-    ),
-  );
-
   // Translatables
   // Included for use with string extractors like potx.
   t('Contenu export');
@@ -407,7 +345,6 @@ function kandb_partenaire_field_default_field_instances() {
   t('ID du partenaire');
   t('Images en Grande Perspective');
   t('Nouveau Flux');
-  t('Partenaire URL');
   t('Programmes selectionnés');
   t('Transfer actif');
 
