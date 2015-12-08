@@ -56,7 +56,7 @@
                                                 </p>
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['programme_title']; ?></p>
                                                 <p style="margin: 0; padding-top: 55px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,</p>
-                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site&nbsp;<a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a>s'est montré intéréssé par un logement et souhaite que vous le contactiez pour prendre rendez-vous.
+                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site&nbsp;<a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a> s'est montré intéréssé par un logement et souhaite que vous le contactiez pour prendre rendez-vous.
                                                 </p>
                                             </td>
                                         </tr>
@@ -104,13 +104,26 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td valign="top" style="padding: 0 10px;">
-                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Son message</p>
+                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Son message : 
+                                                                                    <span style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #199edd; line-height: 20px;">
+                                                                                        <?php print $mail_vars['rdv_message']; ?>
+                                                                                    </span>
+                                                                                </p>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td valign="top" style="margin: 0; padding: 0 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                                                                                <?php if ($mail_vars['rdv_connu']) : ?><p style="margin: 0;">Origine Publicitaire&nbsp;:</p> <?php endif; ?>
-                                                                                <p style="margin: 0;">Le programme qui l'intéresse&nbsp;:</p>
+                                                                                <?php if ($mail_vars['rdv_connu']) : ?><p style="margin: 0;">Origine Publicitaire&nbsp;: <?php print $mail_vars['rdv_connu']; ?></p> <?php endif; ?>
+                                                                                <p style="margin: 0;">
+                                                                                    Le programme qui l'intéresse&nbsp;:<br>
+                                                                                    <?php print $mail_vars['programme_title']; ?><br>
+                                                                                    <?php print $mail_vars['programme_loc_type']; ?> <?php print $mail_vars['programme_loc_rue']; ?>
+                                                                                </p>
+                                                                                <?php if ($mail_vars['bien_lot_id']) : ?>
+                                                                                  <p style="margin: 0;">
+                                                                                      <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
+                                                                                  </p>
+                                                                                <?php endif; ?>
                                                                                 <p style="margin: 0; text-transform: uppercase;"><?php print $mail_vars['programme_title']; ?></p>
                                                                                 <p style="margin: 0;"><?php print $mail_vars['programme_loc_type'] ?> <?php print $mail_vars['programme_loc_rue']; ?></p>
                                                                                 <p style="margin: 0;"><?php if (isset($mail_vars['rdv_newsletter']) && $mail_vars['rdv_newsletter'] == TRUE) : ?> Oui je souhaite recevoir les offres de KB <?php endif; ?></p>

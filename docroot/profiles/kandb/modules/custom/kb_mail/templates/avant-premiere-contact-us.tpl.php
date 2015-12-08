@@ -59,7 +59,7 @@
                                                   Adresse : <?php  print $mail_vars['rdv_adresse1'];  ?><br />
                                                   <?php  print $mail_vars['rdv_adresse2']; ?><br />
                                                   <br />
-                                                  Ville : <?php print $mail_vars['rdv_ville']; ?> - <?php print $mail_vars['rdv_lieudit']; ?><br />
+                                                  Ville : <?php print $mail_vars['rdv_ville']; ?><?php if ($mail_vars['rdv_lieudit']) : ?> - <?php print $mail_vars['rdv_lieudit']; ?> <?php endif; ?><br />
                                                   Code Postal : <?php print $mail_vars['rdv_code_postal']; ?><br />
                                                   Pays : <br />
                                                   E-mail : <?php  print $mail_vars['rdv_email']; ?><br />

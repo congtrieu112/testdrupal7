@@ -62,6 +62,11 @@
                                                   <?php print $mail_vars['programme_title']; ?><br />
                                                   <?php print $mail_vars['programme_loc_type']; ?> <?php print $mail_vars['programme_loc_rue']; ?>
                                                 </p>
+                                                <?php if (isset($mail_vars['bien_lot_id']) &&  $mail_vars['bien_lot_id'] == 'A33') : ?>
+                                                 <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                                      <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_nb_pieces'];  ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
+                                                 </p>
+                                                <?php endif ?>
                                                 <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
                                                     Nous reviendrons vers vous dans les meilleurs délais.
                                                 </p>
