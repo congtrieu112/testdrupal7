@@ -66,8 +66,9 @@
                                                   <?php  print $mail_vars['programme_title']; ?><br/>
                                                   <?php  print $mail_vars['programme_loc_ville']; ?> - <?php print $mail_vars['programme_loc_department']; ?><br/>
                                                   IDKP : <?php print $mail_vars['programme_idkp']; ?><br/>
-                                                  <?php print $mail_vars['bien_type']; ?> <?php  print $mail_vars['bien_nb_pieces']; ?> <?php print $mail_vars['bien_superficie'] ?> Lot <?php print $mail_vars['bien_lot_id'] ?><br/>
-
+                                                  <?php if ($mail_vars['bien_lot_id'] == 'A33') : ?>
+                                                    <?php print $mail_vars['bien_type']; ?> <?php  print $mail_vars['bien_nb_pieces']; ?> <?php print $mail_vars['bien_superficie'] ?> Lot <?php print $mail_vars['bien_lot_id'] ?><br/>
+                                                  <?php endif; ?>
                                                   Cordialement,<br/>
                                                   L'équipe internet Kaufman & Broad.
                                                 </p>
