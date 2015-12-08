@@ -665,6 +665,14 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             $vente_latitude = (int) $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'];
             $entity->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] = ($vente_latitude != 0) ? $vente_latitude / 1000000 : '';
           }
+
+          // if field_programme_statut is checked (publish: checked, promoted to front page : unchecked, sticky at top of lists : unchecked)
+          //    else (Published : unchecked , Promoted to front page : unchecked, Sticky at top of lists : unchecked)
+          if(isset($entity->field_programme_statut[LANGUAGE_NONE][0]['value'])) {
+            $entity->status = $entity->field_programme_statut[LANGUAGE_NONE][0]['value'];
+            $entity->promote = "0";
+            $entity->sticky = "0";
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'city_feed_import') {
