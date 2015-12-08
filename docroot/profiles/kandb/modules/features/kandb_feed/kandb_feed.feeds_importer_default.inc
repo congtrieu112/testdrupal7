@@ -1268,7 +1268,7 @@ function kandb_feed_feeds_importer_default() {
         'request_timeout' => '',
         'auto_scheme' => '',
         'accept_invalid_cert' => 0,
-        'kb_url' => '',
+        'kb_url' => 'sites/default/files/import/Partenaire.csv',
         'kb_url_type' => '0',
       ),
     ),
@@ -1280,11 +1280,27 @@ function kandb_feed_feeds_importer_default() {
       ),
     ),
     'processor' => array(
-      'plugin_key' => 'KbFeedsNodeProcessor',
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
       'config' => array(
         'expire' => '-1',
         'author' => 0,
         'authorize' => 1,
+        'related_importer' => array(
+          'partenaire_programme_import' => 'partenaire_programme_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_bien_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'parcel_feed_import' => 0,
+          'programme_feed_import' => 0,
+        ),
         'mappings' => array(
           0 => array(
             'source' => 'IdentifiantPartenaire',
@@ -1347,6 +1363,88 @@ function kandb_feed_feeds_importer_default() {
     'process_in_background' => 0,
   );
   $export['partenaire_import'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'partenaire_programme_import';
+  $feeds_importer->config = array(
+    'name' => 'Partenaire programme import',
+    'description' => 'Import partenaire from partenaireprogramme.csv file',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/PartenaireProgramme.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 1,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'partenaire_import' => 'partenaire_import',
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_bien_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'parcel_feed_import' => 0,
+          'programme_feed_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => '0',
+            'target' => 'field_id_partenaire',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => '0',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => '1',
+            'target' => 'field_partenaire_programmes',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 1,
+        'bundle' => 'partenaire',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['partenaire_programme_import'] = $feeds_importer;
 
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */

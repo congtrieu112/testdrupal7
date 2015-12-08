@@ -210,7 +210,7 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      if($this->id == 'partenaire_import') {
+      if($this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import') {
         $arr = array_filter($row);
         if(count($arr) > 0) {
           $mylinesParsed++;
