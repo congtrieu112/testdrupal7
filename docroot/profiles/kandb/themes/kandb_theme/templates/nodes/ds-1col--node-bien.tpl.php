@@ -238,80 +238,84 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
             <div data-equalizer-watch class="programHeader__content__details">
                 <ul class="characteristicList">
                     <?php
+                    $vocabulary_name = 'caracteristiques';
                     if (isset($node->field_caracteristique[LANGUAGE_NONE][0])):
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
-                        ?>
-                        <li class="characteristicList__item">
-                            <span class="icon <?php print (isset($caracteristique->field_icon_name[LANGUAGE_NONE][0])) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : ''  ?>"></span>
-                            <span class="text"><?php print $caracteristique->name ?></span>
-                            <?php if ($caracteristique->description): ?>
-                              <span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="<?php print $caracteristique->description; ?>">?</span>
-                            <?php endif; ?>
-                        </li>
-                        <?php
+                        $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $caracteristique->name . '</span>';
+                        if ($caracteristique->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $caracteristique->description . '" class="has-tip">?</span>';
+                        endif;
+                        print '</li>';
                       endforeach;
                     endif;
                     ?>
                     <?php
                     $jardin = field_get_items('node', $node, 'field_caracteristique_jardin');
                     if (isset($jardin[0]['value']) && $jardin[0]['value']) :
-                      if ($icons = array_values(taxonomy_get_term_by_name('Jardin'))[0]):
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Jardin', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     $balcon = field_get_items('node', $node, 'field_caracteristique_balcon');
                     if (isset($balcon[0]['value']) && $balcon[0]['value']):
-                      if ($icons = array_values(taxonomy_get_term_by_name('Jalcon'))[0]) :
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Balcon', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     $terrasse = field_get_items('node', $node, 'field_caracteristique_terrasse');
                     if (isset($terrasse[0]['value']) && $terrasse[0]['value']):
-                      if ($icons = array_values(taxonomy_get_term_by_name('Terrasse'))[0]) :
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Terrasse', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     $parking = field_get_items('node', $node, 'field_caracteristique_parking');
                     if (isset($parking[0]['value']) && $parking[0]['value']):
-                      if ($icons = array_values(taxonomy_get_term_by_name('Parking'))[0]) :
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Parking', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     $box = field_get_items('node', $node, 'field_caracteristique_box');
                     if (isset($box[0]['value']) && $box[0]['value']) :
-                      if ($icons = array_values(taxonomy_get_term_by_name('Box'))[0]) :
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description) :
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Box', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     $cave = field_get_items('node', $node, 'field_caracteristique_cave');
                     if (isset($cave[0]['value']) && $cave[0]['value']) :
-                      if ($icons = array_values(taxonomy_get_term_by_name('Cave'))[0]) :
-                        $class_icon = isset($icons->field_icon_name[LANGUAGE_NONE][0]) ? $icons->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons->name . '</span></li>';
-                        if ($icons->description):
-                          print '<span data-tooltip="" aria-haspopup="true" class="has-tip" data-selector="tooltip-ihralktb0" aria-describedby="tooltip-ihralktb0" title="' . $icons->description . '">?</span>';
+                      if ($icons = get_taxonomy_by_vocabulary_name('Cave', $vocabulary_name)):
+                        $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
+                        if ($icons[0]->description):
+                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
                         endif;
+                        print '</li>';
                       endif;
                     endif;
                     ?>
