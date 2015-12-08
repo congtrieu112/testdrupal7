@@ -20,9 +20,9 @@ class KbEncodingCSVParser extends FeedsCSVParser {
     }
 
     $iterator = new ParserCSVIterator($fetcher_result->getFilePath());
+    $parser->setId($source->id);
     if (empty($source_config['no_headers'])) {
       // Get first line and use it for column names, convert them to lower case.
-      $parser->setId($source->id);
       $header = $this->parseHeader($parser, $iterator);
       if (!$header) {
         drupal_set_message(t('The CSV file is empty.'), 'warning', FALSE);

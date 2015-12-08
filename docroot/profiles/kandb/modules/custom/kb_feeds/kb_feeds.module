@@ -343,15 +343,13 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             14 => 'field_type_programme'
           ),
           'number_warning' => array(
-            7 => 'field_programme_loc_num',
             13 => 'field_annee',
-            //18 => 'field_programme_loc_long',
-            //19 => 'field_programme_loc_lat',
-            //58 => 'field_espace_vente_longitude',
-            //59 => 'field_espace_vente_latitude',
           ),
           'text_box' => array(
             0 => 'field_id_programme',
+          ),
+          'text_box_warning' => array(
+            7 => 'field_programme_loc_num',
           ),
           'custom_trimestre_options_warning' => array(
             12 => 'trimestre',
@@ -452,8 +450,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             $bien_id = $entity->field_id_bien[LANGUAGE_NONE][0]['value'];
             $arr_bien_id = explode('-', $bien_id);
             if(count($arr_bien_id) == 3) {
-              $number_lot = (int) $arr_bien_id[2];
-              if($number_lot && is_numeric($number_lot)) {
+              $number_lot = $arr_bien_id[2];
+              if($number_lot) {
                 $entity->field_numero_lot[LANGUAGE_NONE][0]['value'] = $number_lot;
               }
             }
@@ -550,7 +548,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           ),
           'number_warning' =>  array(
             'anneelivraison' => 'field_annee',
-            'noderue' => 'field_programme_loc_num',
             'prixmoyenm2' => 'field_programme_avg_price',
             'bureaudeventex' => 'field_espace_vente_longitude',
             'bureaudeventey' => 'field_espace_vente_latitude',
@@ -578,7 +575,8 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
             'cp' => 'field_programme_loc_cp',
           ),
           'text_box_warning' => array(
-            'mentionlegales' => 'field_programme_mtn_legale'
+            'mentionlegales' => 'field_programme_mtn_legale',
+            'noderue' => 'field_programme_loc_num',
           ),
           'date_time_programme_warning' => array(
             'datemiseenligne' => 'field_programme_online_date'
@@ -738,7 +736,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       );
 
       foreach($arr_parten_fields as $key => $field) {
-
         if(isset($item[$key]) && $item[$key] == "") {
           $partenaire = &$entity->$field;
           $partenaire[LANGUAGE_NONE][0]['value'] = -1;
@@ -758,6 +755,17 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           }
         }
       }
+    } elseif ($entity->feeds_item->id == 'partenaire_programme_import') {
+      $validates = array(
+        'primary_key' => array(
+          0 => 'field_id_partenaire',
+        ),
+        'entity_id' => array(
+          1 => 'field_partenaire_programmes',
+        ),
+      );
+
+      $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
     }
   }
 
@@ -1048,6 +1056,15 @@ function kb_feeds_menu() {
     'file' => 'kb_feeds.pages.inc',
   );
 
+  $items['admin/reports/feeds_errorlog/partenaire-programme'] = array(
+    'title' => 'Partenaire programme import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'partenaire_programme_import'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
   $items['feeds-errorlog/delete/%'] = array(
     'title' => 'Import',
     'page callback' => 'drupal_get_form',
@@ -1169,14 +1186,13 @@ function import_bien_pdf_batch_operation() {
   drupal_set_message('Updating Bien Nodes');
 
   // Build the list of operation functions and function arguments.
-  global $base_url;
   $dir_parent = variable_get('import_bien_pdf_dir_parent');
   $operations = array();
   $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
-  $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
 
   $file_log_name = 'import_bien_pdf_log_' . date('Y-m-d_H-i-j') . '.txt';
   variable_set('import_bien_pdf_log_name', $file_log_name);
+  variable_set('import_bien_pdf_processed', 0);
   if (is_dir($base_path)) {
     if ($handle = opendir($base_path)) {
       /* This is the correct way to loop over the directory. */
@@ -1193,50 +1209,9 @@ function import_bien_pdf_batch_operation() {
             }
             variable_set('import_bien_pdf_' . $id_program . '_total', $filecount);
           }
-
-          $program = get_program_by_id($id_program);
-          if (!empty($program)) {   // Exist node program.
-            // Load all pdf file in folder program.
-            if ($handle_pdf_files = opendir($base_path . $id_program)) {
-              while (false !== ($pdf_file = readdir($handle_pdf_files))) {
-                if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
-                  $file_name = explode('_', $pdf_file);
-                  $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
-                  $id_bien = $idbien_extension[0];
-                  $extension_file = $idbien_extension[1];
-
-                  // Just get pdf file.
-                  if (strtolower($extension_file) == 'pdf') {
-                    $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
-                    if (!empty($node_biens)) {
-                      // Sometime we will find more than 1 item.
-                      foreach ($node_biens as $item_bien) {
-                        $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
-                        $data = array(
-                          'bien_id' => $id_bien,
-                          'node_id' => $item_bien->nid,
-                          'path_pdf' => $path_pdf,
-                        );
-                        $updated += 1;
-                        variable_set('import_bien_pdf_' . $id_program . '_updated', $updated);
-                        $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
-                      }
-                    } else {
-                      // Write log file : id_bien $id_bien does not exist.
-                      $logging .= $id_program . '-%-' . $id_bien . '|id_bien|bien_id does not exist' . '| Skip imported' . "\n";
-                      $rejected += 1;
-                      variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
-                    }
-                  } else {
-                    $logging .= $id_program . '||File extension must to pdf' . '| Skip imported' . "\n";
-                    $rejected += 1;
-                    variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
-                  }
-                }
-              }
-
-              closedir($handle_pdf_files);
-            }
+          $program = get_program_by_id($id_program); 
+          if (!empty($program)) {
+            $operations[] = array('import_bien_pdf_batch_operation_process_per_dir', array(array('program' => $program, 'id_program' => $id_program)));
           } else {
             // Write log file: id_program: $id_program does not exist.
             $logging .= $id_program . '|id_program|id_program does not exist' . '| Skip imported' . "\n";
@@ -1245,23 +1220,6 @@ function import_bien_pdf_batch_operation() {
         }
 
         createFileErrorLogTxt($file_log_name, $logging);
-        $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
-        $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
-        $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
-
-        if($file_log_name && ($total_rows || $updated || $rejected)) {
-          $logging = '/**' . "\n";
-          $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
-          $logging .= ' * ' . 'Programme ID: ' . $id_program . "\n";
-          $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
-          $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
-          $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
-          $logging .= ' */' . "\n";
-          createFileErrorLogTxt($file_log_name, $logging);
-          variable_del('import_bien_pdf_' . $id_program . '_total');
-          variable_del('import_bien_pdf_' . $id_program . '_updated');
-          variable_del('import_bien_pdf_' . $id_program . '_rejected');
-        }
       }
 
       closedir($handle);
@@ -1288,6 +1246,83 @@ function import_bien_pdf_batch_operation_process($data, &$context) {
   save_bien_pdf_file($data["node_id"], $data["path_pdf"]);
 }
 
+function import_bien_pdf_batch_operation_process_per_dir($data, &$context) {
+  global $base_url;
+  $logging = '';
+  $id_program = $data['id_program'];
+  $dir_parent = variable_get('import_bien_pdf_dir_parent');
+  $base_path = DRUPAL_ROOT . '/sites/default/files/' . $dir_parent;
+  $base_path_pdf = $base_url . '/sites/default/files/' . $dir_parent;
+  $context['results'][] = t('Bien of programme @programme is updating', array('@programme' => $data['program']->nid));
+  $context['message'] = t('Processing bien of programme_id @programme_id', array('@programme_id' => $id_program));
+  $updated = 0;
+  $rejected = 0;
+  $file_log_name = variable_get('import_bien_pdf_log_name', '');
+  $reset_sleep = 0;
+  $processed = variable_get('import_bien_pdf_processed', 0);
+// Load all pdf file in folder program.
+  if ($handle_pdf_files = opendir($base_path . $id_program)) {
+    while (false !== ($pdf_file = readdir($handle_pdf_files))) {
+      if (is_file($base_path . $id_program . '/' . $pdf_file) && $pdf_file != '.' && $pdf_file != '..') {
+        $file_name = explode('_', $pdf_file);
+        $idbien_extension = explode('.', $file_name[count($file_name) - 1]);
+        $id_bien = $idbien_extension[0];
+        $extension_file = $idbien_extension[1];
+
+        // Just get pdf file.
+        if (strtolower($extension_file) == 'pdf') {
+          $node_biens = get_bien_by_bienid($id_program . '-%-' . $id_bien);
+          if (!empty($node_biens)) {
+            // Sometime we will find more than 1 item.
+            foreach ($node_biens as $item_bien) {
+              $path_pdf = $base_path_pdf . $id_program . '/' . $pdf_file;
+              $updated += 1;
+              variable_set('import_bien_pdf_' . $id_program . '_updated', $updated);
+//              $operations[] = array('import_bien_pdf_batch_operation_process', array($data));
+              save_bien_pdf_file($item_bien->nid, $path_pdf);
+              $processed++;
+            }
+          } else {
+            // Write log file : id_bien $id_bien does not exist.
+            $logging .= $id_program . '-%-' . $id_bien . '|id_bien|bien_id does not exist' . '| Skip imported' . "\n";
+            $rejected += 1;
+            variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
+          }
+        } else {
+          $logging .= $id_program . '||File extension must to pdf' . '| Skip imported' . "\n";
+          $rejected += 1;
+          variable_set('import_bien_pdf_' . $id_program . '_rejected', $rejected);
+        }
+      }
+      $reset_sleep++;
+      if ($reset_sleep == 50) {
+        sleep(5);
+        $reset_sleep = 0;
+      }
+    }
+    closedir($handle_pdf_files);
+  }
+  createFileErrorLogTxt($file_log_name, $logging);
+  $total_rows = variable_get('import_bien_pdf_' . $id_program . '_total', 0);
+  $updated = variable_get('import_bien_pdf_' . $id_program . '_updated', 0);
+  $rejected = variable_get('import_bien_pdf_' . $id_program . '_rejected', 0);
+
+  if($file_log_name && ($total_rows || $updated || $rejected)) {
+    $logging = '/**' . "\n";
+    $logging .= ' * ' . 'Importer: Import bien pdf' . "\n";
+    $logging .= ' * ' . 'Programme ID: ' . $id_program . "\n";
+    $logging .= ' * ' . 'Total rows: ' . $total_rows . "\n";
+    $logging .= ' * ' . 'Imported: ' . $updated . ' (created: 0 - ' . 'updated: ' . $updated . ' - skipped: 0)' . "\n";
+    $logging .= ' * ' . 'Rejected: ' . $rejected . "\n";
+    $logging .= ' */' . "\n";
+    createFileErrorLogTxt($file_log_name, $logging);
+    variable_del('import_bien_pdf_' . $id_program . '_total');
+    variable_del('import_bien_pdf_' . $id_program . '_updated');
+    variable_del('import_bien_pdf_' . $id_program . '_rejected');
+  }
+  variable_set('import_bien_pdf_processed', $processed);
+}
+
 /**
  * @todo Batch finished
  */
@@ -1296,7 +1331,8 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
   if ($success) {
     // Here we could do something meaningful with the results.
     // We just display the number of nodes we processed...
-    drupal_set_message(t('@count Node Bien processed.', array('@count' => count($results))));
+    $processed = variable_get('import_bien_pdf_processed', 0);
+    drupal_set_message(t('@count Node Bien processed.', array('@count' => $processed)));
   } else {
     // An error occurred.
     // $operations contains the operations that remained unprocessed.
@@ -1337,6 +1373,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $error_custom_trimestre_options_field = '';
   $error_datetime_programe_field = '';
   $error_custom_partenaire_export_options_field = '';
+  $error_primary_key_field = '';
 
   $error_log_field_warning = '';
   $error_term_field_warning = '';
@@ -1355,6 +1392,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $value_datetime_programe_field = '';
   $value_custom_echelle_options_field = '';
   $value_custom_partenaire_export_options_field = '';
+  $value_primary_key_field = '';
 
   foreach ($validates as $type => $fields) {
     switch ($type) {
@@ -1484,6 +1522,15 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
         break;
 
+      case 'primary_key':
+        foreach ($fields as $key => $field_name) {
+          if(isset($item[$key]) && !trim($item[$key])) {
+            $error_primary_key_field .= $field_name . ',';
+            $value_primary_key_field .= $field_name . ': ';
+          }
+        }
+
+        break;
       case 'custom_trimestre_options':
       case 'custom_trimestre_options_warning':
         foreach ($fields as $key => $field_name) {
@@ -1593,6 +1640,11 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
 
   if ($error_datetime_programe_field) {
     $logging .= $error_log . rtrim($error_datetime_programe_field, ',') .  '|' . rtrim($value_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Skip import' . "\n";
+  }
+
+  if ($error_primary_key_field) {
+    $temp = variable_get($entity->feeds_item->id . '_rejected', 0) + variable_get($entity->feeds_item->id . '_updated', 0) + 1;
+    $logging .= 'Rows: ' . $temp . '|' . rtrim($error_primary_key_field, ',') .  '|' . rtrim($value_primary_key_field, ',') . '|' . 'Primary key is mandatory' . '|' . 'Skip import' . "\n";
   }
 
   // Warning

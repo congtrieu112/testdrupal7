@@ -8,6 +8,34 @@ function kandb_validate_form_avant_premiere_node_form_alter(&$form, &$form_state
 }
 
 /**
+ * Implement hook_form_Form_ID_alter().
+ */
+function kandb_validate_form_partenaire_node_form_alter(&$form, &$form_state) {
+  $form['field_id_partenaire']['#disabled'] = TRUE;
+}
+
+/**
+ * Implement hook_node_presave().
+ */
+function kandb_validate_node_presave($node) {
+  if ($node->type == 'partenaire' AND $_GET['q'] == 'node/add/partenaire' AND $node->is_new) {
+    $uuid = generate_uuid();
+    $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] = $uuid;
+    // Create a parent folder with name partenaires.
+    $partenaires_dir = 'public://partenaires/';
+    if (!is_dir($partenaires_dir)) {
+      file_prepare_directory($partenaires_dir, FILE_CREATE_DIRECTORY);
+      drupal_chmod($partenaires_dir, 0777);
+    }
+
+    // Create a sub folder within parent.
+    $partenaire_dir = 'public://partenaires/' . $uuid;
+    file_prepare_directory($partenaire_dir, FILE_CREATE_DIRECTORY);
+    drupal_chmod($partenaire_dir, 0777);
+  }
+}
+
+/**
  * Custom validate start date and end date for avant_premiere ct.
  */
 function kandb_validate_avant_premiere(&$form, &$form_state) {
@@ -20,10 +48,12 @@ function kandb_validate_avant_premiere(&$form, &$form_state) {
       if ($date_diff > 2) {
         form_set_error('field_avant_premiere_date_fin', t('the range between begin date and end date is from 1 - 3 days.'));
       }
-    } else {
+    }
+    else {
       form_set_error('field_avant_premiere_date_debut', t('The end date should be greater than begin date'));
     }
-  } else {
+  }
+  else {
     form_set_error('field_avant_premiere_date_debut', t('Both begin date and end date should be same year and month'));
   }
 }
@@ -38,7 +68,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
   $realEnd->add($interval);
 
   $period = new DatePeriod(
-    new DateTime($start), $interval, $realEnd
+      new DateTime($start), $interval, $realEnd
   );
   foreach ($period as $date) {
     $array[] = $date->format('d');
@@ -58,7 +88,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
-      ->distinct();
+        ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -73,7 +103,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     // Fetch only records where date_time is greater than 30 days ago.
     $type_options_query->where('d.field_programme_online_date_value > DATE_ADD(NOW(), INTERVAL -30 DAY)');
     $type_options_query->fields('a', array('field_programme_loc_ville_tid'))
-      ->distinct();
+        ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -148,11 +178,11 @@ function date_quarter() {
 function get_nids_promotions_by_programme($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'promotion')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_promotion_programme', 'target_id', $nid)
-    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+      ->entityCondition('bundle', 'promotion')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_promotion_programme', 'target_id', $nid)
+      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -173,10 +203,12 @@ function kandb_validate_views_pre_render($view) {
     foreach ($my_arr as $key => $val) {
       if (!isset($new_arr[$val->nid])) {
         $new_arr[$val->nid] = $key;
-      } else {
+      }
+      else {
         if (isset($dups[$val->nid])) {
           $dups[$val->nid][] = $key;
-        } else {
+        }
+        else {
           $dups[$val->nid] = array($key);
         }
       }
@@ -207,10 +239,10 @@ function kandb_validate_views_pre_render($view) {
 function get_status_biens($nid, $tid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'bien')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_programme', 'target_id', $nid)
-    ->fieldCondition('field_bien_statut', 'tid', $tid);
+      ->entityCondition('bundle', 'bien')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_programme', 'target_id', $nid)
+      ->fieldCondition('field_bien_statut', 'tid', $tid);
 
   $result = $query->execute();
 
@@ -242,11 +274,11 @@ function get_tid_by_id_field($status) {
 function get_nids_promotions_by_avant($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'promotion')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
-    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+      ->entityCondition('bundle', 'promotion')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
+      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -263,11 +295,11 @@ function get_nids_promotions_by_avant($nid) {
 function get_nids_promotions_by_bien($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'promotion')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_promotion_biens', 'target_id', $nid)
-    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+      ->entityCondition('bundle', 'promotion')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_promotion_biens', 'target_id', $nid)
+      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -276,4 +308,50 @@ function get_nids_promotions_by_bien($nid) {
   }
 
   return NULL;
+}
+
+/**
+ * Generate UUID.
+ */
+function generate_uuid() {
+  return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+      // 32 bits for "time_low".
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+      // 16 bits for "time_mid".
+      mt_rand(0, 0xffff),
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 4.
+      mt_rand(0, 0x0fff) | 0x4000,
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1.
+      mt_rand(0, 0x3fff) | 0x8000,
+      // 48 bits for "node".
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+  );
+}
+
+/**
+ * Get number bien by status "Disponible" and public domain
+ * @param int $domain_id domain id in table domain.
+ *
+ */
+function get_total_bien_by_status_site($domain_id = 3) {
+  //1:kaufman_core_local_com ,2:kandb_b2b ,3:kandb_b2c)
+  //Get bien type
+  $bien_status_id = get_tid_by_id_field(1);
+
+  //Count total
+  $query = db_select('node', 'n');
+  $query->join('domain_access', 'da', 'n.nid = da.nid');
+  $query->join('field_data_field_bien_statut', 'bt', 'n.nid = bt.entity_id');
+  $query->addExpression('COUNT(n.nid)', 'total');
+  $query->condition('n.status', 1, '=')
+      ->condition('da.gid', $domain_id, '=')
+      ->condition('bt.field_bien_statut_tid', $bien_status_id, '=');
+  $result = $query->execute()->fetchCol();
+  if ($result) {
+    return $result[0];
+  }
+  return 0;
 }
