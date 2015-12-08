@@ -98,7 +98,6 @@ function _get_logement_block_content() {
     $key = arg(1);
     if ($node && isset($node->type) && $node->type == 'programme') {
       $logement_block['title'] = $node->title;
-
       $tid = 0;
       $terms = taxonomy_get_term_by_name('Disponible / Libre');
       if ($terms) {
@@ -145,8 +144,7 @@ function _get_logement_block_content() {
                 $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
                 if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
                   $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
-                }
-                else {
+                } else {
                   $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
                   $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
                   $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
@@ -277,7 +275,7 @@ function _get_logement_block_content() {
     }
   }
 
-  return theme('kandb_programme', array('logement_block' => $logement_block));
+  return theme('kandb_programme', array('logement_block' => $logement_block, 'node' => $node));
 }
 
 function document_block_form($form, &$form_submit) {
