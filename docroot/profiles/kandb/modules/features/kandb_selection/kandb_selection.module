@@ -76,25 +76,26 @@ function kandb_selection_theme($existing, $type, $theme, $path) {
  * Page Callback
  */
 function kandb_selection_page_selection() {
+  return theme('page_selection');
+}
 
+/**
+ * Ajax Callback
+ */
+function kandb_selection_ajax_selection(){
   $content = array();
 
   // Get the Ids from the arguments
-  $ids_programme = explode('-', $_GET['programme']);
-  $ids_bien = explode('-', $_GET['bien']);
-  $ids_avant_premiere = explode('-', $_GET['avant_premiere']);
-  $ids_articles = explode('-', $_GET['article']);
-  $recherches = explode('-', $_GET['recherche']);
+  $ids_programme = isset($_GET['programme']) ? explode('-', $_GET['programme']) : array();
+  $ids_bien = isset($_GET['bien']) ? explode('-', $_GET['bien']) : array();
+  $ids_avant_premiere = isset($_GET['avant_premiere']) ? explode('-', $_GET['avant_premiere']) : array();
+  $ids_articles = isset($_GET['article']) ? explode('-', $_GET['article']) : array();
+  $recherches = isset($_GET['recherche']) ? explode('-', $_GET['recherche']) : array();
 
   // Selection Programme Bien & Avant Premiere
   $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
     'views_embed_view',
-    array_merge(
-      array('mon_espace', 'block'),
-      $ids_programme,
-      $ids_bien,
-      $ids_avant_premiere
-    )
+    array('mon_espace', 'block_1', implode(',', array_merge($ids_programme, $ids_bien, $ids_avant_premiere)))
   );
 
   // Selection Recherche
@@ -104,19 +105,9 @@ function kandb_selection_page_selection() {
   $content['selection_article'] = call_user_func_array(
     'views_embed_view',
     array_merge(
-      array('mon_espace', 'block_1'),
-      $ids_articles
+      array('mon_espace', 'block_2'), $ids_articles
     )
   );
 
-  return theme('page_selection', $content);
-}
-
-/**
- * Ajax Callback
- */
-function kandb_selection_ajax_selection(){
-  $content = '';
   return theme('ajax_selection', $content);
 }
-
