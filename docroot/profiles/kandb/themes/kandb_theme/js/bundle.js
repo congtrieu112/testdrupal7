@@ -37385,15 +37385,16 @@ AppAccordion.prototype = {
             .velocity('slideDown', {
               duration: 500,
               progress: function(elements, complete, remaining, start, tweenValue) {
-                var linkPosition = $this.offset().top,
-                    windowPosition = $(window).scrollTop(),
-                    moveTo = linkPosition - 100 - windowPosition,
-                    value = windowPosition + complete * moveTo;
-                    console.log(Math.round(value));
-                $(window).scrollTop( Math.round(value) );
+                var linkPosition    = $this.offset().top,
+                    windowPosition  = $(window).scrollTop(),
+                    moveTo          = linkPosition - 100 - windowPosition,
+                    value           = windowPosition + moveTo * complete;
+
+                $(window).scrollTop( Number(value.toFixed()) );
               }
             });
 
+          // when sample to close
           $( that.findContent( that.activeLink ) ).find(sample)
             .attr({
               'aria-hidden': 'true',
@@ -37421,6 +37422,7 @@ AppAccordion.prototype = {
         duration: 500
       });
 
+    // when sample to show
     this.item.find(sample).filter(':hidden')
       .attr({
           'aria-hidden': 'false',
@@ -38959,26 +38961,26 @@ App.updaters.foundation = function() {
 
 'use strict';
 
-var headerHeight = $('.header').height();
+var trigger = '[data-scroll-to]',
+    headerHeight = $('.header').height();
 
-$(function() {
-  $('a[href*=#]:not([href=#])').on('click.scroll-to', function() {
-    if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
+$(trigger).on('click.scroll-to', function() {
+  if (location.pathname.replace(/^\//,'') === this.pathname.replace(/^\//,'') && location.hostname === this.hostname) {
 
-      var target = $(this.hash);
-      target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
+    var target = $(this.hash);
+    target = target.length ? target : $('[name=' + this.hash.slice(1) +']');
 
-      if (target.length && !Modernizr.touch) {
+    if (target.length && !Modernizr.touch) {
 
-        target.velocity('scroll', {
-          duration: 1000,
-          offset: - headerHeight
-        });
-        return false;
-      }
+      target.velocity('scroll', {
+        duration: 500,
+        offset: - headerHeight
+      });
+      return false;
     }
-  });
+  }
 });
+
 
 },{}],24:[function(require,module,exports){
 /* ====================================== */

@@ -4,11 +4,15 @@
 - large: 1380 x 590
 -->
 <?php drupal_set_title(''); ?>
+<?php
+  $title_sub = render($content['field_hp_block_search_stitle']);
+  $bien_total = get_total_bien_by_status_site();
+?>
 <section data-interchange="[<?php print image_style_url('hp_search_block_mobile', $content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('hp_search_block', $content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
-            <div class="heading__title heading__title--sub"><?php print render($content['field_hp_block_search_stitle']); ?></div>
+            <div class="heading__title heading__title--sub"><?php print str_replace('#num#', $bien_total, $title_sub); ?></div>
         </div>
         <?php print render($content['hp_block_search']); ?>
     </div>
