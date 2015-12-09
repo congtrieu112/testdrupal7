@@ -14,11 +14,8 @@
  */
 function kandb_install() {
   // Enable default theme.
-  $theme = array(
-    'kandb_theme',
-    'kandb_b2b_theme',
-    );
-  theme_enable($theme);
+  $theme = 'kandb_theme';
+  theme_enable(array($theme));
   variable_set('theme_default', $theme);
 
   // Enable admin theme.
