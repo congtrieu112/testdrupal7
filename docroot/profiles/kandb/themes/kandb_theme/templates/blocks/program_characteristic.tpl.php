@@ -30,7 +30,7 @@ if ($rt2012_bbc) {
   $logo = ($rt2012_bbc == '1') ? variable_get('image_default_slider_rt2012_logo') : variable_get('image_default_slider_bbc_logo');
   $tab_title = ($rt2012_bbc == '1') ? t('RT2012') : t('BBC');
 }
-$logo_image = file_load($logo);
+$logo_image = ($logo) ? file_load($logo) : '';
 $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) : '';
 ?>
 
