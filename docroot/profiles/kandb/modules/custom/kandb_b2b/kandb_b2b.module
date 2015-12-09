@@ -1,0 +1,34 @@
+<?php
+
+/**
+ * @file
+ * K&B B2B.
+ */
+
+/**
+ * Implement of hook_menu().
+ */
+function kandb_b2b_menu() {
+  $items['b2b-homepage'] = array(
+    'title' => 'B2B Homepage',
+    'page callback' => 'render_b2b_homepage',
+    'access callback' => TRUE,
+    'file' => 'kandb_b2b.inc',
+    'type' => MENU_CALLBACK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implement of hook_theme().
+ */
+function kandb_b2b_theme($existing, $type, $theme, $path) {
+  return array(
+    // Contact buttons
+    'b2b_homepage' => array(
+      'template' => 'templates/b2b_homepage',
+      'variables' => array(),
+    ),
+  );
+}
