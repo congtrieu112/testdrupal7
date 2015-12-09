@@ -711,6 +711,14 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantlogement');
       }
     }
+    elseif ($entity->feeds_item->id == 'migration_bien_import_v2') {
+      if ($totalItems != 46) {
+        $logging = $item['identifiantlogement'] . '||' . 'Structure error (Total column diffenrence total items' . ')| Skip imported' . "\n";
+      }
+      elseif (isset($entity->is_new) && $entity->is_new == TRUE) {
+        $logging .= $item['identifiantlogement'] . '||' . 'Item not exist (Bien not exist in BO: '. $item['identifiantlogement'] . ')| Skip imported' . "\n";
+      }
+    }
     elseif($entity->feeds_item->id == 'partenaire_import') {
       $validates = array(
         'check_box_warning' => array(
