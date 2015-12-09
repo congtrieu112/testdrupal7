@@ -810,34 +810,56 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
           "lienfichier"
         );
       } elseif ($source->id === "kb_patrimoine_import") {
+        if(isset($row["identifiantprogramme"])) {
+          $id_program = $row["identifiantprogramme"];
+          $rejected = variable_get($source->id . '_rejected', 0);
+          if($id_program) {
+            $path = 'sites/default/files/ketbmedia/doc/' . $id_program;
+            if(!file_exists($path)) {
+              $logging .= $id_program . '|field_id_programme|field_id_programme: ' . $id_program . '|Folder not exists in sites/default/files/ketbmedia/doc|' . 'Skip import' . "\n";
+              variable_set($source->id . '_rejected', $rejected + 1);
+              unset($result->items[$key]);
+              continue;
+            }
 
-        $id_program = $row["identifiantprogramme"];
-        $check_exist = get_program_by_id($id_program);
-        // just use for update node, not add new.
-        if (empty($check_exist)) {
-          unset($result->items[$key]);
-          continue;
+            $check_exist = get_program_by_id($id_program);
+            if (empty($check_exist)) {
+              $logging .= $id_program . '|field_id_programme|field_id_programme: ' . $id_program . '|Field id programme not exists|' . 'Skip import' . "\n";
+              variable_set($source->id . '_rejected', $rejected + 1);
+              unset($result->items[$key]);
+              continue;
+            }
+          } else {
+            $temp = variable_get($source->id . '_rejected', 0) + variable_get($source->id . '_updated', 0) + 1;
+            $logging .= 'Row: ' . $temp . '|field_id_programme|field_id_programme: |Field id programme is mandatory|' . 'Skip import' . "\n";
+            variable_set($source->id . '_rejected', $rejected + 1);
+            unset($result->items[$key]);
+            continue;
+          }
         }
 
+        // just use for update node, not add new.
         $list_file_id = array(
-          "PlaquetteCommerciale",
-          "ContratDeReservation",
-          "EtatDesRisques",
-          "LetterBanque",
-          "FichesDeRenseignement",
-          "PrestationsDuProgramme",
-          "MandatDeGestionLocative",
-          "PlansDeMasse",
-          "VisuelGrandeTaille",
-          "BailCommercial",
-          "BonDeCommandeMobilier",
-          "KitFiscal",
-          "AutreDoc",
+          'field_plaquette_commerciale' => 'PlaquetteCommerciale',
+          'field_contrat_reservation' => 'ContratDeReservation',
+          'field_etat_des_risques' => 'EtatDesRisques',
+          'field_lettre_de_banque' => 'LetterBanque',
+          'field_fiche_renseignement' => 'FichesDeRenseignement',
+          'field_prestations_programme' => 'PrestationsDuProgramme',
+          'field_mandat_gestion_locative' => 'MandatDeGestionLocative',
+          'field_plan_batiment' => 'PlansDeMasse',
+          'field_visuel_grande_taille' => 'VisuelGrandeTaille',
+          'field_bail_commercial' => 'BailCommercial',
+          'field_bon_commande_mobilier' => 'BonDeCommandeMobilier',
+          'field_kit_fiscal' => 'KitFiscal',
+          'field_autre_documents' => 'AutreDoc',
         );
       }
 
+      $file_upload_fields = '';
+      $file_upload_values = '';
       // Parse url for pdf file.
-      foreach ($list_file_id as $item_col_file) {
+      foreach ($list_file_id as $key_col_file => $item_col_file) {
         $item_col_file = strtolower($item_col_file);
 
         $file = $row[$item_col_file];
@@ -849,9 +871,24 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
             $path_url .= '/' . $file;
           }
 
+          $argHeader = @get_headers($path_url);
+          if (!preg_match("|200|", $argHeader[0])) {
+            $file_upload_fields .=  $key_col_file . ', ';
+            $file_upload_values .=  $key_col_file . ': ' . $file . ', ';
+          }
           $result->items[$key][$item_col_file] = $path_url;
         }
       }
+
+      if($file_upload_fields || $file_upload_values) {
+        $warning = variable_get($source->id . '_warning', 0);
+        $logging .= $row["identifiantprogramme"] . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Warning' . "\n";
+        variable_set($source->id . '_warning', $warning + 1);
+      }
+    }
+
+    if ($logging) {
+      createFileErrorLogTxt($file_log_name, $logging);
     }
   } elseif ($source->id === "city_feed_import") {
     foreach ($result->items as $key => $row) {
@@ -1217,7 +1254,7 @@ function import_bien_pdf_batch_operation() {
             }
             variable_set('import_bien_pdf_' . $id_program . '_total', $filecount);
           }
-          $program = get_program_by_id($id_program); 
+          $program = get_program_by_id($id_program);
           if (!empty($program)) {
             $operations[] = array('import_bien_pdf_batch_operation_process_per_dir', array(array('program' => $program, 'id_program' => $id_program)));
           } else {
@@ -1382,6 +1419,8 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $error_datetime_programe_field = '';
   $error_custom_partenaire_export_options_field = '';
   $error_primary_key_field = '';
+  $error_file_upload_field = '';
+
 
   $error_log_field_warning = '';
   $error_term_field_warning = '';
@@ -1401,6 +1440,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
   $value_custom_echelle_options_field = '';
   $value_custom_partenaire_export_options_field = '';
   $value_primary_key_field = '';
+  $value_file_upload_field = '';
 
   foreach ($validates as $type => $fields) {
     switch ($type) {
@@ -1614,74 +1654,82 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
         }
 
         break;
+
+      case 'file_upload':
+        foreach ($fields as $key => $field_name) {
+          if(isset($item[$key]) && $item[$key]) {
+
+          }
+        }
+        break;
     }
   }
 
   // Skip import
   if ($error_term_field) {
-    $logging .= $error_log . rtrim($error_term_field, ',') . '|' . rtrim($value_term_field, ',') . '|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_term_field, ',') . '|' . rtrim($value_term_field, ', ') . '|' . 'Term value not mapping' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_log_field) {
-    $logging .= $error_log . rtrim($error_log_field, ',') . '|' . rtrim($value_log_field, ',') . '|' . 'Wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_log_field, ',') . '|' . rtrim($value_log_field, ', ') . '|' . 'Wrong format' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_date_field) {
-    $logging .= $error_log . rtrim($error_date_field, ',') .  '|' . rtrim($value_date_field, ',') . '|' . 'Datetime wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_date_field, ',') .  '|' . rtrim($value_date_field, ', ') . '|' . 'Datetime wrong format' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_checkbox_field) {
-    $logging .= $error_log . rtrim($error_checkbox_field, ',') .  '|' . rtrim($value_checkbox_field, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_checkbox_field, ',') .  '|' . rtrim($value_checkbox_field, ', ') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_text_box_field) {
-    $logging .= $error_log . rtrim($error_text_box_field, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is mantory' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_text_box_field, ',') .  '|' . rtrim($value_text_box_field, ', ') . '|' . 'Fields is mantory' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_custom_trimestre_options_field) {
-    $logging .= $error_log . rtrim($error_custom_trimestre_options_field, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_custom_trimestre_options_field, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ', ') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_custom_partenaire_export_options_field) {
-    $logging .= $error_log . rtrim($error_custom_partenaire_export_options_field, ',') .  '|' . rtrim($value_custom_partenaire_export_options_field, ',') . '|' . 'Partenaire export must is TouslesprogrammesGrandpublic or TouslesprogrammesPrescripteurs or Sélectiondeprogrammes' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_partenaire_export_options_field, ',') .  '|' . rtrim($value_custom_partenaire_export_options_field, ', ') . '|' . 'Partenaire export must is TouslesprogrammesGrandpublic or TouslesprogrammesPrescripteurs or Sélectiondeprogrammes' . '|' . 'Warning' . "\n";
   }
 
   if ($error_datetime_programe_field) {
-    $logging .= $error_log . rtrim($error_datetime_programe_field, ',') .  '|' . rtrim($value_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Skip import' . "\n";
+    $logging .= $error_log . rtrim($error_datetime_programe_field, ',') .  '|' . rtrim($value_datetime_programe_field, ', ') . '|' . 'Date time programme wrong format' . '|' . 'Skip import' . "\n";
   }
 
   if ($error_primary_key_field) {
     $temp = variable_get($entity->feeds_item->id . '_rejected', 0) + variable_get($entity->feeds_item->id . '_updated', 0) + 1;
-    $logging .= 'Rows: ' . $temp . '|' . rtrim($error_primary_key_field, ',') .  '|' . rtrim($value_primary_key_field, ',') . '|' . 'Primary key is mandatory' . '|' . 'Skip import' . "\n";
+    $logging .= 'Rows: ' . $temp . '|' . rtrim($error_primary_key_field, ',') .  '|' . rtrim($value_primary_key_field, ', ') . '|' . 'Primary key is mandatory' . '|' . 'Skip import' . "\n";
   }
 
   // Warning
   if($error_term_field_warning) {
-    $logging .= $error_log . rtrim($error_term_field_warning, ',') .  '|' . rtrim($value_term_field, ',') . '|' . 'Term value not mapping' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_term_field_warning, ',') .  '|' . rtrim($value_term_field, ', ') . '|' . 'Term value not mapping' . '|' . 'Warning' . "\n";
   }
 
   if($error_log_field_warning) {
-    $logging .= $error_log . rtrim($error_log_field_warning, ',') .  '|' . rtrim($value_log_field, ',') . '|' . 'Wrong format' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_log_field_warning, ',') .  '|' . rtrim($value_log_field, ', ') . '|' . 'Wrong format' . '|' . 'Warning' . "\n";
   }
 
   if ($error_checkbox_field_warning) {
-    $logging .= $error_log . rtrim($error_checkbox_field_warning, ',') .  '|' . rtrim($value_checkbox_field, ',') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_checkbox_field_warning, ',') .  '|' . rtrim($value_checkbox_field, ', ') . '|' . 'Checkbox must is number(0,1)' . '|' . 'Warning' . "\n";
   }
 
   if ($error_text_box_field_warning) {
-    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') .  '|' . rtrim($value_text_box_field, ',') . '|' . 'Fields is empty' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_text_box_field_warning, ',') .  '|' . rtrim($value_text_box_field, ', ') . '|' . 'Fields is empty' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_trimestre_options_field_warning) {
-    $logging .= $error_log . rtrim($error_custom_trimestre_options_field_warning, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ',') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_trimestre_options_field_warning, ',') .  '|' . rtrim($value_custom_trimestre_options_field, ', ') . '|' . 'Trimestre must is number(1,2,3,4)' . '|' . 'Warning' . "\n";
   }
 
   if ($error_datetime_programe_field_warning) {
-    $logging .= $error_log . rtrim($error_datetime_programe_field_warning, ',') .  '|' . rtrim($value_datetime_programe_field, ',') . '|' . 'Date time programme wrong format' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_datetime_programe_field_warning, ',') .  '|' . rtrim($value_datetime_programe_field, ', ') . '|' . 'Date time programme wrong format' . '|' . 'Warning' . "\n";
   }
 
   if ($error_custom_echelle_options_field_warning) {
-    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') .  '|' . rtrim($value_custom_echelle_options_field, ',') . '|' . 'Echelle must is "A" Or "B" Or "Void"' . '|' . 'Warning' . "\n";
+    $logging .= $error_log . rtrim($error_custom_echelle_options_field_warning, ',') .  '|' . rtrim($value_custom_echelle_options_field, ', ') . '|' . 'Echelle must is "A" Or "B" Or "Void"' . '|' . 'Warning' . "\n";
   }
 
   return $logging;
