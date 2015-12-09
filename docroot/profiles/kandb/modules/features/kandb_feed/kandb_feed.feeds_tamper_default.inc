@@ -446,9 +446,29 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = '4';
   $feeds_tamper->plugin_id = 'cast_to_int';
   $feeds_tamper->settings = array();
-  $feeds_tamper->weight = 1;
+  $feeds_tamper->weight = 4;
   $feeds_tamper->description = 'Cast to integer';
   $export['parcel_feed_import-4-cast_to_int'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'parcel_feed_import-4-find_replace_special_nb_pieces';
+  $feeds_tamper->importer = 'parcel_feed_import';
+  $feeds_tamper->source = '4';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => '2/3',
+    'replace' => '3',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^2\\/3$/ui',
+  );
+  $feeds_tamper->weight = 3;
+  $feeds_tamper->description = 'Find replace';
+  $export['parcel_feed_import-4-find_replace_special_nb_pieces'] = $feeds_tamper;
 
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
@@ -462,7 +482,7 @@ function kandb_feed_feeds_tamper_default() {
     'field_name' => 'field_id_nombre_pieces',
     'auto_create' => 0,
   );
-  $feeds_tamper->weight = 2;
+  $feeds_tamper->weight = 5;
   $feeds_tamper->description = 'Search term by field';
   $export['parcel_feed_import-4-search_term_by_field'] = $feeds_tamper;
 
