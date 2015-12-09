@@ -1,0 +1,9 @@
+name = Kaufman & Broad Theme B2B
+description = Theme of Kaufman and Broad B2B.
+core = 7.x
+base theme =  kandb_theme
+
+regions[header] = Header
+regions[content] = Content
+regions[footer] = Footer
+
