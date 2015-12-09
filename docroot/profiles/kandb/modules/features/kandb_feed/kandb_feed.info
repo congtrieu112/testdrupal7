@@ -65,6 +65,7 @@ features[feeds_tamper][] = parcel_feed_import-23-find_replace
 features[feeds_tamper][] = parcel_feed_import-23-find_replace_character
 features[feeds_tamper][] = parcel_feed_import-3-find_replace
 features[feeds_tamper][] = parcel_feed_import-4-cast_to_int
+features[feeds_tamper][] = parcel_feed_import-4-find_replace_special_nb_pieces
 features[feeds_tamper][] = parcel_feed_import-4-search_term_by_field
 features[feeds_tamper][] = parcel_feed_import-5-cast_to_int
 features[feeds_tamper][] = parcel_feed_import-5-search_term_by_field
