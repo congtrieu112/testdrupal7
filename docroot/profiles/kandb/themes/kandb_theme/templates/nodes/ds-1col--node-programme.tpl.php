@@ -23,9 +23,9 @@
                             <?php print $program_loc_ville; ?>
                                <?php
                                 if ($programme_loc_arr_name) :
-                                  print '(' .$programme_loc_arr_name. ')';
+                                  print $programme_loc_arr_name;
                                 elseif ($program_loc_department) :
-                                  print '(' . $program_loc_department. ')';
+                                  print  $program_loc_department;
                                 endif;
                             ?>
                           </div>
