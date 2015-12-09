@@ -180,7 +180,8 @@ function kandb_theme_preprocess_node(&$vars) {
     $programme = NULL;
     if ($vars['type'] == 'programme') {
       $programme = $vars['node'];
-    } elseif (isset($vars['field_programme'][0]['entity'])) {
+    }
+    elseif (isset($vars['field_programme'][0]['entity'])) {
       $programme = $vars['field_programme'][0]['entity'];
     }
     $price_tva_min = $price_tva_max = 0;
@@ -215,7 +216,8 @@ function kandb_theme_preprocess_node(&$vars) {
           $programme_status = $vars['field_programme'][0]['entity']->field_programme_statut[LANGUAGE_NONE][0]['value'];
           if ($programme_status == 1) {
             drupal_goto('node/' . $programme_id);
-          } else {
+          }
+          else {
             drupal_goto(URL_SEARCH_B2C);
           }
         }
@@ -273,9 +275,11 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_pieces'] = '';
     if ($pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-    } elseif (!$pieces_min && $pieces_max) {
+    }
+    elseif (!$pieces_min && $pieces_max) {
       $vars['de_a_pieces'] = $pieces_max . ' ' . t('pièces');
-    } elseif ($pieces_min && !$pieces_max) {
+    }
+    elseif ($pieces_min && !$pieces_max) {
       $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
     }
 
@@ -285,9 +289,11 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price_tva'] = '';
     if ($price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    } elseif (!$price_tva_min && $price_tva_max) {
+    }
+    elseif (!$price_tva_min && $price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
-    } elseif ($price_tva_min && !$price_tva_max) {
+    }
+    elseif ($price_tva_min && !$price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
     }
 
@@ -300,9 +306,11 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['de_a_price'] = '';
     if ($price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    } elseif (!$price_min && $price_max) {
+    }
+    elseif (!$price_min && $price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
-    } elseif ($price_min && !$price_max) {
+    }
+    elseif ($price_min && !$price_max) {
       $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
     }
 
@@ -491,7 +499,8 @@ function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT) {
     }
     if ($content[$i + 1] != ' ') {
       $i++;
-    } else {
+    }
+    else {
       break;
     }
   }
@@ -502,7 +511,8 @@ function cut_character($content, $limit = ARTICLE_LIMIT_CONTENT) {
   }
   if (function_exists('mb_substr')) {
     $content = mb_substr($content, 0, $i, "UTF-8");
-  } else {
+  }
+  else {
     $content = substr($content, 0, $i);
   }
   return $content . $end;
@@ -520,7 +530,8 @@ function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) 
 
   if (!$search_by_name) {
     $query->fieldCondition('field_id_file', 'value', $term_name, '=');
-  } else {
+  }
+  else {
     $query->propertyCondition('name', $term_name);
   }
 
@@ -697,4 +708,46 @@ function kandb_theme_fieldset($variables) {
   //$output .= '</div>';
   $output .= "</fieldset>\n";
   return $output;
+}
+
+/**
+ * Implements of hook_theme().
+ */
+function kandb_theme_theme() {
+  $items = array();
+
+  $items['user_login'] = array(
+    'render element' => 'form',
+    'template' => 'templates/forms/user-login',
+    'preprocess functions' => array(
+      'kandb_theme_preprocess_user_login'
+    ),
+  );
+
+  return $items;
+}
+
+/**
+ * Implements of preprocess user login form.
+ */
+function kandb_theme_preprocess_user_login(&$vars) {
+  // Username textfield .
+  $vars['form']['name']['#theme_wrappers'] = NULL;
+  $vars['form']['name']['#description'] = '';
+  $vars['form']['name']['#attributes']['required'] = 'required';
+  $vars['form']['name']['#attributes']['placeholder'] = t('Votre identifiant');
+  
+  // Password textfield.
+  $vars['form']['pass']['#theme_wrappers'] = NULL;
+  $vars['form']['pass']['#description'] = '';
+  $vars['form']['pass']['#attributes']['required'] = 'required';
+  $vars['form']['pass']['#attributes']['placeholder'] = t('Votre mot de passe');
+
+  // Remember me checkbox.
+  $vars['form']['remember_me']['#theme_wrappers'] = NULL;
+  
+  // Submit button.
+  $vars['form']['actions']['#theme_wrappers'] = NULL;
+  $vars['form']['actions']['submit']['#value'] = t('Me connecter');
+  $vars['form']['actions']['submit']['#attributes']['class'] = array('btn-primary', 'btn-rounded');
 }
