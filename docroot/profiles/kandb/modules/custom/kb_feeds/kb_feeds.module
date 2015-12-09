@@ -712,6 +712,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       }
     }
     elseif ($entity->feeds_item->id == 'migration_bien_import_v2') {
+      $file_log_name = 'migration_bien_import_v2_log_' . date("Y-m-d_h_i") . '.txt';
       if ($totalItems != 46) {
         $logging = $item['identifiantlogement'] . '||' . 'Structure error (Total column diffenrence total items' . ')| Skip imported' . "\n";
       }
