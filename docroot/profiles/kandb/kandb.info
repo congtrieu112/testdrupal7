@@ -97,6 +97,8 @@ dependencies[] = acquia_search_multi_subs
 ;dependencies[] = taxonomy_display
 dependencies[] = domain_feeds
 dependencies[] = domain_theme
+dependencies[] = expire
+dependencies[] = acquia_purge
 
 ; Custom
 dependencies[] = kb_feeds

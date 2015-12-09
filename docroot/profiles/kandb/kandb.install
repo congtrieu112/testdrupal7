@@ -711,3 +711,12 @@ function kandb_update_7166() {
   theme_enable($theme);
 }
 
+/*
+ * Enable acquia_purge module
+ */
+function kandb_update_7167() {
+  if (!module_exists('acquia_purge')) {
+    module_enable(array('acquia_purge'), TRUE);
+  }
+}
+
