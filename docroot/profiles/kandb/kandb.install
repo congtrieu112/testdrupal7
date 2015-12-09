@@ -691,3 +691,23 @@ function kandb_update_7164() {
     module_enable(array('stringoverrides_advanced'), TRUE);
   }
 }
+
+/*
+ * Enable domain_theme module
+ */
+function kandb_update_7165() {
+  if (!module_exists('domain_theme')) {
+    module_enable(array('domain_theme'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_b2b_theme theme
+ */
+function kandb_update_7166() {
+  $theme = array(
+    'kandb_b2b_theme'
+  );
+  theme_enable($theme);
+}
+

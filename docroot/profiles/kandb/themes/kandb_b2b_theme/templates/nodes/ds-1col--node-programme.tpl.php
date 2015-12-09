@@ -23,9 +23,9 @@
                             <?php print $program_loc_ville; ?>
                                <?php
                                 if ($programme_loc_arr_name) :
-                                  print $programme_loc_arr_name;
+                                  print '(' .$programme_loc_arr_name. ')';
                                 elseif ($program_loc_department) :
-                                  print  $program_loc_department;
+                                  print '(' . $program_loc_department. ')';
                                 endif;
                             ?>
                           </div>
@@ -34,31 +34,27 @@
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-                    <ul class="tags-list">
-                      <?php if ($nouveau) : ?>
-                        <li>
-                          <div class="tag tag--important"><?php print t('Nouveauté'); ?></div>
-                        </li>
-                      <?php endif;?>
+                    <?php if ($nouveau) : ?>
+                      <div class="tag tag--important"><?php print t('Nouveauté'); ?><sup>1</sup></div>
+                    <?php endif; ?>
+                    <?php if ($promotions) : ?>
                       <?php
-                      if ($promotions) :
-                        foreach ($promotions as $promotion) :
-                          $triger_promotion = 'promotion-' . $promotion->nid;
-                          ?>
-                          <li>
-                            <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                            <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                              <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                      foreach ($promotions as $promotion) :
+                        $triger_promotion = 'promotion-' . $promotion->nid;
+                        ?>
+                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                        <!-- [popin] start-->
+                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                                 <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
                                 <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
-                              </div>
                             </div>
-                            <!-- [popin] end-->
-                          </li>
-                        <?php endforeach; ?>
-                      <?php endif; ?>
-                    </ul>
+                        </div>
+                        <!-- [popin] end-->
+                      <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
+
                 <?php if ($trimstre && $annee && $flat_available && $de_a_pieces) : ?>
                   <p class="toolbox__intro">
                       <strong><?php print t('Livraison'); ?></strong>
@@ -443,3 +439,4 @@ if (function_exists('kandb_contact_specific_block_page')) {
   print kandb_contact_specific_block_page($node);
 }
 ?>
+

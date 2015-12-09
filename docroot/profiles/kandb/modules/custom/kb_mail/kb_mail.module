@@ -211,6 +211,7 @@ function kb_mail_mail($key, &$message, $params) {
   if($key == 'kb_webform_submit') {
     $message['subject'] .= $params['subject'];
     $message['body'][] = $params['body'];
+    $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
   }
 }
 function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL, $avant_premiere = NULL) {

@@ -355,3 +355,20 @@ function get_total_bien_by_status_site($domain_id = 3) {
   }
   return 0;
 }
+
+/**
+ * Get taxonomy  by vocabulary_machine_name 
+ * @param str $term_name and str $vocabulary_name .
+ *
+ */
+function get_taxonomy_by_vocabulary_name($term_name,$vocabulary_name){
+  $terms = array();
+  if($term = taxonomy_get_term_by_name($term_name)){
+    foreach ($term as $value) {
+      if($value->vocabulary_machine_name == $vocabulary_name){
+        $terms[] = $value;
+      }
+    }
+  }
+  return $terms;
+}
