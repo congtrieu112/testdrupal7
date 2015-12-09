@@ -5,6 +5,16 @@
  * @param type $node
  */
 function kandb_partenaire_node_insert($node) {
+// By pass apply rule in case apply habiteo API. 
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
+// No need apply BRs in case devel generate.
+  if ($_GET['q'] == 'admin/config/development/generate/content' ||
+    (isset($node->devel_generate) && !empty($node->devel_generate))
+    ) {
+    return;
+  }
   if ($node->type == 'partenaire' && $node->is_new == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value']) && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
     kandb_partenaire_create_archive_file($node);
   }
@@ -18,6 +28,10 @@ function kandb_partenaire_node_insert($node) {
  * @param type $node
  */
 function kandb_partenaire_node_update($node) {
+// By pass apply rule in case apply habiteo API. 
+  if (isset($node->flag_habiteo) && $node->flag_habiteo) {
+    return;
+  }
   if ($node->type == 'partenaire' && $node->field_partenaire_export[LANGUAGE_NONE][0]['value'] != $node->original->field_partenaire_export[LANGUAGE_NONE][0]['value'] && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
     kandb_partenaire_create_archive_file($node);
   }
@@ -69,6 +83,34 @@ function kandb_partenaire_node_delete($node) {
   }
   elseif ($node->type == 'bien' && $node->status == 1 && isset ($node->field_bien_plan[LANGUAGE_NONE][0]['fid']) && isset ($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
     kandb_partenaire_update_archive_file($node);
+  }
+}
+
+/**
+ * Implement hook_node_presave().
+ */
+function kandb_validate_node_presave($node) {
+  if ($node->type == 'partenaire' AND $_GET['q'] == 'node/add/partenaire' AND $node->is_new) {
+    $uuid = '';
+    $exist_uuids = array();
+    $db_query = db_select('node', 'n');
+    $db_query->fields('n', array('uuid'));
+    $db_query->condition('n.type', 'partenaire');
+    $exist_uuids = $db_query->execute()->fetchCol();
+    while($uuid == '' || in_array($uuid, $exist_uuids)) {
+      $uuid = generate_uuid();
+    }
+    $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] = $uuid;
+    // Create a parent folder with name partenaires.
+    $partenaires_dir = 'public://partenaire/';
+    if (!is_dir($partenaires_dir)) {
+      file_prepare_directory($partenaires_dir, FILE_CREATE_DIRECTORY);
+      drupal_chmod($partenaires_dir, 0777);
+    }
+    // Create a sub folder within parent.
+    $partenaire_dir = 'public://partenaire/' . $uuid;
+    file_prepare_directory($partenaire_dir, FILE_CREATE_DIRECTORY);
+    drupal_chmod($partenaire_dir, 0777);
   }
 }
 
@@ -237,4 +279,25 @@ function get_files_in_bien_related($partenaire_export = NULL, $list_programme = 
   }
   $all_pdf_files = $db_query->distinct()->execute()->fetchCol();
   return $all_pdf_files;
+}
+
+/**
+ * Generate UUID.
+ */
+function generate_uuid() {
+  return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+      // 32 bits for "time_low".
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+      // 16 bits for "time_mid".
+      mt_rand(0, 0xffff),
+      // 16 bits for "time_hi_and_version",
+      // four most significant bits holds version number 4.
+      mt_rand(0, 0x0fff) | 0x4000,
+      // 16 bits, 8 bits for "clk_seq_hi_res",
+      // 8 bits for "clk_seq_low",
+      // two most significant bits holds zero and one for variant DCE1.1.
+      mt_rand(0, 0x3fff) | 0x8000,
+      // 48 bits for "node".
+      mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+  );
 }
