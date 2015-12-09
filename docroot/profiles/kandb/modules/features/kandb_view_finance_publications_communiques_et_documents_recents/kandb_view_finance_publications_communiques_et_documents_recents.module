@@ -1,0 +1,58 @@
+<?php
+/**
+ * @file
+ * Code for the K&B View Finance Publications Communiqués et documents récents feature.
+ */
+
+include_once 'kandb_view_finance_publications_communiques_et_documents_recents.features.inc';
+
+/**
+ * Define Selection URLs
+ */
+define('URL_RH_PUBLICATIONS', 'publications');
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_view_finance_publications_communiques_et_documents_recents_menu() {
+    $menu = array();
+    $menu[URL_RH_PUBLICATIONS] = array(
+        'title' => 'Publications',
+        'page callback' => 'kandb_view_finance_publications_communiques_et_documents_recents_page',
+        'access arguments' => array('access content'),
+        'type' => MENU_NORMAL_ITEM,
+    );
+    return $menu;
+}
+
+function kandb_view_finance_publications_communiques_et_documents_recents_page() {
+    $content = array();
+    
+    $content['communiques'] = call_user_func_array(
+        'views_embed_view',
+        array_merge(
+            array('finance_publications', 'block_communiques')
+        )
+    );
+
+    $content['documents_recents'] = call_user_func_array(
+        'views_embed_view',
+        array_merge(
+            array('finance_publications', 'block_documents_recents')
+        )
+    );
+
+    return theme('page_documents', $content);
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_view_finance_publications_communiques_et_documents_recents_theme($existing, $type, $theme, $path) {
+    return array(
+        'page_documents' => array(
+            'template' => 'templates/page_documents',
+            'variables' => array(),
+        )
+    );
+}
