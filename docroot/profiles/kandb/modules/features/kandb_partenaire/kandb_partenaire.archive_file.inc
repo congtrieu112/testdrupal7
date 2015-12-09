@@ -86,34 +86,6 @@ function kandb_partenaire_node_delete($node) {
   }
 }
 
-/**
- * Implement hook_node_presave().
- */
-function kandb_validate_node_presave($node) {
-  if ($node->type == 'partenaire' AND $_GET['q'] == 'node/add/partenaire' AND $node->is_new) {
-    $uuid = '';
-    $exist_uuids = array();
-    $db_query = db_select('node', 'n');
-    $db_query->fields('n', array('uuid'));
-    $db_query->condition('n.type', 'partenaire');
-    $exist_uuids = $db_query->execute()->fetchCol();
-    while($uuid == '' || in_array($uuid, $exist_uuids)) {
-      $uuid = generate_uuid();
-    }
-    $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] = $uuid;
-    // Create a parent folder with name partenaires.
-    $partenaires_dir = 'public://partenaire/';
-    if (!is_dir($partenaires_dir)) {
-      file_prepare_directory($partenaires_dir, FILE_CREATE_DIRECTORY);
-      drupal_chmod($partenaires_dir, 0777);
-    }
-    // Create a sub folder within parent.
-    $partenaire_dir = 'public://partenaire/' . $uuid;
-    file_prepare_directory($partenaire_dir, FILE_CREATE_DIRECTORY);
-    drupal_chmod($partenaire_dir, 0777);
-  }
-}
-
 function kandb_partenaire_update_archive_file($node) {
   $programme = NULL;
   $partenaires_id = array();
