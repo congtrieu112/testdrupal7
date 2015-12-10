@@ -1,13 +1,18 @@
-<?php kpr(form_get_errors()); ?>
+<?php
+/**
+ * @file
+ * Template of login block form.
+ */
+?>
 
 <div class="heading heading--switchColor">
   <h3 class="heading__title">Déjà partenaire ?</h3>
 </div>
 <div class="homepageB2B__login--textfield">
-    <label for="userName" class="visually-hidden">Votre identifiant <span class="form-required" title="This field is required.">*</span></label>
-    <?php print drupal_render($form['name']); ?>
-    <label for="password" class="visually-hidden">Votre mot de passe <span class="form-required" title="This field is required.">*</span></label>
-    <?php print drupal_render($form['pass']); ?>
+  <label for="userName" class="visually-hidden">Votre identifiant <span class="form-required" title="This field is required.">*</span></label>
+  <?php print drupal_render($form['name']); ?>
+  <label for="password" class="visually-hidden">Votre mot de passe <span class="form-required" title="This field is required.">*</span></label>
+  <?php print drupal_render($form['pass']); ?>
 </div>
 <div class="homepageB2B__login--inlineGroup">
   <div class="homepageB2B__login--checkbox">
