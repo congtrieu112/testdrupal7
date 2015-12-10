@@ -253,7 +253,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['nouveau'] = isset($node->field_nouveau[LANGUAGE_NONE][0]['value']) ? $node->field_nouveau[LANGUAGE_NONE][0]['value'] : 0;
     $vars['caracteristiques'] = isset($node->field_caracteristiques[LANGUAGE_NONE]) ? $node->field_caracteristiques[LANGUAGE_NONE] : '';
     $vars['programme_loc_arr_name'] = isset($node->field_programme_loc_arr[LANGUAGE_NONE][0]['taxonomy_term']->name) ? trim(str_replace('arrondissement', '', $node->field_programme_loc_arr[LANGUAGE_NONE][0]['taxonomy_term']->name)) : '';
-    $vars['program_loc_department'] = isset($node->field_programme_loc_department['und'][0]['tid']) ? $node->field_programme_loc_department['und'][0]['tid'] : '';
+    $vars['program_loc_department'] = isset($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_department[LANGUAGE_NONE][0]['taxonomy_term']->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
     $vars['program_loc_ville'] = isset($node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_programme_loc_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 
     $trimstre_id = isset($node->field_trimestre[LANGUAGE_NONE][0]['value']) ? $node->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
