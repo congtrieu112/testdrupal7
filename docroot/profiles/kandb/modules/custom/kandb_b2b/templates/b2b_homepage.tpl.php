@@ -1,22 +1,40 @@
+<?php
+/**
+ * @file
+ * Template of B2B Homepage.
+ */
+?>
 <section data-equalizer data-equalizer-mq="medium-up" class="homepageB2B">
-  <div data-interchange="[test_assets/homepageB2b-bg-small.jpg, (small)], [test_assets/homepageB2b-bg-large.jpg, (medium)]" class="homepageB2B__heading">
+  <div data-interchange="[<?php print $bg_image_small; ?>, (small)], [<?php print $bg_image_large; ?>, (medium)]" class="homepageB2B__heading">
     <div data-equalizer-watch class="wrapper">
       <div class="heading heading--bordered heading--white">
-        <div class="heading__title">Centre Tours / 37<br>Le Caducée</div>
+        <div class="heading__title">
+          <?php print $program_ville; ?><?php print ($program_ville AND $program_department) ? ' / ' : ''; ?><?php print $program_department; ?><br>
+          <?php print $program_title; ?>
+        </div>
         <div class="heading__title heading__title--sub">Rue Auguste Chevalier</div>
       </div>
-      <div class="btn-wrapper btn-wrapper--center">
-        <button data-reveal-id="B2bDetail" class="homepageB2B__popin__btn tag tag--important">Suuconmission de 3% et frais de notaires offerts<sup>&nbsp;(1)</sup></button>
-      </div>
-      <!-- [popin] start-->
-      <div id="B2bDetail" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
-        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-          <div class="homepageB2B__popin__content">
-            <p>Content Update later</p>
+      <?php if ($program_promotions) : ?>
+        <?php foreach ($program_promotions as $key => $item) : ?>
+          <div class="btn-wrapper btn-wrapper--center">
+            <button data-reveal-id="B2bDetail" class="homepageB2B__popin__btn tag tag--important">
+              <?php print $item['title']; ?><sup>&nbsp;(<?php print $key + 1; ?>)</sup>
+            </button>
           </div>
-        </div>
-      </div>
-      <!-- [popin] end-->
+          <?php if ($item['mention_legale']) : ?>
+            <!-- [popin] start-->
+            <div id="B2bDetail" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
+              <div class="reveal-modal__wrapper">
+                <a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                <div class="homepageB2B__popin__content">
+                  <p><?php print $item['mention_legale']; ?></p>
+                </div>
+              </div>
+            </div>
+            <!-- [popin] end-->
+          <?php endif; ?>
+        <?php endforeach; ?>
+      <?php endif; ?>
     </div>
   </div>
   <!-- [homepageB2B__login] start-->
