@@ -147,6 +147,37 @@ function kandb_validate_views_query_alter(&$view, &$query) {
     $view->query->where[2]['conditions'][0]['value'] = $next_year;
     // Alter field_trimestre_value.
     $view->query->where[2]['conditions'][1]['value'] = $next_quarter;
+  } else if ($view->name == 'admin_views_node' && $view->current_display == 'system_1') {
+    if (isset($view->query->where[1]['conditions'])) {
+      $conditions = $view->query->where[1]['conditions'];
+      $flag = FALSE;
+      $programe_ids = array();
+      foreach ($conditions as $key => $condition) {
+        if ($condition['field'] == 'node.type' && 
+          in_array('bien', $condition['value']) //&&
+            ) {
+          $flag = TRUE;          
+        }
+        
+        if ($condition['field'] == 'field_data_field_id_programme.field_id_programme_value'
+            && $flag
+            ) {          
+          // Get entity programme id by following programme_id.
+          $programe_ids = db_query('SELECT entity_id FROM {field_data_field_id_programme} WHERE `field_id_programme_value` = ' . $condition['value'])->fetchCol();
+          if ($programe_ids) {
+            unset($view->query->where[1]['conditions'][$key]);
+          }
+        } 
+        
+        if ($flag && preg_match('/field_programme_target_id$/i', $condition['field'])) {
+          $view->query->where[1]['conditions'][$key]['field'] = 'field_data_field_programme.field_programme_target_id';
+          $view->query->where[1]['conditions'][$key]['value'] = $programe_ids;
+          $view->query->where[1]['conditions'][$key]['operator'] = 'in';
+        } elseif (preg_match('/field_programme_target_id$/i', $condition['field'])) {
+          unset($view->query->where[1]['conditions'][$key]);
+        }
+      }
+    }              
   }
 }
 
