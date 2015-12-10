@@ -459,11 +459,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'document_import') {
-      if ($totalItems != 6) {
-        $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+      if ($totalItems > 7 || $totalItems <= 5) {
+        $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items)' . '| Skip imported' . "\n";
       } else {
         $validates = array(
-          'term_name' => array(
+          'term_name_warning' => array(
             'categorie' => 'field_document_type',
           ),
           'date_time' => array(
@@ -488,6 +488,13 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
 
           $entity->status = $status;
           $entity->sticky = $sticky;
+
+          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
+            $document_files_old = $entity->{'Temporary target 1'};
+            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
+            $document_files = array_merge($document_files_old, $document_files_new);
+            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
@@ -495,7 +502,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       }
     } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-      if ($totalItems != 16) {
+      if ($totalItems > 17 || $totalItems <= 15) {
         $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
@@ -505,6 +512,14 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
+        if (!$logging || !strpos($logging, 'Skip import')) {
+          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
+            $document_files_old = $entity->{'Temporary target 1'};
+            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
+            $document_files = array_merge($document_files_old, $document_files_new);
+            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
+          }
+        }
       }
     } elseif ($entity->feeds_item->id == 'maison_feed_import') {
       $logging = '';
@@ -802,14 +817,39 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
   //$file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
-  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import") {
+  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse") {
     global $base_url;
     foreach ($result->items as $key => $row) {
       $list_file_id = array();    // List column have upload file
-      if ($source->id === "document_import") {
+      if ($source->id === "document_import" || $source->id === 'document_import_communique_de_presse') {
         $list_file_id = array(
           "lienfichier"
         );
+
+        $document_id = isset($result->items[$key]['identifiantcommunique']) ? $result->items[$key]['identifiantcommunique'] : '';
+        if($source->id === "document_import") {
+          $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
+        }
+
+        if($document_id) {
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'document')
+            ->fieldCondition('field_document_id', 'value', $document_id, '=')
+            ->range(0, 1);
+
+
+          $results = $query->execute();
+          if($results) {
+            $nids = array_keys($results["node"]);
+            $nodes = node_load($nids[0]);
+
+            $result->items[$key]['documentfileold'] = array();
+            if($nodes && isset($nodes->field_document_file[LANGUAGE_NONE])) {
+              $result->items[$key]['documentfileold'] = $nodes->field_document_file[LANGUAGE_NONE];
+            }
+          }
+        }
       } elseif ($source->id === "kb_patrimoine_import") {
         if(isset($row["identifiantprogramme"])) {
           $id_program = $row["identifiantprogramme"];
@@ -877,7 +917,22 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
             $file_upload_fields .=  $key_col_file . ', ';
             $file_upload_values .=  $key_col_file . ': ' . $file . ', ';
           }
-          $result->items[$key][$item_col_file] = $path_url;
+
+          $exists = FALSE;
+          if ($source->id == 'document_import' || $source->id == 'document_import_communique_de_presse') {
+            $explode_file = explode('/', $file);
+            $file_name = $explode_file[count($explode_file) - 1];
+            foreach($result->items[$key]['documentfileold'] as $document_file) {
+              if($file_name == $document_file["filename"]) {
+                $exists = TRUE;
+                break;
+              }
+            }
+          }
+
+          if($exists === FALSE) {
+            $result->items[$key][$item_col_file] = $path_url;
+          }
         }
       }
 
