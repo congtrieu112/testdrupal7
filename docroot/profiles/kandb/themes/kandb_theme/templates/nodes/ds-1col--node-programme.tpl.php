@@ -290,9 +290,9 @@
         </div>
     </div>
 </section>
-
+<?php if($status_slider): ?>
 <?php print render($program_characteristic['content']); ?>
-
+<?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
 <?php if ($habiteo_id): ?>
   <section class="section-padding show-for-medium-up" id="Vue3D">
