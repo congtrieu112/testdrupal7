@@ -34,6 +34,9 @@
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
+                    <?php if($loc_num || $loc_rue): ?>
+                    <p class="text-bold"><?php print $loc_rue; ?> <?php print ($loc_num && $loc_rue )? ' - ':''; ?><?php print $loc_rue; ?></p>
+                    <?php endif; ?>
                     <ul class="tags-list">
                       <?php if ($nouveau) : ?>
                         <li>
