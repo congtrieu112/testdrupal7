@@ -9,15 +9,63 @@
  * Implement of hook_menu().
  */
 function kandb_b2b_menu() {
+  $items = array();
+
   $items['b2b-homepage'] = array(
     'title' => 'B2B Homepage',
     'page callback' => 'render_b2b_homepage',
-    'access callback' => 'kandb_b2b_check_doamin',
     'file' => 'kandb_b2b.inc',
+    'access callback' => 'kandb_b2b_check_doamin',
     'type' => MENU_CALLBACK,
   );
 
+  $items['admin/content/kandb-b2b'] = array(
+    'title' => 'K&B Patrimoine',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'kandb_b2b_setttings_page_content',
+    'file' => 'kandb_b2b.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B B2B content'),
+  );
+
+  $items['admin/content/kandb-b2b/list'] = array(
+    'title' => 'List',
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'weight' => -10,
+  );
+
+  $items['admin/content/kandb-b2b/homepage'] = array(
+    'title' => 'Homepage',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_b2b_homepage_settings'),
+    'file' => 'kandb_b2b.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B B2B content'),
+  );
+  
+  $items['admin/content/kandb-b2b/homepage-programme/autocomplete'] = array(
+    'title' => 'Programme - Homepage',
+    'type' => MENU_CALLBACK,
+    'page callback' => '_kandb_b2b_homepage_programme_autocomplete',
+    'file' => 'kandb_b2b.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B B2B content'),
+  );
+
   return $items;
+}
+
+/**
+ * Implements of hook_permission().
+ */
+function kandb_b2b_permission() {
+  return array(
+    'administer K&B B2B content' => array(
+      'title' => t('Administer K&B B2B content '),
+      'description' => t('Give the user the right to change specific K&B B2B texts and image (other than node).'),
+    ),
+  );
 }
 
 /**
