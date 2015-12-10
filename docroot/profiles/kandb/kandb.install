@@ -740,3 +740,12 @@ function kandb_update_7169(&$sandbox) {
     module_enable(array('kandb_partenaire'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_view_rh_dernieres_offres_emploi module
+ */
+function kandb_update_7173() {
+  if (!module_exists('kandb_view_rh_dernieres_offres_emploi')) {
+    module_enable(array('kandb_view_rh_dernieres_offres_emploi'), TRUE);
+  }
+}
