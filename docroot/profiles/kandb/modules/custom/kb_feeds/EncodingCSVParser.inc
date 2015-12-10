@@ -209,8 +209,8 @@ class EncodingCSVParser extends ParserCSV {
           $row[$columnName] = isset($field) ? $field : '';
         }
       }
-
-      if($this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import' || $this->id == 'kb_patrimoine_import') {
+      
+      if($this->id == 'document_import' || $this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import' || $this->id == 'kb_patrimoine_import') {
         $arr = array_filter($row);
         if(count($arr) > 0) {
           $mylinesParsed++;

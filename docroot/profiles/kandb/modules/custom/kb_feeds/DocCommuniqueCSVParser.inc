@@ -165,6 +165,8 @@ class DocCommuniqueCSVParser extends ParserCSV{
         }
       }
 
+
+
       // The actual parser. explode() is unfortunately not suitable because the
       // delimiter might be located inside a quoted field, and that would break
       // the field and/or require additional effort to re-join the fields.
