@@ -68,9 +68,9 @@ function kandb_partenaire_node_update($node) {
  * @param type $node
  */
 function kandb_partenaire_node_delete($node) {
-  if ($node->type == 'partenaire') {
+  if ($node->type == 'partenaire' && isset($node->field_id_partenaire[LANGUAGE_NONE][0]['value'])) {
     $path = drupal_realpath('public://');
-    $dir = $path . '/partenaire/' . $node->vuuid . '/';
+    $dir = $path . '/partenaire/' . $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] . '/';
     foreach (glob($dir . "/*.*") as $filename) {
       if (is_file($filename)) {
         unlink($filename);
@@ -170,13 +170,14 @@ function kandb_partenaire_get_file_info($fids = array()) {
 }
 
 function kandb_partenaire_create_archive_file($node) {
-  if (!isset($node->vuuid) || $node->vuuid == '') {
+  $vuuid = isset($node->field_id_partenaire[LANGUAGE_NONE][0]['value']) ? $node->field_id_partenaire[LANGUAGE_NONE][0]['value'] : '';
+  if ($vuuid == '') {
     return ;
   }
   $partenaire_export = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
   $path = drupal_realpath('public://');
   $all_pdf_files = array();
-  $dir = $path . '/partenaire/' . $node->vuuid . '/';
+  $dir = $path . '/partenaire/' . $vuuid . '/';
   if (file_exists($dir)) {
     foreach (glob($dir . "/*.*") as $filename) {
       if (is_file($filename)) {
@@ -190,8 +191,8 @@ function kandb_partenaire_create_archive_file($node) {
     mkdir($path . '/partenaire/', 0777);
   }
 
-  if (!file_exists($path . '/partenaire/' . $node->vuuid . '/')) {
-    mkdir($path . '/partenaire/' . $node->vuuid . '/', 0777);
+  if (!file_exists($path . '/partenaire/' . $vuuid . '/')) {
+    mkdir($path . '/partenaire/' . $vuuid . '/', 0777);
   }
   if ($partenaire_export == 1 || $partenaire_export == 2) {
     $all_pdf_files = get_files_in_bien_related($partenaire_export);
@@ -206,7 +207,7 @@ function kandb_partenaire_create_archive_file($node) {
     $all_pdf_files = get_files_in_bien_related(NULL, $list_programme);
   }
   $files_info = kandb_partenaire_get_file_info($all_pdf_files);
-  kandb_partenaire_create_file_zip($path . '/partenaire/' . $node->vuuid . '/Programme.zip', $files_info);
+  kandb_partenaire_create_file_zip($path . '/partenaire/' . $vuuid . '/Programme.zip', $files_info);
 }
 
 function get_files_in_bien_related($partenaire_export = NULL, $list_programme = array()) {
