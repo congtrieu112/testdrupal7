@@ -231,7 +231,7 @@ function kandb_domains_domain_conf_default_variables() {
     'site_name' => 'Site-Install',
     'site_mail' => 'gregory.montigny@digitaslbi.fr',
     'site_slogan' => '',
-    'site_frontpage' => 'homepage',
+    'site_frontpage' => 'node/1',
     'anonymous' => 'Anonymous',
     'admin_theme' => 'adminimal',
     'date_default_timezone' => 'Europe/Paris',
@@ -389,4 +389,22 @@ function kandb_domains_domain_conf_default_variables() {
   );
 
   return $domain_variables;
+}
+
+/**
+ * Implements hook_domain_theme_default_themes().
+ */
+function kandb_domains_domain_theme_default_themes() {
+  $domain_themes = array();
+  $domain_themes['kandb_b2b'] = array(
+    'kandb_b2b_theme' => array(
+      'theme' => 'kandb_b2b_theme',
+      'settings' => NULL,
+      'status' => 1,
+      'filepath' => '',
+    ),
+  );
+  $domain_themes['kandb_b2c'] = array();
+
+  return $domain_themes;
 }

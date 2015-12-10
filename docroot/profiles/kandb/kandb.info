@@ -94,8 +94,12 @@ dependencies[] = views_php
 dependencies[] = stringoverrides_advanced
 dependencies[] = menu_admin_per_menu
 dependencies[] = acquia_search_multi_subs
-dependencies[] = taxonomy_display
+;dependencies[] = taxonomy_display
 dependencies[] = domain_feeds
+dependencies[] = domain_theme
+dependencies[] = expire
+dependencies[] = acquia_purge
+dependencies[] = cacheexclude
 
 ; Custom
 dependencies[] = kb_feeds
@@ -138,7 +142,7 @@ dependencies[] = kandb_promotion
 dependencies[] = kandb_doclib_feature
 dependencies[] = kand_contactus_export_views
 dependencies[] = kandb_dossier_weight_views
-dependencies[] = kandb_path_alias_patterns
+;dependencies[] = kandb_path_alias_patterns
 dependencies[] = kandb_avant_premiere
 dependencies[] = kandb_views_avant_premiere
 dependencies[] = kandb_offre
@@ -153,6 +157,7 @@ dependencies[] = kandb_view_offre_en_france
 dependencies[] = kandb_view_finance_assemblee
 dependencies[] = kandb_seo
 dependencies[] = kandb_view_finance_archives
+dependencies[] = kandb_partenaire
 
 ; Blocks
 dependencies[] = kandb_recherche

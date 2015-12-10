@@ -14,8 +14,40 @@ function kandb_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'cache';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['cache'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'cacheexclude_list';
+  $strongarm->value = 'mon-espace
+recherche';
+  $export['cacheexclude_list'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'cacheexclude_node_types';
+  $strongarm->value = array(
+    'article' => 0,
+    'avant_premiere' => 0,
+    'bien' => 0,
+    'document' => 0,
+    'dossier' => 0,
+    'homepage' => 0,
+    'maison' => 0,
+    'offre' => 0,
+    'options' => 0,
+    'programme' => 0,
+    'promotion' => 0,
+    'prospect_b2b' => 0,
+    'reservation' => 0,
+    'selection' => 0,
+    'standard_page' => 0,
+    'webform' => 0,
+  );
+  $export['cacheexclude_node_types'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -23,6 +55,177 @@ function kandb_settings_strongarm() {
   $strongarm->name = 'cache_lifetime';
   $strongarm->value = '0';
   $export['cache_lifetime'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_file_actions';
+  $strongarm->value = array(
+    1 => '1',
+    2 => '2',
+  );
+  $export['expire_file_actions'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_file_custom';
+  $strongarm->value = 0;
+  $export['expire_file_custom'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_file_custom_pages';
+  $strongarm->value = '';
+  $export['expire_file_custom_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_file_file';
+  $strongarm->value = 1;
+  $export['expire_file_file'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_file_front_page';
+  $strongarm->value = 0;
+  $export['expire_file_front_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_menu_link_actions';
+  $strongarm->value = array(
+    1 => '1',
+    2 => '2',
+    3 => '3',
+  );
+  $export['expire_menu_link_actions'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_menu_link_override_menus';
+  $strongarm->value = array(
+    'menu-b2c-public-menu' => '1',
+    'devel' => '0',
+    'menu-footer' => '1',
+    'main-menu' => '1',
+    'management' => '0',
+    'navigation' => '0',
+    'user-menu' => '0',
+  );
+  $export['expire_menu_link_override_menus'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_actions';
+  $strongarm->value = array(
+    1 => '1',
+    2 => '2',
+    3 => '3',
+  );
+  $export['expire_node_actions'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_custom';
+  $strongarm->value = 0;
+  $export['expire_node_custom'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_custom_pages';
+  $strongarm->value = '';
+  $export['expire_node_custom_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_front_page';
+  $strongarm->value = 1;
+  $export['expire_node_front_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_node_page';
+  $strongarm->value = 1;
+  $export['expire_node_node_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_reference_pages';
+  $strongarm->value = 1;
+  $export['expire_node_reference_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_node_term_pages';
+  $strongarm->value = 0;
+  $export['expire_node_term_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_actions';
+  $strongarm->value = array(
+    1 => '1',
+    2 => '2',
+    3 => '3',
+    4 => '4',
+  );
+  $export['expire_user_actions'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_custom';
+  $strongarm->value = 0;
+  $export['expire_user_custom'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_custom_pages';
+  $strongarm->value = '';
+  $export['expire_user_custom_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_front_page';
+  $strongarm->value = 0;
+  $export['expire_user_front_page'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_reference_pages';
+  $strongarm->value = 0;
+  $export['expire_user_reference_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_term_pages';
+  $strongarm->value = 0;
+  $export['expire_user_term_pages'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'expire_user_user_page';
+  $strongarm->value = 1;
+  $export['expire_user_user_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -56,7 +259,7 @@ function kandb_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'page_cache_maximum_age';
-  $strongarm->value = '900';
+  $strongarm->value = '3600';
   $export['page_cache_maximum_age'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -70,14 +273,14 @@ function kandb_settings_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'preprocess_css';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['preprocess_css'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'preprocess_js';
-  $strongarm->value = 0;
+  $strongarm->value = 1;
   $export['preprocess_js'] = $strongarm;
 
   return $export;

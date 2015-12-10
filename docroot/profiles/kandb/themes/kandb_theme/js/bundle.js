@@ -30670,7 +30670,7 @@ return jQuery;
 |___/_|_|\___|_|\_(_)/ |___/
                    |__/
 
- Version: 1.5.8
+ Version: 1.5.9
   Author: Ken Wheeler
  Website: http://kenwheeler.github.io
     Docs: http://kenwheeler.github.io/slick
@@ -30745,6 +30745,7 @@ return jQuery;
                 touchMove: true,
                 touchThreshold: 5,
                 useCSS: true,
+                useTransform: false,
                 variableWidth: false,
                 vertical: false,
                 verticalSwiping: false,
@@ -31163,8 +31164,6 @@ return jQuery;
                 .attr('data-slick-index', index)
                 .data('originalStyling', $(element).attr('style') || '');
         });
-
-        _.$slidesCache = _.$slides;
 
         _.$slider.addClass('slick-slider');
 
@@ -31631,6 +31630,8 @@ return jQuery;
 
         if (filter !== null) {
 
+            _.$slidesCache = _.$slides;
+
             _.unload();
 
             _.$slideTrack.children(this.options.slide).detach();
@@ -31661,7 +31662,7 @@ return jQuery;
         if (_.options.infinite === true) {
             while (breakPoint < _.slideCount) {
                 ++pagerQty;
-                breakPoint = counter + _.options.slidesToShow;
+                breakPoint = counter + _.options.slidesToScroll;
                 counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
             }
         } else if (_.options.centerMode === true) {
@@ -31669,7 +31670,7 @@ return jQuery;
         } else {
             while (breakPoint < _.slideCount) {
                 ++pagerQty;
-                breakPoint = counter + _.options.slidesToShow;
+                breakPoint = counter + _.options.slidesToScroll;
                 counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
             }
         }
@@ -31738,15 +31739,33 @@ return jQuery;
                 targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow);
             }
 
-            targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+            if (_.options.rtl === true) {
+                if (targetSlide[0]) {
+                    targetLeft = (_.$slideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
+                } else {
+                    targetLeft =  0;
+                }
+            } else {
+                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+            }
 
             if (_.options.centerMode === true) {
-                if (_.options.infinite === false) {
+                if (_.slideCount <= _.options.slidesToShow || _.options.infinite === false) {
                     targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex);
                 } else {
                     targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow + 1);
                 }
-                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+
+                if (_.options.rtl === true) {
+                    if (targetSlide[0]) {
+                        targetLeft = (_.$slideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
+                    } else {
+                        targetLeft =  0;
+                    }
+                } else {
+                    targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
+                }
+
                 targetLeft += (_.$list.width() - targetSlide.outerWidth()) / 2;
             }
         }
@@ -32158,6 +32177,7 @@ return jQuery;
 
         if (imgCount > 0) {
             targetImage = $('img[data-lazy]', _.$slider).first();
+            targetImage.attr('src', null);
             targetImage.attr('src', targetImage.attr('data-lazy')).removeClass('slick-loading').load(function() {
                     targetImage.removeAttr('data-lazy');
                     _.progressiveLazyLoad();
@@ -32176,8 +32196,22 @@ return jQuery;
 
     Slick.prototype.refresh = function( initializing ) {
 
-        var _ = this,
-            currentSlide = _.currentSlide;
+        var _ = this, currentSlide, firstVisible;
+
+        firstVisible = _.slideCount - _.options.slidesToShow;
+
+        // check that the new breakpoint can actually accept the
+        // "current slide" as the current slide, otherwise we need
+        // to set it to the closest possible value.
+        if ( !_.options.infinite ) {
+            if ( _.slideCount <= _.options.slidesToShow ) {
+                _.currentSlide = 0;
+            } else if ( _.currentSlide > firstVisible ) {
+                _.currentSlide = firstVisible;
+            }
+        }
+
+         currentSlide = _.currentSlide;
 
         _.destroy(true);
 
@@ -32556,8 +32590,7 @@ return jQuery;
             _.transformType = 'transform';
             _.transitionType = 'transition';
         }
-        _.transformsEnabled = (_.animType !== null && _.animType !== false);
-
+        _.transformsEnabled = _.options.useTransform && (_.animType !== null && _.animType !== false);
     };
 
 
@@ -33252,18 +33285,13 @@ return jQuery;
     };
 
     Slick.prototype.activateADA = function() {
-        var _ = this,
-        _isSlideOnFocus =_.$slider.find('*').is(':focus');
-        // _isSlideOnFocus = _.$slides.is(':focus') || _.$slides.find('*').is(':focus');
+        var _ = this;
 
         _.$slideTrack.find('.slick-active').attr({
-            'aria-hidden': 'false',
-            'tabindex': '0'
+            'aria-hidden': 'false'
         }).find('a, input, button, select').attr({
             'tabindex': '0'
         });
-
-        (_isSlideOnFocus) &&  _.$slideTrack.find('.slick-active').focus();
 
     };
 
@@ -33291,9 +33319,9 @@ return jQuery;
             opt = arguments[0],
             args = Array.prototype.slice.call(arguments, 1),
             l = _.length,
-            i = 0,
+            i,
             ret;
-        for (i; i < l; i++) {
+        for (i = 0; i < l; i++) {
             if (typeof opt == 'object' || typeof opt == 'undefined')
                 _[i].slick = new Slick(_[i], opt);
             else
@@ -37994,6 +38022,12 @@ $(document).on('ajaxResponse', function(e){
   // reinit slick
   $('[data-slick]').appSlick();
 
+  // reinit cookies
+  $('[data-cookie]').appCookies();
+
+  // see more
+  $('[data-seemore]').appSeeMore();
+
   // rebind reveal popin's bindings
   App.revealBind();
 });
@@ -38008,9 +38042,10 @@ $(document).on('ajaxResponse', function(e){
 /* MODULE TRIGGER */
 /* ============== */
 
-var trigger = '[data-cookie]',
-    addValue = '[data-cookie-add]',
-    removeValue = '[data-cookie-remove]';
+var trigger     = '[data-cookie]',
+    addValue    = '[data-cookie-add]',
+    removeValue = '[data-cookie-remove]',
+    callback    = '[data-cookie-callback]';
 
 /* =============== */
 /* MODULE DEFAULTS */
@@ -38034,6 +38069,7 @@ function AppCookies( el, opts ) {
   this.item = $(el);
   this.name = this.item.data('cookie');
   this.value = this.item.data('cookie-add') || this.item.data('cookie-remove');
+  this.callback = this.item.data('cookie-callback') || false;
 
   if ( this.value === "url" ) {
     this.value = window.location.origin + window.location.pathname + window.location.search;
@@ -38069,7 +38105,15 @@ AppCookies.prototype = {
       if ( $this.is(addValue) ) {
         that.addValue();
       } else {
-        that.removeValue();
+        if (window.confirm(App.settings.selections.removeMessage)) {
+          that.removeValue();
+        } else {
+          return false;
+        }
+      }
+
+      if ( that.callback ) {
+        that[that.callback]();
       }
 
       that.debug();
@@ -38129,11 +38173,16 @@ AppCookies.prototype = {
 
   checkLimit: function(array) {
     if ( array.length > this.settings.limit ) {
-      if (window.confirm(App.selections.errorMessage)) {
-        window.location = App.selections.errorRedirect;
+      if (window.confirm(App.settings.selections.errorMessage)) {
+        window.location = App.settings.selections.errorRedirect;
       }
     }
     return array.length <= this.settings.limit;
+  },
+
+  removeSelection: function() {
+    var $elToRemove = this.item.closest('[data-selection-item]');
+    $elToRemove.velocity('slideUp');
   },
 
   debug: function() {
@@ -39033,6 +39082,108 @@ var searchInit = function() {
 
 searchInit();
 },{}],25:[function(require,module,exports){
+/* ======================== */
+/* seeMore : app-deeMore.js */
+/* ======================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger     = '[data-seemore]',
+    list        = '[data-seemore-list]',
+    nbr         = '[data-seemore-nbr]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppSeeMore( el, opts ) {
+  this.settings = $.extend({}, defaults, opts);
+
+  this.item     = $(el);
+  this.list     = $('[data-seemore-list="'+ $(el).data('seemore') +'"]' ).children();
+  this.nbr      = this.addNbr = this.item.data('seemore-nbr');
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppSeeMore.prototype = {
+
+  init: function() {
+    var that = this;
+
+    this.list.hide().slice(0, this.nbr).show();
+
+    this.item.off('click.seeMore').on('click.seeMore', function(e) {
+      e.preventDefault();
+      var $this = $(this);
+
+      if ( that.nbr < that.list.length ) {
+        that.nbr = that.nbr + that.addNbr;
+        that.hideItems( that.nbr );
+      }
+
+    });
+  },
+
+  hideItems: function(nbr) {
+    var that = this;
+
+    this.list.slice(this.nbr - that.addNbr,this.nbr).velocity('slideDown', {
+      display: "flex"
+    });
+
+    if ( this.nbr > this.list.length ) {
+      this.item.hide();
+    }
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$(function() {
+
+  $.fn.appSeeMore = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppSeeMore');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppSeeMore', new AppSeeMore( this, opt) );
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appSeeMore();
+
+});
+
+},{}],26:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39077,7 +39228,7 @@ App.appComboSelect = function() {
 };
 
 App.appComboSelect();
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39263,7 +39414,7 @@ $.fn.appSlick = function(opt) {
 
 $(trigger).appSlick();
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39897,7 +40048,7 @@ $(trigger).appSlick();
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],28:[function(require,module,exports){
+},{"jquery":5}],29:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -39934,18 +40085,19 @@ if ( $('html').attr('data-debug') !== undefined ) {
 
 // merge window.knbVars object present in DOM into App
 if ( typeof global.Drupal === 'undefined' ) {
-  global.Drupal = {
+  window.Drupal = {
     settings: {
       knb: {
         selections: {
           errorMessage: "Vous ne pouvez pas enregistrer plus de 20 items, voulez-vous gérer vos favoris ?",
-          errorRedirect: "index.html"
+          errorRedirect: "index.html",
+          removeMessage: "Voulez-vous supprimer cette selection ?"
         }
       }
     }
   };
 }
-_.merge(global.App.settings, global.Drupal.settings.knb);
+_.merge(window.App.settings, window.Drupal.settings.knb);
 
 
 // refresh functions after ajax response
@@ -39979,6 +40131,7 @@ var appLink2map         = require("./app-link2map.js");
 var appIframes          = require("./app-iframes.js");
 var appCookies          = require("./app-cookies.js");
 var appScrollTo         = require("./app-scroll-to.js");
+var appSeeMore          = require("./app-seeMore.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -39995,4 +40148,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-scroll-to.js":23,"./app-searchFormular.js":24,"./app-select.js":25,"./app-slick.js":26,"./combo-select.js":27,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[28]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-cookies.js":15,"./app-dropdown.js":16,"./app-forms.js":17,"./app-gmaps.js":18,"./app-iframes.js":19,"./app-link2map.js":20,"./app-offcanvas.js":21,"./app-reveal.js":22,"./app-scroll-to.js":23,"./app-searchFormular.js":24,"./app-seeMore.js":25,"./app-select.js":26,"./app-slick.js":27,"./combo-select.js":28,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[29]);

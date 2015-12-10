@@ -29,6 +29,9 @@ function kandb_install() {
   // Disable bartik and seven.
   theme_disable(array('bartik', 'seven', 'ember'));
 
+  $theme = 'kandb_b2b_theme';
+  theme_enable(array($theme));
+
   // Disable KandB Content TMP after install
   if (module_exists('kandb_tmp_content')) {
     module_disable(array('kandb_tmp_content'), TRUE);
@@ -689,5 +692,51 @@ function kandb_update_7163() {
 function kandb_update_7164() {
   if (!module_exists('stringoverrides_advanced')) {
     module_enable(array('stringoverrides_advanced'), TRUE);
+  }
+}
+
+/*
+ * Enable domain_theme module
+ */
+function kandb_update_7165() {
+  if (!module_exists('domain_theme')) {
+    module_enable(array('domain_theme'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_b2b_theme theme
+ */
+function kandb_update_7166() {
+  $theme = array(
+    'kandb_b2b_theme'
+  );
+  theme_enable($theme);
+}
+
+/*
+ * Enable acquia_purge module
+ */
+function kandb_update_7167() {
+  if (!module_exists('acquia_purge')) {
+    module_enable(array('acquia_purge'), TRUE);
+  }
+}
+
+/*
+ * Enable cacheexclude module
+ */
+function kandb_update_7168(&$sandbox) {
+  if (!module_exists('cacheexclude')) {
+    module_enable(array('cacheexclude'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_partenaire module
+ */
+function kandb_update_7169(&$sandbox) {
+  if (!module_exists('kandb_partenaire')) {
+    module_enable(array('kandb_partenaire'), TRUE);
   }
 }

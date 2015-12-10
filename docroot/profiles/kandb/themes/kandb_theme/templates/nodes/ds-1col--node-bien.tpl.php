@@ -165,6 +165,29 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         </div>
                         <div class="heading__title heading__title--sub"><?php print $ville ?> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
+                    <ul class="tags-list">
+                        <?php
+                        $domain_id = 3;
+                        $status_bien = 1;
+                        if (isset($node->domains[$domain_id]) && $node->domains[$domain_id] == $domain_id && isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid']) && $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] == get_tid_by_id_field($status_bien)) :
+                            if ($promotions = get_nids_promotions_by_bien($node->nid)) :
+                                foreach ($promotions as $promotion) :
+                                    $triger_promotion = 'promotion-' . $promotion->nid;
+                                    ?>
+                                    <li>
+                                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                            </div>
+                                        </div>
+                                        <!-- [popin] end-->
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
                 </div>
                 <ul class="content-price bienPrice">
                     <?php if ($tva) : ?>
@@ -359,11 +382,14 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
 <!-- [3rd party: visite-virtuelle] start-->
 
-<?php if ($habiteo_id): ?>
+<?php if ($habiteo_id):
+$bien_type = !empty($bien_type) ? $bien_type->name : '';
+$nb_pieces = !empty($nb_pieces) ? $nb_pieces->name : '';
+?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print $node->field_visite_titre['und'][0]['value']; ?></h2>
+              <h2 class="heading__title"><?php print !empty($node->field_visite_titre['und'][0]['value'])?$node->field_visite_titre['und'][0]['value']:variable_get('kandb_bien_default_title_habiteo').' '.$bien_type.' '.$nb_pieces ?></h2>
           </header>
       </div>
       <div class="wrapper--medium-up">
@@ -405,12 +431,12 @@ if ($piece_id) {
 }
 
 if (!empty($list_bien_more)):
-  ?>
+?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
-              <p class="heading__title heading__title--sub"><?php print t("sur le programme") ?></p>
+              <h2 class="heading__title"><?php print t('Les') .' '. t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
+              <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>
       <div class="wrapper">
@@ -457,18 +483,36 @@ if (!empty($list_bien_more)):
                                         <ul>
                                             <li class="item-ulities">
                                                 <ul>
-                                                    <?php
-                                                    if (isset($bien_more->field_caracteristique[LANGUAGE_NONE][0])) {
-                                                      $list_caracter = '';
-                                                      foreach ($bien_more->field_caracteristique[LANGUAGE_NONE] as $item_caracter_id) {
-                                                        $item_caracter = taxonomy_term_load($item_caracter_id['tid']);
-                                                        $list_caracter .= $item_caracter->name . ', ';
-                                                      }
+                                                      <?php
+                                                        $arr_caracteris = array();
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
 
-                                                      $list_caracter = substr($list_caracter, 0, -2);
-                                                      print $list_caracter;
-                                                    }
-                                                    ?>
+                                                        $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
+                                                        if ($caracteristiques && count($caracteristiques) > 0) {
+                                                            foreach ($caracteristiques as $caracteristique) {
+                                                                $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
+                                                                if ($term_caracteristique) {
+                                                                    $arr_caracteris[] = $term_caracteristique->name;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        //endedit
+                                                        ?>
+                                                        <?php if (count($arr_caracteris) > 0) : ?>
+                                                            <?php foreach ($arr_caracteris as $caracteris) : ?>
+                                                                <?php if ($caracteris) : ?>
+                                                                    <li><?php print $caracteris; ?></li>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                    <?php endif; ?>
                                                 </ul>
                                             </li>
                                             <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m' : ''  ?><sup>2</sup></li>

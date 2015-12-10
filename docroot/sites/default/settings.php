@@ -588,7 +588,6 @@ if ( (strpos($_GET['q'], 'admin') === 0) ||
   (strpos($_GET['q'], 'import') === 0)) {
   ini_set('memory_limit', '512M');
 }
-
 // Include Acquia Drupal settings
 if (file_exists('/var/www/site-php')) {
     require '/var/www/site-php/kaufmanetbroad/kaufmanetbroad-settings.inc';
