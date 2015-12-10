@@ -43,6 +43,15 @@ function kandb_settings_menu() {
     'access arguments' => array('administer K&B content'),
   );
 
+  $menu['admin/content/ketb/label-default'] = array(
+    'title' => 'Label default',
+    'description' => 'Change the Bien, Program information of block.',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_label_default_admin'),
+    'access arguments' => array('administer K&B Bien settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $menu;
 }
 
@@ -121,14 +130,14 @@ function kandb_selection_page_footer_form() {
  * hook_form_validate()
  */
 function kandb_selection_page_footer_validate($form, &$form_state) {
-  
+
 }
 
 /**
  * hook_form_submit()
  */
 function kandb_selection_page_footer_submit($form, &$form_state) {
-  
+
 }
 
 /**
@@ -220,7 +229,7 @@ function kandb_images_default() {
 
 /**
  * Return the clean string in case special character.
- * 
+ *
  * @param string $text
  * @return string
  */
@@ -318,4 +327,42 @@ function kandb_settings_get_uri_by_variable($name) {
     }
   }
   return null;
+}
+
+/**
+ * Admin interface
+ *
+ * Called from drupal_get_form
+ *
+ * @return mixed
+ */
+function kandb_label_default_admin() {
+  $form = array();
+
+  $form['kandb_bien_default_title_habiteo'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre du bloc de Bien Habiteo'),
+    '#default_value' => variable_get('kandb_bien_default_title_habiteo'),
+    '#required' => TRUE,
+  );
+  $form['kandb_bien_default_title_more'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre du bloc de Bien More'),
+    '#default_value' => variable_get('kandb_bien_default_title_more'),
+    '#required' => TRUE,
+  );
+  $form['kandb_program_default_title_map'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre du bloc de Program Map'),
+    '#default_value' => variable_get('kandb_program_default_title_map'),
+    '#required' => TRUE,
+  );
+  $form['kandb_program_default_subtitle_map'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sub Titre du bloc de Program Map'),
+    '#default_value' => variable_get('kandb_program_default_subtitle_map'),
+    '#required' => TRUE,
+  );
+
+  return system_settings_form($form);
 }
