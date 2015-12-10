@@ -480,18 +480,36 @@ if (!empty($list_bien_more)):
                                         <ul>
                                             <li class="item-ulities">
                                                 <ul>
-                                                    <?php
-                                                    if (isset($bien_more->field_caracteristique[LANGUAGE_NONE][0])) {
-                                                      $list_caracter = '';
-                                                      foreach ($bien_more->field_caracteristique[LANGUAGE_NONE] as $item_caracter_id) {
-                                                        $item_caracter = taxonomy_term_load($item_caracter_id['tid']);
-                                                        $list_caracter .= $item_caracter->name . ', ';
-                                                      }
+                                                      <?php
+                                                        $arr_caracteris = array();
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
 
-                                                      $list_caracter = substr($list_caracter, 0, -2);
-                                                      print $list_caracter;
-                                                    }
-                                                    ?>
+                                                        $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
+                                                        if ($caracteristiques && count($caracteristiques) > 0) {
+                                                            foreach ($caracteristiques as $caracteristique) {
+                                                                $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
+                                                                if ($term_caracteristique) {
+                                                                    $arr_caracteris[] = $term_caracteristique->name;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        //endedit
+                                                        ?>
+                                                        <?php if (count($arr_caracteris) > 0) : ?>
+                                                            <?php foreach ($arr_caracteris as $caracteris) : ?>
+                                                                <?php if ($caracteris) : ?>
+                                                                    <li><?php print $caracteris; ?></li>
+                                                                <?php endif; ?>
+                                                            <?php endforeach; ?>
+                                                    <?php endif; ?>
                                                 </ul>
                                             </li>
                                             <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m' : ''  ?><sup>2</sup></li>
