@@ -408,8 +408,9 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['video_id'] = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
     $vars['logementBlock'] = module_invoke('kandb_programme', 'block_view', 'logement_block');
     $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
-
-
+    $vars['loc_num'] = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
+    $vars['loc_rue'] = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    
     /**
      * SLIDER
      */
