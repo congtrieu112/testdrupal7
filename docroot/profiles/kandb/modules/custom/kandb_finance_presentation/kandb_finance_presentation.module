@@ -1,0 +1,283 @@
+<?php
+
+  /**
+   * Implementation of hook_menu()
+   * @return array
+   */
+  function kandb_finance_presentation_menu() {
+
+    $items = array();
+
+    // Back-office page
+    $items['admin/content/ketb/finance-presentation'] = array(
+      'title' => '[Finance] Présentation',
+      'description' => 'Contribute Key Performance Indicator',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('kandb_finance_presentation_admin'),
+      'access arguments' => array('administer K&B Contact settings'),
+      'type' => MENU_LOCAL_TASK,
+    );
+
+    // Front-office page
+    $items['finance-presentation'] = array(
+      'title' => '[Finance] Présentation',
+      'page callback' => 'kandb_finance_presentation_page',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+  }
+
+  function kandb_finance_presentation_page() {
+    // All reachable template variables
+    $varNames = array(
+      'kandb_finance_presentation_word_president_titre',
+      'kandb_finance_presentation_word_president_citation',
+      'kandb_finance_presentation_word_president_identite',
+      'kandb_finance_presentation_word_president_fonction_exercee',
+      'kandb_finance_presentation_word_president_link',
+
+      'kandb_finance_presentation_carnet_market_data_title',
+      'kandb_finance_presentation_carnet_market_data_textarea',
+
+      'kandb_finance_presentation_carnet_title_1',
+      'kandb_finance_presentation_carnet_sub_title_1',
+      'kandb_finance_presentation_carnet_image_1',
+      'kandb_finance_presentation_carnet_title_2',
+      'kandb_finance_presentation_carnet_sub_title_2',
+      'kandb_finance_presentation_carnet_image_2',
+
+      'kandb_finance_presentation_carnet_market_sheet_title',
+      'kandb_finance_presentation_carnet_market_sheet_textarea',
+      );
+    $varNamesKPI = array(
+      'kandb_finance_presentation_kpi_title_',
+      'kandb_finance_presentation_kpi_sub_title_',
+      'kandb_finance_presentation_kpi_image_',
+      );
+
+    $content = array();
+    foreach($varNames as $varName) {
+      $content[$varName] = variable_get($varName);
+    }
+    foreach($varNamesKPI as $varName) {
+      for ($i=1; $i <= 20; $i++) {
+        $content[$varName.$i] = variable_get($varName.$i);
+        if (!empty($content[$varName.$i]) && $varName == 'kandb_finance_presentation_kpi_image_') {
+          $content[$varName.$i] = file_load(variable_get($varName.$i));
+          if ($wrapper = file_stream_wrapper_get_instance_by_uri($content[$varName.$i]->uri)) {
+            $content[$varName.$i]->uri = $wrapper->getExternalUrl();
+          }
+        }
+      }
+    }
+
+    return theme('presentation', $content);
+  }
+
+  /**
+   * Implements hook_theme().
+   */
+  function kandb_finance_presentation_theme($existing, $type, $theme, $path) {
+    return array(
+      'presentation' => array(
+        'template' => 'templates/presentation',
+        'variables' => array(),
+      )
+    );
+  }
+
+  /**
+   * Admin interface
+   *
+   * Called from drupal_get_form
+   *
+   * @return mixed
+   */
+  function kandb_finance_presentation_admin() {
+    $form = array();
+    $descriptionTextareaColumn = "valeur gauche 1|valeur droite 1\nvaleur gauche 2|valeur droite 2";
+
+    ////////////
+    // Word of the president
+    ////////////////////////
+    
+    // Fields configuration (array(title, machine_name, required))
+    $fieldsArray = array(
+      array('Titre', 'titre', 'textfield', TRUE),
+      array('Citation', 'citation', 'textfield', TRUE),
+      array('Identité', 'identite', 'textfield', TRUE),
+      array('Fonction exercée', 'fonction_exercee', 'textfield', TRUE),
+    );
+    // Fieldset (array(title, machine_name, required))
+    $form['word_of_the_president'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Mot du président'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+
+    // Fields in fieldset
+    $i = 1;
+    foreach ($fieldsArray as $fieldParameters) {
+      $form['word_of_the_president'][$i]['kandb_finance_presentation_word_president_'.$fieldParameters[1]] = array(
+        '#type' => $fieldParameters[2],
+        '#title' => t($fieldParameters[0]),
+        '#default_value' => variable_get('kandb_finance_presentation_word_president_'.$fieldParameters[1]),
+        '#required' => $fieldParameters[3],
+      );
+      $i++;
+    }
+    // Link field (http://drupal.stackexchange.com/questions/130572/save-link-field-in-custom-form#130583)
+    $form['word_of_the_president'][$i++]['kandb_finance_presentation_word_president_link'] = array(
+      '#type' => 'link_field',
+      '#title' => t('Lien'),
+      '#field_name' => 'kandb_finance_presentation_word_president_link',
+      '#default_value' => variable_get('kandb_finance_presentation_word_president_link'),
+      '#required' => TRUE,
+      '#language' => 'und',
+      '#field_parents' => array(),
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => variable_get('title', ''),
+        'url' => variable_get('url', ''),
+      ),
+    );
+
+    ////////////
+    // KPI
+    ////////////////////////
+    // Main fieldset
+    $form['fieldset_kpi'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('KPI'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    for ($i=1; $i <= 20; $i++) { 
+      // Fieldset
+      $collapsed = ($i > 0) ? TRUE : FALSE;
+      if ($collapsed && (variable_get('kandb_finance_presentation_kpi_title_'.$i) || variable_get('kandb_finance_presentation_kpi_sub_title_'.$i) || variable_get('kandb_finance_presentation_kpi_image_'.$i))) {
+        $collapsed = FALSE;
+      }
+      $form['fieldset_kpi'][$i] = array(
+        '#type' => 'fieldset',
+        '#title' => t($i.' - Bloc de chiffres (titre/sous-titre/graphique)'),
+        '#collapsible' => TRUE,
+        '#collapsed' => $collapsed,
+      );
+
+      // Fields
+      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_title_'.$i] = array(
+        '#type' => 'textfield',
+        '#title' => t('Titre'),
+        '#default_value' => variable_get('kandb_finance_presentation_kpi_title_'.$i),
+        '#required' => FALSE,
+      );
+      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_sub_title_'.$i] = array(
+        '#type' => 'textfield',
+        '#title' => t('Sous-titre'),
+        '#default_value' => variable_get('kandb_finance_presentation_kpi_sub_title_'.$i),
+        '#required' => FALSE,
+      );
+      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_image_'.$i] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Graphique / Illustration'),
+        '#default_value' => variable_get('kandb_finance_presentation_kpi_image_'.$i),
+        '#upload_location' => 'public://',
+      );
+    }
+
+    ////////////
+    // Carnet de l'actionnaire
+    ////////////////////////
+    // Main fieldset
+    $form['carnet'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Carnet de l\'actionnaire'),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+
+    // Market data fieldset
+    $form['carnet']['market_data'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Données boursières'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    // Market data fields
+    $form['carnet']['market_data']['kandb_finance_presentation_carnet_market_data_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Titre'),
+      '#default_value' => variable_get('kandb_finance_presentation_carnet_market_data_title'),
+      '#required' => FALSE,
+    );
+    $form['carnet']['market_data']['kandb_finance_presentation_carnet_market_data_textarea'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Corps'),
+      '#default_value' => (variable_get('kandb_finance_presentation_carnet_market_data_textarea')) ? variable_get('kandb_finance_presentation_carnet_market_data_textarea') : $descriptionTextareaColumn,
+      '#description' => '(lignes de valeurs délimitées par le caractère "|" pour chaque colonne ; ex : marché|NYSE EURONEXT)',
+      '#required' => FALSE,
+    );
+
+    // Two figures field groups
+    for ($i=0; $i < 2; $i++) { 
+      // Fieldset
+      $collapsed = TRUE;
+      if (variable_get('kandb_finance_presentation_carnet_title_'.$i) || variable_get('kandb_finance_presentation_carnet_sub_title_'.$i) || variable_get('kandb_finance_presentation_carnet_image_'.$i)) {
+        $collapsed = FALSE;
+      }
+      $form['carnet'][$i] = array(
+        '#type' => 'fieldset',
+        '#title' => t(($i+1).' - Bloc de chiffres (titre/sous-titre/graphique)'),
+        '#collapsible' => TRUE,
+        '#collapsed' => $collapsed,
+      );
+
+      // Fields
+      $form['carnet'][$i]['kandb_finance_presentation_carnet_title_'.$i] = array(
+        '#type' => 'textfield',
+        '#title' => t('Titre'),
+        '#default_value' => variable_get('kandb_finance_presentation_carnet_title_'.$i),
+        '#required' => FALSE,
+      );
+      $form['carnet'][$i]['kandb_finance_presentation_carnet_sub_title_'.$i] = array(
+        '#type' => 'textfield',
+        '#title' => t('Sous-titre'),
+        '#default_value' => variable_get('kandb_finance_presentation_carnet_sub_title_'.$i),
+        '#required' => FALSE,
+      );
+      $form['carnet'][$i]['kandb_finance_presentation_carnet_image_'.$i] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Graphique / Illustration'),
+        '#default_value' => variable_get('kandb_finance_presentation_carnet_image_'.$i),
+        '#upload_location' => 'public://',
+      );
+    }
+
+    // Market sheet fieldset
+    $form['carnet']['market_sheet'] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Fiche signalétique'),
+      '#collapsible' => TRUE,
+      '#collapsed' => FALSE,
+    );
+    // Market sheet fields
+    $form['carnet']['market_sheet']['kandb_finance_presentation_carnet_market_sheet_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Titre'),
+      '#default_value' => variable_get('kandb_finance_presentation_carnet_market_sheet_title'),
+      '#required' => FALSE,
+    );
+    $form['carnet']['market_sheet']['kandb_finance_presentation_carnet_market_sheet_textarea'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Corps'),
+      '#default_value' => (variable_get('kandb_finance_presentation_carnet_market_sheet_textarea')) ? variable_get('kandb_finance_presentation_carnet_market_sheet_textarea') : $descriptionTextareaColumn,
+      '#description' => '(lignes de valeurs délimitées par le caractère "|" pour chaque colonne ; ex : Code ISIN|FR 000 407813)',
+      '#required' => FALSE,
+    );
+
+    return system_settings_form($form);
+  }
