@@ -12,12 +12,27 @@ function kandb_b2b_menu() {
   $items['b2b-homepage'] = array(
     'title' => 'B2B Homepage',
     'page callback' => 'render_b2b_homepage',
-    'access callback' => TRUE,
+    'access callback' => 'kandb_b2b_check_doamin',
     'file' => 'kandb_b2b.inc',
     'type' => MENU_CALLBACK,
   );
 
   return $items;
+}
+
+/**
+ * Check current domain is K&B B2B.
+ */
+function kandb_b2b_check_doamin() {
+  $result = FALSE;
+
+  $domain = domain_get_domain();
+  $domain_obj = isset($domain['domain_id']) ? domain_load($domain['domain_id']) : '';
+  if (isset($domain_obj['machine_name']) AND $domain_obj['machine_name'] == 'kandb_b2b') {
+    $result = TRUE;
+  }
+
+  return $result;
 }
 
 /**
