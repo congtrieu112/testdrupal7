@@ -359,11 +359,14 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
 <!-- [3rd party: visite-virtuelle] start-->
 
-<?php if ($habiteo_id): ?>
+<?php if ($habiteo_id):
+$bien_type = !empty($bien_type) ? $bien_type->name : '';
+$nb_pieces = !empty($nb_pieces) ? $nb_pieces->name : '';
+?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print $node->field_visite_titre['und'][0]['value']; ?></h2>
+              <h2 class="heading__title"><?php print !empty($node->field_visite_titre['und'][0]['value'])?$node->field_visite_titre['und'][0]['value']:variable_get('kandb_bien_default_title_habiteo').' '.$bien_type.' '.$nb_pieces ?></h2>
           </header>
       </div>
       <div class="wrapper--medium-up">
@@ -405,12 +408,12 @@ if ($piece_id) {
 }
 
 if (!empty($list_bien_more)):
-  ?>
+?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
-              <p class="heading__title heading__title--sub"><?php print t("sur le programme") ?></p>
+              <h2 class="heading__title"><?php print t('Les') .' '. t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
+              <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>
       <div class="wrapper">

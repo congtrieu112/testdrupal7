@@ -222,8 +222,8 @@
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map'); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_subtitle_map'); ?></p>
         </header>
     </div>
     <div class="swapItem">
