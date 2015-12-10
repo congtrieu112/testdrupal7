@@ -385,18 +385,9 @@ endif;
                         <h4 class="articleList__item__infos__heading"><?php print $item["title"] ?></h4>
                         <?php if (!empty($item["articles"])): ?>
                           <ul class="articleList__item__infos__links">
-                              <?php
-                              foreach ($item["articles"] as $l):
-                                $article_alias = url('node/' . $l['entity']->nid);
-                                $article_alias = explode('/', $article_alias);
-                                $article_alias = end($article_alias);
-                                $path = $article_alias;
-
-                                $path = $current_dossier_path . '/' . $path;
-                                $path = $base_url . '/' . str_replace('content/', '', $path);
-                                ?>
-                                <li><a href="<?php print $path ?>" title="<?php print $l['entity']->title ?>"><?php print $l['entity']->title ?></a></li>
-                              <?php endforeach; ?>
+                            <?php foreach ($item["articles"] as $l): ?>
+                              <li><?php print l($l['entity']->title, 'node/' . $l['entity']->nid, array('attributes' => array('title' => $l['entity']->title))); ?></li>
+                            <?php endforeach; ?>
                           </ul>
                         <?php endif; ?>
                     </div>
