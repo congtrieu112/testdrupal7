@@ -414,6 +414,8 @@ function kandb_theme_preprocess_node(&$vars) {
      * SLIDER
      */
     $arr_slider = array(
+      'field_prestations_titre',
+      'field_prestations_sous_titre',
       'field_slider_exterieur_titre',
       'field_slider_exterieur_desc',
       'field_slider_exterieur_image',
