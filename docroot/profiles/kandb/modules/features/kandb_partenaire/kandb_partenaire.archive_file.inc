@@ -280,11 +280,13 @@ function kandb_partenaire_create_archive_file($node) {
     return ;
   }
   $partenaire_export = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
-  $path = drupal_realpath('public://');
-  $all_pdf_files = array();
-  $dir = $path . '/partenaire/' . $vuuid . '/';
-  if (file_exists($dir)) {
-    foreach (glob($dir . "/*.*") as $filename) {
+  $all_pdf_files = array();  
+  $uri = 'public://partenaire/'. $vuuid ;
+  file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  $path = drupal_realpath($uri);
+  
+  if (file_exists($path)) {
+    foreach (glob($path . "/*.*") as $filename) {
       if (is_file($filename)) {
         unlink($filename);
       }
@@ -300,7 +302,7 @@ function kandb_partenaire_create_archive_file($node) {
     $all_pdf_files = get_files_in_bien_related(NULL, $list_programme);
   }
   $files_info = kandb_partenaire_get_file_info($all_pdf_files);
-  kandb_partenaire_create_file_zip($path . '/partenaire/' . $vuuid . '/document_lot_plan.zip', $files_info);
+  kandb_partenaire_create_file_zip($path . '/document_lot_plan.zip', $files_info);
 }
 
 function get_files_in_bien_related($partenaire_export = NULL, $list_programme = array()) {
