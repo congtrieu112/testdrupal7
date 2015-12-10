@@ -744,7 +744,7 @@ function kandb_update_7169(&$sandbox) {
 /*
  * Enable k_b_rh_annonce module
  */
-function kandb_update_7171(&$sandbox) {
+function kandb_update_7171() {
   if (!module_exists('k_b_rh_annonce')) {
     module_enable(array('k_b_rh_annonce'), TRUE);
   }
