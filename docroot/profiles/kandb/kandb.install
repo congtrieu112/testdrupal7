@@ -29,6 +29,9 @@ function kandb_install() {
   // Disable bartik and seven.
   theme_disable(array('bartik', 'seven', 'ember'));
 
+  $theme = 'kandb_b2b_theme';
+  theme_enable(array($theme));
+
   // Disable KandB Content TMP after install
   if (module_exists('kandb_tmp_content')) {
     module_disable(array('kandb_tmp_content'), TRUE);
