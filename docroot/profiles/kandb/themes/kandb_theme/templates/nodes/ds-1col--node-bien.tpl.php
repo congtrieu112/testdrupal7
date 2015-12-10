@@ -165,6 +165,29 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                         </div>
                         <div class="heading__title heading__title--sub"><?php print $ville ?> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
+                    <ul class="tags-list">
+                        <?php
+                        $domain_id = 3;
+                        $status_bien = 1;
+                        if (isset($node->domains[$domain_id]) && $node->domains[$domain_id] == $domain_id && isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid']) && $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] == get_tid_by_id_field($status_bien)) :
+                            if ($promotions = get_nids_promotions_by_bien($node->nid)) :
+                                foreach ($promotions as $promotion) :
+                                    $triger_promotion = 'promotion-' . $promotion->nid;
+                                    ?>
+                                    <li>
+                                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                            </div>
+                                        </div>
+                                        <!-- [popin] end-->
+                                    </li>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
+                        <?php endif; ?>
+                    </ul>
                 </div>
                 <ul class="content-price bienPrice">
                     <?php if ($tva) : ?>

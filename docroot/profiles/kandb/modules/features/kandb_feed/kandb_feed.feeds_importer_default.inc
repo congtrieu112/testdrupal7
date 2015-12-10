@@ -184,10 +184,10 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
-          'city_feed_import' => 0,
-          'district_feed_import' => 0,
           'node' => 0,
           'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
           'document_import_communique_de_presse' => 0,
           'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
@@ -195,6 +195,8 @@ function kandb_feed_feeds_importer_default() {
           'migration_program_import' => 0,
           'migration_program_video_import' => 0,
           'parcel_feed_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
           'programme_feed_import' => 0,
         ),
         'mappings' => array(
@@ -238,11 +240,16 @@ function kandb_feed_feeds_importer_default() {
             'target' => 'field_document_file:uri',
             'unique' => FALSE,
           ),
+          8 => array(
+            'source' => 'DocumentFileOld',
+            'target' => 'Temporary target 1',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'update_non_existent' => 'skip',
         'input_format' => 'plain_text',
-        'skip_hash_check' => 0,
+        'skip_hash_check' => 1,
         'bundle' => 'document',
       ),
     ),
@@ -251,7 +258,7 @@ function kandb_feed_feeds_importer_default() {
     'import_period' => '-1',
     'expire_period' => 3600,
     'import_on_create' => 1,
-    'process_in_background' => 1,
+    'process_in_background' => 0,
   );
   $export['document_import'] = $feeds_importer;
 
@@ -372,6 +379,11 @@ function kandb_feed_feeds_importer_default() {
           16 => array(
             'source' => 'Sticky',
             'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          17 => array(
+            'source' => 'DocumentFileOld',
+            'target' => 'Temporary target 1',
             'unique' => FALSE,
           ),
         ),

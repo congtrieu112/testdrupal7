@@ -390,3 +390,21 @@ function kandb_domains_domain_conf_default_variables() {
 
   return $domain_variables;
 }
+
+/**
+ * Implements hook_domain_theme_default_themes().
+ */
+function kandb_domains_domain_theme_default_themes() {
+  $domain_themes = array();
+  $domain_themes['kandb_b2b'] = array(
+    'kandb_b2b_theme' => array(
+      'theme' => 'kandb_b2b_theme',
+      'settings' => NULL,
+      'status' => 1,
+      'filepath' => '',
+    ),
+  );
+  $domain_themes['kandb_b2c'] = array();
+
+  return $domain_themes;
+}
