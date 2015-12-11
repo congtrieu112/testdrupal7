@@ -742,6 +742,15 @@ function kandb_update_7169(&$sandbox) {
 }
 
 /*
+ * Enable kandb_partenaire module
+ */
+function kandb_update_7170() {
+  if (!module_exists('kandb_partenaire')) {
+    module_enable(array('kandb_partenaire'), TRUE);
+  }
+}
+
+/*
  * Enable k_b_rh_annonce module
  */
 function kandb_update_7171() {
