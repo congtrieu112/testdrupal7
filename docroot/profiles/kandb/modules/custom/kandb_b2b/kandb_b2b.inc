@@ -13,6 +13,7 @@ function render_b2b_homepage() {
   $login_form = drupal_get_form("user_login");
 
   // Selected program.
+  $program_title = $bg_image_small = $bg_image_large = $program_ville = $program_department = $program_address = $promotions = NULL;
   $program_var = variable_get('kandb_b2b_homepage_program');
   preg_match_all('/\[([0-9]+?)\]/', $program_var, $matches);
   if (isset($matches[1][0]) AND is_numeric($matches[1][0])) {
