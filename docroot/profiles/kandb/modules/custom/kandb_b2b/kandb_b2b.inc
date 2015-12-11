@@ -34,6 +34,12 @@ function render_b2b_homepage() {
       $program_department = field_get_items('node', $program, 'field_programme_loc_department');
       $program_department = isset($program_department[0]['tid']) ? taxonomy_term_load($program_department[0]['tid']) : '';
       $program_department = $program_department ? $program_department->name : '';
+      
+      $program_loc_num = field_get_items('node', $program, 'field_programme_loc_num');
+      $program_loc_num = isset($program_loc_num[0]['value']) ? $program_loc_num[0]['value'] : '';
+      $program_loc_rue = field_get_items('node', $program, 'field_programme_loc_rue');
+      $program_loc_rue = isset($program_loc_rue[0]['value']) ? $program_loc_rue[0]['value'] : '';
+      $program_address = trim($program_loc_num . ' ' . $program_loc_rue);
 
       $promotions = get_nids_promotions_by_programme($program->nid);
       $program_promotions = array();
@@ -60,6 +66,9 @@ function render_b2b_homepage() {
       $bg_image_large = image_style_url('homepageb2b_backgound_large', $bg_image_uri);
     }
   }
+  
+  // Links to access legal information.
+  $legal_page_url = url('content/mentions-légales');
 
   return theme('b2b_homepage', array(
     'login_form' => $login_form,
@@ -68,6 +77,8 @@ function render_b2b_homepage() {
     'program_title' => $program_title,
     'program_ville' => $program_ville,
     'program_department' => $program_department,
+    'program_address' => $program_address,
     'program_promotions' => $program_promotions,
+    'legal_page_url' => $legal_page_url,
   ));
 }

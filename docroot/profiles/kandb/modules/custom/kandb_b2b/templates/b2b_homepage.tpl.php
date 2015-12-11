@@ -12,18 +12,28 @@
           <?php print $program_ville; ?><?php print ($program_ville AND $program_department) ? ' / ' : ''; ?><?php print $program_department; ?><br>
           <?php print $program_title; ?>
         </div>
-        <div class="heading__title heading__title--sub">Rue Auguste Chevalier</div>
+        <?php if ($program_address) : ?>
+          <div class="heading__title heading__title--sub"><?php print $program_address; ?></div>
+        <?php endif; ?>
+        <?php if ($program_promotions) : ?>
+          <ul class="tags-list">
+              <?php foreach ($program_promotions as $key => $item) : ?>
+                <?php if (isset($item['title']) AND $item['title'] AND isset($item['nid']) AND $item['nid']) : ?>
+                <li>
+                  <button data-reveal-id="<?php print 'B2bDetail' . $item['nid']; ?>" class="homepageB2B__popin__btn tag tag--important">
+                    <?php print $item['title']; ?><sup>&nbsp;(<?php print $key + 1; ?>)</sup>
+                  </button>
+                </li>
+              <?php endif; ?>
+            <?php endforeach; ?>
+          </ul>
+        <?php endif; ?>
+        <a href="<?php print $legal_page_url; ?>" title="<?php print t('Voir les conditions'); ?>">* <?php print t('Voir les conditions'); ?></a>
       </div>
       <?php if ($program_promotions) : ?>
         <?php foreach ($program_promotions as $key => $item) : ?>
-          <div class="btn-wrapper btn-wrapper--center">
-            <button data-reveal-id="B2bDetail" class="homepageB2B__popin__btn tag tag--important">
-              <?php print $item['title']; ?><sup>&nbsp;(<?php print $key + 1; ?>)</sup>
-            </button>
-          </div>
-          <?php if ($item['mention_legale']) : ?>
-            <!-- [popin] start-->
-            <div id="B2bDetail" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
+          <?php if (isset($item['mention_legale']) AND $item['mention_legale'] AND isset($item['nid']) AND $item['nid']) : ?>
+            <div id="<?php print 'B2bDetail' . $item['nid']; ?>" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
               <div class="reveal-modal__wrapper">
                 <a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                 <div class="homepageB2B__popin__content">
@@ -31,7 +41,6 @@
                 </div>
               </div>
             </div>
-            <!-- [popin] end-->
           <?php endif; ?>
         <?php endforeach; ?>
       <?php endif; ?>
