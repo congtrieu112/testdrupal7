@@ -92,6 +92,9 @@ function numberFormatGlobalSpace($number) {
  * Get logement block content.
  */
 function _get_logement_block_content() {
+  global $_domain;
+  $gid = $_domain['domain_id'];
+
   $content = '';
   if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
     $node = node_load(arg(1));
@@ -128,8 +131,9 @@ function _get_logement_block_content() {
           . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
           . 'inner join {node} n on n.nid=program.field_programme_target_id '
           . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio'));
+          . 'left join {domain_access} da on da.nid = program.entity_id '
+          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key and gid=:gid '
+          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio', ':gid' => $gid));
 
         if ($listBien->rowCount() > 0) {
           $listBien = $listBien->fetchAll();
@@ -180,8 +184,9 @@ function _get_logement_block_content() {
               . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
               . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
               . 'inner join {node} n on n.nid=program.field_programme_target_id '
-              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+              . 'left join {domain_access} da on da.nid = program.entity_id '
+              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and gid=:gid '
+              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':gid' => $gid));
 
             $the_most_id = 0;
             // Show results
@@ -204,8 +209,9 @@ function _get_logement_block_content() {
                 . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
                 . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
                 . 'inner join {node} n on n.nid=program.field_programme_target_id '
-                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id '
-                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id));
+                . 'left join {domain_access} da on da.nid = program.entity_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and gid=:gid '
+                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':gid' => $gid));
 
 
               // Show results
@@ -229,8 +235,9 @@ function _get_logement_block_content() {
                 . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
                 . 'inner join {node} n on n.nid=program.field_programme_target_id '
                 . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
-                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) '
-                . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id));
+                . 'left join {domain_access} da on da.nid = program.entity_id '
+                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) and gid=:gid '
+                . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id, ':gid' => $gid));
 
               if ($listPriceRemain->rowCount() > 0) {
                 $listPriceRemain = $listPriceRemain->fetchAll();
@@ -255,8 +262,9 @@ function _get_logement_block_content() {
           . 'inner join {node} n on n.nid=program.field_programme_target_id '
           . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
           . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
-          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key '
-          . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key));
+          . 'left join {domain_access} da on da.nid = program.entity_id '
+          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key and gid=:gid '
+          . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key, ':gid' => $gid));
 
         // Show results
         if ($listMaxMinPrice->rowCount() > 0) {
