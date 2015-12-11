@@ -32,6 +32,7 @@
   function kandb_finance_presentation_page() {
     // All reachable template variables
     $varNames = array(
+      'kandb_finance_presentation_word_president_image',
       'kandb_finance_presentation_word_president_titre',
       'kandb_finance_presentation_word_president_citation',
       'kandb_finance_presentation_word_president_identite',
@@ -47,17 +48,28 @@
     $varNamesKPI = array(
       'kandb_finance_presentation_kpi_title_',
       'kandb_finance_presentation_kpi_sub_title_',
-      'kandb_finance_presentation_kpi_image_',
+      'kandb_finance_presentation_kpi_image_small_',
+      'kandb_finance_presentation_kpi_image_medium_',
       );
 
     $content = array();
     foreach($varNames as $varName) {
       $content[$varName] = variable_get($varName);
+      if (!empty($content[$varName]) && $varName == 'kandb_finance_presentation_word_president_image') {
+        $content[$varName] = file_load(variable_get($varName));
+        if ($wrapper = file_stream_wrapper_get_instance_by_uri($content[$varName]->uri)) {
+          $content[$varName]->uri = $wrapper->getExternalUrl();
+        }
+      }
     }
+    $content['countKPIFigure'] = 0;
     foreach($varNamesKPI as $varName) {
       for ($i=1; $i <= 20; $i++) {
         $content[$varName.$i] = variable_get($varName.$i);
-        if (!empty($content[$varName.$i]) && $varName == 'kandb_finance_presentation_kpi_image_') {
+        if (!empty($content[$varName.$i]) && $varName == 'kandb_finance_presentation_kpi_title_')  {
+          $content['countKPIFigure']++;
+        }
+        if (!empty($content[$varName.$i]) && ($varName == 'kandb_finance_presentation_kpi_image_small_' || $varName == 'kandb_finance_presentation_kpi_image_medium_')) {
           $content[$varName.$i] = file_load(variable_get($varName.$i));
           if ($wrapper = file_stream_wrapper_get_instance_by_uri($content[$varName.$i]->uri)) {
             $content[$varName.$i]->uri = $wrapper->getExternalUrl();
@@ -113,6 +125,12 @@
 
     // Fields in fieldset
     $i = 1;
+    $form['word_of_the_president']['kandb_finance_presentation_word_president_image'] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Graphique / Illustration'),
+      '#default_value' => variable_get('kandb_finance_presentation_word_president_image'),
+      '#upload_location' => 'public://',
+    );
     foreach ($fieldsArray as $fieldParameters) {
       $form['word_of_the_president'][$i]['kandb_finance_presentation_word_president_'.$fieldParameters[1]] = array(
         '#type' => $fieldParameters[2],
@@ -151,7 +169,7 @@
     for ($i=1; $i <= 20; $i++) { 
       // Fieldset
       $collapsed = ($i > 0) ? TRUE : FALSE;
-      if ($collapsed && (variable_get('kandb_finance_presentation_kpi_title_'.$i) || variable_get('kandb_finance_presentation_kpi_sub_title_'.$i) || variable_get('kandb_finance_presentation_kpi_image_'.$i))) {
+      if ($collapsed && (variable_get('kandb_finance_presentation_kpi_title_'.$i) || variable_get('kandb_finance_presentation_kpi_sub_title_'.$i) || variable_get('kandb_finance_presentation_kpi_image_small_'.$i) || variable_get('kandb_finance_presentation_kpi_image_medium_'.$i))) {
         $collapsed = FALSE;
       }
       $form['fieldset_kpi'][$i] = array(
@@ -174,10 +192,16 @@
         '#default_value' => variable_get('kandb_finance_presentation_kpi_sub_title_'.$i),
         '#required' => FALSE,
       );
-      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_image_'.$i] = array(
+      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_image_small_'.$i] = array(
         '#type' => 'managed_file',
-        '#title' => t('Graphique / Illustration'),
-        '#default_value' => variable_get('kandb_finance_presentation_kpi_image_'.$i),
+        '#title' => t('Graphique / Illustration - version petite taille (largeur 580px)'),
+        '#default_value' => variable_get('kandb_finance_presentation_kpi_image_small_'.$i),
+        '#upload_location' => 'public://',
+      );
+      $form['fieldset_kpi'][$i]['kandb_finance_presentation_kpi_image_medium_'.$i] = array(
+        '#type' => 'managed_file',
+        '#title' => t('Graphique / Illustration - version taille moyenne (largeur 1180px)'),
+        '#default_value' => variable_get('kandb_finance_presentation_kpi_image_medium_'.$i),
         '#upload_location' => 'public://',
       );
     }
