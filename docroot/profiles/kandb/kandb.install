@@ -740,3 +740,32 @@ function kandb_update_7169(&$sandbox) {
     module_enable(array('kandb_partenaire'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_partenaire module
+ */
+function kandb_update_7170() {
+  if (!module_exists('kandb_partenaire')) {
+    module_enable(array('kandb_partenaire'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_b2b module
+ */
+function kandb_update_7171() {
+  if (!module_exists('kandb_b2b')) {
+    module_enable(array('kandb_b2b'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_dashboard module
+ */
+function kandb_update_7172() {
+  if (!module_exists('kandb_dashboard')) {
+    module_enable(array('kandb_dashboard'), TRUE);
+  }
+}
+
+

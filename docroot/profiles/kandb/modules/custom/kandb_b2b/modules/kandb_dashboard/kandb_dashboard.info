@@ -1,0 +1,5 @@
+name = K&B B2B Dash Board
+description = "K&B dash board"
+package = K&B Development
+core = 7.x
+dependencies[] = kandb_b2b
