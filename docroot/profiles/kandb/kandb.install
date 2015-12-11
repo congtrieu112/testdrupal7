@@ -769,6 +769,15 @@ function kandb_update_7172() {
 }
 
 /*
+ * Enable k_b_rh_annonce module
+ */
+function kandb_update_7173() {
+  if (!module_exists('k_b_rh_annonce')) {
+    module_enable(array('k_b_rh_annonce'), TRUE);
+  }
+}
+
+/*
  * Enable kandb_view_finance_publications_communiques_et_documents_recents module
  */
 function kandb_update_7174() {
@@ -776,4 +785,3 @@ function kandb_update_7174() {
     module_enable(array('kandb_view_finance_publications_communiques_et_documents_recents'), TRUE);
   }
 }
-

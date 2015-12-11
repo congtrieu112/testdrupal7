@@ -115,6 +115,7 @@ dependencies[] = kandb_b2b
 dependencies[] = kandb_dashboard
 
 ; Features
+dependencies[] = k_b_rh_annonce
 dependencies[] = kand_contactus_export_views
 dependencies[] = kandb_article
 dependencies[] = kandb_avant_premiere
