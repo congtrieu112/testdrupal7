@@ -231,7 +231,7 @@ function kandb_domains_domain_conf_default_variables() {
     'site_name' => 'Site-Install',
     'site_mail' => 'gregory.montigny@digitaslbi.fr',
     'site_slogan' => '',
-    'site_frontpage' => 'homepage',
+    'site_frontpage' => 'node/1',
     'anonymous' => 'Anonymous',
     'admin_theme' => 'adminimal',
     'date_default_timezone' => 'Europe/Paris',

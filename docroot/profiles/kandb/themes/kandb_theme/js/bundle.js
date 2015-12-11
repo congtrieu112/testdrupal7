@@ -38114,6 +38114,7 @@ AppCookies.prototype = {
 
       if ( that.callback ) {
         that[that.callback]();
+        $(document).trigger('selection.remove', that.item);
       }
 
       that.debug();
@@ -38183,6 +38184,13 @@ AppCookies.prototype = {
   removeSelection: function() {
     var $elToRemove = this.item.closest('[data-selection-item]');
     $elToRemove.velocity('slideUp');
+  },
+
+  removeSelectionSlide: function() {
+    if ( this.item.closest('.slick-initialized').length === 0 ) {
+      var $elToRemove = this.item.closest('[data-selection-item]');
+      $elToRemove.velocity('fadeOut');
+    }
   },
 
   debug: function() {
@@ -39144,9 +39152,7 @@ AppSeeMore.prototype = {
   hideItems: function(nbr) {
     var that = this;
 
-    this.list.slice(this.nbr - that.addNbr,this.nbr).velocity('slideDown', {
-      display: "flex"
-    });
+    this.list.slice(this.nbr - that.addNbr,this.nbr).slideDown();
 
     if ( this.nbr > this.list.length ) {
       this.item.hide();
@@ -39371,6 +39377,16 @@ AppSlick.prototype = {
       menuSlick
         .removeActiveLinks(  $tab )
         .setActiveLinks(  $tab );
+    });
+
+    $(document).off('selection.remove').on('selection.remove', function(e, elementTrigger){
+      var $elementTrigger = $(elementTrigger),
+          $slider = $elementTrigger.closest('.slick-initialized');
+
+      if ( $slider.length ) {
+        var $currentSlide = $elementTrigger.closest('.slick-slide');
+        $slider.slick('slickRemove', $slider.find('.slick-slide').index($currentSlide) );
+      }
     });
 
     return this;
