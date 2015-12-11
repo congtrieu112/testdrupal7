@@ -66,9 +66,9 @@ function kandb_avant_premiere_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'rows' => 5,
+        'size' => 60,
       ),
-      'type' => 'text_textarea',
+      'type' => 'text_textfield',
       'weight' => 8,
     ),
   );
