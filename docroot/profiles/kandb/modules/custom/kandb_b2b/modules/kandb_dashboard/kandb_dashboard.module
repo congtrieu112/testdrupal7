@@ -13,8 +13,31 @@ function kandb_dashboard_menu() {
 }
 
 /**
+ * Implement of hook_theme().
+ */
+function kandb_dashboard_theme($existing, $type, $theme, $path) {
+  return array(
+    'b2b_simple_dash_board' => array(
+      'template' => 'templates/b2b_simple_dash_board',
+      'variables' => array(),
+    ),
+    'b2b_personal_dash_board' => array(
+      'template' => 'templates/b2b_personal_dash_board',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
  * Implements render page Dash Board.
  */
 function kandb_render_page_dashboard() {
-  return 'dasb board';
+
+  // TODO implement function get prospect node by user.
+  $get_prospect_by_user = FALSE;
+  if ($get_prospect_by_user) {
+    return theme('b2b_personal_dash_board');
+  } else {
+    return theme('b2b_simple_dash_board');
+  }
 }
