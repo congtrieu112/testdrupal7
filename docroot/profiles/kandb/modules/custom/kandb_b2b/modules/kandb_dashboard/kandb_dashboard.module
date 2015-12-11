@@ -1,0 +1,20 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_dashboard_menu() {
+  $items['dash-board'] = array(
+    'title' => 'Dash Board B2B',
+    'page callback' => 'kandb_render_page_dashboard',
+    'access callback' => 'kandb_b2b_check_doamin',
+  );
+  return $items;
+}
+
+/**
+ * Implements render page Dash Board.
+ */
+function kandb_render_page_dashboard() {
+  return 'dasb board';
+}
