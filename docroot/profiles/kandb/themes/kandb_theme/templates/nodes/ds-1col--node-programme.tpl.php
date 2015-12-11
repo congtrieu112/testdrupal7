@@ -34,6 +34,9 @@
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
+                    <?php if($loc_num || $loc_rue): ?>
+                    <p class="text-bold"><?php print $loc_rue; ?> <?php print ($loc_num && $loc_rue )? ' - ':''; ?><?php print $loc_rue; ?></p>
+                    <?php endif; ?>
                     <ul class="tags-list">
                       <?php if ($nouveau) : ?>
                         <li>
@@ -222,8 +225,8 @@
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : ''; ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map'); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_subtitle_map'); ?></p>
         </header>
     </div>
     <div class="swapItem">
@@ -290,9 +293,9 @@
         </div>
     </div>
 </section>
-
+<?php if($status_slider): ?>
 <?php print render($program_characteristic['content']); ?>
-
+<?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
 <?php if ($habiteo_id): ?>
   <section class="section-padding show-for-medium-up" id="Vue3D">

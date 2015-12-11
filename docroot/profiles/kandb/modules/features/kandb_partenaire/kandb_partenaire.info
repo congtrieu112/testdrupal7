@@ -36,4 +36,5 @@ features[variable][] = menu_parent_partenaire
 features[variable][] = node_options_partenaire
 features[variable][] = node_preview_partenaire
 features[variable][] = node_submitted_partenaire
+features[variable][] = unique_field_fields_partenaire
 project path = profiles/kandb/modules/features

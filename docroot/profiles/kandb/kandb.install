@@ -29,6 +29,9 @@ function kandb_install() {
   // Disable bartik and seven.
   theme_disable(array('bartik', 'seven', 'ember'));
 
+  $theme = 'kandb_b2b_theme';
+  theme_enable(array($theme));
+
   // Disable KandB Content TMP after install
   if (module_exists('kandb_tmp_content')) {
     module_disable(array('kandb_tmp_content'), TRUE);
@@ -711,3 +714,83 @@ function kandb_update_7166() {
   theme_enable($theme);
 }
 
+/*
+ * Enable acquia_purge module
+ */
+function kandb_update_7167() {
+  if (!module_exists('acquia_purge')) {
+    module_enable(array('acquia_purge'), TRUE);
+  }
+}
+
+/*
+ * Enable cacheexclude module
+ */
+function kandb_update_7168(&$sandbox) {
+  if (!module_exists('cacheexclude')) {
+    module_enable(array('cacheexclude'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_partenaire module
+ */
+function kandb_update_7169(&$sandbox) {
+  if (!module_exists('kandb_partenaire')) {
+    module_enable(array('kandb_partenaire'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_partenaire module
+ */
+function kandb_update_7170() {
+  if (!module_exists('kandb_partenaire')) {
+    module_enable(array('kandb_partenaire'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_b2b module
+ */
+function kandb_update_7171() {
+  if (!module_exists('kandb_b2b')) {
+    module_enable(array('kandb_b2b'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_dashboard module
+ */
+function kandb_update_7172() {
+  if (!module_exists('kandb_dashboard')) {
+    module_enable(array('kandb_dashboard'), TRUE);
+  }
+}
+
+/*
+ * Enable k_b_rh_annonce module
+ */
+function kandb_update_7173() {
+  if (!module_exists('k_b_rh_annonce')) {
+    module_enable(array('k_b_rh_annonce'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_view_finance_publications_communiques_et_documents_recents module
+ */
+function kandb_update_7174() {
+  if (!module_exists('kandb_view_finance_publications_communiques_et_documents_recents')) {
+    module_enable(array('kandb_view_finance_publications_communiques_et_documents_recents'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_view_rh_dernieres_offres_emploi module
+ */
+function kandb_update_7175() {
+  if (!module_exists('kandb_view_rh_dernieres_offres_emploi')) {
+    module_enable(array('kandb_view_rh_dernieres_offres_emploi'), TRUE);
+  }
+}

@@ -81,7 +81,16 @@ class Kandb_Business_Rules {
 
     $query = db_select('node', 'n');
     $query->condition('type', $type, '=');
-
+    if ($type == 'bien') {
+      $query->leftJoin('feeds_item', 'fi', 'fi.entity_id=n.nid');
+        $db_or = db_or();
+          $db_and = db_and();
+          $db_and->condition('fi.entity_type', 'node');
+          $db_and->condition('fi.id', array('migration_bien_import', 'migration_bien_import_v2'), 'NOT IN');
+        $db_or->condition($db_and);
+        $db_or->isNull('fi.id');
+      $query->condition($db_or);
+    }
     $query->fields('n', array('nid'));
     $nids = $query->execute()->fetchCol();
 
