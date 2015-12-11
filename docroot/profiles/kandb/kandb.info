@@ -111,6 +111,8 @@ dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
 dependencies[] = kandb_validate
 dependencies[] = kandb_admin_content
+dependencies[] = kandb_b2b
+dependencies[] = kandb_dashboard
 
 ; Features
 dependencies[] = kand_contactus_export_views
