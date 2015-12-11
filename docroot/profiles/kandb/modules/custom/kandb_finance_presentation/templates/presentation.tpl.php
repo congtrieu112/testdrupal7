@@ -17,10 +17,6 @@
     echo 'kandb_finance_presentation_carnet_market_data_textarea = '.$kandb_finance_presentation_carnet_market_data_textarea.'<br/>';
     echo 'kandb_finance_presentation_carnet_title_1 = '.$kandb_finance_presentation_carnet_title_1.'<br/>';
     echo 'kandb_finance_presentation_carnet_sub_title_1 = '.$kandb_finance_presentation_carnet_sub_title_1.'<br/>';
-    echo 'kandb_finance_presentation_carnet_image_1 = '.$kandb_finance_presentation_carnet_image_1.'<br/>';
-    echo 'kandb_finance_presentation_carnet_title_2 = '.$kandb_finance_presentation_carnet_title_2.'<br/>';
-    echo 'kandb_finance_presentation_carnet_sub_title_2 = '.$kandb_finance_presentation_carnet_sub_title_2.'<br/>';
-    echo 'kandb_finance_presentation_carnet_image_2 = '.$kandb_finance_presentation_carnet_image_2.'<br/>';
     echo 'kandb_finance_presentation_carnet_market_sheet_title = '.$kandb_finance_presentation_carnet_market_sheet_title.'<br/>';
     echo 'kandb_finance_presentation_carnet_market_sheet_textarea = '; var_dump($kandb_finance_presentation_carnet_market_sheet_textarea); echo '</p>';
   ?>

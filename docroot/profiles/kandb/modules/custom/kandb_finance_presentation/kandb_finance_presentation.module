@@ -41,13 +41,6 @@
       'kandb_finance_presentation_carnet_market_data_title',
       'kandb_finance_presentation_carnet_market_data_textarea',
 
-      'kandb_finance_presentation_carnet_title_1',
-      'kandb_finance_presentation_carnet_sub_title_1',
-      'kandb_finance_presentation_carnet_image_1',
-      'kandb_finance_presentation_carnet_title_2',
-      'kandb_finance_presentation_carnet_sub_title_2',
-      'kandb_finance_presentation_carnet_image_2',
-
       'kandb_finance_presentation_carnet_market_sheet_title',
       'kandb_finance_presentation_carnet_market_sheet_textarea',
       );
@@ -221,41 +214,6 @@
       '#description' => '(lignes de valeurs délimitées par le caractère "|" pour chaque colonne ; ex : marché|NYSE EURONEXT)',
       '#required' => FALSE,
     );
-
-    // Two figures field groups
-    for ($i=0; $i < 2; $i++) { 
-      // Fieldset
-      $collapsed = TRUE;
-      if (variable_get('kandb_finance_presentation_carnet_title_'.$i) || variable_get('kandb_finance_presentation_carnet_sub_title_'.$i) || variable_get('kandb_finance_presentation_carnet_image_'.$i)) {
-        $collapsed = FALSE;
-      }
-      $form['carnet'][$i] = array(
-        '#type' => 'fieldset',
-        '#title' => t(($i+1).' - Bloc de chiffres (titre/sous-titre/graphique)'),
-        '#collapsible' => TRUE,
-        '#collapsed' => $collapsed,
-      );
-
-      // Fields
-      $form['carnet'][$i]['kandb_finance_presentation_carnet_title_'.$i] = array(
-        '#type' => 'textfield',
-        '#title' => t('Titre'),
-        '#default_value' => variable_get('kandb_finance_presentation_carnet_title_'.$i),
-        '#required' => FALSE,
-      );
-      $form['carnet'][$i]['kandb_finance_presentation_carnet_sub_title_'.$i] = array(
-        '#type' => 'textfield',
-        '#title' => t('Sous-titre'),
-        '#default_value' => variable_get('kandb_finance_presentation_carnet_sub_title_'.$i),
-        '#required' => FALSE,
-      );
-      $form['carnet'][$i]['kandb_finance_presentation_carnet_image_'.$i] = array(
-        '#type' => 'managed_file',
-        '#title' => t('Graphique / Illustration'),
-        '#default_value' => variable_get('kandb_finance_presentation_carnet_image_'.$i),
-        '#upload_location' => 'public://',
-      );
-    }
 
     // Market sheet fieldset
     $form['carnet']['market_sheet'] = array(
