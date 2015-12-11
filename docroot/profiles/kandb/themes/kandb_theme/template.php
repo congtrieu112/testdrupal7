@@ -434,7 +434,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['status_slider'] = FALSE;
     foreach ($arr_slider as $field_name) {
       $slider = isset($node->$field_name) ? $node->$field_name : '';
-      if (isset($slider[LANGUAGE_NONE][0]['value']) || isset($slider[LANGUAGE_NONE][0]['fid'])) {
+      if (isset($slider[LANGUAGE_NONE][0]['value']) && $slider[LANGUAGE_NONE][0]['value']  || isset($slider[LANGUAGE_NONE][0]['fid']) && $slider[LANGUAGE_NONE][0]['fid']) {
         $vars['status_slider'] = TRUE;
         break;
       }
