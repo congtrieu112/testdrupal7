@@ -1,5 +1,5 @@
 (function ($) {
-  Drupal.behaviors.yourBehaviorName = {
+  Drupal.behaviors.showPartnersProgramsListForSelection = {
     attach: function (context, settings) {
         inputSelectAllPrograms = $('#edit-field-partenaire-programmes');
         inputRadioAllPrograms = $('input[type=radio][name="field_partenaire_export[und]"]:last');

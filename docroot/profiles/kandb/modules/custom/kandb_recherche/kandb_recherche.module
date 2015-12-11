@@ -1027,3 +1027,175 @@ function kandb_recherche_build_search_link($search_url, $type_of_search = 'progr
 
   return $url;
 }
+
+/**
+ * Implements hook_entity_property_info_alter().
+ *
+ * Adds an entity property for the domain access of the node.
+ */
+function kandb_recherche_entity_property_info_alter(&$info) {
+  $properties = &$info['node']['properties'];
+  $properties['kandb_recherche_domain_access'] = array(
+    'label' => t('My Domain Access Information'),
+    'description' => t('The domains to which the node is published.'),
+    'type' => 'list<integer>',
+    'getter callback' => 'kandb_recherche_get_domain_info',
+  );
+  $properties['title_sort'] = array(
+    'type' => 'text',
+    'label' => t('Title for sorting'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_title_sorting_info',
+  );
+  $properties['bien_type_sort'] = array(
+    'type' => 'text',
+    'label' => t('Type of Bien for sorting'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_type_sorting_info',
+  );
+  $properties['departement_number'] = array(
+    'type' => 'text',
+    'label' => t('Number of the department'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_department_number',
+  );
+  $properties['ville_text'] = array(
+    'type' => 'text',
+    'label' => t('Town Name'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_ville_text',
+  );
+  $properties['room_sort'] = array(
+    'type' => 'text',
+    'label' => t('Number room for sorting'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_number_room_sorting_info',
+  );
+}
+
+/**
+ * Custom getter callback for the domains in
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_domain_info($data, array $options, $name, $type, $info) {
+  return (!empty($data->domains) ? $data->domains : NULL);
+}
+
+/**
+ * Custom getter callback for the sorting title in
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_title_sorting_info($data, array $options, $name, $type, $info) {
+  return (!empty($data->title) ? $data->title : NULL);
+}
+
+/**
+ * Custom getter callback for the department number in
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_department_number($data, array $options, $name, $type, $info) {
+  $num = NULL;
+  if(isset($data->field_programme_loc_department['und'][0]['tid']) && !empty($data->field_programme_loc_department['und'][0]['tid'])) {
+    $tid = $data->field_programme_loc_department['und'][0]['tid'];
+    $term = taxonomy_term_load($tid);
+    if (isset($term->field_numero_departement['und'][0]['value']) && !empty($term->field_numero_departement['und'][0]['value'])) {
+      $num = $term->field_numero_departement['und'][0]['value'];
+    }
+  }
+  return $num;
+}
+
+/**
+ * Custom getter callback for the ville sort in
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_ville_text($data, array $options, $name, $type, $info) {
+  $term_name = NULL;
+  if(isset($data->field_programme_loc_ville['und'][0]['tid']) && !empty($data->field_programme_loc_ville['und'][0]['tid'])) {
+    $tid = $data->field_programme_loc_ville['und'][0]['tid'];
+    $term = taxonomy_term_load($tid);
+    if (isset($term->name) && !empty($term->name)) {
+      $term_name = $term->name;
+    }
+  }
+  return $term_name;
+}
+
+/**
+ * Custom getter callback for the type of Bien sorting
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_type_sorting_info($data, array $options, $name, $type, $info) {
+  $weight = NULL;
+  if(isset($data->field_type['und'][0]['tid']) && !empty($data->field_type['und'][0]['tid'])) {
+    $tid = $data->field_type['und'][0]['tid'];
+    $term = taxonomy_term_load($tid);
+    if (isset($term->weight)) {
+      $weight = $term->weight;
+    }
+  }
+  return $weight;
+}
+
+/**
+ * Custom getter callback for the number of room for sorting
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null
+ */
+function kandb_recherche_get_number_room_sorting_info($data, array $options, $name, $type, $info) {
+  $number = NULL;
+  if(isset($data->field_nb_pieces['und'][0]['tid']) && !empty($data->field_nb_pieces['und'][0]['tid'])) {
+    $tid = $data->field_nb_pieces['und'][0]['tid'];
+    $term = taxonomy_term_load($tid);
+    if (isset($term->weight)) {
+      $number = $term->weight;
+    }
+  }
+  return $number;
+}
+
+/**
+ * Implements hook_search_api_query_alter().
+ *
+ * Adds a filter for the current domain.
+ */
+function kandb_recherche_search_api_query_alter(SearchApiQueryInterface $query) {
+  $domain = domain_get_domain();
+  $query->condition('kandb_recherche_domain_access', $domain['domain_id']);
+  $query->condition('field_programme:kandb_recherche_domain_access', $domain['domain_id']);
+}

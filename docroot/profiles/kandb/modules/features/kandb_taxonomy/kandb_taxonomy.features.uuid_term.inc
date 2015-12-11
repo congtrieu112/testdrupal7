@@ -1479,7 +1479,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Terrain',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 5,
     'uuid' => '308d752f-c501-4e8a-82f3-117c5c7ce82d',
     'vocabulary_machine_name' => 'type_de_bien',
     'field_id_type_bien' => array(
@@ -3017,7 +3017,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Bureau',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 2,
     'uuid' => '69f51529-9f8b-4277-a814-bb61194ec3ec',
     'vocabulary_machine_name' => 'type_de_bien',
     'field_id_type_bien' => array(
@@ -3690,7 +3690,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Local-activité',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 4,
     'uuid' => '83606e01-5605-4229-a58b-e2ce9606be24',
     'vocabulary_machine_name' => 'type_de_bien',
     'field_id_type_bien' => array(
@@ -4267,7 +4267,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Maison',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 1,
     'uuid' => '9f66a0c0-6c3b-4d71-aaeb-ca16876e8b1d',
     'vocabulary_machine_name' => 'type_de_bien',
     'field_id_type_bien' => array(
@@ -4383,7 +4383,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Commerce',
     'description' => '',
     'format' => 'filtered_html',
-    'weight' => 0,
+    'weight' => 3,
     'uuid' => 'a51933e5-17a8-42bf-98de-93ebe1907f9c',
     'vocabulary_machine_name' => 'type_de_bien',
     'field_id_type_bien' => array(

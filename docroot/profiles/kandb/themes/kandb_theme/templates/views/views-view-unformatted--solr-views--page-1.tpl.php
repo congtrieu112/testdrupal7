@@ -23,7 +23,7 @@ foreach ($rows as $id => $row) {
     $number_of_bien_by_programme[$row_result['field_programme_nid']] = 1;
     $current_id_programme = $row_result['field_programme_nid'];
     $number_of_programme ++;
-    $villes[] = $row_result['field_programme_field_programme_loc_ville'];
+    if(!empty($row_result['field_programme_ville_text'])) $villes[] = $row_result['field_programme_ville_text'];
   }else{
     $number_of_bien_by_programme[$row_result['field_programme_nid']] ++;
   }
@@ -46,8 +46,8 @@ $current_promotion_indice = 1;
     </h2>
     <div id="resultType" aria-hidden="true" class="form-dropdown__content form-dropdown__content--last hidden">
       <ul class="ul-unstyled undo-padding">
-        <li class="bordered"><a href="<?php print $link_search_programme; ?>" tabindex="0" aria-selected="true">Programmes</a></li>
-        <li class="bordered"><a href="<?php print $link_search_bien; ?>" tabindex="0" aria-selected="false">Biens</a></li>
+        <li class="bordered"><a href="<?php print $link_search_programme; ?>" tabindex="0" >Programmes</a></li>
+        <li class="bordered"><a href="<?php print $link_search_bien; ?>" tabindex="0" >Biens</a></li>
       </ul>
     </div>
   </div>
@@ -59,9 +59,9 @@ $current_promotion_indice = 1;
       <?php if ($row_result['field_programme_nid'] != $current_id_programme): ?>
         <li class="results__item">
           <!-- [searchResultsItem programmes] start-->
-            <article data-gmaps-marker="{&quot;lat&quot;:<?php print $row_result['field_programme_field_programme_loc_lat']; ?>,&quot;lng&quot;:<?php print $row_result['field_programme_field_programme_loc_long']; ?>,&quot;infoWindow&quot;:{&quot;content&quot;:&quot;<?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?>, <?php print $row_result['field_programme_title']; ?>&quot;}}" class="searchResultsItem searchResultsItem--programmes">
+            <article data-gmaps-marker="{&quot;lat&quot;:<?php print $row_result['field_programme_field_programme_loc_lat']; ?>,&quot;lng&quot;:<?php print $row_result['field_programme_field_programme_loc_long']; ?>,&quot;infoWindow&quot;:{&quot;content&quot;:&quot;<?php print ucfirst(strtolower($row_result['field_programme_ville_text'])); ?> / <?php print $row_result['field_programme_departement_number']; ?>, <?php print $row_result['field_programme_title']; ?>&quot;}}" class="searchResultsItem searchResultsItem--programmes">
             <div class="heading heading--small">
-              <h3><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_field_programme_loc_ville'])); ?> / <?php print $row_result['field_programme_field_programme_loc_department']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span></h3>
+              <h3><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_ville_text'])); ?> / <?php print $row_result['field_programme_departement_number']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span></h3>
               <?php if(!empty($programme_promotions[$row_result['field_programme_nid']])) : ?>
                 <ul class="promotion">
                   <?php $count_promotion = 1; ?>
@@ -90,8 +90,8 @@ $current_promotion_indice = 1;
                 - medium: 180 x 180
                 -->
                 <!-- [Responsive img] start-->
-                <img alt="TODO Photo programme undefined" data-interchange="[<?php print $row_result['search_small']; ?>, (small)], [<?php print $row_result['search_medium']; ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print $row_result['search_medium']; ?>">
-                <noscript>&lt;img src="<?php print $row_result['search_medium']; ?>" alt="Photo programme undefined"/&gt;</noscript>
+                <img alt="Photo programme" data-interchange="[<?php print $row_result['search_small']; ?>, (small)], [<?php print $row_result['search_medium']; ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print $row_result['search_medium']; ?>">
+                <noscript><img src="<?php print $row_result['search_medium']; ?>" alt="Photo programme undefined"/></noscript>
                 <!-- [Responsive img] end--></a>
               <div class="searchResultsItem__infos__details">
                 <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php print (count($number_of_bien_by_programme[$row_result['field_programme_nid']]) > 1 ? 'appartements disponibles': 'appartement disponible'); ?> de <?php print $row_result['field_programme_field_programme_room_min']; ?> à <?php print $row_result['field_programme_field_programme_room_max']; ?> pièces </p>

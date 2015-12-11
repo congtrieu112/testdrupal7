@@ -129,6 +129,36 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: homepageb2b_backgound_large.
+  $styles['homepageb2b_backgound_large'] = array(
+    'label' => 'HomepageB2B Backgound Large (1380x712)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 712,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: homepageb2b_backgound_small.
+  $styles['homepageb2b_backgound_small'] = array(
+    'label' => 'HomepageB2B Backgound Small (640x448)',
+    'effects' => array(
+      3 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 448,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: hp_search_block.
   $styles['hp_search_block'] = array(
     'label' => 'HP Search Block (1380x590)',

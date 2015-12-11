@@ -4,23 +4,23 @@
 if (isset($_ENV['AH_SITE_ENVIRONMENT'])) {
   switch ($_ENV['AH_SITE_ENVIRONMENT']) {
     case 'dev':
-      $sites['dev.kbpatrimoine.com'] = 'dev.kbpatrimoine.com';
-      $sites['dev.kaufmanbroad.fr'] = 'dev.kaufmanbroad.fr';
-      $sites['kaufmanetbroaddev.prod.acquia-sites.com'] = 'kaufmanetbroaddev.prod.acquia-sites.com';
+      $sites['dev.kbpatrimoine.com'] = 'default';
+      $sites['dev.kaufmanbroad.fr'] = 'default';
+      $sites['kaufmanetbroaddev.prod.acquia-sites.com'] = 'default';
       break;
 
     case 'test':
-      $sites['stage.kbpatrimoine.com'] = 'stage.kbpatrimoine.com';
-      $sites['stage.kaufmanbroad.fr'] = 'stage.kaufmanbroad.fr';
-      $sites['kaufmanetbroadstg.prod.acquia-sites.com'] = 'kaufmanetbroadstg.prod.acquia-sites.com';
+      $sites['stage.kbpatrimoine.com'] = 'default';
+      $sites['stage.kaufmanbroad.fr'] = 'default';
+      $sites['kaufmanetbroadstg.prod.acquia-sites.com'] = 'default';
       break;
 
     case 'prod':
-      $sites['www.kbpatrimoine.com'] = 'www.kbpatrimoine.com';
-      $sites['www.kaufmanbroad.fr'] = 'www.kaufmanbroad.fr';
-      $sites['prod.kbpatrimoine.com'] = 'prod.kbpatrimoine.com';
-      $sites['prod.kaufmanbroad.fr'] = 'prod.kaufmanbroad.fr';
-      $sites['kaufmanetbroad.prod.acquia-sites.com'] = 'kaufmanetbroad.prod.acquia-sites.com';
+      $sites['www.kbpatrimoine.com'] = 'default';
+      $sites['www.kaufmanbroad.fr'] = 'default';
+      $sites['prod.kbpatrimoine.com'] = 'default';
+      $sites['prod.kaufmanbroad.fr'] = 'default';
+      $sites['kaufmanetbroad.prod.acquia-sites.com'] = 'default';
       break;
   }
 }
