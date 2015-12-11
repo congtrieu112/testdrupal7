@@ -27,6 +27,7 @@ function kandb_view_finance_assemblee_menu() {
 
 function kandb_view_finance_assemblee_page() {
     $content = array();
+    $content['title'] = 'Assemblée générale';
     $content['assemblee_documents'] = call_user_func_array(
         'views_embed_view',
         array_merge(
