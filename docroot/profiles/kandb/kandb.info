@@ -153,6 +153,7 @@ dependencies[] = kandb_tmp_content
 dependencies[] = kandb_user
 dependencies[] = kandb_view_finance_archives
 dependencies[] = kandb_view_finance_assemblee
+dependencies[] = kandb_view_finance_publications_communiques_et_documents_recents
 dependencies[] = kandb_view_livraison_immediate
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_offre_en_france

@@ -778,6 +778,15 @@ function kandb_update_7173() {
 }
 
 /*
+ * Enable kandb_view_finance_publications_communiques_et_documents_recents module
+ */
+function kandb_update_7174() {
+  if (!module_exists('kandb_view_finance_publications_communiques_et_documents_recents')) {
+    module_enable(array('kandb_view_finance_publications_communiques_et_documents_recents'), TRUE);
+  }
+}
+
+/*
  * Enable kandb_view_rh_dernieres_offres_emploi module
  */
 function kandb_update_7175() {
