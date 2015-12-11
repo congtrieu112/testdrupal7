@@ -437,6 +437,15 @@ function kandb_theme_preprocess_node(&$vars) {
       }
     }
   }
+
+  if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
+    if(isset($vars['field_image_principale'])){
+      $image = $vars['field_image_principale'][0]['uri'];
+      $vars['programme_selection_very_small'] = image_style_url('programme_selection_very_small', $image);
+      $vars['programme_selection_small'] = image_style_url('programme_selection_small', $image);
+      $vars['programme_selection_medium'] = image_style_url('programme_selection_medium', $image);
+    }
+  }
 }
 
 /**

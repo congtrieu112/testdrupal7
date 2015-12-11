@@ -18,13 +18,13 @@ define('URL_PROJET_AJAX', 'mon-espace/ajax');
 function kandb_selection_menu() {
   $menu = array();
   $menu[URL_PROJET] = array(
-    'title' => 'Ma sélection',
+    'title' => 'Mon espace',
     'page callback' => 'kandb_selection_page_selection',
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
   $menu[URL_PROJET_AJAX] = array(
-    'title' => 'Ma sélection | AJAX Callback',
+    'title' => '',
     'page callback' => 'kandb_selection_ajax_selection',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -114,7 +114,7 @@ function kandb_selection_ajax_selection(){
   // Selection Recherche
   // TODO : Remove when true data are provided
   $recherches_test = array('http://kandb.local/recherche?place=Alsace&field_type%5B%5D=264&field_type%5B%5D=168&field_type%5B%5D=244&field_type%5B%5D=205&field_type%5B%5D=238&field_type%5B%5D=83&prix_min=15&prix_max=35&field_nb_pieces%5B%5D=276&field_nb_pieces%5B%5D=362&field_nb_pieces%5B%5D=99&field_nb_pieces%5B%5D=41&field_nb_pieces%5B%5D=322&field_superficie=42&field_caracteristique%5B%5D=3938&field_caracteristique%5B%5D=157&field_caracteristique%5B%5D=385&field_caracteristique%5B%5D=307&field_caracteristique%5B%5D=152&field_caracteristique%5B%5D=279&field_caracteristique%5B%5D=260&field_caracteristique%5B%5D=132&field_caracteristique%5B%5D=40&field_caracteristique%5B%5D=272&field_caracteristique%5B%5D=59&field_caracteristique%5B%5D=240&field_caracteristique%5B%5D=7&field_caracteristique%5B%5D=228&field_caracteristique%5B%5D=305&field_caracteristique%5B%5D=195&programme=1&op=Rechercher');
-  $recherches = kandb_selection_order_informations($recherches_test);
+  $recherches = kandb_selection_order_search_informations($recherches_test);
   $content['recherche'] = theme('block_recherche', $recherches);
 
   // Selection Articles
@@ -137,10 +137,11 @@ function kandb_selection_ajax_selection(){
  * @return array
  *  An readable array of  search
  */
-function kandb_selection_order_informations($recherches){
+function kandb_selection_order_search_informations($recherches){
   global $base_url;
 
-  $array_of_filter = recherche_complete_b2c_form();
+  $reference = array();
+  $array_of_filter = recherche_complete_b2c_form(array(), $reference);
   $return_array = array();
   $taxonomy_ids_to_retrieve = array();
 
@@ -163,7 +164,7 @@ function kandb_selection_order_informations($recherches){
       if(!isset($array_of_filter[$filter[0]])) continue;
 
       // Get taxonomy id to retrieve it
-      if($array_of_filter[$filter[0]]['#taxonomy']) $taxonomy_ids_to_retrieve[] = $filter[1];
+      if(isset($array_of_filter[$filter[0]]['#taxonomy']) && $array_of_filter[$filter[0]]['#taxonomy']) $taxonomy_ids_to_retrieve[] = $filter[1];
     }
   }
 
@@ -191,7 +192,7 @@ function kandb_selection_order_informations($recherches){
 
       // Organize data in the array
       if(!isset($return_array[$filter[0]])) $return_array[$filter[0]] = array();
-      if($array_of_filter[$filter[0]]['#taxonomy']) $filter[1] = $taxonomy_ids[$filter[1]]->name;
+      if(isset($array_of_filter[$filter[0]]['#taxonomy']) && $array_of_filter[$filter[0]]['#taxonomy']) $filter[1] = $taxonomy_ids[$filter[1]]->name;
       $return_array[$filter[0]][] = $filter[1];
     }
   }

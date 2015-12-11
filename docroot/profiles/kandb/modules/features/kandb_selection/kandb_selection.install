@@ -40,6 +40,6 @@ function kandb_selection_set_variables(){
   );
 
   variable_set('kandb_selection_photo', $file->fid);
-  variable_set('kandb_selection_title', 'Mon projet');
+  variable_set('kandb_selection_title', 'Mon espace');
   variable_set('kandb_selection_sub_title', 'Retrouvez ici vos sélections et vos recherches enregistrées');
 }
