@@ -817,18 +817,20 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
   //$file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
+  $key_errorlog = '';
   if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse") {
     global $base_url;
     foreach ($result->items as $key => $row) {
       $list_file_id = array();    // List column have upload file
       if ($source->id === "document_import" || $source->id === 'document_import_communique_de_presse') {
         $list_file_id = array(
-          "lienfichier"
+          "field_document_file" => "lienfichier"
         );
 
-        $document_id = isset($result->items[$key]['identifiantcommunique']) ? $result->items[$key]['identifiantcommunique'] : '';
+        $key_errorlog = $document_id = isset($result->items[$key]['identifiantcommunique']) ? $result->items[$key]['identifiantcommunique'] : '';
+
         if($source->id === "document_import") {
-          $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
+          $key_errorlog = $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
         }
 
         if($document_id) {
@@ -852,7 +854,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         }
       } elseif ($source->id === "kb_patrimoine_import") {
         if(isset($row["identifiantprogramme"])) {
-          $id_program = $row["identifiantprogramme"];
+          $key_errorlog = $id_program = $row["identifiantprogramme"];
           $rejected = variable_get($source->id . '_rejected', 0);
           if($id_program) {
             $path = 'sites/default/files/ketbmedia/doc/' . $id_program;
@@ -914,13 +916,26 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
 
           $argHeader = @get_headers($path_url);
           if (!preg_match("|200|", $argHeader[0])) {
-            $file_upload_fields .=  $key_col_file . ', ';
-            $file_upload_values .=  $key_col_file . ': ' . $file . ', ';
+            $pos = strripos($path_url,"/");
+            $path_url_uncaps = substr($path_url, 0, $pos + 1) . strtolower(substr($path_url, $pos + 1));
+            $argHeader_uncaps = @get_headers($path_url_uncaps);
+            if (!preg_match("|200|", $argHeader_uncaps[0])) {
+              $path_url_caps = substr($path_url, 0, $pos + 1) . strtoupper(substr($path_url, $pos + 1));
+              $argHeader_caps = @get_headers($path_url_caps);
+              if (!preg_match("|200|", $argHeader_caps[0])) {
+                $file_upload_fields .=  $key_col_file . ', ';
+                $file_upload_values .=  $key_col_file . ': ' . $file . ', ';
+              } else {
+                $path_url = $path_url_caps;
+              }
+            } else {
+              $path_url = $path_url_uncaps;
+            }
           }
 
           $exists = FALSE;
           if ($source->id == 'document_import' || $source->id == 'document_import_communique_de_presse') {
-            $explode_file = explode('/', $file);
+            $explode_file = explode('/', $path_url);
             $file_name = $explode_file[count($explode_file) - 1];
             foreach($result->items[$key]['documentfileold'] as $document_file) {
               if($file_name == $document_file["filename"]) {
@@ -938,7 +953,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
 
       if($file_upload_fields || $file_upload_values) {
         $warning = variable_get($source->id . '_warning', 0);
-        $logging .= $row["identifiantprogramme"] . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Warning' . "\n";
+        $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Warning' . "\n";
         variable_set($source->id . '_warning', $warning + 1);
       }
     }
