@@ -111,8 +111,11 @@ dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
 dependencies[] = kandb_validate
 dependencies[] = kandb_admin_content
+dependencies[] = kandb_b2b
+dependencies[] = kandb_dashboard
 
 ; Features
+dependencies[] = k_b_rh_annonce
 dependencies[] = kand_contactus_export_views
 dependencies[] = kandb_article
 dependencies[] = kandb_avant_premiere
@@ -150,9 +153,11 @@ dependencies[] = kandb_tmp_content
 dependencies[] = kandb_user
 dependencies[] = kandb_view_finance_archives
 dependencies[] = kandb_view_finance_assemblee
+dependencies[] = kandb_view_finance_publications_communiques_et_documents_recents
 dependencies[] = kandb_view_livraison_immediate
 dependencies[] = kandb_view_nouveaute
 dependencies[] = kandb_view_offre_en_france
+dependencies[] = kandb_view_rh_dernieres_offres_emploi
 dependencies[] = kandb_views
 dependencies[] = kandb_views_avant_premiere
 dependencies[] = kandb_webform
