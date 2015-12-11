@@ -1,0 +1,4 @@
+name = K&B B2B
+core = 7.x
+description = Parent module of sub-modules related B2B business.
+package = K&B Development
