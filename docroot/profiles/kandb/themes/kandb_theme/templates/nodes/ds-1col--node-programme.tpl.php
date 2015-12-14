@@ -191,23 +191,23 @@
 
                 <ul class="toolsList show-for-medium-up">
                     <?php if ($flag) : ?>
-                      <li><a href="#logements-disponibles" class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
+                      <li><a href="#logements-disponibles" data-scroll-to class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
                     <?php endif; ?>
 
-                    <li><a href="#quartier" class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <li><a href="#quartier" data-scroll-to class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
 
                     <?php if ($status_slider) : ?>
-                      <li><a href="#prestations" class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                      <li><a href="#prestations" data-scroll-to class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                     <?php endif; ?>
 
                     <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t('Ajouter à mes sélections'); ?></span></a></li>
 
                     <?php if ($status_document) : ?>
-                      <li><a href="#downloadDocument" class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
+                      <li><a href="#downloadDocument" data-scroll-to class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                     <?php endif; ?>
 
                     <?php if ($habiteo_id) : ?>
-                      <li><a href="#Vue3D" class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
+                      <li><a href="#Vue3D" data-scroll-to class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
             </div>
