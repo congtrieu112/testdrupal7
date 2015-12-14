@@ -18,25 +18,43 @@
     </div>
     <div class="wrapper--narrow">
       <ul data-seemore-list="searches" class="searches">
-        <?php foreach ($recherches as $url_recherche): ?>
+        <?php foreach ($recherches as $recherche): ?>
           <li data-selection-item="data-selection-item" class="search">
             <div class="search__desc">
-              <div class="search__name">Marseille / 13</div>
-              <div class="search__type">Appartement</div>
+              <ul class="search__type">
+                <li><?php print $recherche['place'][0]; ?></li>
+                <?php if(isset($recherche['field_type']) && !empty($recherche['field_type'])) : ?>
+                  <li><?php print implode('</li><li>', $recherche['field_type']); ?></li>
+                <?php endif; ?>
+              </ul>
+              <?php
+                $filter_pattern = array(
+                  'prix_min' => 'Min. !value€',
+                  'prix_max' => 'Max. !value€',
+                  'field_nb_pieces' => '!value',
+                  'field_superficie' => 'Min. !valuem²',
+                  'field_caracteristique' => '!value',
+                );
+                $filters = array_intersect_key($recherche, $filter_pattern);
+              ?>
+              <?php if (!empty($filters)) : ?>
+                <ul class="search__options">
+                  <?php foreach ($filters as $field => $array_of_value) : ?>
+                    <?php foreach ($array_of_value as $value) : ?>
+                      <li><?php print str_replace('!value', $value, $filter_pattern[$field]); ?></li>
+                    <?php endforeach; ?>
+                  <?php endforeach; ?>
+                </ul>
+              <?php endif; ?>
             </div>
-            <ul class="search__options">
-              <li>Max. 300.000€</li>
-              <li>Min. 40m</li>
-              <li>2/3 pièces</li>
-              <li>Terrase / parking</li>
-            </ul>
-            <div class="search__tools"><a href="#" title="lancer cette recherche" class="btn-primary btn-rounded btn-icon search__tools__exec"><span class="button__content"><span class="icon icon-search"></span>Rechercher</span></a>
-              <button data-cookie="offres" data-cookie-remove="5" data-cookie-callback="removeSelection" class="display-status display-status--suppr search__tools__remove"><span class="show-for-sr">Supprimer le programme de vos sélections</span></button>
+            <div class="search__tools"><a href="<?php print $recherche['url']; ?>" title="lancer cette recherche" class="btn-primary btn-rounded btn-icon search__tools__exec"><span class="button__content"><span class="icon icon-search"></span>Rechercher</span></a>
+              <button data-cookie="recherches" data-cookie-remove="<?php print $recherche['url']; ?>" data-cookie-callback="removeSelection" class="display-status display-status--suppr search__tools__remove"><span class="show-for-sr">Supprimer le programme de vos sélections</span></button>
             </div>
           </li>
         <?php endforeach; ?>
       </ul>
     </div>
+
     <?php if (count($recherches) > 5): ?>
       <!-- [seeMore] start-->
       <div data-seemore="searches" data-seemore-nbr="5" class="voir-plus">
@@ -44,6 +62,6 @@
       </div>
       <!-- [seeMore] end-->
     <?php endif; ?>
-  </section>
 
+  </section>
 <?php endif; ?>

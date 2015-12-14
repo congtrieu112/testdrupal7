@@ -100,10 +100,13 @@ function kandb_selection_ajax_selection(){
 
   // Get the Ids from the arguments
   $ids_programme = isset($_GET['programme']) ? explode(',', $_GET['programme']) : array();
-  $ids_bien = isset($_GET['bien']) ? explode(',', $_GET['bien']) : array();
-  $ids_avant_premiere = isset($_GET['avant_premiere']) ? explode(',', $_GET['avant_premiere']) : array();
-  $ids_articles = isset($_GET['article']) ? explode(',', $_GET['article']) : array();
-  $recherches = isset($_GET['recherche']) ? explode(',', $_GET['recherche']) : array();
+  // TODO : Bien et Avant Premiere => Wait for front
+  // $ids_bien = isset($_GET['bien']) ? explode(',', $_GET['bien']) : array();
+  $ids_bien = array();
+  // $ids_avant_premiere = isset($_GET['avant_premiere']) ? explode(',', $_GET['avant_premiere']) : array();
+  $ids_avant_premiere = array();
+  $ids_articles = isset($_GET['articles']) ? explode(',', $_GET['articles']) : array();
+  $recherches = isset($_GET['recherches']) ? explode(',', $_GET['recherches']) : array();
 
   // Selection Programme Bien & Avant Premiere
   $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
@@ -112,17 +115,12 @@ function kandb_selection_ajax_selection(){
   );
 
   // Selection Recherche
-  // TODO : Remove when true data are provided
-  $recherches_test = array('http://kandb.local/recherche?place=Alsace&field_type%5B%5D=264&field_type%5B%5D=168&field_type%5B%5D=244&field_type%5B%5D=205&field_type%5B%5D=238&field_type%5B%5D=83&prix_min=15&prix_max=35&field_nb_pieces%5B%5D=276&field_nb_pieces%5B%5D=362&field_nb_pieces%5B%5D=99&field_nb_pieces%5B%5D=41&field_nb_pieces%5B%5D=322&field_superficie=42&field_caracteristique%5B%5D=3938&field_caracteristique%5B%5D=157&field_caracteristique%5B%5D=385&field_caracteristique%5B%5D=307&field_caracteristique%5B%5D=152&field_caracteristique%5B%5D=279&field_caracteristique%5B%5D=260&field_caracteristique%5B%5D=132&field_caracteristique%5B%5D=40&field_caracteristique%5B%5D=272&field_caracteristique%5B%5D=59&field_caracteristique%5B%5D=240&field_caracteristique%5B%5D=7&field_caracteristique%5B%5D=228&field_caracteristique%5B%5D=305&field_caracteristique%5B%5D=195&programme=1&op=Rechercher');
-  $recherches = kandb_selection_order_search_informations($recherches_test);
-  $content['recherche'] = theme('block_recherche', $recherches);
+  $content['recherche'] = theme('block_recherche', array('recherches' => kandb_selection_order_search_informations($recherches)));
 
   // Selection Articles
   $content['selection_article'] = call_user_func_array(
     'views_embed_view',
-    array_merge(
-      array('mon_espace', 'block_2'), $ids_articles
-    )
+    array('mon_espace', 'block_2', implode('+', $ids_articles))
   );
 
   print theme('ajax_selection', $content);
@@ -178,10 +176,12 @@ function kandb_selection_order_search_informations($recherches){
   foreach($recherches as $id => $recherche) {
 
     // Remove first part of the url
+    $url = $recherche;
     $recherche = str_replace($base_url, '', $recherche);
     $recherche = str_replace('/' . URL_SEARCH_B2C . '?', '', $recherche);
     $recherche = urldecode($recherche);
     $recherche = explode('&', $recherche);
+    if(!isset($return_array[$id])) $return_array[$id] = array();
 
     // First loop to clean and get all id to retrieve external data
     foreach($recherche as $filter){
@@ -191,12 +191,20 @@ function kandb_selection_order_search_informations($recherches){
       // Avoid all filter that doesn't actually exists
       if(!isset($array_of_filter[$filter[0]])) continue;
 
+      // Avoid all filter that doesn't have value
+      if(empty($filter[1])) continue;
+
       // Organize data in the array
-      if(!isset($return_array[$filter[0]])) $return_array[$filter[0]] = array();
+      if(!isset($return_array[$id][$filter[0]])) $return_array[$id][$filter[0]] = array();
       if(isset($array_of_filter[$filter[0]]['#taxonomy']) && $array_of_filter[$filter[0]]['#taxonomy']) $filter[1] = $taxonomy_ids[$filter[1]]->name;
-      $return_array[$filter[0]][] = $filter[1];
+      $return_array[$id][$filter[0]][] = $filter[1];
     }
+    $return_array[$id]['url'] = $url;
   }
 
   return $return_array;
+}
+
+function kandb_selection_isset_not_empty($var){
+  return (isset($var) && !empty($var));
 }
