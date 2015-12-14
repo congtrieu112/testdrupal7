@@ -366,8 +366,8 @@ function get_taxonomy_by_vocabulary_name($term_name,$vocabulary_name){
  * Implements hook_node_view().
  */
 function kandb_validate_node_view($node, $view_mode, $langcode) {
-  global $_domain;
-  if (($node->type == 'programme' || $node->type == 'bien') && $view_mode == 'full' && arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+  global $_domain, $user;
+  if (($node->type == 'programme' || $node->type == 'bien') && $view_mode == 'full' && arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL && (node_access("update", $node, $user) || node_access("delete", $node, $user))) {
     if (isset($_domain['machine_name']) && $_domain['machine_name'] == 'kandb_b2c' && !isset($node->domains[$_domain['domain_id']])) {
       if ($node->type == 'bien' && $node->field_programme[LANGUAGE_NONE][0]['target_id']) {
         drupal_goto('node/'. $node->field_programme[LANGUAGE_NONE][0]['target_id']);
