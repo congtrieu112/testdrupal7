@@ -130,9 +130,9 @@
       </div>
       <ul class="prices">
         <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
-          <li><span class="text">À partir de <strong><?php print chunk_split($field_program_low_tva_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+          <li><span class="text">À partir de <strong><?php print number_format($field_program_low_tva_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
         <?php endif; ?>
-        <li><span class="text">À partir de <strong><?php print chunk_split($field_programme_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+        <li><span class="text">À partir de <strong><?php print number_format($field_programme_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
       </ul>
     </div>
   </div>
@@ -189,36 +189,40 @@
           </div>
           <ul class="prices">
             <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
-              <li><span class="text">À partir de <strong><?php print chunk_split($field_program_low_tva_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+              <li><span class="text">À partir de <strong><?php print number_format($field_program_low_tva_price_min[0]['value'], 0, ',', ' ');?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
             <?php endif; ?>
-            <li><span class="text">À partir de <strong><?php print chunk_split($field_programme_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+            <li><span class="text">À partir de <strong><?php print number_format($field_programme_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
           </ul>
         </div>
         <ul class="squaredImageItem__actions">
-          <li><a href="#" class="btn-rounded btn-secondary btn-big-mobile">Découvrir le programme</a></li>
-          <li><a href="#" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+          <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
+          <?php if(!empty($field_plaquette_commerciale)) : ?>
+            <li><a href="#" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+          <?php endif; ?>
           <li>
             <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
             <div class="sharing f-dropdown" id="sharing-0" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
               <ul class="sharing__items">
-                <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
-                <li class="sharing__items__item"><a href="#" title="partage sur Whatsapp" class="icon icon-phone-call"></a></li>
+                <li class="sharing__items__item"><a href="mailto:" title="partage par email" class="icon icon-email"></a></li>
               </ul>
             </div>
           </li>
         </ul>
       </div>
-      <ul class="bg-lightGrey contact">
-        <li class="contact__item">
-          <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
-          --><img alt="Photo programme" src="test_assets/mySelectionContactUs.jpg" class="contact__item__img hide-for-small-only">
-          <p class="text">Votre conseillère <strong>Amélie Martin</strong></p><a href="tel://0134544400" class="btn-phone">01 34 54 44 00</a>
-        </li>
-        <li class="contact__item"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-tel"></span>Etre rappelé</span></a></li>
-        <li class="contact__item"><a href="partials/formRendezVous.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-email"></span>Prendre rendez-vous</span></a></li>
-      </ul>
+      <?php if(!empty($field_nom_conseiller)): ?>
+        <ul class="bg-lightGrey contact">
+          <li class="contact__item">
+            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
+            --><img alt="Photo programme" src="test_assets/mySelectionContactUs.jpg" class="contact__item__img hide-for-small-only">
+            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://0134544400" class="btn-phone">01 34 54 44 00</a>
+          </li>
+          <?php
+            if (function_exists('kandb_contact_block_page')) {
+              print kandb_contact_block_page();
+            }
+          ?>
+        </ul>
+      <?php endif; ?>
     </div>
   </div>
 </article>

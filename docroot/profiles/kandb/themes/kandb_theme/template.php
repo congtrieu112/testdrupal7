@@ -452,11 +452,17 @@ function kandb_theme_preprocess_node(&$vars) {
   if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
     $vars['promotions'] = get_nids_promotions_by_programme($vars['nid']);
 
+
     if(isset($vars['field_image_principale'])){
-      $image = $vars['field_ima ge_principale'][0]['uri'];
+      $image = $vars['field_image_principale'][0]['uri'];
       $vars['programme_selection_very_small'] = image_style_url('programme_selection_very_small', $image);
       $vars['programme_selection_small'] = image_style_url('programme_selection_small', $image);
       $vars['programme_selection_medium'] = image_style_url('programme_selection_medium', $image);
+    }
+
+    if(!empty($field_nom_conseiller)){
+      $field_photo_conseiller = '';
+
     }
   }
 }
