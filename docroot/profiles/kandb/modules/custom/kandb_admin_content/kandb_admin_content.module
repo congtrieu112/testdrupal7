@@ -9,3 +9,11 @@ function kandb_admin_content_preprocess_views_view(&$vars){
     drupal_add_js(drupal_get_path('module', 'kandb_admin_content') . '/js/custom_view_admin_content.js');
   }
 }
+/**
+ * Implementation of hook_form_alter()
+ */
+function kandb_admin_content_form_alter(&$form, &$form_state, $form_id){
+    if ($form_id == 'bien_node_form') {
+        $form['field_bien_low_tva_price']['#disabled'] = TRUE;
+    }
+}
