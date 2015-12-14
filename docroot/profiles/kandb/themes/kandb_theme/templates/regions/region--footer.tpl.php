@@ -29,7 +29,7 @@
 global $base_url;
 ?>
 
-<footer class="siteFooter">
+<footer data-footer="" class="siteFooter">
     <div class="wrapper">
         <div class="siteFooter__head"><a href="<?php print $base_url; ?>" title="retour à l'accueil" class="logo"><img src="<?php print $logo_svg; ?>" alt="Kaufman&amp;Board"></a>
             <div class="prescripteurs"><?php if ($link_prescripteur) : ?><a href="<?php print $link_prescripteur; ?>" class="btn-white">Espace prescripteur<span class="icon icon-arrow"></span></a><?php endif; ?></div>
