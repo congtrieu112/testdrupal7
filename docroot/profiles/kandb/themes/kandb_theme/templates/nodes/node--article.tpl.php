@@ -83,7 +83,21 @@ $url = file_create_url($node->field_article_image[LANGUAGE_NONE][0]['uri']);
 $url = parse_url($url);
 $path_image = $base_url . $url['path'];
 ?>
-
+<div class="top-actions">
+        <div class="wrapper">
+            <?php if($_SERVER['HTTP_REFERER']) : ?>
+               <a href="<?php print $_SERVER['HTTP_REFERER']; ?>" class="btn-white"><?php print t('Retour'); ?><span class="icon icon-arrow left"></span></a>
+            <?php endif; ?>
+        <div class="top-actions__ctas">
+              <label><?php print t('Ajouter aux favoris'); ?></label>
+              <button data-cookie="articles" data-cookie-add="<?php print $node->nid; ?>" class="btn-icon--only"><span class="icon icon-love"></span></button>
+              <label><?php print t('Partager');  ?></label><span class="icon icon-facebook"></span><span class="icon icon-twitter"></span>
+        </div>
+    </div>
+</div>
+<div class="wrapper">
+    <hr class="hr">
+</div>
 <!-- [editorial Content Article] start-->
 <article id="node-<?php print $node->nid; ?>" class="section-padding editorialContentArticle <?php print $classes; ?> <?php print $attributes; ?>">
     <div class="wrapper">
@@ -136,12 +150,12 @@ if (isset($node->field_article_article_ref[LANGUAGE_NONE][0])) {
                 ?>
                 <div class="adviceMoreArticle__item">
                     <div class="adviceMoreArticle__item__img">
-                        
+
                       <!-- [Responsive img] start-->
                       <img alt="<?php print t('kaufman et broad, illustration de') . ' ' . $article->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_small ?>, (large)]"/>
                       <noscript><img src="<?php print $image_small ?>" alt="<?php print t('kaufman et broad, illustration de') . ' ' . $article->title; ?>"/></noscript>
                       <!-- [Responsive img] end-->
-                  
+
                     </div>
                     <div data-equalizer-watch="data-equalizer-watch" class="adviceMoreArticle__item__infos">
                         <h4 class="adviceMoreArticle__item__infos__heading"><?php print $article->title; ?></h4>

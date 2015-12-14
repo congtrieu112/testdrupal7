@@ -1,0 +1,12 @@
+name = K&B Export Bean Content
+description = Create a block header B2B
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = bean
+dependencies[] = bean_admin_ui
+dependencies[] = bean_uuid
+dependencies[] = uuid_features
+__drupal_alter_by_ref[][bean][b2b_block_tutorial] = b2b_block_tutorial
+features[features_api][] = api:2
+features[uuid_bean][] = 3f9f4eb4-ba25-4f91-8e01-5c6e3966b518
