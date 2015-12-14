@@ -1,0 +1,6 @@
+name = K&B finance presentation
+core = 7.x
+description = Declare finance presentation blocks
+package = K&B Development
+
+dependencies[] = kandb_webform
