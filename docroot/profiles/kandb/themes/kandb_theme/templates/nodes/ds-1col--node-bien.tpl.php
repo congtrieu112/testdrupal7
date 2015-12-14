@@ -128,7 +128,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
     if ($image_principale):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
-      $image_large = image_style_url("bien_large__1380_x_670", $image_principale);
+      $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
       ?>
       <div class="programHeader__figure">
           <!-- [carousel] start-->
