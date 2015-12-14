@@ -162,6 +162,11 @@ function kandb_views_avant_premiere_views_default_views() {
   $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['value'] = array(
     1 => '1',
   );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
 
   /* Display: Avant Première (List) */
   $handler = $view->new_display('block', 'Avant Première (List)', 'block_1');
@@ -188,6 +193,11 @@ function kandb_views_avant_premiere_views_default_views() {
   $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['value'] = array(
     0 => '0',
   );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
   $translatables['avant_premiere_check'] = array(
     t('Master'),
     t('Avant Première'),

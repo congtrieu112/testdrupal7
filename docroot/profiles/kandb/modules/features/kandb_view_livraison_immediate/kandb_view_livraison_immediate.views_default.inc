@@ -175,6 +175,71 @@ function kandb_view_livraison_immediate_views_default_views() {
 
   /* Display: Livraison Immediate */
   $handler = $view->new_display('block', 'Livraison Immediate', 'block');
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['filter_groups']['operator'] = 'OR';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'AND',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Année (field_annee) */
+  $handler->display->display_options['filters']['field_annee_value']['id'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['table'] = 'field_data_field_annee';
+  $handler->display->display_options['filters']['field_annee_value']['field'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['value']['value'] = '2015';
+  $handler->display->display_options['filters']['field_annee_value']['group'] = 1;
+  $handler->display->display_options['filters']['field_annee_value']['expose']['operator_id'] = 'field_annee_value_op';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['label'] = 'Année (field_annee)';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['operator'] = 'field_annee_value_op';
+  $handler->display->display_options['filters']['field_annee_value']['expose']['identifier'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['is_grouped'] = TRUE;
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['label'] = 'Année (field_annee)';
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['identifier'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['remember'] = FALSE;
+  $handler->display->display_options['filters']['field_annee_value']['group_info']['group_items'] = array(
+    1 => array(),
+    2 => array(),
+    3 => array(),
+  );
+  /* Filter criterion: Content: Trimestre (field_trimestre) */
+  $handler->display->display_options['filters']['field_trimestre_value']['id'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value']['table'] = 'field_data_field_trimestre';
+  $handler->display->display_options['filters']['field_trimestre_value']['field'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value']['value'] = array(
+    4 => '4',
+  );
+  $handler->display->display_options['filters']['field_trimestre_value']['group'] = 1;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = '1';
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  /* Filter criterion: Content: Année (field_annee) */
+  $handler->display->display_options['filters']['field_annee_value_1']['id'] = 'field_annee_value_1';
+  $handler->display->display_options['filters']['field_annee_value_1']['table'] = 'field_data_field_annee';
+  $handler->display->display_options['filters']['field_annee_value_1']['field'] = 'field_annee_value';
+  $handler->display->display_options['filters']['field_annee_value_1']['value']['value'] = '2016';
+  $handler->display->display_options['filters']['field_annee_value_1']['group'] = 2;
+  /* Filter criterion: Content: Trimestre (field_trimestre) */
+  $handler->display->display_options['filters']['field_trimestre_value_1']['id'] = 'field_trimestre_value_1';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['table'] = 'field_data_field_trimestre';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['field'] = 'field_trimestre_value';
+  $handler->display->display_options['filters']['field_trimestre_value_1']['value'] = array(
+    1 => '1',
+  );
+  $handler->display->display_options['filters']['field_trimestre_value_1']['group'] = 2;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status_1']['id'] = 'status_1';
+  $handler->display->display_options['filters']['status_1']['table'] = 'node';
+  $handler->display->display_options['filters']['status_1']['field'] = 'status';
+  $handler->display->display_options['filters']['status_1']['value'] = '1';
+  $handler->display->display_options['filters']['status_1']['group'] = 2;
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
   $translatables['livraison_immediate'] = array(
     t('Master'),
     t('Livraison Immediate'),

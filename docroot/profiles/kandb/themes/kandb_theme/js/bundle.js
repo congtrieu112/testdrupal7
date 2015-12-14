@@ -37419,6 +37419,9 @@ AppAccordion.prototype = {
                     value           = windowPosition + moveTo * complete;
 
                 $(window).scrollTop( Number(value.toFixed()) );
+              },
+              complete: function() {
+                $(window).trigger('velocity.rezised');
               }
             });
 
@@ -38036,6 +38039,8 @@ $(document).on('ajaxResponse', function(e){
 /* mapContact : app-contact-map.js */
 /* ====================== */
 
+// Class selector does not work with elements nested in svg element
+
 "use strict";
 
 require("./app-top-bar.js");
@@ -38097,6 +38102,7 @@ var removeClassName = function(className, removeName) {
 var activateSection = function(id) {
     var el = id && that.item.find(composeId(id)),
         className = el.attr('class');
+
     if (el && className.indexOf(that.settings.activeClass) < 0) {
         el.attr('class', concatClassName(className, that.settings.activeClass));
         $(el).velocity({fill: '#199edd'}, {opacity: 1});
@@ -38104,7 +38110,8 @@ var activateSection = function(id) {
 };
 
 var cleanActiveSection = function() {
-    var activEl = that.item.find('.' + that.settings.activeClass),
+    // Class selector does not work with elements nested in svg element
+    var activEl = $(that.item[0].querySelector('.' + that.settings.activeClass)),
         className = activEl.attr('class');
 
     if (activEl && className.indexOf(that.settings.activeClass) > 0) {
@@ -38123,7 +38130,6 @@ var activateRegion = function() {
 var clickMapSection = function() {
     var id = breakId(this.id);
     $('[' + sectionTrigger + '=' + id + ']').trigger('click');
-    activateSection(id);
 };
 
 var fixMapWidth = function() {
@@ -38736,8 +38742,6 @@ Gmaps.prototype = {
     var that = this;
 
     if ( this.item.attr('data-gmaps') === 'addMarkers' ) {
-      that.headerHeight = $('[data-topbar]').height();
-
       that.newMap = new GMaps({
         div: '.js-app-gmaps',
         lat: 0,
@@ -38752,11 +38756,14 @@ Gmaps.prototype = {
       this.newMap.fitZoom();
 
       $(window).on('resize.gmaps', function(e){
-        that.setHeight();
+        that.setHeight()
+            .setPosition();
       });
 
-      $(window).on('scroll.gmaps', function(e){
-        that.setPosition();
+      // onScroll and when accordion finish opening
+      $(window).on('scroll.gmaps velocity.rezised', function(e){
+        that.setHeight()
+            .setPosition();
       });
     }
 
@@ -38774,54 +38781,60 @@ Gmaps.prototype = {
   },
 
   setHeight: function() {
-    var windowHeight = (Modernizr.touch) ? window.innerHeight : $(window).height();
-    this.item[0].style.height = windowHeight - this.headerHeight + "px";
+    this.results              = $('.results');
+    this.window               = $(window);
+    this.resultsHeight        = this.results.height();
+    this.windowHeight         = (Modernizr.touch) ? window.innerHeight : this.window.height();
+    this.headerHeight         = App.topBarHeight();
+    this.footerHeight         = App.footerHeight();
+    this.mapHeight            = this.windowHeight - this.headerHeight;
+    this.mapWidth             = $('.results__list').position().left - 40;
+    this.item[0].style.width  = this.mapWidth + 'px';
+
+    if ( this.mapHeight > this.resultsHeight ) {
+      this.item[0].style.height = this.resultsHeight + 'px';
+      this.mapFixed = true;
+    } else {
+      this.item[0].style.height = this.mapHeight + 'px';
+      this.mapFixed = false;
+    }
 
     return this;
   },
 
   setPosition: function() {
-    var scrollTop     = $(window).scrollTop(),
-        breakPoint    = scrollTop + this.headerHeight,
-        resultsTop    = $('.results').offset().top,
-        windowHeight  = (Modernizr.touch) ? window.innerHeight : $(window).height(),
-        footerHeight  = $('.siteFooter').outerHeight(),
-        footerTop     = $('.siteFooter').offset().top;
+    if ( !this.mapFixed ) {
+      var scrollTop     = this.window.scrollTop(),
+          breakPoint    = scrollTop + this.headerHeight,
+          resultsTop    = this.results.offset().top,
+          footerTop     = $('.siteFooter').offset().top,
+          leftPosition  = $('#container').offset().left;
 
-    // after searchFormular
-    if ( breakPoint > resultsTop ) {
+      // after searchFormular
+      if ( breakPoint > resultsTop ) {
 
-      // after footer
-      if ( scrollTop + windowHeight > footerTop ) {
-        this.item[0].style.position = 'absolute';
-        this.item[0].style.bottom = footerHeight + 'px';
-        this.item[0].style.top = '';
+        // after footer
+        if ( scrollTop + this.windowHeight > footerTop ) {
+          this.item[0].style.position = 'absolute';
+          this.item[0].style.bottom = this.footerHeight + 'px';
+          this.item[0].style.top = '';
+          this.item[0].style.left = '';
 
-      // before footer
-      } else {
-        if ( Modernizr.touch ) {
+        // before footer
+        } else {
           this.item[0].style.position = 'fixed';
           this.item[0].style.top = this.headerHeight + 'px';
           this.item[0].style.bottom = '';
-        } else {
-          this.item[0].style.top = breakPoint + 'px';
-          this.item[0].style.bottom = '';
+          this.item[0].style.left = leftPosition + 'px';
         }
 
-      }
-
-    // before searchFormular
-    } else {
-
-      if ( Modernizr.touch ) {
-        this.item[0].style.position = 'absolute';
-        this.item[0].style.bottom = '';
-        this.item[0].style.top = '';
+      // before searchFormular
       } else {
+        this.item[0].style.position = 'absolute';
         this.item[0].style.top = '';
         this.item[0].style.bottom = '';
+        this.item[0].style.left = '';
       }
-
     }
 
     return this;

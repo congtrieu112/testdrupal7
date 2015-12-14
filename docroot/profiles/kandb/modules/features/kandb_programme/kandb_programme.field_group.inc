@@ -345,11 +345,11 @@ function kandb_programme_field_group_info() {
     'label' => 'Images des types de Lots',
     'weight' => '13',
     'children' => array(
-      0 => 'field_image_studio',
-      1 => 'field_image_2_piece',
-      2 => 'field_image_3_piece',
-      3 => 'field_image_4_piece',
-      4 => 'field_image_5_piece',
+      0 => 'field_image_2_piece',
+      1 => 'field_image_3_piece',
+      2 => 'field_image_4_piece',
+      3 => 'field_image_5_piece',
+      4 => 'field_image_studio',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

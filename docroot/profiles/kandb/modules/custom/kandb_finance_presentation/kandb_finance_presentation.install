@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * Add finance presentation settings variables
+ */
+function kandb_finance_presentation_install(){
+  variable_set('kandb_finance_presentation_photo', $file->fid);
+  variable_set('kandb_finance_presentation_title', 'Nous pouvons vous aider à concrétiser votre projet immobilier');
+  variable_set('kandb_finance_presentation_sub_title', 'D’autres consommateurs se posent les même questions que vous');
+  variable_set('kandb_finance_presentation_faq_text', 'Consulter notre FAQ');
+  variable_set('kandb_finance_presentation_faq_link', '/faq');
+  variable_set('kandb_finance_presentation_numero_text', 'N° vert');
+  variable_set('kandb_finance_presentation_numero_vert', '0 800 544 000');
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function kandb_finance_presentation_uninstall(){
+  variable_del('kandb_finance_presentation_photo');
+  variable_del('kandb_finance_presentation_title');
+  variable_del('kandb_finance_presentation_sub_title');
+  variable_del('kandb_finance_presentation_faq_text');
+  variable_del('kandb_finance_presentation_faq_link');
+  variable_del('kandb_finance_presentation_numero_text');
+  variable_del('kandb_finance_presentation_numero_vert');
+}

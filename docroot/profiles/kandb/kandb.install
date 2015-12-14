@@ -794,3 +794,12 @@ function kandb_update_7175() {
     module_enable(array('kandb_view_rh_dernieres_offres_emploi'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_tmp_b2b module
+ */
+function kandb_update_7176() {
+  if (!module_exists('kandb_tmp_b2b')) {
+    module_enable(array('kandb_tmp_b2b'), TRUE);
+  }
+}
