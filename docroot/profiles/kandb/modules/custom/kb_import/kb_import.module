@@ -44,7 +44,7 @@ function kb_import_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
   $items['admin/reports/migration_errorlog'] = array(
-    'title' => 'migration errorlog',
+    'title' => 'Migration errorlog',
     'description' => 'Manage error loges of migration import',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('migration_errorlog_form'),
@@ -64,6 +64,30 @@ function kb_import_menu() {
     'title' => 'Import',
     'page callback' => 'download_migration_errorlog',
     'page arguments' => array(2),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
+  $items['admin/reports/daily_import_errorlog'] = array(
+    'title' => 'Daily import errorlog',
+    'description' => 'Manage error loges of daily import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('migration_errorlog_form', TRUE),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('administer content types'),
+    'file' => 'kb_import.pages.inc',
+  );
+  $items['daily-import-errorlog/delete/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('delete_migration_errorlog_confirm_form', 2, TRUE),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('administer content types'),
+  );
+
+  $items['daily-import-errorlog/download/%'] = array(
+    'title' => 'Import',
+    'page callback' => 'download_migration_errorlog',
+    'page arguments' => array(2, TRUE),
     'type' => MENU_CALLBACK,
     'access arguments' => array('administer content types'),
   );
@@ -173,6 +197,7 @@ function kb_import_feeds_after_import($source) {
     $kb_daily_import_status[$id . '_status'] = $status;
     set_daily_import_status($kb_daily_import_status);
 //Call event daily_import_importer_finish
+    kb_daily_import_logging ('daily-import : finish ' . $id);
     rules_invoke_event('daily_import_importer_finish', $id);
   }
   $kb_migration_status = get_migration_status();
@@ -201,15 +226,21 @@ function kb_starting_daily_import(){
     return;
   }
   module_load_include('inc', 'kb_import', 'kb_import.GettingFiles');
+  kb_daily_import_logging ('daily-import : start get files via FTP');
   $start_getting_file = kb_import_ftp_get_files();
   if($start_getting_file) {
   //Set variable's status
+    kb_daily_import_logging ('daily-import : get files via FTP success');
     $kb_daily_import_status = daily_import_status_default();
     $kb_daily_import_status['start_daily_import'] = 1;
     set_daily_import_status ($kb_daily_import_status);
     set_migration_status($kb_migration_status);
   //Call event starting_daily_import
+    kb_daily_import_logging ('daily-import : start daily import');
     rules_invoke_event('starting_daily_import');
+  }
+  else {
+    kb_daily_import_logging ('daily-import : get files via FTP error');
   }
 }
 function kb_start_migration_import($getting_file = TRUE){
@@ -321,9 +352,12 @@ function _check_successful_importer ($feeds_source) {
   }
   return $status;
 }
-function kb_daily_import_logging ($message) {
+function kb_daily_import_logging ($message, $timing = TRUE) {
   if(module_exists('kandb_feed') && $message != ''){
-    $message .= "\n";
+    if ($timing) {
+      $message = date("Y-m-d h:i A") . "\n" . $message . "\n";
+    }
+    $message .= "\n";   
     $uri = 'private://daily-import-log/';
     $file_log_name = 'daily_import_log_' . date('Y-m-d') . '.txt';
     createFileErrorLogTxt($file_log_name, $message, $uri);
@@ -337,8 +371,8 @@ function kb_migration_logging ($message) {
     createFileErrorLogTxt($file_log_name, $message, $uri);
   }
 }
-function download_migration_errorlog($file_name) {
-  $path = "private://migration";
+function download_migration_errorlog($file_name, $is_daily_import = FALSE) {
+  $path = $is_daily_import ? 'private://daily-import-log' : 'private://migration';
   if (file_exists($path)) {
     $filePath = $path . '/' . $file_name;
     if ($filePath) {
@@ -370,20 +404,25 @@ function download_migration_errorlog($file_name) {
     }
   }
 }
-function delete_migration_errorlog_confirm_form($form, $form_state, $file_name) {
+function delete_migration_errorlog_confirm_form($form, $form_state, $file_name, $is_daily_import = FALSE) {
   $form['file_name'] = array(
     '#type' => 'value',
     '#value' => $file_name,
+  );
+  $form['is_daily_import'] = array(
+    '#type' => 'value',
+    '#value' => $is_daily_import,
   );
   return confirm_form($form, t('Are you sure you want to change the availability?'), 'here_goes_your_backurl_for_cancel_link');
 }
 function delete_migration_errorlog_confirm_form_submit($form, $form_state) {
   $file_name = $form_state['values']['file_name'];
-  delete_migration_errorlog($file_name);
+  $is_daily_import = $form_state['values']['is_daily_import'];
+  delete_migration_errorlog($file_name, $is_daily_import);
 }
 
-function delete_migration_errorlog($file_name) {
-  $path = "private://migration";
+function delete_migration_errorlog($file_name, $is_daily_import) {
+  $path = $is_daily_import ? 'private://daily-import-log' : 'private://migration';
   if (file_exists($path)) {
     $filePath = $path . '/' . $file_name;
     if ($filePath) {

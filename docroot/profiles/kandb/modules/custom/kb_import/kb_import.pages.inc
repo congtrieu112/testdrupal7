@@ -1,20 +1,21 @@
 <?php
 
-function migration_errorlog_form($form, &$form_state) {
-  //$type = arg(3);
-  $path = 'private://migration';
+function migration_errorlog_form($form, &$form_state,  $is_daily_import = FALSE) {
+  $path = $is_daily_import ? 'private://daily-import-log' : 'private://migration';
   $allFiles = scandir($path);
   $allFiles = array_diff($allFiles, array('.', '..'));
-
+  $file_prefix = $is_daily_import ? 'daily_import_log' : 'migration_import';
+  $prefix_path_action = $is_daily_import ? 'daily-import-errorlog' : 'migration-errorlog';
+  $empty_message = $is_daily_import ?  t('No daily import errorlog found') : t('No migration errorlog found');
   $fileInfoes = array();
   if ($allFiles) {
     foreach ($allFiles as $file_name) {
       if (strpos($file_name, 'migration_log', 1) == 0) {
         $fileInfoes[] = array(
           'id' => $file_name,
-          'importer' => str_replace("_", " ", 'migration_import'),
+          'importer' => str_replace("_", " ", $file_prefix),
           'file_name' => $file_name,
-          'operations' => l(t('delete'), 'migration-errorlog/delete/' . $file_name, array('query' => drupal_get_destination())) . "&nbsp;&nbsp;&nbsp;&nbsp;" . l(t('download'), 'migration-errorlog/download/' . $file_name, array('query' => drupal_get_destination())),
+          'operations' => l(t('delete'), $prefix_path_action . '/delete/' . $file_name, array('query' => drupal_get_destination())) . "&nbsp;&nbsp;&nbsp;&nbsp;" . l(t('download'), $prefix_path_action . '/download/' . $file_name, array('query' => drupal_get_destination())),
         );
       }
     }
@@ -40,7 +41,7 @@ function migration_errorlog_form($form, &$form_state) {
     '#type' => 'tableselect',
     '#header' => $header,
     '#options' => $options,
-    '#empty' => t('No migration errorlog found'),
+    '#empty' => $empty_message,
   );
 
   $form['submit']['delete'] = array(
