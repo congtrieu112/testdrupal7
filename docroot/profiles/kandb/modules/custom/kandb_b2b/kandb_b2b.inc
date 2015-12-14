@@ -14,6 +14,7 @@ function render_b2b_homepage() {
 
   // Selected program.
   $program_title = $bg_image_small = $bg_image_large = $program_ville = $program_department = $program_address = $promotions = NULL;
+  $program_promotions = array();
   $program_var = variable_get('kandb_b2b_homepage_program');
   preg_match_all('/\[([0-9]+?)\]/', $program_var, $matches);
   if (isset($matches[1][0]) AND is_numeric($matches[1][0])) {
@@ -43,7 +44,6 @@ function render_b2b_homepage() {
       $program_address = trim($program_loc_num . ' ' . $program_loc_rue);
 
       $promotions = get_nids_promotions_by_programme($program->nid);
-      $program_promotions = array();
       if ($promotions) {
         foreach ($promotions as $item) {
           $promotion_mention_legale = field_get_items('node', $item, 'field_promotion_mention_legale');
