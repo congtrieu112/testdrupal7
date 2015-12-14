@@ -162,6 +162,47 @@ function kandb_view_nouveaute_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'programme' => 'programme',
+  );
+  /* Filter criterion: Content: Date de mise en ligne (field_programme_online_date) */
+  $handler->display->display_options['filters']['field_programme_online_date_value']['id'] = 'field_programme_online_date_value';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['table'] = 'field_data_field_programme_online_date';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['field'] = 'field_programme_online_date_value';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['operator_id'] = 'field_programme_online_date_value_op';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['label'] = 'Date de mise en ligne (field_programme_online_date)';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['operator'] = 'field_programme_online_date_value_op';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['identifier'] = 'field_programme_online_date_value';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['expose']['remember_roles'] = array(
+    2 => '2',
+    1 => 0,
+    81728063 => 0,
+    175053426 => 0,
+    144435657 => 0,
+    42676763 => 0,
+  );
+  $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 30 day';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['default_to_date'] = 'now';
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
   $translatables['nouveaute'] = array(
     t('Master'),
     t('Nouveaute'),
