@@ -37,11 +37,13 @@
         <?php endforeach; ?>
       </ul>
     </div>
-    <!-- [seeMore] start-->
-    <div data-seemore="searches" data-seemore-nbr="5" class="voir-plus">
-      <button class="btn-primary btn-rounded">Voir plus<span class="icon icon-arrow down"></span></button>
-    </div>
-    <!-- [seeMore] end-->
+    <?php if (count($recherches) > 5): ?>
+      <!-- [seeMore] start-->
+      <div data-seemore="searches" data-seemore-nbr="5" class="voir-plus">
+        <button class="btn-primary btn-rounded">Voir plus<span class="icon icon-arrow down"></span></button>
+      </div>
+      <!-- [seeMore] end-->
+    <?php endif; ?>
   </section>
 
 <?php endif; ?>
