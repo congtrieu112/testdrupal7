@@ -89,6 +89,40 @@ function numberFormatGlobalSpace($number) {
 }
 
 /**
+ * Get list promotion programme
+ * @param int $key: Programme NID
+ * @return array()
+ */
+function getListPromotionProgramme($key) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'promotion')
+    ->fieldCondition('field_promotion_programme', 'target_id', $key)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+    ->range(0, 1);
+
+  return $query->execute();
+}
+
+/**
+ * Get list promotion biens
+ * @param int $key: Bien NID
+ * @return array()
+ */
+function getListPromotionBiens($key) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'promotion')
+    ->fieldCondition('field_promotion_biens', 'target_id', array($key), 'IN')
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+    ->range(0, 1);
+
+  return $query->execute();
+}
+
+/**
  * Get logement block content.
  */
 function _get_logement_block_content() {
@@ -110,15 +144,16 @@ function _get_logement_block_content() {
       }
 
       if ($tid) {
-        $query = new EntityFieldQuery();
-        $query->entityCondition('entity_type', 'node')
-          ->entityCondition('bundle', 'promotion')
-          ->fieldCondition('field_promotion_programme', 'target_id', $key)
-          ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-          ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-          ->range(0, 1);
-
-        $programme_promotion = $query->execute();
+//        $query = new EntityFieldQuery();
+//        $query->entityCondition('entity_type', 'node')
+//          ->entityCondition('bundle', 'promotion')
+//          ->fieldCondition('field_promotion_programme', 'target_id', $key)
+//          ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+//          ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+//          ->range(0, 1);
+//
+//        $programme_promotion = $query->execute();
+        $programme_promotion = getListPromotionProgramme($key);
         if (isset($programme_promotion['node'])) {
           $logement_block['programme_promotion'] = TRUE;
         }
@@ -159,16 +194,16 @@ function _get_logement_block_content() {
               $logement_block['programme_bien_images'][$program_list_biens->name] = $img_num_piece;
             }
 
-            $query = new EntityFieldQuery();
-            $query->entityCondition('entity_type', 'node')
-              ->entityCondition('bundle', 'promotion')
-              ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
-              ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-              ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-              ->range(0, 1);
-
-            $bien_promotion = $query->execute();
-
+//            $query = new EntityFieldQuery();
+//            $query->entityCondition('entity_type', 'node')
+//              ->entityCondition('bundle', 'promotion')
+//              ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
+//              ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
+//              ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
+//              ->range(0, 1);
+//
+//            $bien_promotion = $query->execute();
+            $bien_promotion = getListPromotionBiens($program_list_biens->bien_id);
             if (isset($bien_promotion['node'])) {
               $logement_block['bien_promotion'][$program_list_biens->name] = TRUE;
             }
