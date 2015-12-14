@@ -95,37 +95,44 @@
           </div>
         <?php endif; ?>
         <div class="media__content">
-          <?php // TODO : promotion && condition sur cette zone soit caractéristique soit nouveauté ?>
           <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $field_programme_loc_ville[0]['taxonomy_term']->name; ?> / <?php print $field_programme_loc_department[0]['taxonomy_term']->field_numero_departement['und'][0]['value']; ?></span>
-            <ul class="tags-list">
-              <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
-                <li>
-                  <div class="tag tag--important">Nouveauté</div>
-                </li>
-              <?php endif; ?>
-              <li>
-                <button data-reveal-trigger="selection-promotion-1" class="tag tag--important"><?php // TODO : print $field_caracteristiques[0]; ?> <sup>1</sup></button>
-                <!-- [popin] start-->
-                <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                  <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                    <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                  </div>
-                </div>
-                <!-- [popin] end-->
-              </li>
-            </ul>
+            <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+              <ul class="tags-list">
+                <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+                  <li>
+                    <div class="tag tag--important">Nouveauté</div>
+                  </li>
+                <?php endif; ?>
+                <?php if(!empty($promotions)) : ?>
+                  <?php $current = 0; ?>
+                  <?php foreach($promotions as $idp => $promotion): ?>
+                    <li>
+                      <button data-reveal-trigger="selection-promotion-1" class="tag tag--important"><?php print $promotion->title; ?> <sup><?php print $id; ?><?php print $current; ?></sup></button>
+                      <!-- [popin] start-->
+                      <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                          <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
+                          <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                        </div>
+                      </div>
+                      <!-- [popin] end-->
+                    </li>
+                    <?php $current ++; ?>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </ul>
+            <?php endif; ?>
           </div>
           <div class="text heading--small">
-            <p class="heading__title">17 appartements de 1 à 3 pièces</p>
-            <p class="hide-for-small-only heading__title">Parking disponible en addition</p>
+            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
           </div>
         </div>
       </div>
       <ul class="prices">
-        <li><span class="text">À partir de <strong>54&nbsp;000€</strong></span><span class="tva">TVA 5,5%</span></li>
-        <li><span class="text">À partir de <strong>1&nbsp;684&nbsp;000€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+        <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
+          <li><span class="text">À partir de <strong><?php print chunk_split($field_program_low_tva_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+        <?php endif; ?>
+        <li><span class="text">À partir de <strong><?php print chunk_split($field_programme_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
       </ul>
     </div>
   </div>
@@ -143,38 +150,48 @@
         <?php endif; ?>
         <!-- [Responsive img] end-->
         <div class="squaredImageItem__img__tags">
-          <ul class="tags-list">
-            <li>
-              <button data-reveal-trigger="selection-promotion-1" class="tag tag--important">Nouveauté<sup>1</sup></button>
-              <!-- [popin] start-->
-              <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                  <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                  <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Velit veniam natus delectus quam sed, unde iusto nobis voluptas molestiae minima ratione aperiam repudiandae numquam, sint autem eius iste nisi? Nulla.</p>
-                </div>
-              </div>
-              <!-- [popin] end-->
-            </li>
-            <li>
-              <div class="tag tag--important">plus que deux T3 disponibles</div>
-            </li>
-          </ul>
+          <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+            <ul class="tags-list">
+              <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+                <li>
+                  <div class="tag tag--important">Nouveauté</div>
+                </li>
+              <?php endif; ?>
+              <?php if(!empty($promotions)) : ?>
+                <?php $current = 0; ?>
+                <?php foreach($promotions as $idp => $promotion): ?>
+                  <li>
+                    <button data-reveal-trigger="selection-promotion-1" class="tag tag--important"><?php print $promotion->title; ?> <sup><?php print $id; ?><?php print $current; ?></sup></button>
+                    <!-- [popin] start-->
+                    <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                      <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                        <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
+                        <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                      </div>
+                    </div>
+                    <!-- [popin] end-->
+                  </li>
+                  <?php $current ++; ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </ul>
+          <?php endif; ?>
         </div>
       </div>
       <div class="squaredImageItem__infos">
         <div class="squaredImageItem__details">
           <div class="heading heading--bordered">
-            <h3 class="heading__title">Emergence</h3>
+            <h3 class="heading__title"><?php print $title; ?></h3>
             <p class="heading__title heading__title--sub">Paris / 75</p>
           </div>
           <div class="text heading--small">
-            <p class="heading__title">17 appartements de 1 à 3 pièces</p>
-            <p class="heading__title">Parking disponible en addition</p>
+            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
           </div>
           <ul class="prices">
-            <li><span class="text">À partir de <strong>54&nbsp;000€</strong></span><span class="tva">TVA 5,5%</span></li>
-            <li><span class="text">À partir de <strong>1&nbsp;684&nbsp;000€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+            <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
+              <li><span class="text">À partir de <strong><?php print chunk_split($field_program_low_tva_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+            <?php endif; ?>
+            <li><span class="text">À partir de <strong><?php print chunk_split($field_programme_price_min[0]['value'], 3, ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
           </ul>
         </div>
         <ul class="squaredImageItem__actions">
