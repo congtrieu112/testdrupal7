@@ -80,16 +80,16 @@ function kandb_programme_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '15',
+          'weight' => '17',
         ),
         'redirect' => array(
-          'weight' => '14',
+          'weight' => '16',
         ),
         'domain' => array(
           'weight' => '1',
         ),
         'xmlsitemap' => array(
-          'weight' => '16',
+          'weight' => '18',
         ),
       ),
       'display' => array(
