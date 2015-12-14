@@ -82,7 +82,7 @@
 ?>
 <ul class="mySelectionsProgrammes__actions">
   <li data-app-accordion-link="#programme<?php print $id; ?>" role="button" class="active display-status"><span class="show-for-sr">fermer</span></li>
-  <li data-cookie="offres" data-cookie-remove="1" data-cookie-callback="removeSelection" role="button" class="display-status display-status--suppr"><span class="show-for-sr">Supprimer le programme de vos sélections</span></li>
+  <li data-cookie="programme" data-cookie-remove="<?php print $node->nid; ?>" data-cookie-callback="removeSelection" role="button" class="display-status display-status--suppr"><span class="show-for-sr">Supprimer le programme de vos sélections</span></li>
 </ul>
 <article id="programme<?php print $id; ?>" class="mySelectionsProgramme">
   <div data-app-accordion-sample="data-app-accordion-sample">
@@ -216,9 +216,17 @@
             --><img alt="Contact Programme " src="<?php print $field_photo_conseiller[0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
             <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[0]['value']; ?></a>
           </li>
+
           <?php
-            if (function_exists('kandb_contact_block_page')) {
-              print kandb_contact_block_page();
+            if (function_exists('kandb_contact_buttons')) {
+              $url = kandb_contact_buttons(TRUE);
+              $i = 0;
+              foreach($url as $title_url => $link) {
+                ?>
+                  <li class="contact__item"><a href="<?php print $link; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-<?php print ($i ? 'tel' : 'email'); ?>"></span><?php print $title_url; ?></span></a></li>
+                <?php
+                $i++;
+              }
             }
           ?>
         </ul>

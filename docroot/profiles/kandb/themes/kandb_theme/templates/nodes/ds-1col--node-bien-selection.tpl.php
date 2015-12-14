@@ -80,12 +80,149 @@
  * @ingroup themeable
  */
 ?>
-<div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
-
-  <?php print $user_picture; ?>
-
-  <?php print render($title_prefix); ?>
-    <h2<?php print $title_attributes; ?>><a href="<?php print $node_url; ?>"><?php print $title; ?></a></h2>
-  <?php print render($title_suffix); ?>
-
-</div>
+<ul class="mySelectionsProgrammes__actions">
+  <li data-app-accordion-link="#programme<?php print $id; ?>" role="button" class="active display-status"><span class="show-for-sr">fermer</span></li>
+  <li data-cookie="programme" data-cookie-remove="<?php print $node->nid; ?>" data-cookie-callback="removeSelection" role="button" class="display-status display-status--suppr"><span class="show-for-sr">Supprimer le programme de vos sélections</span></li>
+</ul>
+<article id="bien<?php print $id; ?>" class="mySelectionsProgramme">
+  <div data-app-accordion-sample="data-app-accordion-sample">
+    <div class="mySelectionsProgramme__small">
+      <div class="media">
+        <?php if(!empty($programme_selection_very_small)) : ?>
+          <div class="media__img">
+            <!-- 1 format needed:- 160 x 160 (HEAVY compression!!!) -->
+            <img alt="Photo programme" src="<?php print $programme_selection_very_small; ?>">
+          </div>
+        <?php endif; ?>
+        <div class="media__content">
+          <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $field_programme_loc_ville[0]['taxonomy_term']->name; ?> / <?php print $field_programme_loc_department[0]['taxonomy_term']->field_numero_departement['und'][0]['value']; ?></span>
+            <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+              <ul class="tags-list">
+                <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+                  <li>
+                    <div class="tag tag--important">Nouveauté</div>
+                  </li>
+                <?php endif; ?>
+                <?php if(!empty($promotions)) : ?>
+                  <?php $current = 0; ?>
+                  <?php foreach($promotions as $idp => $promotion): ?>
+                    <li>
+                      <button data-reveal-trigger="selection-promotion-1" class="tag tag--important"><?php print $promotion->title; ?> <sup><?php print $id; ?><?php print $current; ?></sup></button>
+                      <!-- [popin] start-->
+                      <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                          <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
+                          <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                        </div>
+                      </div>
+                      <!-- [popin] end-->
+                    </li>
+                    <?php $current ++; ?>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </ul>
+            <?php endif; ?>
+          </div>
+          <div class="text heading--small">
+            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
+          </div>
+        </div>
+      </div>
+      <ul class="prices">
+        <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
+          <li><span class="text">À partir de <strong><?php print number_format($field_program_low_tva_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+        <?php endif; ?>
+        <li><span class="text">À partir de <strong><?php print number_format($field_programme_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+      </ul>
+    </div>
+  </div>
+  <div data-app-accordion-content="data-app-accordion-content">
+    <div class="mySelectionsProgramme__large">
+      <div class="squaredImageItem__img">
+        <!-- images need to have 2 formats see data-exchange attribute:
+        - small: 560 x 310 (heavy compression)
+        - medium: 300 x 300
+        -->
+        <!-- [Responsive img] start-->
+        <?php if(!empty($programme_selection_very_small)) : ?>
+          <img alt="Photo du programme" data-interchange="[<?php print $programme_selection_small; ?>, (small)], [<?php print $programme_selection_medium; ?>, (medium)]">
+          <noscript><img src="<?php print $programme_selection_medium; ?>" alt="Photo du programme"></noscript>
+        <?php endif; ?>
+        <!-- [Responsive img] end-->
+        <div class="squaredImageItem__img__tags">
+          <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+            <ul class="tags-list">
+              <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+                <li>
+                  <div class="tag tag--important">Nouveauté</div>
+                </li>
+              <?php endif; ?>
+              <?php if(!empty($promotions)) : ?>
+                <?php $current = 0; ?>
+                <?php foreach($promotions as $idp => $promotion): ?>
+                  <li>
+                    <button data-reveal-trigger="selection-promotion-1" class="tag tag--important"><?php print $promotion->title; ?> <sup><?php print $id; ?><?php print $current; ?></sup></button>
+                    <!-- [popin] start-->
+                    <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                      <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                        <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
+                        <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                      </div>
+                    </div>
+                    <!-- [popin] end-->
+                  </li>
+                  <?php $current ++; ?>
+                <?php endforeach; ?>
+              <?php endif; ?>
+            </ul>
+          <?php endif; ?>
+        </div>
+      </div>
+      <div class="squaredImageItem__infos">
+        <div class="squaredImageItem__details">
+          <div class="heading heading--bordered">
+            <h3 class="heading__title"><?php print $title; ?></h3>
+            <p class="heading__title heading__title--sub">Paris / 75</p>
+          </div>
+          <div class="text heading--small">
+            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
+          </div>
+          <ul class="prices">
+            <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
+              <li><span class="text">À partir de <strong><?php print number_format($field_program_low_tva_price_min[0]['value'], 0, ',', ' ');?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
+            <?php endif; ?>
+            <li><span class="text">À partir de <strong><?php print number_format($field_programme_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+          </ul>
+        </div>
+        <ul class="squaredImageItem__actions">
+          <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
+          <?php if(!empty($field_plaquette_commerciale)) : ?>
+            <li><a href="<?php print url($field_plaquette_commerciale[0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+          <?php endif; ?>
+          <li>
+            <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
+            <div class="sharing f-dropdown" id="sharing-0" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
+              <ul class="sharing__items">
+                <li class="sharing__items__item"><a href="mailto:" title="partage par email" class="icon icon-email"></a></li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <?php if(!empty($field_nom_conseiller)): ?>
+        <ul class="bg-lightGrey contact">
+          <li class="contact__item">
+            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
+            --><img alt="Contact Programme " src="<?php print $field_photo_conseiller[0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
+            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[0]['value']; ?></a>
+          </li>
+          <?php
+          if (function_exists('kandb_contact_buttons')) {
+            print kandb_contact_buttons();
+          }
+          ?>
+        </ul>
+      <?php endif; ?>
+    </div>
+  </div>
+</article>

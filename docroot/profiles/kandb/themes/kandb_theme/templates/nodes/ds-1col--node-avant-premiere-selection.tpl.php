@@ -80,6 +80,8 @@
  * @ingroup themeable
  */
 ?>
+POUR REMOVE LE COOKIE
+<?php print $node->nid; ?>
 <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
   <?php print $user_picture; ?>

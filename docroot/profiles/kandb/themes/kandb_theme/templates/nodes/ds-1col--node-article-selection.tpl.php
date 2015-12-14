@@ -79,18 +79,19 @@
  *
  * @ingroup themeable
  */
+$url = url('node/' . $node->nid);
 ?>
 <!-- [squaredImageItem] start-->
 <article data-selection-item="data-selection-item" class="squaredImageItem false">
-  <div class="squaredImageItem__img"><a href="#" title="Go to programme page"><img src="test_assets/results-1.jpg" alt="description de la photo"/></a>
-    <button data-cookie="offres" data-cookie-remove="4" data-cookie-callback="removeSelectionSlide" class="display-status display-status--suppr remove-item"><span class="show-for-sr">Supprimer le programme de vos sélections</span></button>
+  <div class="squaredImageItem__img"><a href="<?php print $url; ?>" title="Go to programme page"><?php if(isset($field_article_image[0]['uri'])) : ?><img src="<?php print image_style_url('article_selection', $field_article_image[0]['uri']);  ?>" alt="description de la photo"/><?php endif; ?></a>
+    <button data-cookie="articles" data-cookie-remove="<?php print $node->nid; ?>" data-cookie-callback="removeSelectionSlide" class="display-status display-status--suppr remove-item"><span class="show-for-sr">Supprimer le programme de vos sélections</span></button>
   </div>
   <div class="squaredImageItem__infos">
-    <div class="squaredImageItem__details"><a href="#" title="Go to programme page" class="heading heading--small">
-        <p class="heading__title heading__title--sub">10.06.2015</p>
-        <h3 class="heading__title">Acheter pour la prèmiere fois 3</h3></a>
+    <div class="squaredImageItem__details"><a href="<?php print $url; ?>" title="Go to article page" class="heading heading--small">
+        <p class="heading__title heading__title--sub"><?php print date('d.m.Y', $created); ?></p>
+        <h3 class="heading__title"><?php print $title; ?></h3></a>
     </div>
-    <div class="squaredImageItem__btn"><a href="#" class="btn-rounded btn-primary">Lire l'article<span class="icon icon-arrow"></span></a>
+    <div class="squaredImageItem__btn"><a href="<?php print $url; ?>" class="btn-rounded btn-primary">Lire l'article<span class="icon icon-arrow"></span></a>
     </div>
   </div>
 </article>
