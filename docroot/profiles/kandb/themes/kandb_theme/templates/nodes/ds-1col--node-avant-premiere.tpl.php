@@ -1,6 +1,6 @@
 <?php
 $ville = isset($node->field_avant_premiere_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_avant_premiere_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
-$arrondissement = isset($node->field_avant_premiere_arrondissem['und'][0]['value']) ? $node->field_avant_premiere_arrondissem['und'][0]['value'] : '';
+$arrondissement = isset($node->field_avant_premiere_arrondissem['LANGUAGE_NONE'][0]['value']) ? $node->field_avant_premiere_arrondissem['LANGUAGE_NONE'][0]['value'] : '';
 // Information for header programme page
 $title = isset($node->title) ? $node->title : '';
 $image_principale = isset($node->field_avant_premiere_image_princ[LANGUAGE_NONE][0]['uri']) ? $node->field_avant_premiere_image_princ[LANGUAGE_NONE][0]['uri'] : '';
@@ -18,7 +18,7 @@ if ($image_principale) {
 $en_quelques_mots = isset($node->field_avant_premiere_en_quelques[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_en_quelques[LANGUAGE_NONE][0]['value'] : '';
 $description = isset($node->field_avant_premiere_description[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_description[LANGUAGE_NONE][0]['value'] : '';
 
-$ouverture = isset($node->field_avant_premiere_grande_ouve['und'][0]['value']) ? $node->field_avant_premiere_grande_ouve['und'][0]['value'] : '';
+$ouverture = isset($node->field_avant_premiere_grande_ouve['LANGUAGE_NONE'][0]['value']) ? $node->field_avant_premiere_grande_ouve['LANGUAGE_NONE'][0]['value'] : '';
 
 $promotions = get_nids_promotions_by_avant($node->nid);
 ?>
@@ -84,38 +84,44 @@ $promotions = get_nids_promotions_by_avant($node->nid);
                         <div class="heading__title"><?php print $ville . ' ' . $arrondissement; ?></div>
                         <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                     </h1>
-                    <?php
-                    if ($ouverture):
-                      $date_range_string = '';
-                      if (module_exists('kandb_validate')) {
-                        $start_date = $node->field_avant_premiere_date_debut[LANGUAGE_NONE][0]['value'];
-                        $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
-                        $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
-                        $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
-                      }
-                      ?>
-                      <div class="tag tag--important"><?php print t('Grande ouverture'); ?></div>
-                      <p class=""><?php print $date_range_string; ?></p>
-                    <?php else: ?>
-                      <div class="tag tag--important"><?php print t('Avant-première'); ?></div>
-                    <?php endif; ?>
-                    <?php if ($promotions) : ?>
-                      <?php
-                      foreach ($promotions as $promotion) :
-                        $triger_promotion = 'promotion-' . $promotion->nid;
-                        ?>
-                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                        <!-- [popin] start-->
-                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
-                            </div>
-                        </div>
-                        <!-- [popin] end-->
-                      <?php endforeach; ?>
-                      </ul>
-                    <?php endif; ?>
+                    <ul class="tags-list">
+                        <?php
+                        if ($ouverture):
+                            $date_range_string = '';
+                            if (module_exists('kandb_validate')) {
+                                $start_date = $node->field_avant_premiere_date_debut[LANGUAGE_NONE][0]['value'];
+                                $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
+                                $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
+                                $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
+                            }
+                            ?>
+                            <li>
+                                <div class="tag tag--important"><?php print t('Grande ouverture'); ?></div>
+                                <p class=""><?php print $date_range_string; ?></p>
+                            </li>
+                        <?php else: ?>
+                            <li>
+                                <div class="tag tag--important"><?php print t('Avant-première'); ?></div>
+                            </li>
+                        <?php endif; ?>
+                        <?php
+                        if ($promotions) :
+                            foreach ($promotions as $promotion) :
+                                $triger_promotion = 'promotion-' . $promotion->nid;
+                                ?>
+                                <li>
+                                    <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                            <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                        </div>
+                                    </div>
+                                    <!-- [popin] end-->
+                                </li>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </ul>
                 </div>
             </div>
             <div class="programHeader__content__details">
