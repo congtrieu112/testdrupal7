@@ -125,8 +125,8 @@ function kandb_selection_ajax_selection(){
     )
   );
 
-  return theme('ajax_selection', $content);
-  // drupal_exit();
+  print theme('ajax_selection', $content);
+  drupal_exit();
 }
 
 /**

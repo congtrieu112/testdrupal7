@@ -460,9 +460,9 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['programme_selection_medium'] = image_style_url('programme_selection_medium', $image);
     }
 
-    if(!empty($field_nom_conseiller)){
-      $field_photo_conseiller = '';
-
+    if(!empty($vars['field_photo_conseiller'])){
+      $image = $vars['field_photo_conseiller'][0]['uri'];
+      $vars['field_photo_conseiller'][0]['contact_selection'] = image_style_url('contact_selection', $image);
     }
   }
 }

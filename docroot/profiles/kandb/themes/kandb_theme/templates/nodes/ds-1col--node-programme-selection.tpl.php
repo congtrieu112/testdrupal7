@@ -197,7 +197,7 @@
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>
-            <li><a href="#" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+            <li><a href="<?php print url($field_plaquette_commerciale[0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
           <?php endif; ?>
           <li>
             <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
@@ -213,8 +213,8 @@
         <ul class="bg-lightGrey contact">
           <li class="contact__item">
             <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
-            --><img alt="Photo programme" src="test_assets/mySelectionContactUs.jpg" class="contact__item__img hide-for-small-only">
-            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://0134544400" class="btn-phone">01 34 54 44 00</a>
+            --><img alt="Contact Programme " src="<?php print $field_photo_conseiller[0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
+            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[0]['value']; ?></a>
           </li>
           <?php
             if (function_exists('kandb_contact_block_page')) {

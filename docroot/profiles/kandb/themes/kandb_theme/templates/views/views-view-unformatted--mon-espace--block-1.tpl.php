@@ -7,6 +7,10 @@
  * @ingroup views_templates
  */
 ?>
-<?php foreach ($rows as $id => $row): ?>
-  <?php print $row; ?>
-<?php endforeach; ?>
+<ul data-app-accordion="data-app-accordion" data-seemore-list="programmes" class="accordion fullWidth mySelectionsProgrammes">
+  <?php foreach ($rows as $id => $row): ?>
+    <li data-selection-item="data-selection-item" class="accordion__link">
+      <?php print $row; ?>
+    </li>
+  <?php endforeach; ?>
+</ul>
