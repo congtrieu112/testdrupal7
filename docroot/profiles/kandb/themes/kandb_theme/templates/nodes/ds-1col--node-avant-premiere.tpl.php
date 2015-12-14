@@ -1,6 +1,6 @@
 <?php
 $ville = isset($node->field_avant_premiere_ville[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_avant_premiere_ville[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
-$arrondissement = isset($node->field_avant_premiere_arrondissem['LANGUAGE_NONE'][0]['value']) ? $node->field_avant_premiere_arrondissem['LANGUAGE_NONE'][0]['value'] : '';
+$arrondissement = isset($node->field_avant_premiere_arrondissem[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_arrondissem[LANGUAGE_NONE][0]['value'] : '';
 // Information for header programme page
 $title = isset($node->title) ? $node->title : '';
 $image_principale = isset($node->field_avant_premiere_image_princ[LANGUAGE_NONE][0]['uri']) ? $node->field_avant_premiere_image_princ[LANGUAGE_NONE][0]['uri'] : '';
@@ -18,7 +18,7 @@ if ($image_principale) {
 $en_quelques_mots = isset($node->field_avant_premiere_en_quelques[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_en_quelques[LANGUAGE_NONE][0]['value'] : '';
 $description = isset($node->field_avant_premiere_description[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_description[LANGUAGE_NONE][0]['value'] : '';
 
-$ouverture = isset($node->field_avant_premiere_grande_ouve['LANGUAGE_NONE'][0]['value']) ? $node->field_avant_premiere_grande_ouve['LANGUAGE_NONE'][0]['value'] : '';
+$ouverture = isset($node->field_avant_premiere_grande_ouve[LANGUAGE_NONE][0]['value']) ? $node->field_avant_premiere_grande_ouve[LANGUAGE_NONE][0]['value'] : '';
 
 $promotions = get_nids_promotions_by_avant($node->nid);
 ?>
