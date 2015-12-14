@@ -432,7 +432,14 @@ if ($region_id && $programme_carousel):
       <div class="wrapper">
           <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
           <?php print $programme_carousel; ?>
-          <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
+          <?php
+            if($nodeid = variable_get('kandb_progamme_link_default_selected')) :
+                $url = url('node/' . $nodeid);
+            else :
+                $url = '#';
+            endif;
+          ?>
+          <div class="btn-wrapper btn-wrapper--center"><a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
           </div>
       </div>
   </section>
