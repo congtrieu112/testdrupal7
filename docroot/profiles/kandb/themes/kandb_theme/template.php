@@ -448,6 +448,23 @@ function kandb_theme_preprocess_node(&$vars) {
       }
     }
   }
+
+  if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
+    $vars['promotions'] = get_nids_promotions_by_programme($vars['nid']);
+
+
+    if(isset($vars['field_image_principale'])){
+      $image = $vars['field_image_principale'][0]['uri'];
+      $vars['programme_selection_very_small'] = image_style_url('programme_selection_very_small', $image);
+      $vars['programme_selection_small'] = image_style_url('programme_selection_small', $image);
+      $vars['programme_selection_medium'] = image_style_url('programme_selection_medium', $image);
+    }
+
+    if(!empty($vars['field_photo_conseiller'])){
+      $image = $vars['field_photo_conseiller'][0]['uri'];
+      $vars['field_photo_conseiller'][0]['contact_selection'] = image_style_url('contact_selection', $image);
+    }
+  }
 }
 
 /**

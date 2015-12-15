@@ -382,8 +382,6 @@ function recherche_simple_form($form, &$form_state) {
 
 /**
  * Implements hook_form_validate()
- * @param type $form
- * @param type $form_state
  */
 function recherche_simple_form_validate(&$form, &$form_state) {
 
@@ -391,18 +389,14 @@ function recherche_simple_form_validate(&$form, &$form_state) {
 
 /**
  * Implements hook_form_submit()
- * @param type $form
- * @param type $form_state
  */
 function recherche_simple_form_submit() {
 
 }
 
 /**
+ * Implements hook_form()
  * Create form 'Recherche Complete B2C'
- * @param type $form
- * @param type $form_state
- * @return type
  */
 function recherche_complete_b2c_form($form, &$form_state) {
   $form['place'] = array(
@@ -422,7 +416,9 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
+    '#theme' => 'recherche_check_box',
+    // For selection purpose
+    '#taxonomy' => TRUE,
   );
 
   $form['prix_min'] = array(
@@ -430,6 +426,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
     '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $form['prix_max'] = array(
@@ -437,6 +434,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
     '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('nb_pieces');
@@ -449,7 +447,9 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
+    '#theme' => 'recherche_check_box',
+    // For selection purpose
+    '#taxonomy' => TRUE,
   );
 
   $form['field_superficie'] = array(
@@ -457,6 +457,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min')),
     '#default_value' => isset($_GET['field_superficie']) ? $_GET['field_superficie'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
@@ -469,7 +470,9 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#type' => 'checkboxes',
     '#options' => $form_terms,
     '#theme_wrappers' => array(),
-    '#theme' => 'recherche_check_box'
+    '#theme' => 'recherche_check_box',
+    // For selection purpose
+    '#taxonomy' => TRUE,
   );
 
   $form['submit'] = array(
