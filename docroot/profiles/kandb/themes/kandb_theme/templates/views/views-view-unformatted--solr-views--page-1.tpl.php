@@ -10,7 +10,9 @@
 <?php
 $number_of_programme = 0;
 $villes = array();
+$number_of_piece_by_programme = array();
 $current_id_programme = 0;
+$type_of_bien_by_programme = array();
 $number_of_bien_by_programme = array();
 $programme_promotions = array();
 foreach ($rows as $id => $row) {
@@ -19,6 +21,7 @@ foreach ($rows as $id => $row) {
   foreach($row_result['promotions'] as $promotion) {
     $programme_promotions[$row_result['field_programme_nid']][$promotion->nid] = $promotion;
   }
+
   if ($row_result['field_programme_nid'] != $current_id_programme) {
     $number_of_bien_by_programme[$row_result['field_programme_nid']] = 1;
     $current_id_programme = $row_result['field_programme_nid'];
@@ -26,6 +29,20 @@ foreach ($rows as $id => $row) {
     if(!empty($row_result['field_programme_ville_text'])) $villes[] = $row_result['field_programme_ville_text'];
   }else{
     $number_of_bien_by_programme[$row_result['field_programme_nid']] ++;
+  }
+
+  if(!isset($number_of_piece_by_programme[$row_result['field_programme_nid']])) {
+    $number_of_piece_by_programme[$row_result['field_programme_nid']] = array();
+  }
+  if(!in_array($row_result['field_nb_pieces'], $number_of_piece_by_programme[$row_result['field_programme_nid']])) {
+    $number_of_piece_by_programme[$row_result['field_programme_nid']][] = $row_result['field_nb_pieces'];
+  }
+  if(!isset($type_of_bien_by_programme[$row_result['field_programme_nid']])){
+    $type_of_bien_by_programme[$row_result['field_programme_nid']] = array();
+  }elseif(!isset($type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']])){
+    $type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']] = 1;
+  }else{
+    $type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']] ++;
   }
 }
 $number_of_villes = count(array_unique($villes));
@@ -94,7 +111,30 @@ $current_promotion_indice = 1;
                 <noscript><img src="<?php print $row_result['search_medium']; ?>" alt="Photo programme undefined"/></noscript>
                 <!-- [Responsive img] end--></a>
               <div class="searchResultsItem__infos__details">
-                <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php print (count($number_of_bien_by_programme[$row_result['field_programme_nid']]) > 1 ? 'appartements disponibles': 'appartement disponible'); ?> de <?php print $row_result['field_programme_field_programme_room_min']; ?> à <?php print $row_result['field_programme_field_programme_room_max']; ?> pièces </p>
+                <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php
+                  $output = '';
+                  if(!empty($type_of_bien_by_programme[$row_result['field_programme_nid']])) {
+                    foreach ($type_of_bien_by_programme[$row_result['field_programme_nid']] as $type => $number) {
+                      $output .= $type . (($number >1) ? 's' : '') . ' '; // Ugly
+                      if($type == t('Appartement')) {
+                        $count = count($number_of_piece_by_programme[$row_result['field_programme_nid']]);
+                        if($count == 1){
+                          $output .= 'de ' . $number_of_piece_by_programme[$row_result['field_programme_nid']][0] . ' ';
+                        }elseif($count > 1){
+                          $first = $number_of_piece_by_programme[$row_result['field_programme_nid']][0];
+                          if(is_numeric(substr($first, 0, 1))){
+                            $first = substr($first, 0, 1);
+                          }
+                          $last = $number_of_piece_by_programme[$row_result['field_programme_nid']][$count-1];
+                          $output .= 'de '. $first . ' à ' . $last . ' ';
+                        }
+                      }
+                      $output .= 'disponible' . (($number >1) ? 's' : '') . ', ';
+                    }
+                  }
+                  $output = substr($output, 0, -2);
+                  print $output;
+                  ?></p>
                 <ul class="details">
                   <li><?php print str_replace('##', '</li><li>', $row_result['field_programme_field_caracteristiques']); ?></li>
                 </ul>
