@@ -426,6 +426,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min'), 'class' => array('input__text small-padding text-center')),
     '#default_value' => isset($_GET['prix_min']) ? $_GET['prix_min'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $form['prix_max'] = array(
@@ -433,6 +434,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Max'), 'class' => array('input__text small-padding text-center')),
     '#default_value' => isset($_GET['prix_max']) ? $_GET['prix_max'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('nb_pieces');
@@ -455,6 +457,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#size' => 1,
     '#attributes' => array('placeholder' => array('Min')),
     '#default_value' => isset($_GET['field_superficie']) ? $_GET['field_superficie'] : NULL,
+    '#theme_wrappers' => array(),
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
