@@ -261,12 +261,14 @@ class DocCommuniqueCSVParser extends ParserCSV{
 //          $log_text .= $line;
 //          continue;
 //      }
+      $columnNamesStatus = 0;
       if (empty($this->columnNames)) {
         $row = $fields;
       }
       else {
         $doc_sticky = 0;
         $row = array();
+        $columnNamesStatus = 1;
         foreach ($this->columnNames as $columnName) {
           $field = array_shift($fields);
           if($columnName == 'identifiantcommunique'){
@@ -333,6 +335,10 @@ class DocCommuniqueCSVParser extends ParserCSV{
       if(!(isset($row['identifiantcommunique']) && $row['identifiantcommunique'] == 0)){
         $mylinesParsed++;
         $rows[] = $row;
+      }
+
+      if($columnNamesStatus == 0) {
+        $mylinesParsed--;
       }
 
       // Quit parsing if timeout has been reached or requested lines have been
