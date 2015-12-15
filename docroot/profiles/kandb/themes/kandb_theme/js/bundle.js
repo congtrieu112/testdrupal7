@@ -37413,15 +37413,21 @@ AppAccordion.prototype = {
             .velocity('slideDown', {
               duration: 500,
               progress: function(elements, complete, remaining, start, tweenValue) {
-                var linkPosition    = $this.offset().top,
-                    windowPosition  = $(window).scrollTop(),
-                    moveTo          = linkPosition - 100 - windowPosition,
-                    value           = windowPosition + moveTo * complete;
+                if( Foundation.utils.is_small_only() ) {
+                  var linkPosition    = $this.offset().top,
+                      windowPosition  = $(window).scrollTop(),
+                      moveTo          = linkPosition - 100 - windowPosition,
+                      value           = windowPosition + moveTo * complete;
 
-                $(window).scrollTop( Number(value.toFixed()) );
+                  $(window).scrollTop( Number(value.toFixed()) );
+                } else {
+                  $(window).trigger('velocity.rezised');
+                }
               },
               complete: function() {
-                $(window).trigger('velocity.rezised');
+                if( Foundation.utils.is_medium_up() ) {
+                  $(window).trigger('velocity.rezised');
+                }
               }
             });
 
@@ -38134,6 +38140,7 @@ var clickMapSection = function() {
 
 var fixMapWidth = function() {
     that.parent.css('width', that.container.width());
+    that.topBarHeight = App.topBarHeight();
 };
 
 var fixMap = function() {
@@ -38291,7 +38298,7 @@ function AppCookies( el, opts ) {
     this.value = window.location.origin + window.location.pathname + window.location.search;
     this.item.attr('data-cookie-add', this.value);
   } else {
-    this.value = parseInt(this.value, 10);
+    this.value = _.isNumber(this.value) ? parseInt(this.value, 10) : this.value;
   }
 
   this.init();
@@ -38755,13 +38762,8 @@ Gmaps.prototype = {
 
       this.newMap.fitZoom();
 
-      $(window).on('resize.gmaps', function(e){
-        that.setHeight()
-            .setPosition();
-      });
-
-      // onScroll and when accordion finish opening
-      $(window).on('scroll.gmaps velocity.rezised', function(e){
+      // window resize, rotation, scroll and accordion opening
+      $(window).on('resize.gmaps scroll.gmaps velocity.rezised', function(e){
         that.setHeight()
             .setPosition();
       });
@@ -40353,10 +40355,10 @@ if ( $('html').attr('data-debug') !== undefined ) {
 
 
 // merge window.knbVars object present in DOM into App
-if ( typeof global.Drupal === 'undefined' ) {
+if ( typeof window.Drupal === 'undefined' ) {
   window.Drupal = {
     settings: {
-      knb: {
+      kandb_settings: {
         selections: {
           errorMessage: "Vous ne pouvez pas enregistrer plus de 20 items, voulez-vous gérer vos favoris ?",
           errorRedirect: "index.html",
@@ -40366,7 +40368,7 @@ if ( typeof global.Drupal === 'undefined' ) {
     }
   };
 }
-_.merge(window.App.settings, window.Drupal.settings.knb);
+_.merge(window.App.settings, window.Drupal.settings.kandb_settings);
 
 
 // refresh functions after ajax response

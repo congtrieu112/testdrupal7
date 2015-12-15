@@ -404,10 +404,19 @@ class KbFeedsMiNodeProcessor extends FeedsProcessor {
             ->entityCondition('bundle', 'programme')
             ->fieldCondition('field_id_programme', 'value', $value);
           $results = $query->execute();
-          if ($results["node"]) {
-            foreach($results["node"] as $node) {
-              $entity_id = $node->nid;
-            }
+        }
+
+        if($source->id == 'parcel_feed_import') {
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'bien')
+            ->fieldCondition('field_id_bien', 'value', $value);
+          $results = $query->execute();
+        }
+
+        if ($results["node"]) {
+          foreach($results["node"] as $node) {
+            $entity_id = $node->nid;
           }
         }
       }

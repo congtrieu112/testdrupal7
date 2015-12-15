@@ -53,7 +53,7 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
           </li>
         </ul>
         <aside aria-hidden="true" class="wrapper header__search js-topbarSearch">
-          <form action="/<?php print URL_SEARCH_B2C; ?>" method="get" nov alidate="" class="smallSearch">
+          <form action="/<?php print URL_SEARCH_B2C; ?>" method="get" novalidate="" class="smallSearch">
             <button type="submit" aria-label="Lancer la recherche" class="icon icon-search"></button>
             <div class="smallSearch__input">
               <input type="search" name="place" placeholder="Ville, département ou programme" required="" pattern="(.){2,}$" class="noScroll">
@@ -70,7 +70,7 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
               <li class="main-menu__item"><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink')))); ?></li>
             <?php endforeach; ?>
           <?php endif; ?>
-          <li class="main-menu__item"><a href="#" class="btn-primary btn-rounded btn-icon"><span class="button__content"><span class="icon icon-account"></span>Mon espace</span></a></li>
+          <li class="main-menu__item"><a href="/<?php print URL_PROJET; ?>" class="btn-primary btn-rounded btn-icon"><span class="button__content"><span class="icon icon-account"></span>Mon espace</span></a></li>
         </ul>
       </div>
     </nav>

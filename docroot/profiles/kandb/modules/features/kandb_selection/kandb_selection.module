@@ -9,8 +9,8 @@ include_once 'kandb_selection.features.inc';
 /**
  * Define Selection URLs
  */
-define('URL_PROJET', 'projet');
-define('URL_PROJET_AJAX', 'projet/ajax');
+define('URL_PROJET', 'mon-espace');
+define('URL_PROJET_AJAX', 'mon-espace/ajax');
 
 /**
  * Implements hook_menu().
@@ -18,19 +18,19 @@ define('URL_PROJET_AJAX', 'projet/ajax');
 function kandb_selection_menu() {
   $menu = array();
   $menu[URL_PROJET] = array(
-    'title' => 'Ma sélection',
+    'title' => 'Mon espace',
     'page callback' => 'kandb_selection_page_selection',
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
   $menu[URL_PROJET_AJAX] = array(
-    'title' => 'Ma sélection | AJAX Callback',
+    'title' => '',
     'page callback' => 'kandb_selection_ajax_selection',
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
   $menu['admin/content/ketb/projet'] = array(
-    'title' => 'Mon projet',
+    'title' => 'Mon espace',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_selection_page_admin_form'),
     'access arguments' => array('administer selection'),
@@ -76,47 +76,135 @@ function kandb_selection_theme($existing, $type, $theme, $path) {
  * Page Callback
  */
 function kandb_selection_page_selection() {
-
-  $content = array();
-
-  // Get the Ids from the arguments
-  $ids_programme = explode('-', $_GET['programme']);
-  $ids_bien = explode('-', $_GET['bien']);
-  $ids_avant_premiere = explode('-', $_GET['avant_premiere']);
-  $ids_articles = explode('-', $_GET['article']);
-  $recherches = explode('-', $_GET['recherche']);
-
-  // Selection Programme Bien & Avant Premiere
-  $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
-    'views_embed_view',
-    array_merge(
-      array('selection', 'block'),
-      $ids_programme,
-      $ids_bien,
-      $ids_avant_premiere
-    )
+  $variables = array();
+  $bg = file_load(variable_get('kandb_selection_photo'));
+  $variables['backgrounds'] = array(
+    'small' => image_style_url('header_small', $bg->uri),
+    'medium' => image_style_url('header_large', $bg->uri),
   );
+  $variables['title'] = variable_get('kandb_selection_title');
+  $variables['sub_title'] = variable_get('kandb_selection_sub_title');
+  $variables['ajax_url'] = '/' . URL_PROJET_AJAX;
 
-  // Selection Recherche
-  $content['recherche'] = theme('block_recherche', $recherches);
+  $block_contact = module_invoke('kandb_contact', 'block_view', 'contact_block_page');
+  $variables['contact'] = $block_contact['content'];
 
-  // Selection Articles
-  $content['selection_article'] = call_user_func_array(
-    'views_embed_view',
-    array_merge(
-      array('selection', 'block_1'),
-      $ids_articles
-    )
-  );
-
-  return theme('page_selection', $content);
+  return theme('page_selection', $variables);
 }
 
 /**
  * Ajax Callback
  */
 function kandb_selection_ajax_selection(){
-  $content = '';
-  return theme('ajax_selection', $content);
+  $content = array();
+
+  // Get the Ids from the arguments
+  $ids_programme = isset($_GET['programme']) ? explode(',', $_GET['programme']) : array();
+  // TODO : Bien et Avant Premiere => Wait for front
+  // $ids_bien = isset($_GET['bien']) ? explode(',', $_GET['bien']) : array();
+  $ids_bien = array();
+  // $ids_avant_premiere = isset($_GET['avant_premiere']) ? explode(',', $_GET['avant_premiere']) : array();
+  $ids_avant_premiere = array();
+  $ids_articles = isset($_GET['articles']) ? explode(',', $_GET['articles']) : array();
+  $recherches = isset($_GET['recherches']) ? explode(',', $_GET['recherches']) : array();
+
+  // Selection Programme Bien & Avant Premiere
+  $content['selection_programme_bien_avant_premiere'] = call_user_func_array(
+    'views_embed_view',
+    array('mon_espace', 'block_1', implode('+', array_merge($ids_programme, $ids_bien, $ids_avant_premiere)))
+  );
+
+  // Selection Recherche
+  $content['recherche'] = theme('block_recherche', array('recherches' => kandb_selection_order_search_informations($recherches)));
+
+  // Selection Articles
+  $content['selection_article'] = call_user_func_array(
+    'views_embed_view',
+    array('mon_espace', 'block_2', implode('+', $ids_articles))
+  );
+
+  print theme('ajax_selection', $content);
+  drupal_exit();
 }
 
+/**
+ * Transform an array of search url into readable array of filter
+ *
+ * @param $recheches
+ *  Saved researches url in the cookies
+ *
+ * @return array
+ *  An readable array of  search
+ */
+function kandb_selection_order_search_informations($recherches){
+  global $base_url;
+
+  $reference = array();
+  $array_of_filter = recherche_complete_b2c_form(array(), $reference);
+  $return_array = array();
+  $taxonomy_ids_to_retrieve = array();
+
+  // First loop to get ids of data to retrieve
+  foreach($recherches as $id => $recherche) {
+
+    // Remove first part of the url
+    $recherche = str_replace($base_url, '', $recherche);
+    $recherche = str_replace('/' . URL_SEARCH_B2C . '?', '', $recherche);
+    $recherche = urldecode($recherche);
+    $recherche = explode('&', $recherche);
+
+
+    // Get all ids from taxonomy filter
+    foreach($recherche as $filter){
+      $filter = str_replace('[]', '', $filter);
+      $filter = explode('=', $filter);
+
+      // Avoid all filter that doesn't actually exists
+      if(!isset($array_of_filter[$filter[0]])) continue;
+
+      // Get taxonomy id to retrieve it
+      if(isset($array_of_filter[$filter[0]]['#taxonomy']) && $array_of_filter[$filter[0]]['#taxonomy']) $taxonomy_ids_to_retrieve[] = $filter[1];
+    }
+  }
+
+  $taxonomy_ids = array();
+  if(!empty($taxonomy_ids_to_retrieve)) {
+    $taxonomy_ids = taxonomy_term_load_multiple($taxonomy_ids_to_retrieve);
+  }
+
+  // Second loop to prepare the data for the template
+  foreach($recherches as $id => $recherche) {
+
+    // Remove first part of the url
+    $url = $recherche;
+    $recherche = str_replace($base_url, '', $recherche);
+    $recherche = str_replace('/' . URL_SEARCH_B2C . '?', '', $recherche);
+    $recherche = urldecode($recherche);
+    $recherche = explode('&', $recherche);
+    if(!isset($return_array[$id])) $return_array[$id] = array();
+
+    // First loop to clean and get all id to retrieve external data
+    foreach($recherche as $filter){
+      $filter = str_replace('[]', '', $filter);
+      $filter = explode('=', $filter);
+
+      // Avoid all filter that doesn't actually exists
+      if(!isset($array_of_filter[$filter[0]])) continue;
+
+      // Avoid all filter that doesn't have value
+      if(empty($filter[1])) continue;
+
+      // Organize data in the array
+      if(!isset($return_array[$id][$filter[0]])) $return_array[$id][$filter[0]] = array();
+      if(isset($array_of_filter[$filter[0]]['#taxonomy']) && $array_of_filter[$filter[0]]['#taxonomy']) $filter[1] = $taxonomy_ids[$filter[1]]->name;
+      $return_array[$id][$filter[0]][] = $filter[1];
+    }
+    $return_array[$id]['url'] = $url;
+  }
+
+  return $return_array;
+}
+
+function kandb_selection_isset_not_empty($var){
+  return (isset($var) && !empty($var));
+}

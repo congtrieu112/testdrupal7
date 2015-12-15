@@ -12,19 +12,19 @@ function kandb_selection_page_admin_form(){
 
   $form['kandb_selection_photo'] = array(
     '#type' => 'managed_file',
-    '#title' => t('Photo du block header de ma sélection)'),
+    '#title' => t('Photo du block header de mon projet'),
     '#default_value' => variable_get('kandb_selection_photo'),
     '#upload_location' => 'public://',
   );
   $form['kandb_selection_title'] = array(
     '#type' => 'textfield',
-    '#title' => t('Titre du bloc header de ma sélection'),
+    '#title' => t('Titre du bloc header de mon projet'),
     '#default_value' => variable_get('kandb_selection_title'),
     '#required' => TRUE,
   );
   $form['kandb_selection_sub_title'] = array(
     '#type' => 'textfield',
-    '#title' => t('Sous titre du bloc header de ma sélection'),
+    '#title' => t('Sous titre du bloc header de mon projet'),
     '#default_value' => variable_get('kandb_selection_sub_title'),
     '#required' => TRUE,
   );
