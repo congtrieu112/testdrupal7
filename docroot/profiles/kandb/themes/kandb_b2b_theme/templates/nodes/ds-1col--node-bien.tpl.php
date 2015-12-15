@@ -395,6 +395,9 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
 <!-- [More Available] start-->
 <?php
+global $_domain;
+$gid = $_domain['domain_id'];
+
 $list_bien_more = array();
 if ($piece_id) {
   $nb_pieces = taxonomy_term_load($piece_id);
@@ -402,6 +405,13 @@ if ($piece_id) {
   if (isset($list_bien_more[$node->nid])) :
     unset($list_bien_more[$node->nid]);
   endif;
+
+  foreach ($list_bien_more as $item) {
+    $bien_datas = node_load($item->nid);
+    if(!in_array($gid, $bien_datas->domains)) {
+      unset($list_bien_more[$item->nid]);
+    }
+  }
 }
 
 if (!empty($list_bien_more)):
@@ -423,6 +433,9 @@ if (!empty($list_bien_more)):
                           continue;
                         } else {
                           $bien_more = node_load($item->nid);
+                          if(!in_array($gid, $bien_more->domains)) {
+                            continue;
+                          }
                           $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);
                           $bien_id = $bien_id[count($bien_id) - 1];
                         }
