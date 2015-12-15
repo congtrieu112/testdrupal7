@@ -53,7 +53,7 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
           </li>
         </ul>
         <aside aria-hidden="true" class="wrapper header__search js-topbarSearch">
-          <form action="/<?php print URL_SEARCH_B2C; ?>" method="get" nov alidate="" class="smallSearch">
+          <form action="/<?php print URL_SEARCH_B2C; ?>" method="get" novalidate="" class="smallSearch">
             <button type="submit" aria-label="Lancer la recherche" class="icon icon-search"></button>
             <div class="smallSearch__input">
               <input type="search" name="place" placeholder="Ville, département ou programme" required="" pattern="(.){2,}$" class="noScroll">
