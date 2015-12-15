@@ -6,6 +6,21 @@
 
 include_once 'kandb_seo.features.inc';
 
+/**
+ * Implements hook_menu().
+ */
+function kandb_seo_menu() {
+  $items = array();
+  $items['ville'] = array(
+    'title' => 'Immobiliers neufs classement par villes | Kaufman et Broad',
+    'description' => 'Découvrez maintenant le classement de tous les logements neufs par [villes] et parcourez les différentes offres de Kaufman et Broad par villes.',
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('ville'),
+    'access arguments' => array('access content'),
+  );
+  return $items;
+}
 
 /**
  * Implements hook_menu_alter().
@@ -18,8 +33,28 @@ function kandb_seo_menu_alter(&$items) {
 }
 
 /**
+ * Implement hook_theme()
+ */
+function kandb_seo_theme($existing, $type, $theme, $path) {
+  return array(
+    'page_sitemap_geo' => array(
+      'template' => 'templates/page_sitemap_geo',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
  * Page Callback
  */
 function kandb_seo_taxonomy_callback(){
   print drupal_not_found();
+}
+
+/**
+ * Page Callback
+ */
+function kandb_seo_page_sitemap_geo($localisation){
+  $content = array();
+  return theme('page_sitemap_geo', $content);
 }
