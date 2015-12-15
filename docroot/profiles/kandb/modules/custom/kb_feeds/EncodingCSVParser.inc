@@ -225,7 +225,7 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      if($columnNamesStatus == 0) {
+      if($columnNamesStatus == 0 && $this->id != 'partenaire_programme_import') {
         $mylinesParsed--;
       }
 
@@ -240,7 +240,7 @@ class EncodingCSVParser extends ParserCSV {
         break;
       }
     }
-
+    
     $total = variable_get($this->id . '_total', 0);
     if($mylinesParsed > 0) {
       variable_set($this->id . '_total', $mylinesParsed + $total);

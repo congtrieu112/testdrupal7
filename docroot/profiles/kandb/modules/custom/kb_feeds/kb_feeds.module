@@ -357,7 +357,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-        if($logging) {
+        if($logging && strpos($logging, 'Warning') !== FALSE) {
           $warning_count += 1;
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
         }
@@ -434,7 +434,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
-        if($logging) {
+        if($logging && strpos($logging, 'Warning') !== FALSE) {
           $warning_count += 1;
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
         }
@@ -472,6 +472,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantdocbibliotheque');
+        if($logging && strpos($logging, 'Warning') !== FALSE) {
+          $warning_count += 1;
+          variable_set($entity->feeds_item->id . '_warning', $warning_count);
+        }
         if (!$logging || !strpos($logging, 'Skip import')) {
           $status = 0;
           $sticky = 0;
@@ -599,7 +603,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantprogramme');
-        if($logging) {
+        if($logging && strpos($logging, 'Warning') !== FALSE) {
           $warning_count += 1;
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
         }
@@ -750,6 +754,10 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       );
 
       $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantpartenaire');
+      if($logging && strpos($logging, 'Warning') !== FALSE) {
+        $warning_count += 1;
+        variable_set($entity->feeds_item->id . '_warning', $warning_count);
+      }
       $arr_parten_fields = array(
         'transferactif' => 'field_partenaire_actif',
         'typedeflux' => 'field_partenaire_nouveau',
@@ -1886,8 +1894,8 @@ function download_feeds_errorlog($file_name) {
 
 function kb_feeds_feeds_after_import(FeedsSource $source) {
   //$config_en = isset($source->getConfig()["KbEncodingCSVParser"]["no_headers"]) ? $source->getConfig()["KbEncodingCSVParser"]["no_headers"] : 0;
-  $config_feeds = isset($source->getConfig()["KbFeedsCSVParser"]["no_headers"]) ? $source->getConfig()["KbFeedsCSVParser"]["no_headers"] : 'NULL';
-  $config_doc = isset($source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"]) ? $source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"] : 'NULL';
+  //$config_feeds = isset($source->getConfig()["KbFeedsCSVParser"]["no_headers"]) ? $source->getConfig()["KbFeedsCSVParser"]["no_headers"] : 'NULL';
+  //$config_doc = isset($source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"]) ? $source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"] : 'NULL';
 
   $state = $source->state(FEEDS_PROCESS);
   $skipped = $state->skipped;
@@ -1897,9 +1905,9 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   $rejected = variable_get($source->importer()->id . '_rejected', 0);
   $file_log_name = variable_get($source->importer()->id . '_log_name');
   $total_rows_fileimport = variable_get($source->importer()->id . '_total', 0);
-  if($config_feeds == 0 && $config_doc == 0 && $config_feeds != 'NULL' && $config_doc != 'NULL') {
-    $total_rows_fileimport -= 1;
-  }
+//  if($config_feeds == 0 && $config_doc == 0 && $config_feeds != 'NULL' && $config_doc != 'NULL') {
+//    $total_rows_fileimport -= 1;
+//  }
 
   $imported = $created + $updated;
   if($file_log_name && ($total_rows_fileimport || $imported || $rejected)) {
@@ -1948,5 +1956,20 @@ function createLogFileFeedsImportNotExists($file_import, $importer_id) {
     }
 
     throw new Exception(t('Path @file_import is not exists.', array('@file_import' => $file_import)));
+  }
+}
+
+/**
+ * Delete all variable was used in feed importer
+ * @param objectClass $state
+ * @param FeedsSource $source
+ */
+function delVariablesUsedInFeedImporter($state, $source) {
+  if($state->progress == 1) {
+    variable_del($source->importer()->id . '_updated');
+    variable_del($source->importer()->id . '_warning');
+    variable_del($source->importer()->id . '_rejected');
+    variable_del($source->importer()->id . '_log_name');
+    variable_del($source->importer()->id . '_total');
   }
 }
