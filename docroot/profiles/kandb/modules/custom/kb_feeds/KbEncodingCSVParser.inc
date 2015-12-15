@@ -31,6 +31,9 @@ class KbEncodingCSVParser extends FeedsCSVParser {
       $parser->setColumnNames($header);
     }
 
+    // Delete all variable for the first import.
+    delVariablesUsedInFeedImporter($state, $source);
+    // Create file log and save it by variable set
     if ($importer_id && !variable_get($importer_id . '_log_name')) {
       $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
       variable_set($importer_id . '_log_name', $file_log_name);

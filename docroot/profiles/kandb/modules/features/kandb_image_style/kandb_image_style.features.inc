@@ -25,6 +25,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: bien_large__1380_x_600.
+  $styles['bien_large__1380_x_600'] = array(
+    'label' => 'Bien large (1380 x 670)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 600,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: bien_more_info_programe_large_780_x_298.
   $styles['bien_more_info_programe_large_780_x_298'] = array(
     'label' => 'Bien more info programe large (780 x 298)',

@@ -194,10 +194,12 @@ class EncodingCSVParser extends ParserCSV {
 //          continue;
 //        }
 //      }
+      $columnNamesStatus = 0;
       if (empty($this->columnNames)) {
         $row = $fields;
       } else {
         $row = array();
+        $columnNamesStatus = 1;
         foreach ($this->columnNames as $columnName) {
           $field = array_shift($fields);
           if ($columnName == 'identifiantprogramme') {
@@ -209,8 +211,8 @@ class EncodingCSVParser extends ParserCSV {
           $row[$columnName] = isset($field) ? $field : '';
         }
       }
-      
-      if($this->id == 'document_import' || $this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import' || $this->id == 'kb_patrimoine_import') {
+
+      if($this->id == 'document_import' || $this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import') {
         $arr = array_filter($row);
         if(count($arr) > 0) {
           $mylinesParsed++;
@@ -221,6 +223,10 @@ class EncodingCSVParser extends ParserCSV {
           $mylinesParsed++;
           $rows[] = $row;
         }
+      }
+
+      if($columnNamesStatus == 0 && $this->id != 'partenaire_programme_import') {
+        $mylinesParsed--;
       }
 
       if (!empty($maxTime) && microtime() > $maxTime) {
@@ -234,7 +240,7 @@ class EncodingCSVParser extends ParserCSV {
         break;
       }
     }
-
+    
     $total = variable_get($this->id . '_total', 0);
     if($mylinesParsed > 0) {
       variable_set($this->id . '_total', $mylinesParsed + $total);
@@ -243,20 +249,3 @@ class EncodingCSVParser extends ParserCSV {
     return $rows;
   }
 }
-
-/**
-* Create file Error Log (.txt)
-* @param type $file_log_name
-* @param type $logging
-* @param type $uri
-*/
-//function createFileErrorLogTxt($file_log_name, $logging, $uri = 'private://feeds/log/') {
-//  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-//  if ($prepare_file) {
-//    $path = drupal_realpath($uri . $file_log_name);
-//    $data = file_get_contents($path);
-//    $logging .= $data;
-//    drupal_chmod($uri);
-//    file_save_data($logging, $uri . $file_log_name, FILE_EXISTS_REPLACE);
-//  }
-//}
