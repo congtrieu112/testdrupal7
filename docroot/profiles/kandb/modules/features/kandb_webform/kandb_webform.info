@@ -26,3 +26,4 @@ features[variable][] = node_submitted_webform
 features[webform][] = _tre_rappel_
 features[webform][] = avant_contactez_nous
 features[webform][] = prendre_rendez_vous
+features[webform][] = telechargement_documents
