@@ -61,7 +61,7 @@ $webforms = array();
     ),
     'emails' => array(),
     'components' => array(
-      'telechargement_documents__ma_complement_dadresse' => array(
+      'telechargement_documents__row_3' => array(
         'form_key' => 'row_1',
         'name' => 'Row 1',
         'type' => 'fieldset',
@@ -76,10 +76,10 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 3,
-        'machine_name' => 'telechargement_documents__ma_complement_dadresse',
+        'machine_name' => 'telechargement_documents__row_3',
         'page_num' => 1,
       ),
-      'telechargement_documents__telephone' => array(
+      'telechargement_documents__ma_telephone' => array(
         'form_key' => 'rappeler_nom',
         'name' => 'Nom',
         'type' => 'textfield',
@@ -102,11 +102,11 @@ $webforms = array();
         ),
         'required' => 1,
         'weight' => 8,
-        'machine_name' => 'telechargement_documents__telephone',
+        'machine_name' => 'telechargement_documents__ma_telephone',
         'page_num' => 1,
-        'parent_machine_name' => 'telechargement_documents__ma_complement_dadresse',
+        'parent_machine_name' => 'telechargement_documents__row_3',
       ),
-      'telechargement_documents__code_postal' => array(
+      'telechargement_documents__ma_code_postal' => array(
         'form_key' => 'rappeler_prenom',
         'name' => 'Prénom',
         'type' => 'textfield',
@@ -129,11 +129,11 @@ $webforms = array();
         ),
         'required' => 1,
         'weight' => 9,
-        'machine_name' => 'telechargement_documents__code_postal',
+        'machine_name' => 'telechargement_documents__ma_code_postal',
         'page_num' => 1,
-        'parent_machine_name' => 'telechargement_documents__ma_complement_dadresse',
+        'parent_machine_name' => 'telechargement_documents__row_3',
       ),
-      'telechargement_documents__ma_adresse_1' => array(
+      'telechargement_documents__ma_complement_dadresse' => array(
         'form_key' => 'row_2',
         'name' => 'Row 2',
         'type' => 'fieldset',
@@ -148,7 +148,7 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 4,
-        'machine_name' => 'telechargement_documents__ma_adresse_1',
+        'machine_name' => 'telechargement_documents__ma_complement_dadresse',
         'page_num' => 1,
       ),
       'telechargement_documents__row_5' => array(
@@ -176,7 +176,7 @@ $webforms = array();
         'weight' => 10,
         'machine_name' => 'telechargement_documents__row_5',
         'page_num' => 1,
-        'parent_machine_name' => 'telechargement_documents__ma_adresse_1',
+        'parent_machine_name' => 'telechargement_documents__ma_complement_dadresse',
       ),
       'telechargement_documents__ma_email' => array(
         'form_key' => 'rappeler_horaire',
@@ -222,7 +222,7 @@ $webforms = array();
         'weight' => 11,
         'machine_name' => 'telechargement_documents__ma_email',
         'page_num' => 1,
-        'parent_machine_name' => 'telechargement_documents__ma_adresse_1',
+        'parent_machine_name' => 'telechargement_documents__ma_complement_dadresse',
       ),
       'telechargement_documents__ma_ville' => array(
         'form_key' => 'rdv_idkp',
@@ -750,42 +750,19 @@ $webforms = array();
         'machine_name' => 'prendre_rendez_vous__rdv_email',
         'page_num' => 1,
       ),
-      'avant_contactez_nous__ap_connu' => array(
-        'form_key' => 'ap_connu',
-        'name' => 'Comment nous avez-vous connu ?',
-        'type' => 'select',
+      'prendre_rendez_vous__dept_prog' => array(
+        'form_key' => 'dept_prog',
+        'name' => 'Dept prog',
+        'type' => 'hidden',
         'value' => '',
         'extra' => array(
-          'items' => '1|Prospectus
-2|Courrier
-3|Relations
-4|Presse
-5|Radio
-6|TV
-7|Moteurs de recherche
-8|Sites Internet
-9|Réseaux sociaux
-10|Panneaux
-11|Bureau de vente
-12|E-mailing',
-          'multiple' => 0,
-          'title_display' => 'before',
           'private' => 0,
-          'wrapper_classes' => '',
-          'css_classes' => '',
-          'aslist' => 1,
-          'empty_option' => '',
-          'optrand' => 0,
-          'other_option' => NULL,
-          'other_text' => 'Other...',
-          'description' => '',
-          'custom_keys' => FALSE,
-          'options_source' => '',
-          'analysis' => TRUE,
+          'hidden_type' => 'value',
+          'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 26,
-        'machine_name' => 'avant_contactez_nous__ap_connu',
+        'weight' => 33,
+        'machine_name' => 'prendre_rendez_vous__dept_prog',
         'page_num' => 1,
       ),
       'avant_contactez_nous__ap_title' => array(
@@ -818,7 +795,7 @@ $webforms = array();
         'machine_name' => 'avant_contactez_nous__ap_type_contact',
         'page_num' => 1,
       ),
-      'telechargement_documents__ma_code_postal' => array(
+      'telechargement_documents__email' => array(
         'form_key' => 'nom_prog',
         'name' => 'Nom prog',
         'type' => 'hidden',
@@ -830,7 +807,7 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 31,
-        'machine_name' => 'telechargement_documents__ma_code_postal',
+        'machine_name' => 'telechargement_documents__email',
         'page_num' => 1,
       ),
       'telechargement_documents__ma_idkp' => array(
@@ -846,21 +823,6 @@ $webforms = array();
         'required' => 0,
         'weight' => 32,
         'machine_name' => 'telechargement_documents__ma_idkp',
-        'page_num' => 1,
-      ),
-      'prendre_rendez_vous__dept_prog' => array(
-        'form_key' => 'dept_prog',
-        'name' => 'Dept prog',
-        'type' => 'hidden',
-        'value' => '',
-        'extra' => array(
-          'private' => 0,
-          'hidden_type' => 'value',
-          'analysis' => FALSE,
-        ),
-        'required' => 0,
-        'weight' => 33,
-        'machine_name' => 'prendre_rendez_vous__dept_prog',
         'page_num' => 1,
       ),
     ),
@@ -979,7 +941,7 @@ $webforms = array();
         'page_num' => 1,
         'parent_machine_name' => 'prendre_rendez_vous__row_1',
       ),
-      'telechargement_documents__row_3' => array(
+      'telechargement_documents__ma_nom' => array(
         'form_key' => 'rdv_prenom',
         'name' => 'Prénom',
         'type' => 'textfield',
@@ -1002,7 +964,7 @@ $webforms = array();
         ),
         'required' => 1,
         'weight' => 39,
-        'machine_name' => 'telechargement_documents__row_3',
+        'machine_name' => 'telechargement_documents__ma_nom',
         'page_num' => 1,
         'parent_machine_name' => 'prendre_rendez_vous__row_1',
       ),
@@ -1024,7 +986,7 @@ $webforms = array();
         'machine_name' => 'prendre_rendez_vous__row_3',
         'page_num' => 1,
       ),
-      'telechargement_documents__row_1' => array(
+      'telechargement_documents__ma_prenom' => array(
         'form_key' => 'rdv_adresse1',
         'name' => 'Adresse 1',
         'type' => 'textfield',
@@ -1047,11 +1009,11 @@ $webforms = array();
         ),
         'required' => 1,
         'weight' => 21,
-        'machine_name' => 'telechargement_documents__row_1',
+        'machine_name' => 'telechargement_documents__ma_prenom',
         'page_num' => 1,
         'parent_machine_name' => 'prendre_rendez_vous__row_3',
       ),
-      'telechargement_documents__ma_nom' => array(
+      'telechargement_documents__row_2' => array(
         'form_key' => 'rdv_adresse2',
         'name' => 'Adresse 2',
         'type' => 'textfield',
@@ -1074,7 +1036,7 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 24,
-        'machine_name' => 'telechargement_documents__ma_nom',
+        'machine_name' => 'telechargement_documents__row_2',
         'page_num' => 1,
         'parent_machine_name' => 'prendre_rendez_vous__row_3',
       ),
@@ -1412,36 +1374,6 @@ $webforms = array();
         'machine_name' => 'telechargement_documents__ma_pays',
         'page_num' => 1,
       ),
-      'telechargement_documents__ma_telephone' => array(
-        'form_key' => 'rdv_type_contact',
-        'name' => 'Type de contact',
-        'type' => 'hidden',
-        'value' => 'rdv',
-        'extra' => array(
-          'hidden_type' => 'hidden',
-          'private' => 0,
-          'analysis' => FALSE,
-        ),
-        'required' => 0,
-        'weight' => 30,
-        'machine_name' => 'telechargement_documents__ma_telephone',
-        'page_num' => 1,
-      ),
-      'telechargement_documents__ma_code_postal' => array(
-        'form_key' => 'nom_prog',
-        'name' => 'Nom prog',
-        'type' => 'hidden',
-        'value' => '',
-        'extra' => array(
-          'private' => 0,
-          'hidden_type' => 'value',
-          'analysis' => FALSE,
-        ),
-        'required' => 0,
-        'weight' => 31,
-        'machine_name' => 'telechargement_documents__ma_code_postal',
-        'page_num' => 1,
-      ),
       'telechargement_documents__ma_idkp' => array(
         'form_key' => 'ville_prog',
         'name' => 'Ville prog',
@@ -1455,6 +1387,21 @@ $webforms = array();
         'required' => 0,
         'weight' => 32,
         'machine_name' => 'telechargement_documents__ma_idkp',
+        'page_num' => 1,
+      ),
+      'telechargement_documents__email' => array(
+        'form_key' => 'nom_prog',
+        'name' => 'Nom prog',
+        'type' => 'hidden',
+        'value' => '',
+        'extra' => array(
+          'private' => 0,
+          'hidden_type' => 'value',
+          'analysis' => FALSE,
+        ),
+        'required' => 0,
+        'weight' => 31,
+        'machine_name' => 'telechargement_documents__email',
         'page_num' => 1,
       ),
       'prendre_rendez_vous__dept_prog' => array(
@@ -1849,30 +1796,29 @@ $webforms = array();
         'machine_name' => 'telechargement_documents__row_5',
         'page_num' => 1,
       ),
-      'telechargement_documents__ma_email' => array(
+      'telechargement_documents__email' => array(
         'form_key' => 'ma_email',
         'name' => 'E-mail',
-        'type' => 'textfield',
+        'type' => 'email',
         'value' => '',
         'extra' => array(
           'title_display' => 'before',
           'private' => 0,
           'wrapper_classes' => '',
           'css_classes' => '',
+          'multiple' => 0,
+          'format' => 'short',
           'width' => '',
-          'maxlength' => '',
-          'field_prefix' => '',
-          'field_suffix' => '',
-          'disabled' => 0,
           'unique' => 0,
+          'disabled' => 0,
           'description' => '',
           'placeholder' => '',
           'attributes' => array(),
           'analysis' => FALSE,
         ),
         'required' => 1,
-        'weight' => 9,
-        'machine_name' => 'telechargement_documents__ma_email',
+        'weight' => 16,
+        'machine_name' => 'telechargement_documents__email',
         'page_num' => 1,
         'parent_machine_name' => 'telechargement_documents__row_5',
       ),
@@ -1898,7 +1844,7 @@ $webforms = array();
           'analysis' => FALSE,
         ),
         'required' => 1,
-        'weight' => 10,
+        'weight' => 18,
         'machine_name' => 'telechargement_documents__ma_pays',
         'page_num' => 1,
         'parent_machine_name' => 'telechargement_documents__row_5',
@@ -1914,7 +1860,7 @@ $webforms = array();
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 15,
+        'weight' => 7,
         'machine_name' => 'telechargement_documents__ma_idkp',
         'page_num' => 1,
       ),

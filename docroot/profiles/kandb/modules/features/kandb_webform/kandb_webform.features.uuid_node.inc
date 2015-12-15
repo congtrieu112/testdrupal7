@@ -21,7 +21,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => 'b2218787-1244-499d-8562-5fbb818bea04',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1448685926,
+  'created' => 1450171140,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9a3cd655-8f47-49a4-8e60-b237aa91af32',
@@ -555,7 +555,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 26,
-        'machine_name' => 'avant_contactez_nous__ap_connu',
+        'machine_name' => 'prendre_rendez_vous__dept_prog',
         'page_num' => 1,
       ),
       38 => array(
@@ -609,7 +609,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 31,
-        'machine_name' => 'telechargement_documents__ma_code_postal',
+        'machine_name' => 'telechargement_documents__email',
         'page_num' => 1,
       ),
       18 => array(
@@ -630,9 +630,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'telechargement_documents__ma_idkp',
         'page_num' => 1,
       ),
-      19 => array(
+      40 => array(
         'nid' => 1,
-        'cid' => 19,
+        'cid' => 40,
         'pid' => 0,
         'form_key' => 'dept_prog',
         'name' => 'Dept prog',
@@ -664,7 +664,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2015-11-28 11:45:26 +0700',
+  'date' => '2015-12-15 16:19:00 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -677,7 +677,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => 'fe0b08db-f104-4e79-8b9b-b4fd92f4232f',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1448685926,
+  'created' => 1450171140,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'eadba82f-d7b7-4990-ba66-4bdce5895ffe',
@@ -740,7 +740,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 3,
-        'machine_name' => 'telechargement_documents__ma_complement_dadresse',
+        'machine_name' => 'telechargement_documents__row_3',
         'page_num' => 1,
       ),
       11 => array(
@@ -769,7 +769,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 8,
-        'machine_name' => 'telechargement_documents__telephone',
+        'machine_name' => 'telechargement_documents__ma_telephone',
         'page_num' => 1,
       ),
       12 => array(
@@ -798,7 +798,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 9,
-        'machine_name' => 'telechargement_documents__code_postal',
+        'machine_name' => 'telechargement_documents__ma_code_postal',
         'page_num' => 1,
       ),
       6 => array(
@@ -819,7 +819,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 4,
-        'machine_name' => 'telechargement_documents__ma_adresse_1',
+        'machine_name' => 'telechargement_documents__ma_complement_dadresse',
         'page_num' => 1,
       ),
       13 => array(
@@ -969,7 +969,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2015-11-28 11:45:26 +0700',
+  'date' => '2015-12-15 16:19:00 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -982,7 +982,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '35ff043b-8e3e-4f46-a9b0-ae6bd04dfbec',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1448685926,
+  'created' => 1450171140,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'edd43469-b757-4395-8820-9134e007410d',
@@ -1103,7 +1103,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 39,
-        'machine_name' => 'telechargement_documents__row_3',
+        'machine_name' => 'telechargement_documents__ma_nom',
         'page_num' => 1,
       ),
       21 => array(
@@ -1153,7 +1153,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 21,
-        'machine_name' => 'telechargement_documents__row_1',
+        'machine_name' => 'telechargement_documents__ma_prenom',
         'page_num' => 1,
       ),
       4 => array(
@@ -1182,7 +1182,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 24,
-        'machine_name' => 'telechargement_documents__ma_nom',
+        'machine_name' => 'telechargement_documents__row_2',
         'page_num' => 1,
       ),
       22 => array(
@@ -1570,7 +1570,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 30,
-        'machine_name' => 'telechargement_documents__ma_telephone',
+        'machine_name' => 'telechargement_documents__ma_idkp',
         'page_num' => 1,
       ),
       17 => array(
@@ -1588,7 +1588,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 31,
-        'machine_name' => 'telechargement_documents__ma_code_postal',
+        'machine_name' => 'telechargement_documents__email',
         'page_num' => 1,
       ),
       18 => array(
@@ -1609,9 +1609,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'telechargement_documents__ma_idkp',
         'page_num' => 1,
       ),
-      19 => array(
+      37 => array(
         'nid' => 3,
-        'cid' => 19,
+        'cid' => 37,
         'pid' => 0,
         'form_key' => 'dept_prog',
         'name' => 'Dept prog',
@@ -1643,7 +1643,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2015-11-28 11:45:26 +0700',
+  'date' => '2015-12-15 16:19:00 +0700',
 );
   return $nodes;
 }
