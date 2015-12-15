@@ -70,7 +70,7 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufma
               <li class="main-menu__item"><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink')))); ?></li>
             <?php endforeach; ?>
           <?php endif; ?>
-          <li class="main-menu__item"><a href="#" class="btn-primary btn-rounded btn-icon"><span class="button__content"><span class="icon icon-account"></span>Mon espace</span></a></li>
+          <li class="main-menu__item"><a href="/<?php print URL_PROJET; ?>" class="btn-primary btn-rounded btn-icon"><span class="button__content"><span class="icon icon-account"></span>Mon espace</span></a></li>
         </ul>
       </div>
     </nav>

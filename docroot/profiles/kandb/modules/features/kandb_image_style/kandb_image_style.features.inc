@@ -10,6 +10,21 @@
 function kandb_image_style_image_default_styles() {
   $styles = array();
 
+  // Exported image style: article_selection.
+  $styles['article_selection'] = array(
+    'label' => 'Article Selection (440x440)',
+    'effects' => array(
+      11 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 440,
+          'height' => 440,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: bien_large__1380_x_600.
   $styles['bien_large__1380_x_600'] = array(
     'label' => 'Bien large (1380 x 670)',
@@ -66,6 +81,28 @@ function kandb_image_style_image_default_styles() {
           'height' => 214,
         ),
         'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: contact_selection.
+  $styles['contact_selection'] = array(
+    'label' => 'Contact Selection (60x60)',
+    'effects' => array(
+      9 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 60,
+          'height' => 60,
+        ),
+        'weight' => 1,
+      ),
+      10 => array(
+        'name' => 'image_style_quality',
+        'data' => array(
+          'quality' => 10,
+        ),
+        'weight' => 2,
       ),
     ),
   );
@@ -213,6 +250,58 @@ function kandb_image_style_image_default_styles() {
         'data' => array(
           'width' => 380,
           'height' => 230,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: programme_selection_medium.
+  $styles['programme_selection_medium'] = array(
+    'label' => 'Programme Selection Medium (300x300)',
+    'effects' => array(
+      5 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 560,
+          'height' => 310,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: programme_selection_small.
+  $styles['programme_selection_small'] = array(
+    'label' => 'Programme Selection Small (560x310) with compression',
+    'effects' => array(
+      4 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 560,
+          'height' => 310,
+        ),
+        'weight' => 1,
+      ),
+      7 => array(
+        'name' => 'image_style_quality',
+        'data' => array(
+          'quality' => 10,
+        ),
+        'weight' => 2,
+      ),
+    ),
+  );
+
+  // Exported image style: programme_selection_very_small.
+  $styles['programme_selection_very_small'] = array(
+    'label' => 'Programme Selection Very Small (160x160)',
+    'effects' => array(
+      6 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 160,
+          'height' => 160,
         ),
         'weight' => 1,
       ),

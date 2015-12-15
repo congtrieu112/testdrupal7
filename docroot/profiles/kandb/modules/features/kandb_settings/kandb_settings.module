@@ -6,6 +6,25 @@
  */
 include_once 'kandb_settings.features.inc';
 
+
+/**
+ * Implements hook_init().
+ */
+function kandb_settings_init() {
+  drupal_add_js(
+    array('kandb_settings' =>
+      array(
+        'selections' => array(
+          'errorMessage' => 'Vous ne pouvez pas enregistrer plus de 20 items, voulez-vous gérer vos favoris ?',
+          'errorRedirect' => '/' . URL_PROJET,
+          'removeMessage' => 'Voulez-vous supprimer cette selection ?',
+        )
+      )
+    ),
+    'setting'
+  );
+}
+
 /**
  * Implements hook_menu().
  */
@@ -51,6 +70,14 @@ function kandb_settings_menu() {
     'access arguments' => array('administer K&B Bien settings'),
     'type' => MENU_LOCAL_TASK,
   );
+   $menu['admin/content/ketb/link-default'] = array(
+      'title' => 'Link default',
+      'description' => 'Change the Bien, Program information of block.',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('kandb_link_default_admin'),
+      'access arguments' => array('administer K&B Bien settings'),
+      'type' => MENU_LOCAL_TASK,
+    );
 
   return $menu;
 }
@@ -365,4 +392,39 @@ function kandb_label_default_admin() {
   );
 
   return system_settings_form($form);
+}
+/**
+ *  Get nodes content type offre
+ *
+ */
+function get_nodes_offre() {
+    $query = new EntityFieldQuery();
+    $result = $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'offre')
+        ->execute();
+    $nodes = node_load_multiple(array_keys($result['node']));
+    return $nodes;
+}
+/**
+ * Admin interface
+ *
+ * Called from drupal_get_form
+ *
+ * @return mixed
+ */
+function kandb_link_default_admin() {
+    $form = array();
+    $listopions = array();
+    $offre = get_nodes_offre();
+    $listopions[] = '...';
+    foreach ($offre as $id=>$node) :
+        $listopions[$id] = $node->title;
+    endforeach;
+    $form['kandb_progamme_link_default_selected'] = array(
+      '#type' => 'select',
+      '#title' => t('Choose offre'),
+      '#options' => $listopions,
+      '#default_value' => variable_get('kandb_progamme_link_default_selected'),
+    );
+    return system_settings_form($form);
 }
