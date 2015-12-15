@@ -31,6 +31,14 @@ class KbEncodingCSVParser extends FeedsCSVParser {
       $parser->setColumnNames($header);
     }
 
+    if($state->progress == 1 && $importer_id == 'kb_patrimoine_import') {
+      variable_del($source->importer()->id . '_updated');
+      variable_del($source->importer()->id . '_warning');
+      variable_del($source->importer()->id . '_rejected');
+      variable_del($source->importer()->id . '_log_name');
+      variable_del($source->importer()->id . '_total');
+    }
+
     if ($importer_id && !variable_get($importer_id . '_log_name')) {
       $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
       variable_set($importer_id . '_log_name', $file_log_name);
