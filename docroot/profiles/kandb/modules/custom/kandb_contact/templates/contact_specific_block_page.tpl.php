@@ -21,7 +21,7 @@ if ($wrapper = file_stream_wrapper_get_instance_by_uri($photo->uri)) :
 endif;
 ?>
 <!-- [contactUs complete] start-->
-<aside class="contactUs section-padding contactUs-complete">
+<aside class="contactUs section-padding contactUs-complete" id="contact">
     <div style="background-image: url(<?php print $array_info['photo_uri']; ?>)" class="contactUs__img show-for-medium-up"></div>
     <div class="wrapper">
         <div class="contactUs__informations">
