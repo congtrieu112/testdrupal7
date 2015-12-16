@@ -165,6 +165,7 @@ dependencies[] = kandb_webform
 ;dependencies[] = kandb_webform_contact_settings
 dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_tmp_b2b
+dependencies[] = kandb_grouper
 
 ; Blocks
 dependencies[] = kandb_recherche

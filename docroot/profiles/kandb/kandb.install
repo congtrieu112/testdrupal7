@@ -813,3 +813,12 @@ function kandb_update_7177() {
     module_enable(array('kandb_group'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_grouper content module
+ */
+function kandb_update_7178() {
+  if (!module_exists('kandb_grouper')) {
+    module_enable(array('kandb_grouper'), TRUE);
+  }
+}
