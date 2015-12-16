@@ -354,6 +354,10 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
                       <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
                     <?php endif; ?>
+                      
+                    <?php if(kandb_check_filled_form_contact($programme)):?>  
+                      <li><a href="#contact" data-scroll-to  class="btn-white"><span class="icon icon-leaf"></span><span class="text"><?php print t('Espace de vente'); ?></span></a></li>
+                    <?php endif; ?>
                 </ul>
                 <!-- [contactUs mini] start-->
                 <?php
