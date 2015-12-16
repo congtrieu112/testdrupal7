@@ -1164,7 +1164,7 @@ function kandb_feed_feeds_importer_default() {
       'plugin_key' => 'KbEncodingCSVParser',
       'config' => array(
         'delimiter' => '|',
-        'no_headers' => 1,
+        'no_headers' => 0,
       ),
     ),
     'processor' => array(

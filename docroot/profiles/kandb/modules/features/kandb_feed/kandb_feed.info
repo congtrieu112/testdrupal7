@@ -80,6 +80,7 @@ features[feeds_tamper][] = partenaire_import-transferactif-find_replace_actif_no
 features[feeds_tamper][] = partenaire_import-transferactif-find_replace_actif_qui
 features[feeds_tamper][] = partenaire_import-typedeflux-find_replace_flux_ancien
 features[feeds_tamper][] = partenaire_import-typedeflux-find_replace_flux_nouveau
+features[feeds_tamper][] = partenaire_import-typeexport-find_replace
 features[feeds_tamper][] = partenaire_import-typeexport-find_replace_de_prog
 features[feeds_tamper][] = partenaire_import-typeexport-find_replace_prog_grand
 features[feeds_tamper][] = partenaire_import-typeexport-find_replace_prog_prescript
