@@ -7,6 +7,11 @@
 include_once 'kandb_bien.features.inc';
 include_once 'kandb_bien.block.inc';
 
+/**
+ * check filled for form_contact
+ * @param object programme
+ * @return status
+ */
 function kandb_check_filled_form_contact($programme) {
     if(!empty($programme->field_photo_conseiller) || !empty($programme->field_nom_conseiller)
            || !empty($programme->field_espace_vente_tel) || !empty($programme->field_espace_vente_tel2)
