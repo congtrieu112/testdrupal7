@@ -69,16 +69,18 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion'] < 3): ?>
                   <li>
                       <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_avant_premiere_node_title; ?></strong></p>
-                              <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
+                      <?php if($row->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
+                        <!-- [popin] start-->
+                        <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_avant_premiere_node_title; ?></strong></p>
+                                <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                            </div>
+                        </div>
+                        <!-- [popin] end-->
+                      <?php endif; ?>
                   </li>
-                  
+
                   <?php
                   if ($promotion) :
                     foreach ($promotion as $value) :
