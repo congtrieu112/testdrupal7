@@ -737,7 +737,7 @@ function kandb_update_7168(&$sandbox) {
  */
 function kandb_update_7169(&$sandbox) {
   if (!module_exists('kandb_partenaire')) {
-    module_enable(array('kandb_partenaire'), TRUE);
+    //module_enable(array('kandb_partenaire'), TRUE);
   }
 }
 
@@ -746,7 +746,7 @@ function kandb_update_7169(&$sandbox) {
  */
 function kandb_update_7170() {
   if (!module_exists('kandb_partenaire')) {
-    module_enable(array('kandb_partenaire'), TRUE);
+    //module_enable(array('kandb_partenaire'), TRUE);
   }
 }
 

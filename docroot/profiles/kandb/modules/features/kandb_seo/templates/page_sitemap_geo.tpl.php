@@ -1,1 +1,2 @@
-COUCOU
+<?php
+  print $content;
