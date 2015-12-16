@@ -43,7 +43,7 @@ function kandb_b2b_menu() {
     'access callback' => 'user_access',
     'access arguments' => array('administer K&B B2B content'),
   );
-  
+
   $items['admin/content/kandb-b2b/homepage-programme/autocomplete'] = array(
     'title' => 'Programme - Homepage',
     'type' => MENU_CALLBACK,
@@ -93,5 +93,27 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
       'template' => 'templates/b2b_homepage',
       'variables' => array(),
     ),
+  );
+}
+
+/**
+ * Implements of hook_date_formats().
+ */
+function kandb_b2b_date_formats() {
+  return array(
+    array(
+      'type' => 'date_format_dd_mm_yyyy',
+      'format' => 'd.m.Y',
+      'locales' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements of hook_date_format_types().
+ */
+function kandb_b2b_date_format_types() {
+  return array(
+    'date_format_dd_mm_yyyy' => t('DD.MM.YYYY'),
   );
 }
