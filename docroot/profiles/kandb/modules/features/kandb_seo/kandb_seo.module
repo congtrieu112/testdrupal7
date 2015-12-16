@@ -127,7 +127,7 @@ function kandb_seo_page_sitemap_geo($localisation, $argument = NULL){
 /**
  * Page callback
  */
-function kandb_seo_get_search_page($location){
+function kandb_seo_get_search_page($location = false){
   $_GET['place'] = $location;
   return kandb_recherche_page();
 }
@@ -149,20 +149,73 @@ function kandb_seo_metatags_and_callbacks($url = false) {
    */
   $args = explode('/', $url);
   $arg_0 = $args[0];
-  $arg_1 = $args[1];
+  $arg_1 = isset($args[1]) ? $args[1] : false;
+  $arg_2 = isset($args[2]) ? $args[2] : false;
   $lettre = substr($arg_1, 0, 1);
-  $lieu_programme = str_replace('programmes-immobiliers-neufs-', '', $arg_1);
-  $lieu_programme_real = NULL;
-  if(strpos($arg_1, 'programmes-immobiliers-neufs-') === 0 && !empty($lieu_programme)){
+
+  // Init
+  $lieu_programme = $lieu_programme_real_name = '';
+  $lieu_bien = $lieu_bien_real_name = $code_postal = '';
+  $type = $real_type = $nb_pieces = $real_nb_piece = '';
+
+  // Programme info
+  if ($arg_1) {
+    // Infos for the metas bellow
+    $lieu_programme = str_replace('programmes-immobiliers-neufs-', '', $arg_1);
+    if (strpos($arg_1, 'programmes-immobiliers-neufs-') === 0 && !empty($lieu_programme)) {
+      // Check if what it asked exists
+      $taxonomy = substr($arg_0, 0, -1); // Remove the s
+      $first_lettre = substr($lieu_programme, 0, 1);
+      $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
+      foreach ($sanitize_taxonomy_list as $term) {
+        if ($lieu_programme == $term->sanitize_name) {
+          $lieu_programme_real_name = $term->name;
+        }
+      }
+    }
+    if(empty($lieu_programme_real_name)) $lieu_programme = '';
+  }
+
+  // Bien info
+  if ($arg_1) {
+    // Infos for the metas bellow
+    $info_location_bien = str_replace('logements-neufs-', '', $arg_1);
+    $info_location_bien = explode('-', $info_location_bien);
+    $code_postal = $info_location_bien[(count($info_location_bien) - 1)];
+    unset($info_location_bien[(count($info_location_bien) - 1)]);
+    $lieu_bien = implode('-', $info_location_bien);
+
+    // Check if what it asked exists
     $taxonomy = substr($arg_0, 0, -1); // Remove the s
-    $first_lettre = substr($lieu_programme, 0, 1);
+    $first_lettre = substr($lieu_bien, 0, 1);
     $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
-    foreach($sanitize_taxonomy_list as $term) {
-      if($lieu_programme == $term->sanitize_name) {
-        $lieu_programme_real = $term->name;
+    foreach ($sanitize_taxonomy_list as $term) {
+      if ($lieu_bien == $term->sanitize_name) {
+        $lieu_bien_real_name = $term->name;
+      }
+    }
+    if(empty($lieu_bien_real_name)) $lieu_bien = '';
+
+    if ($arg_2 && $lieu_bien != '') {
+      // Check if exists
+      $sanitize_type_list = kandb_seo_get_sanitize_taxonomy_list('type_de_bien');
+      foreach ($sanitize_type_list as $term) {
+        if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_type = $term->tid;
+          $type = $term->sanitize_name;
+        }
+      }
+      $sanitize_piece_list = kandb_seo_get_sanitize_taxonomy_list('nb_pieces');
+      foreach ($sanitize_piece_list as $term) {
+        if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_nb_piece = $term->tid;
+          $nb_pieces = $term->sanitize_name;
+        }
       }
     }
   }
+
+
   $items = array(
     // L1 : Villes
     'villes' => array(
@@ -178,6 +231,22 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       'title' => 'Immobiliers neufs classement par villes | Kaufman et Broad',
       'meta_description' => 'Découvrez tous les logements neufs par villes commençant par ' . $lettre . '. Villes : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
     ),
+    // L2 : Villes > Tous les programmes neufs
+    'villes/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
+      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array($lieu_programme_real_name),
+      )
+    ),
+    // L2 : Villes > Tous les types de biens
+    'villes/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
+      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array($lieu_programme_real_name),
+      )
+    ),
 
     // L1 : Départements
     'departements' => array(
@@ -191,37 +260,26 @@ function kandb_seo_metatags_and_callbacks($url = false) {
         '%lettre' => strlen($arg_1) == 1 ? $arg_1 : '',
       )
     ),
+    // L2 : Départements > Tous les programmes neufs
+    'departements/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - département | Kaufman et Broad',
+      'meta_description' => '%departement : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par departement : ' . $lieu_programme . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array($lieu_programme_real_name),
+      )
+    ),
 
     // L1 : Régions
     'regions' => array(
       'title' => 'Immobiliers neufs classement par régions | Kaufman et Broad',
       'meta_description' => 'Découvrez maintenant le classement de tous les logements neufs par régions et parcourez les différentes offres de Kaufman et Broad par régions.',
     ),
-
-    // L2 : Villes > Tous les programmes neufs
-    'villes/programmes-immobiliers-neufs-' . $lieu_programme => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
-      'callbacks' => array(
-        'kandb_seo_get_search_page' => array($lieu_programme_real),
-      )
-    ),
-
-    // L2 : Départements > Tous les programmes neufs
-    'departements/programmes-immobiliers-neufs-' . $lieu_programme => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - département | Kaufman et Broad',
-      'meta_description' => '%departement : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par departement : ' . $lieu_programme . '.',
-      'callbacks' => array(
-        'kandb_seo_get_search_page' => array($lieu_programme_real),
-      )
-    ),
-
     // L2 : Régions > Tous les programmes neufs
     'regions/programmes-immobiliers-neufs-' . $lieu_programme => array(
       'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - région | Kaufman et Broad',
       'meta_description' => '%regions : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par régions : ' .$lieu_programme . '.',
       'callbacks' => array(
-        'kandb_seo_get_search_page' => array($lieu_programme_real),
+        'kandb_seo_get_search_page' => array($lieu_programme_real_name),
       )
     ),
   );
@@ -285,5 +343,4 @@ function kandb_seo_get_taxonomy_list($taxonomy_name, $first_letter = false) {
   }
 
   return $terms;
-
 }
