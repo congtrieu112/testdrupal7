@@ -116,13 +116,17 @@
                 <!-- [contactUs mini] end-->
 
                 <?php /* TODO : Sharing information */ ?>
-                <!-- <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+                <a class="save save--small" data-cookie-add="<?php print $node->nid; ?>" data-cookie="<?php print $node->type; ?>" href="#">
+                  <span class="icon icon-love"></span>
+                  <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
+                </a>
                 <div class="sharing">
-                    <ul class="sharing__items">
+
+<!--                    <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                         <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    </ul>
-                </div>-->
+                    </ul>-->
+                </div>
             </div>
             <div class="programHeader__content__details">
                 <ul class="characteristicList">
