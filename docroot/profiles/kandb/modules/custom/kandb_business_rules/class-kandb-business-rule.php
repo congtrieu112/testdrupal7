@@ -2,6 +2,9 @@
 
 define('FEED_ID_IMPORT_BIEN', 'parcel_feed_import');
 
+define('DOMAIN_DEFAULT', '1');
+define('DOMAIN_B2B', '2');
+define('DOMAIN_B2C', '3');
 
 define('CONTENT_TYPE_BIEN', 'bien');
 define('CONTENT_TYPE_PROGRAMME', 'programme');
@@ -46,7 +49,7 @@ class Kandb_Business_Rules {
   public static function get_is_node_updating() {
     return self::$_is_node_updating;
   }
-  
+
   public static function set_can_hook_update($status = TRUE) {
     self::$_can_hook_update = $status;
   }
@@ -122,7 +125,7 @@ class Kandb_Business_Rules {
     if(isset(self::$_list_status[$term_name])){
       return self::$_list_status[$term_name];
     }
-    
+
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
     //->entityCondition('bundle', TAXONOMY_STATUS_LOGEMENT)
@@ -250,7 +253,7 @@ class Kandb_Business_Rules {
    * @param type $is_min
    * @return int
    */
-  public static function get_programe_min_max_price($id_programe, $is_min = TRUE) {
+  public static function get_programe_min_max_price($id_programe, $domain = '', $is_min = TRUE) {
     if (empty($id_programe)) {
       return 0;
     }
@@ -268,7 +271,13 @@ class Kandb_Business_Rules {
         ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
         ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
         ->range(0, 1)
-    ;
+      ;
+
+    if($domain == DOMAIN_B2B) {
+      $query->addTag('bien_access_domain_b2b');
+    } elseif ($domain == DOMAIN_B2C) {
+      $query->addTag('bien_access_domain_b2c');
+    }
 
     $results = $query->execute();
 
@@ -291,26 +300,31 @@ class Kandb_Business_Rules {
     }
 
     foreach ($list_programe as $item) {
-      $min_price = self::get_programe_min_max_price($item->nid);
-      $max_price = self::get_programe_min_max_price($item->nid, FALSE);
-      
+      $min_price = self::get_programe_min_max_price($item->nid, DOMAIN_B2C);
+      $max_price = self::get_programe_min_max_price($item->nid, DOMAIN_B2C, FALSE);
+
+      $min_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B);
+      $max_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B, FALSE);
+
       if(!empty($current_bien)){
         $current_bien_price = (isset($current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"])) ? $current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : -1;
         if($current_bien_price > $max_price){
           $max_price = $current_bien_price;
+          $max_price_b2b = $current_bien_price;
         }
         if($current_bien_price != -1 && $min_price > $current_bien_price){
           $min_price = $current_bien_price;
+          $min_price_b2b = $current_bien_price;
         }
       }
-      
+
       if (isset(self::$_list_progam_to_save [$item->nid])) {
         $node_programe = self::$_list_progam_to_save [$item->nid];
       }
       else {
         $node_programe = node_load($item->nid);
       }
-      
+
       $tva_tid = isset($node_programe->field_tva[LANGUAGE_NONE][0]['tid']) ? $node_programe->field_tva[LANGUAGE_NONE][0]['tid'] : 0;
       $tva = 0;
       if ($tva_tid) {
@@ -322,22 +336,31 @@ class Kandb_Business_Rules {
       if ($tva) {
         $node_programe->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = ($min_price / 1.2) * ($tva + 1);
         $node_programe->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] = ($max_price / 1.2) * ($tva + 1);
+        
+        $node_programe->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value'] = ($min_price_b2b / 1.2) * ($tva + 1);
+        $node_programe->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value'] = ($max_price_b2b / 1.2) * ($tva + 1);
       }
       else {
         $node_programe->field_program_low_tva_price_min = array();
         $node_programe->field_program_low_tva_price_max = array();
+
+        $node_programe->field_program_low_tva_price_minb = array();
+        $node_programe->field_program_low_tva_price_maxb = array();
       }
 
       $node_programe->field_programme_price_min[LANGUAGE_NONE][0]["value"] = $min_price;
       $node_programe->field_programme_min_price[LANGUAGE_NONE][0]["value"] = $min_price / 1.2;
       $node_programe->field_programme_price_max[LANGUAGE_NONE][0]["value"] = $max_price;
 
+      $node_programe->field_programme_price_min_b[LANGUAGE_NONE][0]["value"] = $min_price_b2b;
+      $node_programe->field_programme_price_max_b[LANGUAGE_NONE][0]["value"] = $max_price_b2b;
+
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
       if ($must_logging) {
         $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
         kb_logging_business_rule($programme_id . ': C-106');
-      } 
+      }
     }
   }
 
@@ -347,7 +370,7 @@ class Kandb_Business_Rules {
    * @param type $is_room_min
    * @return int
    */
-  public static function get_room_min_max_follow_programe($id_programe, $is_room_min = TRUE) {
+  public static function get_room_min_max_follow_programe($id_programe, $domain = '', $is_room_min = TRUE) {
     $sort = "ASC";
     if (!$is_room_min) {
       $sort = "DESC";
@@ -364,7 +387,7 @@ class Kandb_Business_Rules {
     if (!empty($list_pieces)) {
       foreach ($list_pieces["taxonomy_term"] as $nb_piece) {
         // count bien follow programe and piece
-        $count_bien = self::get_list_bien_by_program_piece($id_programe, $nb_piece->tid, TRUE);
+        $count_bien = self::get_list_bien_by_program_piece($id_programe, $nb_piece->tid, TRUE, $domain);
         if ($count_bien > 0) {  // Have item mean this is min|max piece what I need to find.
           $tax_piece = taxonomy_term_load($nb_piece->tid);
 
@@ -388,8 +411,11 @@ class Kandb_Business_Rules {
     }
 
     foreach ($list_programe as $item) {
-      $room_min = self::get_room_min_max_follow_programe($item->nid);
-      $room_max = self::get_room_min_max_follow_programe($item->nid, FALSE);
+      $room_min = self::get_room_min_max_follow_programe($item->nid, DOMAIN_B2C);
+      $room_max = self::get_room_min_max_follow_programe($item->nid, DOMAIN_B2C, FALSE);
+
+      $room_min_b2b = self::get_room_min_max_follow_programe($item->nid, DOMAIN_B2B);
+      $room_max_b2b = self::get_room_min_max_follow_programe($item->nid, DOMAIN_B2B, FALSE);
 
       if (isset(self::$_list_progam_to_save [$item->nid])) {
         $node_programe = self::$_list_progam_to_save [$item->nid];
@@ -400,6 +426,9 @@ class Kandb_Business_Rules {
 
       $node_programe->field_programme_room_min[LANGUAGE_NONE][0]["value"] = $room_min;
       $node_programe->field_programme_room_max[LANGUAGE_NONE][0]["value"] = $room_max;
+
+      $node_programe->field_programme_room_min_b[LANGUAGE_NONE][0]["value"] = $room_min_b2b;
+      $node_programe->field_programme_room_max_b[LANGUAGE_NONE][0]["value"] = $room_max_b2b;
 
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
@@ -426,7 +455,9 @@ class Kandb_Business_Rules {
           ->fieldCondition('field_programme', 'target_id', $item->nid, '=')
       ;
 
+      $biens = $query->execute();
       $total_bien = intval($query->count()->execute());
+
       if ($total_bien > 0) {
         if (isset(self::$_list_progam_to_save [$item->nid])) {
           $node_programe = self::$_list_progam_to_save [$item->nid];
@@ -435,7 +466,19 @@ class Kandb_Business_Rules {
           $node_programe = node_load($item->nid);
         }
 
-        $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien;
+        $total_bien_b2b = 0;
+        $total_bien_b2c = 0;
+        foreach($biens["node"] as $cls_bien) {
+          $bien = node_load($cls_bien->nid);
+          if (in_array(DOMAIN_B2C, $bien->domains)) {
+            $total_bien_b2c++;
+          } elseif(in_array(DOMAIN_B2B, $bien->domains)) {
+            $total_bien_b2b++;
+          }
+        }
+
+        $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien_b2c;
+        $node_programe->field_programme_flat_available_b[LANGUAGE_NONE][0]["value"] = $total_bien_b2b;
 
         self::$_list_progam_to_save [$item->nid] = $node_programe;
         //node_save($node_programe);
@@ -446,26 +489,26 @@ class Kandb_Business_Rules {
       }
     }
   }
-  
+
   /**
    * @todo to get list bien with status is available
    * @param type $id_progamme
    * @return type
    */
-  public static function get_biens_available_in_progamme ($id_progamme){    
+  public static function get_biens_available_in_progamme ($id_progamme){
     if(empty($id_progamme)){
       return -1;
     }
-    
+
     $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=');
-    
+
     return intval($query->count()->execute());
   }
-  
+
   /**
    * @todo To search all progamme and set status is false If it does not have bien available
    * @param type $list_programe
@@ -475,15 +518,15 @@ class Kandb_Business_Rules {
       $list_programe = self::get_list_program_contain_bien();
     }
 
-    foreach ($list_programe as $item) {      
+    foreach ($list_programe as $item) {
       if (isset(self::$_list_progam_to_save [$item->nid])) {
         $node_programe = self::$_list_progam_to_save [$item->nid];
       }
       else {
         $node_programe = node_load($item->nid);
       }
-      
-      $count_biens_available = self::get_biens_available_in_progamme($item->nid);      
+
+      $count_biens_available = self::get_biens_available_in_progamme($item->nid);
       if($count_biens_available == 0){
         $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 0;
         self::$_list_progam_to_save [$item->nid] = $node_programe;
@@ -510,7 +553,7 @@ class Kandb_Business_Rules {
    * @param type $is_count
    * @return type
    */
-  public static function get_list_bien_by_program_piece($id_programe, $id_piece = 0, $is_count = 0) {
+  public static function get_list_bien_by_program_piece($id_programe, $id_piece = 0, $is_count = 0, $domain = '') {
     if (empty($id_programe)) {
       if ($is_count) {
         return $is_count;
@@ -525,10 +568,16 @@ class Kandb_Business_Rules {
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')        
+        ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
     ;
-    
-    if(!empty($id_piece)){      
+
+    if($domain == DOMAIN_B2B) {
+      $query->addTag('bien_access_domain_b2b');
+    } elseif ($domain == DOMAIN_B2C) {
+      $query->addTag('bien_access_domain_b2c');
+    }
+
+    if(!empty($id_piece)){
       $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
     }
 
@@ -545,7 +594,7 @@ class Kandb_Business_Rules {
 
     return array();
   }
-  
+
   /**
    * @todo To get cheapest or expensive bien follow programe
    * @param type $id_programe
@@ -557,7 +606,7 @@ class Kandb_Business_Rules {
     if(!$is_min){
       $sort = 'DESC';
     }
-    
+
     $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
@@ -567,19 +616,19 @@ class Kandb_Business_Rules {
         ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
         ->range(0, 1)
     ;
-    
+
     if(!empty($id_piece)){
       $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
     }
-    
+
     $bien = $query->execute();
     if (!empty($bien)) {
       return array_shift($bien["node"]);
     }
-    
+
     return array();
   }
-  
+
   /**
    * @todo to get list between cheapest expensive (surface) bien  follow program
    * @param type $id_programe
@@ -597,29 +646,29 @@ class Kandb_Business_Rules {
         ->fieldOrderBy('field_superficie', 'value', 'ASC')
         ->range(0, $limit)
     ;
-    
+
     if(!empty($exclude_bien)){
       $exclude_ids = array();
       foreach($exclude_bien as $item){
         $exclude_ids[] = $item->nid;
-      }      
+      }
       //$query->propertyCondition('nid', $exclude_ids, 'NOT IN');
       $query->entityCondition('entity_id', $exclude_ids, 'NOT IN');
     }
-    
+
     if(!empty($id_piece)){
       $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
     }
-    
+
     $bien = $query->execute();
-    
-    if (!empty($bien)) {      
+
+    if (!empty($bien)) {
       return $bien["node"];
     }
-    
+
     return array();
   }
-  
+
   public static function get_tax_department_by_number($number){
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'taxonomy_term');
@@ -627,14 +676,14 @@ class Kandb_Business_Rules {
 
     $query->fieldCondition('field_numero_departement', 'value', $number, '=');
     $query->range(0, 1);
-    
+
     $results = $query->execute();
-    
+
     if (!empty($results)) {
       $first_item = array_shift($results["taxonomy_term"]);
       return $first_item->tid;
     }
-    
-    return 0;    
+
+    return 0;
   }
 }

@@ -116,13 +116,17 @@
                 <!-- [contactUs mini] end-->
 
                 <?php /* TODO : Sharing information */ ?>
-                <!-- <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+                <a class="save save--small" data-cookie-add="<?php print $node->nid; ?>" data-cookie="<?php print $node->type; ?>" href="#">
+                  <span class="icon icon-love"></span>
+                  <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
+                </a>
                 <div class="sharing">
-                    <ul class="sharing__items">
+
+<!--                    <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                         <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    </ul>
-                </div>-->
+                    </ul>-->
+                </div>
             </div>
             <div class="programHeader__content__details">
                 <ul class="characteristicList">
@@ -134,8 +138,12 @@
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages")
+                            if ($carac_term->name == "Etages") :
                               $flag_etages = FALSE;
+                              if(!$node->field_caracteristique_etages['und'][0]['value'] || ($node->field_caracteristique_etages['und'][0]['value'] && $node->field_caracteristique_etages['und'][0]['value'] <= 1)):
+                                  $carac_term->name = str_replace('s', '', $carac_term->name);
+                              endif;
+                            endif;
                             if ($carac_term->name == "Chauffage")
                               $flag_chauffage = FALSE;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
@@ -152,6 +160,9 @@
                     if (isset($etages[0]['value']) && $etages[0]['value']) :
                       if (($icons = get_taxonomy_by_vocabulary_name('Etages', $vocabulary_name))):
                         if ($flag_etages):
+                          if(($node->field_caracteristique_etages['und'][0]['value'] && $node->field_caracteristique_etages['und'][0]['value'] <= 1)):
+                             $icons[0]->name = str_replace('s', '', $icons[0]->name);
+                          endif;
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
                           if ($icons[0]->description):
