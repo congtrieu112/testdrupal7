@@ -394,6 +394,13 @@ function kandb_programme_field_group_info() {
       15 => 'field_programme_stock',
       16 => 'field_type_programme',
       17 => 'field_zone_activite',
+      18 => 'field_programme_flat_available_b',
+      19 => 'field_programme_price_min_b',
+      20 => 'field_programme_price_max_b',
+      21 => 'field_program_low_tva_price_minb',
+      22 => 'field_program_low_tva_price_maxb',
+      23 => 'field_programme_room_min_b',
+      24 => 'field_programme_room_max_b',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
