@@ -18,6 +18,15 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
+  $items['admin/content/ketb/finance/presentation'] = array(
+    'title' => '[Finance] Presentation',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_presentation_admin_form'),
+    'file' => 'kandb_group.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
