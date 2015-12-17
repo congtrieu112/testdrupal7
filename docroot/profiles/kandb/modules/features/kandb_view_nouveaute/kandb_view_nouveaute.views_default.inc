@@ -32,10 +32,6 @@ function kandb_view_nouveaute_views_default_views() {
   $handler->display->display_options['pager']['options']['items_per_page'] = '10';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'node';
-  /* Relationship: Entity Reference: Referencing entity */
-  $handler->display->display_options['relationships']['reverse_field_promotion_programme_node']['id'] = 'reverse_field_promotion_programme_node';
-  $handler->display->display_options['relationships']['reverse_field_promotion_programme_node']['table'] = 'node';
-  $handler->display->display_options['relationships']['reverse_field_promotion_programme_node']['field'] = 'reverse_field_promotion_programme_node';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -219,7 +215,6 @@ function kandb_view_nouveaute_views_default_views() {
     t('‹ previous'),
     t('next ›'),
     t('last »'),
-    t('Content referencing Content from field_promotion_programme'),
     t('Image Principale'),
     t('Ville'),
     t('Départment'),

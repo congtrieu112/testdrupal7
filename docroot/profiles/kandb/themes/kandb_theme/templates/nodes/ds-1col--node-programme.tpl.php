@@ -1,6 +1,50 @@
 <!-- [programHeader] start-->
 <header class="programHeader">
     <!-- mobile heading-->
+    <div class="wrapper show-for-small-only">
+      <h1 class="heading heading--bordered">
+        <?php if ($program_loc_ville) : ?>
+          <div class="heading__title">
+            <?php print $program_loc_ville; ?>
+            <?php
+            if ($programme_loc_arr_name) :
+              print $programme_loc_arr_name;
+            elseif ($program_loc_department) :
+              print $program_loc_department;
+            endif;
+            ?>
+          </div>
+        <?php endif; ?>
+        <?php if ($title) : ?>
+          <div class="heading__title heading__title--sub"><?php print $title; ?></div>
+        <?php endif; ?>
+      </h1>
+      <ul class="tags-list">
+        <?php if ($nouveau) : ?>
+          <li>
+            <div class="tag tag--important"><?php print t('Nouveauté'); ?></div>
+          </li>
+        <?php endif; ?>
+        <?php
+        if ($promotions) :
+          foreach ($promotions as $promotion) :
+            $triger_promotion = 'promotion-' . $promotion->nid;
+            ?>
+            <li>
+              <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+              <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                  <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                  <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                </div>
+              </div>
+              <!-- [popin] end-->
+            </li>
+          <?php endforeach; ?>
+        <?php endif; ?>
+      </ul>
+    </div>
+
     <div class="programHeader__figure">
         <!-- images need to have 2 formats see data-exchange attribute:
         - small: 640 x 316 (heavy compression)
@@ -116,13 +160,17 @@
                 <!-- [contactUs mini] end-->
 
                 <?php /* TODO : Sharing information */ ?>
-                <!-- <a href="#" class="save save--small"><span class="icon icon-love"></span><span class="text">Ajouter à mes sélections</span></a>
+                <a class="save save--small" data-cookie-add="<?php print $node->nid; ?>" data-cookie="<?php print $node->type; ?>" href="#">
+                  <span class="icon icon-love"></span>
+                  <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
+                </a>
                 <div class="sharing">
-                    <ul class="sharing__items">
+
+<!--                    <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
                         <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                    </ul>
-                </div>-->
+                    </ul>-->
+                </div>
             </div>
             <div class="programHeader__content__details">
                 <ul class="characteristicList">
@@ -144,10 +192,8 @@
                               endif;
                             endif;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span><span class="text">' . $carac_term->name . '</span>';
-                            if ($carac_term->description) :
-                              print '<span data-tooltip aria-haspopup="true" title="' . $carac_term->description . '" class="has-tip">?</span>';
-                            endif;
+                            print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span>';
+                            print '<span class="text">' . $carac_term->name . ' '.(($carac_term->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="'.$carac_term->description.'"></span>' : '').'</span>';
                             print '</li>';
                           endif;
                         endif;
@@ -157,11 +203,12 @@
                     if (isset($etages[0]['value']) && $etages[0]['value']) :
                       if (($icons = get_taxonomy_by_vocabulary_name('Etages', $vocabulary_name))):
                         if ($flag_etages):
-                          $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                          if ($icons[0]->description):
-                            print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
+                          if(($node->field_caracteristique_etages['und'][0]['value'] && $node->field_caracteristique_etages['und'][0]['value'] <= 1)):
+                             $icons[0]->name = str_replace('s', '', $icons[0]->name);
                           endif;
+                          $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                          print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                           print '</li>';
                         endif;
                       endif;
@@ -173,10 +220,8 @@
                           $chauffage = taxonomy_term_load($chauffage[0]['tid']);
                           $icons[0]->name =  $chauffage->name;
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
-                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                          if ($icons[0]->description):
-                            print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                          endif;
+                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                          print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                           print '</li>';
                         endif;
                       endif;

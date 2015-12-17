@@ -150,7 +150,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
-  // By pass apply rule in case apply habiteo API. 
+  // By pass apply rule in case apply habiteo API.
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
@@ -171,6 +171,7 @@ function kandb_business_rules_node_presave($node) {
       $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
     }
 
+    // RULE COUNTING 115, 116
     $tva_tid = isset($node->field_tva[LANGUAGE_NONE][0]['tid']) ? $node->field_tva[LANGUAGE_NONE][0]['tid'] : 0;
     $tva = 0;
     if ($tva_tid) {
@@ -183,13 +184,22 @@ function kandb_business_rules_node_presave($node) {
     $programme_price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] : 0;
     $programme_price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] : 0;
 
+    $programme_price_min_b2b = isset($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_min_b[LANGUAGE_NONE][0]['value'] : 0;
+    $programme_price_max_b2b = isset($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_max_b[LANGUAGE_NONE][0]['value'] : 0;
+
     if ($tva) {
       $node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = ($programme_price_min / 1.2) * ($tva + 1);
       $node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] = ($programme_price_max / 1.2) * ($tva + 1);
+
+      $node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value'] = ($programme_price_min_b2b / 1.2) * ($tva + 1);
+      $node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value'] = ($programme_price_max_b2b / 1.2) * ($tva + 1);
     }
     else {
       $node->field_program_low_tva_price_min = array();
       $node->field_program_low_tva_price_max = array();
+
+      $node->field_program_low_tva_price_minb = array();
+      $node->field_program_low_tva_price_maxb = array();
     }
 
     if (isset($node->nid)) {
