@@ -131,6 +131,7 @@ function kb_import_cronapi($op, $job = NULL) {
 }
 
 function kb_import_feeds_before_import(FeedsSource $source) {
+  variable_set('feeds_process_limit', 1000);
   $file_name = 'imported_lot.txt';
   if ($source->id == 'parcel_feed_import') {
     $uri = 'private://imported/';
