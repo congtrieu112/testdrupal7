@@ -30,6 +30,15 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['admin/content/ketb/group/home'] = array(
+    'title' => '[Group] Home',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_home_admin_form'),
+    'file' => 'kandb_group_home.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
