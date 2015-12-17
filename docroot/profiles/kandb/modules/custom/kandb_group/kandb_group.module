@@ -4,6 +4,9 @@
  * @file
  * K&B B2C Group pages.
  */
+define('TYPE_DOCUMENT', 'Communiqué de presse');
+define('VOCAL_DOCUMENT', 'type_de_document');
+define('LIMIT_DOCUMENT', 3);
 
 /**
  * Implement of hook_menu().
@@ -44,9 +47,55 @@ function kandb_group_theme($existing, $type, $theme, $path) {
 
 function render_group_homepage() {
   $data = array();
+  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
+  if ($term_document_id) {
+    $documents = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id);
+    if ($documents) {
+      $data['documents'] = $documents;
+    }
+  }
   $group_header = module_invoke('bean', 'block_view', 'group-header');
   if (isset($group_header['content']) && $group_header['content']) {
     $data['group_header'] = $group_header['content'];
   }
   return theme('group_homepage', array('data' => $data));
+}
+
+/**
+ * Get document lasted.
+ */
+function kandb_group_get_document_node($limit, $tid) {
+
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'document')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_document_type', 'tid', $tid)
+    ->fieldOrderBy('field_document_date', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
+  ;
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $promotion_nids = array_keys($result['node']);
+    return entity_load('node', $promotion_nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Helper function to dynamically get the tid from the term_name.
+ */
+function kandb_group_get_term_from_name($term_name, $vocabulary_name) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name)) {
+    $tree = taxonomy_get_tree($vocabulary->vid);
+    foreach ($tree as $term) {
+      if ($term->name == $term_name) {
+        return $term->tid;
+      }
+    }
+  }
+  return FALSE;
 }
