@@ -938,6 +938,21 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'number_integer',
   );
 
+  // Exported field_base: 'field_program_low_tva_price_maxb'
+  $field_bases['field_program_low_tva_price_maxb'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_program_low_tva_price_maxb',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
   // Exported field_base: 'field_program_low_tva_price_min'
   $field_bases['field_program_low_tva_price_min'] = array(
     'active' => 1,
@@ -945,6 +960,21 @@ function kandb_programme_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_program_low_tva_price_min',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(),
+    'translatable' => 0,
+    'type' => 'number_integer',
+  );
+
+  // Exported field_base: 'field_program_low_tva_price_minb'
+  $field_bases['field_program_low_tva_price_minb'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_program_low_tva_price_minb',
     'indexes' => array(),
     'locked' => 0,
     'module' => 'number',
@@ -1006,6 +1036,23 @@ function kandb_programme_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_programme_flat_available',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_programme_flat_available_b'
+  $field_bases['field_programme_flat_available_b'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_flat_available_b',
     'indexes' => array(),
     'locked' => 0,
     'module' => 'number',
@@ -1434,6 +1481,23 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'number_float',
   );
 
+  // Exported field_base: 'field_programme_price_max_b'
+  $field_bases['field_programme_price_max_b'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_price_max_b',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
   // Exported field_base: 'field_programme_price_min'
   $field_bases['field_programme_price_min'] = array(
     'active' => 1,
@@ -1441,6 +1505,23 @@ function kandb_programme_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_programme_price_min',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_programme_price_min_b'
+  $field_bases['field_programme_price_min_b'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_price_min_b',
     'indexes' => array(),
     'locked' => 0,
     'module' => 'number',
@@ -1468,6 +1549,23 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'number_float',
   );
 
+  // Exported field_base: 'field_programme_room_max_b'
+  $field_bases['field_programme_room_max_b'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_room_max_b',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
   // Exported field_base: 'field_programme_room_min'
   $field_bases['field_programme_room_min'] = array(
     'active' => 1,
@@ -1475,6 +1573,23 @@ function kandb_programme_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_programme_room_min',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+    ),
+    'translatable' => 0,
+    'type' => 'number_float',
+  );
+
+  // Exported field_base: 'field_programme_room_min_b'
+  $field_bases['field_programme_room_min_b'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_programme_room_min_b',
     'indexes' => array(),
     'locked' => 0,
     'module' => 'number',
