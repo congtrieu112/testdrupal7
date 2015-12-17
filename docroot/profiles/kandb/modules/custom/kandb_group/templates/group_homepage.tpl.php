@@ -6,27 +6,28 @@ endif;
 <section class="section-padding groupHomepageArticle bg-lightGrey">
     <div class="wrapper">
         <div data-equalizer data-equalizer-mq="medium-up" class="articleList__list">
-            <div data-equalizer-watch class="articleList__item">
-                <div class="inner">
-                    <div class="articleList__item__infos">
-                        <h4 class="articleList__item__infos__heading">Derniers Communiqués</h4>
-                        <dl class="articleList__item__infos__list">
-                            <dt><a href="#"><span class="icon icon-communique"></span><span class="text">20.06.2015</span></a></dt>
-                            <dd>
-                                <p>Cras mattis consectetur purus sit amet fermentum</p>
-                            </dd>
-                            <dt><a href="#"><span class="icon icon-communique"></span><span class="text">03.02.2015</span></a></dt>
-                            <dd>
-                                <p>Cras mattis consectetur purus sit amet fermentum</p>
-                            </dd>
-                            <dt><a href="#"><span class="icon icon-communique"></span><span class="text">15.01.2015</span></a></dt>
-                            <dd>
-                                <p>Cras mattis consectetur purus sit amet fermentum</p>
-                            </dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
+            <?php if ($data['documents']): ?>
+              <div data-equalizer-watch class="articleList__item">
+                  <div class="inner">
+                      <div class="articleList__item__infos">
+                          <h4 class="articleList__item__infos__heading"><?php print t('Derniers Communiqués'); ?></h4>
+                          <dl class="articleList__item__infos__list">
+                              <?php foreach ($data['documents'] as $document) : ?>
+                                <dt>
+                                <a href="<?php print url('node/' . $document->nid); ?>">
+                                    <span class="icon icon-communique"></span>
+                                    <span class="text"><?php print date('d.m.Y', strtotime($document->field_document_date[LANGUAGE_NONE][0]['value'])); ?></span>
+                                </a>
+                                </dt>
+                                <dd>
+                                    <p><?php print $document->title; ?></p>
+                                </dd>
+                              <?php endforeach; ?>
+                          </dl>
+                      </div>
+                  </div>
+              </div>
+            <?php endif; ?>
             <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                 <div class="inner">
                     <div class="articleList__item__img">
