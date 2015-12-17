@@ -134,12 +134,12 @@
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages"){
+                            if ($carac_term->name == "Etages") :
                               $flag_etages = FALSE;
                               if(!$node->field_caracteristique_etages['und'][0]['value'] || ($node->field_caracteristique_etages['und'][0]['value'] && $node->field_caracteristique_etages['und'][0]['value'] <= 1)):
                                   $carac_term->name = str_replace('s', '', $carac_term->name);
                               endif;
-                            }
+                            endif;
                             if ($carac_term->name == "Chauffage")
                               $flag_chauffage = FALSE;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
