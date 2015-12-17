@@ -394,17 +394,20 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
-      $entity->domains = array(1 => 1);
+      $entity->domains = array();
       if (isset($item[30])) {
-        if ($item[30] == 1 || $item[30] == 3) {
+        if ($item[30] == 1 || $item[30] == 2) {
           $entity->domains[3] = 3;
         }
-        if ($item[30] == 2 || $item[30] == 3) {
+        if ($item[30] == 3 || $item[30] == 2) {
           $entity->domains[2] = 2;
         }
       }
+      if (empty($entity->domains)) {
+        $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
+      }
       if ($totalItems != $totalColumn) {
-        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+        $logging .= $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
           'term_name' => array(
@@ -433,7 +436,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           ),
         );
 
-        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        $logging .= validateFieldInFileImportFeeds($validates, $item, $entity);
         if($logging && strpos($logging, 'Warning') !== FALSE) {
           $warning_count += 1;
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
