@@ -87,8 +87,8 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
   $handler->display->display_options['filters']['current_all']['value'] = '1';
 
-  /* Display: Les dernières offers */
-  $handler = $view->new_display('block', 'Les dernières offers', 'block');
+  /* Display: Les dernières offres */
+  $handler = $view->new_display('block', 'Les dernières offres', 'block');
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Image Principale */
@@ -96,7 +96,6 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['field_image_principale']['table'] = 'field_data_field_image_principale';
   $handler->display->display_options['fields']['field_image_principale']['field'] = 'field_image_principale';
   $handler->display->display_options['fields']['field_image_principale']['label'] = '';
-  $handler->display->display_options['fields']['field_image_principale']['exclude'] = TRUE;
   $handler->display->display_options['fields']['field_image_principale']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_image_principale']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image_principale']['click_sort_column'] = 'fid';
@@ -111,6 +110,7 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['title']['label'] = '';
   $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
   $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
   /* Field: Content: Ville */
   $handler->display->display_options['fields']['field_programme_loc_ville']['id'] = 'field_programme_loc_ville';
   $handler->display->display_options['fields']['field_programme_loc_ville']['table'] = 'field_data_field_programme_loc_ville';
@@ -143,7 +143,81 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['field_programme_livraison_date']['label'] = '';
   $handler->display->display_options['fields']['field_programme_livraison_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_programme_livraison_date']['settings'] = array(
-    'format_type' => 'long',
+    'format_type' => 'dd_mm_yyyy',
+    'fromto' => '',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+  /* Field: Content: Date d’actabilité */
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['id'] = 'field_programme_actabilite_date';
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['table'] = 'field_data_field_programme_actabilite_date';
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['field'] = 'field_programme_actabilite_date';
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['label'] = '';
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_programme_actabilite_date']['settings'] = array(
+    'format_type' => 'dd_mm_yyyy',
+    'fromto' => 'both',
+    'multiple_number' => '',
+    'multiple_from' => '',
+    'multiple_to' => '',
+  );
+
+  /* Display: Les offres spéciales  */
+  $handler = $view->new_display('block', 'Les offres spéciales ', 'block_1');
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Image Principale */
+  $handler->display->display_options['fields']['field_image_principale']['id'] = 'field_image_principale';
+  $handler->display->display_options['fields']['field_image_principale']['table'] = 'field_data_field_image_principale';
+  $handler->display->display_options['fields']['field_image_principale']['field'] = 'field_image_principale';
+  $handler->display->display_options['fields']['field_image_principale']['label'] = '';
+  $handler->display->display_options['fields']['field_image_principale']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_image_principale']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_image_principale']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_image_principale']['settings'] = array(
+    'image_style' => '',
+    'image_link' => '',
+  );
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  /* Field: Content: Ville */
+  $handler->display->display_options['fields']['field_programme_loc_ville']['id'] = 'field_programme_loc_ville';
+  $handler->display->display_options['fields']['field_programme_loc_ville']['table'] = 'field_data_field_programme_loc_ville';
+  $handler->display->display_options['fields']['field_programme_loc_ville']['field'] = 'field_programme_loc_ville';
+  $handler->display->display_options['fields']['field_programme_loc_ville']['label'] = '';
+  $handler->display->display_options['fields']['field_programme_loc_ville']['element_label_colon'] = FALSE;
+  /* Field: Content: Départment */
+  $handler->display->display_options['fields']['field_programme_loc_department']['id'] = 'field_programme_loc_department';
+  $handler->display->display_options['fields']['field_programme_loc_department']['table'] = 'field_data_field_programme_loc_department';
+  $handler->display->display_options['fields']['field_programme_loc_department']['field'] = 'field_programme_loc_department';
+  $handler->display->display_options['fields']['field_programme_loc_department']['label'] = '';
+  $handler->display->display_options['fields']['field_programme_loc_department']['element_label_colon'] = FALSE;
+  /* Field: Content: En quelques mots B2B */
+  $handler->display->display_options['fields']['field_en_quelques_mots_b2b']['id'] = 'field_en_quelques_mots_b2b';
+  $handler->display->display_options['fields']['field_en_quelques_mots_b2b']['table'] = 'field_data_field_en_quelques_mots_b2b';
+  $handler->display->display_options['fields']['field_en_quelques_mots_b2b']['field'] = 'field_en_quelques_mots_b2b';
+  $handler->display->display_options['fields']['field_en_quelques_mots_b2b']['label'] = '';
+  $handler->display->display_options['fields']['field_en_quelques_mots_b2b']['element_label_colon'] = FALSE;
+  /* Field: Content: Nouveauté */
+  $handler->display->display_options['fields']['field_nouveau']['id'] = 'field_nouveau';
+  $handler->display->display_options['fields']['field_nouveau']['table'] = 'field_data_field_nouveau';
+  $handler->display->display_options['fields']['field_nouveau']['field'] = 'field_nouveau';
+  $handler->display->display_options['fields']['field_nouveau']['label'] = '';
+  $handler->display->display_options['fields']['field_nouveau']['element_label_colon'] = FALSE;
+  /* Field: Content: Date de livraison */
+  $handler->display->display_options['fields']['field_programme_livraison_date']['id'] = 'field_programme_livraison_date';
+  $handler->display->display_options['fields']['field_programme_livraison_date']['table'] = 'field_data_field_programme_livraison_date';
+  $handler->display->display_options['fields']['field_programme_livraison_date']['field'] = 'field_programme_livraison_date';
+  $handler->display->display_options['fields']['field_programme_livraison_date']['label'] = '';
+  $handler->display->display_options['fields']['field_programme_livraison_date']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_programme_livraison_date']['settings'] = array(
+    'format_type' => 'dd_mm_yyyy',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -156,7 +230,7 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['field_programme_actabilite_date']['label'] = '';
   $handler->display->display_options['fields']['field_programme_actabilite_date']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_programme_actabilite_date']['settings'] = array(
-    'format_type' => 'long',
+    'format_type' => 'dd_mm_yyyy',
     'fromto' => 'both',
     'multiple_number' => '',
     'multiple_from' => '',
@@ -172,6 +246,8 @@ function kandb_views_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Content entity referenced from field_promotion_programme'),
+    t('Les dernières offres'),
+    t('Les offres spéciales '),
   );
   $export['b2b_nos_dernieres_offres'] = $view;
 

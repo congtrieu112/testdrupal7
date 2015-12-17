@@ -123,48 +123,6 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
-  $feeds_tamper->id = 'migration_program_import-bureaudeventedepartement-rewrite';
-  $feeds_tamper->importer = 'migration_program_import';
-  $feeds_tamper->source = 'BureauDeVenteDepartement';
-  $feeds_tamper->plugin_id = 'rewrite';
-  $feeds_tamper->settings = array(
-    'text' => '[bureaudeventeadresse] [bureaudeventeville] [bureaudeventedepartement]',
-  );
-  $feeds_tamper->weight = 0;
-  $feeds_tamper->description = 'Rewrite';
-  $export['migration_program_import-bureaudeventedepartement-rewrite'] = $feeds_tamper;
-
-  $feeds_tamper = new stdClass();
-  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-  $feeds_tamper->api_version = 2;
-  $feeds_tamper->id = 'migration_program_import-labelbbczone2-rewrite';
-  $feeds_tamper->importer = 'migration_program_import';
-  $feeds_tamper->source = 'LabelBbcZone2';
-  $feeds_tamper->plugin_id = 'rewrite';
-  $feeds_tamper->settings = array(
-    'text' => '[labelbbczone1] [labelbbczone2]',
-  );
-  $feeds_tamper->weight = 0;
-  $feeds_tamper->description = 'Rewrite';
-  $export['migration_program_import-labelbbczone2-rewrite'] = $feeds_tamper;
-
-  $feeds_tamper = new stdClass();
-  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-  $feeds_tamper->api_version = 2;
-  $feeds_tamper->id = 'migration_program_import-reglementationthermiquezone2-rewrite';
-  $feeds_tamper->importer = 'migration_program_import';
-  $feeds_tamper->source = 'ReglementationThermiqueZone2';
-  $feeds_tamper->plugin_id = 'rewrite';
-  $feeds_tamper->settings = array(
-    'text' => '[reglementationthermiquezone1] [reglementationthermiquezone2]',
-  );
-  $feeds_tamper->weight = 0;
-  $feeds_tamper->description = 'Rewrite';
-  $export['migration_program_import-reglementationthermiquezone2-rewrite'] = $feeds_tamper;
-
-  $feeds_tamper = new stdClass();
-  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
-  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'migration_program_video_import-identifiantprogramme-trim';
   $feeds_tamper->importer = 'migration_program_video_import';
   $feeds_tamper->source = 'IdentifiantProgramme';
@@ -798,18 +756,38 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
-  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace_de_prog';
+  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace';
   $feeds_tamper->importer = 'partenaire_import';
   $feeds_tamper->source = 'TypeExport';
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
-    'find' => 'Sélection de programmes',
+    'find' => 'Sélection de programmes Prescripteurs',
     'replace' => '3',
     'case_sensitive' => 0,
     'word_boundaries' => 1,
     'whole' => 1,
     'regex' => TRUE,
-    'regex_find' => '/^Sélection de programmes$/ui',
+    'regex_find' => '/^Sélection de programmes Prescripteurs$/ui',
+  );
+  $feeds_tamper->weight = 3;
+  $feeds_tamper->description = 'Find replace';
+  $export['partenaire_import-typeexport-find_replace'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-typeexport-find_replace_de_prog';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'TypeExport';
+  $feeds_tamper->plugin_id = 'find_replace';
+  $feeds_tamper->settings = array(
+    'find' => 'Sélection de programmes Grand Public',
+    'replace' => '3',
+    'case_sensitive' => 0,
+    'word_boundaries' => 1,
+    'whole' => 1,
+    'regex' => TRUE,
+    'regex_find' => '/^Sélection de programmes Grand Public$/ui',
   );
   $feeds_tamper->weight = 2;
   $feeds_tamper->description = 'Find replace';
