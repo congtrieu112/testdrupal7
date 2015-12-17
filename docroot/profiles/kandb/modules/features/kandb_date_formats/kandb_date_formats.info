@@ -1,0 +1,9 @@
+name = K&B Date Formats
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = date_format_date_format_dd_mm_yyyy
