@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Date Formats feature.
+ */
+
+include_once 'kandb_date_formats.features.inc';
