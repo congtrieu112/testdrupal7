@@ -2,7 +2,6 @@
 /**
  * @file
  * Code for the K&B SEO feature.
- * TODO : - Static cache for data retrieve function
  */
 
 include_once 'kandb_seo.features.inc';
@@ -136,6 +135,88 @@ function kandb_seo_preprocess_html(&$vars) {
     $vars['head_title'] = $current_url_meta['title'];
     $vars['head_title_array']['title'] = $current_url_meta['title'];
     drupal_add_html_head($description, 'description');
+  }
+
+  // If metatag module isn't enable add manual canonical
+  // See kandb_seo_html_head_alter() Otherwise
+  if ($current_url == URL_SEARCH_B2C && !module_exists('metatag')) {
+    // create a canonical object
+    $canonical = array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'name' => 'canonical',
+        'content' => URL_SEARCH_B2C,
+      ),
+    );
+
+    //  add the canonical object to the html head
+    drupal_add_html_head($canonical, 'canonical');
+  }
+}
+
+/**
+ * Implements hook_html_head_alter().
+ */
+function kandb_seo_html_head_alter(&$head_elements) {
+  global $base_url, $conf;
+
+  // Canonical for search page
+  if (module_exists('metatag')&& current_path() == URL_SEARCH_B2C && isset($_GET['place'])) {
+    $vocabularies = taxonomy_vocabulary_get_names();
+    $location = $_GET['place'];
+
+    // Do we have a "direct" location in the search ?
+    $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
+    $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
+    $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
+
+    // Search if we have a not direct location
+    if (empty($ville) && empty($departement) && empty($region)) {
+      $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
+      if($postal_code && $ville_tid = current($postal_code)->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']){
+        $ville = taxonomy_term_load_multiple(array($ville_tid));
+      }
+      $departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+    }
+
+
+    if($location = (!empty($ville) ? 'ville' : (!empty($departement) ? 'departement' : (!empty($region) ? 'region' : false)))) {
+
+      // Prepare to clean url with pathauto
+      module_load_include('inc', 'pathauto');
+      $pathauto_ignore_words = $conf['pathauto_ignore_words'];
+      $conf['pathauto_ignore_words'] = '';
+
+      // Programmes urls
+      if (!isset($_GET['bien'])) {
+        // Create canonical
+        $url = $base_url . '/' . $location . 's/programmes-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name);
+      }else {
+        $code_departement = '';
+        if ($location == 'ville') {
+          $code_departement = '-' . current($$location)->field_code_departement[LANGUAGE_NONE][0]['value'];
+        }elseif ($location == 'departement') {
+          $code_departement = '-' . current($$location)->field_numero_departement[LANGUAGE_NONE][0]['value'];
+        }
+        $type = (isset($_GET['field_type']) ? (count($_GET['field_type']) == 1 ? pathauto_cleanstring(taxonomy_term_load($_GET['field_type'][0])->name) : false)  : false);
+        $nb_piece = (isset($_GET['field_nb_pieces']) ? (count($_GET['field_nb_pieces']) == 1 ? pathauto_cleanstring(taxonomy_term_load($_GET['field_nb_pieces'][0])->name) : false)  : false);
+        if ($type && $nb_piece) {
+          // Create canonical
+          $url = $base_url . '/' . $location . 's/logements-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name) . $code_departement . '/achat-' . $type . '-' . $nb_piece;
+        }else{
+          // Create canonical
+          $url = $base_url . '/' . $location . 's/logements-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name);
+        }
+      }
+
+      // End of clean url
+      $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
+
+      // Change canonical
+      $head_elements['metatag_canonical']['#value'] = $url;
+      $head_elements['metatag_shortlink']['#value'] = $url;
+    }
   }
 }
 
@@ -300,6 +381,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
   $lieu_programme = $lieu_programme_real_name = '';
   $lieu_bien = $lieu_bien_real_name = $code_dept = '';
   $type = $real_type = $nb_pieces = $real_nb_piece = '';
+  $real_nb_piece_name = $real_type_name = '';
 
   // Programme info
   if ($arg_1) {
@@ -312,7 +394,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
       foreach ($sanitize_taxonomy_list as $term) {
         if ($lieu_programme == $term->sanitize_name) {
-          $lieu_programme_real_name = $term->name;
+          $lieu_programme_real_name = ucwords(strtolower($term->name), '- ');
         }
       }
     }
@@ -334,7 +416,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
     $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
     foreach ($sanitize_taxonomy_list as $term) {
       if ($lieu_bien == $term->sanitize_name) {
-        $lieu_bien_real_name = $term->name;
+        $lieu_bien_real_name = ucwords(strtolower($term->name), '- ');
         break;
       }
     }
@@ -345,6 +427,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       $sanitize_type_list = kandb_seo_get_sanitize_taxonomy_list('type_de_bien');
       foreach ($sanitize_type_list as $term) {
         if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_type_name = $term->name;
           $real_type = $term->tid;
           $type = $term->sanitize_name;
           break;
@@ -353,6 +436,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       $sanitize_piece_list = kandb_seo_get_sanitize_taxonomy_list('nb_pieces');
       foreach ($sanitize_piece_list as $term) {
         if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_nb_piece_name = $term->name;
           $real_nb_piece = $term->tid;
           $nb_pieces = $term->sanitize_name;
           break;
@@ -377,7 +461,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       )
     ),
     'villes/' . $lettre => array(
-      'title' => 'Immobiliers neufs classement par villes | Kaufman et Broad',
+      'title' => 'Immobiliers neufs par villes commençant par ' . $lettre . ' | Kaufman et Broad',
       'meta_description' => 'Découvrez tous les logements neufs par villes commençant par ' . $lettre . '. Villes : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_block_lieu' => array('villes'),
@@ -388,8 +472,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L2 : Villes > Tous les programmes neufs
     'villes/programmes-immobiliers-neufs-' . $lieu_programme => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - villes | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme_real_name . '.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
@@ -401,8 +485,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L2 : Villes > Tous les types de biens
     'villes/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - villes | Kaufman et Broad',
+      'meta_description' => 'Villes : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
       'callbacks' => array(
         'kandb_seo_block_list_by_type_of_bien' => array('villes', $lieu_bien_real_name),
       )
@@ -410,8 +494,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L3 : Villes > Tous les types de biens > Listing Bien
     'villes/logements-immobiliers-neufs-' . $lieu_bien  . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_bien . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - villes | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux villes avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
@@ -438,8 +522,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       )
     ),
     'departements/' . $lettre => array(
-      'title' => 'Immobiliers neufs classement par départements | Kaufman et Broad',
-      'meta_description' => 'Découvrez tous les logements neufs par départements commençant par %lettre. Départements : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
+      'title' => 'Immobiliers neufs par départements commençant par ' . $lettre . ' | Kaufman et Broad',
+      'meta_description' => 'Découvrez tous les logements neufs par départements commençant par ' . $lettre . '. Départements : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_block_lieu' => array('departements'),
         'kandb_seo_block_letters' => array('departements', $lettre),
@@ -449,8 +533,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L2 : Départements > Tous les programmes neufs
     'departements/programmes-immobiliers-neufs-' . $lieu_programme => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - département | Kaufman et Broad',
-      'meta_description' => '%departement : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par departement : ' . $lieu_programme . '.',
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - département | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par départements : ' . $lieu_programme_real_name . '.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
@@ -458,6 +542,30 @@ function kandb_seo_metatags_and_callbacks($url = false) {
           ),
         ),
       )
+    ),
+
+    // L2 : Départements > Tous les types de biens
+    'departements/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - départements | Kaufman et Broad',
+      'meta_description' => 'Département : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+      'callbacks' => array(
+        'kandb_seo_block_list_by_type_of_bien' => array('departements', $lieu_bien_real_name),
+      ),
+    ),
+
+    // L3 : Départements > Tous les types de biens > Listing Bien
+    'departements/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - départements | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux départements avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_bien_real_name,
+            'field_type' => array($real_type),
+            'field_nb_pieces' => array($real_nb_piece),
+          ),
+        ),
+      ),
     ),
 
 
@@ -476,8 +584,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L2 : Régions > Tous les programmes neufs
     'regions/programmes-immobiliers-neufs-' . $lieu_programme => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - région | Kaufman et Broad',
-      'meta_description' => '%regions : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par régions : ' .$lieu_programme . '.',
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - région | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par régions : ' . $lieu_programme_real_name . '.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
@@ -487,23 +595,19 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       ),
     ),
 
-    // L2 : Villes > Tous les types de biens
+    // L2 : Régions > Tous les types de biens
     'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Régions : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
       'callbacks' => array(
-        'kandb_seo_get_search_page' => array(
-          array(
-            'place' => $lieu_bien_real_name,
-          ),
-        ),
+        'kandb_seo_block_list_by_type_of_bien' => array('regions', $lieu_bien_real_name),
       ),
     ),
 
-    // L3 : Villes > Tous les types de biens > Listing Bien
+    // L3 : Régions > Tous les types de biens > Listing Bien
     'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
-      'title' => 'Programmes immobiliers neufs ' . $lieu_programme . ' - villes | Kaufman et Broad',
-      'meta_description' => '%ville : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme . '.',
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux régions avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
