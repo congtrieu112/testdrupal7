@@ -1,0 +1,4 @@
+name = K&B Group Page
+description = "Define function for Group Pages"
+package = K&B Development
+core = 7.x
