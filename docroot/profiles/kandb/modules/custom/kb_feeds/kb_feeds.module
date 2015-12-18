@@ -394,17 +394,20 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
-      $entity->domains = array(1 => 1);
+      $entity->domains = array();
       if (isset($item[30])) {
-        if ($item[30] == 1 || $item[30] == 3) {
+        if ($item[30] == 1 || $item[30] == 2) {
           $entity->domains[3] = 3;
         }
-        if ($item[30] == 2 || $item[30] == 3) {
+        if ($item[30] == 3 || $item[30] == 2) {
           $entity->domains[2] = 2;
         }
       }
+      if (empty($entity->domains)) {
+        $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
+      }
       if ($totalItems != $totalColumn) {
-        $logging = $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
+        $logging .= $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
           'term_name' => array(
@@ -433,7 +436,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           ),
         );
 
-        $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+        $logging .= validateFieldInFileImportFeeds($validates, $item, $entity);
         if($logging && strpos($logging, 'Warning') !== FALSE) {
           $warning_count += 1;
           variable_set($entity->feeds_item->id . '_warning', $warning_count);
@@ -960,9 +963,18 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       }
 
       if($file_upload_fields || $file_upload_values) {
-        $warning = variable_get($source->id . '_warning', 0);
-        $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Warning' . "\n";
-        variable_set($source->id . '_warning', $warning + 1);
+        if ($source->id == 'document_import_communique_de_presse') {
+          $rejected = variable_get($source->id . '_rejected', 0);
+          $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Skip import' . "\n";
+          variable_set($source->id . '_rejected', $rejected + 1);
+          unset($result->items[$key]);
+          continue;
+        }
+        else {
+          $warning = variable_get($source->id . '_warning', 0);
+          $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Warning' . "\n";
+          variable_set($source->id . '_warning', $warning + 1);
+        }
       }
     }
 

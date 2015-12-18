@@ -266,10 +266,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
                         $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $caracteristique->name . '</span>';
-                        if ($caracteristique->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $caracteristique->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $caracteristique->name . ' '.(($caracteristique->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $caracteristique->description . '"></span>' :'').'</span>';
                         print '</li>';
                       endforeach;
                     endif;
@@ -279,10 +277,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($jardin[0]['value']) && $jardin[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Jardin', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -290,10 +286,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($balcon[0]['value']) && $balcon[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Balcon', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -301,10 +295,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($terrasse[0]['value']) && $terrasse[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Terrasse', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -312,10 +304,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($parking[0]['value']) && $parking[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Parking', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -323,10 +313,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($box[0]['value']) && $box[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Box', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -334,10 +322,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($cave[0]['value']) && $cave[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Cave', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip open" data-selector="tooltip-ii9qucvo0" aria-describedby="tooltip-ii9qucvo0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -353,6 +339,10 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
                       <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
+                    <?php endif; ?>
+                      
+                    <?php if(kandb_check_filled_form_contact($programme)):?>  
+                      <li><a href="#contact" data-scroll-to  class="btn-white"><span class="icon icon-leaf"></span><span class="text"><?php print t('Espace de vente'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
                 <!-- [contactUs mini] start-->
@@ -529,7 +519,7 @@ if (!empty($list_bien_more)):
                                                     <?php endif; ?>
                                                 </ul>
                                             </li>
-                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m' : ''  ?><sup>2</sup></li>
+                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m<sup>2</sup>' : ''  ?></li>
                                             <li class="item-exhibit">
                                                 <?php
                                                 if (isset($bien_more->field_etage[LANGUAGE_NONE][0])) {

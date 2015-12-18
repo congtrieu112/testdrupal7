@@ -803,3 +803,22 @@ function kandb_update_7176() {
     module_enable(array('kandb_tmp_b2b'), TRUE);
   }
 }
+
+
+/*
+ * Enable kandb_group module
+ */
+function kandb_update_7177() {
+  if (!module_exists('kandb_group')) {
+    module_enable(array('kandb_group'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_grouper content module
+ */
+function kandb_update_7178() {
+  if (!module_exists('kandb_grouper')) {
+    module_enable(array('kandb_grouper'), TRUE);
+  }
+}
