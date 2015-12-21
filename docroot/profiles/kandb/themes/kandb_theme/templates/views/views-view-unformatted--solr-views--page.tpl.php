@@ -20,7 +20,8 @@ foreach ($rows as $id => $row) {
 
   if(!isset($type_of_bien_by_programme[$row_result['field_programme_nid']])){
     $type_of_bien_by_programme[$row_result['field_programme_nid']] = array();
-  }elseif(!isset($type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']])){
+  }
+  if(!isset($type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']])){
     $type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']] = 1;
   }else{
     $type_of_bien_by_programme[$row_result['field_programme_nid']][$row_result['field_type']] ++;
