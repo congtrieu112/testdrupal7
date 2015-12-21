@@ -40,6 +40,15 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['admin/content/ketb/group/finance-header'] = array(
+    'title' => '[Finance] block Header',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_header_admin_form'),
+    'file' => 'kandb_finance_header.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -50,6 +59,10 @@ function kandb_group_theme($existing, $type, $theme, $path) {
   return array(
     'group_homepage' => array(
       'template' => 'templates/group_homepage',
+      'variables' => array(),
+    ),
+    'finance_header_block' => array(
+      'template' => 'templates/finance_header_block',
       'variables' => array(),
     ),
   );
