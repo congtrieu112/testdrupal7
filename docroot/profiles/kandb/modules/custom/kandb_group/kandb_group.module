@@ -32,6 +32,15 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['finance/presentation/%'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
   $items['admin/content/ketb/group/home'] = array(
     'title' => '[Group] Home',
     'page callback' => 'drupal_get_form',
@@ -57,6 +66,15 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['admin/content/ketb/group/finance-header'] = array(
+    'title' => '[Finance] block Header',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_header_admin_form'),
+    'file' => 'kandb_finance_header.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
@@ -69,8 +87,19 @@ function kandb_group_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_homepage',
       'variables' => array(),
     ),
+
     'group_finance_publication' => array(
       'template' => 'templates/group_finance_publication',
+      'variables' => array(),
+    ),
+
+    'finance_presentation_page' => array(
+      'template' => 'templates/finance_presentation_page',
+      'variables' => array(),
+    ),
+
+    'finance_header_block' => array(
+      'template' => 'templates/finance_header_block',
       'variables' => array(),
     ),
   );
@@ -143,6 +172,13 @@ function render_group_finance_publication() {
   $data['calenders'] = $calenders;
 
   return theme('group_finance_publication', array('data' => $data));
+}
+
+/**
+ * Render finance presentation page.
+ */
+function render_finance_presentation_page() {
+  return theme('finance_presentation_page', array());
 }
 
 /**
