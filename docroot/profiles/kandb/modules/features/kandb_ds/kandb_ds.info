@@ -7,6 +7,7 @@ dependencies[] = ctools
 dependencies[] = ds
 features[ctools][] = ds:ds:1
 features[ds_view_modes][] = search
+features[ds_view_modes][] = selection
 features[ds_view_modes][] = teaser_carrousel_3
 features[ds_view_modes][] = teaser_carrousel_4
 features[features_api][] = api:2
