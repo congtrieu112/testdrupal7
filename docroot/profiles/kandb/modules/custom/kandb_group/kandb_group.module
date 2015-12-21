@@ -8,6 +8,10 @@ define('TYPE_DOCUMENT', 'Communiqué de presse');
 define('VOCAL_DOCUMENT', 'type_de_document');
 define('LIMIT_DOCUMENT', 3);
 define('NUMBER_CTA_GROUP', 6);
+define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
+define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
+define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+
 
 /**
  * Implement of hook_menu().
