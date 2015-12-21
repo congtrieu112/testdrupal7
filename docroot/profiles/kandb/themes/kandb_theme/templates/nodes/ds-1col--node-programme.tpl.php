@@ -182,14 +182,15 @@
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages") :
+                            if ($carac_term->name == "Etages")
                               $flag_etages = FALSE;
-                              if(!$node->field_caracteristique_etages['und'][0]['value'] || ($node->field_caracteristique_etages['und'][0]['value'] && $node->field_caracteristique_etages['und'][0]['value'] <= 1)):
-                                  $carac_term->name = str_replace('s', '', $carac_term->name);
+                            if ($carac_term->name == "Chauffage"):
+                              $flag_chauffage = FALSE;
+                              if($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
+                                  $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                                  $carac_term->name = $chauffage->name;
                               endif;
                             endif;
-                            if ($carac_term->name == "Chauffage")
-                              $flag_chauffage = FALSE;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                             print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span>';
                             print '<span class="text">' . $carac_term->name . ' '.(($carac_term->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="'.$carac_term->description.'"></span>' : '').'</span>';
@@ -216,6 +217,8 @@
                     if (isset($chauffage[0]['tid']) && $chauffage[0]['tid']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Chauffage', $vocabulary_name)):
                         if ($flag_chauffage):
+                          $chauffage = taxonomy_term_load($chauffage[0]['tid']);
+                          $icons[0]->name =  $chauffage->name;
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                           print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '').'</span>';
