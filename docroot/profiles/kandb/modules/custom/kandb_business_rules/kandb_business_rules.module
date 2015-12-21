@@ -421,6 +421,8 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
 
 function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'bien_node_form') {
+    // When textboxes ('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave') have value,
+    //     we'll hidden checkboxed in option caracteristiques
     if(isset($form['field_caracteristique'][LANGUAGE_NONE]['#options'])) {
       $caracteristiques = $form['field_caracteristique'][LANGUAGE_NONE]['#options'];
       $os = array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave');
