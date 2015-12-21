@@ -38015,6 +38015,14 @@ $(document).foundation({
 });
 
 
+App.SEO = {
+  title: $('title').text(),
+  description: $('meta[name=description]').attr('content'),
+  canonical: $('link[rel=canonical]').attr('href'),
+  shortlink: $('link[rel=shortlink]').attr('href')
+};
+
+
 // after resize
 $(window).on('resize', Foundation.utils.throttle(function(e){
   $(document).foundation('equalizer', 'reflow');
@@ -38040,6 +38048,7 @@ $(document).on('ajaxResponse', function(e){
   // rebind reveal popin's bindings
   App.revealBind();
 });
+
 },{}],15:[function(require,module,exports){
 /* ====================== */
 /* mapContact : app-contact-map.js */
@@ -38057,13 +38066,13 @@ require("./app-top-bar.js");
  * Aquitaine: 0
  * Bretagne: 1
  * Còte d'azur: 2
- * Languedoc-Rousillon: 4
- * Midi Pyrénées: 5
- * Normandie: 6
- * Provence: 7
- * Pyrénées Atlantiques: 8
- * Rhône Alpes: 9
- * Nord: 10
+ * Languedoc-Rousillon: 3
+ * Midi Pyrénées: 4
+ * Normandie: 5
+ * Provence: 6
+ * Pyrénées Atlantiques: 7
+ * Rhône Alpes: 8
+ * Nord: 9
  */
 
 var trigger            = '[data-contact-map]',
@@ -38083,7 +38092,9 @@ var defaults = {
     fixedClass: 'contactMap__fixed',
     fixedBottomClass: 'bottom',
     transitionClass: 'transition',
-    mapSectionPrefix: 'map-section-'
+    mapSectionPrefix: 'map-section-',
+    currentSection: 0,
+    offsetTopMargin: 16 // 16 pixels top bar offset
 };
 
 /* ============================= */
@@ -38103,6 +38114,10 @@ var concatClassName = function(className, concatName) {
 
 var removeClassName = function(className, removeName) {
     return className.split(' ' + removeName)[0];
+};
+
+var mapOffsetTop = function() {
+    return that.topBarHeight + that.settings.offsetTopMargin;
 };
 
 var activateSection = function(id) {
@@ -38127,8 +38142,14 @@ var cleanActiveSection = function() {
 };
 
 var activateRegion = function() {
-    var id = $(this).attr('data-contact-map-section');
+    var id = $(this).attr('data-contact-map-section'),
+        lastSection = that.settings.currentSection;
 
+    console.log('height', $(this.parentNode).height());
+    console.log('outer height', $(this.parentNode).outerHeight(true));
+    that.settings.currentSection = id;
+
+    scrollToMapTop(this, lastSection);
     cleanActiveSection();
     activateSection(id);
 };
@@ -38144,7 +38165,7 @@ var fixMapWidth = function() {
 };
 
 var fixMap = function() {
-    var offsetTop       = that.container.offset().top - (that.topBarHeight + 16),
+    var offsetTop       = that.container.offset().top - mapOffsetTop(),
         containerLength = that.container.height() - that.parent.height() + offsetTop,
         scrollTop       = $(window).scrollTop();
 
@@ -38160,6 +38181,20 @@ var fixMap = function() {
         that.parent.removeClass(that.settings.fixedBottomClass);
         that.parent.addClass(that.settings.fixedClass);
     }
+};
+
+var scrollToMapTop = function(el, lastSection) {
+    var $lastElParent = $('[' + sectionTrigger + '=' + lastSection + ']').parent(),
+        offset;
+
+    if (that.settings.currentSection > lastSection) {
+        offset = $(el.parentNode).offset().top - $lastElParent.outerHeight() -
+            mapOffsetTop() + $(el.parentNode).outerHeight() - that.settings.offsetTopMargin + 1;
+    }
+    else {
+        offset = $(el.parentNode).offset().top - mapOffsetTop();
+    }
+    $('#container').velocity('scroll', {offset: offset});
 };
 
 var bindMapListeners = function (unbind) {
@@ -38497,31 +38532,34 @@ function AppDropdown( el, opts ) {
 AppDropdown.prototype = {
 
   init: function() {
-    var that = this;
+    var that = this,
+        responsive = this.item.data('app-dropdown-responsive');
 
-    this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
-      e.preventDefault();
-      that.toggle();
-    });
+    if ( typeof responsive === 'undefined' || responsive && matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+      this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
+        e.preventDefault();
+        that.toggle();
+      });
 
-    // close on page clicking
-    if ( Foundation.utils.is_medium_up() ) {
-      $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
-        var $content = $('.form-dropdown__content, [data-app-dropdown]');
+      // close on page clicking
+      if ( Foundation.utils.is_medium_up() ) {
+        $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
+          var $content = $('.form-dropdown__content, [data-app-dropdown]');
 
-        if ( $content.is(':visible') ) {
-          if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
-            that.closeAll('all');
+          if ( $content.is(':visible') ) {
+            if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
+              that.closeAll('all');
+            }
           }
-        }
-      }, 300, true));
-    }
+        }, 300, true));
+      }
 
-    this.target.find('[data-app-dropdown-close]').off('click.dropdown-close').on('click.dropdown-close', function(e) {
-      var label = $(this).text();
-      that.item.find('.text').text(label);
-      that.close();
-    });
+      this.target.find('[data-app-dropdown-close]').off('click.dropdown-close').on('click.dropdown-close', function(e) {
+        var label = $(this).text();
+        that.item.find('.text').text(label);
+        that.close();
+      });
+    }
 
     return this;
   },
@@ -38731,6 +38769,7 @@ var defaults = {};
 function Gmaps(opts) {
   this.settings = $.extend({}, defaults, opts);
   this.item = $(trigger);
+  this.item0 = this.item[0];
 
   if ( !this.item.length && Foundation.utils.is_medium_up() ) {
     return;
@@ -38791,13 +38830,13 @@ Gmaps.prototype = {
     this.footerHeight         = App.footerHeight();
     this.mapHeight            = this.windowHeight - this.headerHeight;
     this.mapWidth             = $('.results__list').position().left - 40;
-    this.item[0].style.width  = this.mapWidth + 'px';
+    this.item0.style.width    = this.mapWidth + 'px';
 
     if ( this.mapHeight > this.resultsHeight ) {
-      this.item[0].style.height = this.resultsHeight + 'px';
+      this.item0.style.height = this.resultsHeight + 'px';
       this.mapFixed = true;
     } else {
-      this.item[0].style.height = this.mapHeight + 'px';
+      this.item0.style.height = this.mapHeight + 'px';
       this.mapFixed = false;
     }
 
@@ -38805,47 +38844,43 @@ Gmaps.prototype = {
   },
 
   setPosition: function() {
-    if ( !this.mapFixed ) {
-      var scrollTop     = this.window.scrollTop(),
-          breakPoint    = scrollTop + this.headerHeight,
-          resultsTop    = this.results.offset().top,
-          footerTop     = $('.siteFooter').offset().top,
-          leftPosition  = $('#container').offset().left;
+    var scrollTop     = this.window.scrollTop(),
+        breakPoint    = scrollTop + this.headerHeight,
+        resultsTop    = this.results.offset().top,
+        footerTop     = $('.siteFooter').offset().top,
+        leftPosition  = $('#container').offset().left;
 
-      // after searchFormular
-      if ( breakPoint > resultsTop ) {
+    // after searchFormular
+    if ( breakPoint > resultsTop /*&& !this.mapFixed*/ ) {
 
-        // after footer
-        if ( scrollTop + this.windowHeight > footerTop ) {
-          this.item[0].style.position = 'absolute';
-          this.item[0].style.bottom = this.footerHeight + 'px';
-          this.item[0].style.top = '';
-          this.item[0].style.left = '';
+      // after footer
+      if ( scrollTop + this.windowHeight > footerTop ) {
+        this.item.removeClass('fixed');
+        this.item0.style.bottom = this.footerHeight + 'px';
+        this.item0.style.top = '';
+        this.item0.style.left = '';
 
-        // before footer
-        } else {
-          this.item[0].style.position = 'fixed';
-          this.item[0].style.top = this.headerHeight + 'px';
-          this.item[0].style.bottom = '';
-          this.item[0].style.left = leftPosition + 'px';
-        }
-
-      // before searchFormular
+      // before footer
       } else {
-        this.item[0].style.position = 'absolute';
-        this.item[0].style.top = '';
-        this.item[0].style.bottom = '';
-        this.item[0].style.left = '';
+        this.item.addClass('fixed');
+        this.item0.style.top = this.headerHeight + 'px';
+        this.item0.style.bottom = '';
+        this.item0.style.left = leftPosition + 'px';
       }
+
+    // before searchFormular
+    } else {
+      this.item.removeClass('fixed');
+      this.item0.style.top = '';
+      this.item0.style.bottom = '';
+      this.item0.style.left = '';
     }
 
     return this;
   },
 
   initMarkers: function() {
-    var allMarkers = this.getMarkers();
-
-    this.newMap.addMarkers( allMarkers );
+    this.newMap.addMarkers( this.getMarkers() );
     this.newMap.fitZoom();
 
     return this;
@@ -39759,10 +39794,10 @@ App.topBarHeight = function() {
     this._name = pluginName;
 
     /* Reverse lookup */
-    this.el = element
+    this.el = element;
 
     /* Element */
-    this.$el = $(element)
+    this.$el = $(element);
 
     /* If multiple select: stop */
     if ( this.$el.prop('multiple') ) { return; }
@@ -39774,7 +39809,7 @@ App.topBarHeight = function() {
     this._defaults = defaults;
 
     /* Options */
-    this.$options = this.$el.find('option, optgroup')
+    this.$options = this.$el.find('option, optgroup');
 
     /* Initialize */
     this.init();
@@ -39793,18 +39828,21 @@ App.topBarHeight = function() {
     },
 
     _construct: function(){
-      var self = this
+      var self = this;
       /*
        * Add negative TabIndex to `select`
        * Preserves previous tabindex
        */
-      this.$el.data('plugin_'+ dataKey + '_tabindex', this.$el.prop('tabindex'))
+      this.$el.data('plugin_'+ dataKey + '_tabindex', this.$el.prop('tabindex'));
 
       // Add a tab index for desktop browsers
-      !isMobile && this.$el.prop("tabIndex", -1)
+      !isMobile && this.$el.prop("tabIndex", -1);
 
       // Wrap the Select
       this.$container = this.$el.wrapAll('<div class="' + this.settings.comboClass + ' '+ this.settings.themeClass + '" />').parent();
+
+      // Add desktop class when is not mobile
+      !isMobile && this.$container.addClass('desktop');
 
       // Check if select has a width attribute
       if(this.settings.extendStyle && this.$el.attr('style')){
@@ -39812,17 +39850,17 @@ App.topBarHeight = function() {
       }
 
       // Append dropdown arrow
-      this.$arrow = $('<div class="'+ this.settings.comboArrowClass+ '" />').appendTo(this.$container)
+      this.$arrow = $('<div class="'+ this.settings.comboArrowClass+ '" />').appendTo(this.$container);
 
       // Append dropdown
-      this.$dropdown = $('<ul class="'+this.settings.comboDropDownClass+'" />').appendTo(this.$container)
+      this.$dropdown = $('<ul class="'+this.settings.comboDropDownClass+'" />').appendTo(this.$container);
 
 
       // Create dropdown options
       this._build();
 
       // Append Input
-      this.$input = $('<input type="text"' + (isMobile? ' tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container)
+      this.$input = $('<input type="text"' + (isMobile? ' tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container);
 
       // Update input text
       this._updateInput()
@@ -39849,9 +39887,9 @@ App.topBarHeight = function() {
         }
         o += '<li class="'+(this.disabled? self.settings.disabledClass : "option-item") + ' ' +(k === self.$el.prop('selectedIndex')? self.settings.selectedClass : '')+ '" data-index="'+(k)+'" data-value="'+this.value+'">'+ (this.innerHTML) + '</li>'
         k++;
-      })
+      });
 
-      this.$dropdown.html(o)
+      this.$dropdown.html(o);
 
       // Items
       this.$items = this.$dropdown.children();
@@ -39867,7 +39905,7 @@ App.topBarHeight = function() {
          */
         this.$container.on('mouseup.input', 'input', function(e){
           e.preventDefault();
-        })
+        });
 
         // Input: blur
         this.$container.on('blur.input', 'input', $.proxy(this._blur, this));
