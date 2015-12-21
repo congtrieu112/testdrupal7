@@ -283,6 +283,14 @@
     </div>
     <div class="swapItem">
         <div class="swapItem__2 ">
+            <div class="wrapper">
+                <div class="heading heading--small text-center">
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
+                </div>
+            </div>
+        </div>
+
+        <div class="swapItem__1">
             <div class="wrapper--medium-up">
                 <?php if ($habiteo_id): ?>
                   <div class="iframe iframe--video-de-quartier">
@@ -325,14 +333,6 @@
                   endif;
                 endif;
                 ?>
-            </div>
-        </div>
-
-        <div class="swapItem__1">
-            <div class="wrapper">
-                <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
-                </div>
             </div>
         </div>
 
