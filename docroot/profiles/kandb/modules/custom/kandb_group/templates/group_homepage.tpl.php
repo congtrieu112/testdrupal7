@@ -50,12 +50,12 @@ endif;
                   </div>
               </div>
             <?php endif; ?>
-            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
+<!--            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                 <div class="inner">
                     <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
+                         [Responsive img] start<img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
                         <noscript><img src="test_assets/advices-medium.jpg" alt="test"/></noscript>
-                        <!-- [Responsive img] end-->
+                         [Responsive img] end
                     </div>
                     <div class="articleList__item__infos">
                         <h4 class="articleList__item__infos__heading">Frais réduit et taux preferentiels</h4>
@@ -66,7 +66,7 @@ endif;
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>
