@@ -132,7 +132,7 @@ function kandb_group_finance_presentation_admin_form($form, $form_state) {
     '#default_value' => variable_get('finance_presentation_notebooks_data_block_part_title_' . $current_lang),
     '#required' => TRUE,
   );
-  for ($i = 1; $i <= KANDB_GROUP_KPI_ITEMS_NUM; $i++) {
+  for ($i = 1; $i <= KANDB_GROUP_DATA_BLOCK_ITEMS_NUM; $i++) {
     $form['finance_presentation_notebooks']['finance_presentation_notebooks_data_block']['finance_presentation_notebooks_data_block_line_' . $i] = array(
       '#type' => 'fieldset',
       '#title' => t('Data Line ' . $i),
@@ -198,9 +198,29 @@ function kandb_group_finance_presentation_admin_form($form, $form_state) {
     '#default_value' => variable_get('finance_presentation_notebooks_data_block_2_part_title_' . $current_lang),
     '#required' => TRUE,
   );
+  for ($i = 1; $i <= KANDB_GROUP_DATA_BLOCK_ITEMS_NUM; $i++) {
+    $form['finance_presentation_notebooks']['finance_presentation_notebooks_data_block_2']['finance_presentation_notebooks_data_block_2_line_' . $i] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Data Line ' . $i),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['finance_presentation_notebooks']['finance_presentation_notebooks_data_block_2']['finance_presentation_notebooks_data_block_2_line_' . $i]['finance_presentation_notebooks_data_block_2_line_label_' . $i . '_' . $current_lang] = array(
+      '#type' => 'textfield',
+      '#title' => t('Label'),
+      '#default_value' => variable_get('finance_presentation_notebooks_data_block_2_line_label_' . $i . '_' . $current_lang),
+    );
+    $form['finance_presentation_notebooks']['finance_presentation_notebooks_data_block_2']['finance_presentation_notebooks_data_block_2_line_' . $i]['finance_presentation_notebooks_data_block_2_line_data_' . $i . '_' . $current_lang] = array(
+      '#type' => 'textfield',
+      '#title' => t('Data'),
+      '#default_value' => variable_get('finance_presentation_notebooks_data_block_2_line_data_' . $i . '_' . $current_lang),
+    );
+  }
   // END Finance presentation Notebooks.
   // Add a validation for Data Block - 1 Max fields (mandatory) for each text data entered.
   $form['#validate'][] = 'finance_presentation_notebooks_data_block_validate';
+  // Add a validation for Data Block 2 - 1 Max fields (mandatory) for each text data entered.
+  $form['#validate'][] = 'finance_presentation_notebooks_data_block_2_validate';
   return system_settings_form($form);
 }
 
@@ -221,6 +241,26 @@ function finance_presentation_notebooks_data_block_validate($form, &$form_state)
   
   if ($validated == FALSE) {
     form_set_error('finance_presentation_notebooks_data_block_line_1', t('Data Block - 1 Max fields (mandatory) for each text data entered'));
+  }
+}
+
+/**
+ * Validation for Data Block 2 - 1 Max fields (mandatory) for each text data entered.
+ */
+function finance_presentation_notebooks_data_block_2_validate($form, &$form_state) {
+  $current_lang = $form_state['input']['current_lang'];
+  $validated = FALSE;
+  for ($i = 1; $i <= KANDB_GROUP_KPI_ITEMS_NUM; $i++) {
+    $label = $form_state['input']['finance_presentation_notebooks_data_block_2_line_label_' . $i . '_' . $current_lang];
+    $data = $form_state['input']['finance_presentation_notebooks_data_block_2_line_data_' . $i . '_' . $current_lang];
+    if ($label AND $data) {
+      $validated = TRUE;
+      break;
+    }
+  }
+  
+  if ($validated == FALSE) {
+    form_set_error('finance_presentation_notebooks_data_block_2_line_1', t('Data Block 2 - 1 Max fields (mandatory) for each text data entered'));
   }
 }
 

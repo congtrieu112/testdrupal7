@@ -30,6 +30,15 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
+  
+  $items['finance/presentation/%'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
 
   $items['admin/content/ketb/group/home'] = array(
     'title' => '[Group] Home',
@@ -50,6 +59,10 @@ function kandb_group_theme($existing, $type, $theme, $path) {
   return array(
     'group_homepage' => array(
       'template' => 'templates/group_homepage',
+      'variables' => array(),
+    ),
+    'finance_presentation_page' => array(
+      'template' => 'templates/finance_presentation_page',
       'variables' => array(),
     ),
   );
@@ -85,6 +98,13 @@ function render_group_homepage() {
     }
   }
   return theme('group_homepage', array('data' => $data));
+}
+
+/**
+ * Render finance presentation page.
+ */
+function render_finance_presentation_page() {
+  return theme('finance_presentation_page', array());
 }
 
 /**
