@@ -14,7 +14,7 @@ $errors = form_get_errors();
         <div class="searchFormular__filters false" aria-hidden="true" id="dropdown-search-filters">
             <div class="searchFormular__dropdowns">
                 <div class="form-dropdown">
-                    <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-type-choice" aria-expanded="false">
+                    <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-type-choice" aria-expanded="false">
                         <?php print t('Type'); ?>
                         <span class="icon icon-expand" aria-hidden="true"></span>
                     </button>
@@ -26,7 +26,7 @@ $errors = form_get_errors();
                 </div>
 
                 <div class="form-dropdown">
-                    <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-price-choice" aria-expanded="false">
+                    <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-price-choice" aria-expanded="false">
                         <?php print t('Prix'); ?>
                         <span class="icon icon-expand" aria-hidden="true"></span>
                     </button>
