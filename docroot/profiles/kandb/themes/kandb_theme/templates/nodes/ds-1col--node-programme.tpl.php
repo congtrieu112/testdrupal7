@@ -78,8 +78,13 @@
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
+                    
                     <?php if($loc_num || $loc_rue): ?>
-                    <p class="text-bold"><?php print $loc_num; ?><?php print ($loc_num && $loc_rue ) ? ' - ' : ''; ?><?php print $loc_rue; ?></p>
+                    <?php
+                        $type_voie = taxonomy_term_load($type_voie);
+                        $type_voie_name = $type_voie->name;
+                    ?>
+                    <p class="text-bold"><?php print $loc_num; ?><?php print ($loc_num && $loc_rue ) ? ' ' : ''; ?> <?php print $type_voie_name; ?> <?php print $loc_rue; ?></p>
                     <?php endif; ?>
                     <ul class="tags-list">
                       <?php if ($nouveau) : ?>

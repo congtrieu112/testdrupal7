@@ -452,6 +452,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
     $vars['loc_num'] = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
     $vars['loc_rue'] = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    $vars['type_voie'] = isset($node->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';    
 
     /**
      * SLIDER
