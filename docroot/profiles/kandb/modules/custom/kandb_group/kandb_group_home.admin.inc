@@ -80,7 +80,7 @@ function bkandb_group_settings_cta_link(&$form, &$form_state) {
   if (isset($val['links_fieldset']['cta'])) {
     foreach ($val['links_fieldset']['cta'] as $key => $item) {
       if (isset($item['url']) && isset($item['title'])) {
-        //variable_set($key, $item);
+        variable_set($key, $item);
       }
     }
   }

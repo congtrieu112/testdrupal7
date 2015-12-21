@@ -41,7 +41,7 @@ endif;
                           <ul class="articleList__item__infos__links">
                               <?php if (isset($data['finance_block']['cta'])): ?>
                                 <?php foreach ($data['finance_block']['cta'] as $value) : ?>
-                              <li><a href="<?php print $value['url']; ?>" title="<?php print $value['title']; ?>"><?php print $value['title']; ?></a></li>
+                              <li><a href="<?php print url($value['url']); ?>" title="<?php print $value['title']; ?>"><?php print $value['title']; ?></a></li>
 
                                 <?php endforeach; ?>
                               <?php endif; ?>
