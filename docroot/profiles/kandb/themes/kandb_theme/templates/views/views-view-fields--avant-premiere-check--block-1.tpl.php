@@ -56,41 +56,48 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
         <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_avant_premiere_image_princ[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion_uncheck'] < 3): ?>
-                  <li>                      
-                      <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
-                      <!-- [popin] start-->
-                      <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                          <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                              <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_avant_premiere_node_title; ?></strong></p>
-                              <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
-                          </div>
-                      </div>
-                      <!-- [popin] end-->
-                  </li>
+                    <li>  
+                        <?php if (isset($row->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $row->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
+                            <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
+                            <!-- [popin] start-->
+                            <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $row->field_promotion_avant_premiere_node_title; ?></strong></p>
+                                    <p><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                                </div>
+                            </div>
+                            <!-- [popin] end-->
+                        <?php else : ?>
+                            <div class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></div>
+                        <?php endif; ?>
+                    </li>
+                    <?php
+                    if ($promotion) :
+                        foreach ($promotion as $value) :
+                            ?>
+                            <li>
+                                <?php if (isset($value->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $value->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
+                                    <button data-reveal-trigger="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></button>
+                                    <!-- [popin] start-->
+                                    <div data-reveal="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $value->field_promotion_avant_premiere_node_title; ?></strong></p>
+                                            <p><?php print $value->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
+                                        </div>
+                                    </div>
+                                    <!-- [popin] end-->
+                                <?php else : ?>
+                                    <div class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></div>
 
-                  <?php
-                  if ($promotion) :
-                    foreach ($promotion as $value) :
-                      ?>
-                      <li>
-                          <button data-reveal-trigger="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></button>
-                          <!-- [popin] start-->
-                          <div data-reveal="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                              <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                  <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $value->field_promotion_avant_premiere_node_title; ?></strong></p>
-                                  <p><?php print $value->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></p>
-                              </div>
-                          </div>
-                          <!-- [popin] end-->
-                      </li>
-                      <?php
-                    endforeach;
-                  endif;
-                  ?>
-
-                  <?php
-                  $_SESSION['avant_promotion_uncheck'] += 1;
-                  ?>
+                                <?php endif; ?>
+                            </li>
+                            <?php
+                        endforeach;
+                    endif;
+                    ?>
+                    <?php
+                    $_SESSION['avant_promotion_uncheck'] += 1;
+                    ?>
                 <?php endif; ?>
             </ul>
         </div>

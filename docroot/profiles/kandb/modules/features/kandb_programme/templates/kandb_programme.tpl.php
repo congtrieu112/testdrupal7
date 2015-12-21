@@ -97,9 +97,18 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                 }
                                               }
 
-                                              $arr_caracteris[] = isset($biens->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                              $arr_caracteris[] = isset($biens->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
-
+//                                              $arr_caracteris[] = isset($biens->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+//                                              $arr_caracteris[] = isset($biens->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                              
+                                              if (!empty($biens->field_cave_description[LANGUAGE_NONE][0]['value'])) {
+                                                $name_description_cave = field_info_instance('node', 'field_cave_description', 'bien');
+                                                $arr_caracteris[] = $name_description_cave['label'];
+                                              } 
+                                              if (!empty($biens->field_parking_description[LANGUAGE_NONE][0]['value'])){
+                                                $name_description_parking = field_info_instance('node', 'field_parking_description', 'bien');
+                                                $arr_caracteris[] = $name_description_parking['label'];
+                                              }                                              
+                                              
                                               $etage_tid = isset($biens->field_etage[LANGUAGE_NONE][0]['tid']) ? $biens->field_etage[LANGUAGE_NONE][0]['tid'] : '';
                                               $etage = '';
                                               if ($etage_tid) {
