@@ -151,7 +151,7 @@ $number_one = true;
                       </ul>
                       <div class="large-column">
                         <ul class="prices">
-                          <?php if($row_result['field_bien_low_tva_price'] != ''): ?>
+                          <?php if($row_result['field_bien_low_tva_price'] != '' && $row_result['field_bien_low_tva_price'] != 0): ?>
                             <li><span class="text">à partir de <strong><?php print $row_result['field_bien_low_tva_price']; ?> €</strong></span><span class="tva"><?php print $row_result['field_programme_field_tva']; ?></span></li>
                           <?php endif; ?>
                           <li><span class="text">à partir de <strong><?php print $row_result['field_prix_tva_20']; ?> €</strong></span><span class="tva tva--high">TVA 20%</span></li>
