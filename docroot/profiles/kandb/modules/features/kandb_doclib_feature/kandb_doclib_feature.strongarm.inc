@@ -19,19 +19,25 @@ function kandb_doclib_feature_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'domain' => array(
-          'weight' => '2',
+          'weight' => '3',
         ),
         'locations' => array(
-          'weight' => '5',
+          'weight' => '6',
         ),
         'title' => array(
           'weight' => '0',
         ),
         'path' => array(
-          'weight' => '4',
+          'weight' => '5',
         ),
         'redirect' => array(
-          'weight' => '3',
+          'weight' => '4',
+        ),
+        'metatags' => array(
+          'weight' => '13',
+        ),
+        'xmlsitemap' => array(
+          'weight' => '12',
         ),
       ),
       'display' => array(),

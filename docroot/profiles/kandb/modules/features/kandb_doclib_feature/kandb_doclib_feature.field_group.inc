@@ -21,16 +21,16 @@ function kandb_doclib_feature_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Contacts',
-    'weight' => '10',
+    'weight' => '11',
     'children' => array(
       0 => 'field_contact1_display',
-      1 => 'field_contact1_title',
+      1 => 'field_contact1_email',
       2 => 'field_contact1_text',
-      3 => 'field_contact1_email',
+      3 => 'field_contact1_title',
       4 => 'field_contact2_display',
-      5 => 'field_contact2_title',
+      5 => 'field_contact2_email',
       6 => 'field_contact2_text',
-      7 => 'field_contact2_email',
+      7 => 'field_contact2_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
