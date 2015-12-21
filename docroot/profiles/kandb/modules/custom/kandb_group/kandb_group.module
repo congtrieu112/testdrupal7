@@ -7,6 +7,7 @@
 define('TYPE_DOCUMENT', 'Communiqué de presse');
 define('VOCAL_DOCUMENT', 'type_de_document');
 define('LIMIT_DOCUMENT', 3);
+define('NUMBER_CTA_GROUP', 6);
 
 /**
  * Implement of hook_menu().
@@ -66,6 +67,22 @@ function render_group_homepage() {
   $group_header = module_invoke('bean', 'block_view', 'group-header');
   if (isset($group_header['content']) && $group_header['content']) {
     $data['group_header'] = $group_header['content'];
+  }
+  // Block Finance.
+  $finance_img = variable_get('image_group_home_block_finance', 0);
+  $finace_img_load = file_load($finance_img);
+  $finace_img_uri = (isset($finace_img_load->uri)) ? file_create_url($finace_img_load->uri) : '';
+  $data['finance_block']['image'] = $finace_img_uri;
+  $finace_title = variable_get('title_group_home_block_finance');
+  $data['finance_block']['title'] = $finace_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_finance_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['finance_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
   }
   return theme('group_homepage', array('data' => $data));
 }
