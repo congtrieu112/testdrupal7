@@ -7,11 +7,13 @@
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+define('KANDB_MENU_ITEM_NUM', 5);
 
 /**
  * Finance admin form.
  */
 function kandb_group_finance_header_admin_form($form, $form_state) {
+  global $language;
   $form['settings_links'] = array(
     '#markup' => kandb_ground_finance_language_tabs(),
   );
@@ -30,6 +32,12 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
     '#title' => t('Block Header'),
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
+  );
+
+  $form['fieldset_finance_menu']['links_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Menu items'),
+    '#tree' => TRUE,
   );
   $form['finance_header']['finance_header_title_' . $current_lang] = array(
     '#type' => 'textfield',
@@ -56,6 +64,36 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
     '#upload_location' => 'public://',
   );
 
+  $number_cta = KANDB_MENU_ITEM_NUM;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_menu_item_finance_' . $i . '_' . $current_lang);
+    if (isset($cta['url']) && isset($cta['title'])) {
+      $url = $cta['url'];
+      $title = $cta['title'];
+    }
+    $form['fieldset_finance_menu']['links_fieldset']['cta']['cta_menu_item_finance_' . $i . '_' . $current_lang] = array(
+      '#type' => 'link_field',
+      '#title' => t('CTA') . ' #' . ($i + 1),
+      '#field_parents' => NULL,
+      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#language' => $language->language,
+      '#field_name' => 'cta_menu_item_finance_' . $i . '_' . $current_lang,
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => $title,
+        'url' => $url,
+      ),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    );
+  }
+
+  $form['#submit'] = array(
+    'bkandb_menu_cta_link'
+  );
   return system_settings_form($form);
 }
 
@@ -77,4 +115,19 @@ function kandb_ground_finance_language_tabs() {
   }
 
   return $result;
+}
+
+/*
+ * Submit and save variable for CTA link.
+ */
+
+function bkandb_menu_cta_link(&$form, &$form_state) {
+  $val = $form_state['values'];
+  if (isset($val['links_fieldset']['cta'])) {
+    foreach ($val['links_fieldset']['cta'] as $key => $item) {
+      if (isset($item['url']) && isset($item['title'])) {
+        variable_set($key, $item);
+      }
+    }
+  }
 }

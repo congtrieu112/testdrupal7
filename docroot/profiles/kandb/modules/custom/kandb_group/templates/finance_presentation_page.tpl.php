@@ -15,6 +15,9 @@ $speech_job_title = variable_get('finance_presentation_speech_job_title_' . $cur
 $speech_buton_url = variable_get('finance_presentation_speech_buton_url_' . $current_lang);
 ?>
 
+<?php
+print theme('finance_header_block');
+?>
 <!-- [president quote] start-->
 <section class="section-padding presidentQuote">
     <?php if ($speech_module_title) : ?>
