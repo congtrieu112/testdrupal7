@@ -60,7 +60,7 @@ function kandb_recherche_page(){
   if(isset($_GET['place']) && !empty($_GET['place'])){
 
     // Check if the search localisation exists in our BDD
-    $location = $_GET['place'];
+    $location = trim($_GET['place']);
     $arrondissement = kandb_recherche_arrondissement($location);
     $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
     $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
@@ -81,7 +81,7 @@ function kandb_recherche_page(){
     // Otherwise we propose some new result
     }else{
       // Check if the search localisation exists in our BDD (starting by)
-      $location = $_GET['place'];
+      $location = trim($_GET['place']);
       $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid, TRUE);
       $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location), TRUE);
       $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid, TRUE);
@@ -403,7 +403,7 @@ function recherche_complete_b2c_form($form, &$form_state) {
     '#type' => 'textfield',
     '#attributes' => array('required' => 'required', 'placeholder' => array('Ville, département ou programme'), 'class' => array('input__search'), 'pattern' => '(.){2,}$'),
     '#theme_wrappers' => array(),
-    '#default_value' => isset($_GET['place']) ? $_GET['place'] : NULL,
+    '#default_value' => isset($_GET['place']) ? trim($_GET['place']) : NULL,
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('type_de_bien');
@@ -762,7 +762,7 @@ function kandb_recherche_form_alter(&$form, &$form_state, $form_id) {
 
   // Localisation
   // Check if the search localisation exists in our BDD
-  $location = $_GET['place'];
+  $location = trim($_GET['place']);
   $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
   $arrondissement = kandb_recherche_arrondissement($location);
   $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
