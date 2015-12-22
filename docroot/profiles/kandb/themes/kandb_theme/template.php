@@ -457,11 +457,29 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['video_id'] = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
     $vars['logementBlock'] = module_invoke('kandb_programme', 'block_view', 'logement_block');
     $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
-    $vars['loc_num'] = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
-    $vars['loc_rue'] = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
-    $vars['type_voie'] = isset($node->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';    
+    $loc_num = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
+    $loc_rue = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    $type_voie = isset($node->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';
+    $type_voies = taxonomy_term_load($type_voie);
+    $type_voies_name = isset($type_voies->name) ? $type_voies->name : '';
+    $space = '&nbsp;';
+    $html = '';
+    $vars['address'] = '';
+    if ($loc_num || $type_voies_name || $loc_rue) {
 
-    /**
+        if ($loc_num && !$type_voies_name) {
+            $html = $loc_num . $space . $loc_rue;
+        } elseif (!$loc_num && $type_voies_name) {
+            $html = $type_voies_name . $space . $loc_rue;
+        } elseif (!$loc_num && !$type_voies_name) {
+            $html = $loc_rue;
+        } else {
+            $html = $loc_num . $space . $type_voies_name . $space . $loc_rue;
+        }
+        $vars['address'] = '<p class="text-bold">' . $html . '</p>';
+    }
+
+        /**
      * SLIDER
      */
     $arr_slider = array(
