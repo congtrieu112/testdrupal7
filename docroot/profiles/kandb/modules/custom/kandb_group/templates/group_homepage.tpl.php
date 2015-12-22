@@ -6,7 +6,7 @@ endif;
 <section class="section-padding groupHomepageArticle bg-lightGrey">
     <div class="wrapper">
         <div data-equalizer data-equalizer-mq="medium-up" class="articleList__list">
-            <?php if ($data['documents']): ?>
+            <?php if (isset($data['documents'])): ?>
               <div data-equalizer-watch class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__infos">
@@ -28,29 +28,34 @@ endif;
                   </div>
               </div>
             <?php endif; ?>
-            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
+            <?php if (isset($data['finance_block']) && isset($data['finance_block']['image'])): ?>
+              <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
+                  <div class="inner">
+                      <div class="articleList__item__img">
+                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['finance_block']['image']; ?>, (small)], [<?php print $data['finance_block']['image']; ?>, (large)]"/>
+                          <noscript><img src="<?php print $data['finance_block']['image']; ?>" alt="<?php print $data['finance_block']['title']; ?>"/></noscript>
+                          <!-- [Responsive img] end-->
+                      </div>
+                      <div class="articleList__item__infos">
+                          <h4 class="articleList__item__infos__heading"><?php print $data['finance_block']['title']; ?></h4>
+                          <ul class="articleList__item__infos__links">
+                              <?php if (isset($data['finance_block']['cta'])): ?>
+                                <?php foreach ($data['finance_block']['cta'] as $value) : ?>
+                              <li><a href="<?php print url($value['url']); ?>" title="<?php print $value['title']; ?>"><?php print $value['title']; ?></a></li>
+
+                                <?php endforeach; ?>
+                              <?php endif; ?>
+                          </ul>
+                      </div>
+                  </div>
+              </div>
+            <?php endif; ?>
+<!--            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                 <div class="inner">
                     <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
+                         [Responsive img] start<img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
                         <noscript><img src="test_assets/advices-medium.jpg" alt="test"/></noscript>
-                        <!-- [Responsive img] end-->
-                    </div>
-                    <div class="articleList__item__infos">
-                        <h4 class="articleList__item__infos__heading">Qualite: Nos labels</h4>
-                        <ul class="articleList__item__infos__links">
-                            <li><a href="#" title="La garatie de remboursement ou d'achevement">La garatie de remboursement ou d'achevement</a></li>
-                            <li><a href="#" title="La garatie de remboursement ou">La garatie de remboursement ou</a></li>
-                            <li><a href="#" title="La garatie de remboursement ou d'achevement remboursement ou d'achevement">La garatie de remboursement ou d'achevement remboursement ou d'achevement</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
-                <div class="inner">
-                    <div class="articleList__item__img">
-                        <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
-                        <noscript><img src="test_assets/advices-medium.jpg" alt="test"/></noscript>
-                        <!-- [Responsive img] end-->
+                         [Responsive img] end
                     </div>
                     <div class="articleList__item__infos">
                         <h4 class="articleList__item__infos__heading">Frais réduit et taux preferentiels</h4>
@@ -61,7 +66,7 @@ endif;
                         </ul>
                     </div>
                 </div>
-            </div>
+            </div>-->
         </div>
     </div>
 </section>
