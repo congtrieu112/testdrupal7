@@ -31,6 +31,9 @@ function kandb_bien_strongarm() {
       'search' => array(
         'custom_settings' => TRUE,
       ),
+      'selection' => array(
+        'custom_settings' => TRUE,
+      ),
       'teaser_carrousel_3' => array(
         'custom_settings' => TRUE,
       ),
@@ -98,6 +101,10 @@ function kandb_bien_strongarm() {
           'full' => array(
             'weight' => '44',
             'visible' => FALSE,
+          ),
+          'selection' => array(
+            'visible' => TRUE,
+            'weight' => 1,
           ),
         ),
       ),

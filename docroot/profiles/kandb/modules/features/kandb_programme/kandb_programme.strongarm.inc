@@ -55,6 +55,9 @@ function kandb_programme_strongarm() {
       'search_programme' => array(
         'custom_settings' => TRUE,
       ),
+      'selection' => array(
+        'custom_settings' => TRUE,
+      ),
       'selection_contact' => array(
         'custom_settings' => FALSE,
       ),
@@ -99,6 +102,10 @@ function kandb_programme_strongarm() {
             'visible' => FALSE,
           ),
           'search_programme' => array(
+            'weight' => 1,
+            'visible' => TRUE,
+          ),
+          'selection' => array(
             'weight' => '1',
             'visible' => FALSE,
           ),

@@ -6,20 +6,791 @@
 
 include_once 'kandb_seo.features.inc';
 
+/**
+ * Implements hook_menu().
+ */
+function kandb_seo_menu() {
+  $items = array();
+
+  /**
+   * GEOLOCATED SITEMAP
+   */
+  // Villes
+  $items['villes'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('ville'),
+    'access arguments' => array('access content'),
+  );
+  $items['villes/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('ville', arg(1)),
+    'access arguments' => array('access content'),
+  );
+  $items['villes/%arg/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('region', arg(1), arg(2)),
+    'access arguments' => array('access content'),
+  );
+
+  // Départements
+  $items['departements'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('departement'),
+    'access arguments' => array('access content'),
+  );
+  $items['departements/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('departement', arg(1)),
+    'access arguments' => array('access content'),
+  );
+  $items['departements/%arg/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('region', arg(1), arg(2)),
+    'access arguments' => array('access content'),
+  );
+
+  // Régions
+  $items['regions'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('region'),
+    'access arguments' => array('access content'),
+  );
+  $items['regions/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('region', arg(1)),
+    'access arguments' => array('access content'),
+  );
+  $items['regions/%arg/%arg'] = array(
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_seo_page_sitemap_geo',
+    'page arguments' => array('region', arg(1), arg(2)),
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
 
 /**
  * Implements hook_menu_alter().
  */
 function kandb_seo_menu_alter(&$items) {
   // Do not give access to taxonomy term list page
-  $items['taxonomy/term/%taxonomy_term']['page callback'] = 'kandb_seo_taxonomy_callback';
-  $items['taxonomy/term/%taxonomy_term/view']['page callback'] = 'kandb_seo_taxonomy_callback';
-  $items['taxonomy/term/%taxonomy_term/feed']['page callback'] = 'kandb_seo_taxonomy_callback';
+  $items['taxonomy/term/%taxonomy_term']['page callback'] = 'drupal_not_found';
+  $items['taxonomy/term/%taxonomy_term/view']['page callback'] = 'drupal_not_found';
+  $items['taxonomy/term/%taxonomy_term/feed']['page callback'] = 'drupal_not_found';
+}
+
+/**
+ * Implement hook_theme()
+ */
+function kandb_seo_theme($existing, $type, $theme, $path) {
+  return array(
+    'page_sitemap_geo' => array(
+      'template' => 'templates/page_sitemap_geo',
+      'variables' => array(),
+    ),
+    'block_lieu' => array(
+      'template' => 'templates/block_lieu',
+      'variables' => array(),
+    ),
+    'block_letter' => array(
+      'template' => 'templates/block_letter',
+      'variables' => array(),
+    ),
+    'block_list' => array(
+      'template' => 'templates/block_list',
+      'variables' => array(),
+    ),
+    'block_list_type' => array(
+      'template' => 'templates/block_list_type',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements hook_preprocess_html
+ */
+function kandb_seo_preprocess_html(&$vars) {
+  $current_url = current_path();
+  $current_url_meta = kandb_seo_metatags_and_callbacks($current_url);
+
+  if(!empty($current_url_meta)) {
+    $description = array(
+      '#type' => 'html_tag',
+      '#tag' => 'meta',
+      '#attributes' => array(
+        'name' => 'description',
+        'content' => $current_url_meta['meta_description'],
+      )
+    );
+    $vars['head_title'] = $current_url_meta['title'];
+    $vars['head_title_array']['title'] = $current_url_meta['title'];
+    drupal_add_html_head($description, 'description');
+  }
+
+  // If metatag module isn't enable add manual canonical
+  // See kandb_seo_html_head_alter() Otherwise
+  if ($current_url == URL_SEARCH_B2C && !module_exists('metatag')) {
+    // create a canonical object
+    $canonical = array(
+      '#type' => 'html_tag',
+      '#tag' => 'link',
+      '#attributes' => array(
+        'name' => 'canonical',
+        'content' => URL_SEARCH_B2C,
+      ),
+    );
+
+    //  add the canonical object to the html head
+    drupal_add_html_head($canonical, 'canonical');
+  }
+}
+
+/**
+ * Implements hook_html_head_alter().
+ */
+function kandb_seo_html_head_alter(&$head_elements) {
+  global $base_url, $conf;
+
+  // Canonical for search page
+  if (module_exists('metatag')&& current_path() == URL_SEARCH_B2C && isset($_GET['place'])) {
+    $vocabularies = taxonomy_vocabulary_get_names();
+    $location = $_GET['place'];
+
+    // Do we have a "direct" location in the search ?
+    $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
+    $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
+    $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
+
+    // Search if we have a not direct location
+    if (empty($ville) && empty($departement) && empty($region)) {
+      $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
+      if($postal_code && $ville_tid = current($postal_code)->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']){
+        $ville = taxonomy_term_load_multiple(array($ville_tid));
+      }
+      $departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+    }
+
+
+    if($location = (!empty($ville) ? 'ville' : (!empty($departement) ? 'departement' : (!empty($region) ? 'region' : false)))) {
+
+      // Prepare to clean url with pathauto
+      module_load_include('inc', 'pathauto');
+      $pathauto_ignore_words = $conf['pathauto_ignore_words'];
+      $conf['pathauto_ignore_words'] = '';
+
+      // Programmes urls
+      if (!isset($_GET['bien'])) {
+        // Create canonical
+        $url = $base_url . '/' . $location . 's/programmes-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name);
+      }else {
+        $code_departement = '';
+        if ($location == 'ville') {
+          $code_departement = '-' . current($$location)->field_code_departement[LANGUAGE_NONE][0]['value'];
+        }elseif ($location == 'departement') {
+          $code_departement = '-' . current($$location)->field_numero_departement[LANGUAGE_NONE][0]['value'];
+        }
+        $type = (isset($_GET['field_type']) ? (count($_GET['field_type']) == 1 ? pathauto_cleanstring(taxonomy_term_load($_GET['field_type'][0])->name) : false)  : false);
+        $nb_piece = (isset($_GET['field_nb_pieces']) ? (count($_GET['field_nb_pieces']) == 1 ? pathauto_cleanstring(taxonomy_term_load($_GET['field_nb_pieces'][0])->name) : false)  : false);
+        if ($type && $nb_piece) {
+          // Create canonical
+          $url = $base_url . '/' . $location . 's/logements-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name) . $code_departement . '/achat-' . $type . '-' . $nb_piece;
+        }else{
+          // Create canonical
+          $url = $base_url . '/' . $location . 's/logements-immobiliers-neufs-' . pathauto_cleanstring(current($$location)->name);
+        }
+      }
+
+      // End of clean url
+      $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
+
+      // Change canonical
+      $head_elements['metatag_canonical']['#value'] = $url;
+      $head_elements['metatag_shortlink']['#value'] = $url;
+    }
+  }
 }
 
 /**
  * Page Callback
  */
-function kandb_seo_taxonomy_callback(){
-  print drupal_not_found();
+function kandb_seo_page_sitemap_geo($localisation, $argument = NULL){
+  $current_url = current_path();
+  $current_url_meta = kandb_seo_metatags_and_callbacks($current_url);
+
+  if(empty($current_url_meta)) return drupal_not_found();
+
+  $vars = array();
+  $vars['content'] = '';
+  if(isset($current_url_meta['callbacks'])) {
+    foreach ($current_url_meta['callbacks'] as $callback => $args) {
+      $vars['content'] .= call_user_func_array($callback, $args);
+    }
+  }
+
+  return theme('page_sitemap_geo', $vars);
+}
+
+/**
+ * Page callback
+ */
+function kandb_seo_get_search_page($get = array()){
+  $_GET = array_merge(
+    $_GET,
+    $get
+  );
+  return kandb_recherche_page();
+}
+
+/**
+ * Page callback
+ */
+function kandb_seo_block_lieu($location) {
+  $vars = array();
+  $vars['location'] = array(
+    'Villes' => 'villes',
+    'Départements' => 'departements',
+    'Régions' => 'regions',
+  );
+  $vars['selected'] = $location;
+  return theme('block_lieu', $vars);
+}
+
+/**
+ * Page callback
+ */
+function kandb_seo_block_letters($location, $letter = NULL) {
+  $vars = array();
+
+  // Get the list of the available cities
+  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('only_first_letter' => TRUE));
+
+  // Process the result
+  $vars['location'] = array();
+  while($object = $results->fetchAssoc()){
+    $min_letter = strtolower($object['first_letter']);
+    $vars['location'][$min_letter] = $location . '/' . $min_letter;
+  }
+
+  // Send data to template
+  $vars['selected'] = $location . '/' . $letter;
+  return theme('block_letter', $vars);
+}
+
+/**
+ * Page callback
+ */
+function kandb_seo_block_list($location, $first_letter = false) {
+  $vars = array();
+
+  // Get the list of the available cities
+  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('first_letter' => $first_letter));
+
+  // Get sanitize name
+  global $conf;
+
+  // Do not remove the ignore words
+  module_load_include('inc', 'pathauto');
+  $pathauto_ignore_words = $conf['pathauto_ignore_words'];
+  $conf['pathauto_ignore_words'] = '';
+
+  // Process the result
+  $vars['results'] = array();
+  while($object = $results->fetchAssoc()){
+    $vars['results'][] = array(
+      'name' => ucwords(strtolower($object['name']), '- '),
+      'sanitize_name' => pathauto_cleanstring($object['name']),
+      'numero_departement' => $object['field_numero_departement_value'],
+    );
+  }
+
+  // Put the ignore words back
+  $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
+
+  // Send vars to themes
+  $vars['location'] = $location;
+  return theme('block_list', $vars);
+}
+
+/**
+ * Page callback
+ */
+function kandb_seo_block_list_by_type_of_bien($location, $location_detail){
+  $vars = array();
+
+  // Get sanitize name
+  global $conf;
+
+  // Do not remove the ignore words
+  module_load_include('inc', 'pathauto');
+  $pathauto_ignore_words = $conf['pathauto_ignore_words'];
+  $conf['pathauto_ignore_words'] = '';
+
+  // Sanitized strings
+  $vars['sanitized_strings'] = array();
+
+  // Get info for the url
+  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('bien' => $location_detail));
+  while($object = $results->fetchAssoc()) {
+    if(!isset($vars['results'][$object['type_name']])) $vars['results'][$object['type_name']] = array();
+    if(!in_array($object['nb_piece_name'], $vars['results'][$object['type_name']])) $vars['results'][$object['type_name']][] = $object['nb_piece_name'];
+    $vars['sanitized_strings'][$object['type_name']] = pathauto_cleanstring($object['type_name']);
+    $vars['sanitized_strings'][$object['nb_piece_name']] = pathauto_cleanstring($object['nb_piece_name']);
+  }
+  ksort($vars['results']);
+
+  // Put the ignore words back
+  $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
+
+  // Pass vars to template
+  $vars['location'] = $location_detail;
+  return theme('block_list_type', $vars);
+}
+
+/**
+ * Get the metatags and callbacks for a specific url
+ *
+ * @param bool|string
+ *  The url
+ * @return array
+ *  Return the metas and callbacks for the $url,
+ *  keyed by the url if found, empty array otherwise
+ */
+function kandb_seo_metatags_and_callbacks($url = false) {
+  if(!$url) return array();
+
+  /**
+   * GEOLOCATED SITEMAP
+   */
+  $args = explode('/', $url);
+  $arg_0 = $args[0];
+  $arg_1 = isset($args[1]) ? $args[1] : false;
+  $arg_2 = isset($args[2]) ? $args[2] : false;
+  $lettre = substr($arg_1, 0, 1);
+
+  // Init
+  $lieu_programme = $lieu_programme_real_name = '';
+  $lieu_bien = $lieu_bien_real_name = $code_dept = '';
+  $type = $real_type = $nb_pieces = $real_nb_piece = '';
+  $real_nb_piece_name = $real_type_name = '';
+
+  // Programme info
+  if ($arg_1) {
+    // Infos for the metas bellow
+    $lieu_programme = str_replace('programmes-immobiliers-neufs-', '', $arg_1);
+    if (strpos($arg_1, 'programmes-immobiliers-neufs-') === 0 && !empty($lieu_programme)) {
+      // Check if what it asked exists
+      $taxonomy = substr($arg_0, 0, -1); // Remove the s
+      $first_lettre = substr($lieu_programme, 0, 1);
+      $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
+      foreach ($sanitize_taxonomy_list as $term) {
+        if ($lieu_programme == $term->sanitize_name) {
+          $lieu_programme_real_name = ucwords(strtolower($term->name), '- ');
+        }
+      }
+    }
+    if(empty($lieu_programme_real_name)) $lieu_programme = '';
+  }
+
+  // Bien info
+  if ($arg_1) {
+    // Infos for the metas bellow
+    $info_location_bien = str_replace('logements-immobiliers-neufs-', '', $arg_1);
+    $info_location_bien = explode('-', $info_location_bien);
+    $code_dept = $info_location_bien[(count($info_location_bien) - 1)];
+    unset($info_location_bien[(count($info_location_bien) - 1)]);
+    $lieu_bien = implode('-', $info_location_bien);
+
+    // Check if what it asked exists
+    $taxonomy = substr($arg_0, 0, -1); // Remove the s
+    $first_lettre = substr($lieu_bien, 0, 1);
+    $sanitize_taxonomy_list = kandb_seo_get_sanitize_taxonomy_list($taxonomy, $first_lettre);
+    foreach ($sanitize_taxonomy_list as $term) {
+      if ($lieu_bien == $term->sanitize_name) {
+        $lieu_bien_real_name = ucwords(strtolower($term->name), '- ');
+        break;
+      }
+    }
+    if(empty($lieu_bien_real_name)) $lieu_bien = '';
+
+    if ($arg_2 && $lieu_bien != '') {
+      // Check if exists
+      $sanitize_type_list = kandb_seo_get_sanitize_taxonomy_list('type_de_bien');
+      foreach ($sanitize_type_list as $term) {
+        if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_type_name = $term->name;
+          $real_type = $term->tid;
+          $type = $term->sanitize_name;
+          break;
+        }
+      }
+      $sanitize_piece_list = kandb_seo_get_sanitize_taxonomy_list('nb_pieces');
+      foreach ($sanitize_piece_list as $term) {
+        if (strpos($arg_2, $term->sanitize_name) !== FALSE) {
+          $real_nb_piece_name = $term->name;
+          $real_nb_piece = $term->tid;
+          $nb_pieces = $term->sanitize_name;
+          break;
+        }
+      }
+    }
+  }
+
+
+  $items = array(
+    /*
+     * VILLES
+     */
+    // L1 : Villes
+    'villes' => array(
+      'title' => 'Immobiliers neufs classement par villes | Kaufman et Broad',
+      'meta_description' => 'Découvrez maintenant le classement de tous les logements neufs par villes et parcourez les différentes offres de Kaufman et Broad par villes.',
+      'callbacks' => array(
+        'kandb_seo_block_lieu' => array('villes'),
+        'kandb_seo_block_letters' => array('villes', NULL),
+        'kandb_seo_block_list' => array('villes'),
+      )
+    ),
+    'villes/' . $lettre => array(
+      'title' => 'Immobiliers neufs par villes commençant par ' . $lettre . ' | Kaufman et Broad',
+      'meta_description' => 'Découvrez tous les logements neufs par villes commençant par ' . $lettre . '. Villes : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_block_lieu' => array('villes'),
+        'kandb_seo_block_letters' => array('villes', $lettre),
+        'kandb_seo_block_list' => array('villes', $lettre),
+      )
+    ),
+
+    // L2 : Villes > Tous les programmes neufs
+    'villes/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - villes | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par ville : ' . $lieu_programme_real_name . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_programme_real_name
+          ),
+        ),
+      ),
+    ),
+
+    // L2 : Villes > Tous les types de biens
+    'villes/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - villes | Kaufman et Broad',
+      'meta_description' => 'Villes : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+      'callbacks' => array(
+        'kandb_seo_block_list_by_type_of_bien' => array('villes', $lieu_bien_real_name),
+      )
+    ),
+
+    // L3 : Villes > Tous les types de biens > Listing Bien
+    'villes/logements-immobiliers-neufs-' . $lieu_bien  . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - villes | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux villes avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_bien_real_name,
+            'field_type' => array($real_type),
+            'field_nb_pieces' => array($real_nb_piece),
+          ),
+        ),
+      ),
+    ),
+
+
+    /*
+     * DEPARTEMENT
+     */
+    // L1 : Départements
+    'departements' => array(
+      'title' => 'Immobiliers neufs classement par départements | Kaufman et Broad',
+      'meta_description' => 'Découvrez maintenant le classement de tous les logements neufs par départements et parcourez les différentes offres de Kaufman et Broad par départements.',
+      'callbacks' => array(
+        'kandb_seo_block_lieu' => array('departements'),
+        'kandb_seo_block_letters' => array('departements', NULL),
+        'kandb_seo_block_list' => array('departements'),
+      )
+    ),
+    'departements/' . $lettre => array(
+      'title' => 'Immobiliers neufs par départements commençant par ' . $lettre . ' | Kaufman et Broad',
+      'meta_description' => 'Découvrez tous les logements neufs par départements commençant par ' . $lettre . '. Départements : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_block_lieu' => array('departements'),
+        'kandb_seo_block_letters' => array('departements', $lettre),
+        'kandb_seo_block_list' => array('departements', $lettre),
+      )
+    ),
+
+    // L2 : Départements > Tous les programmes neufs
+    'departements/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - département | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par départements : ' . $lieu_programme_real_name . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_programme_real_name
+          ),
+        ),
+      )
+    ),
+
+    // L2 : Départements > Tous les types de biens
+    'departements/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - départements | Kaufman et Broad',
+      'meta_description' => 'Département : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+      'callbacks' => array(
+        'kandb_seo_block_list_by_type_of_bien' => array('departements', $lieu_bien_real_name),
+      ),
+    ),
+
+    // L3 : Départements > Tous les types de biens > Listing Bien
+    'departements/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - départements | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux départements avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_bien_real_name,
+            'field_type' => array($real_type),
+            'field_nb_pieces' => array($real_nb_piece),
+          ),
+        ),
+      ),
+    ),
+
+
+    /*
+     * REGIONS
+     */
+    // L1 : Régions
+    'regions' => array(
+      'title' => 'Immobiliers neufs classement par régions | Kaufman et Broad',
+      'meta_description' => 'Découvrez maintenant le classement de tous les logements neufs par régions et parcourez les différentes offres de Kaufman et Broad par régions.',
+      'callbacks' => array(
+        'kandb_seo_block_lieu' => array('regions'),
+        'kandb_seo_block_list' => array('regions'),
+      )
+    ),
+
+    // L2 : Régions > Tous les programmes neufs
+    'regions/programmes-immobiliers-neufs-' . $lieu_programme => array(
+      'title' => 'Programmes immobiliers neufs ' . $lieu_programme_real_name . ' - région | Kaufman et Broad',
+      'meta_description' => $lieu_programme_real_name . ' : découvrez tous les programmes neufs Kaufman et Broad classés par critères. Trouvez le programme immobilier adapté à votre recherche par régions : ' . $lieu_programme_real_name . '.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_programme_real_name,
+          ),
+        ),
+      ),
+    ),
+
+    // L2 : Régions > Tous les types de biens
+    'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Régions : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+      'callbacks' => array(
+        'kandb_seo_block_list_by_type_of_bien' => array('regions', $lieu_bien_real_name),
+      ),
+    ),
+
+    // L3 : Régions > Tous les types de biens > Listing Bien
+    'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux régions avec Kaufman et Broad.',
+      'callbacks' => array(
+        'kandb_seo_get_search_page' => array(
+          array(
+            'place' => $lieu_bien_real_name,
+            'field_type' => array($real_type),
+            'field_nb_pieces' => array($real_nb_piece),
+          ),
+        ),
+      ),
+    ),
+  );
+
+  if($url && isset($items[$url])) return $items[$url];
+  return array();
+}
+
+/**
+ * @param $taxonomy_name
+ * @param bool|FALSE $first_letter
+ * @return array
+ */
+function kandb_seo_get_sanitize_taxonomy_list($taxonomy_name, $first_letter = false) {
+  global $conf;
+  $list = kandb_seo_get_taxonomy_list($taxonomy_name, $first_letter);
+  module_load_include('inc', 'pathauto');
+
+  $pathauto_ignore_words = $conf['pathauto_ignore_words'];
+  $conf['pathauto_ignore_words'] = '';
+  foreach($list as &$taxonomy_term){
+    $taxonomy_term->sanitize_name = pathauto_cleanstring($taxonomy_term->name);
+  }
+  $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
+  return $list;
+}
+
+/**
+ *
+ *
+ * @param $taxonomy_name
+ * @param bool|FALSE $first_letter
+ * @return array
+ */
+function kandb_seo_get_taxonomy_list($taxonomy_name, $first_letter = false) {
+  // Make sure the taxonomy exists
+  $taxonomies = taxonomy_vocabulary_get_names();
+  if(!isset($taxonomies[$taxonomy_name])) return array();
+
+  // When ask for a Ville, we need the first letter
+  // otherwise the list will be too long
+  if($taxonomy_name == 'ville' && !$first_letter) return array();
+
+  // Query
+  $query = new EntityFieldQuery;
+  $query->entityCondition('entity_type', 'taxonomy_term');
+
+  // Vocabulary
+  $query->propertyCondition('vid', $taxonomies[$taxonomy_name]->vid);
+
+  // Where
+  if($first_letter) $query->propertyCondition('name', $first_letter . '%', 'LIKE');
+
+  // Return result
+  $result = $query->execute();
+
+  // Load terms
+  $terms = array();
+  if(isset($result['taxonomy_term'])) {
+    $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+  }
+
+  return $terms;
+}
+
+/**
+ * Get the city list used in programme for a specific location
+ *
+ * @param $location
+ *  The location (ville, departement, region)
+ * @param bool|string $options
+ *  The options
+ *
+ * @return \DatabaseStatementInterface|null
+ *  Return the result of the query
+ */
+function kandb_seo_get_list_of_cities_by_programme_in($location, $options = array()) {
+
+  // Default options
+  $options = array_merge(
+    array(
+      'only_first_letter' => FALSE,
+      'first_letter' => FALSE,
+      'bien' => FALSE,
+    ),
+    $options
+  );
+
+  // Init Param
+  // if(!isset($options['only_first_letter'])) $options['only_first_letter'] = FALSE;
+  // if(!isset($options['first_letter'])) $options['first_letter'] = FALSE;
+  // if(!isset($options['bien'])) $options['bien'] = FALSE;
+
+  // Get the taxonomy to get the right reference field
+  $taxonomy = substr($location, 0, -1);
+  if($taxonomy == 'departement') $taxonomy = 'department';
+  $field = 'field_programme_loc_' . $taxonomy . '_tid';
+  $table = 'field_data_field_programme_loc_' . $taxonomy;
+
+  // Get the actual domain to filter results
+  $domains = domain_domains();
+  foreach ($domains as $id => $domain) {
+    if ($domain['machine_name'] == 'kandb_b2c') {
+      $domain = $domain['domain_id'];
+      break;
+    }
+  }
+
+  // Get the tid for the "Disponible" term in
+  $disponible_term = taxonomy_get_term_by_name("Disponible / Libre"); // Wrong method, should be retrieve by uuid
+  $disponible_id = current($disponible_term)->tid;
+
+  // Get the list of cities from taxonomy
+  $query = db_select($table);
+  $query->join('taxonomy_term_data', 'ttd', $field . ' = ttd.tid');
+
+  // Get the departement code
+  $query->fields('field_data_field_numero_departement', array('field_numero_departement_value'));
+  $query->join('field_data_field_programme_loc_department', NULL, 'field_data_field_programme_loc_department.entity_id = ' . $table . '.entity_id');
+  $query->join('field_data_field_numero_departement', NULL, 'field_data_field_programme_loc_department.field_programme_loc_department_tid = field_data_field_numero_departement.entity_id');
+
+  // If not asked only the first letter get name
+  if(!$options['only_first_letter']) {
+    $query->fields('ttd', array('name'));
+    $query->groupBy('ttd.tid');
+  // Otherwise get only the first letters
+  }else{
+    $query->addExpression('SUBSTRING(ttd.name, 1, 1)', 'first_letter');
+    $query->groupBy('first_letter');
+  }
+
+  // Only get the cities which are in an available programme
+  $query->join('field_data_field_programme_statut', NULL, $table . '.entity_id = field_data_field_programme_statut.entity_id AND field_programme_statut_value = 1');
+
+  // Make sure the programme posses a bien
+  // and that the bien is disponible
+  $query->join('field_data_field_programme', NULL, $table . '.entity_id = field_data_field_programme.field_programme_target_id');
+  $query->join('field_data_field_bien_statut', NULL, 'field_data_field_programme.entity_id = field_data_field_bien_statut.entity_id AND field_bien_statut_tid = ' . $disponible_id);
+
+  // Filter by domain
+  $query->join('node_access', NULL,  $table . '.entity_id = node_access.nid AND gid = ' . $domain);
+
+  // Get Bien info
+  if ($options['bien']) {
+    // Code Postal
+    $query->fields('field_data_field_programme_loc_cp', array('field_programme_loc_cp_value'));
+    $query->join('field_data_field_programme_loc_cp', NULL, 'field_data_field_programme_statut.entity_id = field_data_field_programme_loc_cp.entity_id');
+    // Type
+    $query->fields('type', array('name'));
+    $query->join('field_data_field_type', NULL, 'field_data_field_type.entity_id = field_data_field_programme.entity_id');
+    $query->join('taxonomy_term_data', 'type', 'type.tid = field_data_field_type.field_type_tid');
+    // Nb Piece
+    $query->fields('nb_piece', array('name'));
+    $query->join('field_data_field_nb_pieces', NULL, 'field_data_field_nb_pieces.entity_id = field_data_field_programme.entity_id');
+    $query->join('taxonomy_term_data', 'nb_piece', 'nb_piece.tid = field_data_field_nb_pieces.field_nb_pieces_tid');
+    // Only get info for a specific location
+    $query->condition('ttd.name', $options['bien'], 'LIKE');
+  }
+
+  // Filter by first letter
+  if($options['first_letter']) $query->condition('ttd.name', $options['first_letter'] . '%', 'LIKE');
+
+  // If we are in the villes section with no first letter
+  // We order by city usage
+  if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter']) {
+    $query->addExpression('COUNT(ttd.tid)', 'number_of_use');
+    $query->orderBy('number_of_use');
+    // Otherwise, we order by city name
+  }else{
+    $query->orderBy('ttd.name');
+  }
+
+  // Limit to 51 for the list without first letter
+  if(!$options['first_letter'] && !$options['only_first_letter']) $query->range(0, 51);
+
+  // Execute
+  return $query->execute();
 }

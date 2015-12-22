@@ -16,6 +16,9 @@ function kandb_avant_premiere_strongarm() {
   $strongarm->name = 'field_bundle_settings_node__avant_premiere';
   $strongarm->value = array(
     'view_modes' => array(
+      'selection' => array(
+        'custom_settings' => TRUE,
+      ),
       'teaser' => array(
         'custom_settings' => TRUE,
       ),
@@ -83,8 +86,10 @@ function kandb_avant_premiere_strongarm() {
       'display' => array(
         'domain' => array(
           'default' => array(
-            'weight' => '1',
-            'visible' => FALSE,
+            'weight' => 1,
+          ),
+          'selection' => array(
+            'weight' => 1,
           ),
         ),
       ),
