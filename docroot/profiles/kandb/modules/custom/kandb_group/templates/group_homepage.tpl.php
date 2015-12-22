@@ -28,7 +28,7 @@ endif;
                   </div>
               </div>
             <?php endif; ?>
-            <?php if (isset($data['finance_block']) && isset($data['finance_block']['image'])): ?>
+            <?php if (isset($data['finance_block']) && isset($data['finance_block']['image']) && $data['finance_block']['image']): ?>
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
