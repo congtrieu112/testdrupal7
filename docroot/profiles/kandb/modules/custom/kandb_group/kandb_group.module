@@ -20,7 +20,7 @@ function kandb_group_menu() {
   $items = array();
 
   $items['group/home'] = array(
-    'title' => 'B2B Homepage',
+    'title' => 'Le Groupe',
     'page callback' => 'render_group_homepage',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
