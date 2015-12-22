@@ -306,9 +306,7 @@
     <div class="swapItem">
         <div class="swapItem__2 ">
             <div class="wrapper">
-                <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
-                </div>
+                
             </div>
         </div>
 
@@ -353,6 +351,9 @@
 
         <div class="swapItem__3">
             <div class="wrapper">
+                <div class="heading heading--small text-center">
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
+                </div>
                 <?php
                 if ($video_id):
                     ?>
