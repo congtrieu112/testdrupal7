@@ -97,7 +97,7 @@
 
                         else :
                             $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
-                        
+
                     endif;
                     ?>
 
@@ -504,7 +504,7 @@ if ($region_id && $programme_carousel):
     <!-- [offers] start-->
     <section class="section-padding bg-lightGrey">
         <div class="wrapper">
-            <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
+            <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', ''); ?></h2>
             <?php print $programme_carousel; ?>
             <?php
             if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :
