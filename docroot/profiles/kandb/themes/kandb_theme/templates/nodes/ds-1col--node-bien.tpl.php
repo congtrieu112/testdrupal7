@@ -15,8 +15,22 @@ if (isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
 }
 
 $nb_pieces = array();
-if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
-  $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+if($bien_type) {
+  $bien_id = isset($bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value']) ? $bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value'] : '';
+  if($bien_id) {
+    switch ($bien_id) {
+    case 'AP':
+      if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    case 'MA':
+      if (isset($node->field_nb_chambres[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_chambres[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    }
+  }
 }
 
 $bien_id = '';
@@ -340,8 +354,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
                       <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
                     <?php endif; ?>
-                      
-                    <?php if(kandb_check_filled_form_contact($programme)):?>  
+
+                    <?php if(kandb_check_filled_form_contact($programme)):?>
                       <li><a href="#contact" data-scroll-to  class="btn-white"><span class="icon icon-leaf"></span><span class="text"><?php print t('Espace de vente'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
@@ -440,7 +454,7 @@ if (!empty($list_bien_more)):
               <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>
-      <div class="wrapper">
+      <div class="wrapper--narrow">
           <div class="moreAvailable">
               <table class="responsive">
                   <tbody>
@@ -462,14 +476,15 @@ if (!empty($list_bien_more)):
                             <td>
                                 <div class="list-item">
                                     <div class="item-promotion">
+                                        <ul class="tags-list">
                                         <?php
                                         $promotions = get_nids_promotions_by_bien($bien_more->nid);
                                         if ($promotions):
                                           foreach ($promotions as $promotion):
-                                            $triger_promotion = 'promotion-' . $promotion->nid;
+                                            $triger_promotion = 'moreAvailable-promotion-' . $promotion->nid;
                                             ?>
-                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
-                                            <br><br>
+                                            <li>
+                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>                                            
                                             <!-- [popin] start-->
                                             <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                                                 <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -477,11 +492,13 @@ if (!empty($list_bien_more)):
                                                     <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
                                                 </div>
                                             </div>
-                                            <!-- [popin] end-->
+                                            <!-- [popin] end-->                                            
+                                            </li>
                                             <?php
                                           endforeach;
                                         endif;
                                         ?>
+                                        </ul>
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
@@ -507,7 +524,7 @@ if (!empty($list_bien_more)):
                                                         }
 
                                                         $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
                                                         //endedit
                                                         ?>
                                                         <?php if (count($arr_caracteris) > 0) : ?>

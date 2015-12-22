@@ -19,6 +19,7 @@
                 <div class="heading__title heading__title--sub"><?php print $title; ?></div>
             <?php endif; ?>
         </h1>
+        <?php print $address ; ?>
         <ul class="tags-list">
             <?php if ($nouveau) : ?>
                 <li>
@@ -78,7 +79,6 @@
                             <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-
                     <?php
                     $type_voie = taxonomy_term_load($type_voie);
                     $type_voie_name = isset($type_voie->name) ? $type_voie->name : '';
@@ -97,7 +97,7 @@
 
                         else :
                             $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
-                        
+
                     endif;
                     ?>
 
@@ -306,9 +306,7 @@
     <div class="swapItem">
         <div class="swapItem__2 ">
             <div class="wrapper">
-                <div class="heading heading--small text-center">
-                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
-                </div>
+
             </div>
         </div>
 
@@ -346,13 +344,6 @@
                     print drupal_render($element);
                     print '</div>';
 
-                    if ($video_id):
-                        ?>
-                        <div class="iframe iframe--video-de-quartier">
-                            <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                        <?php
-                    endif;
                 endif;
                 ?>
             </div>
@@ -360,6 +351,18 @@
 
         <div class="swapItem__3">
             <div class="wrapper">
+                <div class="heading heading--small text-center">
+                    <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
+                </div>
+                <?php
+                if ($video_id):
+                    ?>
+                    <div class="iframe iframe--video-de-quartier">
+                        <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <?php
+                endif;
+                ?>
                 <div class="content-centered">
                     <p><?php print isset($field_quartier_video_desc[0]['value']) ? $field_quartier_video_desc[0]['value'] : ''; ?></p>
                 </div>
@@ -504,7 +507,7 @@ if ($region_id && $programme_carousel):
     <!-- [offers] start-->
     <section class="section-padding bg-lightGrey">
         <div class="wrapper">
-            <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
+            <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', t('Les programmes les plus proches')); ?></h2>
             <?php print $programme_carousel; ?>
             <?php
             if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :
