@@ -14,7 +14,28 @@ define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
  */
 
 function kandb_theme_preprocess_html(&$variables) {
- $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  // Change template on AJAX request
+  if (IS_AJAX) {
+    $variables['theme_hook_suggestions'][] = 'html__ajax';
+  }
+}
+
+/**
+ * Implements hook_js_alter()
+ */
+function kandb_theme_js_alter(&$javascript) {
+  // Change template on AJAX request
+  if (IS_AJAX) {
+    if (menu_get_object()->type == 'webform') {
+      unset($javascript[drupal_get_path('theme', 'kandb_theme') . '/js/bundle.js']);
+      foreach ($javascript as $key => $js_array) {
+        if (strpos($key, 'watcheezy') !== FALSE) {
+          unset($javascript[$key]);
+        }
+      }
+    };
+  }
 }
 
 /**
