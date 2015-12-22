@@ -346,13 +346,6 @@
                     print drupal_render($element);
                     print '</div>';
 
-                    if ($video_id):
-                        ?>
-                        <div class="iframe iframe--video-de-quartier">
-                            <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
-                        </div>
-                        <?php
-                    endif;
                 endif;
                 ?>
             </div>
@@ -360,6 +353,15 @@
 
         <div class="swapItem__3">
             <div class="wrapper">
+                <?php
+                if ($video_id):
+                    ?>
+                    <div class="iframe iframe--video-de-quartier">
+                        <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                    <?php
+                endif;
+                ?>
                 <div class="content-centered">
                     <p><?php print isset($field_quartier_video_desc[0]['value']) ? $field_quartier_video_desc[0]['value'] : ''; ?></p>
                 </div>
