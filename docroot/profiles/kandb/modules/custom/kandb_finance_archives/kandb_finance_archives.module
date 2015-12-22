@@ -104,9 +104,22 @@ function get_document_by_type($tid = 0, $language = 0) {
   $db_query->condition('dt.field_document_type_tid', $tid);
   
   $db_query->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
-  $db_query->condition('dl.entity_type', 'node');
-  $db_query->condition('dl.bundle', 'document');
-  $db_query->condition('dl.field_langue_value', $language);
+  
+  if ($language == 1) {
+    $db_query->condition('dl.entity_type', 'node');
+    $db_query->condition('dl.bundle', 'document');
+    $db_query->condition('dl.field_langue_value', $language);
+  }
+  else {
+    $db_or = db_or();
+      $db_and = db_and();
+      $db_and->condition('dl.field_langue_value', $language);
+      $db_and->condition('dl.bundle', 'document');
+      $db_and->condition('dl.field_langue_value', $language);
+    $db_or->condition($db_and);
+    $db_or->isNull('dl.field_langue_value');
+    $db_query->condition($db_or);
+  }
   
   $db_query->leftJoin('field_data_field_document_date', 'dd', 'dd.entity_id=n.nid');
   $db_query->condition('dd.entity_type', 'node');
