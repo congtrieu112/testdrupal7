@@ -27,8 +27,12 @@ $calenders = isset($data['calenders']) ? $data['calenders'] : '';
           <li>
             <div class="legroupeFinaceCalendar__item">
               <div class="inner">
+                <?php if($day && $month && $year) : ?>
                 <p class="date"><span class="day"><?php print $day; ?></span><span class="month"><?php print $month . '.' . $year?></span></p>
+                <?php endif; ?>
+                <?php if ($content) : ?>
                 <p class="description"><?php print $content; ?></p>
+                <?php endif; ?>
               </div>
             </div>
           </li>
@@ -42,70 +46,83 @@ $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 <!-- [content legroupeFinancePublications] end-->
 <?php endif; ?>
 
-<!-- [assembleeGenerale] start-->
+<?php
+  $doc_comuniques = isset($data['documents_communique']) ? $data['documents_communique'] : '';
+  $doc_explode_comuniques = isset($data['documents_explode_communique']) ? $data['documents_explode_communique'] : '';
+  if($doc_comuniques || $doc_explode_comuniques) :
+?>
+ <!-- [recent Documents] start-->
 <section class="section-padding">
   <div class="wrapper">
     <header class="heading heading--bordered">
-      <h1 class="heading__title">Assemblées Générales</h1>
+      <h1 class="heading__title"><?php print t('Communiqués et documents récents'); ?></h1>
     </header>
   </div>
   <div class="wrapper--narrow downloadDocs">
-    <ul data-app-accordion="seeMore" class="accordion fullWidth">
-      <li class="accordion__link"><a data-app-accordion-link="#assemblee-0" role="button" class="active display-status"><span class="show-for-sr">fermer</span></a>
-        <div id="assemblee-0">
-          <div class="downloadDocs__heading">
-            <h3 class="downloadDocs__title">GM</h3><span class="downloadDocs__title--sub">28 May 2015</span>
-          </div>
-          <ul data-app-accordion-content="data-app-accordion-content" class="downloadDocs__list">
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-          </ul>
+    <ul class="accordion fullWidth">
+      <li class="accordion__link">
+        <div class="downloadDocs__heading">
+          <h3 class="downloadDocs__title"><?php print t('Communiqués'); ?></h3>
         </div>
+        <ul class="downloadDocs__list">
+          <?php foreach($doc_comuniques as $doc_comunique) :
+            $doc_date = isset($doc_comunique->field_document_date[LANGUAGE_NONE][0]['value']) ? $doc_comunique->field_document_date[LANGUAGE_NONE][0]['value'] : '';
+            $doc_title = isset($doc_comunique->title) ? $doc_comunique->title : '';
+            $doc_uri = isset($doc_comunique->field_document_file[LANGUAGE_NONE][0]['uri']) ? $doc_comunique->field_document_file[LANGUAGE_NONE][0]['uri'] : '';
+          ?>
+          <li class="downloadDocs__item">
+            <?php if($doc_date) : ?>
+            <div class="downloadDocs__item__date">
+              <spn><?php print date("d.m.Y", strtotime($doc_date)); ?></spn>
+            </div>
+            <?php endif; ?>
+            <div class="downloadDocs__item__info">
+              <?php if($doc_title) : ?>
+              <h4 class="downloadDocs__item__heading"><?php print $doc_title; ?></h4>
+              <?php endif; ?>
+              <?php if($doc_uri) : ?>
+              <div class="downloadDocs__item__link"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
+              <?php endif; ?>
+            </div>
+          </li>
+          <?php endforeach; ?>
+          <li class="btn-wrapper btn-wrapper--center"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF" class="btn-primary btn-rounded">Voir tout<span class="icon icon-arrow"></span></a></li>
+        </ul>
       </li>
-      <li class="accordion__link"><a data-app-accordion-link="#assemblee-1" role="button" class="false display-status"><span class="show-for-sr">fermer</span></a>
-        <div id="assemblee-1">
-          <div class="downloadDocs__heading">
-            <h3 class="downloadDocs__title">GM</h3><span class="downloadDocs__title--sub">28 May 2015</span>
-          </div>
-          <ul data-app-accordion-content="data-app-accordion-content" class="downloadDocs__list">
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-            <li class="downloadDocs__item">
-              <div class="downloadDocs__item__info">
-                <h4 class="downloadDocs__item__heading">VOTING RESULTS OF AGM 28 MAY 2015</h4>
-                <div class="downloadDocs__item__link"><a href="partials/formCallBack.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-              </div>
-            </li>
-          </ul>
+
+      <li class="accordion__link">
+        <div class="downloadDocs__heading">
+          <h3 class="downloadDocs__title"><?php print t('Communiqués'); ?></h3>
         </div>
+        <ul class="downloadDocs__list">
+          <?php foreach($doc_explode_comuniques as $doc_explode_comunique) :
+            $ex_doc_date = isset($doc_explode_comunique->field_document_date[LANGUAGE_NONE][0]['value']) ? $doc_explode_comunique->field_document_date[LANGUAGE_NONE][0]['value'] : '';
+            $ex_doc_title = isset($doc_explode_comunique->title) ? $doc_explode_comunique->title : '';
+            $ex_doc_uri = isset($doc_explode_comunique->field_document_file[LANGUAGE_NONE][0]['uri']) ? $doc_explode_comunique->field_document_file[LANGUAGE_NONE][0]['uri'] : '';
+          ?>
+          <li class="downloadDocs__item">
+            <?php if($ex_doc_date) : ?>
+            <div class="downloadDocs__item__date">
+              <spn><?php print date("d.m.Y", strtotime($ex_doc_date)); ?></spn>
+            </div>
+            <?php endif; ?>
+            <div class="downloadDocs__item__info">
+              <?php if($ex_doc_title) : ?>
+              <h4 class="downloadDocs__item__heading"><?php print $ex_doc_title; ?></h4>
+              <?php endif; ?>
+              <?php if($ex_doc_uri) : ?>
+              <div class="downloadDocs__item__link"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
+              <?php endif; ?>
+            </div>
+          </li>
+          <?php endforeach; ?>
+          <li class="btn-wrapper btn-wrapper--center"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF" class="btn-primary btn-rounded">Voir tout<span class="icon icon-arrow"></span></a></li>
+        </ul>
       </li>
+
     </ul>
   </div>
 </section>
-<!-- [assembleeGenerale] end-->
+<!-- [recent Documents] end-->
+
+<?php endif; ?>

@@ -53,8 +53,8 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['group/finance/publication'] = array(
-    'title' => 'Finance publication',
+  $items['finance/publication'] = array(
+    'title' => 'Finance - Publication',
     'page callback' => 'render_group_finance_publication',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
@@ -154,7 +154,7 @@ function render_group_finance_publication() {
       $data['documents_explode_communique'] = $documents_explode_communique;
     }
   }
-
+  
   $group_header = module_invoke('bean', 'block_view', 'group-header');
   if (isset($group_header['content']) && $group_header['content']) {
     $data['group_header'] = $group_header['content'];
