@@ -181,6 +181,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: finance_presentation_speech_215_x_215.
+  $styles['finance_presentation_speech_215_x_215'] = array(
+    'label' => 'Finance Presentation Speech (215 x 215)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 215,
+          'height' => 215,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: homepageb2b_backgound_large.
   $styles['homepageb2b_backgound_large'] = array(
     'label' => 'HomepageB2B Backgound Large (1380x712)',
@@ -235,6 +250,21 @@ function kandb_image_style_image_default_styles() {
         'data' => array(
           'width' => 640,
           'height' => 845,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: kpi_component_580_x_296.
+  $styles['kpi_component_580_x_296'] = array(
+    'label' => 'KPI Component (580 x 296)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 580,
+          'height' => 296,
         ),
         'weight' => 1,
       ),
