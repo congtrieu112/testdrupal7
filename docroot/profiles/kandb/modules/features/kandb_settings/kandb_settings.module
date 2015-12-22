@@ -390,19 +390,24 @@ function kandb_label_default_admin() {
     '#default_value' => variable_get('kandb_program_default_subtitle_map'),
     '#required' => TRUE,
   );
-  $form['kandb_bloc_default_offre_title_homepage'] = array(
+  $form['kandb_program_default_title_prestations'] = array(
     '#type' => 'textfield',
-    '#title' => t('Titre default offre homepage'),
-    '#default_value' => variable_get('kandb_bloc_default_offre_title_homepage'),
+    '#title' => t('Titre du bloc de Program prestations'),
+    '#default_value' => variable_get('kandb_program_default_title_prestations'),
     '#required' => TRUE,
   );
-  $form['kandb_bloc_default_offre_subtitle_homepage'] = array(
+  $form['kandb_program_default_subtitle_prestations'] = array(
     '#type' => 'textfield',
-    '#title' => t('Sub Titre default offre homepage'),
-    '#default_value' => variable_get('kandb_bloc_default_offre_subtitle_homepage'),
+    '#title' => t('Sub Titre du bloc de Program prestations'),
+    '#default_value' => variable_get('kandb_program_default_subtitle_prestations'),
     '#required' => TRUE,
   );
-
+  $form['kandb_program_titre_les_plus_proches'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre du bloc de Program proches'),
+    '#default_value' => variable_get('kandb_program_titre_les_plus_proches'),
+    '#required' => TRUE,
+  );
   return system_settings_form($form);
 }
 /**

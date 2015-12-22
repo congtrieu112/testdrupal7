@@ -79,7 +79,30 @@
                             <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-                    <?php print $address ; ?>
+                    <?php
+                    $type_voie = taxonomy_term_load($type_voie);
+                    $type_voie_name = isset($type_voie->name) ? $type_voie->name : '';
+                    $space = '&nbsp;';
+                    $html = '';
+                    if ($loc_num || $type_voie_name || $loc_rue):
+
+                        if ($loc_num && !$type_voie_name) :
+                            $html = $loc_num . $space . $loc_rue;
+
+                        elseif (!$loc_num && $type_voie_name) :
+                            $html = $type_voie_name . $space . $loc_rue;
+
+                        elseif (!$loc_num && !$type_voie_name) :
+                            $html = $loc_rue;
+
+                        else :
+                            $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
+
+                    endif;
+                    ?>
+
+                        <p class="text-bold"><?php print $html; ?></p>
+                    <?php endif; ?>
                     <ul class="tags-list">
                         <?php if ($nouveau) : ?>
                             <li>
@@ -283,7 +306,7 @@
     <div class="swapItem">
         <div class="swapItem__2 ">
             <div class="wrapper">
-                
+
             </div>
         </div>
 
@@ -484,7 +507,7 @@ if ($region_id && $programme_carousel):
     <!-- [offers] start-->
     <section class="section-padding bg-lightGrey">
         <div class="wrapper">
-            <h2 class="heading--tiny"><?php print t('Les programmes les plus proches'); ?></h2>
+            <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', t('Les programmes les plus proches')); ?></h2>
             <?php print $programme_carousel; ?>
             <?php
             if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :
