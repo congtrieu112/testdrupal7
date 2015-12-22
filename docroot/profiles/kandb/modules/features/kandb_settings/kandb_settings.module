@@ -408,7 +408,6 @@ function kandb_label_default_admin() {
     '#default_value' => variable_get('kandb_program_titre_les_plus_proches'),
     '#required' => TRUE,
   );
-
   return system_settings_form($form);
 }
 /**

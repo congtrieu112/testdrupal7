@@ -822,3 +822,38 @@ function kandb_update_7178() {
     module_enable(array('kandb_grouper'), TRUE);
   }
 }
+/*
+ * Enable kandb_finance_archives content module
+ */
+function kandb_update_7179() {
+  if (!module_exists('kandb_finance_archives')) {
+    module_enable(array('kandb_finance_archives'), TRUE);
+  }  
+}
+
+/*
+ * Enable kandb_taxonomy_comite content module
+ */
+function kandb_update_7180() {
+  if (!module_exists('kandb_taxonomy_comite')) {
+    module_enable(array('kandb_taxonomy_comite'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_finance_gouvernance content module
+ */
+function kandb_update_7181() {
+  if (!module_exists('kandb_finance_gouvernance')) {
+    module_enable(array('kandb_finance_gouvernance'), TRUE);
+  }
+}
+
+/*
+ * Enable kandb_finance_assemblies content module
+ */
+function kandb_update_7182() {
+  if (!module_exists('kandb_finance_assemblies')) {
+    module_enable(array('kandb_finance_assemblies'), TRUE);
+  }
+}

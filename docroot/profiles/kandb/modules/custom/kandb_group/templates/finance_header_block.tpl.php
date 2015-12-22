@@ -15,8 +15,8 @@ $block_img_full_id = variable_get('finance_header_image_full_' . $current_lang);
 $block_img_small_id = variable_get('finance_header_image_small_' . $current_lang);
 $block_img_full_load = file_load($block_img_full_id);
 $block_img_small_load = file_load($block_img_small_id);
-$block_img_full_uri = ($block_img_full_load->uri) ? file_create_url($block_img_full_load->uri) : '';
-$block_img_small_uri = ($block_img_small_load->uri) ? file_create_url($block_img_small_load->uri) : '';
+$block_img_full_uri = (isset($block_img_full_load->uri)) ? file_create_url($block_img_full_load->uri) : '';
+$block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($block_img_small_load->uri) : '';
 ?>
 <div class="lang">
     <nav class="wrapper">
