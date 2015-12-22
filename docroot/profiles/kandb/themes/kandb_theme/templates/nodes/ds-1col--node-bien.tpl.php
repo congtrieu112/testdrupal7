@@ -440,7 +440,7 @@ if (!empty($list_bien_more)):
               <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>
-      <div class="wrapper">
+      <div class="wrapper--narrow">
           <div class="moreAvailable">
               <table class="responsive">
                   <tbody>
@@ -462,14 +462,15 @@ if (!empty($list_bien_more)):
                             <td>
                                 <div class="list-item">
                                     <div class="item-promotion">
+                                        <ul class="tags-list">
                                         <?php
                                         $promotions = get_nids_promotions_by_bien($bien_more->nid);
                                         if ($promotions):
                                           foreach ($promotions as $promotion):
-                                            $triger_promotion = 'promotion-' . $promotion->nid;
+                                            $triger_promotion = 'moreAvailable-promotion-' . $promotion->nid;
                                             ?>
-                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
-                                            <br><br>
+                                            <li>
+                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>                                            
                                             <!-- [popin] start-->
                                             <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                                                 <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -477,11 +478,13 @@ if (!empty($list_bien_more)):
                                                     <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
                                                 </div>
                                             </div>
-                                            <!-- [popin] end-->
+                                            <!-- [popin] end-->                                            
+                                            </li>
                                             <?php
                                           endforeach;
                                         endif;
                                         ?>
+                                        </ul>
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
