@@ -34,10 +34,10 @@ function kandb_doclib_feature_strongarm() {
           'weight' => '4',
         ),
         'metatags' => array(
-          'weight' => '13',
+          'weight' => '14',
         ),
         'xmlsitemap' => array(
-          'weight' => '12',
+          'weight' => '13',
         ),
       ),
       'display' => array(),
