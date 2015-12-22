@@ -9,6 +9,13 @@
     $items = array();
 
     // Front--finance-archives page
+    $items['finance-archives'] = array(
+      'title' => t('Documents à télécharger'),
+      'page callback' => 'kandb_finance_archives_page_general',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+    
     $items['finance-archives/%/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
@@ -42,6 +49,15 @@
     );
   }
 
+function kandb_finance_archives_page_general() {
+  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
+  if (isset($document_voca->vid)) {
+    $all_terms = taxonomy_get_tree($document_voca->vid);
+    if (!empty($all_terms)) {
+      drupal_goto('finance-archives/' . $all_terms[0]->tid . '/fr');
+    }
+  }
+}  
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   drupal_set_title(t('Documents à télécharger'));
