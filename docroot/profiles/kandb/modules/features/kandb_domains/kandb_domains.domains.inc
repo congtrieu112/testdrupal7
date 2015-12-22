@@ -57,6 +57,21 @@ function kandb_domains_domain_alias_default_aliases() {
       'redirect' => 0,
       'machine_name' => 'kandb_b2b',
     ),
+    'test-b2b.kaufman.digitas.fr' => array(
+      'pattern' => 'test-b2b.kaufman.digitas.fr',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2b',
+    ),
+    'test-btob.kaufman.digitas.fr' => array(
+      'pattern' => 'test-btob.kaufman.digitas.fr',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2b',
+    ),
+    'dev-btob.kaufman.digitas.fr' => array(
+      'pattern' => 'dev-btob.kaufman.digitas.fr',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2b',
+    ),
   );
   $domain_aliases['kandb_b2c'] = array(
     'kandb.local' => array(
@@ -91,6 +106,16 @@ function kandb_domains_domain_alias_default_aliases() {
     ),
     'kaufmanetbroad.prod.acquia-sites.com' => array(
       'pattern' => 'kaufmanetbroad.prod.acquia-sites.com',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2c',
+    ),
+    'test.kaufman.digitas.fr' => array(
+      'pattern' => 'test.kaufman.digitas.fr',
+      'redirect' => 0,
+      'machine_name' => 'kandb_b2c',
+    ),
+    'dev.kaufman.digitas.fr' => array(
+      'pattern' => 'dev.kaufman.digitas.fr',
       'redirect' => 0,
       'machine_name' => 'kandb_b2c',
     ),

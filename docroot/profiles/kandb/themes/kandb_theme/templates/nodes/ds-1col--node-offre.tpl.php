@@ -1,4 +1,7 @@
 <?php
+//kpr($content);
+
+
 if (isset($content['nos_offre'])):
   print render($content['nos_offre']);
 endif;

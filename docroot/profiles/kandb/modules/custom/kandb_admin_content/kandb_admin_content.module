@@ -15,5 +15,8 @@ function kandb_admin_content_preprocess_views_view(&$vars){
 function kandb_admin_content_form_alter(&$form, &$form_state, $form_id){
     if ($form_id == 'bien_node_form') {
         $form['field_bien_low_tva_price']['#disabled'] = TRUE;
+    } elseif ($form_id == 'programme_node_form') {
+        $form['field_program_low_tva_price_min']['#disabled'] = TRUE;
+        $form['field_program_low_tva_price_max']['#disabled'] = TRUE;
     }
 }

@@ -4,6 +4,7 @@ package = Kaufman & Broad
 version = 7.x-1.0
 dependencies[] = ctools
 dependencies[] = strongarm
+dependencies[] = pathauto
 features[ctools][] = strongarm:strongarm:1
 features[features_api][] = api:2
 features[variable][] = pathauto_blog_pattern

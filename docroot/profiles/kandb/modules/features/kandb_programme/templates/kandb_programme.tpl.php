@@ -75,6 +75,10 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                             $biens = node_load($node_bien_id);
                                             if ($biens) :
                                               $bien_id = isset($biens->field_id_bien[LANGUAGE_NONE][0]['value']) ? $biens->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
+                                              if ($bien_id) :
+                                                $bien_id = explode('-', $bien_id);
+                                                $bien_id = $bien_id[count($bien_id) - 1];
+                                              endif;
                                               $superficie = isset($biens->field_superficie[LANGUAGE_NONE][0]['value']) ? $biens->field_superficie[LANGUAGE_NONE][0]['value'] : 0;
                                               $price_tva_20 = isset($biens->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? round($biens->field_prix_tva_20[LANGUAGE_NONE][0]['value'], 0) : 0;
                                               $low_tva_price = isset($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value']) ? round($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'], 0) : 0;
@@ -99,16 +103,15 @@ if ($logement_block && isset($logement_block['total_bien'])) :
 
 //                                              $arr_caracteris[] = isset($biens->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
 //                                              $arr_caracteris[] = isset($biens->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
-                                              
+
                                               if (!empty($biens->field_cave_description[LANGUAGE_NONE][0]['value'])) {
                                                 $name_description_cave = field_info_instance('node', 'field_cave_description', 'bien');
                                                 $arr_caracteris[] = $name_description_cave['label'];
-                                              } 
+                                              }
                                               if (!empty($biens->field_parking_description[LANGUAGE_NONE][0]['value'])){
-                                                $name_description_parking = field_info_instance('node', 'field_parking_description', 'bien');
-                                                $arr_caracteris[] = $name_description_parking['label'];
-                                              }                                              
-                                              
+                                                //$name_description_parking = field_info_instance('node', 'field_parking_description', 'bien');
+                                                $arr_caracteris[] = t('Parking');
+                                              }
                                               $etage_tid = isset($biens->field_etage[LANGUAGE_NONE][0]['tid']) ? $biens->field_etage[LANGUAGE_NONE][0]['tid'] : '';
                                               $etage = '';
                                               if ($etage_tid) {

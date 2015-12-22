@@ -9,6 +9,13 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 
 // Constant to see if the page is loaded in AJAX
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
+/**
+ *  insert class  into the body page template.
+ */
+
+function kandb_theme_preprocess_html(&$variables) {
+ $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+}
 
 /**
  * Override or insert variables into the page template.
@@ -452,6 +459,7 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
     $vars['loc_num'] = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
     $vars['loc_rue'] = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    $vars['type_voie'] = isset($node->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';    
 
     /**
      * SLIDER
@@ -716,12 +724,11 @@ function kandb_theme_checkbox($variables) {
  */
 function kandb_theme_select($variables) {
   $variables['element']['#attributes']['data-app-select'] = '';
-  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
+  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-ap-connu' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
     $variables['element']['#options'][''] = '-';
   }
   return theme_select($variables);
 }
-
 /**
  * Implementation of hook_css_alter()
  */
