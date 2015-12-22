@@ -15,8 +15,22 @@ if (isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
 }
 
 $nb_pieces = array();
-if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
-  $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+if($bien_type) {
+  $bien_id = isset($bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value']) ? $bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value'] : '';
+  if($bien_id) {
+    switch ($bien_id) {
+    case 'AP':
+      if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    case 'MA':
+      if (isset($node->field_nb_chambres[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_chambres[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    }
+  }
 }
 
 $bien_id = '';
