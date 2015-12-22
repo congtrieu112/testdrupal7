@@ -115,6 +115,7 @@ dependencies[] = kandb_b2b
 dependencies[] = kandb_dashboard
 dependencies[] = kandb_group
 dependencies[] = kandb_finance_archives
+dependencies[] = kandb_finance_assemblies
 
 ; Features
 dependencies[] = k_b_rh_annonce

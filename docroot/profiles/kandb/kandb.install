@@ -848,3 +848,12 @@ function kandb_update_7181() {
     module_enable(array('kandb_finance_gouvernance'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_finance_assemblies content module
+ */
+function kandb_update_7182() {
+  if (!module_exists('kandb_finance_assemblies')) {
+    module_enable(array('kandb_finance_assemblies'), TRUE);
+  }
+}

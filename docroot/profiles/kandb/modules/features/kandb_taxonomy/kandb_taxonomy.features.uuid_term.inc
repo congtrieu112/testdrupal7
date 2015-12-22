@@ -290,6 +290,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Résultat estimé au 3ème trimestre',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '0c7291f0-46d5-47aa-aec2-7d7dc40197ca',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
     'name' => 'SUD/SUD-EST/NORD-EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -1626,7 +1634,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Réunions d\'information',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 5,
     'uuid' => '32e0e9ef-e42e-4a56-b565-1ac6c37add6c',
     'vocabulary_machine_name' => 'type_de_document',
   );
@@ -2241,7 +2249,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Présentations financières',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 3,
     'uuid' => '4dda9e67-a196-48a5-b9f9-b70f98528abb',
     'vocabulary_machine_name' => 'type_de_document',
   );
@@ -2611,7 +2619,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Rapports',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 4,
     'uuid' => '5838ee3c-817b-44ea-a2a7-35437c5629d4',
     'vocabulary_machine_name' => 'type_de_document',
   );
@@ -2703,6 +2711,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'GM',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 6,
+    'uuid' => '5ae4be86-b081-4861-b92e-0b2487e6f3bb',
+    'vocabulary_machine_name' => 'type_de_document',
   );
   $terms[] = array(
     'name' => 'Haute Garonne',
@@ -3335,7 +3351,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Documents aux actionnaires',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 1,
     'uuid' => '74fb33a5-b8f0-4f27-8286-97fce348e71d',
     'vocabulary_machine_name' => 'type_de_document',
   );
@@ -3478,6 +3494,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Publication des résultats au premier trimestre',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 1,
+    'uuid' => '7ad6c976-a259-44a4-8bfa-93d2d682a577',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'OUEST/EST',
@@ -5155,6 +5179,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
+    'name' => 'EGM',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 7,
+    'uuid' => 'c27fed84-5f08-4d6e-8f6c-fc78d9319bff',
+    'vocabulary_machine_name' => 'type_de_document',
+  );
+  $terms[] = array(
     'name' => '7 / 8 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -6163,6 +6195,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Présentation',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 2,
+    'uuid' => 'e2f674ad-1eb6-4617-9b71-6348e0a238bb',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
     'name' => 'Alpes de Haute Provence',
     'description' => '',
     'format' => 'filtered_html',
@@ -6419,7 +6459,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Information légale',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 2,
     'uuid' => 'ec06a6f2-b0bd-4c91-b91d-91d45498f1c6',
     'vocabulary_machine_name' => 'type_de_document',
   );
