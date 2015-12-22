@@ -2489,6 +2489,7 @@ function kandb_bien_field_default_field_instances() {
   t('Texte');
   t('Titre');
   t('Type de Bien');
+  t('Visibilité');
 
   return $field_instances;
 }

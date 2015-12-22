@@ -459,6 +459,27 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
               }
             }
           }
+
+          $caracteristiques = array(
+            'Jardin' => 'field_caracteristique_jardin',
+            'Balcon' => 'field_caracteristique_balcon',
+            'Terrasse' => 'field_caracteristique_terrasse',
+            'Parking' => 'field_caracteristique_parking',
+            'Box' => 'field_caracteristique_box',
+            'Cave' => 'field_caracteristique_cave'
+          );
+          // Check option caracteristiques if textboxes on array above have value
+          foreach($caracteristiques as $caract_key => $caract_field) {
+            $fields = $entity->$caract_field;
+            if(isset($fields[LANGUAGE_NONE][0]['value']) && $fields[LANGUAGE_NONE][0]['value'] > 0) {
+              $caract_terms = taxonomy_get_term_by_name($caract_key, 'caracteristiques');
+              foreach($caract_terms as $caract_tid => $caract_term) {
+                if($caract_tid) {
+                  $entity->field_caracteristique[LANGUAGE_NONE][]['tid'] = $caract_tid;
+                }
+              }
+            }
+          }
         }
       }
     } elseif ($entity->feeds_item->id == 'document_import') {

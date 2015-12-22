@@ -105,6 +105,26 @@ function kandb_programme_ds_field_settings_info() {
   );
   $export['node|programme|full'] = $ds_fieldsetting;
 
+  $ds_fieldsetting = new stdClass();
+  $ds_fieldsetting->api_version = 1;
+  $ds_fieldsetting->id = 'node|programme|selection';
+  $ds_fieldsetting->entity_type = 'node';
+  $ds_fieldsetting->bundle = 'programme';
+  $ds_fieldsetting->view_mode = 'selection';
+  $ds_fieldsetting->settings = array(
+    'price_tva_min' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'title' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+  );
+  $export['node|programme|selection'] = $ds_fieldsetting;
+
   return $export;
 }
 
@@ -610,6 +630,56 @@ function kandb_programme_ds_layout_settings_info() {
     'layout_link_custom' => '',
   );
   $export['node|programme|full'] = $ds_layout;
+
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|programme|selection';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'programme';
+  $ds_layout->view_mode = 'selection';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'title',
+        1 => 'price_tva_min',
+        2 => 'field_caracteristiques',
+        3 => 'field_image_principale',
+        4 => 'field_plaquette_commerciale',
+        5 => 'field_programme_flat_available',
+        6 => 'field_programme_price_min',
+        7 => 'field_programme_room_min',
+        8 => 'field_programme_room_max',
+        9 => 'field_programme_loc_ville',
+        10 => 'field_tva',
+        11 => 'field_programme_loc_department',
+      ),
+    ),
+    'fields' => array(
+      'title' => 'ds_content',
+      'price_tva_min' => 'ds_content',
+      'field_caracteristiques' => 'ds_content',
+      'field_image_principale' => 'ds_content',
+      'field_plaquette_commerciale' => 'ds_content',
+      'field_programme_flat_available' => 'ds_content',
+      'field_programme_price_min' => 'ds_content',
+      'field_programme_room_min' => 'ds_content',
+      'field_programme_room_max' => 'ds_content',
+      'field_programme_loc_ville' => 'ds_content',
+      'field_tva' => 'ds_content',
+      'field_programme_loc_department' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|programme|selection'] = $ds_layout;
 
   $ds_layout = new stdClass();
   $ds_layout->api_version = 1;
