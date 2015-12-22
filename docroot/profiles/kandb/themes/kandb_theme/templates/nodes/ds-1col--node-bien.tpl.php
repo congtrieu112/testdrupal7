@@ -340,8 +340,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
                       <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
                     <?php endif; ?>
-                      
-                    <?php if(kandb_check_filled_form_contact($programme)):?>  
+
+                    <?php if(kandb_check_filled_form_contact($programme)):?>
                       <li><a href="#contact" data-scroll-to  class="btn-white"><span class="icon icon-leaf"></span><span class="text"><?php print t('Espace de vente'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
@@ -507,7 +507,7 @@ if (!empty($list_bien_more)):
                                                         }
 
                                                         $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
                                                         //endedit
                                                         ?>
                                                         <?php if (count($arr_caracteris) > 0) : ?>
