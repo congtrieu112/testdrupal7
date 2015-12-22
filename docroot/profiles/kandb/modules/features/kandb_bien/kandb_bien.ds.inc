@@ -177,5 +177,55 @@ function kandb_bien_ds_layout_settings_info() {
   );
   $export['node|bien|full'] = $ds_layout;
 
+  $ds_layout = new stdClass();
+  $ds_layout->api_version = 1;
+  $ds_layout->id = 'node|bien|selection';
+  $ds_layout->entity_type = 'node';
+  $ds_layout->bundle = 'bien';
+  $ds_layout->view_mode = 'selection';
+  $ds_layout->layout = 'ds_1col';
+  $ds_layout->settings = array(
+    'regions' => array(
+      'ds_content' => array(
+        0 => 'field_image_principale',
+        1 => 'field_visite_titre',
+        2 => 'field_type',
+        3 => 'field_nb_pieces',
+        4 => 'field_superficie',
+        5 => 'field_etage',
+        6 => 'field_orientation',
+        7 => 'field_tva',
+        8 => 'field_bien_plan',
+        9 => 'field_prix_tva_20',
+        10 => 'field_bien_low_tva_price',
+        11 => 'field_programme',
+      ),
+    ),
+    'fields' => array(
+      'field_image_principale' => 'ds_content',
+      'field_visite_titre' => 'ds_content',
+      'field_type' => 'ds_content',
+      'field_nb_pieces' => 'ds_content',
+      'field_superficie' => 'ds_content',
+      'field_etage' => 'ds_content',
+      'field_orientation' => 'ds_content',
+      'field_tva' => 'ds_content',
+      'field_bien_plan' => 'ds_content',
+      'field_prix_tva_20' => 'ds_content',
+      'field_bien_low_tva_price' => 'ds_content',
+      'field_programme' => 'ds_content',
+    ),
+    'classes' => array(),
+    'wrappers' => array(
+      'ds_content' => 'div',
+    ),
+    'layout_wrapper' => 'div',
+    'layout_attributes' => '',
+    'layout_attributes_merge' => 1,
+    'layout_link_attribute' => '',
+    'layout_link_custom' => '',
+  );
+  $export['node|bien|selection'] = $ds_layout;
+
   return $export;
 }
