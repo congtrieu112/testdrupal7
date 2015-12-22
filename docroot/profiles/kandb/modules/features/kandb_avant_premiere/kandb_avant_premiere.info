@@ -17,6 +17,7 @@ dependencies[] = text
 features[ctools][] = ds:ds:1
 features[ctools][] = strongarm:strongarm:1
 features[ds_layout_settings][] = node|avant_premiere|default
+features[ds_layout_settings][] = node|avant_premiere|selection
 features[features_api][] = api:2
 features[field_base][] = field_avant_premiere_arrondissem
 features[field_base][] = field_avant_premiere_date_debut
