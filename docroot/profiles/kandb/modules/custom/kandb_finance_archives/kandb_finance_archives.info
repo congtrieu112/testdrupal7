@@ -1,0 +1,5 @@
+name = K&B finance archives
+core = 7.x
+description = Declare finance archive page
+package = K&B Development
+

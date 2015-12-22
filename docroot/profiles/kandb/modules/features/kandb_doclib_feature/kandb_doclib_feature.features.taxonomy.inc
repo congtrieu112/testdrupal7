@@ -9,9 +9,9 @@
  */
 function kandb_doclib_feature_taxonomy_default_vocabularies() {
   return array(
-    'type_de_document' => array(
-      'name' => 'Type de document',
-      'machine_name' => 'type_de_document',
+    'sous_type_document' => array(
+      'name' => 'Sous-type Document',
+      'machine_name' => 'sous_type_document',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
