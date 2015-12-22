@@ -1,12 +1,8 @@
 <?php
-
 /**
  * @file
  * Implements Back-end functions of KB Group.
  */
-define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
-define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
-define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
 
 /**
  * Finance admin form.

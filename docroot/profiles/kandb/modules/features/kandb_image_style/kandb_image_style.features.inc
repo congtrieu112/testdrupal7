@@ -256,6 +256,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: kpi_component_580_x_296.
+  $styles['kpi_component_580_x_296'] = array(
+    'label' => 'KPI Component (580 x 296)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 580,
+          'height' => 296,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: program_image_num_piece.
   $styles['program_image_num_piece'] = array(
     'label' => 'Program image num piece',
