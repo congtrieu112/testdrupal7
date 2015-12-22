@@ -22,8 +22,24 @@
 <!-- [offers] start-->
 <section class="wrapper section-padding">
     <header class="heading heading--bordered">
-        <h2 class="heading__title"><?php print render($content['field_hp_block_offer_titre']); ?></h2>
-        <p class="heading__title heading__title--sub"><?php print $content['field_hp_block_offer_stitre'][0]['#markup']; ?></p>
+        <h2 class="heading__title">
+        <?php
+            if (isset($content['field_hp_block_offer_titre'])) :
+                print render($content['field_hp_block_offer_titre']);
+            else :
+                print variable_get('kandb_bloc_default_offre_title_homepage', '');
+            endif;
+        ?>
+        </h2>
+        <p class="heading__title heading__title--sub">
+            <?php
+                if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
+                    print $content['field_hp_block_offer_stitre'][0]['#markup'];
+                else :
+                    print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
+                endif;
+            ?>
+        </p>
     </header>
     <?php print render($content['hp_block_offre']); ?>
 <!--    <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
