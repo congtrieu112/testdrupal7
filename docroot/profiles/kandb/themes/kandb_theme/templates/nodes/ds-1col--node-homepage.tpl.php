@@ -26,8 +26,8 @@
         <?php
             if (isset($content['field_hp_block_offer_titre'])) :
                 print render($content['field_hp_block_offer_titre']);
-            elseif (variable_get('kandb_bloc_default_offre_title_homepage')) :
-                print variable_get('kandb_bloc_default_offre_title_homepage');
+            else :
+                print variable_get('kandb_bloc_default_offre_title_homepage', '');
             endif;
         ?>
         </h2>
@@ -35,8 +35,8 @@
             <?php
                 if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
                     print $content['field_hp_block_offer_stitre'][0]['#markup'];
-                elseif (variable_get('kandb_bloc_default_offre_subtitle_homepage')) :
-                    print variable_get('kandb_bloc_default_offre_subtitle_homepage');
+                else :
+                    print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
                 endif;
             ?>
         </p>
