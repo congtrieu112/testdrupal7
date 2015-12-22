@@ -9,6 +9,13 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 
 // Constant to see if the page is loaded in AJAX
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
+/**
+ *  insert class  into the body page template.
+ */
+
+function kandb_theme_preprocess_html(&$variables) {
+ $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+}
 
 /**
  * Override or insert variables into the page template.
