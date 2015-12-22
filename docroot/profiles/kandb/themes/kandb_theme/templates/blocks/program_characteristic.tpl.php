@@ -38,8 +38,24 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
   <section class="section-padding bg-lightGrey" id="prestations">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print isset($programme_variables['prestations_titre']) ? $programme_variables['prestations_titre'] : ''; ?></h2>
-              <div class="heading__title heading__title--sub"><?php print isset($programme_variables['prestations_sous_titre']) ? $programme_variables['prestations_sous_titre'] : ''; ?></div>
+              <h2 class="heading__title">
+                  <?php
+                    if (isset($programme_variables['prestations_titre'])) :
+                        print $programme_variables['prestations_titre'];
+                    else:
+                        print variable_get('kandb_program_default_title_prestations', '');
+                    endif;
+                  ?>
+              </h2>
+              <div class="heading__title heading__title--sub">
+                  <?php
+                    if (isset($programme_variables['prestations_sous_titre'])) :
+                        print $programme_variables['prestations_sous_titre'];
+                    else :
+                        print variable_get('kandb_program_default_subtitle_prestations', '');
+                    endif;
+                  ?>
+              </div>
           </header>
       </div>
       <div class="programCharacteristics">

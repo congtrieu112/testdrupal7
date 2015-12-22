@@ -256,7 +256,6 @@ features[image][] = program_image_principale_medium
 features[image][] = program_image_principale_small
 features[node][] = programme
 features[taxonomy][] = caract_ristiques_programme
-
 features[variable][] = field_bundle_settings_node__programme
 features[variable][] = language_content_type_programme
 features[variable][] = menu_options_programme

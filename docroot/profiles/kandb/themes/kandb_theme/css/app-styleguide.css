@@ -8429,7 +8429,8 @@ a.tag.tag--important:hover {
   top: -1px;
   width: 0;
   height: 0;
-  margin: 0; }
+  margin: 0;
+  padding: 0; }
 
 /**
  * Selected option
@@ -9501,6 +9502,9 @@ a.tag.tag--important:hover {
 .editorialContentArticle h6 {
   font-size: 1.5rem; }
 
+.editorialContentArticle .editorialContentArticle__content .overflow {
+  overflow: auto; }
+
 .editorialContentArticle .editorialContentArticle__content__hightlight {
   font-family: "Helvetica Neue LT W04_75 Bold";
   font-weight: 300;
@@ -9689,12 +9693,7 @@ a.tag.tag--important:hover {
   padding: 1.25rem 0; }
 
 .programHeader .toolbox .contactUs-mini {
-  padding-top: 1.25rem;
-  border: 1px solid #e0e0e0;
-  border-left: none;
-  border-right: none; }
-  .programHeader .toolbox .contactUs-mini .phone-green {
-    margin-top: 0; }
+  border-bottom: 1px solid #e0e0e0; }
 
 .programHeader .toolbox .save {
   display: -webkit-box;
@@ -9730,7 +9729,8 @@ a.tag.tag--important:hover {
     color: #003e5e; }
 
 .programHeader .content-price {
-  text-align: center; }
+  text-align: center;
+  border-bottom: 1px solid #e0e0e0; }
   .programHeader .content-price__item .text {
     display: block;
     margin-bottom: 0; }
@@ -9738,8 +9738,6 @@ a.tag.tag--important:hover {
     display: inline-block; }
   .programHeader .content-price__item .tva {
     font-size: 0.5rem; }
-  .programHeader .content-price + .toolbox__intro {
-    border-bottom: none; }
 
 .programHeader .intro {
   font-family: "Helvetica Neue LT W04_75 Bold";
@@ -9936,7 +9934,8 @@ a.tag.tag--important:hover {
     margin-left: 8.33333% !important;
     padding-right: 0; }
   .programHeader .content-price {
-    text-align: left; }
+    text-align: left;
+    margin-bottom: 1.25rem; }
     .programHeader .content-price__item .text {
       font-size: 1.5rem; }
   .programHeader .tags {
@@ -10037,7 +10036,8 @@ a.tag.tag--important:hover {
 
 .bienHeader .content-price.bienPrice {
   text-align: left;
-  padding-bottom: 0; }
+  padding-bottom: 0;
+  border-bottom: none; }
   .bienHeader .content-price.bienPrice .content-price__item {
     display: -webkit-box;
     display: -moz-box;

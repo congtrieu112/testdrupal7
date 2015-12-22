@@ -64,7 +64,7 @@ function kandb_finance_archives_page_general() {
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   drupal_set_title(t('Documents à télécharger'));
-  $language = $lang == 'en' ? 1 : 0;
+  $language_id = $lang == 'en' ? 1 : 0;
   if ($lang != 'en') {
     $lang = 'fr';
   }
@@ -87,11 +87,11 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
       }
     }
   }
-  $content_archives['tab_content'] = get_document_by_type($tid, $language);
+  $content_archives['tab_content'] = get_document_by_type($tid, $language_id);
   return theme('archive', array('content_archives' => $content_archives));
 }
 
-function get_document_by_type($tid = 0, $language = 0) {
+function get_document_by_type($tid = 0, $language_id = 0) {
   $content = array();
   $db_query = db_select('node', 'n');
   $db_query->fields('n', array('nid'));
@@ -104,9 +104,22 @@ function get_document_by_type($tid = 0, $language = 0) {
   $db_query->condition('dt.field_document_type_tid', $tid);
   
   $db_query->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
-  $db_query->condition('dl.entity_type', 'node');
-  $db_query->condition('dl.bundle', 'document');
-  $db_query->condition('dl.field_langue_value', $language);
+  
+  if ($language_id == 1) {
+    $db_query->condition('dl.entity_type', 'node');
+    $db_query->condition('dl.bundle', 'document');
+    $db_query->condition('dl.field_langue_value', $language_id);
+  }
+  else {
+    $db_or = db_or();
+      $db_and = db_and();
+      $db_and->condition('dl.field_langue_value', $language_id);
+      $db_and->condition('dl.bundle', 'document');
+      $db_and->condition('dl.field_langue_value', $language_id);
+    $db_or->condition($db_and);
+    $db_or->isNull('dl.field_langue_value');
+    $db_query->condition($db_or);
+  }
   
   $db_query->leftJoin('field_data_field_document_date', 'dd', 'dd.entity_id=n.nid');
   $db_query->condition('dd.entity_type', 'node');

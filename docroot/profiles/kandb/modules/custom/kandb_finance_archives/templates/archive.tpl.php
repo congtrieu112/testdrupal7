@@ -3,6 +3,7 @@ if (!isset($content_archives) || empty($content_archives)) {
   return;
 }
 $class_first_block = 'active';
+print theme('finance_header_block');
 ?>
 <section class="section-padding">
   <div class="wrapper">
