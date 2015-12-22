@@ -53,8 +53,11 @@ function kandb_finance_archives_page_general() {
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
   if (isset($document_voca->vid)) {
     $all_terms = taxonomy_get_tree($document_voca->vid);
-    if (!empty($all_terms)) {
-      drupal_goto('finance-archives/' . $all_terms[0]->tid . '/fr');
+    foreach ($all_terms as $term) {
+      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
+        continue ;
+      }
+      drupal_goto('finance-archives/' . $term->tid . '/fr');
     }
   }
 }  
@@ -71,6 +74,9 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     $all_terms = taxonomy_get_tree($document_voca->vid);
     $base_archive = base_path() . 'finance-archives/';
     foreach ($all_terms as $term) {
+      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
+        continue ;
+      }
       $content_archives['tab_header'][$term->tid] = array(
         'tab_title' => $term->name,
         'tab_url' => $base_archive . $term->tid . '/' . $lang,
