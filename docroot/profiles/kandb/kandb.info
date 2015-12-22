@@ -168,6 +168,8 @@ dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_tmp_b2b
 dependencies[] = kandb_grouper
 dependencies[] = kandb_date_formats
+dependencies[] = kandb_finance_gouvernance
+dependencies[] = kandb_taxonomy_comite
 
 ; Blocks
 dependencies[] = kandb_recherche

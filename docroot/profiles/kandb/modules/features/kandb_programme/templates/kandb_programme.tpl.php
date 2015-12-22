@@ -110,9 +110,8 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                               }
                                               if (!empty($biens->field_parking_description[LANGUAGE_NONE][0]['value'])){
                                                 //$name_description_parking = field_info_instance('node', 'field_parking_description', 'bien');
-                                                $arr_caracteris[] = 'Parking';
+                                                $arr_caracteris[] = t('Parking');
                                               }
-
                                               $etage_tid = isset($biens->field_etage[LANGUAGE_NONE][0]['tid']) ? $biens->field_etage[LANGUAGE_NONE][0]['tid'] : '';
                                               $etage = '';
                                               if ($etage_tid) {

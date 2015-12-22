@@ -390,6 +390,18 @@ function kandb_label_default_admin() {
     '#default_value' => variable_get('kandb_program_default_subtitle_map'),
     '#required' => TRUE,
   );
+  $form['kandb_bloc_default_offre_title_homepage'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Titre default offre homepage'),
+    '#default_value' => variable_get('kandb_bloc_default_offre_title_homepage'),
+    '#required' => TRUE,
+  );
+  $form['kandb_bloc_default_offre_subtitle_homepage'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sub Titre default offre homepage'),
+    '#default_value' => variable_get('kandb_bloc_default_offre_subtitle_homepage'),
+    '#required' => TRUE,
+  );
 
   return system_settings_form($form);
 }
