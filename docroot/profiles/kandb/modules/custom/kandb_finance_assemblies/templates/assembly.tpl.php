@@ -4,6 +4,7 @@ if (!isset($assembly_content) || empty($assembly_content)) {
 }
 $exist_download_function = function_exists('kandb_finance_archives_download_file');
 $status_class = 'active';
+print theme('finance_header_block');
 ?>
 <section class="section-padding">
   <div class="wrapper">
