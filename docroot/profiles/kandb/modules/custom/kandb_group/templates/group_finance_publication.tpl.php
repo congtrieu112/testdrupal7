@@ -1,10 +1,8 @@
 <?php
-if (isset($data['group_header'])):
-  print render($data['group_header']);
-endif;
-
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
+print theme('finance_header_block');
 ?>
+
 <?php if($calenders) : ?>
 <!-- [content legroupeFinancePublications] start-->
 <section class="section-padding legroupeFinaceCalendar bg-lightGrey">

@@ -53,10 +53,12 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['finance/publication'] = array(
+  $items['finance/publication/%'] = array(
     'title' => 'Finance - Publication',
     'page callback' => 'render_group_finance_publication',
     'type' => MENU_CALLBACK,
+    'page arguments' => array(2),
+    'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
 
@@ -161,8 +163,7 @@ function render_group_finance_publication() {
   }
 
   $query_arr = drupal_get_query_parameters();
-  $current_lang = (isset($query_arr['lang']) AND $query_arr['lang']) ? $query_arr['lang'] : 'fr';
-  //$current_lang = 'en';
+  $current_lang = arg(2);
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
