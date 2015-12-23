@@ -37388,7 +37388,7 @@ AppAccordion.prototype = {
     var that = this;
 
     // open on click or 'enter' key
-    $(link)
+    this.item.find(link)
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
         var $this = $(this);
@@ -37497,6 +37497,11 @@ $.fn.appAccordion = function(opt) {
 };
 
 $(trigger).appAccordion();
+
+// auto refresh after ajax response
+App.updaters.appAccordion = function() {
+  $(trigger).appAccordion();
+};
 },{}],11:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37553,7 +37558,7 @@ var Callback = function ( scope ) {
     var _parent = ctrl.datas.parent || document.body ;
     var $parent = $( _parent );
     $parent.html( ctrl.msg ).trigger('write');
-    that.fn.bindings.reinit( $parent );
+    //that.fn.bindings.reinit( $parent );
     $('.ajax-wait').removeClass('ajax-wait');
   };
 
@@ -37561,7 +37566,7 @@ var Callback = function ( scope ) {
     var _parent = data.datas.parent || document.body ;
     var _el = $( data.msg  ).appendTo( _parent );
     $( _parent ).trigger('append');
-    that.fn.bindings.reinit( _el );
+    //that.fn.bindings.reinit( _el );
   };
 };
 
@@ -37571,9 +37576,10 @@ var Fn = function ( scope ){
   var that = scope ;
 
   this.bindings = {
-    reinit : function ( $el ){
+    /*reinit : function ( $el ){
+      console.log('reinit');
       App.launchUpdaters($el);
-    }
+    }*/
   };
 
   this.getCallbackFoo = function ( obj ){
@@ -38034,19 +38040,10 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
 });
 
 
-// ajax callback
-$(document).on('ajaxResponse', function(e){
-  // reinit slick
-  $('[data-slick]').appSlick();
-
-  // reinit cookies
-  $('[data-cookie]').appCookies();
-
-  // see more
-  $('[data-seemore]').appSeeMore();
-
-  // rebind reveal popin's bindings
-  App.revealBind();
+// ajax callbacks
+$(document).on('ajaxComplete', function(e){
+  // reinit all App methods
+  App.launchUpdaters();
 });
 
 },{}],15:[function(require,module,exports){
@@ -38289,7 +38286,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
-},{"./app-top-bar.js":31}],16:[function(require,module,exports){
+},{"./app-top-bar.js":33}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -38464,34 +38461,35 @@ AppCookies.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appCookies = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appCookies = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppCookies');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppCookies', new AppCookies( this, opt) );
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppCookies');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppCookies', new AppCookies( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
-
-  $(trigger).appCookies();
-
-  if ( App.debug ) {
-    if ( $.fn.Cookies('K&B-save') ) {
-      console.log( 'Cookies: ', JSON.parse($.fn.Cookies('K&B-save')) );
     }
-  }
+  });
+};
 
-});
+$(trigger).appCookies();
+
+if ( App.debug ) {
+  if ( $.fn.Cookies('K&B-save') ) {
+    console.log( 'Cookies: ', JSON.parse($.fn.Cookies('K&B-save')) );
+  }
+}
+
+// auto refresh after ajax response
+App.updaters.appCookies = function() {
+  $(trigger).appCookies();
+};
 
 },{}],17:[function(require,module,exports){
 /* ========================== */
@@ -38670,6 +38668,11 @@ $(function() {
 
 });
 
+
+// auto refresh after ajax response
+App.updaters.appDropdown = function() {
+  $(trigger).appDropdown();
+};
 },{}],18:[function(require,module,exports){
 /* =================== */
 /* editorial : app-editorial.js */
@@ -38684,7 +38687,6 @@ var biggerEl = function($el, editorialWidth) {
   [].forEach.call(
     $el.find('> *'),
     function(el) {
-      console.log(editorialWidth);
       if (el.offsetWidth > editorialWidth) {
         $(el).wrap("<div class='overflow'></div>");
       }
@@ -38698,7 +38700,7 @@ if ( $editorial.length && Modernizr.touch ) {
   for ( var i=0, len=$editorial.length; i<len; i++ ) {
     var $el = $( $editorial[i] ),
         editorialWidth = $el.outerWidth();
-console.log(editorialWidth);
+
     biggerEl($el, editorialWidth);
   }
 }
@@ -38728,42 +38730,54 @@ App.footerHeight = function() {
 
 'use strict';
 
+App.form = function() {
 
-// touch hack to prevent autoscroll on form elements focus (TABLET)
-if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
-  $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
+  // touch hack to prevent autoscroll on form elements focus (TABLET)
+  if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
+    $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
+      var $this = $(this);
 
-    if ( $this.closest('.form-dropdown__content').length < 1 && !$this.hasClass('noScroll') ) {
-      console.log('scroll');
-      setTimeout(function(){
-        $this.velocity("scroll", { duration: 200, offset: -100 });
-      }, 500);
-    }
-  }, 300, true));
-}
+      if ( $this.closest('.form-dropdown__content').length < 1 && !$this.hasClass('noScroll') ) {
+        console.log('scroll');
+        setTimeout(function(){
+          $this.velocity("scroll", { duration: 200, offset: -100 });
+        }, 500);
+      }
+    }, 300, true));
+  }
 
-// touch hack to prevent autoscroll on form elements focus (MOBILE)
-if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
-  $(document).on('click.label', 'input[type=text], input[type=search], input[type=number], input[type=tel]', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
+  // touch hack to prevent autoscroll on form elements focus (MOBILE)
+  if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
+    $(document).on('click.label', 'input[type=text], input[type=search], input[type=number], input[type=tel]', Foundation.utils.debounce(function(e) {
+      var $this = $(this);
 
-    if ( !$this.hasClass('noScroll') ) {
-      setTimeout(function(){
-        $this.velocity("scroll", { duration: 200, offset: -80 });
-      }, 500);
-    }
-  }, 300, true));
-}
+      if ( !$this.hasClass('noScroll') ) {
+        setTimeout(function(){
+          $this.velocity("scroll", { duration: 200, offset: -80 });
+        }, 500);
+      }
+    }, 300, true));
+  }
 
-$('form[data-ajax-form]')
-  .on('submit', function(e){
-    e.preventDefault();
-  })
-  .on('valid.fndtn.abide', function() {
-    $(this).trigger('ajaxForm');
-  });
+  $('form[data-ajax-form]')
+    .on('submit', function(e){
+      e.preventDefault();
+    })
+    .on('valid.fndtn.abide', function() {
+      $(this).trigger('ajaxForm');
+    });
 
+
+  $('form').find('.label-checkbox > span').addClass('needsclick');
+
+};
+
+App.form();
+
+// auto refresh after ajax response
+App.updaters.form = function() {
+  App.form();
+};
 
 /*
 // touch hack to prevent autoscroll on form elements focus (MOBILE)
@@ -38827,7 +38841,8 @@ Gmaps.prototype = {
       that.newMap = new GMaps({
         div: '.js-app-gmaps',
         lat: 0,
-        lng: 0
+        lng: 0,
+        maxZoom: 17
       });
 
       that
@@ -38981,6 +38996,11 @@ App.appIframes = function( el ) {
 };
 
 App.appIframes( trigger );
+
+// auto refresh after ajax response
+App.updaters.appIframes = function() {
+  App.appIframes( trigger );
+};
 },{}],23:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
@@ -39219,6 +39239,64 @@ $topbarSearchForm.find('form').on('submit', function(e){
 
 },{}],25:[function(require,module,exports){
 /* ====================== */
+/* partager popins: app-partager.js */
+/* ====================== */
+
+"use strict";
+var trigger = '[data-partager-item]',
+    defaults = {};
+
+var markCheckbox = function(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    var checkbox = $(ev.currentTarget).find('[type=checkbox]');
+    checkbox && checkbox.prop('checked', !checkbox.prop("checked"));
+};
+
+function AppPartager(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppPartager.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', markCheckbox)
+            .on('click',markCheckbox);
+    }
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appPartager = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+        var item = $(this), instance = item.data('AppPartager');
+        if(!instance) {
+            // create plugin instance and save it in data
+            item.data('AppPartager', new AppPartager(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+};
+
+$(trigger).appPartager();
+
+},{}],26:[function(require,module,exports){
+/* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
 
@@ -39278,13 +39356,10 @@ App.revealBind = function() {
 
     if ( $modal.find('.reveal-modal__wrapper').length <= 0 ) {
       $modal
-        .prepend( '<button class="close-reveal-modal icon icon-close"></button>' )
+        .prepend( '<span class="close-reveal-modal icon icon-close" aria-label="Fermer" role="button"></button>' )
         .children()
           .wrapAll('<div class="reveal-modal__wrapper"></div>');
     }
-
-    // init select plugin
-    App.appComboSelect();
   });
 
   // event on popin closing
@@ -39320,11 +39395,11 @@ App.revealBind = function() {
 
 App.reveal();
 
-// auto refresh Foundation after ajax response
-App.updaters.foundation = function() {
-  App.reveal();
+// auto refresh after ajax response
+App.updaters.reveal = function() {
+  App.revealBind();
 };
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39352,7 +39427,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39402,7 +39477,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39479,30 +39554,31 @@ AppSeeMore.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appSeeMore = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appSeeMore = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppSeeMore');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppSeeMore', new AppSeeMore( this, opt) );
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppSeeMore');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppSeeMore', new AppSeeMore( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
+$(trigger).appSeeMore();
+
+
+// auto refresh after ajax response
+App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
-
-});
-
-},{}],29:[function(require,module,exports){
+};
+},{}],30:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39547,7 +39623,128 @@ App.appComboSelect = function() {
 };
 
 App.appComboSelect();
-},{}],30:[function(require,module,exports){
+
+// auto refresh after ajax response
+App.updaters.appComboSelect = function() {
+  App.appComboSelect();
+};
+},{}],31:[function(require,module,exports){
+/* ======================== */
+/* seeMore : app-showText.js */
+/* ======================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger     = '[data-showmoretext]',
+    toggler     = '[data-showmoretext-trigger]',
+    content     = '[data-showmoretext-content]';
+
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppShowMoreText( el, opts ) {
+  this.settings       = $.extend({}, defaults, opts);
+  this.isShow         = false;
+  this.el             = $(el);
+  this.buttonEl       = this.el.find(toggler);
+  this.contentEl      = this.el.find(content);
+  this.contentHeight  = this.contentEl.outerHeight();
+  this.minHeight      = parseInt( this.contentEl.css('min-height'), 10 );
+  this.moreText       = this.buttonEl.text();
+  this.lessText       = this.buttonEl.attr('data-showmoretext-trigger');
+  this.buttonTemplate = '{{text}}<span class="icon icon-arrow {{toggle}}"></span>';
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppShowMoreText.prototype = {
+
+  init: function() {
+    var that = this;
+
+    if(this.contentHeight > this.minHeight){
+      that.contentEl.css('height', this.minHeight);
+      that.buttonEl.removeClass('hidden');
+    }
+
+    that.buttonEl.off('click.seeMoreText').on('click.seeMoreText', function(e) {
+      e.preventDefault();
+      that.toggleContent();
+    });
+  },
+
+  toggleContent: function() {
+    var that = this;
+    that.isShow = !that.isShow;
+
+    var str = that.buttonTemplate;
+
+    if (that.isShow) {
+      str = str.replace('{{text}}', that.lessText);
+      str = str.replace('{{toggle}}', 'up');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.contentHeight);
+
+    } else {
+      str = str.replace('{{text}}', that.moreText);
+      str = str.replace('{{toggle}}', 'down');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.minHeight);
+    }
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appShowMoreText = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppShowMoreText');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppShowMoreText', new AppShowMoreText( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
+      }
+    }
+  });
+};
+
+$(trigger).appShowMoreText();
+
+// auto refresh after ajax response
+App.updaters.appShowMoreText = function() {
+  $(trigger).appShowMoreText();
+};
+
+},{}],32:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39743,7 +39940,12 @@ $.fn.appSlick = function(opt) {
 
 $(trigger).appSlick();
 
-},{}],31:[function(require,module,exports){
+// auto refresh after ajax response
+App.updaters.appSlick = function() {
+  $(trigger).appSlick();
+};
+
+},{}],33:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -39758,7 +39960,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -40395,7 +40597,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],33:[function(require,module,exports){
+},{"jquery":5}],35:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40483,6 +40685,8 @@ var appTopBar           = require("./app-top-bar.js");
 var appFooter           = require("./app-footer.js");
 var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
+var appShowText         = require("./app-showText.js");
+var appPartager         = require("./app-partager.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40492,11 +40696,10 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
 // auto refresh Foundation after ajax response
 App.updaters.foundation = function() {
   $(document).foundation('reflow');
-  $('[data-app-accordion]').appAccordion();
 };
 
 // deprecated
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-reveal.js":25,"./app-scroll-to.js":26,"./app-searchFormular.js":27,"./app-seeMore.js":28,"./app-select.js":29,"./app-slick.js":30,"./app-top-bar.js":31,"./combo-select.js":32,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[33]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);

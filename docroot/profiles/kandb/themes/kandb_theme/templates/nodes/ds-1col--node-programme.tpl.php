@@ -30,17 +30,23 @@
             if ($promotions) :
                 foreach ($promotions as $promotion) :
                     $triger_promotion = 'promotion-' . $promotion->nid;
-                    ?>
-                    <li>
-                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                    if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                        ?>
+                        <li>
+                            <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                            <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                    <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- [popin] end-->
-                    </li>
+                            <!-- [popin] end-->
+                        </li>
+                    <?php else : ?>
+                        <li>
+                            <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                        </li>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </ul>
@@ -79,30 +85,7 @@
                             <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-                    <?php
-                    $type_voie = taxonomy_term_load($type_voie);
-                    $type_voie_name = isset($type_voie->name) ? $type_voie->name : '';
-                    $space = '&nbsp;';
-                    $html = '';
-                    if ($loc_num || $type_voie_name || $loc_rue):
-
-                        if ($loc_num && !$type_voie_name) :
-                            $html = $loc_num . $space . $loc_rue;
-
-                        elseif (!$loc_num && $type_voie_name) :
-                            $html = $type_voie_name . $space . $loc_rue;
-
-                        elseif (!$loc_num && !$type_voie_name) :
-                            $html = $loc_rue;
-
-                        else :
-                            $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
-
-                    endif;
-                    ?>
-
-                        <p class="text-bold"><?php print $html; ?></p>
-                    <?php endif; ?>
+                    <?php print $address; ?>
                     <ul class="tags-list">
                         <?php if ($nouveau) : ?>
                             <li>
@@ -113,17 +96,23 @@
                         if ($promotions) :
                             foreach ($promotions as $promotion) :
                                 $triger_promotion = 'promotion-' . $promotion->nid;
-                                ?>
-                                <li>
-                                    <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                            <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                                    ?>
+                                    <li>
+                                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- [popin] end-->
-                                </li>
+                                        <!-- [popin] end-->
+                                    </li>
+                                <?php else : ?>
+                                    <li>
+                                        <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -187,11 +176,16 @@
                     <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
                 </a>
                 <div class="sharing">
-
-                    <!--                    <ul class="sharing__items">
-                                            <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                                            <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                                        </ul>-->
+                    <ul class="sharing__items">
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
+                        <?php if ($email = variable_get('kb_partage_email')) : ?>
+                            <li class="sharing__items__item">
+                                <a href="mailto:<?php print $email;  ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
+                        <li class="sharing__items__item"><a target="_blank" href="http://twitter.com/share?url=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Twitter'); ?>" class="icon icon-twitter"></a></li>
+                    </ul>
                 </div>
             </div>
             <div class="programHeader__content__details">
@@ -210,12 +204,11 @@
                                         $flag_chauffage = FALSE;
                                         if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
                                             $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
-                                            $carac_term->name = $chauffage->name;
                                         endif;
                                     endif;
                                     $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                     print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span>';
-                                    print '<span class="text">' . $carac_term->name . ' ' . (($carac_term->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $carac_term->description . '"></span>' : '') . '</span>';
+                                    print '<span class="text">' . $carac_term->name . ' ' . (($carac_term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $carac_term->description . '"></span>' : '') . '</span>';
                                     print '</li>';
                                 endif;
                             endif;
@@ -230,7 +223,7 @@
                                 endif;
                                 $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                 print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                                 print '</li>';
                             endif;
                         endif;
@@ -240,10 +233,9 @@
                         if ($icons = get_taxonomy_by_vocabulary_name('Chauffage', $vocabulary_name)):
                             if ($flag_chauffage):
                                 $chauffage = taxonomy_term_load($chauffage[0]['tid']);
-                                $icons[0]->name = $chauffage->name;
                                 $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                 print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                                 print '</li>';
                             endif;
                         endif;
@@ -294,13 +286,12 @@
 <!-- [programParcel] start-->
 <?php print render($logementBlock['content']); ?>
 <!-- [programParcel] end-->
-
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map'); ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_subtitle_map'); ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map', t('Un quarter')); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) ? $field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value'] : variable_get('kandb_program_default_subtitle_map', t("A l'image des famille")); ?></p>
         </header>
     </div>
     <div class="swapItem">

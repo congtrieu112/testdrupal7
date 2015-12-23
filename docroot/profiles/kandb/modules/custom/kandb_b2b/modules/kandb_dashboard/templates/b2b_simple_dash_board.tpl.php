@@ -13,3 +13,5 @@ endif;
 $latest_offers = views_embed_view('b2b_nos_dernieres_offres', 'block');
 print $latest_offers;
 
+$special_offers = views_embed_view('b2b_nos_dernieres_offres', 'block-1');
+print $special_offers;
