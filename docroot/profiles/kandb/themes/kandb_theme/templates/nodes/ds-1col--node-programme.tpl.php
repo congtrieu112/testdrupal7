@@ -79,30 +79,7 @@
                             <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-                    <?php
-                    $type_voie = taxonomy_term_load($type_voie);
-                    $type_voie_name = isset($type_voie->name) ? $type_voie->name : '';
-                    $space = '&nbsp;';
-                    $html = '';
-                    if ($loc_num || $type_voie_name || $loc_rue):
-
-                        if ($loc_num && !$type_voie_name) :
-                            $html = $loc_num . $space . $loc_rue;
-
-                        elseif (!$loc_num && $type_voie_name) :
-                            $html = $type_voie_name . $space . $loc_rue;
-
-                        elseif (!$loc_num && !$type_voie_name) :
-                            $html = $loc_rue;
-
-                        else :
-                            $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
-
-                    endif;
-                    ?>
-
-                        <p class="text-bold"><?php print $html; ?></p>
-                    <?php endif; ?>
+                    <?php print $address; ?>
                     <ul class="tags-list">
                         <?php if ($nouveau) : ?>
                             <li>
