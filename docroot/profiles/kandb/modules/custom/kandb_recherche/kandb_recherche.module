@@ -461,10 +461,12 @@ function recherche_complete_b2c_form($form, &$form_state) {
   );
 
   $taxonomy = taxonomy_vocabulary_machine_name_load('caracteristiques');
-  $terms = taxonomy_get_tree($taxonomy->vid);
+  $terms = taxonomy_term_load_multiple(array(), array('vid' => $taxonomy->vid));
   $form_terms = array();
   foreach($terms as $term_object){
-    $form_terms[$term_object->tid] = $term_object->name;
+    if (!empty($term_object->field_searchable) && $term_object->field_searchable[LANGUAGE_NONE][0]['value'] == 1) {
+      $form_terms[$term_object->tid] = $term_object->name;
+    }
   }
   $form['field_caracteristique'] = array(
     '#type' => 'checkboxes',
