@@ -30,17 +30,23 @@
             if ($promotions) :
                 foreach ($promotions as $promotion) :
                     $triger_promotion = 'promotion-' . $promotion->nid;
-                    ?>
-                    <li>
-                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                    if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                        ?>
+                        <li>
+                            <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                            <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                    <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                </div>
                             </div>
-                        </div>
-                        <!-- [popin] end-->
-                    </li>
+                            <!-- [popin] end-->
+                        </li>
+                    <?php else : ?>
+                        <li>
+                            <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                        </li>
+                    <?php endif; ?>
                 <?php endforeach; ?>
             <?php endif; ?>
         </ul>
@@ -90,17 +96,23 @@
                         if ($promotions) :
                             foreach ($promotions as $promotion) :
                                 $triger_promotion = 'promotion-' . $promotion->nid;
-                                ?>
-                                <li>
-                                    <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                            <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                                    ?>
+                                    <li>
+                                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- [popin] end-->
-                                </li>
+                                        <!-- [popin] end-->
+                                    </li>
+                                <?php else : ?>
+                                    <li>
+                                        <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>
@@ -164,11 +176,16 @@
                     <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
                 </a>
                 <div class="sharing">
-
-                    <!--                    <ul class="sharing__items">
-                                            <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                                            <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                                        </ul>-->
+                    <ul class="sharing__items">
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
+                        <?php if ($email = variable_get('kb_partage_email')) : ?>
+                            <li class="sharing__items__item">
+                                <a href="mailto:<?php print $email;  ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
+                        <li class="sharing__items__item"><a target="_blank" href="http://twitter.com/share?url=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Twitter'); ?>" class="icon icon-twitter"></a></li>
+                    </ul>
                 </div>
             </div>
             <div class="programHeader__content__details">

@@ -319,7 +319,7 @@ function kandb_feed_feeds_importer_default() {
           4 => array(
             'source' => 'ContenuLienTxt',
             'target' => 'field_document_description',
-            'unique' => FALSE,
+            'format' => 'simple',
           ),
           5 => array(
             'source' => 'Contact1AffichageParDefaut',
@@ -966,51 +966,56 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           14 => array(
+            'source' => '13',
+            'target' => 'field_bien_type_maison',
+            'unique' => FALSE,
+          ),
+          15 => array(
             'source' => '16',
             'target' => 'field_caracteristique_jardin',
             'unique' => FALSE,
           ),
-          15 => array(
+          16 => array(
             'source' => '17',
             'target' => 'field_caracteristique_balcon',
             'unique' => FALSE,
           ),
-          16 => array(
+          17 => array(
             'source' => '19',
             'target' => 'field_caracteristique_terrasse',
             'unique' => FALSE,
           ),
-          17 => array(
+          18 => array(
             'source' => '21',
             'target' => 'field_caracteristique_parking',
             'unique' => FALSE,
           ),
-          18 => array(
+          19 => array(
             'source' => '22',
             'target' => 'field_caracteristique_box',
             'unique' => FALSE,
           ),
-          19 => array(
+          20 => array(
             'source' => '23',
             'target' => 'field_caracteristique_cave',
             'unique' => FALSE,
           ),
-          20 => array(
+          21 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => '28',
             'target' => 'field_parking_description',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
             'source' => '29',
             'target' => 'field_cave_description',
             'unique' => FALSE,
           ),
-          23 => array(
+          24 => array(
             'source' => '30',
             'target' => 'domains:1',
             'unique' => FALSE,

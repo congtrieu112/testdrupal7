@@ -281,7 +281,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
               $field = trim($field);
               if($field != '') {
                   $txt_file_name = substr($field, strrpos($field, '/') + 1);
-                  $txt_uri = 'public://import/pdf migration folder/' . $txt_file_name;
+                  $txt_uri = 'public://import/pdf_migration_folder/' . $txt_file_name;
                   $txt_file_prepare = file_prepare_directory($txt_uri, FILE_MODIFY_PERMISSIONS);
                   $txt_path = drupal_realpath($txt_uri);
                   if(!file_exists($txt_path)) {
@@ -302,7 +302,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
           if($columnName == 'lienfichier') {
               if(trim($field) != '') {
                   $pdf_file_name = substr($field, strrpos($field, '/') + 1);
-                  $pdf_uri = 'public://import/pdf migration folder/' . $pdf_file_name;
+                  $pdf_uri = 'public://import/pdf_migration_folder/' . $pdf_file_name;
                   file_prepare_directory($pdf_uri, FILE_MODIFY_PERMISSIONS);
                   $pdf_path = drupal_realpath($pdf_uri);
                   if(!file_exists($pdf_path)) {

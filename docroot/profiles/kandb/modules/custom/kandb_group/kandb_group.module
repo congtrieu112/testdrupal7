@@ -21,7 +21,7 @@ define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS', serialize(array(280 => t('Commun
 function kandb_group_menu() {
   $items = array();
 
-  $items['group/home'] = array(
+  $items['corporate'] = array(
     'title' => 'Le Groupe',
     'page callback' => 'render_group_homepage',
     'type' => MENU_CALLBACK,
@@ -102,7 +102,14 @@ function kandb_group_menu() {
     'title' => 'Finance - Gouvernance',
     'page callback' => 'render_group_finance_gouvernance',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(2, 3),
+    'page arguments' => array(3, 4),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+  $items['corporate/finance/gouvernance'] = array(
+    'title' => 'Finance - Gouvernance',
+    'page callback' => 'render_group_finance_gouvernance_default',
+    'type' => MENU_CALLBACK,
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
@@ -301,6 +308,23 @@ function render_group_finance_gouvernance($tid, $lang) {
   $tax = taxonomy_term_load($tid);
   $persons = kandb_group_get_grouvernance_node($tid, $lange_code);
   return theme('group_finance_gouvernance', array('data' => $persons, 'tax' => $tax, 'voca' => $all_terms, 'term_id' => $tid, 'lang' => $lang));
+}
+
+/**
+ * Implement render page finance gouvernance default.
+ */
+function render_group_finance_gouvernance_default() {
+  $data = $all_terms = array();
+  $tax = '';
+  $comite_voca = taxonomy_vocabulary_machine_name_load('comite');
+  if (isset($comite_voca->vid)) {
+    $all_terms = taxonomy_get_tree($comite_voca->vid);
+    if (isset($all_terms[0]->tid)) {
+      $path = url('corporate/finance/gouvernance/' . $all_terms[0]->tid . '/fr');
+      drupal_goto($path);
+    }
+    return t('no results');
+  }
 }
 
 /**

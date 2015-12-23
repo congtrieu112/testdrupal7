@@ -13,7 +13,7 @@ function kandb_contact_menu() {
     'description' => 'Change the contact information of the contact block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_admin'),
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer content settings'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -22,7 +22,7 @@ function kandb_contact_menu() {
     'description' => 'Set ID webform for contact form.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_webform'),
-    'access arguments' => array('administer'),
+    'access arguments' => array('super admin only'),
     'type' => MENU_NORMAL_ITEM,
   );
 
@@ -32,10 +32,26 @@ function kandb_contact_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('webform_contact_list_submitted_data'),
     'type' => MENU_NORMAL_ITEM,
-    'access arguments' => array('administer'),
+    'access arguments' => array('access download'),
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function kandb_contact_permission() {
+  return array(
+    'administer content settings' => array(
+      'title' => t('Edit the content'),
+      'description' => t('Provide the right to change the content on the contact blocks.'),
+    ),
+    'access download' => array(
+      'title' => t('Access and download report'),
+      'description' => t('Access the webform submit data page and download the export.'),
+    ),
+  );
 }
 
 /**

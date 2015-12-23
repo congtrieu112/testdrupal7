@@ -25,7 +25,6 @@ function kandb_bien_field_group_info() {
     'children' => array(
       0 => 'field_bien_habiteo_id',
       1 => 'field_tva',
-      2 => 'field_visibilite',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -101,7 +100,8 @@ function kandb_bien_field_group_info() {
       6 => 'field_prix_tva_20',
       7 => 'field_superficie',
       8 => 'field_type',
-      9 => 'title',
+      9 => 'field_bien_type_maison',
+      10 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

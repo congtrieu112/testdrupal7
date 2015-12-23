@@ -25,7 +25,7 @@ print theme('finance_header_block');
                             $term_load = taxonomy_term_load($value->tid);
                             $name = $term_load->name;
                             if ($lang == 'en' && isset($term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'])) {
-                              $name = $term_load->name;
+                              $name = $term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'];
                             }
                             if ($value->tid == $term_id) {
                               $selected = 'true';
@@ -58,7 +58,7 @@ print theme('finance_header_block');
                               <p data-showmoretext-content="data-showmoretext-content" class="more-info">
                                   <?php print nl2br($item->field_gouvernance_presentation[LANGUAGE_NONE][0]['value']); ?>
                               </p>
-                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="Lire moins" class="hidden">Lire plus<span class="icon icon-arrow down"></span></a></div>
+                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="<?php print t('Lire moins'); ?>" class="hidden"><?php print t('Lire plus'); ?><span class="icon icon-arrow down"></span></a></div>
                           </div>
                       </div>
                   </article>
