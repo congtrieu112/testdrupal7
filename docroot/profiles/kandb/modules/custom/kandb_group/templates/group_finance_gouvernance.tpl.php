@@ -58,7 +58,7 @@ print theme('finance_header_block');
                               <p data-showmoretext-content="data-showmoretext-content" class="more-info">
                                   <?php print nl2br($item->field_gouvernance_presentation[LANGUAGE_NONE][0]['value']); ?>
                               </p>
-                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="Lire moins" class="hidden">Lire plus<span class="icon icon-arrow down"></span></a></div>
+                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="<?php print t('Lire moins'); ?>" class="hidden"><?php print t('Lire plus'); ?><span class="icon icon-arrow down"></span></a></div>
                           </div>
                       </div>
                   </article>
