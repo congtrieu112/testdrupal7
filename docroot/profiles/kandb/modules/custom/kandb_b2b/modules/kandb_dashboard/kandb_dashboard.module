@@ -7,7 +7,7 @@ function kandb_dashboard_menu() {
   $items['dash-board'] = array(
     'title' => 'Dash Board B2B',
     'page callback' => 'kandb_render_page_dashboard',
-    'access callback' => 'kandb_b2b_check_doamin',
+    'access callback' => 'kandb_b2b_check_domain',
   );
   return $items;
 }
