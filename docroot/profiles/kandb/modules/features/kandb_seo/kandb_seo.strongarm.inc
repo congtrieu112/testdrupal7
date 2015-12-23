@@ -42,7 +42,7 @@ function kandb_seo_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_bien_pattern';
-  $strongarm->value = 'villes/programmes-immobiliers-neufs-[node:field-programme:field_programme_loc_ville]/[node:field-programme:title]-[node:field-programme:field_programme_loc_cp]/[node:field_nb_pieces]-[node:field_numero_lot]';
+  $strongarm->value = 'villes/programmes-immobiliers-neufs-[node:field-programme:field_programme_loc_ville]/[node:field-programme:title]-[node:field-programme:field_programme_loc_cp]/[node:field-type]-[node:field_nb_pieces][node:field-nb-chambres]-[node:field_numero_lot]';
   $export['pathauto_node_bien_pattern'] = $strongarm;
 
   $strongarm = new stdClass();
