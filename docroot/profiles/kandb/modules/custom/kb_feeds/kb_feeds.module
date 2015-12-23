@@ -20,6 +20,9 @@ define('KB_FEEDS_TAXONOMY_SEARCH_TERM_GUID', 2);
  */
 define('KB_FEEDS_TAXONOMY_SEARCH_TERM_FIELD_ID_FILE', 3);
 
+define('MACHINE_NAME_B2B', 'kandb_b2b');
+define('MACHINE_NAME_B2C', 'kandb_b2c');
+
 function kb_feeds_feeds_plugins() {
   $info = array();
   $path = drupal_get_path('module', 'kb_feeds');
@@ -394,15 +397,28 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'parcel_feed_import') {
-      $entity->domains = array();
-      if (isset($item[30])) {
-        if ($item[30] == 1 || $item[30] == 2) {
-          $entity->domains[3] = 3;
-        }
-        if ($item[30] == 3 || $item[30] == 2) {
-          $entity->domains[2] = 2;
+      $domains = domain_domains();
+      $domain_id_b2b = '';
+      $domain_id_b2c = '';
+      foreach($domains as $domain) {
+        $machine_name = isset($domain['machine_name']) ? $domain['machine_name'] : '';
+        if($machine_name == MACHINE_NAME_B2B) {
+          $domain_id_b2b = $domain['domain_id'];
+        } elseif($machine_name == MACHINE_NAME_B2C) {
+          $domain_id_b2c = $domain['domain_id'];
         }
       }
+
+      $entity->domains = array();
+      if (isset($item[30])) {
+        if (($item[30] == 1 || $item[30] == 2) && $domain_id_b2b) {
+          $entity->domains[3] = $domain_id_b2b;
+        }
+        if (($item[30] == 3 || $item[30] == 2) && $domain_id_b2c) {
+          $entity->domains[2] = $domain_id_b2c;
+        }
+      }
+
       if (empty($entity->domains)) {
         $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
       }
