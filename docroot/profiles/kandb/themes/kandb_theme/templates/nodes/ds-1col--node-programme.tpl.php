@@ -164,11 +164,16 @@
                     <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
                 </a>
                 <div class="sharing">
-
-                    <!--                    <ul class="sharing__items">
-                                            <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                                            <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                                        </ul>-->
+                    <ul class="sharing__items">
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
+                        <?php if ($email = variable_get('kb_partage_email')) : ?>
+                            <li class="sharing__items__item">
+                                <a href="mailto:<?php print $email;  ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                            </li>
+                        <?php endif; ?>
+                        <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
+                        <li class="sharing__items__item"><a target="_blank" href="http://twitter.com/share?url=<?php print $GLOBALS['base_url'].url('node/' . $node->nid) ?>" title="<?php print t('partage sur Twitter'); ?>" class="icon icon-twitter"></a></li>
+                    </ul>
                 </div>
             </div>
             <div class="programHeader__content__details">

@@ -5,7 +5,7 @@
  */
 function kb_mail_menu() {
   $items = array();
-  
+
   $items['admin/config/kb-mail'] = array(
     'title' => 'Kandb mail',
     'page callback' => 'drupal_get_form',
@@ -18,7 +18,15 @@ function kb_mail_menu() {
     'title' => 'Configure list email for Call center',
     'type' => MENU_DEFAULT_LOCAL_TASK,
   );
-
+   $items['admin/config/kb-mail/partage_email_progamme'] = array(
+    'title' => 'Partage par email',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('partage_email'),
+    'access callback' => 'user_access',
+    'access arguments' => array('administer site configuration'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_mail.admin.inc',
+  );
   return $items;
 }
 /**
@@ -78,7 +86,7 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
     $form['#avant_premiere_id'] = arg(1);
   }
   if(in_array($form_id, $all_forms)) {
-    array_unshift($form['#submit'], 'kandb_webform_submit'); 
+    array_unshift($form['#submit'], 'kandb_webform_submit');
   }
 }
 function kandb_webform_submit(&$form, &$form_state) {
@@ -86,7 +94,7 @@ function kandb_webform_submit(&$form, &$form_state) {
   $bien = NULL;
   $avant_premiere = NULL;
   $values = $form_state['values'];
-  $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : ''; 
+  $webform_name = isset($form['#node']->webform['machine_name']) ? $form['#node']->webform['machine_name'] : '';
   if (isset($values['submitted']['row_2']['rappeler_horaire'])) {
     if (isset ($form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']])) {
       $values['submitted']['row_2']['rappeler_horaire'] = $form['submitted']['row_2']['rappeler_horaire']['#options'][$values['submitted']['row_2']['rappeler_horaire']];
@@ -291,7 +299,7 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rdv_ville'] = isset($values['submitted']['row_2']['rdv_ville']) ? $values['submitted']['row_2']['rdv_ville'] : '';
       $variables['rdv_pays'] = isset($values['submitted']['row_2']['rdv_pays']) ? $values['submitted']['row_2']['rdv_pays'] : '';
       $variables['rdv_adresse1'] = isset($values['submitted']['row_3']['rdv_adresse1']) ? $values['submitted']['row_3']['rdv_adresse1'] : '';
-      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['rdv_adresse2']) ? $values['submitted']['row_3']['rdv_adresse2'] : '';  
+      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['rdv_adresse2']) ? $values['submitted']['row_3']['rdv_adresse2'] : '';
       $variables['rdv_email'] = isset($values['submitted']['row_4']['rdv_email']) ? $values['submitted']['row_4']['rdv_email'] : '';
       $variables['rdv_telephone'] = isset($values['submitted']['row_4']['rdv_telephone']) ? $values['submitted']['row_4']['rdv_telephone'] : '';
       $variables['rdv_lieudit'] = isset($values['submitted']['row_5']['rdv_lieudit']) ? $values['submitted']['row_5']['rdv_lieudit'] : '';
@@ -305,7 +313,7 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rdv_code_postal'] = isset($values['submitted']['row_2']['ap_code_postal']) ? $values['submitted']['row_2']['ap_code_postal'] : '';
       $variables['rdv_ville'] = isset($values['submitted']['row_2']['ap_ville']) ? $values['submitted']['row_2']['ap_ville'] : '';
       $variables['rdv_adresse1'] = isset($values['submitted']['row_3']['ap_adresse1']) ? $values['submitted']['row_3']['ap_adresse1'] : '';
-      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['ap_adresse2']) ? $values['submitted']['row_3']['ap_adresse2'] : '';  
+      $variables['rdv_adresse2'] = isset($values['submitted']['row_3']['ap_adresse2']) ? $values['submitted']['row_3']['ap_adresse2'] : '';
       $variables['rdv_email'] = isset($values['submitted']['row_4']['ap_email']) ? $values['submitted']['row_4']['ap_email'] : '';
       $variables['rdv_telephone'] = isset($values['submitted']['row_4']['ap_telephone']) ? $values['submitted']['row_4']['ap_telephone'] : '';
       $variables['rdv_lieudit'] = isset($values['submitted']['row_5']['ap_lieudit']) ? $values['submitted']['row_5']['ap_lieudit'] : '';
