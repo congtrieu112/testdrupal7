@@ -60,12 +60,20 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-
-  $items['finance/publication/%'] = array(
+  
+  $items['corporate/finance/publication'] = array(
     'title' => 'Finance - Publication',
     'page callback' => 'render_group_finance_publication',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/finance/publication/%'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
@@ -150,7 +158,7 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
-function render_group_finance_publication() {
+function render_group_finance_publication($current_lang = 'fr') {
   $data = array();
 
   $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
@@ -171,7 +179,6 @@ function render_group_finance_publication() {
   }
 
   $query_arr = drupal_get_query_parameters();
-  $current_lang = arg(2);
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
