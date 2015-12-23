@@ -33,7 +33,7 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
     'find' => '/ketbmedia/fr/com',
-    'replace' => 'public://import/pdf migration folder',
+    'replace' => 'public://import/pdf_migration_folder',
     'case_sensitive' => 0,
     'word_boundaries' => 0,
     'whole' => 0,
