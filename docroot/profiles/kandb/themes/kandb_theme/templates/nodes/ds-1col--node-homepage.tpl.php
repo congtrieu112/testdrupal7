@@ -12,7 +12,7 @@
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
-            <div class="heading__title heading__title--sub"><?php print str_replace('#num#', $bien_total, $title_sub); ?></div>
+            <div class="heading__title heading__title--sub"><?php print preg_replace('/\d+\s+\d+/', $bien_total, $title_sub);//str_replace('#num#', $bien_total, $title_sub); ?></div>
         </div>
         <?php print render($content['hp_block_search']); ?>
     </div>
