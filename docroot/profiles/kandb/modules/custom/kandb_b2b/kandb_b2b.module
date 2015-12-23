@@ -15,7 +15,7 @@ function kandb_b2b_menu() {
     'title' => 'B2B Homepage',
     'page callback' => 'render_b2b_homepage',
     'file' => 'kandb_b2b.inc',
-    'access callback' => 'kandb_b2b_check_doamin',
+    'access callback' => 'kandb_b2b_check_domain',
     'type' => MENU_CALLBACK,
   );
 

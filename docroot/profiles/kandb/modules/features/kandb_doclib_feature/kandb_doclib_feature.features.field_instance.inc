@@ -457,7 +457,7 @@ function kandb_doclib_feature_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_select',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -489,19 +489,27 @@ function kandb_doclib_feature_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'plain_text' => 'plain_text',
+          'full_html' => 0,
+          'plain_text' => 0,
+          'simple' => 'simple',
         ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
+        'allowed_formats_toggle' => 1,
+        'default_order_toggle' => 1,
         'default_order_wrapper' => array(
           'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
             'plain_text' => array(
               'weight' => 10,
+            ),
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
       ),
-      'text_processing' => 0,
+      'text_processing' => 1,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -511,7 +519,7 @@ function kandb_doclib_feature_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 9,
+      'weight' => 10,
     ),
   );
 
@@ -553,7 +561,7 @@ function kandb_doclib_feature_field_default_field_instances() {
         'progress_indicator' => 'throbber',
       ),
       'type' => 'file_generic',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -611,6 +619,43 @@ function kandb_doclib_feature_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-document-field_document_sous_type'
+  $field_instances['node-document-field_document_sous_type'] = array(
+    'bundle' => 'document',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'taxonomy',
+        'settings' => array(),
+        'type' => 'taxonomy_term_reference_link',
+        'weight' => 15,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_document_sous_type',
+    'label' => 'Sous-type',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'node-document-field_document_type'
   $field_instances['node-document-field_document_type'] = array(
     'bundle' => 'document',
@@ -647,7 +692,48 @@ function kandb_doclib_feature_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'options_select',
-      'weight' => 6,
+      'weight' => 7,
+    ),
+  );
+
+  // Exported field_instance: 'node-document-field_langue'
+  $field_instances['node-document-field_langue'] = array(
+    'bundle' => 'document',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 14,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_langue',
+    'label' => 'Langue',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 2,
     ),
   );
 
@@ -661,6 +747,8 @@ function kandb_doclib_feature_field_default_field_instances() {
   t('Descrition');
   t('Fichier');
   t('ID');
+  t('Langue');
+  t('Sous-type');
   t('Titre du contact 1');
   t('Titre du contact 2');
   t('Type de document');

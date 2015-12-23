@@ -114,6 +114,8 @@ dependencies[] = kandb_admin_content
 dependencies[] = kandb_b2b
 dependencies[] = kandb_dashboard
 dependencies[] = kandb_group
+dependencies[] = kandb_finance_archives
+dependencies[] = kandb_finance_assemblies
 
 ; Features
 dependencies[] = k_b_rh_annonce
@@ -167,6 +169,8 @@ dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_tmp_b2b
 dependencies[] = kandb_grouper
 dependencies[] = kandb_date_formats
+dependencies[] = kandb_finance_gouvernance
+dependencies[] = kandb_taxonomy_comite
 
 ; Blocks
 dependencies[] = kandb_recherche

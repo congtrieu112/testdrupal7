@@ -8,10 +8,10 @@ define('TYPE_DOCUMENT', 'Communiqué de presse');
 define('VOCAL_DOCUMENT', 'type_de_document');
 define('LIMIT_DOCUMENT', 3);
 define('NUMBER_CTA_GROUP', 6);
+define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
-
 
 /**
  * Implement of hook_menu().
@@ -20,7 +20,7 @@ function kandb_group_menu() {
   $items = array();
 
   $items['group/home'] = array(
-    'title' => 'B2B Homepage',
+    'title' => 'Le Groupe',
     'page callback' => 'render_group_homepage',
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
@@ -61,6 +61,24 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['finance/publication/%'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/ketb/finance/publication'] = array(
+    'title' => '[Finance] Publication',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_publication_admin_form'),
+    'file' => 'kandb_group_finance_publication.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   $items['admin/content/ketb/group/finance-header'] = array(
     'title' => '[Finance] block Header',
     'page callback' => 'drupal_get_form',
@@ -80,6 +98,11 @@ function kandb_group_theme($existing, $type, $theme, $path) {
   return array(
     'group_homepage' => array(
       'template' => 'templates/group_homepage',
+      'variables' => array(),
+    ),
+
+    'group_finance_publication' => array(
+      'template' => 'templates/group_finance_publication',
       'variables' => array(),
     ),
 
@@ -127,6 +150,42 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
+function render_group_finance_publication() {
+  $data = array();
+
+  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
+  if ($term_document_id) {
+    $documents_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '=');
+    $documents_explode_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '!=');
+    if ($documents_communique) {
+      $data['documents_communique'] = $documents_communique;
+    }
+    if($documents_explode_communique) {
+      $data['documents_explode_communique'] = $documents_explode_communique;
+    }
+  }
+
+  $group_header = module_invoke('bean', 'block_view', 'group-header');
+  if (isset($group_header['content']) && $group_header['content']) {
+    $data['group_header'] = $group_header['content'];
+  }
+
+  $query_arr = drupal_get_query_parameters();
+  $current_lang = arg(2);
+  $calenders = array();
+  for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
+    $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
+    if($date) {
+      $calenders[$date] = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
+    }
+  }
+
+  ksort($calenders);
+  $data['calenders'] = $calenders;
+
+  return theme('group_finance_publication', array('data' => $data));
+}
+
 /**
  * Render finance presentation page.
  */
@@ -137,13 +196,12 @@ function render_finance_presentation_page($current_lang = 'fr') {
 /**
  * Get document lasted.
  */
-function kandb_group_get_document_node($limit, $tid) {
-
+function kandb_group_get_document_node($limit, $tid, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'document')
     ->propertyCondition('status', 1)
-    ->fieldCondition('field_document_type', 'tid', $tid)
+    ->fieldCondition('field_document_type', 'tid', $tid, $operation)
     ->fieldOrderBy('field_document_date', 'value', 'DESC')
     ->propertyOrderBy('changed', 'DESC')
     ->range(0, $limit)

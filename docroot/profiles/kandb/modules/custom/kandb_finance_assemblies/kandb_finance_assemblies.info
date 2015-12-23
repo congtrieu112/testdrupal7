@@ -1,0 +1,5 @@
+name = K&B finance assemblées
+core = 7.x
+description = Declare finance assemblées page
+package = K&B Development
+
