@@ -19,7 +19,7 @@
     $items['corporate/finance/archives/%/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
-      'page arguments' => array(1, 2),
+      'page arguments' => array(3, 4),
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );

@@ -23,7 +23,7 @@ function kandb_finance_assemblies_menu() {
   $items['corporate/finance/assemblee-generale/%'] = array(
     'title' => 'Assemblées générales',
     'page callback' => 'kandb_finance_assemblies_page',
-    'page arguments' => array(1),
+    'page arguments' => array(3),
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
