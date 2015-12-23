@@ -1015,6 +1015,11 @@ function kandb_feed_feeds_importer_default() {
             'target' => 'domains:1',
             'unique' => FALSE,
           ),
+          24 => array(
+            'source' => '13',
+            'target' => 'field_bien_type_maison',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'update_non_existent' => 'skip',
