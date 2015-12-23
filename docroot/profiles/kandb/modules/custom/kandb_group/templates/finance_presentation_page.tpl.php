@@ -3,7 +3,6 @@
  * @file
  * Render finance presentation page.
  */
-$current_lang = arg(2);
 
 // Speech section.
 $speech_module_title = variable_get('finance_presentation_speech_module_title_' . $current_lang);
