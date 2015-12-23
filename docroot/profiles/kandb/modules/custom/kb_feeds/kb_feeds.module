@@ -406,6 +406,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       if (empty($entity->domains)) {
         $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
       }
+      if ($item[13] == '') {
+        $logging .= $item[0] . '||' . ' "Type de Maison" value is null | Warning' . "\n";
+      }
       if ($totalItems != $totalColumn) {
         $logging .= $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
