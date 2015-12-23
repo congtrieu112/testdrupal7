@@ -294,13 +294,13 @@
 <!-- [programParcel] start-->
 <?php print render($logementBlock['content']); ?>
 <!-- [programParcel] end-->
-
+<?php krumo($field_quartier_sous_titre); ?>
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map'); ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_subtitle_map'); ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map', t('Un quarter')); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) ? $field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value'] : variable_get('kandb_program_default_subtitle_map', t("A l'image des famille")); ?></p>
         </header>
     </div>
     <div class="swapItem">
