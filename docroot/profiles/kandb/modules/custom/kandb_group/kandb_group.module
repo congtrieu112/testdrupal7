@@ -34,11 +34,19 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-
-  $items['finance/presentation/%'] = array(
+  
+  $items['corporate/finance/presentation'] = array(
     'title' => 'Finance - Presentation',
     'page callback' => 'render_finance_presentation_page',
-    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['corporate/finance/presentation/%'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'page arguments' => array(3),
     'access callback' => TRUE,
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -52,12 +60,20 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-
-  $items['finance/publication/%'] = array(
+  
+  $items['corporate/finance/publication'] = array(
     'title' => 'Finance - Publication',
     'page callback' => 'render_group_finance_publication',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/finance/publication/%'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3),
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
@@ -80,6 +96,16 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['corporate/finance/gouvernance/%/%'] = array(
+    'title' => 'Finance - Gouvernance',
+    'page callback' => 'render_group_finance_gouvernance',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(2, 3),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+
   return $items;
 }
 
@@ -92,19 +118,20 @@ function kandb_group_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_homepage',
       'variables' => array(),
     ),
-
     'group_finance_publication' => array(
       'template' => 'templates/group_finance_publication',
       'variables' => array(),
     ),
-
     'finance_presentation_page' => array(
       'template' => 'templates/finance_presentation_page',
       'variables' => array(),
     ),
-
     'finance_header_block' => array(
       'template' => 'templates/finance_header_block',
+      'variables' => array(),
+    ),
+    'group_finance_gouvernance' => array(
+      'template' => 'templates/group_finance_gouvernance',
       'variables' => array(),
     ),
   );
@@ -142,7 +169,7 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
-function render_group_finance_publication() {
+function render_group_finance_publication($current_lang = 'fr') {
   $data = array();
 
   $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
@@ -152,7 +179,7 @@ function render_group_finance_publication() {
     if ($documents_communique) {
       $data['documents_communique'] = $documents_communique;
     }
-    if($documents_explode_communique) {
+    if ($documents_explode_communique) {
       $data['documents_explode_communique'] = $documents_explode_communique;
     }
   }
@@ -163,11 +190,10 @@ function render_group_finance_publication() {
   }
 
   $query_arr = drupal_get_query_parameters();
-  $current_lang = arg(2);
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
-    if($date) {
+    if ($date) {
       $calenders[$date] = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
     }
   }
@@ -181,8 +207,8 @@ function render_group_finance_publication() {
 /**
  * Render finance presentation page.
  */
-function render_finance_presentation_page() {
-  return theme('finance_presentation_page', array());
+function render_finance_presentation_page($current_lang = 'fr') {
+  return theme('finance_presentation_page', array('current_lang' => $current_lang));
 }
 
 /**
@@ -221,4 +247,45 @@ function kandb_group_get_term_from_name($term_name, $vocabulary_name) {
     }
   }
   return FALSE;
+}
+
+/**
+ * Implement render page finance gouvernance.
+ */
+function render_group_finance_gouvernance($tid, $lang) {
+  $data = $all_terms = array();
+  $tax = '';
+  $lange_code = 0;
+  if ($lang == 'en') {
+    $lange_code = 1;
+  }
+  $comite_voca = taxonomy_vocabulary_machine_name_load('comite');
+  if (isset($comite_voca->vid)) {
+    $all_terms = taxonomy_get_tree($comite_voca->vid);
+  }
+  $tax = taxonomy_term_load($tid);
+  $persons = kandb_group_get_grouvernance_node($tid, $lange_code);
+  return theme('group_finance_gouvernance', array('data' => $persons, 'tax' => $tax, 'voca' => $all_terms, 'term_id' => $tid, 'lang' => $lang));
+}
+
+/**
+ * Get grouvernance lasted.
+ */
+function kandb_group_get_grouvernance_node($tid = array(), $lang) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'finance_gouvernance')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+    ->propertyOrderBy('changed', 'DESC')
+  ;
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
 }

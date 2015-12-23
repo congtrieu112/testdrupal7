@@ -79,30 +79,7 @@
                             <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
                     </h1>
-                    <?php
-                    $type_voie = taxonomy_term_load($type_voie);
-                    $type_voie_name = isset($type_voie->name) ? $type_voie->name : '';
-                    $space = '&nbsp;';
-                    $html = '';
-                    if ($loc_num || $type_voie_name || $loc_rue):
-
-                        if ($loc_num && !$type_voie_name) :
-                            $html = $loc_num . $space . $loc_rue;
-
-                        elseif (!$loc_num && $type_voie_name) :
-                            $html = $type_voie_name . $space . $loc_rue;
-
-                        elseif (!$loc_num && !$type_voie_name) :
-                            $html = $loc_rue;
-
-                        else :
-                            $html = $loc_num . $space . $type_voie_name . $space . $loc_rue;
-
-                    endif;
-                    ?>
-
-                        <p class="text-bold"><?php print $html; ?></p>
-                    <?php endif; ?>
+                    <?php print $address; ?>
                     <ul class="tags-list">
                         <?php if ($nouveau) : ?>
                             <li>
@@ -210,12 +187,11 @@
                                         $flag_chauffage = FALSE;
                                         if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
                                             $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
-                                            $carac_term->name = $chauffage->name;
                                         endif;
                                     endif;
                                     $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                     print '<li class="characteristicList__item"><span class="icon ' . $picto_css_class . '"></span>';
-                                    print '<span class="text">' . $carac_term->name . ' ' . (($carac_term->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $carac_term->description . '"></span>' : '') . '</span>';
+                                    print '<span class="text">' . $carac_term->name . ' ' . (($carac_term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $carac_term->description . '"></span>' : '') . '</span>';
                                     print '</li>';
                                 endif;
                             endif;
@@ -230,7 +206,7 @@
                                 endif;
                                 $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                 print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                                 print '</li>';
                             endif;
                         endif;
@@ -240,10 +216,9 @@
                         if ($icons = get_taxonomy_by_vocabulary_name('Chauffage', $vocabulary_name)):
                             if ($flag_chauffage):
                                 $chauffage = taxonomy_term_load($chauffage[0]['tid']);
-                                $icons[0]->name = $chauffage->name;
                                 $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                                 print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip="" aria-haspopup="true" class="infotip has-tip" data-selector="tooltip-ii9ov5iv0" aria-describedby="tooltip-ii9ov5iv0" title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                                print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                                 print '</li>';
                             endif;
                         endif;
@@ -294,13 +269,12 @@
 <!-- [programParcel] start-->
 <?php print render($logementBlock['content']); ?>
 <!-- [programParcel] end-->
-
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map'); ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_subtitle_map'); ?></p>
+            <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map', t('Un quarter')); ?></h2>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) ? $field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value'] : variable_get('kandb_program_default_subtitle_map', t("A l'image des famille")); ?></p>
         </header>
     </div>
     <div class="swapItem">

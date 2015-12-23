@@ -5558,6 +5558,47 @@ button {
     .btn-wrapper.btn-wrapper--center > * {
       width: 100%; } }
 
+.icon-arrow {
+  margin-left: 0.625rem;
+  vertical-align: inherit;
+  -webkit-transform: rotate(1deg);
+  -moz-transform: rotate(1deg);
+  -ms-transform: rotate(1deg);
+  -o-transform: rotate(1deg);
+  transform: rotate(1deg);
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.4s;
+  -moz-transition-duration: 0.4s;
+  transition-duration: 0.4s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  transition-timing-function: ease-out; }
+  .icon-arrow:before {
+    line-height: 0; }
+  .icon-arrow.down {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg); }
+  .icon-arrow.up {
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg); }
+  .icon-arrow.left {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
+    transform: rotate(180deg);
+    margin-right: 0.625rem;
+    margin-left: 0;
+    margin-top: 0.3125rem; }
+
 .form-dropdown {
   background: #ffffff;
   border: 1px solid #e0e0e0;
@@ -5898,6 +5939,32 @@ _:-ms-lang(x), .infotip:after {
   justify-content: flex-end;
   -ms-flex-pack: end;
   margin-top: 0.83333rem; }
+  @media only screen and (max-width: 47.9375em) {
+    .filter--left {
+      -webkit-box-pack: center;
+      -moz-box-pack: center;
+      box-pack: center;
+      -webkit-justify-content: center;
+      -moz-justify-content: center;
+      -ms-justify-content: center;
+      -o-justify-content: center;
+      justify-content: center;
+      -ms-flex-pack: center; }
+      .filter--left .form-dropdown__trigger {
+        display: block;
+        font-size: 1.25rem;
+        font-family: "Helvetica Neue LT W04_75 Bold"; } }
+  @media only screen and (min-width: 48em) {
+    .filter--left {
+      -webkit-box-pack: start;
+      -moz-box-pack: start;
+      box-pack: start;
+      -webkit-justify-content: flex-start;
+      -moz-justify-content: flex-start;
+      -ms-justify-content: flex-start;
+      -o-justify-content: flex-start;
+      justify-content: flex-start;
+      -ms-flex-pack: start; } }
   .filter > * {
     margin-bottom: 0; }
   .filter .combo-select {
@@ -12350,6 +12417,44 @@ a.tag.tag--important:hover {
     font-size: 1.875rem;
     color: #199edd; }
 
+.communiquesDocs__title {
+  font-size: 1.25rem;
+  color: #213649;
+  padding-bottom: 0.9375rem;
+  margin-bottom: 1.5625rem;
+  border-bottom: 1px solid #e0e0e0; }
+
+.communiquesDocs__item {
+  margin-top: 1.25rem;
+  padding: 1.25rem; }
+
+.communiquesDocs__list li {
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex; }
+  @media only screen and (max-width: 47.9375em) {
+    .communiquesDocs__list li {
+      padding-top: 0.83333rem; } }
+
+.communiquesDocs__list__title {
+  font-family: "Helvetica Neue LT W04_55 Roman";
+  color: #869298; }
+
+.communiquesDocs__list__link {
+  white-space: nowrap; }
+  .communiquesDocs__list__link span {
+    color: #003e5e;
+    vertical-align: middle;
+    text-transform: uppercase; }
+  .communiquesDocs__list__link .icon {
+    padding: 0 0.625rem;
+    font-size: 1.875rem;
+    color: #199edd; }
+
 @media only screen and (min-width: 48em) {
   .downloadDocs .accordion__link {
     padding: 1.5625rem; }
@@ -12409,7 +12514,21 @@ a.tag.tag--important:hover {
       padding-top: 0.625rem;
       padding-bottom: 0.625rem; }
     .downloadDocs__item__link > *:hover span {
-      color: #199edd; } }
+      color: #199edd; }
+  .communiquesDocs .communiquesDocs__list {
+    margin: 0 -0.625rem;
+    max-width: none;
+    width: auto; }
+    .communiquesDocs .communiquesDocs__list:before, .communiquesDocs .communiquesDocs__list:after {
+      content: " ";
+      display: table; }
+    .communiquesDocs .communiquesDocs__list:after {
+      clear: both; }
+    .communiquesDocs .communiquesDocs__list li {
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+      width: 33.33333%;
+      float: left; } }
 
 .presidentQuote__content {
   display: -webkit-box;
@@ -13077,6 +13196,77 @@ a.tag.tag--important:hover {
       .diary__list__content--description {
         font-size: 0.875rem;
         line-height: 1.5; } }
+
+.financeGouvernance__list {
+  margin-top: 1.25rem; }
+
+.financeGouvernance__item {
+  padding: 1.66667rem 0;
+  border-bottom: 1px solid #869298;
+  overflow: hidden; }
+
+.financeGouvernance__img {
+  margin: 0 auto 1.25rem;
+  width: 8.95833rem;
+  height: 8.95833rem;
+  overflow: hidden; }
+
+.financeGouvernance__content {
+  text-align: center; }
+  .financeGouvernance__content__info {
+    text-align: left;
+    margin-bottom: 1.25rem; }
+    .financeGouvernance__content__info .more-info {
+      overflow: hidden;
+      -webkit-transition-property: all;
+      -moz-transition-property: all;
+      transition-property: all;
+      -webkit-transition-duration: 0.3s;
+      -moz-transition-duration: 0.3s;
+      transition-duration: 0.3s;
+      -webkit-transition-timing-function: ease-out;
+      -moz-transition-timing-function: ease-out;
+      transition-timing-function: ease-out;
+      min-height: 5.1875rem; }
+
+.financeGouvernance__cta a {
+  color: #199edd;
+  font-family: "Helvetica Neue LT W04_75 Bold"; }
+
+.financeGouvernance__title {
+  font-size: 1.25rem;
+  font-family: "Helvetica Neue LT W04_75 Bold";
+  color: #199edd; }
+
+.financeGouvernance__sub {
+  color: #484d50;
+  font-size: 1rem;
+  font-family: "Helvetica Neue LT W04_75 Bold";
+  display: block;
+  margin-bottom: 1.66667rem; }
+
+@media only screen and (min-width: 48em) {
+  .financeGouvernance__list {
+    margin-top: 3.125rem; }
+  .financeGouvernance__item {
+    padding: 3.125rem 1.25rem;
+    display: table;
+    width: 100%; }
+    .financeGouvernance__item:first-of-type {
+      border-top: 1px solid #869298; }
+  .financeGouvernance__content {
+    text-align: left;
+    display: table-cell;
+    vertical-align: middle; }
+  .financeGouvernance__img {
+    display: table-cell;
+    width: 24.5%;
+    height: auto;
+    padding-right: 3.125rem; }
+  .financeGouvernance__title {
+    font-size: 1.5rem; }
+  .financeGouvernance__sub {
+    font-size: 1.25rem; } }
 
 .homepage__search {
   padding-top: 8.75rem;
