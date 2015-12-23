@@ -422,9 +422,6 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       if (empty($entity->domains)) {
         $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
       }
-      if ($item[13] == '') {
-        $logging .= $item[0] . '||' . ' "Type de Maison" value is null | Warning' . "\n";
-      }
       if ($totalItems != $totalColumn) {
         $logging .= $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
@@ -536,12 +533,12 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           $entity->status = $status;
           $entity->sticky = $sticky;
 
-          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
-            $document_files_old = $entity->{'Temporary target 1'};
-            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
-            $document_files = array_merge($document_files_old, $document_files_new);
-            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
-          }
+//          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
+//            $document_files_old = $entity->{'Temporary target 1'};
+//            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
+//            $document_files = array_merge($document_files_old, $document_files_new);
+//            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
+//          }
         }
       }
     } elseif ($entity->feeds_item->id == 'kb_patrimoine_import') {
@@ -559,14 +556,14 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         );
 
         $logging = validateFieldInFileImportFeeds($validates, $item, $entity, 'identifiantcommunique');
-        if (!$logging || !strpos($logging, 'Skip import')) {
-          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
-            $document_files_old = $entity->{'Temporary target 1'};
-            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
-            $document_files = array_merge($document_files_old, $document_files_new);
-            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
-          }
-        }
+//        if (!$logging || !strpos($logging, 'Skip import')) {
+//          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
+//            $document_files_old = $entity->{'Temporary target 1'};
+//            $document_files_new = $entity->field_document_file[LANGUAGE_NONE];
+//            $document_files = array_merge($document_files_old, $document_files_new);
+//            $entity->field_document_file[LANGUAGE_NONE] = $document_files;
+//          }
+//        }
       }
     } elseif ($entity->feeds_item->id == 'maison_feed_import') {
       $logging = '';
@@ -996,13 +993,13 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
             }
           }
 
-          if($exists === FALSE) {
+          if($exists === FALSE && $source->id != 'document_import_communique_de_presse') {
             $result->items[$key][$item_col_file] = $path_url;
           }
         }
       }
 
-      if($file_upload_fields || $file_upload_values) {
+      if(!$file_upload_fields || !$file_upload_values) {
         if ($source->id == 'document_import_communique_de_presse') {
           $rejected = variable_get($source->id . '_rejected', 0);
           $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Skip import' . "\n";
