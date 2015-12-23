@@ -25,7 +25,7 @@ print theme('finance_header_block');
                             $term_load = taxonomy_term_load($value->tid);
                             $name = $term_load->name;
                             if ($lang == 'en' && isset($term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'])) {
-                              $name = $term_load->name;
+                              $name = $term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'];
                             }
                             if ($value->tid == $term_id) {
                               $selected = 'true';
