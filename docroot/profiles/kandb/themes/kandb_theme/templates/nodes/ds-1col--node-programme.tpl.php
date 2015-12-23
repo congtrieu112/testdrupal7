@@ -269,7 +269,6 @@
 <!-- [programParcel] start-->
 <?php print render($logementBlock['content']); ?>
 <!-- [programParcel] end-->
-<?php krumo($field_quartier_sous_titre); ?>
 <!-- [3rd party: video-de-quartier] start-->
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
