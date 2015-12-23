@@ -35,10 +35,18 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
   
-  $items['finance/presentation/%'] = array(
+  $items['corporate/finance/presentation'] = array(
     'title' => 'Finance - Presentation',
     'page callback' => 'render_finance_presentation_page',
-    'page arguments' => array(2),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['corporate/finance/presentation/%'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'page arguments' => array(3),
     'access callback' => TRUE,
     'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
@@ -122,8 +130,8 @@ function render_group_homepage() {
 /**
  * Render finance presentation page.
  */
-function render_finance_presentation_page() {
-  return theme('finance_presentation_page', array());
+function render_finance_presentation_page($current_lang = 'fr') {
+  return theme('finance_presentation_page', array('current_lang' => $current_lang));
 }
 
 /**
