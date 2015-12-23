@@ -37388,7 +37388,7 @@ AppAccordion.prototype = {
     var that = this;
 
     // open on click or 'enter' key
-    $(link)
+    this.item.find(link)
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
         var $this = $(this);
@@ -38289,7 +38289,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
-},{"./app-top-bar.js":31}],16:[function(require,module,exports){
+},{"./app-top-bar.js":32}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -39548,6 +39548,121 @@ App.appComboSelect = function() {
 
 App.appComboSelect();
 },{}],30:[function(require,module,exports){
+/* ======================== */
+/* seeMore : app-showText.js */
+/* ======================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger     = '[data-showmoretext]',
+    toggler     = '[data-showmoretext-trigger]',
+    content     = '[data-showmoretext-content]';
+
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppShowMoreText( el, opts ) {
+  this.settings       = $.extend({}, defaults, opts);
+  this.isShow         = false;
+  this.el             = $(el);
+  this.buttonEl       = this.el.find(toggler);
+  this.contentEl      = this.el.find(content);
+  this.contentHeight  = this.contentEl.outerHeight();
+  this.minHeight      = parseInt( this.contentEl.css('min-height'), 10 );
+  this.moreText       = this.buttonEl.text();
+  this.lessText       = this.buttonEl.attr('data-showmoretext-trigger');
+  this.buttonTemplate = '{{text}}<span class="icon icon-arrow {{toggle}}"></span>';
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppShowMoreText.prototype = {
+
+  init: function() {
+    var that = this;
+
+    if(this.contentHeight > this.minHeight){
+      that.contentEl.css('height', this.minHeight);
+      that.buttonEl.removeClass('hidden');
+    }
+
+    that.buttonEl.off('click.seeMoreText').on('click.seeMoreText', function(e) {
+      e.preventDefault();
+      that.toggleContent();
+    });
+  },
+
+  toggleContent: function() {
+    var that = this;
+    that.isShow = !that.isShow;
+
+    var str = that.buttonTemplate;
+
+    if (that.isShow) {
+      str = str.replace('{{text}}', that.lessText);
+      str = str.replace('{{toggle}}', 'up');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.contentHeight);
+
+    } else {
+      str = str.replace('{{text}}', that.moreText);
+      str = str.replace('{{toggle}}', 'down');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.minHeight);
+    }
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$(function() {
+
+  $.fn.appShowMoreText = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+      var item = $(this), instance = item.data('AppShowMoreText');
+      if(!instance) {
+        // create plugin instance and save it in data
+        item.data('AppShowMoreText', new AppShowMoreText( this, opt) );
+      } else {
+        // if instance already created call method
+        if(typeof opt === 'string') {
+            instance[opt].apply(instance, args);
+        }
+      }
+    });
+  };
+
+  $(trigger).appShowMoreText();
+
+});
+
+},{}],31:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39743,7 +39858,7 @@ $.fn.appSlick = function(opt) {
 
 $(trigger).appSlick();
 
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -39758,7 +39873,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -40395,7 +40510,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],33:[function(require,module,exports){
+},{"jquery":5}],34:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40483,6 +40598,7 @@ var appTopBar           = require("./app-top-bar.js");
 var appFooter           = require("./app-footer.js");
 var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
+var appShowText         = require("./app-showText.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40499,4 +40615,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-reveal.js":25,"./app-scroll-to.js":26,"./app-searchFormular.js":27,"./app-seeMore.js":28,"./app-select.js":29,"./app-slick.js":30,"./app-top-bar.js":31,"./combo-select.js":32,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[33]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-reveal.js":25,"./app-scroll-to.js":26,"./app-searchFormular.js":27,"./app-seeMore.js":28,"./app-select.js":29,"./app-showText.js":30,"./app-slick.js":31,"./app-top-bar.js":32,"./combo-select.js":33,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[34]);

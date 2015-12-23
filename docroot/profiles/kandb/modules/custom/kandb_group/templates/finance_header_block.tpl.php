@@ -2,13 +2,15 @@
 $arg = arg();
 $current_lang = 'fr';
 $en_active = $fr_active = '';
-if (isset($arg[2]) && $arg[2] == 'en') {
+$lang = array_pop($arg);
+if ($lang == 'en') {
   $current_lang = 'en';
   $en_active = 'active';
 } else {
   $fr_active = 'active';
 }
-$current_path = $arg['0'] . '/' . $arg['1'];
+
+$current_path = implode('/', $arg);
 $block_title = variable_get('finance_header_title_' . $current_lang);
 $block_sub_title = variable_get('finance_header_sub_title_' . $current_lang);
 $block_img_full_id = variable_get('finance_header_image_full_' . $current_lang);
