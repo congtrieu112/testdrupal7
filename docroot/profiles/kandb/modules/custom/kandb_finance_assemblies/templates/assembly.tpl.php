@@ -23,11 +23,6 @@ print theme('finance_header_block');
             </div>
             <ul data-app-accordion-content="data-app-accordion-content" class="downloadDocs__list">
               <?php foreach($assembly_per_type['nodes'] as $node) : ?>
-              <?php
-                if (isset($node->field_document_file[LANGUAGE_NONE][0]['fid'])) {
-
-                }
-              ?>
               <li class="downloadDocs__item">
                 <div class="downloadDocs__item__info">
                   <h4 class="downloadDocs__item__heading"><?php print $node->title; ?></h4>
