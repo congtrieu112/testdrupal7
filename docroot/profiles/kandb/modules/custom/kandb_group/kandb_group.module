@@ -12,6 +12,8 @@ define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS', serialize(array(280 => t('Communication Financière'))));
+
 
 /**
  * Implement of hook_menu().
@@ -208,7 +210,40 @@ function render_group_finance_publication($current_lang = 'fr') {
   ksort($calenders);
   $data['calenders'] = $calenders;
 
-  return theme('group_finance_publication', array('data' => $data));
+  // Component 4.
+  $document_type_tid = 280;
+  $recent_document = array();
+  $latest_years = '';
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
+  $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+  $query->condition('n.type', 'document');
+  $query->condition('n.status', 1);
+  $query->condition('t.field_document_type_tid', $document_type_tid);
+  $query->addExpression('MAX(YEAR(d.field_document_date_value))');
+  $latest_years = $query->execute()->fetchField();
+
+  $num_latest_year = 0;
+  while ($num_latest_year < 3) {
+    $query = db_select('node', 'n');
+    $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
+    $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+    $query->fields('n', array('nid'));
+    $query->condition('n.type', 'document');
+    $query->condition('n.status', 1);
+    $query->condition('t.field_document_type_tid', $document_type_tid);
+    $query->where('YEAR(d.field_document_date_value) = :latest_year', array(':latest_year' => $latest_years));
+
+    $rs = $query->execute()->fetchCol();
+    if ($rs) {
+      $recent_document[$latest_years] = $rs;
+      $num_latest_year++;
+    }
+    $latest_years--;
+  }
+  $data['recent_document'] = $recent_document;
+
+  return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
 }
 
 /**
@@ -224,12 +259,12 @@ function render_finance_presentation_page($current_lang = 'fr') {
 function kandb_group_get_document_node($limit, $tid, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'document')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_document_type', 'tid', $tid, $operation)
-    ->fieldOrderBy('field_document_date', 'value', 'DESC')
-    ->propertyOrderBy('changed', 'DESC')
-    ->range(0, $limit)
+      ->entityCondition('bundle', 'document')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_document_type', 'tid', $tid, $operation)
+      ->fieldOrderBy('field_document_date', 'value', 'DESC')
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, $limit)
   ;
   $result = $query->execute();
 
@@ -298,11 +333,11 @@ function render_group_finance_gouvernance_default() {
 function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'finance_gouvernance')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
-    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
-    ->propertyOrderBy('changed', 'DESC')
+      ->entityCondition('bundle', 'finance_gouvernance')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+      ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+      ->propertyOrderBy('changed', 'DESC')
   ;
   $result = $query->execute();
 
