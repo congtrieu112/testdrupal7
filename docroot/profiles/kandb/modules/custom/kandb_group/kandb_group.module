@@ -224,7 +224,7 @@ function render_group_finance_publication($current_lang = 'fr') {
   $latest_years = $query->execute()->fetchField();
 
   $num_latest_year = 0;
-  while ($num_latest_year < 3) {
+  while ($num_latest_year < 3 AND $latest_years) {
     $query = db_select('node', 'n');
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
     $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
