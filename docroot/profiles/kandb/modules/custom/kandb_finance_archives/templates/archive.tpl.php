@@ -35,20 +35,24 @@ print theme('finance_header_block');
               <div class="downloadDocs__item__date">
                 <?php
                   $document_date = '';
-                  $document_file = '';
                   if (isset($node->field_document_date[LANGUAGE_NONE][0]['value'])) {
                     $document_date = date('d.m.Y', strtotime($node->field_document_date[LANGUAGE_NONE][0]['value']));
-                  }
-                  if (isset($node->field_document_file[LANGUAGE_NONE][0]['fid'])) {
-                    $document_file = base_path() . 'download-document-file/' . $node->field_document_file[LANGUAGE_NONE][0]['fid'];
                   }
                 ?>
                 <spn><?php print $document_date ; ?></spn>
               </div>
               <div class="downloadDocs__item__info">
                 <h4 class="downloadDocs__item__heading"><?php print $node->title; ?></h4>
-                <?php if ($document_file != '') : ?>
-                <div class="downloadDocs__item__link"><a href="<?php print $document_file; ?>" title="<?php print t('Télécharger le PDF'); ?>"><span class="icon icon-download-pdf"></span></a></div>
+                <?php if(isset($node->field_document_file[LANGUAGE_NONE])) : ?>
+                  <?php foreach($node->field_document_file[LANGUAGE_NONE] as $file) :?>
+                    <?php
+                    $document_file = '';
+                    $document_file = base_path() . 'download-document-file/' . $file['fid'];
+                    ?>
+                    <?php if ($document_file != '') : ?>
+                    <div class="downloadDocs__item__link"><a href="<?php print $document_file; ?>" title="<?php print $file['filename']; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                    <?php endif; ?>
+                  <?php endforeach; ?>
                 <?php endif; ?>
               </div>
             </li>
@@ -56,7 +60,10 @@ print theme('finance_header_block');
           </ul>
         </div>
       </li>
-      <?php endforeach; ?>      
+      <?php endforeach; ?>
+      <?php if(isset($pager)) : ?>
+        <?php print $pager; ?>
+      <?php endif; ?>
     </ul>
   </div>
 </section>
