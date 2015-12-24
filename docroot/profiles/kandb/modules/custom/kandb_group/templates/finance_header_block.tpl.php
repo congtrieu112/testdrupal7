@@ -1,14 +1,20 @@
 <?php
 $arg = arg();
-$current_lang = 'fr';
-$en_active = $fr_active = '';
-$lang = array_pop($arg);
-if ($lang == 'en') {
-  $current_lang = 'en';
+$en_active = $fr_active = $current_path = '';
+
+// Get current language.
+if (in_array(end($arg), array('fr', 'en'))) :
+  $current_lang = end($arg);
+  array_pop($arg);
+else:
+  $current_lang = 'fr';
+endif;
+
+if ($current_lang == 'en') :
   $en_active = 'active';
-} else {
+else :
   $fr_active = 'active';
-}
+endif;
 
 $current_path = implode('/', $arg);
 $block_title = variable_get('finance_header_title_' . $current_lang);
@@ -21,7 +27,6 @@ $block_img_full_uri = (isset($block_img_full_load->uri)) ? file_create_url($bloc
 $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($block_img_small_load->uri) : '';
 ?>
 <?php if ($block_title && $block_img_full_load): ?>
-
   <div class="lang">
       <nav class="wrapper">
           <ul>
@@ -44,20 +49,33 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
       <ul class="pageHeaderNav__list">
           <?php
           $number_cta = 5;
-          $current_path_alias = current_path();
           for ($i = 0; $i < $number_cta; $i++) :
             $url = $title = $class = '';
             $cta = array();
             $cta = variable_get('cta_menu_item_finance_' . $i . '_' . $current_lang);
+            $default_menu_titles = $current_lang == 'en' ? unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN) : unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR);
+            $default_menu_links = unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS);
             if (isset($cta['url']) && isset($cta['title']) && $cta['url'] && $cta['title']):
               $url = $cta['url'];
               $title = $cta['title'];
-              if (url($current_path_alias) == url($url)):
+            else:
+              $url = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : $default_menu_links[$i];
+              $title = $default_menu_titles[$i];
+            endif;
+            
+            if ($current_lang == 'en') :
+              if (url($current_path . '/' . $current_lang) == url($url)):
                 $class = 'active';
               endif;
-              ?>
-              <li class="pageHeaderNav__list__item <?php print $class; ?>"><a href="<?php print url($url); ?>"><?php print $title; ?></a></li>
-            <?php endif; ?>
+            else :
+              if (url($current_path . '/' . $current_lang) == url($url) || url($current_path) == url($url)):
+                $class = 'active';
+              endif;
+            endif;
+            ?>
+            <li class="pageHeaderNav__list__item <?php print $class; ?>">
+                <a href="<?php print url($url); ?>"><?php print $title; ?></a>
+            </li>
           <?php endfor; ?>
       </ul>
   </nav>
@@ -69,4 +87,4 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
   <div class="wrapper">
       <hr class="hr">
   </div>
-<?php endif; ?>
+<?php endif;

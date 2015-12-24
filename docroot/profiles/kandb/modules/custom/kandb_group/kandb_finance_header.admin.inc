@@ -20,7 +20,8 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
 
   if (isset($form_state['input']['current_lang']) AND $form_state['input']['current_lang']) {
     $current_lang = $form_state['input']['current_lang'];
-  } else {
+  }
+  else {
     $query_arr = drupal_get_query_parameters();
     $current_lang = (isset($query_arr['lang']) AND $query_arr['lang']) ? $query_arr['lang'] : 'fr';
   }
@@ -65,13 +66,19 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
   );
 
   $number_cta = KANDB_MENU_ITEM_NUM;
+  $default_menu_titles = $current_lang == 'en' ? unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN) : unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR);
+  $default_menu_links = unserialize(KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS);
   for ($i = 0; $i < $number_cta; $i++) {
     $url = $title = '';
     $cta = array();
     $cta = variable_get('cta_menu_item_finance_' . $i . '_' . $current_lang);
-    if (isset($cta['url']) && isset($cta['title'])) {
+    if (isset($cta['url']) && $cta['url'] && isset($cta['title']) && $cta['title']) {
       $url = $cta['url'];
       $title = $cta['title'];
+    }
+    else {
+      $url = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : $default_menu_links[$i];
+      $title = $default_menu_titles[$i];
     }
     $form['fieldset_finance_menu']['links_fieldset']['cta']['cta_menu_item_finance_' . $i . '_' . $current_lang] = array(
       '#type' => 'link_field',
