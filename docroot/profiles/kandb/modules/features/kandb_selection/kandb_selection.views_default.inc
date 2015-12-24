@@ -83,6 +83,7 @@ function kandb_selection_views_default_views() {
 
   /* Display: Mes articles */
   $handler = $view->new_display('block', 'Mes articles', 'block_2');
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
