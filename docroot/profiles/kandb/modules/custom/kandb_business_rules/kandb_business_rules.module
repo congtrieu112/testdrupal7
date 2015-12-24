@@ -167,9 +167,22 @@ function kandb_business_rules_node_presave($node) {
   Kandb_Business_Rules::set_is_node_updating();
 
   if ($node && $node->type == 'programme' && !$is_node_updating) {
-    if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
-      $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+    
+    $statut_old = $node->original->field_programme_statut[LANGUAGE_NONE][0]['value'];
+    $statut_new = $node->field_programme_statut[LANGUAGE_NONE][0]['value'];
+
+    if ($statut_new != $statut_old) {
+      $node->status = $statut_new;
+      if ($statut_old == 0 && $statut_new == 1) {
+        $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+      }
     }
+    elseif ($statut_old != $node->status) {
+      $node->status = $statut_new;
+    }
+//    if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
+//      $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+//    }
 
     // RULE COUNTING 115, 116
     $tva_tid = isset($node->field_tva[LANGUAGE_NONE][0]['tid']) ? $node->field_tva[LANGUAGE_NONE][0]['tid'] : 0;
