@@ -95,10 +95,10 @@
           </div>
         <?php endif; ?>
         <div class="media__content">
-          <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $field_programme_loc_ville[0]['taxonomy_term']->name; ?> / <?php print $field_programme_loc_department[0]['taxonomy_term']->field_numero_departement['und'][0]['value']; ?></span>
-            <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+          <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $field_programme_loc_ville[0]['taxonomy_term']->name; ?> / <?php print $field_programme_loc_department[0]['taxonomy_term']->field_numero_departement[LANGUAGE_NONE][0]['value']; ?></span>
+            <?php if(!empty($promotions) || isset($field_nouveau[LANGUAGE_NONE][0])) : ?>
               <ul class="tags-list">
-                <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+                <?php if(isset($field_nouveau[LANGUAGE_NONE][0]) && $field_nouveau[LANGUAGE_NONE][0]['value'] == 1) : ?>
                   <li>
                     <div class="tag tag--important">Nouveauté</div>
                   </li>
@@ -112,7 +112,7 @@
                       <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                         <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                           <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                          <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                          <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
                         </div>
                       </div>
                       <!-- [popin] end-->
@@ -137,7 +137,7 @@
     </div>
   </div>
   <div data-app-accordion-content="data-app-accordion-content">
-    <div class="mySelectionsProgramme__large">
+    <div class="mySelectionsProgramme__large ">
       <div class="squaredImageItem__img">
         <!-- images need to have 2 formats see data-exchange attribute:
         - small: 560 x 310 (heavy compression)
@@ -150,9 +150,9 @@
         <?php endif; ?>
         <!-- [Responsive img] end-->
         <div class="squaredImageItem__img__tags">
-          <?php if(!empty($promotions) || isset($field_nouveau['und'][0])) : ?>
+          <?php if(!empty($promotions) || isset($field_nouveau[LANGUAGE_NONE][0])) : ?>
             <ul class="tags-list">
-              <?php if(isset($field_nouveau['und'][0]) && $field_nouveau['und'][0]['value'] == 1) : ?>
+              <?php if(isset($field_nouveau[LANGUAGE_NONE][0]) && $field_nouveau[LANGUAGE_NONE][0]['value'] == 1) : ?>
                 <li>
                   <div class="tag tag--important">Nouveauté</div>
                 </li>
@@ -166,7 +166,7 @@
                     <div data-reveal="selection-promotion-1" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                       <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                         <p class="heading heading--bordered heading--small"><strong class="heading__title">Mentions legales</strong></p>
-                        <p><?php print $promotion->field_promotion_mention_legale['und'][0]['value']; ?></p>
+                        <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
                       </div>
                     </div>
                     <!-- [popin] end-->
