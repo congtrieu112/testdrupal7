@@ -107,7 +107,8 @@ function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $docume
   $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) > :val', array('val' => $stating_time));
   $db_query->addField('dd', 'field_document_date_value');
 
-  $db_query->limit(10);
+  $db_query->orderBy('dd.field_document_date_value', 'DESC');
+  $db_query->limit(50);
   $results = $db_query->distinct()->execute()->fetchAll();
   foreach ($results as $res) {
     $node = node_load($res->nid);

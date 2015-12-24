@@ -13,6 +13,9 @@ define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
 define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS', serialize(array(280 => t('Communication Financière'))));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finance/presentation', 'corporate/finance/publication', 'corporate/finance/assemblee-generale', 'corporate/finance/gouvernance', 'corporate/finance/archives')));
 
 
 /**
@@ -224,7 +227,7 @@ function render_group_finance_publication($current_lang = 'fr') {
   $latest_years = $query->execute()->fetchField();
 
   $num_latest_year = 0;
-  while ($num_latest_year < 3) {
+  while ($num_latest_year < 3 AND $latest_years) {
     $query = db_select('node', 'n');
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
     $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');

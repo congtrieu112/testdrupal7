@@ -26,25 +26,18 @@
  *
  * @ingroup views_templates
  */
+
+
 ?>
 <?php if ($rows): ?>
-  <!-- [mySelections: programmes] start-->
-  <section class="bg-lightGrey section-padding">
-    <div class="wrapper">
-      <h2 class="heading heading--bordered">
-        <div class="heading__title">Mes sélections</div>
-      </h2>
-    </div>
-    <div class="wrapper--narrow">
-      <?php print $rows; ?>
-    </div>
-    <?php if(count($rows) > 5) : ?>
-    <!-- [seeMore] start-->
-    <div data-seemore="programmes" data-seemore-nbr='5' class="voir-plus">
-      <button class="btn-primary btn-rounded">Voir plus<span class="icon icon-arrow down"></span></button>
-    </div>
-    <!-- [seeMore] end-->
-    <?php endif; ?>
-  </section>
-  <!-- [mySelections: programmes] end-->
+    <!-- [mySelections: programmes] start-->
+    <section class="bg-lightGrey section-padding">
+        <div class="wrapper">
+            <h2 class="heading heading--bordered">
+                <div class="heading__title"><?php print t('Mes sélections'); ?></div>
+            </h2>
+        </div>
+        <?php print $rows; ?>
+    </section>
+    <!-- [mySelections: programmes] end-->
 <?php endif; ?>

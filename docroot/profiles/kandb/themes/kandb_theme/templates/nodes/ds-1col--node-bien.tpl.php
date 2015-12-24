@@ -496,11 +496,13 @@ if (!empty($list_bien_more)):
                   <tbody>
                       <?php
                       foreach ($list_bien_more as $item):
+
                         if ($item->nid == $node->nid) {
                           continue;
                         } else {
                           $bien_more = node_load($item->nid);
-                          if(!in_array($gid, $bien_more->domains)) {
+                          $bien_more_status = isset($bien_more->status) ? $bien_more->status : 0;
+                          if(!in_array($gid, $bien_more->domains) || !$bien_more_status) {
                             continue;
                           }
                           $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);
@@ -520,7 +522,7 @@ if (!empty($list_bien_more)):
                                             $triger_promotion = 'moreAvailable-promotion-' . $promotion->nid;
                                             ?>
                                             <li>
-                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>                                            
+                                            <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
                                             <!-- [popin] start-->
                                             <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                                                 <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -528,7 +530,7 @@ if (!empty($list_bien_more)):
                                                     <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
                                                 </div>
                                             </div>
-                                            <!-- [popin] end-->                                            
+                                            <!-- [popin] end-->
                                             </li>
                                             <?php
                                           endforeach;
