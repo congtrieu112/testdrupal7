@@ -23,22 +23,24 @@ print theme('finance_header_block');
             </div>
             <ul data-app-accordion-content="data-app-accordion-content" class="downloadDocs__list">
               <?php foreach($assembly_per_type['nodes'] as $node) : ?>
-              <?php
-                $file_path = '';
-                if (isset($node->field_document_file[LANGUAGE_NONE][0]['fid'])) {
-                  if ($exist_download_function) {
-                    $file_path = base_path() . 'download-document-file/' . $node->field_document_file[LANGUAGE_NONE][0]['fid'];
-                  }
-                  else {
-                    $file_path = file_create_url($node->field_document_file[LANGUAGE_NONE][0]['uri']);
-                  }
-                }
-              ?>
               <li class="downloadDocs__item">
                 <div class="downloadDocs__item__info">
                   <h4 class="downloadDocs__item__heading"><?php print $node->title; ?></h4>
-                  <?php if($file_path != '') : ?>
-                  <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print t("Télécharger le PDF"); ?>><span class="icon icon-download-pdf"></span></a></div>
+                  <?php if($node->field_document_file[LANGUAGE_NONE]) :?>
+                    <?php foreach ($node->field_document_file[LANGUAGE_NONE] as $file): ?>
+                      <?php
+                        $file_path = '';
+                        if ($exist_download_function) {
+                          $file_path = base_path() . 'download-document-file/' . $file['fid'];
+                        }
+                        else {
+                          $file_path = file_create_url($file['uri']);
+                        }
+                      ?>
+                      <?php if($file_path != '') : ?>
+                      <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print $file['filename']; ?>><span class="icon icon-download-pdf"></span></a></div>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
                   <?php endif; ?>
                 </div>
               </li>
