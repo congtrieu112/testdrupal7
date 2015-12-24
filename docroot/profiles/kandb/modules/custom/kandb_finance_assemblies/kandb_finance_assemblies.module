@@ -124,12 +124,12 @@ function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $docume
   $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) < :val_end', array('val_end' => $end_time));
   $db_query->addField('dd', 'field_document_date_value');
 
-  $db_query->orderBy('di.field_document_id_value', 'DESC');
+  $db_query->orderBy('di.field_document_id_value', 'ASC');
   $db_query->limit(50);
   $results = $db_query->distinct()->execute()->fetchAll();
   foreach ($results as $res) {
     $node = node_load($res->nid);
-    $date = date('Ymd', strtotime($res->field_document_date_value));
+    $date = $node->nid . date('Ymd', strtotime($res->field_document_date_value));
     if (!isset($node->title) || $node->title == '' || !isset($node->field_document_file[LANGUAGE_NONE][0]['fid'])) {
       continue;
     }
