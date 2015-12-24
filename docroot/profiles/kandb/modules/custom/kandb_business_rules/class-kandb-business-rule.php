@@ -164,6 +164,7 @@ class Kandb_Business_Rules {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+        ->propertyCondition('status', 1)
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
         ->fieldCondition('field_programme', 'target_id', $id_programe, '=');
 
@@ -189,7 +190,7 @@ class Kandb_Business_Rules {
     if (empty($list_programe)) {
       $list_programe = self::get_list_program_contain_bien();
     }
-
+    $variables = array();
     foreach ($list_programe as $item) {
       $total_bien_b2b = self::calculate_bien_follow_programe($item->nid, DOMAIN_B2B);
       $total_bien_b2c = self::calculate_bien_follow_programe($item->nid, DOMAIN_B2C);
@@ -204,9 +205,14 @@ class Kandb_Business_Rules {
       $node_programe->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total_bien_b2c;
       $node_programe->field_programme_flat_available_b[LANGUAGE_NONE][0]["value"] = $total_bien_b2b;
 
+      $variables[$item->nid]['total_bien_b2c'] = $total_bien_b2c;
+      $variables[$item->nid]['total_bien_b2b'] = $total_bien_b2b;
+
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
     }
+
+    return $variables;
   }
 
   /**
@@ -275,6 +281,7 @@ class Kandb_Business_Rules {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+        ->propertyCondition('status', 1)
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
         ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
         ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
@@ -307,25 +314,25 @@ class Kandb_Business_Rules {
       $list_programe = self::get_list_program_contain_bien();
     }
 
+    $variables = array();
     foreach ($list_programe as $item) {
       $min_price = self::get_programe_min_max_price($item->nid, DOMAIN_B2C);
       $max_price = self::get_programe_min_max_price($item->nid, DOMAIN_B2C, FALSE);
 
       $min_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B);
       $max_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B, FALSE);
-
       if(!empty($current_bien)){
         $current_bien_price = (isset($current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"])) ? (float) $current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : -1;
-        //$current_bien_status = isset($current_bien->status) ? $current_bien->status : 0;
+        $current_bien_status = isset($current_bien->status) ? $current_bien->status : 0;
         $current_bien_domain = isset($current_bien->domains) ? array_keys($current_bien->domains) : '';
-        if($current_bien_price > $max_price && isset($current_bien_domain[0])){
+        if($current_bien_price > $max_price && isset($current_bien_domain[0]) && $current_bien_status){
           if($current_bien_domain[0] == DOMAIN_B2B) {
             $max_price_b2b = $current_bien_price;
           } elseif($current_bien_domain[0] == DOMAIN_B2C) {
             $max_price = $current_bien_price;
           }
         }
-        if($current_bien_price != -1 && $min_price > $current_bien_price && isset($current_bien_domain[0])){
+        if($current_bien_price != -1 && $min_price > $current_bien_price && isset($current_bien_domain[0]) && $current_bien_status){
           if($current_bien_domain[0] == DOMAIN_B2B) {
             $min_price_b2b = $current_bien_price;
           } elseif ($current_bien_domain[0] == DOMAIN_B2C) {
@@ -355,6 +362,11 @@ class Kandb_Business_Rules {
 
         $node_programe->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value'] = ($min_price_b2b / 1.2) * ($tva + 1);
         $node_programe->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value'] = ($max_price_b2b / 1.2) * ($tva + 1);
+
+        $variables[$item->nid]['program_low_tva_price_min'] = ($min_price / 1.2) * ($tva + 1);
+        $variables[$item->nid]['program_low_tva_price_max'] = ($max_price / 1.2) * ($tva + 1);
+        $variables[$item->nid]['program_low_tva_price_minb'] = ($min_price_b2b / 1.2) * ($tva + 1);
+        $variables[$item->nid]['program_low_tva_price_maxb'] = ($max_price_b2b / 1.2) * ($tva + 1);
       }
       else {
         $node_programe->field_program_low_tva_price_min = array();
@@ -362,6 +374,11 @@ class Kandb_Business_Rules {
 
         $node_programe->field_program_low_tva_price_minb = array();
         $node_programe->field_program_low_tva_price_maxb = array();
+
+        $variables[$item->nid]['program_low_tva_price_min'] = '';
+        $variables[$item->nid]['program_low_tva_price_max'] = '';
+        $variables[$item->nid]['program_low_tva_price_minb'] = '';
+        $variables[$item->nid]['program_low_tva_price_maxb'] = '';
       }
 
       $node_programe->field_programme_price_min[LANGUAGE_NONE][0]["value"] = $min_price;
@@ -371,6 +388,11 @@ class Kandb_Business_Rules {
       $node_programe->field_programme_price_min_b[LANGUAGE_NONE][0]["value"] = $min_price_b2b;
       $node_programe->field_programme_price_max_b[LANGUAGE_NONE][0]["value"] = $max_price_b2b;
 
+      $variables[$item->nid]['programme_price_min'] = $min_price;
+      $variables[$item->nid]['programme_price_max'] = $max_price;
+      $variables[$item->nid]['programme_price_min_b'] = $min_price_b2b;
+      $variables[$item->nid]['programme_price_max_b'] = $max_price_b2b;
+
       self::$_list_progam_to_save [$item->nid] = $node_programe;
       //node_save($node_programe);
       if ($must_logging) {
@@ -378,6 +400,8 @@ class Kandb_Business_Rules {
         kb_logging_business_rule($programme_id . ': C-106');
       }
     }
+
+    return $variables;
   }
 
   /**
@@ -467,6 +491,7 @@ class Kandb_Business_Rules {
       $query = new EntityFieldQuery();
       $query->entityCondition('entity_type', 'node')
           ->entityCondition('bundle', CONTENT_TYPE_BIEN)
+          ->propertyCondition('status', 1)
           ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
           ->fieldCondition('field_programme', 'target_id', $item->nid, '=')
       ;
