@@ -18,14 +18,14 @@ print theme('finance_header_block');
         <?php foreach($assembly_per_date as $type_key => $assembly_per_type) : ?>
         <li class="accordion__link"><a data-app-accordion-link="#assemblee-<?php print $date_key . $type_key; ?>" role="button" class="<?php print $status_class; ?> display-status"><span class="show-for-sr"><?php print t('fermer'); ?></span></a>
           <div id="assemblee-<?php print $date_key . $type_key; ?>">
+            <?php foreach($assembly_per_type['nodes'] as $node) : ?>
+            <?php
+              $year = date('Y', strtotime($node->field_document_date[LANGUAGE_NONE][0]['value']));
+            ?>
             <div class="downloadDocs__heading">
-              <h3 class="downloadDocs__title"><?php print $type_key; ?></h3><span class="downloadDocs__title--sub"><?php print $assembly_per_type['date']; ?></span>
+              <h3 class="downloadDocs__title"><?php print $node->title ; ?></h3><span class="downloadDocs__title--sub"><?php print $year; ?></span>
             </div>
             <ul data-app-accordion-content="data-app-accordion-content" class="downloadDocs__list">
-              <?php foreach($assembly_per_type['nodes'] as $node) : ?>
-              <li class="downloadDocs__item">
-                <div class="downloadDocs__item__info">
-                  <h4 class="downloadDocs__item__heading"><?php print $node->title; ?></h4>
                   <?php if($node->field_document_file[LANGUAGE_NONE]) :?>
                     <?php foreach ($node->field_document_file[LANGUAGE_NONE] as $file): ?>
                       <?php
@@ -38,14 +38,17 @@ print theme('finance_header_block');
                         }
                       ?>
                       <?php if($file_path != '') : ?>
-                      <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print $file['filename']; ?>><span class="icon icon-download-pdf"></span></a></div>
+                        <li class="downloadDocs__item">
+                          <div class="downloadDocs__item__info">
+                            <h4 class="downloadDocs__item__heading"><?php print $file['filename']; ?></h4>
+                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print $file['filename']; ?>><span class="icon icon-download-pdf"></span></a></div>
+                          </div>
+                        </li>
                       <?php endif; ?>
                     <?php endforeach; ?>
                   <?php endif; ?>
-                </div>
-              </li>
-              <?php endforeach; $status_class = 'false'; ?>
             </ul>
+            <?php endforeach; $status_class = 'false'; ?>
           </div>
         </li>
         <?php endforeach ; ?>
