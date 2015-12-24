@@ -435,7 +435,7 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
     }
 
     $form['field_tva']['#disabled'] = TRUE;
-    $form['#submit'][] = 'yourmodule_submit_function';
+    $form['#submit'][] = 'recalculate_bien_action';
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
@@ -448,7 +448,7 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
-function yourmodule_submit_function(&$form, &$form_state) {
+function recalculate_bien_action(&$form, &$form_state) {
   global $base_url;
   $form_state['rebuild'] = TRUE;
   header('Location: ' . $base_url . '/recalculate/' . $form_state['values']['nid']) ;
