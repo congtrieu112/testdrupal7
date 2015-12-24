@@ -326,19 +326,21 @@ function get_nids_promotions_by_bien($nid) {
  * @param int $domain_id domain id in table domain.
  *
  */
-function get_total_bien_by_status_site($domain_id = 3) {
+function get_total_bien_by_status_site() {
   //1:kaufman_core_local_com ,2:kandb_b2b ,3:kandb_b2c)
   //Get bien type
   $bien_status_id = get_tid_by_id_field(1);
 
   //Count total
   $query = db_select('node', 'n');
-  $query->join('domain_access', 'da', 'n.nid = da.nid');
+  //$query->join('domain_access', 'da', 'n.nid = da.nid');
   $query->join('field_data_field_bien_statut', 'bt', 'n.nid = bt.entity_id');
   $query->addExpression('COUNT(n.nid)', 'total');
+  $query->addTag('node_access_domain');
   $query->condition('n.status', 1, '=')
-      ->condition('da.gid', $domain_id, '=')
+      //->condition('da.gid', $domain_id, '=')
       ->condition('bt.field_bien_statut_tid', $bien_status_id, '=');
+
   $result = $query->execute()->fetchCol();
   if ($result) {
     return $result[0];
@@ -347,7 +349,7 @@ function get_total_bien_by_status_site($domain_id = 3) {
 }
 
 /**
- * Get taxonomy  by vocabulary_machine_name 
+ * Get taxonomy  by vocabulary_machine_name
  * @param str $term_name and str $vocabulary_name .
  *
  */
@@ -374,6 +376,25 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
         drupal_goto('node/' . $node->field_programme[LANGUAGE_NONE][0]['target_id']);
       }
       drupal_goto('recherche');
+    }
+  }
+
+  // Forwarded to the corresponding programme page if status is unpublish or bien statut diference disponible
+  if(isset($node->type) && $node->type == 'bien') {
+    //Get bien type
+    //0: Indisponible, 1: Disponible, 2: Reserve, 3: Vendu
+    $bien_statut_1 = get_tid_by_id_field(1);
+    $bien_statut_2 = isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid']) ? $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] : '';
+
+    $bien_status = isset($node->status) ? $node->status : 0;
+    $program_nid = isset($node->field_programme[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme[LANGUAGE_NONE][0]['target_id'] : '';
+    if(!$bien_status || ($bien_statut_1 && $bien_statut_2 && $bien_statut_1 != $bien_statut_2)) {
+      // Go to page research if program nid is empty
+      if($program_nid) {
+        drupal_goto('node/' . $node->field_programme[LANGUAGE_NONE][0]['target_id']);
+      } else {
+        drupal_goto('recherche');
+      }
     }
   }
 }
