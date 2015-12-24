@@ -11,7 +11,15 @@
     // Front--finance-archives page
     $items['corporate/finance/archives'] = array(
       'title' => t('Documents à télécharger'),
-      'page callback' => 'kandb_finance_archives_page_general',
+      'page callback' => 'kandb_finance_archives_page',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
+    
+    $items['corporate/finance/archives/%'] = array(
+      'title' => t('Documents à télécharger'),
+      'page callback' => 'kandb_finance_archives_page',
+      'page arguments' => array(3),
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
@@ -49,19 +57,6 @@
     );
   }
 
-function kandb_finance_archives_page_general() {
-  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
-  if (isset($document_voca->vid)) {
-    $all_terms = taxonomy_get_tree($document_voca->vid);
-    foreach ($all_terms as $term) {
-      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
-        continue ;
-      }
-      drupal_goto('corporate/finance/archives/' . $term->tid . '/fr');
-    }
-  }
-}  
-
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   drupal_set_title(t('Documents à télécharger'));
   $language_id = $lang == 'en' ? 1 : 0;
@@ -72,6 +67,9 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
   if (isset($document_voca->vid)) {
     $all_terms = taxonomy_get_tree($document_voca->vid);
+    if ($tid == 0 && !empty($all_terms)) {
+      $tid = $all_terms[0]->tid;
+    }
     $base_archive = base_path() . 'corporate/finance/archives/';
     foreach ($all_terms as $term) {
       if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
@@ -88,15 +86,21 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     }
   }
   $content_archives['tab_content'] = get_document_by_type($tid, $language_id);
-  return theme('archive', array('content_archives' => $content_archives));
+  return theme('archive', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }
 
 function get_document_by_type($tid = 0, $language_id = 0) {
   $content = array();
-  $db_query = db_select('node', 'n');
+  $db_query = db_select('node', 'n')->extend('PagerDefault');
   $db_query->fields('n', array('nid'));
   $db_query->condition('n.type', 'document');
   $db_query->condition('n.status', 1);
+  $db_query->condition('n.title', '', '<>');
+  
+  $db_query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
+  $db_query->condition('df.entity_type', 'node');
+  $db_query->condition('df.bundle', 'document');
+  $db_query->isNotNull('df.field_document_file_fid');
   
   $db_query->leftJoin('field_data_field_document_type', 'dt', 'dt.entity_id=n.nid');
   $db_query->condition('dt.entity_type', 'node');
@@ -126,6 +130,9 @@ function get_document_by_type($tid = 0, $language_id = 0) {
   $db_query->condition('dd.bundle', 'document');
   $db_query->addField('dd', 'field_document_date_value');
   
+  $db_query->distinct();
+  $db_query->orderBy('dd.field_document_date_value', 'DESC');
+  $db_query->limit(50);
   $results = $db_query->execute()->fetchAll();
   foreach($results as $res) {
     $node = node_load($res->nid);
