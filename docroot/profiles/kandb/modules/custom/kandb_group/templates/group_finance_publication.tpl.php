@@ -1,7 +1,12 @@
 <?php
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
-$recent_document_menus = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS);
+
+if ($current_lang == 'en') :
+  $recent_document_menus = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
+else :
+  $recent_document_menus = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
+endif;
 
 print theme('finance_header_block');
 ?>
@@ -146,8 +151,13 @@ if ($doc_comuniques || $doc_explode_comuniques) :
               <?php if ($recent_document_menus) : ?>
                 <li class="btn-wrapper btn-wrapper--center">
                     <?php foreach ($recent_document_menus as $key => $value) : ?>
-                      <a href="<?php print url('corporate/finance/publication/' . $key . '/' . $current_lang); ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="<?php print $value; ?>" class="btn-primary btn-rounded active">
-                          <?php print $value; ?>
+                      <?php
+                      $document_type_name = $value['doc_type_name'];
+                      $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
+                      $numof_years = $value['numof_years'];
+                      ?>
+                      <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="btn-primary btn-rounded active">
+                          <?php print $key; ?>
                       </a>
                     <?php endforeach; ?>
                 </li>

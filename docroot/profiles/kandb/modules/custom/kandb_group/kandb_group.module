@@ -12,7 +12,19 @@ define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
-define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS', serialize(array(280 => t('Communication Financière'))));
+
+// Publication document type tabs.
+// [Tab Name] => [Taxonomy term name, Number of year].
+define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR', serialize(array(
+  'Communication Financière' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Autres Informations réglementée' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
+  'Documents de référence' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+)));
+define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN', serialize(array(
+  'Financial Communication' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Other regulated information' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
+  'Reference documents' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+)));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finance/presentation', 'corporate/finance/publication', 'corporate/finance/assemblee-generale', 'corporate/finance/gouvernance', 'corporate/finance/archives')));
@@ -73,11 +85,11 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['corporate/finance/publication/%'] = array(
+  $items['corporate/finance/publication/%/%/%'] = array(
     'title' => 'Finance - Publication',
     'page callback' => 'render_group_finance_publication',
     'type' => MENU_CALLBACK,
-    'page arguments' => array(3),
+    'page arguments' => array(3, 4, 5),
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
@@ -177,7 +189,7 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
-function render_group_finance_publication($current_lang = 'fr') {
+function render_group_finance_publication($document_type_tid = '', $numof_years = 3, $current_lang = 'fr') {
   $data = array();
 
   $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
@@ -210,27 +222,43 @@ function render_group_finance_publication($current_lang = 'fr') {
   $data['calenders'] = $calenders;
 
   // Component 4.
-  $document_type_tid = 280;
   $recent_document = array();
+  if ($current_lang == 'en') {
+    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
+    $current_lang_key = 1;
+  } else {
+    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
+    $current_lang_key = 0;
+  }
+  if (!$document_type_tid) {
+    $document_type_name = array_values($document_type_tabs)[0]['doc_type_name'];
+    $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
+  }
+
+  // Get the latest year of all documents.
   $latest_years = '';
   $query = db_select('node', 'n');
   $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
   $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+  $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
   $query->condition('n.type', 'document');
   $query->condition('n.status', 1);
   $query->condition('t.field_document_type_tid', $document_type_tid);
+  $query->condition('l.field_langue_value', $current_lang_key);
   $query->addExpression('MAX(YEAR(d.field_document_date_value))');
   $latest_years = $query->execute()->fetchField();
 
   $num_latest_year = 0;
-  while ($num_latest_year < 3 AND $latest_years) {
+  while ($num_latest_year < $numof_years AND $latest_years) {
     $query = db_select('node', 'n');
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
     $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+    $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
     $query->fields('n', array('nid'));
     $query->condition('n.type', 'document');
     $query->condition('n.status', 1);
     $query->condition('t.field_document_type_tid', $document_type_tid);
+    $query->condition('l.field_langue_value', $current_lang_key);
     $query->where('YEAR(d.field_document_date_value) = :latest_year', array(':latest_year' => $latest_years));
 
     $rs = $query->execute()->fetchCol();
