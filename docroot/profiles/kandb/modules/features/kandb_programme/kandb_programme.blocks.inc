@@ -146,7 +146,7 @@ function _get_logement_block_content() {
       $node_program = node_load($key);
       $tva = 0; $stock = 0;
       if($node_program) {
-        $tva = isset($node_program->field_programme_tva[LANGUAGE_NONE][0]['value']['taxonomy_term']['field_facteur'][LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_tva[LANGUAGE_NONE][0]['value']['taxonomy_term']['field_facteur'][LANGUAGE_NONE][0]['value'] : '';
+        $tva = isset($node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value']) ? $node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value'] : '';
         $stock = isset($node_program->field_programme_stock[LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_stock[LANGUAGE_NONE][0]['value'] : '';
       }
       if ($tid) {
