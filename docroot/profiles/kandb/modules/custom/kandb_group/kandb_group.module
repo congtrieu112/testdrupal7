@@ -17,7 +17,6 @@ define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présenta
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finance/presentation', 'corporate/finance/publication', 'corporate/finance/assemblee-generale', 'corporate/finance/gouvernance', 'corporate/finance/archives')));
 
-
 /**
  * Implement of hook_menu().
  */
@@ -151,12 +150,9 @@ function kandb_group_theme($existing, $type, $theme, $path) {
 
 function render_group_homepage() {
   $data = array();
-  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
-  if ($term_document_id) {
-    $documents = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id);
-    if ($documents) {
-      $data['documents'] = $documents;
-    }
+  $documents = kandb_group_get_document_node(LIMIT_DOCUMENT);
+  if ($documents) {
+    $data['documents'] = $documents;
   }
   $group_header = module_invoke('bean', 'block_view', 'group-header');
   if (isset($group_header['content']) && $group_header['content']) {
@@ -259,21 +255,20 @@ function render_finance_presentation_page($current_lang = 'fr') {
 /**
  * Get document lasted.
  */
-function kandb_group_get_document_node($limit, $tid, $operation = '=') {
+function kandb_group_get_document_node($limit, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'document')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_document_type', 'tid', $tid, $operation)
-      ->fieldOrderBy('field_document_date', 'value', 'DESC')
-      ->propertyOrderBy('changed', 'DESC')
-      ->range(0, $limit)
+    ->entityCondition('bundle', 'document')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_langue', 'value', 0, '=')
+    ->fieldOrderBy('field_document_date', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
   ;
   $result = $query->execute();
-
   if (isset($result['node'])) {
-    $promotion_nids = array_keys($result['node']);
-    return entity_load('node', $promotion_nids);
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
   }
 
   return NULL;
@@ -336,11 +331,11 @@ function render_group_finance_gouvernance_default() {
 function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'finance_gouvernance')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
-      ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
-      ->propertyOrderBy('changed', 'DESC')
+    ->entityCondition('bundle', 'finance_gouvernance')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+    ->propertyOrderBy('changed', 'DESC')
   ;
   $result = $query->execute();
 
