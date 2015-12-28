@@ -3,6 +3,7 @@ $title = isset($logement_block['title']) ? $logement_block['title'] : '';
 
 $tva_name = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 $affichage = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : '';
+ksort($logement_block['total_bien']);
 if ($logement_block && isset($logement_block['total_bien'])) :
   ?>
   <section class="section-padding bg-lightGrey" id="logements-disponibles">
@@ -16,6 +17,21 @@ if ($logement_block && isset($logement_block['total_bien'])) :
           <?php
           $count = 1;
           foreach ($logement_block['total_bien'] as $type => $total) :
+            $arr_type = explode("-", $type);
+            $type_de_bien = ''; $nb_pieces_tid = '';
+            if(is_array($arr_type)) :
+              $type_de_bien = isset($arr_type[1]) ? $arr_type[1] : '';
+              $nb_pieces_tid = isset($arr_type[2]) ? $arr_type[2] : '';
+            endif;
+
+            $nb_pieces = '';
+            if($nb_pieces_tid) {
+              $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
+              if($nb_pieces_node) {
+                $nb_pieces = $nb_pieces_node->name;
+              }
+            }
+
             if ($count % 6 == 1) :
               print '<div class="unwrap">';
             endif;
@@ -30,7 +46,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                   </figure>
                 <?php endif; ?>
                 <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print t('appartements de'); ?>&nbsp;<?php print $type; ?>&nbsp;<?php print t('disponibles'); ?></h3>
+                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print $type_de_bien; ?><?php if($nb_pieces) : print t(' de ') . $nb_pieces; endif;?><?php print t(' disponibles'); ?></h3>
                     <div class="programParcelItem__prices">
                         <?php if (isset($logement_block['price_min_tva_un_20_bien'][$type]) && isset($logement_block['tva_bien'][$type]) && $affichage) : ?>
                           <p>
@@ -62,17 +78,24 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                     <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                         <aside class="programParcelPopin">
                             <div class="heading heading--bordered">
-                                <p class="heading__title"><?php print t('Appartements'); ?>&nbsp;<?php print $type; ?>&nbsp;<?php print t('disponibles'); ?></p>
+                                <p class="heading__title"><?php print $type_de_bien; ?>&nbsp;<?php print $nb_pieces;?><?php print t(' disponibles');?></p>
                                 <p class="heading__title heading__title--sub"><?php print t('dans ce programme'); ?></p>
                             </div>
                             <div class="moreAvailable">
                                 <table class="responsive">
                                     <tbody>
-
                                         <?php
-                                        foreach ($logement_block['popin_program'][$type] as $node_bien_id) :
+                                        foreach ($logement_block['popin_program'][$type] as $node_bien_id => $node_bien_price) :
                                           if ($node_bien_id) :
-                                            $biens = node_load($node_bien_id);
+                                            $query = new EntityFieldQuery();
+                                            $query->entityCondition('entity_type', 'node')
+                                              ->entityCondition('bundle', 'bien')
+                                              ->fieldCondition('field_id_bien', 'value', $node_bien_id)
+                                              ->range(0, 1);
+
+                                            $result = $query->execute();
+                                            $result = array_keys($result['node']);
+                                            $biens = node_load($result[0]);
                                             if ($biens) :
                                               $bien_id = isset($biens->field_id_bien[LANGUAGE_NONE][0]['value']) ? $biens->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
                                               if ($bien_id) :
@@ -120,9 +143,11 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                   $etage = $term_etage->name;
                                                 }
                                               }
+
                                               ?>
                                               <tr>
                                                   <td><?php
+
                                                       if ($bien_id) : print $bien_id;
                                                       endif;
                                                       ?></td>

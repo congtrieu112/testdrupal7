@@ -143,178 +143,116 @@ function _get_logement_block_content() {
         }
       }
 
+      $node_program = node_load($key);
+      $tva = 0; $stock = 0;
+      if($node_program) {
+        $tva = isset($node_program->field_programme_tva[LANGUAGE_NONE][0]['value']['taxonomy_term']['field_facteur'][LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_tva[LANGUAGE_NONE][0]['value']['taxonomy_term']['field_facteur'][LANGUAGE_NONE][0]['value'] : '';
+        $stock = isset($node_program->field_programme_stock[LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_stock[LANGUAGE_NONE][0]['value'] : '';
+      }
       if ($tid) {
-//        $query = new EntityFieldQuery();
-//        $query->entityCondition('entity_type', 'node')
-//          ->entityCondition('bundle', 'promotion')
-//          ->fieldCondition('field_promotion_programme', 'target_id', $key)
-//          ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-//          ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-//          ->range(0, 1);
-//
-//        $programme_promotion = $query->execute();
         $programme_promotion = getListPromotionProgramme($key);
         if (isset($programme_promotion['node'])) {
           $logement_block['programme_promotion'] = TRUE;
         }
 
-//        $listBien = db_query('select count(field_programme_target_id) as total, group_concat(program.entity_id) as bien_id, field_programme_target_id, field_nb_pieces_tid, title, name, field_programme_stock_value '
-//          . 'from {field_data_field_prix_tva_20} prize '
-//          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//          . 'left join {field_data_field_programme_stock} stock on stock.entity_id = program.field_programme_target_id '
-//          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//          . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//          . 'left join {domain_access} da on da.nid = program.entity_id '
-//          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key and gid=:gid '
-//          . 'group by field_programme_target_id, field_nb_pieces_tid, name, field_programme_stock_value order by name=:name desc, name', array(':tid' => $tid, ':key' => $key, ':name' => 'studio', ':gid' => $gid));
-
-        $listBien = countListBienGroupByNbPieces($tid, $key, $gid);
+        $listBien = countListBienGroupByTypeBien($tid, $key, $gid);
+        $arr_price_remain =  '';
         if ($listBien->rowCount() > 0) {
           $listBien = $listBien->fetchAll();
           foreach ($listBien as $program_list_biens) {
-            $logement_block['total_bien'][$program_list_biens->name] = $program_list_biens->total;
 
-            // Images des types de Lots.
-            $img_num_piece = '';
-            if (preg_match_all('/(studio|2|3|4|5)/i', $program_list_biens->name, $matches)) {
-              if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
-                $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
-                $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
-                if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
-                  $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
-                } else {
-                  $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
-                  $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
-                  $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+            $bien_id = explode(",", $program_list_biens->bien_id);
+            $biens = node_load_multiple($bien_id);
+            $variables = array();
+            foreach($biens as $bien) {
+              $nb_pieces_tid = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : '';
+              if($nb_pieces_tid) {
+                $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
+                if($nb_pieces_node) {
+                  $nb_pieces_weight = $nb_pieces_node->weight;
+                  $nb_pieces_name = $nb_pieces_node->name;
                 }
               }
 
-              $logement_block['programme_bien_images'][$program_list_biens->name] = $img_num_piece;
-            }
+              // Images des types de Lots.
+              $img_num_piece = '';
 
-//            $query = new EntityFieldQuery();
-//            $query->entityCondition('entity_type', 'node')
-//              ->entityCondition('bundle', 'promotion')
-//              ->fieldCondition('field_promotion_biens', 'target_id', array($program_list_biens->bien_id), 'IN')
-//              ->fieldCondition('field_promotion_start', 'value', date("Y-m-d"), '>=')
-//              ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d"), '<=')
-//              ->range(0, 1);
-//
-//            $bien_promotion = $query->execute();
-            $bien_promotion = getListPromotionBiens($program_list_biens->bien_id);
-            if (isset($bien_promotion['node'])) {
-              $logement_block['bien_promotion'][$program_list_biens->name] = TRUE;
-            }
+              if (preg_match_all('/(studio|2|3|4|5)/i', $nb_pieces_name, $matches)) {
 
-            $total_bien_stock = ceil($program_list_biens->total * $program_list_biens->field_programme_stock_value / 100);
-            $logement_block['total_bien_stock'][$program_list_biens->name] = $total_bien_stock;
-
-            $nb_pieces_id = $program_list_biens->field_nb_pieces_tid;
-            // Get list the most expensive bien
-//            $listPriceMost = db_query_range('select program.entity_id, field_prix_tva_20_value, name, title '
-//              . 'from {field_data_field_prix_tva_20 prize} '
-//              . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//              . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//              . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//              . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//              . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//              . 'left join {domain_access} da on da.nid = program.entity_id '
-//              . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and gid=:gid '
-//              . 'order by field_prix_tva_20_value desc', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':gid' => $gid));
-
-            $listPriceMost = getTheMostLeastExpensiveBienByNbPieces($tid, $key, $nb_pieces_id, $gid, 'DESC');
-            $the_most_id = 0;
-            // Show results
-            if ($listPriceMost->rowCount() > 0) {
-              $listPriceMost = $listPriceMost->fetchAll();
-              foreach ($listPriceMost as $program_most) {
-                $total_bien_stock -= 1;
-                $the_most_id = $program_most->entity_id;
-                $logement_block['popin_program'][$program_most->name][] = $program_most->entity_id;
-              }
-            }
-
-
-            if ($total_bien_stock > 0) {
-              // Sql get list the least expensive bien
-//              $listPriceLeast = db_query_range('select program.entity_id as entity_id, field_prix_tva_20_value, name, title '
-//                . 'from {field_data_field_prix_tva_20} prize '
-//                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//                . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//                . 'left join {domain_access} da on da.nid = program.entity_id '
-//                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and gid=:gid '
-//                . 'order by field_prix_tva_20_value', 0, 1, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':gid' => $gid));
-
-              $listPriceLeast = getTheMostLeastExpensiveBienByNbPieces($tid, $key, $nb_pieces_id, $gid, 'ASC');
-              $the_least_id = 0;
-              if ($listPriceLeast->rowCount() > 0) {
-                $listPriceLeast = $listPriceLeast->fetchAll();
-                foreach ($listPriceLeast as $program_least) {
-                  $total_bien_stock -= 1;
-                  $the_least_id = $program_least->entity_id;
-                  $logement_block['popin_program'][$program_least->name][] = $program_least->entity_id;
+                if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
+                  $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
+                  $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
+                  if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
+                    $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
+                  } else {
+                    $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
+                    $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
+                    $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+                  }
                 }
               }
-            }
 
-            if ($total_bien_stock > 0) {
-//              $listPriceRemain = db_query_range('select program.entity_id as entity_id, field_superficie_value, field_prix_tva_20_value, name, title '
-//                . 'from {field_data_field_prix_tva_20} prize '
-//                . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//                . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//                . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//                . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//                . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//                . 'left join {field_data_field_superficie} super on program.entity_id = super.entity_id '
-//                . 'left join {domain_access} da on da.nid = program.entity_id '
-//                . 'where field_bien_statut_tid=:tid and field_programme_target_id=:program_id and field_nb_pieces_tid=:nb_pieces_id and program.entity_id not in(:least, :most) and gid=:gid '
-//                . 'order by field_superficie_value', 0, $total_bien_stock, array(':tid' => $tid, ':program_id' => $key, ':nb_pieces_id' => $nb_pieces_id, ':least' => $the_least_id, ':most' => $the_most_id, ':gid' => $gid));
-
-              $listPriceRemain = getListRemainExcludeMostLeastBien($tid, $key, $nb_pieces_id, $the_least_id, $the_most_id, $gid, $total_bien_stock);
-              if ($listPriceRemain->rowCount() > 0) {
-                $listPriceRemain = $listPriceRemain->fetchAll();
-                foreach ($listPriceRemain as $program_remain) {
-                  $the_least_id = $program_remain->entity_id;
-                  $logement_block['popin_program'][$program_remain->name][] = $program_remain->entity_id;
-                }
+              if($program_list_biens->name == 'Appartement') {
+                $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+                $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+                $logement_block['programme_bien_images'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+              } elseif($program_list_biens->name == 'Maison') {
+                $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+                $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+                $logement_block['programme_bien_images']['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+              } else {
+                $variables['99-' . $program_list_biens->name][$bien->title]['price'] = $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
+                $variables['99-' . $program_list_biens->name][$bien->title]['superficie'] = $bien->field_superficie[LANGUAGE_NONE][0]['value'];
+                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;
               }
             }
-          }
-        }
 
-//        $listMaxMinPrice = db_query('select max(field_prix_tva_20_value) as max, min(field_prix_tva_20_value) as min, '
-//          . '(select field_facteur_value '
-//          . 'from {field_data_field_facteur} fact '
-//          . 'where fact.entity_id=tva.field_tva_tid) as tva, '
-//          . 'field_programme_target_id, field_nb_pieces_tid, name, title '
-//          . 'from field_data_field_prix_tva_20 prize '
-//          . 'inner join {field_data_field_programme} program on prize.entity_id = program.entity_id '
-//          . 'inner join {field_data_field_nb_pieces} nb on nb.entity_id=program.entity_id '
-//          . 'inner join {taxonomy_term_data} taxo on taxo.tid = nb.field_nb_pieces_tid '
-//          . 'inner join {node} n on n.nid=program.field_programme_target_id '
-//          . 'inner join {field_data_field_bien_statut} bien on bien.entity_id = program.entity_id '
-//          . 'left join {field_data_field_tva} tva on tva.entity_id=program.field_programme_target_id '
-//          . 'left join {domain_access} da on da.nid = program.entity_id '
-//          . 'where field_bien_statut_tid=:tid and field_programme_target_id=:key and gid=:gid '
-//          . 'group by field_programme_target_id, field_nb_pieces_tid, name, title', array(':tid' => $tid, ':key' => $key, ':gid' => $gid));
+            $arr_price_max = ''; $arr_price_min = '';
+            foreach($variables as $key => $values) {
+              $logement_block['total_bien'][$key] = count($values);
+              $logement_block['tva_bien'][$key] = $tva;
 
+              $bien_id_max = array_search(max($values), $values);
+              $bien_id_min = array_search(min($values), $values);
 
-        $listMaxMinPrice = getListPriceMaxMinofBien($tid, $key, $gid);
-        if ($listMaxMinPrice->rowCount() > 0) {
-          $listMaxMinPrice = $listMaxMinPrice->fetchAll();
-          foreach ($listMaxMinPrice as $program_prices) {
-            $logement_block['price_min_tva20_bien'][$program_prices->name] = $program_prices->min;
-            $tva = isset($program_prices->tva) ? $program_prices->tva : 0;
-            $min = isset($program_prices->min) ? $program_prices->min : 0;
-            if ($tva) {
-              $logement_block['tva_bien'][$program_prices->name] = $tva;
-              $logement_block['price_min_tva_un_20_bien'][$program_prices->name] = $min / 1.2 * ($tva + 1);
+              $max = max($values);
+              $arr_price_max[$key][$bien_id_max] = $max;
+              if(isset($arr_price_max[$key][$bien_id_max]['superficie'])) {
+                unset($arr_price_max[$key][$bien_id_max]['superficie']);
+              }
+
+              $min = min($values);
+              $arr_price_min[$key][$bien_id_min] = $min;
+              if(isset($arr_price_min[$key][$bien_id_min]['superficie'])) {
+                unset($arr_price_min[$key][$bien_id_min]['superficie']);
+              }
+
+              $logement_block['price_min_tva20_bien'][$key] = $min['price'];
+              $logement_block['price_min_tva_un_20_bien'][$key] = $min['price'] / 1.2 * ($tva + 1);
+
+              $total_bien_stock = ceil(count($values) * $stock / 100);
+              if($max == $min || ($max != $min && count($values) <= 2)) {
+                if(isset($values[$bien_id_max]['superficie'])) {
+                  unset($values[$bien_id_max]['superficie']);
+                }
+                if(isset($values[$bien_id_min]['superficie'])) {
+                  unset($values[$bien_id_min]['superficie']);
+                }
+
+                $arr_price_remain[$key] = array_slice($values, 0, $total_bien_stock);
+              } else {
+                unset($values[$bien_id_max]);
+                unset($values[$bien_id_min]);
+                foreach ($values as $k => $v) {
+                  $arr_price_superficie[$k] = $v['superficie'];
+                }
+                arsort($arr_price_superficie);
+                $arr_merge = array_merge($arr_price_min[$key], $arr_price_max[$key], $arr_price_superficie);
+                $arr_price_remain[$key] = array_slice($arr_merge, 0, $total_bien_stock);
+              }
             }
+
+            $logement_block['popin_program'] = $arr_price_remain;
           }
         }
       }
@@ -605,6 +543,36 @@ function countListBienGroupByNbPieces($tid, $key, $gid) {
   return $listBien;
 }
 
+
+function countListBienGroupByTypeBien($tid, $key, $gid) {
+  $listBien_query = db_select('node', 'n');
+  $listBien_query->join('field_data_field_programme', 'program', 'n.nid=program.field_programme_target_id');
+  $listBien_query->join('field_data_field_prix_tva_20', 'prize', 'prize.entity_id = program.entity_id');
+  $listBien_query->join('field_data_field_bien_statut', 'bien', 'bien.entity_id = program.entity_id');
+  $listBien_query->join('field_data_field_type', 'type', 'type.entity_id=bien.entity_id');
+  $listBien_query->join('taxonomy_term_data', 'taxo', 'taxo.tid = type.field_type_tid');
+  $listBien_query->leftJoin('field_data_field_programme_stock', 'stock', 'stock.entity_id = program.field_programme_target_id');
+  //$listBien_query->join('domain_access', 'da', 'da.nid = program.entity_id');
+  $listBien_query->addExpression('count("field_programme_target_id")', 'total');
+  $listBien_query->addExpression('GROUP_CONCAT(program.entity_id)', 'bien_id');
+  $listBien_query->addExpression("case when name='studio' then 0 else 1 end", 'special_name');
+  $listBien_query->groupBy('field_programme_target_id, field_type_tid, name, field_programme_stock_value');
+  $listBien = $listBien_query
+    ->addTag('program_access_domain')
+    ->fields('program', array('field_programme_target_id', 'entity_id'))
+    ->fields('type', array('field_type_tid'))
+    ->fields('n', array('title'))
+    ->fields('taxo', array('name'))
+    ->fields('stock', array('field_programme_stock_value'))
+    ->condition('field_bien_statut_tid', $tid, '=')
+    ->condition('field_programme_target_id', $key, '=')
+    //->condition('gid', $gid, '=')
+    ->orderBy('special_name', 'ASC')
+    ->orderBy('name', 'ASC')
+    ->execute();
+
+  return $listBien;
+}
 /**
  * Get list the most or the least expensive bien
  * @param int $tid: Status of Bien (Require: Disponible)
