@@ -2810,7 +2810,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'GM',
+    'name' => 'Assemblée générale',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 6,
@@ -5406,7 +5406,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'vocabulary_machine_name' => 'region',
   );
   $terms[] = array(
-    'name' => 'EGM',
+    'name' => 'Assemblée Générale Extraordinaire',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 7,
@@ -6591,6 +6591,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Autres Informations réglementée',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e5e9e415-fdba-4a69-a1f5-316036b90260',
+    'vocabulary_machine_name' => 'type_de_document',
   );
   $terms[] = array(
     'name' => 'Loggia',
