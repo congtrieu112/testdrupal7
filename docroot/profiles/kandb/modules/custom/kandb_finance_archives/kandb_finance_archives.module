@@ -78,10 +78,10 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
       $content_archives['tab_header'][$term->tid] = array(
         'tab_title' => $term->name,
         'tab_url' => $base_archive . $term->tid . '/' . $lang,
-        'class' => 'bordered',
+        'class' => '',
       );
       if ($term->tid == $tid) {
-        $content_archives['tab_header'][$term->tid]['class'] .= ' active';
+        $content_archives['tab_header'][$term->tid]['class'] = 'active';
       }
     }
   }
