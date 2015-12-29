@@ -2032,7 +2032,7 @@ function delVariablesUsedInFeedImporter($state, $source) {
 function kb_feeds_cronapi($op, $job = NULL) {
   $items['kb_feeds_delete_errorlogs_earlier_than_a_month'] = array(
     'description' => 'Update b2c/b2b partenaire files',
-    'rule' => '*/1 * * * *',
+    'rule' => '0 6 * * *',
     'callback' => 'delete_errorlogs_earlier_than_a_month' ,
   );
 
