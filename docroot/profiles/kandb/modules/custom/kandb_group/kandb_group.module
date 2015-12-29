@@ -171,7 +171,8 @@ function kandb_group_form_alter(&$form, $form_state, $form_id) {
     $form['submitted']['inscription_email']['#attributes']['placeholder'] = t('Votre adresse d’email');
     $form['submitted']['inscription_point_dinteret']['#theme_wrappers'] = array();
     $form['submitted']['inscription_point_dinteret']['#default_value'] = drupal_get_title();
-//    kpr($form['actions']['submit']);die;
+    $form['actions']['submit']['#attributes']['class'] = array('webform-submit', 'button-submit', 'js-btn-submit');
+    $form['actions']['submit']['#value'] = t('OK');
   }
 }
 

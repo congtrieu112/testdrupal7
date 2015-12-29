@@ -140,8 +140,6 @@ $block = module_invoke('webform', 'block_view', $inscription_block_id);
             <div class="emailForm__input">
                 <label for="email-input"><span class="visually-hidden">Votre adresse d’email</span>
                     <?php print render($block['content']); ?>
-<!--                    <input type="email" id="email-input" name="submitted[email]" placeholder="Votre adresse d’email" required><small class="error">Email valide requis.</small>
-                    <button type="submit" class="button-submit js-btn-submit"><span>OK</span></button>-->
                 </label>
             </div>
         </form>
