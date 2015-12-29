@@ -2022,3 +2022,72 @@ function delVariablesUsedInFeedImporter($state, $source) {
     variable_del($source->importer()->id . '_total');
   }
 }
+
+/**
+ * Implements hook_cronapi()
+ * @param type $op
+ * @param type $job
+ * @return string
+ */
+function kb_feeds_cronapi($op, $job = NULL) {
+  $items['kb_feeds_delete_errorlogs_earlier_than_a_month'] = array(
+    'description' => 'Update b2c/b2b partenaire files',
+    'rule' => '*/1 * * * *',
+    'callback' => 'delete_errorlogs_earlier_than_a_month' ,
+  );
+
+  return $items;
+}
+
+/**
+ * Delete all error log earlier than a month.
+ */
+function delete_errorlogs_earlier_than_a_month() {
+  delete_file_from_realpath('private://migration');
+  delete_file_from_realpath('private://imported');
+  delete_file_from_realpath('private://daily-import-log');
+  delete_file_from_realpath('private://bussiness-rule-log');
+  delete_file_from_realpath('public://feeds');
+  delete_file_from_realpath('private://feeds/log');
+}
+
+/**
+ * Delete all file scan from real path.
+ */
+function delete_file_from_realpath($path) {
+  if($path) {
+    $realpath = '';
+    if ($wrapper = file_stream_wrapper_get_instance_by_uri($path)) {
+      $realpath = $wrapper->realpath();
+    }
+
+    if($realpath) {
+      $files = scandir($realpath);
+      if($files) {
+        foreach($files as $file_name) {
+          if(is_file($realpath . '/' . $file_name)) {
+            $filectime = filectime($realpath . '/' . $file_name);
+            $result = db_query("SELECT fid FROM file_managed WHERE NOT EXISTS (SELECT * FROM file_usage WHERE file_managed.fid = file_usage.fid) AND uri LIKE :uri LIMIT 0,1", array(':uri' => '%' . db_like('bussiness_rule_log_2015-12-24_13_12_23.txt') . '%'));
+            if($result->rowCount() > 0) {
+              $fids = $result->fetchCol();
+              if($fids && isset($fids[0])) {
+                $file = file_load($fids[0]);
+                if($file) {
+                  $file_created = isset($file->timestamp) ? $file->timestamp  : 0;
+                  // delete file if file created is more than a month ago
+                  if($file_created < strtotime('1 month ago')) {
+                    file_delete($file);
+                  }
+                }
+              }
+            } else {
+              if($filectime < strtotime('1 month ago')) {
+                unlink($realpath . '/' . $file_name);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
