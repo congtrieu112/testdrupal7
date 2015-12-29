@@ -41,7 +41,9 @@ endif;
                           <ul class="articleList__item__infos__links">
                               <?php if (isset($data['finance_block']['cta'])): ?>
                                 <?php foreach ($data['finance_block']['cta'] as $value) : ?>
-                              <li><a href="<?php print url($value['url']); ?>" title="<?php print $value['title']; ?>"><?php print $value['title']; ?></a></li>
+                                  <?php if (trim($value['title'])): ?>
+                                    <li><a href="<?php print url($value['url']); ?>" title="<?php print trim($value['title']); ?>"><?php print trim($value['title']); ?></a></li>
+                                  <?php endif; ?>
 
                                 <?php endforeach; ?>
                               <?php endif; ?>
@@ -50,23 +52,23 @@ endif;
                   </div>
               </div>
             <?php endif; ?>
-<!--            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
-                <div class="inner">
-                    <div class="articleList__item__img">
-                         [Responsive img] start<img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
-                        <noscript><img src="test_assets/advices-medium.jpg" alt="test"/></noscript>
-                         [Responsive img] end
-                    </div>
-                    <div class="articleList__item__infos">
-                        <h4 class="articleList__item__infos__heading">Frais réduit et taux preferentiels</h4>
-                        <ul class="articleList__item__infos__links">
-                            <li><a href="#" title="La garatie de remboursement ou d'achevement">La garatie de remboursement ou d'achevement</a></li>
-                            <li><a href="#" title="La garatie de remboursement ou">La garatie de remboursement ou</a></li>
-                            <li><a href="#" title="La garatie de">La garatie de</a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>-->
+            <!--            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
+                            <div class="inner">
+                                <div class="articleList__item__img">
+                                     [Responsive img] start<img alt="test" data-interchange="[test_assets/advices-small.jpg, (small)], [test_assets/advices-medium.jpg, (large)]"/>
+                                    <noscript><img src="test_assets/advices-medium.jpg" alt="test"/></noscript>
+                                     [Responsive img] end
+                                </div>
+                                <div class="articleList__item__infos">
+                                    <h4 class="articleList__item__infos__heading">Frais réduit et taux preferentiels</h4>
+                                    <ul class="articleList__item__infos__links">
+                                        <li><a href="#" title="La garatie de remboursement ou d'achevement">La garatie de remboursement ou d'achevement</a></li>
+                                        <li><a href="#" title="La garatie de remboursement ou">La garatie de remboursement ou</a></li>
+                                        <li><a href="#" title="La garatie de">La garatie de</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>-->
         </div>
     </div>
 </section>
