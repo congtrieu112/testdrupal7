@@ -58,9 +58,9 @@ function kandb_finance_assemblies_page($lang = 'fr') {
   if (isset($document_voca->vid)) {
     $all_terms = taxonomy_get_tree($document_voca->vid);
     foreach ($all_terms as $term) {
-      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
+      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
         $tids[] = $term->tid;
-        $document_types[$term->tid] = strtoupper($term->name);
+        $document_types[$term->tid] = $term->tid;
       }
     }
   }
