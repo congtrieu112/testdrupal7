@@ -433,7 +433,8 @@ if (!empty($list_bien_more)):
                           continue;
                         } else {
                           $bien_more = node_load($item->nid);
-                          if(!in_array($gid, $bien_more->domains)) {
+                          $bien_more_status = isset($bien_more->status) ? $bien_more->status : 0;
+                          if(!in_array($gid, $bien_more->domains) || !$bien_more_status) {
                             continue;
                           }
                           $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);

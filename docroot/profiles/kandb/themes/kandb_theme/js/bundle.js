@@ -37388,7 +37388,7 @@ AppAccordion.prototype = {
     var that = this;
 
     // open on click or 'enter' key
-    $(link)
+    this.item.find(link)
       .off('click.accordion, keydown.accordion')
       .on('click.accordion, keydown.accordion', function(e){
         var $this = $(this);
@@ -37497,6 +37497,11 @@ $.fn.appAccordion = function(opt) {
 };
 
 $(trigger).appAccordion();
+
+// auto refresh after ajax response
+App.updaters.appAccordion = function() {
+  $(trigger).appAccordion();
+};
 },{}],11:[function(require,module,exports){
 /* ======================================== */
 /* ajax controller : app-ajax-controller.js */
@@ -37553,7 +37558,7 @@ var Callback = function ( scope ) {
     var _parent = ctrl.datas.parent || document.body ;
     var $parent = $( _parent );
     $parent.html( ctrl.msg ).trigger('write');
-    that.fn.bindings.reinit( $parent );
+    //that.fn.bindings.reinit( $parent );
     $('.ajax-wait').removeClass('ajax-wait');
   };
 
@@ -37561,7 +37566,7 @@ var Callback = function ( scope ) {
     var _parent = data.datas.parent || document.body ;
     var _el = $( data.msg  ).appendTo( _parent );
     $( _parent ).trigger('append');
-    that.fn.bindings.reinit( _el );
+    //that.fn.bindings.reinit( _el );
   };
 };
 
@@ -37571,9 +37576,10 @@ var Fn = function ( scope ){
   var that = scope ;
 
   this.bindings = {
-    reinit : function ( $el ){
+    /*reinit : function ( $el ){
+      console.log('reinit');
       App.launchUpdaters($el);
-    }
+    }*/
   };
 
   this.getCallbackFoo = function ( obj ){
@@ -37987,13 +37993,13 @@ if ( Foundation.utils.is_small_only() ) {
 document.addEventListener("touchstart", function() {},false);
 
 
-/*
+
 // can be used to test accessibility (tab key for exemple)
-$(document).on('focus', '*', Foundation.utils.throttle(function(e){
+/*$(document).on('focus', '*', Foundation.utils.throttle(function(e){
   console.log(e.target);
   return;
-}, 300));
-*/
+}, 300));*/
+
 
 
 $(document).foundation({
@@ -38015,6 +38021,14 @@ $(document).foundation({
 });
 
 
+App.SEO = {
+  title: $('title').text(),
+  description: $('meta[name=description]').attr('content'),
+  canonical: $('link[rel=canonical]').attr('href'),
+  shortlink: $('link[rel=shortlink]').attr('href')
+};
+
+
 // after resize
 $(window).on('resize', Foundation.utils.throttle(function(e){
   $(document).foundation('equalizer', 'reflow');
@@ -38026,20 +38040,12 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
 });
 
 
-// ajax callback
-$(document).on('ajaxResponse', function(e){
-  // reinit slick
-  $('[data-slick]').appSlick();
-
-  // reinit cookies
-  $('[data-cookie]').appCookies();
-
-  // see more
-  $('[data-seemore]').appSeeMore();
-
-  // rebind reveal popin's bindings
-  App.revealBind();
+// ajax callbacks
+$(document).on('ajaxComplete', function(e){
+  // reinit all App methods
+  App.launchUpdaters();
 });
+
 },{}],15:[function(require,module,exports){
 /* ====================== */
 /* mapContact : app-contact-map.js */
@@ -38057,13 +38063,13 @@ require("./app-top-bar.js");
  * Aquitaine: 0
  * Bretagne: 1
  * Còte d'azur: 2
- * Languedoc-Rousillon: 4
- * Midi Pyrénées: 5
- * Normandie: 6
- * Provence: 7
- * Pyrénées Atlantiques: 8
- * Rhône Alpes: 9
- * Nord: 10
+ * Languedoc-Rousillon: 3
+ * Midi Pyrénées: 4
+ * Normandie: 5
+ * Provence: 6
+ * Pyrénées Atlantiques: 7
+ * Rhône Alpes: 8
+ * Nord: 9
  */
 
 var trigger            = '[data-contact-map]',
@@ -38083,7 +38089,9 @@ var defaults = {
     fixedClass: 'contactMap__fixed',
     fixedBottomClass: 'bottom',
     transitionClass: 'transition',
-    mapSectionPrefix: 'map-section-'
+    mapSectionPrefix: 'map-section-',
+    currentSection: 0,
+    offsetTopMargin: 16 // 16 pixels top bar offset
 };
 
 /* ============================= */
@@ -38103,6 +38111,10 @@ var concatClassName = function(className, concatName) {
 
 var removeClassName = function(className, removeName) {
     return className.split(' ' + removeName)[0];
+};
+
+var mapOffsetTop = function() {
+    return that.topBarHeight + that.settings.offsetTopMargin;
 };
 
 var activateSection = function(id) {
@@ -38126,9 +38138,29 @@ var cleanActiveSection = function() {
     }
 };
 
-var activateRegion = function() {
-    var id = $(this).attr('data-contact-map-section');
+var scrollToMapTop = function(el, lastSection) {
+    var $lastElParent = $('[' + sectionTrigger + '=' + lastSection + ']').parent(),
+        offset;
 
+    if (that.settings.currentSection > lastSection) {
+        offset = $(el.parentNode).offset().top - $lastElParent.outerHeight() -
+            mapOffsetTop() + $(el.parentNode).outerHeight() - that.settings.offsetTopMargin + 1;
+    }
+    else {
+        offset = $(el.parentNode).offset().top - mapOffsetTop();
+    }
+    $('#container').velocity('scroll', {offset: offset});
+};
+
+var activateRegion = function() {
+    var id = $(this).attr('data-contact-map-section'),
+        lastSection = that.settings.currentSection;
+
+    console.log('height', $(this.parentNode).height());
+    console.log('outer height', $(this.parentNode).outerHeight(true));
+    that.settings.currentSection = id;
+
+    scrollToMapTop(this, lastSection);
     cleanActiveSection();
     activateSection(id);
 };
@@ -38144,7 +38176,7 @@ var fixMapWidth = function() {
 };
 
 var fixMap = function() {
-    var offsetTop       = that.container.offset().top - (that.topBarHeight + 16),
+    var offsetTop       = that.container.offset().top - mapOffsetTop(),
         containerLength = that.container.height() - that.parent.height() + offsetTop,
         scrollTop       = $(window).scrollTop();
 
@@ -38254,7 +38286,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
-},{"./app-top-bar.js":30}],16:[function(require,module,exports){
+},{"./app-top-bar.js":33}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -38429,34 +38461,35 @@ AppCookies.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appCookies = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appCookies = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppCookies');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppCookies', new AppCookies( this, opt) );
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppCookies');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppCookies', new AppCookies( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
-
-  $(trigger).appCookies();
-
-  if ( App.debug ) {
-    if ( $.fn.Cookies('K&B-save') ) {
-      console.log( 'Cookies: ', JSON.parse($.fn.Cookies('K&B-save')) );
     }
-  }
+  });
+};
 
-});
+$(trigger).appCookies();
+
+if ( App.debug ) {
+  if ( $.fn.Cookies('K&B-save') ) {
+    console.log( 'Cookies: ', JSON.parse($.fn.Cookies('K&B-save')) );
+  }
+}
+
+// auto refresh after ajax response
+App.updaters.appCookies = function() {
+  $(trigger).appCookies();
+};
 
 },{}],17:[function(require,module,exports){
 /* ========================== */
@@ -38497,31 +38530,34 @@ function AppDropdown( el, opts ) {
 AppDropdown.prototype = {
 
   init: function() {
-    var that = this;
+    var that = this,
+        responsive = this.item.data('app-dropdown-responsive');
 
-    this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
-      e.preventDefault();
-      that.toggle();
-    });
+    if ( typeof responsive === 'undefined' || responsive && matchMedia(Foundation.media_queries[ responsive ]).matches ) {
+      this.item.off('click.dropdown-toggle').on('click.dropdown-toggle', function(e) {
+        e.preventDefault();
+        that.toggle();
+      });
 
-    // close on page clicking
-    if ( Foundation.utils.is_medium_up() ) {
-      $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
-        var $content = $('.form-dropdown__content, [data-app-dropdown]');
+      // close on page clicking
+      if ( Foundation.utils.is_medium_up() ) {
+        $(document).on('click.close-dropdown', Foundation.utils.debounce(function(e){
+          var $content = $('.form-dropdown__content, [data-app-dropdown]');
 
-        if ( $content.is(':visible') ) {
-          if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
-            that.closeAll('all');
+          if ( $content.is(':visible') ) {
+            if ( !$content.is(e.target) && $content.has(e.target).length === 0 ) {
+              that.closeAll('all');
+            }
           }
-        }
-      }, 300, true));
-    }
+        }, 300, true));
+      }
 
-    this.target.find('[data-app-dropdown-close]').off('click.dropdown-close').on('click.dropdown-close', function(e) {
-      var label = $(this).text();
-      that.item.find('.text').text(label);
-      that.close();
-    });
+      this.target.find('[data-app-dropdown-close]').off('click.dropdown-close').on('click.dropdown-close', function(e) {
+        var label = $(this).text();
+        that.item.find('.text').text(label);
+        that.close();
+      });
+    }
 
     return this;
   },
@@ -38562,15 +38598,15 @@ AppDropdown.prototype = {
       this.item.attr('aria-expanded', 'true');
     }
 
-     this.target.velocity("slideDown", {
-        duration: 250,
-        complete: function() {
-          if ( Modernizr.touch ) {
-            that.item.velocity("scroll", { duration: 200, offset: -80 });
-          }
+    this.target.velocity("slideDown", {
+      duration: 250,
+      complete: function() {
+        if ( Modernizr.touch ) {
+          that.item.velocity("scroll", { duration: 200, offset: -80 });
         }
-      })
-      .attr('aria-hidden', 'false');
+      }
+    })
+    .attr('aria-hidden', 'false');
 
     return this;
   },
@@ -38622,7 +38658,7 @@ $(function() {
       } else {
         // if instance already created call method
         if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
+          instance[opt].apply(instance, args);
         }
       }
     });
@@ -38632,7 +38668,47 @@ $(function() {
 
 });
 
+
+// auto refresh after ajax response
+App.updaters.appDropdown = function() {
+  $(trigger).appDropdown();
+};
 },{}],18:[function(require,module,exports){
+/* =================== */
+/* editorial : app-editorial.js */
+/* =================== */
+
+'use strict';
+
+var $editorial = $('.editorialContentArticle__content');
+
+var biggerEl = function($el, editorialWidth) {
+
+  [].forEach.call(
+    $el.find('> *'),
+    function(el) {
+      if (el.offsetWidth > editorialWidth) {
+        $(el).wrap("<div class='overflow'></div>");
+      }
+    }
+  );
+};
+
+// touch hack to prevent autoscroll on form elements focus (MOBILE)
+if ( $editorial.length && Modernizr.touch ) {
+
+  for ( var i=0, len=$editorial.length; i<len; i++ ) {
+    var $el = $( $editorial[i] ),
+        editorialWidth = $el.outerWidth();
+
+    biggerEl($el, editorialWidth);
+  }
+}
+
+
+
+
+},{}],19:[function(require,module,exports){
 /* ====================== */
 /* footer : app-footer.js */
 /* ====================== */
@@ -38647,49 +38723,61 @@ App.footerHeight = function() {
 };
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /* =================== */
 /* forms : app-form.js */
 /* =================== */
 
 'use strict';
 
+App.form = function() {
 
-// touch hack to prevent autoscroll on form elements focus (TABLET)
-if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
-  $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
+  // touch hack to prevent autoscroll on form elements focus (TABLET)
+  if ( Modernizr.touch && Foundation.utils.is_medium_up() ) {
+    $(document).on('click.label', 'label, input', Foundation.utils.debounce(function(e) {
+      var $this = $(this);
 
-    if ( $this.closest('.form-dropdown__content').length < 1 && !$this.hasClass('noScroll') ) {
-      console.log('scroll');
-      setTimeout(function(){
-        $this.velocity("scroll", { duration: 200, offset: -100 });
-      }, 500);
-    }
-  }, 300, true));
-}
+      if ( $this.closest('.form-dropdown__content').length < 1 && !$this.hasClass('noScroll') ) {
+        console.log('scroll');
+        setTimeout(function(){
+          $this.velocity("scroll", { duration: 200, offset: -100 });
+        }, 500);
+      }
+    }, 300, true));
+  }
 
-// touch hack to prevent autoscroll on form elements focus (MOBILE)
-if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
-  $(document).on('click.label', 'input[type=text], input[type=search], input[type=number], input[type=tel]', Foundation.utils.debounce(function(e) {
-    var $this = $(this);
+  // touch hack to prevent autoscroll on form elements focus (MOBILE)
+  if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
+    $(document).on('click.label', 'input[type=text], input[type=search], input[type=number], input[type=tel]', Foundation.utils.debounce(function(e) {
+      var $this = $(this);
 
-    if ( !$this.hasClass('noScroll') ) {
-      setTimeout(function(){
-        $this.velocity("scroll", { duration: 200, offset: -80 });
-      }, 500);
-    }
-  }, 300, true));
-}
+      if ( !$this.hasClass('noScroll') ) {
+        setTimeout(function(){
+          $this.velocity("scroll", { duration: 200, offset: -80 });
+        }, 500);
+      }
+    }, 300, true));
+  }
 
-$('form[data-ajax-form]')
-  .on('submit', function(e){
-    e.preventDefault();
-  })
-  .on('valid.fndtn.abide', function() {
-    $(this).trigger('ajaxForm');
-  });
+  $('form[data-ajax-form]')
+    .on('submit', function(e){
+      e.preventDefault();
+    })
+    .on('valid.fndtn.abide', function() {
+      $(this).trigger('ajaxForm');
+    });
 
+
+  $('form').find('.label-checkbox > span').addClass('needsclick');
+
+};
+
+App.form();
+
+// auto refresh after ajax response
+App.updaters.form = function() {
+  App.form();
+};
 
 /*
 // touch hack to prevent autoscroll on form elements focus (MOBILE)
@@ -38705,7 +38793,7 @@ if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
   });
 }
 */
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
 /* ================== */
@@ -38731,6 +38819,7 @@ var defaults = {};
 function Gmaps(opts) {
   this.settings = $.extend({}, defaults, opts);
   this.item = $(trigger);
+  this.item0 = this.item[0];
 
   if ( !this.item.length && Foundation.utils.is_medium_up() ) {
     return;
@@ -38752,7 +38841,8 @@ Gmaps.prototype = {
       that.newMap = new GMaps({
         div: '.js-app-gmaps',
         lat: 0,
-        lng: 0
+        lng: 0,
+        maxZoom: 17
       });
 
       that
@@ -38791,13 +38881,13 @@ Gmaps.prototype = {
     this.footerHeight         = App.footerHeight();
     this.mapHeight            = this.windowHeight - this.headerHeight;
     this.mapWidth             = $('.results__list').position().left - 40;
-    this.item[0].style.width  = this.mapWidth + 'px';
+    this.item0.style.width    = this.mapWidth + 'px';
 
     if ( this.mapHeight > this.resultsHeight ) {
-      this.item[0].style.height = this.resultsHeight + 'px';
+      this.item0.style.height = this.resultsHeight + 'px';
       this.mapFixed = true;
     } else {
-      this.item[0].style.height = this.mapHeight + 'px';
+      this.item0.style.height = this.mapHeight + 'px';
       this.mapFixed = false;
     }
 
@@ -38805,47 +38895,43 @@ Gmaps.prototype = {
   },
 
   setPosition: function() {
-    if ( !this.mapFixed ) {
-      var scrollTop     = this.window.scrollTop(),
-          breakPoint    = scrollTop + this.headerHeight,
-          resultsTop    = this.results.offset().top,
-          footerTop     = $('.siteFooter').offset().top,
-          leftPosition  = $('#container').offset().left;
+    var scrollTop     = this.window.scrollTop(),
+        breakPoint    = scrollTop + this.headerHeight,
+        resultsTop    = this.results.offset().top,
+        footerTop     = $('.siteFooter').offset().top,
+        leftPosition  = $('#container').offset().left;
 
-      // after searchFormular
-      if ( breakPoint > resultsTop ) {
+    // after searchFormular
+    if ( breakPoint > resultsTop /*&& !this.mapFixed*/ ) {
 
-        // after footer
-        if ( scrollTop + this.windowHeight > footerTop ) {
-          this.item[0].style.position = 'absolute';
-          this.item[0].style.bottom = this.footerHeight + 'px';
-          this.item[0].style.top = '';
-          this.item[0].style.left = '';
+      // after footer
+      if ( scrollTop + this.windowHeight > footerTop ) {
+        this.item.removeClass('fixed');
+        this.item0.style.bottom = this.footerHeight + 'px';
+        this.item0.style.top = '';
+        this.item0.style.left = '';
 
-        // before footer
-        } else {
-          this.item[0].style.position = 'fixed';
-          this.item[0].style.top = this.headerHeight + 'px';
-          this.item[0].style.bottom = '';
-          this.item[0].style.left = leftPosition + 'px';
-        }
-
-      // before searchFormular
+      // before footer
       } else {
-        this.item[0].style.position = 'absolute';
-        this.item[0].style.top = '';
-        this.item[0].style.bottom = '';
-        this.item[0].style.left = '';
+        this.item.addClass('fixed');
+        this.item0.style.top = this.headerHeight + 'px';
+        this.item0.style.bottom = '';
+        this.item0.style.left = leftPosition + 'px';
       }
+
+    // before searchFormular
+    } else {
+      this.item.removeClass('fixed');
+      this.item0.style.top = '';
+      this.item0.style.bottom = '';
+      this.item0.style.left = '';
     }
 
     return this;
   },
 
   initMarkers: function() {
-    var allMarkers = this.getMarkers();
-
-    this.newMap.addMarkers( allMarkers );
+    this.newMap.addMarkers( this.getMarkers() );
     this.newMap.fitZoom();
 
     return this;
@@ -38889,7 +38975,7 @@ $(function() {
     App.gmaps = new Gmaps(opts);
   };
 });
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /* ====================================== */
 /* iframes : app-iframes.js */
 /* ====================================== */
@@ -38910,7 +38996,12 @@ App.appIframes = function( el ) {
 };
 
 App.appIframes( trigger );
-},{}],22:[function(require,module,exports){
+
+// auto refresh after ajax response
+App.updaters.appIframes = function() {
+  App.appIframes( trigger );
+};
+},{}],23:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
 /* ========================== */
@@ -39032,19 +39123,19 @@ $(function() {
   }
 
 });
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* ============================= */
 /* off canvas : app-offcanvas.js */
 /* ============================= */
 
 'use strict';
 
-var trigger   = '.menu-btn, .site-overlay',
-    $menuBtn  = $('.menu-btn'),
-    $html     = $('html'),
-    $topbarSearchForm = $('.js-topbarSearch'),
-    $topbarSearchTrigger = $('[data-topbar-search]'),
-    topbarSearchOpened = false;
+var trigger               = '.menu-btn, .site-overlay',
+    $menuBtn              = $('.menu-btn'),
+    $html                 = $('html'),
+    $topbarSearchForm     = $('.js-topbarSearch'),
+    $topbarSearchTrigger  = $('[data-topbar-search]'),
+    topbarSearchOpened    = false;
 
 
 var allowScroll = function() {
@@ -39057,27 +39148,39 @@ var allowScroll = function() {
 
 var showSearchTrigger = function() {
   $(window).on('scroll', Foundation.utils.throttle(function(e){
-    var $searchTrigger = $('.title-area__search'),
+    var $searchTrigger      = $('.title-area__search'),
         searchTriggerHidden = $searchTrigger.hasClass('notVisible'),
-        position = $('.searchFormular__form').offset().top;
+        position            = $('.searchFormular__form').offset().top;
 
     if ( window.scrollY >= position ) {
       if ( searchTriggerHidden ) {
-        $searchTrigger
-          .removeClass('notVisible')
-          .attr('tabindex', '0');
+        $searchTrigger.removeClass('notVisible');
       }
-
     } else {
       if ( !searchTriggerHidden ) {
-        $searchTrigger
-          .addClass('notVisible')
-          .attr('tabindex', '-1');
+        $searchTrigger.addClass('notVisible');
       }
     }
 
   }, 300));
 };
+
+var searchFormStatus = function(mode) {
+  if ( mode === "opened" ) {
+    $topbarSearchForm
+      .attr("aria-hidden", "false")
+      .find('button, input')
+        .attr("tabindex", "0");
+  } else {
+    $topbarSearchForm
+      .attr("aria-hidden", "true")
+      .find('button, input')
+        .attr("tabindex", "-1")
+        .filter('input')
+          .trigger('blur');
+  }
+};
+searchFormStatus('closed');
 
 
 // move main menu into off canvas
@@ -39110,31 +39213,21 @@ $topbarSearchTrigger.off('click').on('click', function(e){
   $topbarSearchForm.toggleClass('opened');
 
   if ( !topbarSearchOpened ) {
-    $topbarSearchForm
-      .attr("aria-hidden", "false")
-      .find('button, input').attr("tabindex", "0");
-    /*setTimeout(function() {
-      $topbarSearchForm.find('input').trigger('focus');
-    }, 200);*/
-
+    searchFormStatus("opened");
     topbarSearchOpened = true;
 
   } else {
-    $topbarSearchForm
-      .attr("aria-hidden", "true")
-      .find('button, input').attr("tabindex", "-1")
-      .filter('input').trigger('blur');
-    //$topbarSearchTrigger.find('button').trigger('focus');
+    searchFormStatus("closed");
     topbarSearchOpened = false;
   }
 });
 
 
 $topbarSearchForm.find('form').on('submit', function(e){
-  var $this = $(this),
-      $input = $this.find('input'),
-      value = $input.val(),
-      pattern = new RegExp( $input.attr('pattern') );
+  var $this     = $(this),
+      $input    = $this.find('input'),
+      value     = $input.val(),
+      pattern   = new RegExp( $input.attr('pattern') );
 
   if ( typeof value !== 'undefined' && value !== "" && value.search(pattern) !== -1 ) {
     $this.removeClass('error');
@@ -39144,7 +39237,65 @@ $topbarSearchForm.find('form').on('submit', function(e){
   }
 });
 
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
+/* ====================== */
+/* partager popins: app-partager.js */
+/* ====================== */
+
+"use strict";
+var trigger = '[data-partager-item]',
+    defaults = {};
+
+var markCheckbox = function(ev) {
+    ev.preventDefault();
+    ev.stopPropagation();
+    var checkbox = $(ev.currentTarget).find('[type=checkbox]');
+    checkbox && checkbox.prop('checked', !checkbox.prop("checked"));
+};
+
+function AppPartager(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppPartager.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', markCheckbox)
+            .on('click',markCheckbox);
+    }
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appPartager = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+        var item = $(this), instance = item.data('AppPartager');
+        if(!instance) {
+            // create plugin instance and save it in data
+            item.data('AppPartager', new AppPartager(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+};
+
+$(trigger).appPartager();
+
+},{}],26:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -39205,13 +39356,10 @@ App.revealBind = function() {
 
     if ( $modal.find('.reveal-modal__wrapper').length <= 0 ) {
       $modal
-        .prepend( '<button class="close-reveal-modal icon icon-close"></button>' )
+        .prepend( '<span class="close-reveal-modal icon icon-close" aria-label="Fermer" role="button"></button>' )
         .children()
           .wrapAll('<div class="reveal-modal__wrapper"></div>');
     }
-
-    // init select plugin
-    App.appComboSelect();
   });
 
   // event on popin closing
@@ -39247,11 +39395,11 @@ App.revealBind = function() {
 
 App.reveal();
 
-// auto refresh Foundation after ajax response
-App.updaters.foundation = function() {
-  App.reveal();
+// auto refresh after ajax response
+App.updaters.reveal = function() {
+  App.revealBind();
 };
-},{}],25:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39279,7 +39427,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],26:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39329,7 +39477,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],27:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39406,30 +39554,31 @@ AppSeeMore.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appSeeMore = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appSeeMore = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppSeeMore');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppSeeMore', new AppSeeMore( this, opt) );
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppSeeMore');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppSeeMore', new AppSeeMore( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
+$(trigger).appSeeMore();
+
+
+// auto refresh after ajax response
+App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
-
-});
-
-},{}],28:[function(require,module,exports){
+};
+},{}],30:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39474,7 +39623,128 @@ App.appComboSelect = function() {
 };
 
 App.appComboSelect();
-},{}],29:[function(require,module,exports){
+
+// auto refresh after ajax response
+App.updaters.appComboSelect = function() {
+  App.appComboSelect();
+};
+},{}],31:[function(require,module,exports){
+/* ======================== */
+/* seeMore : app-showText.js */
+/* ======================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger     = '[data-showmoretext]',
+    toggler     = '[data-showmoretext-trigger]',
+    content     = '[data-showmoretext-content]';
+
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {
+
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppShowMoreText( el, opts ) {
+  this.settings       = $.extend({}, defaults, opts);
+  this.isShow         = false;
+  this.el             = $(el);
+  this.buttonEl       = this.el.find(toggler);
+  this.contentEl      = this.el.find(content);
+  this.contentHeight  = this.contentEl.outerHeight();
+  this.minHeight      = parseInt( this.contentEl.css('min-height'), 10 );
+  this.moreText       = this.buttonEl.text();
+  this.lessText       = this.buttonEl.attr('data-showmoretext-trigger');
+  this.buttonTemplate = '{{text}}<span class="icon icon-arrow {{toggle}}"></span>';
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppShowMoreText.prototype = {
+
+  init: function() {
+    var that = this;
+
+    if(this.contentHeight > this.minHeight){
+      that.contentEl.css('height', this.minHeight);
+      that.buttonEl.removeClass('hidden');
+    }
+
+    that.buttonEl.off('click.seeMoreText').on('click.seeMoreText', function(e) {
+      e.preventDefault();
+      that.toggleContent();
+    });
+  },
+
+  toggleContent: function() {
+    var that = this;
+    that.isShow = !that.isShow;
+
+    var str = that.buttonTemplate;
+
+    if (that.isShow) {
+      str = str.replace('{{text}}', that.lessText);
+      str = str.replace('{{toggle}}', 'up');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.contentHeight);
+
+    } else {
+      str = str.replace('{{text}}', that.moreText);
+      str = str.replace('{{toggle}}', 'down');
+      that.buttonEl.empty().html(str);
+
+      that.contentEl.css('height', that.minHeight);
+    }
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appShowMoreText = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppShowMoreText');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppShowMoreText', new AppShowMoreText( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
+      }
+    }
+  });
+};
+
+$(trigger).appShowMoreText();
+
+// auto refresh after ajax response
+App.updaters.appShowMoreText = function() {
+  $(trigger).appShowMoreText();
+};
+
+},{}],32:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39670,7 +39940,12 @@ $.fn.appSlick = function(opt) {
 
 $(trigger).appSlick();
 
-},{}],30:[function(require,module,exports){
+// auto refresh after ajax response
+App.updaters.appSlick = function() {
+  $(trigger).appSlick();
+};
+
+},{}],33:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -39685,7 +39960,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],31:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39759,10 +40034,10 @@ App.topBarHeight = function() {
     this._name = pluginName;
 
     /* Reverse lookup */
-    this.el = element
+    this.el = element;
 
     /* Element */
-    this.$el = $(element)
+    this.$el = $(element);
 
     /* If multiple select: stop */
     if ( this.$el.prop('multiple') ) { return; }
@@ -39774,7 +40049,7 @@ App.topBarHeight = function() {
     this._defaults = defaults;
 
     /* Options */
-    this.$options = this.$el.find('option, optgroup')
+    this.$options = this.$el.find('option, optgroup');
 
     /* Initialize */
     this.init();
@@ -39793,18 +40068,21 @@ App.topBarHeight = function() {
     },
 
     _construct: function(){
-      var self = this
+      var self = this;
       /*
        * Add negative TabIndex to `select`
        * Preserves previous tabindex
        */
-      this.$el.data('plugin_'+ dataKey + '_tabindex', this.$el.prop('tabindex'))
+      this.$el.data('plugin_'+ dataKey + '_tabindex', this.$el.prop('tabindex'));
 
       // Add a tab index for desktop browsers
-      !isMobile && this.$el.prop("tabIndex", -1)
+      !isMobile && this.$el.prop("tabIndex", -1);
 
       // Wrap the Select
       this.$container = this.$el.wrapAll('<div class="' + this.settings.comboClass + ' '+ this.settings.themeClass + '" />').parent();
+
+      // Add desktop class when is not mobile
+      !isMobile && this.$container.addClass('desktop');
 
       // Check if select has a width attribute
       if(this.settings.extendStyle && this.$el.attr('style')){
@@ -39812,17 +40090,17 @@ App.topBarHeight = function() {
       }
 
       // Append dropdown arrow
-      this.$arrow = $('<div class="'+ this.settings.comboArrowClass+ '" />').appendTo(this.$container)
+      this.$arrow = $('<div class="'+ this.settings.comboArrowClass+ '" />').appendTo(this.$container);
 
       // Append dropdown
-      this.$dropdown = $('<ul class="'+this.settings.comboDropDownClass+'" />').appendTo(this.$container)
+      this.$dropdown = $('<ul class="'+this.settings.comboDropDownClass+'" />').appendTo(this.$container);
 
 
       // Create dropdown options
       this._build();
 
       // Append Input
-      this.$input = $('<input type="text"' + (isMobile? ' tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container)
+      this.$input = $('<input type="text"' + (isMobile? ' tabindex="-1" ': ' ') + (this.settings.filter? '': 'readonly') + ' placeholder="'+ this.getPlaceholder() +'" class="'+ this.settings.inputClass + '">').appendTo(this.$container);
 
       // Update input text
       this._updateInput()
@@ -39849,9 +40127,9 @@ App.topBarHeight = function() {
         }
         o += '<li class="'+(this.disabled? self.settings.disabledClass : "option-item") + ' ' +(k === self.$el.prop('selectedIndex')? self.settings.selectedClass : '')+ '" data-index="'+(k)+'" data-value="'+this.value+'">'+ (this.innerHTML) + '</li>'
         k++;
-      })
+      });
 
-      this.$dropdown.html(o)
+      this.$dropdown.html(o);
 
       // Items
       this.$items = this.$dropdown.children();
@@ -39867,7 +40145,7 @@ App.topBarHeight = function() {
          */
         this.$container.on('mouseup.input', 'input', function(e){
           e.preventDefault();
-        })
+        });
 
         // Input: blur
         this.$container.on('blur.input', 'input', $.proxy(this._blur, this));
@@ -40319,7 +40597,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],32:[function(require,module,exports){
+},{"jquery":5}],35:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40406,6 +40684,9 @@ var appContactMap       = require("./app-contact-map.js");
 var appTopBar           = require("./app-top-bar.js");
 var appFooter           = require("./app-footer.js");
 var appSeeMore          = require("./app-seeMore.js");
+var appEditorial        = require("./app-editorial.js");
+var appShowText         = require("./app-showText.js");
+var appPartager         = require("./app-partager.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40415,11 +40696,10 @@ if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
 // auto refresh Foundation after ajax response
 App.updaters.foundation = function() {
   $(document).foundation('reflow');
-  $('[data-app-accordion]').appAccordion();
 };
 
 // deprecated
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-footer.js":18,"./app-forms.js":19,"./app-gmaps.js":20,"./app-iframes.js":21,"./app-link2map.js":22,"./app-offcanvas.js":23,"./app-reveal.js":24,"./app-scroll-to.js":25,"./app-searchFormular.js":26,"./app-seeMore.js":27,"./app-select.js":28,"./app-slick.js":29,"./app-top-bar.js":30,"./combo-select.js":31,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[32]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);

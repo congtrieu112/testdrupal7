@@ -1,0 +1,376 @@
+<?php
+
+/**
+ * @file
+ * K&B B2C Group pages.
+ */
+define('TYPE_DOCUMENT', 'Communiqué de presse');
+define('VOCAL_DOCUMENT', 'type_de_document');
+define('LIMIT_DOCUMENT', 3);
+define('NUMBER_CTA_GROUP', 6);
+define('LIMIT_CALENDRIER', 20);
+define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
+define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
+define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+
+// Publication document type tabs.
+// [Tab Name] => [Taxonomy term name, Number of year].
+define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR', serialize(array(
+  'Communication Financière' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Autres Informations réglementée' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
+  'Documents de référence' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+)));
+define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN', serialize(array(
+  'Financial Communication' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Other regulated information' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
+  'Reference documents' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+)));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
+define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finance/presentation', 'corporate/finance/publication', 'corporate/finance/assemblee-generale', 'corporate/finance/gouvernance', 'corporate/finance/archives')));
+
+/**
+ * Implement of hook_menu().
+ */
+function kandb_group_menu() {
+  $items = array();
+
+  $items['corporate'] = array(
+    'title' => 'Le Groupe',
+    'page callback' => 'render_group_homepage',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/ketb/finance/presentation'] = array(
+    'title' => '[Finance] Presentation',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_presentation_admin_form'),
+    'file' => 'kandb_group.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['corporate/finance/presentation'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['corporate/finance/presentation/%'] = array(
+    'title' => 'Finance - Presentation',
+    'page callback' => 'render_finance_presentation_page',
+    'page arguments' => array(3),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+
+  $items['admin/content/ketb/group/home'] = array(
+    'title' => '[Group] Home',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_home_admin_form'),
+    'file' => 'kandb_group_home.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['corporate/finance/publication'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/finance/publication/%/%/%'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3, 4, 5),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/ketb/finance/publication'] = array(
+    'title' => '[Finance] Publication',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_publication_admin_form'),
+    'file' => 'kandb_group_finance_publication.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/content/ketb/group/finance-header'] = array(
+    'title' => '[Finance] block Header',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_finance_header_admin_form'),
+    'file' => 'kandb_finance_header.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['corporate/finance/gouvernance/%/%'] = array(
+    'title' => 'Finance - Gouvernance',
+    'page callback' => 'render_group_finance_gouvernance',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(3, 4),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+  $items['corporate/finance/gouvernance'] = array(
+    'title' => 'Finance - Gouvernance',
+    'page callback' => 'render_group_finance_gouvernance_default',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+
+  return $items;
+}
+
+/**
+ * Implement of hook_theme().
+ */
+function kandb_group_theme($existing, $type, $theme, $path) {
+  return array(
+    'group_homepage' => array(
+      'template' => 'templates/group_homepage',
+      'variables' => array(),
+    ),
+    'group_finance_publication' => array(
+      'template' => 'templates/group_finance_publication',
+      'variables' => array(),
+    ),
+    'finance_presentation_page' => array(
+      'template' => 'templates/finance_presentation_page',
+      'variables' => array(),
+    ),
+    'finance_header_block' => array(
+      'template' => 'templates/finance_header_block',
+      'variables' => array(),
+    ),
+    'group_finance_gouvernance' => array(
+      'template' => 'templates/group_finance_gouvernance',
+      'variables' => array(),
+    ),
+  );
+}
+
+function render_group_homepage() {
+  $data = array();
+  $documents = kandb_group_get_document_node(LIMIT_DOCUMENT);
+  if ($documents) {
+    $data['documents'] = $documents;
+  }
+  $group_header = module_invoke('bean', 'block_view', 'group-header');
+  if (isset($group_header['content']) && $group_header['content']) {
+    $data['group_header'] = $group_header['content'];
+  }
+  // Block Finance.
+  $finance_img = variable_get('image_group_home_block_finance', 0);
+  $finace_img_load = file_load($finance_img);
+  $finace_img_uri = (isset($finace_img_load->uri)) ? file_create_url($finace_img_load->uri) : '';
+  $data['finance_block']['image'] = $finace_img_uri;
+  $finace_title = variable_get('title_group_home_block_finance');
+  $data['finance_block']['title'] = $finace_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_finance_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['finance_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  return theme('group_homepage', array('data' => $data));
+}
+
+function render_group_finance_publication($document_type_tid = '', $numof_years = 3, $current_lang = 'fr') {
+  $data = array();
+
+  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
+  if ($term_document_id) {
+    $documents_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '=');
+    $documents_explode_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '!=');
+    if ($documents_communique) {
+      $data['documents_communique'] = $documents_communique;
+    }
+    if ($documents_explode_communique) {
+      $data['documents_explode_communique'] = $documents_explode_communique;
+    }
+  }
+
+  $group_header = module_invoke('bean', 'block_view', 'group-header');
+  if (isset($group_header['content']) && $group_header['content']) {
+    $data['group_header'] = $group_header['content'];
+  }
+
+  $query_arr = drupal_get_query_parameters();
+  $calenders = array();
+  for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
+    $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
+    if ($date) {
+      $calenders[$date] = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
+    }
+  }
+
+  ksort($calenders);
+  $data['calenders'] = $calenders;
+
+  // Component 4.
+  $recent_document = array();
+  if ($current_lang == 'en') {
+    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
+    $current_lang_key = 1;
+  } else {
+    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
+    $current_lang_key = 0;
+  }
+  if (!$document_type_tid) {
+    $document_type_name = array_values($document_type_tabs)[0]['doc_type_name'];
+    $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
+  }
+
+  // Get the latest year of all documents.
+  $latest_years = '';
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
+  $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+  $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
+  $query->condition('n.type', 'document');
+  $query->condition('n.status', 1);
+  $query->condition('t.field_document_type_tid', $document_type_tid);
+  $query->condition('l.field_langue_value', $current_lang_key);
+  $query->addExpression('MAX(YEAR(d.field_document_date_value))');
+  $latest_years = $query->execute()->fetchField();
+
+  $num_latest_year = 0;
+  while ($num_latest_year < $numof_years AND $latest_years) {
+    $query = db_select('node', 'n');
+    $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
+    $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
+    $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
+    $query->fields('n', array('nid'));
+    $query->condition('n.type', 'document');
+    $query->condition('n.status', 1);
+    $query->condition('t.field_document_type_tid', $document_type_tid);
+    $query->condition('l.field_langue_value', $current_lang_key);
+    $query->where('YEAR(d.field_document_date_value) = :latest_year', array(':latest_year' => $latest_years));
+
+    $rs = $query->execute()->fetchCol();
+    if ($rs) {
+      $recent_document[$latest_years] = $rs;
+      $num_latest_year++;
+    }
+    $latest_years--;
+  }
+  $data['recent_document'] = $recent_document;
+
+  return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
+}
+
+/**
+ * Render finance presentation page.
+ */
+function render_finance_presentation_page($current_lang = 'fr') {
+  return theme('finance_presentation_page', array('current_lang' => $current_lang));
+}
+
+/**
+ * Get document lasted.
+ */
+function kandb_group_get_document_node($limit, $operation = '=') {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'document')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_langue', 'value', 0, '=')
+    ->fieldOrderBy('field_document_date', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
+  ;
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Helper function to dynamically get the tid from the term_name.
+ */
+function kandb_group_get_term_from_name($term_name, $vocabulary_name) {
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name)) {
+    $tree = taxonomy_get_tree($vocabulary->vid);
+    foreach ($tree as $term) {
+      if ($term->name == $term_name) {
+        return $term->tid;
+      }
+    }
+  }
+  return FALSE;
+}
+
+/**
+ * Implement render page finance gouvernance.
+ */
+function render_group_finance_gouvernance($tid, $lang) {
+  $data = $all_terms = array();
+  $tax = '';
+  $lange_code = 0;
+  if ($lang == 'en') {
+    $lange_code = 1;
+  }
+  $comite_voca = taxonomy_vocabulary_machine_name_load('comite');
+  if (isset($comite_voca->vid)) {
+    $all_terms = taxonomy_get_tree($comite_voca->vid);
+  }
+  $tax = taxonomy_term_load($tid);
+  $persons = kandb_group_get_grouvernance_node($tid, $lange_code);
+  return theme('group_finance_gouvernance', array('data' => $persons, 'tax' => $tax, 'voca' => $all_terms, 'term_id' => $tid, 'lang' => $lang));
+}
+
+/**
+ * Implement render page finance gouvernance default.
+ */
+function render_group_finance_gouvernance_default() {
+  $data = $all_terms = array();
+  $tax = '';
+  $comite_voca = taxonomy_vocabulary_machine_name_load('comite');
+  if (isset($comite_voca->vid)) {
+    $all_terms = taxonomy_get_tree($comite_voca->vid);
+    if (isset($all_terms[0]->tid)) {
+      $path = url('corporate/finance/gouvernance/' . $all_terms[0]->tid . '/fr');
+      drupal_goto($path);
+    }
+    return t('no results');
+  }
+}
+
+/**
+ * Get grouvernance lasted.
+ */
+function kandb_group_get_grouvernance_node($tid = array(), $lang) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'finance_gouvernance')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+    ->propertyOrderBy('changed', 'DESC')
+  ;
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
+}

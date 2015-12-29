@@ -43,4 +43,5 @@
  * @ingroup themeable
  */
 ?>
+<?php print $scripts; ?>
 <?php print $page; ?>

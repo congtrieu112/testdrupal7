@@ -20,7 +20,7 @@ $errors = form_get_errors();
             <div class="searchFormular__filters hidden" aria-hidden="true" id="dropdown-search-filters">
                 <div class="searchFormular__dropdowns">
                     <div class="form-dropdown">
-                        <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-type-choice" aria-expanded="false">
+                        <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-type-choice" aria-expanded="false">
                             <?php print t('Type'); ?>
                             <span class="icon icon-expand" aria-hidden="true"></span>
                         </button>
@@ -31,7 +31,7 @@ $errors = form_get_errors();
                         </div>
                     </div>
                     <div class="form-dropdown">
-                        <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-price-choice" aria-expanded="false">
+                        <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-price-choice" aria-expanded="false">
                             <?php print t('Prix'); ?>
                             <span class="icon icon-expand" aria-hidden="true"></span>
                         </button>
@@ -54,7 +54,7 @@ $errors = form_get_errors();
                         </div>
                     </div>
                     <div class="form-dropdown">
-                        <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-rooms-choice" aria-expanded="false">
+                        <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-rooms-choice" aria-expanded="false">
                             <?php print t('Pièces'); ?>
                             <span class="icon icon-expand" aria-hidden="true"></span>
                         </button>
@@ -65,7 +65,7 @@ $errors = form_get_errors();
                         </div>
                     </div>
                     <div class="form-dropdown">
-                        <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-surface-choice" aria-expanded="false">
+                        <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-surface-choice" aria-expanded="false">
                             <?php print t('Surface'); ?>
                             <span class="icon icon-expand" aria-hidden="true"></span>
                         </button>
@@ -77,7 +77,7 @@ $errors = form_get_errors();
                         </div>
                     </div>
                     <div class="form-dropdown">
-                        <button class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-services-choice" aria-expanded="false">
+                        <button type="button" class="form-dropdown__trigger" data-app-dropdown="search" aria-controls="dropdown-services-choice" aria-expanded="false">
                             <?php print t('Services'); ?>
                             <span class="icon icon-expand" aria-hidden="true"></span>
                         </button>
@@ -96,7 +96,7 @@ $errors = form_get_errors();
                     </ul>
                     <div class="submit-wrapper">
                         <!-- "url" is a static variable: Js will take the current URL-->
-                        <button data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></button>
+                        <button type="button" data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></button>
                         <!-- submit-->
                         <?php
                             $bien_or_programme = 'programme';
@@ -108,7 +108,7 @@ $errors = form_get_errors();
                 </div>
             </div>
 
-            <button class="searchFormular__more js-form-more" data-app-dropdown="remove" aria-controls="dropdown-search-filters" aria-expanded="false">
+            <button type="button" class="searchFormular__more js-form-more" data-app-dropdown="remove" aria-controls="dropdown-search-filters" aria-expanded="false">
                 <span class="icon icon-expand" aria-hidden="true"></span>
                 <?php print t('Plus de critères'); ?>
             </button>

@@ -1,0 +1,25 @@
+<?php
+
+/**
+ * Implementations hook_install()
+ */
+function kandb_seo_install() {
+  kandb_seo_change_weight();
+}
+
+/**
+ * Change module weight
+ */
+function kandb_seo_change_weight() {
+  db_update('system')
+    ->fields(array('weight' => 2000))
+    ->condition('name', 'kandb_seo', '=')
+    ->execute();
+}
+
+/**
+ * Change Module Weight
+ */
+function kandb_seo_update_7001(&$sandbox) {
+  kandb_seo_change_weight();
+}

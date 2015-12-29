@@ -150,7 +150,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
  * Implements hook_node_presave().
  */
 function kandb_business_rules_node_presave($node) {
-  // By pass apply rule in case apply habiteo API. 
+  // By pass apply rule in case apply habiteo API.
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
@@ -167,10 +167,24 @@ function kandb_business_rules_node_presave($node) {
   Kandb_Business_Rules::set_is_node_updating();
 
   if ($node && $node->type == 'programme' && !$is_node_updating) {
-    if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
-      $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
-    }
+    
+    $statut_old = $node->original->field_programme_statut[LANGUAGE_NONE][0]['value'];
+    $statut_new = $node->field_programme_statut[LANGUAGE_NONE][0]['value'];
 
+    if ($statut_new != $statut_old) {
+      $node->status = $statut_new;
+      if ($statut_old == 0 && $statut_new == 1) {
+        $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+      }
+    }
+    elseif ($statut_old != $node->status) {
+      $node->status = $statut_new;
+    }
+//    if ($node->field_programme_statut[LANGUAGE_NONE][0]['value'] == 1) {
+//      $node->field_programme_online_date[LANGUAGE_NONE][0]['value'] = date('Y-m-d', time());
+//    }
+
+    // RULE COUNTING 115, 116
     $tva_tid = isset($node->field_tva[LANGUAGE_NONE][0]['tid']) ? $node->field_tva[LANGUAGE_NONE][0]['tid'] : 0;
     $tva = 0;
     if ($tva_tid) {
@@ -183,13 +197,22 @@ function kandb_business_rules_node_presave($node) {
     $programme_price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_min[LANGUAGE_NONE][0]['value'] : 0;
     $programme_price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_max[LANGUAGE_NONE][0]['value'] : 0;
 
+    $programme_price_min_b2b = isset($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_min_b[LANGUAGE_NONE][0]['value'] : 0;
+    $programme_price_max_b2b = isset($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) ? (int) $node->field_programme_price_max_b[LANGUAGE_NONE][0]['value'] : 0;
+
     if ($tva) {
       $node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = ($programme_price_min / 1.2) * ($tva + 1);
       $node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] = ($programme_price_max / 1.2) * ($tva + 1);
+
+      $node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value'] = ($programme_price_min_b2b / 1.2) * ($tva + 1);
+      $node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value'] = ($programme_price_max_b2b / 1.2) * ($tva + 1);
     }
     else {
       $node->field_program_low_tva_price_min = array();
       $node->field_program_low_tva_price_max = array();
+
+      $node->field_program_low_tva_price_minb = array();
+      $node->field_program_low_tva_price_maxb = array();
     }
 
     if (isset($node->nid)) {
@@ -411,6 +434,8 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
 
 function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   if ($form_id == 'bien_node_form') {
+    // When textboxes ('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave') have value,
+    //     we'll hidden checkboxed in option caracteristiques
     if(isset($form['field_caracteristique'][LANGUAGE_NONE]['#options'])) {
       $caracteristiques = $form['field_caracteristique'][LANGUAGE_NONE]['#options'];
       $os = array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave');
@@ -423,6 +448,7 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
     }
 
     $form['field_tva']['#disabled'] = TRUE;
+    $form['#submit'][] = 'recalculate_bien_action';
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
@@ -435,6 +461,11 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+function recalculate_bien_action(&$form, &$form_state) {
+  global $base_url;
+  $form_state['rebuild'] = TRUE;
+  header('Location: ' . $base_url . '/recalculate/' . $form_state['values']['nid']) ;
+}
 /**
  * @todo to get group biens follow program && nb_piece
  * @param type $id_programme
@@ -479,7 +510,7 @@ function bien_to_display($id_programme, $nb_piece = "all") {
   return $results;
 }
 
-function kb_logging_business_rule ($message) {
+function kb_logging_business_rule($message) {
   $message = trim($message);
   $uri = 'private://bussiness-rule-log/';
   $file_log_name = 'bussiness_rule_log_' . date('Y-m-d_H_m_s', REQUEST_TIME) . '.txt';
@@ -510,5 +541,192 @@ function kb_logging_business_rule ($message) {
     }
     drupal_chmod($uri);
     file_save_data($data, $uri . $file_log_name, FILE_EXISTS_REPLACE);
+  }
+}
+
+function kandb_business_rules_menu() {
+  $items = array();
+
+  $items['recalculate/%'] = array(
+    'page callback' => 'recalculate_programme_fields',
+    'type' => MENU_CALLBACK,
+    'page arguments' => array(1),
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  return $items;
+}
+
+function recalculate_programme_fields() {
+  $nid = arg(1);
+  if($nid) {
+    update_fields_programme($nid);
+  }
+
+  drupal_goto('admin/content');
+}
+
+function kandb_business_rules_batch_alter(&$batch) {
+  if(isset($batch['source_url']) && $batch['source_url'] == 'admin/content') {
+    $batch['sets'][0]['finished'] = 'bien_views_bulk_operations_execute_finished';
+    $batch['sets'][0]['operations'][0][0] = 'bien_views_bulk_operations_active_queue_process';
+  }
+}
+
+/**
+ * Helper function that runs after the execution process is complete.
+ */
+function bien_views_bulk_operations_execute_finished($success, $results, $operations) {
+  if ($success) {
+    if (count($results['log']) > 1) {
+      $message = theme('item_list', array('items' => $results['log']));
+    }
+    else {
+      $message = reset($results['log']);
+    }
+
+    if(isset($results["data"]["arguments"][0]) && $results["data"]["arguments"][0]) {
+    foreach($results["data"]["arguments"][0] as $data) {
+        if($data['entity_id']) {
+          update_fields_programme($data['entity_id']);
+        }
+      }
+    }
+  }
+  else {
+    // An error occurred.
+    // $operations contains the operations that remained unprocessed.
+    $error_operation = reset($operations);
+    $message = t('An error occurred while processing @operation with arguments: @arguments',
+      array('@operation' => $error_operation[0], '@arguments' => print_r($error_operation[0], TRUE)));
+  }
+
+  _views_bulk_operations_log($message);
+}
+
+/**
+ * Batch API callback: processes the active queue.
+ *
+ * @param $queue_name
+ *   The name of the queue to process.
+ * @param $operation
+ *   The object representing the current operation.
+ * @param $total_rows
+ *   The total number of processable items (across all queue items), used
+ *   to report progress.
+ *
+ * @see views_bulk_operations_queue_item_process()
+ */
+function bien_views_bulk_operations_active_queue_process($queue_name, $operation, $total_rows, &$context) {
+  static $queue;
+
+  // It is still possible to hit the time limit.
+  drupal_set_time_limit(0);
+
+  // Prepare the sandbox.
+  if (!isset($context['sandbox']['progress'])) {
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['max'] = $total_rows;
+    $context['results']['log'] = array();
+    $context['results']['data'] = array();
+  }
+
+  // Instantiate the queue.
+  if (!isset($queue)) {
+    $queue = DrupalQueue::get($queue_name, TRUE);
+  }
+
+  // Process the queue as long as it has items for us.
+  $queue_item = $queue->claimItem(3600);
+  if ($queue_item) {
+    // Process the queue item, and update the progress count.
+    views_bulk_operations_queue_item_process($queue_item->data, $context['results']['log']);
+    $context['results']['data'] = $queue_item->data;
+    $queue->deleteItem($queue_item);
+
+    // Provide an estimation of the completion level we've reached.
+    $context['sandbox']['progress'] += count($queue_item->data['arguments'][0]);
+    $context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
+    $context['message'] = t('Processed @current out of @total', array('@current' => $context['sandbox']['progress'], '@total' => $context['sandbox']['max']));
+  }
+
+  if (!$queue_item || $context['finished'] === 1) {
+    // All done. Provide a status message to the user.
+    $context['results']['log'][] = t('Performed %operation on @items.', array(
+      '%operation' => $operation->label(),
+      '@items' => format_plural($context['sandbox']['progress'], '1 item', '@count items'),
+    ));
+  }
+}
+
+function update_fields_programme($nid) {
+  $bien = node_load($nid);
+  if($bien && isset($bien->type) && $bien->type == 'bien') {
+    $arr_update_programme = array();
+    if(isset($bien->field_programme[LANGUAGE_NONE][0]["target_id"]) && $bien->field_programme[LANGUAGE_NONE][0]["target_id"]){
+      $programe = new stdClass();
+      $programe->nid = $bien->field_programme[LANGUAGE_NONE][0]["target_id"];
+      $arr_update_programme[] = $programe;
+    }
+
+    $status_disponible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+    if(isset($bien->field_bien_statut[LANGUAGE_NONE][0]["tid"]) && $bien->field_bien_statut[LANGUAGE_NONE][0]["tid"] != $status_disponible) {
+      $bien = array();
+    }
+
+    if(isset($arr_update_programme[0]->nid) && $arr_update_programme[0]->nid) {
+      $program = node_load($arr_update_programme[0]->nid);
+      if($program) {
+        $arr_total_biens = Kandb_Business_Rules::recalculate_bien_to_programe($arr_update_programme);
+        $arr_total_biens = array_values($arr_total_biens);
+
+        if(isset($arr_total_biens[0]) && $arr_total_biens[0]) {
+          foreach($arr_total_biens[0] as $key => $total) {
+            if($key == 'total_bien_b2c') {
+              $program->field_programme_flat_available[LANGUAGE_NONE][0]["value"] = $total;
+            } elseif($key == 'total_bien_b2b') {
+              $program->field_programme_flat_available_b[LANGUAGE_NONE][0]["value"] = $total;
+            }
+          }
+        }
+
+        $arr_prices = Kandb_Business_Rules::calculate_programe_price($arr_update_programme, $bien);
+        $arr_prices = array_values($arr_prices);
+
+        if(isset($arr_prices[0]) && $arr_prices[0]) {
+          foreach($arr_prices[0] as $_key => $price) {
+            switch ($_key) {
+              case 'program_low_tva_price_min':
+                $program->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'program_low_tva_price_max':
+                $program->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'program_low_tva_price_minb':
+                $program->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'program_low_tva_price_maxb':
+                $program->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'programme_price_min':
+                $program->field_programme_price_min[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'programme_price_max':
+                $program->field_programme_price_max[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'programme_price_min_b':
+                $program->field_programme_price_min_b[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+              case 'programme_price_max_b':
+                $program->field_programme_price_max_b[LANGUAGE_NONE][0]['value'] = $price;
+                break;
+            }
+          }
+        }
+
+        node_save($program);
+      }
+    }
   }
 }

@@ -23,9 +23,25 @@ function kandb_validate_query_program_access_domain_alter(QueryAlterableInterfac
 }
 
 /**
+ * Implements hook_query_TAG_alter().
+ * Tag: bien_access_domain_b2c.
+ */
+function kandb_validate_query_bien_access_domain_b2c_alter(QueryAlterableInterface $query) {
+  domain_alter_access_domain_query($query, 'entity_domain', 'field_data_field_bien_statut0', DOMAIN_B2C);
+}
+
+/**
+ * Implements hook_query_TAG_alter().
+ * Tag: bien_access_domain_b2b.
+ */
+function kandb_validate_query_bien_access_domain_b2b_alter(QueryAlterableInterface $query) {
+  domain_alter_access_domain_query($query, 'entity_domain', 'field_data_field_bien_statut0', DOMAIN_B2B);
+}
+
+/**
  * Retreive data by followings access domain.
  */
-function domain_alter_access_domain_query(QueryAlterableInterface $query, $type, $alias_entity = '') {
+function domain_alter_access_domain_query(QueryAlterableInterface $query, $type, $alias_entity = '', $domain_id = '') {
   global $user;
 
   // Read meta-data from query, if provided.
@@ -121,6 +137,22 @@ function domain_alter_access_domain_query(QueryAlterableInterface $query, $type,
         ->fields('na', array('nid'));
     $grant_conditions->condition(db_and()
             ->condition('na.gid', $_domain['domain_id'])
+            ->condition('na.realm', 'domain_id')
+    );
+
+    // Attach conditions to the subquery for nodes.
+    if (count($grant_conditions->conditions())) {
+      $subquery->condition($grant_conditions);
+    }
+
+    $field = 'entity_id';
+    $subquery->where("$alias_entity.$field = na.nid");
+    $query->exists($subquery);
+  } elseif ($type == 'entity_domain' && $alias_entity && $domain_id) {
+    $subquery = db_select('node_access', 'na')
+        ->fields('na', array('nid', 'gid'));
+    $grant_conditions->condition(db_and()
+            ->condition('na.gid', $domain_id)
             ->condition('na.realm', 'domain_id')
     );
 

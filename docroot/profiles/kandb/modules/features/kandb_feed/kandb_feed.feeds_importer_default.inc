@@ -319,7 +319,7 @@ function kandb_feed_feeds_importer_default() {
           4 => array(
             'source' => 'ContenuLienTxt',
             'target' => 'field_document_description',
-            'unique' => FALSE,
+            'format' => 'simple',
           ),
           5 => array(
             'source' => 'Contact1AffichageParDefaut',
@@ -699,17 +699,19 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
+          'migration_bien_import_v2' => 'migration_bien_import_v2',
           'parcel_feed_import' => 'parcel_feed_import',
+          'node' => 0,
+          'user' => 0,
           'city_feed_import' => 0,
           'district_feed_import' => 0,
           'document_import' => 0,
           'document_import_communique_de_presse' => 0,
           'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
-          'node' => 0,
-          'user' => 0,
-          'migration_program_import' => 0,
           'migration_program_video_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
           'programme_feed_import' => 0,
         ),
         'mappings' => array(
@@ -871,6 +873,7 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
+          'migration_bien_import_v2' => 'migration_bien_import_v2',
           'migration_bien_import' => 'migration_bien_import',
           'node' => 0,
           'user' => 0,
@@ -880,8 +883,9 @@ function kandb_feed_feeds_importer_default() {
           'document_import_communique_de_presse' => 0,
           'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
-          'migration_program_import' => 0,
           'migration_program_video_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
           'programme_feed_import' => 0,
         ),
         'mappings' => array(
@@ -962,51 +966,56 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           14 => array(
+            'source' => '13',
+            'target' => 'field_bien_type_maison',
+            'unique' => FALSE,
+          ),
+          15 => array(
             'source' => '16',
             'target' => 'field_caracteristique_jardin',
             'unique' => FALSE,
           ),
-          15 => array(
+          16 => array(
             'source' => '17',
             'target' => 'field_caracteristique_balcon',
             'unique' => FALSE,
           ),
-          16 => array(
+          17 => array(
             'source' => '19',
             'target' => 'field_caracteristique_terrasse',
             'unique' => FALSE,
           ),
-          17 => array(
+          18 => array(
             'source' => '21',
             'target' => 'field_caracteristique_parking',
             'unique' => FALSE,
           ),
-          18 => array(
+          19 => array(
             'source' => '22',
             'target' => 'field_caracteristique_box',
             'unique' => FALSE,
           ),
-          19 => array(
+          20 => array(
             'source' => '23',
             'target' => 'field_caracteristique_cave',
             'unique' => FALSE,
           ),
-          20 => array(
+          21 => array(
             'source' => '27',
             'target' => 'field_bien_statut',
             'unique' => FALSE,
           ),
-          21 => array(
+          22 => array(
             'source' => '28',
             'target' => 'field_parking_description',
             'unique' => FALSE,
           ),
-          22 => array(
+          23 => array(
             'source' => '29',
             'target' => 'field_cave_description',
             'unique' => FALSE,
           ),
-          23 => array(
+          24 => array(
             'source' => '30',
             'target' => 'domains:1',
             'unique' => FALSE,

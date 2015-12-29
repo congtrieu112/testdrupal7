@@ -42,18 +42,39 @@ endif;
 <li data-app-filter-item="<?php print $ville_id; ?>">
     <!-- [squaredImageItem] start-->
     <article class="squaredImageItem false">
-        <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt']; ?>"/></a>
-            <ul class="squaredImageItem__img__tags">
-                <?php if ($row->field_promotion_programme_node_title && $available && $status_promotion && $_SESSION['nouveaute_promotion'] < 3): ?>
-                  <li>
-                      <div class="tag tag--important"><?php print $row->field_promotion_programme_node_title; ?></div>
-                      <div class="mention-legale hidden"><?php print $row->field_field_promotion_mention_legale[0]['rendered']['#markup']; ?></div>
-                  </li>
-                  <?php
-                  $_SESSION['nouveaute_promotion'] += 1;
-                  ?>
-                <?php endif; ?>
-            </ul>
+        <div class="squaredImageItem__img"> <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php  print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_image_principale[0]['raw']['alt']; ?>"/></a>
+            <?php if ($promotion = get_nids_promotions_by_programme($row->nid)): ?>
+                <ul class="squaredImageItem__img__tags">
+                    <?php
+                    foreach ($promotion as $value) :
+                        if (isset($value->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $value->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']):
+                            ?>
+                            <li>
+                                <button data-reveal-trigger="dernieres-<?php print $value->vid; ?>" class="tag tag--important">
+                                    <?php print $value->title; ?>
+                                </button>
+                                <!-- [popin] start-->
+                                <div data-reveal="dernieres-<?php print $value->vid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                    <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                        <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $value->title; ?></strong></p>
+                                        <p><?php print $value->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                                    </div>
+                                </div>
+                                <!-- [popin] end-->
+                            </li>
+                        <?php else : ?>
+                            <li>
+                                <div class="tag tag--important"><?php print $value->title; ?></div>
+                            </li>
+                        <?php endif; ?>
+                        <?php
+                    endforeach;
+                    ?>  
+                    <?php
+                    $_SESSION['nouveaute_promotion'] += 1;
+                    ?>
+                </ul>
+            <?php endif; ?>
         </div>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">

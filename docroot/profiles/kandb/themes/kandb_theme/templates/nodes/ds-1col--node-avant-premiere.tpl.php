@@ -44,26 +44,35 @@ $promotions = get_nids_promotions_by_avant($node->nid);
         <?php else: ?>
           <div class="tag tag--important"><?php print t('Avant-première'); ?></div>
         <?php endif; ?>
-        <?php if ($promotions) : ?>
-          <ul>
-              <?php
-              foreach ($promotions as $promotion) :
-                $triger_promotion = 'promotion-' . $promotion->nid;
-                ?>
-                <li>
-                    <button class="tag tag--important" data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                    <!-- [popin] start-->
-                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                            <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
-                        </div>
-                    </div>
-                </li>
-                <!-- [popin] end-->
-              <?php endforeach; ?>
-          </ul>
-        <?php endif; ?>
+          <?php if ($promotions) : ?>
+              <ul>
+                  <?php
+                  foreach ($promotions as $promotion) :
+                      $triger_promotion = 'promotion-' . $promotion->nid;
+                      if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']):
+                            ?>
+                            <li>
+                                <button data-reveal-trigger="dernieres-<?php print $promotion->vid; ?>" class="tag tag--important">
+                                    <?php print $promotion->title; ?>
+                                </button>
+                                <!-- [popin] start-->
+                                <div data-reveal="dernieres-<?php print $value->vid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                    <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                        <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                        <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                                    </div>
+                                </div>
+                                <!-- [popin] end-->
+                            </li>
+                        <?php else : ?>
+                            <li>
+                                <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                            </li>
+                        <?php endif; ?>
+                      <!-- [popin] end-->
+                  <?php endforeach; ?>
+              </ul>
+          <?php endif; ?>
     </div>
     <div class="programHeader__figure">
         <!-- images need to have 2 formats see data-exchange attribute:
@@ -108,17 +117,26 @@ $promotions = get_nids_promotions_by_avant($node->nid);
                         if ($promotions) :
                             foreach ($promotions as $promotion) :
                                 $triger_promotion = 'promotion-' . $promotion->nid;
-                                ?>
-                                <li>
-                                    <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                                    <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                                        <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                            <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                            <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']):
+                                    ?>
+                                    <li>
+                                        <button data-reveal-trigger="dernieres-<?php print $promotion->vid; ?>" class="tag tag--important">
+                                            <?php print $promotion->title; ?>
+                                        </button>
+                                        <!-- [popin] start-->
+                                        <div data-reveal="dernieres-<?php print $value->vid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                <p><?php print $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']; ?></p>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <!-- [popin] end-->
-                                </li>
+                                        <!-- [popin] end-->
+                                    </li>
+                                <?php else : ?>
+                                    <li>
+                                        <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                         <?php endif; ?>
                     </ul>

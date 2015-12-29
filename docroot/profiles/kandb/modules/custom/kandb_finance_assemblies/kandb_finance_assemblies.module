@@ -1,0 +1,143 @@
+<?php
+/**
+ * @file
+ * Finance assemblies.
+ */
+
+/**
+ * Implementation of hook_menu()
+ * @return array
+ */
+function kandb_finance_assemblies_menu() {
+
+  $items = array();
+
+  $items['corporate/finance/assemblee-generale'] = array(
+    'title' => 'Assemblées générales',
+    'page callback' => 'kandb_finance_assemblies_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  // Front--finance-assemblies page
+  $items['corporate/finance/assemblee-generale/%'] = array(
+    'title' => 'Assemblées générales',
+    'page callback' => 'kandb_finance_assemblies_page',
+    'page arguments' => array(3),
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_finance_assemblies_theme($existing, $type, $theme, $path) {
+  return array(
+    'assembly' => array(
+      'template' => 'templates/assembly',
+      'variables' => array(),
+    )
+  );
+}
+
+function kandb_finance_assemblies_page($lang = 'fr') {
+  $language_id = 0;
+  $tids = array();
+  $assembly_content = array();
+  $document_types = array();
+  if ($lang != 'en') {
+    $lang = 'fr';
+  }
+  else {
+    $language_id = 1;
+  }
+  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
+  if (isset($document_voca->vid)) {
+    $all_terms = taxonomy_get_tree($document_voca->vid);
+    foreach ($all_terms as $term) {
+      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
+        $tids[] = $term->tid;
+        $document_types[$term->tid] = strtoupper($term->name);
+      }
+    }
+  }
+  if (!empty($tids) && !empty($document_types)) {
+    $assembly_content = finance_assemblies_get_nodes($tids, $language_id, $document_types);
+    return theme('assembly', array('assembly_content' => $assembly_content, 'pager' => theme('pager')));
+  }
+  else {
+    drupal_set_message('There are no content on this page');
+    return '';
+  }
+}
+
+function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $document_types = array()) {
+  if (empty($tids) || empty($document_types)) {
+    return array();
+  }
+  $latest_year = date('Y', time());
+  $db_query_latest_year = db_select('field_data_field_document_date', 'dd');
+  $db_query_latest_year->fields('dd', array('field_document_date_value'));
+  $db_query_latest_year->condition('dd.entity_type', 'node');
+  $db_query_latest_year->condition('dd.bundle', 'document');
+  $db_query_latest_year->orderBy('dd.field_document_date_value', 'DESC');
+  $latest_time = $db_query_latest_year->execute()->fetchField();
+  if ($latest_time) {
+    $latest_year = date('Y',strtotime($latest_time));
+  }
+  $start_time = strtotime($latest_year . '-00-00 00:00:00');
+  $end_time = strtotime($latest_year . '-12-31 23:59:59');
+  $content = array();
+  $db_query = db_select('node', 'n')->extend('PagerDefault');
+  $db_query->fields('n', array('nid'));
+  $db_query->condition('n.type', 'document');
+  $db_query->condition('n.status', 1);
+  $db_query->condition('n.title', '', '<>');
+
+  $db_query->leftJoin('field_data_field_document_type', 'dt', 'dt.entity_id=n.nid');
+  $db_query->condition('dt.entity_type', 'node');
+  $db_query->condition('dt.bundle', 'document');
+  $db_query->condition('dt.field_document_type_tid', $tids, 'IN');
+
+  $db_query->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
+  $db_query->condition('dl.entity_type', 'node');
+  $db_query->condition('dl.bundle', 'document');
+  $db_query->condition('dl.field_langue_value', $language_id);
+
+  $db_query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
+  $db_query->condition('df.entity_type', 'node');
+  $db_query->condition('df.bundle', 'document');
+  $db_query->isNotNull('df.field_document_file_fid');
+  
+  $db_query->leftJoin('field_data_field_document_id', 'di', 'di.entity_id=n.nid');
+  $db_query->condition('di.entity_type', 'node');
+  $db_query->condition('di.bundle', 'document');
+  $db_query->isNotNull('di.field_document_id_value');
+
+  $db_query->leftJoin('field_data_field_document_date', 'dd', 'dd.entity_id=n.nid');
+  $db_query->condition('dd.entity_type', 'node');
+  $db_query->condition('dd.bundle', 'document');
+  $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) > :val_start', array('val_start' => $start_time));
+  $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) < :val_end', array('val_end' => $end_time));
+  $db_query->addField('dd', 'field_document_date_value');
+
+  $db_query->orderBy('di.field_document_id_value', 'ASC');
+  $db_query->limit(50);
+  $results = $db_query->distinct()->execute()->fetchAll();
+  foreach ($results as $res) {
+    $node = node_load($res->nid);
+    $date = $node->nid . date('Ymd', strtotime($res->field_document_date_value));
+    if (!isset($node->title) || $node->title == '' || !isset($node->field_document_file[LANGUAGE_NONE][0]['fid'])) {
+      continue;
+    }
+    if (!isset($content[$date][$document_types[$node->field_document_type[LANGUAGE_NONE][0]['tid']]]['nodes'])) {
+      $content[$date][$document_types[$node->field_document_type[LANGUAGE_NONE][0]['tid']]]['nodes'] = array();
+      $content[$date][$document_types[$node->field_document_type[LANGUAGE_NONE][0]['tid']]]['date'] = date('d M Y', strtotime($node->field_document_date[LANGUAGE_NONE][0]['value']));
+    }
+    $content[$date][$document_types[$node->field_document_type[LANGUAGE_NONE][0]['tid']]]['nodes'][] = $node;
+  }
+  return $content;
+}

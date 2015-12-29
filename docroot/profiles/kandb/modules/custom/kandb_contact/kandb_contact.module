@@ -13,7 +13,7 @@ function kandb_contact_menu() {
     'description' => 'Change the contact information of the contact block.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_admin'),
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer content settings'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -22,7 +22,7 @@ function kandb_contact_menu() {
     'description' => 'Set ID webform for contact form.',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_contact_webform'),
-    'access arguments' => array('administer'),
+    'access arguments' => array('super admin only'),
     'type' => MENU_NORMAL_ITEM,
   );
 
@@ -32,10 +32,26 @@ function kandb_contact_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('webform_contact_list_submitted_data'),
     'type' => MENU_NORMAL_ITEM,
-    'access arguments' => array('administer'),
+    'access arguments' => array('access download'),
   );
 
   return $items;
+}
+
+/**
+ * Implements hook_permission().
+ */
+function kandb_contact_permission() {
+  return array(
+    'administer content settings' => array(
+      'title' => t('Edit the content'),
+      'description' => t('Provide the right to change the content on the contact blocks.'),
+    ),
+    'access download' => array(
+      'title' => t('Access and download report'),
+      'description' => t('Access the webform submit data page and download the export.'),
+    ),
+  );
 }
 
 /**
@@ -286,19 +302,19 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
   // Get webform Prendre rendez-vous.
   $webform_prendre_rendez_vous = webform_features_machine_name_load('prendre_rendez_vous');
   $webform_id_rendez_vous = isset($webform_prendre_rendez_vous->nid) ? 'webform_client_form_' . $webform_prendre_rendez_vous->nid : '';
-  
+
   // Get webform Être rappelé.
   $webform_etre_rappele = webform_features_machine_name_load('_tre_rappel_');
   $webform_id_etre_rappele = isset($webform_etre_rappele->nid) ? 'webform_client_form_' . $webform_etre_rappele->nid : '';
-  
+
   // Get webform avant_contactez_nous.
   $webform_avant_contactez_nous = webform_features_machine_name_load('avant_contactez_nous');
   $webform_id_avant_contactez_nous = isset($webform_avant_contactez_nous->nid) ? 'webform_client_form_' . $webform_avant_contactez_nous->nid : '';
-  
+
 // Get webform telechargement_documents.
   $webform_telechargement_documents = webform_features_machine_name_load('telechargement_documents');
   $webform_id_telechargement_documents = isset($webform_telechargement_documents->nid) ? 'webform_client_form_' . $webform_telechargement_documents->nid : '';
-  
+
   if ($form_id == $webform_id_avant_contactez_nous) {
     $nid = arg(1);
     if (is_numeric($nid)) {
@@ -319,7 +335,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
   if (($form_id == $webform_id_telechargement_documents || $form_id == $webform_id_rendez_vous || $form_id == $webform_id_etre_rappele) && isset($_SERVER["HTTP_REFERER"]) && !empty($_SERVER["HTTP_REFERER"])) {
     global $base_url;
     $referer_path = $_SERVER["HTTP_REFERER"];
-    $referer_path = str_replace($base_url . '/', '', $referer_path);
+    $referer_path = str_replace($base_url . '/', '', urldecode($referer_path));
     $id_referer_path = drupal_get_normal_path($referer_path);
     // Get id node from path alias
     $id_referer_path = explode('/', $id_referer_path)[1];
@@ -557,11 +573,12 @@ function webform_contact_list_submitted_data($form, $form_state) {
   );
 
   if ($results) {
-    $submitted_datas = array();
     foreach ($results as $result) {
       $nid = $result->nid;
       $sid = $result->sid;
       $submission = webform_get_submission($nid, $sid);
+
+      $submitted_datas = array();
       $submitted_datas['date'] = date("m/d/Y", $submission->submitted);
       $submitted_datas['huere'] = date("H:i:j", $submission->submitted);
 

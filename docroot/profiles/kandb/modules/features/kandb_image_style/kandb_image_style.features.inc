@@ -181,6 +181,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: finance_presentation_speech_215_x_215.
+  $styles['finance_presentation_speech_215_x_215'] = array(
+    'label' => 'Finance Presentation Speech (215 x 215)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 215,
+          'height' => 215,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: homepageb2b_backgound_large.
   $styles['homepageb2b_backgound_large'] = array(
     'label' => 'HomepageB2B Backgound Large (1380x712)',
@@ -241,6 +256,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: kpi_component_580_x_296.
+  $styles['kpi_component_580_x_296'] = array(
+    'label' => 'KPI Component (580 x 296)',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 580,
+          'height' => 296,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: program_image_num_piece.
   $styles['program_image_num_piece'] = array(
     'label' => 'Program image num piece',
@@ -260,11 +290,11 @@ function kandb_image_style_image_default_styles() {
   $styles['programme_selection_medium'] = array(
     'label' => 'Programme Selection Medium (300x300)',
     'effects' => array(
-      5 => array(
+      1 => array(
         'name' => 'image_scale_and_crop',
         'data' => array(
-          'width' => 560,
-          'height' => 310,
+          'width' => 300,
+          'height' => 300,
         ),
         'weight' => 1,
       ),
@@ -275,7 +305,7 @@ function kandb_image_style_image_default_styles() {
   $styles['programme_selection_small'] = array(
     'label' => 'Programme Selection Small (560x310) with compression',
     'effects' => array(
-      4 => array(
+      2 => array(
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => 560,
@@ -283,7 +313,7 @@ function kandb_image_style_image_default_styles() {
         ),
         'weight' => 1,
       ),
-      7 => array(
+      3 => array(
         'name' => 'image_style_quality',
         'data' => array(
           'quality' => 10,

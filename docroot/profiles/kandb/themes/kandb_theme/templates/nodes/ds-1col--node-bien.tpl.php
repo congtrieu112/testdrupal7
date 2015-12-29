@@ -15,8 +15,22 @@ if (isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
 }
 
 $nb_pieces = array();
-if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
-  $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+if($bien_type) {
+  $bien_id = isset($bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value']) ? $bien_type->field_id_type_bien[LANGUAGE_NONE][0]['value'] : '';
+  if($bien_id) {
+    switch ($bien_id) {
+    case 'AP':
+      if (isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_pieces[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    case 'MA':
+      if (isset($node->field_nb_chambres[LANGUAGE_NONE][0]['tid'])) {
+        $nb_pieces = taxonomy_term_load($node->field_nb_chambres[LANGUAGE_NONE][0]['tid']);
+      }
+      break;
+    }
+  }
 }
 
 $bien_id = '';
@@ -99,6 +113,36 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                 <?php print $ville ?> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?>
             </div>
         </h1>
+        <ul class="tags-list">
+            <?php
+            $domain_id = 3;
+            $status_bien = 1;
+            if (isset($node->domains[$domain_id]) && $node->domains[$domain_id] == $domain_id && isset($node->field_bien_statut[LANGUAGE_NONE][0]['tid']) && $node->field_bien_statut[LANGUAGE_NONE][0]['tid'] == get_tid_by_id_field($status_bien)) :
+                if ($promotions = get_nids_promotions_by_bien($node->nid)) :
+                    foreach ($promotions as $promotion) :
+                        $triger_promotion = 'promotion-' . $promotion->nid;
+                        if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                            ?>
+                            <li>
+                                <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                    <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                        <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                        <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                    </div>
+                                </div>
+                                <!-- [popin] end-->
+                            </li>
+                        <?php else : ?>
+                            <li>
+                                <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                            </li>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            <?php endif; ?>
+        </ul>
+        
     </div>
 
     <?php
@@ -173,17 +217,23 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                             if ($promotions = get_nids_promotions_by_bien($node->nid)) :
                                 foreach ($promotions as $promotion) :
                                     $triger_promotion = 'promotion-' . $promotion->nid;
-                                    ?>
-                                    <li>
-                                        <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
-                                        <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
-                                            <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-                                                <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
-                                                <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                    if (isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) && $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) :
+                                        ?>
+                                        <li>
+                                            <button class="tag tag--important" data-reveal-trigger="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" class="tag" tabindex="0"><?php print $promotion->title; ?></button>
+                                            <div data-reveal="<?php print $triger_promotion; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
+                                                <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+                                                    <p class="heading heading--bordered heading--small"><strong class="heading__title"><?php print $promotion->title; ?></strong></p>
+                                                    <p><?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value'] : ''; ?></p>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <!-- [popin] end-->
-                                    </li>
+                                            <!-- [popin] end-->
+                                        </li>
+                                    <?php else : ?>
+                                        <li>
+                                            <div class="tag tag--important"><?php print $promotion->title; ?></div>
+                                        </li>
+                                    <?php endif; ?>
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         <?php endif; ?>
@@ -266,10 +316,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
                         $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $caracteristique->name . '</span>';
-                        if ($caracteristique->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $caracteristique->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $caracteristique->name . ' '.(($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' :'').'</span>';
                         print '</li>';
                       endforeach;
                     endif;
@@ -279,10 +327,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($jardin[0]['value']) && $jardin[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Jardin', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -290,10 +336,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($balcon[0]['value']) && $balcon[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Balcon', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -301,10 +345,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($terrasse[0]['value']) && $terrasse[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Terrasse', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -312,10 +354,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($parking[0]['value']) && $parking[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Parking', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -323,10 +363,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($box[0]['value']) && $box[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Box', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -334,10 +372,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     if (isset($cave[0]['value']) && $cave[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Cave', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span><span class="text">' . $icons[0]->name . '</span>';
-                        if ($icons[0]->description):
-                          print '<span data-tooltip aria-haspopup="true" title="' . $icons[0]->description . '" class="has-tip">?</span>';
-                        endif;
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $icons[0]->name . ' '.(($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '').'</span>';
                         print '</li>';
                       endif;
                     endif;
@@ -354,8 +390,8 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
                       <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
                     <?php endif; ?>
-                      
-                    <?php if(kandb_check_filled_form_contact($programme)):?>  
+
+                    <?php if(kandb_check_filled_form_contact($programme)):?>
                       <li><a href="#contact" data-scroll-to  class="btn-white"><span class="icon icon-leaf"></span><span class="text"><?php print t('Espace de vente'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
@@ -454,17 +490,19 @@ if (!empty($list_bien_more)):
               <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>
-      <div class="wrapper">
+      <div class="wrapper--narrow">
           <div class="moreAvailable">
               <table class="responsive">
                   <tbody>
                       <?php
                       foreach ($list_bien_more as $item):
+
                         if ($item->nid == $node->nid) {
                           continue;
                         } else {
                           $bien_more = node_load($item->nid);
-                          if(!in_array($gid, $bien_more->domains)) {
+                          $bien_more_status = isset($bien_more->status) ? $bien_more->status : 0;
+                          if(!in_array($gid, $bien_more->domains) || !$bien_more_status) {
                             continue;
                           }
                           $bien_id = explode('-', $bien_more->field_id_bien[LANGUAGE_NONE][0]["value"]);
@@ -476,14 +514,15 @@ if (!empty($list_bien_more)):
                             <td>
                                 <div class="list-item">
                                     <div class="item-promotion">
+                                        <ul class="tags-list">
                                         <?php
                                         $promotions = get_nids_promotions_by_bien($bien_more->nid);
                                         if ($promotions):
                                           foreach ($promotions as $promotion):
-                                            $triger_promotion = 'promotion-' . $promotion->nid;
+                                            $triger_promotion = 'moreAvailable-promotion-' . $promotion->nid;
                                             ?>
+                                            <li>
                                             <button data-reveal-trigger="<?php print $triger_promotion; ?>" class="tag tag--important"><?php print $promotion->title; ?></button>
-                                            <br><br>
                                             <!-- [popin] start-->
                                             <div data-reveal="<?php print isset($promotion->field_promotion_mention_legale[LANGUAGE_NONE][0]['value']) ? $triger_promotion : ''; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                                                 <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -492,10 +531,12 @@ if (!empty($list_bien_more)):
                                                 </div>
                                             </div>
                                             <!-- [popin] end-->
+                                            </li>
                                             <?php
                                           endforeach;
                                         endif;
                                         ?>
+                                        </ul>
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
@@ -521,7 +562,7 @@ if (!empty($list_bien_more)):
                                                         }
 
                                                         $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+                                                        $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
                                                         //endedit
                                                         ?>
                                                         <?php if (count($arr_caracteris) > 0) : ?>

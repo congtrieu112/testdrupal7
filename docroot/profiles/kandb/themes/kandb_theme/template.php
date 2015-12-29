@@ -9,6 +9,35 @@ if (!defined('TAXONOMY_STATUS_LOGEMENT_DISPONIBLE')) {
 
 // Constant to see if the page is loaded in AJAX
 define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest') ? TRUE : FALSE);
+/**
+ *  insert class  into the body page template.
+ */
+
+function kandb_theme_preprocess_html(&$variables) {
+  $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  // Change template on AJAX request
+  if (IS_AJAX) {
+    $variables['theme_hook_suggestions'][] = 'html__ajax';
+  }
+}
+
+/**
+ * Implements hook_js_alter()
+ */
+function kandb_theme_js_alter(&$javascript) {
+  // Change template on AJAX request
+  if (IS_AJAX) {
+    if (menu_get_object()->type == 'webform') {
+      unset($javascript[drupal_get_path('theme', 'kandb_theme') . '/js/bundle.js']);
+      unset($javascript[drupal_get_path('theme', 'kandb_theme') . '/js/modernizr.js']);
+      foreach ($javascript as $key => $js_array) {
+        if (strpos($key, 'watcheezy') !== FALSE) {
+          unset($javascript[$key]);
+        }
+      }
+    };
+  }
+}
 
 /**
  * Override or insert variables into the page template.
@@ -153,6 +182,7 @@ function kandb_theme_get_path($dir_name = NULL, $theme_name = NULL) {
  * Implemnts hook_preprocess_node().
  */
 function kandb_theme_preprocess_node(&$vars) {
+  global $_domain;
   $arg = arg();
   global $user;
   switch ($vars['view_mode']) {
@@ -268,9 +298,26 @@ function kandb_theme_preprocess_node(&$vars) {
     }
 
     $vars['annee'] = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
-    $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
-    $pieces_min = isset($node->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
-    $pieces_max = isset($node->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $vars['flat_available'] = isset($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+      }
+    }
+
+    $pieces_min = 0; $pieces_max = 0;
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $pieces_min = isset($node->field_programme_room_min_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min_b[LANGUAGE_NONE][0]['value'] : '';
+        $pieces_max = isset($node->field_programme_room_max_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max_b[LANGUAGE_NONE][0]['value'] : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $pieces_min = isset($node->field_programme_room_min[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min[LANGUAGE_NONE][0]['value'] : '';
+        $pieces_max = isset($node->field_programme_room_max[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max[LANGUAGE_NONE][0]['value'] : '';
+      }
+    }
+
 
     $vars['de_a_pieces'] = '';
     if ($pieces_min && $pieces_max) {
@@ -283,8 +330,16 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
     }
 
-    $price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
-    $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+    $price_tva_min = 0; $price_tva_max = 0;
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $price_tva_min = isset($node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value']) : '';
+        $price_tva_max = isset($node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value']) : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+        $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+      }
+    }
 
     $vars['de_a_price_tva'] = '';
     if ($price_tva_min && $price_tva_max) {
@@ -300,8 +355,16 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['tva'] = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
     $vars['affichage_double_grille'] = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : 0;
 
-    $price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
-    $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+    $price_min = 0; $price_max = 0;
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $price_min = isset($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) : '';
+        $price_max = isset($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+        $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+      }
+    }
 
     $vars['de_a_price'] = '';
     if ($price_min && $price_max) {
@@ -416,10 +479,29 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['video_id'] = isset($node->field_quartier_video[LANGUAGE_NONE][0]['video_id']) ? $node->field_quartier_video[LANGUAGE_NONE][0]['video_id'] : '';
     $vars['logementBlock'] = module_invoke('kandb_programme', 'block_view', 'logement_block');
     $vars['program_characteristic'] = module_invoke('kandb_programme', 'block_view', 'program_characteristic');
-    $vars['loc_num'] = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
-    $vars['loc_rue'] = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
-    
-    /**
+    $loc_num = isset($node->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
+    $loc_rue = isset($node->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $node->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+    $type_voie = isset($node->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $node->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';
+    $type_voies = taxonomy_term_load($type_voie);
+    $type_voies_name = isset($type_voies->name) ? $type_voies->name : '';
+    $space = '&nbsp;';
+    $html = '';
+    $vars['address'] = '';
+    if ($loc_num || $type_voies_name || $loc_rue) {
+
+        if ($loc_num && !$type_voies_name) {
+            $html = $loc_num . $space . $loc_rue;
+        } elseif (!$loc_num && $type_voies_name) {
+            $html = $type_voies_name . $space . $loc_rue;
+        } elseif (!$loc_num && !$type_voies_name) {
+            $html = $loc_rue;
+        } else {
+            $html = $loc_num . $space . $type_voies_name . $space . $loc_rue;
+        }
+        $vars['address'] = '<p class="text-bold">' . $html . '</p>';
+    }
+
+        /**
      * SLIDER
      */
     $arr_slider = array(
@@ -454,7 +536,7 @@ function kandb_theme_preprocess_node(&$vars) {
 
 
     if(isset($vars['field_image_principale'])){
-      $image = $vars['field_image_principale'][0]['uri'];
+      $image = $vars['field_image_principale'][LANGUAGE_NONE][0]['uri'];
       $vars['programme_selection_very_small'] = image_style_url('programme_selection_very_small', $image);
       $vars['programme_selection_small'] = image_style_url('programme_selection_small', $image);
       $vars['programme_selection_medium'] = image_style_url('programme_selection_medium', $image);
@@ -682,12 +764,11 @@ function kandb_theme_checkbox($variables) {
  */
 function kandb_theme_select($variables) {
   $variables['element']['#attributes']['data-app-select'] = '';
-  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
+  if ($variables['element']['#id'] == 'edit-submitted-row-2-rappeler-horaire' || $variables['element']['#id'] == 'edit-submitted-ap-connu' || $variables['element']['#id'] == 'edit-submitted-rdv-connu') {
     $variables['element']['#options'][''] = '-';
   }
   return theme_select($variables);
 }
-
 /**
  * Implementation of hook_css_alter()
  */
