@@ -128,12 +128,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '039bd663-6017-487f-8a60-71ac0247ebf6',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
+    'field_icon_name' => array(),
+    'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-plein-pied',
-          'format' => NULL,
-          'safe_value' => 'icon-plein-pied',
+          'value' => 0,
         ),
       ),
     ),
@@ -290,14 +289,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Résultat estimé au 3ème trimestre',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '0c7291f0-46d5-47aa-aec2-7d7dc40197ca',
-    'vocabulary_machine_name' => 'sous_type_document',
-  );
-  $terms[] = array(
     'name' => 'SUD/SUD-EST/NORD-EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -327,6 +318,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'N/NO/S',
           'format' => NULL,
           'safe_value' => 'N/NO/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Pack silver',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '0fd28321-995f-4127-93b2-e964fb7c9db2',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-pack-silver',
+          'format' => NULL,
+          'safe_value' => 'icon-pack-silver',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -713,12 +728,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '1c65ab25-d08e-4479-b32b-8337d0629025',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
+    'field_icon_name' => array(),
+    'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-hopitaux',
-          'format' => NULL,
-          'safe_value' => 'icon-hopitaux',
+          'value' => 0,
         ),
       ),
     ),
@@ -753,6 +767,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'SM2I',
           'format' => NULL,
           'safe_value' => 'SM2I',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Etage',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '1e37446e-786a-40f7-86f6-57a9ea249178',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-4etage',
+          'format' => NULL,
+          'safe_value' => 'icon-4etage',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -1045,15 +1083,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'Métro',
-    'description' => '',
-    'format' => 'filtered_html',
-    'weight' => 0,
-    'uuid' => '26cd475e-28a5-40a2-bccc-da0415bfb37b',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
   );
   $terms[] = array(
     'name' => 'SUD-OUEST/EST',
@@ -1426,7 +1455,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Vidéophone / interphone',
+    'name' => 'Digicode & Interphone',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 0,
@@ -1435,9 +1464,9 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_picto_css_class' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-digicode-videophone',
+          'value' => 'icon-digicode-interphone',
           'format' => NULL,
-          'safe_value' => 'icon-digicode-videophone',
+          'safe_value' => 'icon-digicode-interphone',
         ),
       ),
     ),
@@ -2047,12 +2076,53 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Climatisation',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '44835a21-8819-4cc1-b340-9e18a093e8ed',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-climatisation',
+          'format' => NULL,
+          'safe_value' => 'icon-climatisation',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Lorraine',
     'description' => '',
     'format' => 'filtered_html',
     'weight' => 0,
     'uuid' => '4497554f-08f7-49c7-8444-654ccf21706e',
     'vocabulary_machine_name' => 'region',
+  );
+  $terms[] = array(
+    'name' => 'Chauffage',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '45b28b8a-b856-4bbe-86c1-342b2942872a',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-chauffage',
+          'format' => NULL,
+          'safe_value' => 'icon-chauffage',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Loire Atlantique',
@@ -2178,6 +2248,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
       ),
     ),
     'field_region' => array(),
+  );
+  $terms[] = array(
+    'name' => 'Accès mobilité Réduite',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '4b6c894c-d185-45a6-aad8-1ab1aaf9f2f7',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(),
   );
   $terms[] = array(
     'name' => 'Lot',
@@ -2343,6 +2422,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Digicode & Vidéophone',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '500649de-89fc-4dd0-bf6e-7236fbb9ce36',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-digicode-videophone',
+          'format' => NULL,
+          'safe_value' => 'icon-digicode-videophone',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD/OUEST/SUD-EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -2375,6 +2471,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Corrèze',
@@ -2768,12 +2865,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '5bcb4a56-fc94-46f2-ae83-085390b44107',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
+    'field_icon_name' => array(),
+    'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-6etages',
-          'format' => NULL,
-          'safe_value' => 'icon-6etages',
+          'value' => 0,
         ),
       ),
     ),
@@ -2851,6 +2947,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'SUD-EST/NORD',
@@ -2938,6 +3035,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'BBC',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '63532d24-d9e5-4aa0-bbbc-3d828f1cecc2',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(),
+  );
+  $terms[] = array(
     'name' => '25 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -3008,6 +3114,22 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'SEFI',
           'format' => NULL,
           'safe_value' => 'SEFI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Terrain',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '68c19579-dd07-4ee5-8e82-032b5a255338',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -3239,6 +3361,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Orientation',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '702e732c-8b2e-40ec-b75e-def4ad7bae37',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-sud-sud-est',
+          'format' => NULL,
+          'safe_value' => 'icon-sud-sud-est',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '5 / 6 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -3373,6 +3519,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Vigik',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '751aa427-a36c-4dba-a2fb-2ca8ea6bc999',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-vigik',
+          'format' => NULL,
+          'safe_value' => 'icon-vigik',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Charente Maritime',
     'description' => '',
     'format' => 'filtered_html',
@@ -3496,14 +3659,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Publication des résultats au premier trimestre',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 1,
-    'uuid' => '7ad6c976-a259-44a4-8bfa-93d2d682a577',
-    'vocabulary_machine_name' => 'sous_type_document',
-  );
-  $terms[] = array(
     'name' => 'OUEST/EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -3519,15 +3674,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'Train',
-    'description' => '',
-    'format' => 'filtered_html',
-    'weight' => 0,
-    'uuid' => '7ef30dbc-1f5f-4f9d-b6ac-113fc66e0ac9',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
   );
   $terms[] = array(
     'name' => 'Hauts de Seine',
@@ -3903,6 +4049,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Domotique',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '8b393649-e9fe-499d-b834-ee6c73ef241a',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-domotique',
+          'format' => NULL,
+          'safe_value' => 'icon-domotique',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '29 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -4110,15 +4280,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'RER',
-    'description' => '',
-    'format' => 'filtered_html',
-    'weight' => 0,
-    'uuid' => '94142950-8942-4790-a010-57d95ba8fb1f',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
   );
   $terms[] = array(
     'name' => 'Cantal',
@@ -4337,6 +4498,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'SUD/NORD-EST',
@@ -4416,6 +4578,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'CO',
           'format' => NULL,
           'safe_value' => 'CO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Box',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'a588ded9-efb2-4dc6-8480-e51eb868d45e',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-box',
+          'format' => NULL,
+          'safe_value' => 'icon-box',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -4708,12 +4894,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'af354588-f627-435e-844d-98e82e6701dd',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
+    'field_icon_name' => array(),
+    'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-ecole',
-          'format' => NULL,
-          'safe_value' => 'icon-ecole',
+          'value' => 0,
         ),
       ),
     ),
@@ -4790,6 +4975,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'MI',
           'format' => NULL,
           'safe_value' => 'MI',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Idéal Résidence Secondaire',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'b1b86290-d5ca-4201-896a-de3b5e95b07a',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-residence-secondaire',
+          'format' => NULL,
+          'safe_value' => 'icon-residence-secondaire',
         ),
       ),
     ),
@@ -4904,7 +5106,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Jardin',
+    'name' => 'Jardin Privatif',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 0,
@@ -4916,6 +5118,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'icon-jardin-privatif',
           'format' => NULL,
           'safe_value' => 'icon-jardin-privatif',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -5037,6 +5246,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Jardin paysager',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'bc20cf15-e074-44ad-a408-c95c09c82234',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-jardin-paysager',
+          'format' => NULL,
+          'safe_value' => 'icon-jardin-paysager',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Duplex',
     'description' => '',
     'format' => 'plain_text',
@@ -5052,6 +5278,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => '8 / 9 ème étage',
@@ -5517,12 +5744,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'ce124ec1-4ade-4f49-9438-f47e8ab85e86',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
+    'field_icon_name' => array(),
+    'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 'icon-terrasse',
-          'format' => NULL,
-          'safe_value' => 'icon-terrasse',
+          'value' => 0,
         ),
       ),
     ),
@@ -5552,6 +5778,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'uuid' => 'ce6f6fa8-9ab1-4bfb-b6d2-b627bf110818',
     'vocabulary_machine_name' => 'caracteristiques',
     'field_icon_name' => array(),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Basse-Normandie',
@@ -6161,6 +6388,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Cave',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e26166cf-8cc7-4771-8c94-56292a4bd8c4',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-cave',
+          'format' => NULL,
+          'safe_value' => 'icon-cave',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORDNORD-OUEST/SUDSUD-EST',
     'description' => '',
     'format' => 'filtered_html',
@@ -6193,14 +6444,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'Présentation',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 2,
-    'uuid' => 'e2f674ad-1eb6-4617-9b71-6348e0a238bb',
-    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'Alpes de Haute Provence',
@@ -6350,6 +6593,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Loggia',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e61278ee-6645-4e1f-bd0b-3702d5362b17',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-loggia',
+          'format' => NULL,
+          'safe_value' => 'icon-loggia',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Aude',
     'description' => '',
     'format' => 'filtered_html',
@@ -6398,6 +6665,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Gardien',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e8b49f7a-3738-41b5-a548-294da4589e5b',
+    'vocabulary_machine_name' => 'caracteristiques_programme',
+    'field_picto_css_class' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-gardien',
+          'format' => NULL,
+          'safe_value' => 'icon-gardien',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'EST/OUEST/NORD/SUD',
     'description' => '',
     'format' => 'filtered_html',
@@ -6410,6 +6694,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'E/O/N/S',
           'format' => NULL,
           'safe_value' => 'E/O/N/S',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Idéal résidence secondaire',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'e8fdacde-4af8-40fb-909c-111d62eea41a',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-residence-secondaire',
+          'format' => NULL,
+          'safe_value' => 'icon-residence-secondaire',
+        ),
+      ),
+    ),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
@@ -6921,6 +7229,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Local Vélo',
@@ -6983,6 +7292,22 @@ function kandb_taxonomy_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Accès mobilité réduite',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'fdc23854-6ea5-4860-a58d-57d35aff1c25',
+    'vocabulary_machine_name' => 'caracteristiques',
+    'field_icon_name' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
         ),
       ),
     ),
