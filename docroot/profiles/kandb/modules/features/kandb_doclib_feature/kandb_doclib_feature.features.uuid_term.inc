@@ -11,14 +11,6 @@ function kandb_doclib_feature_uuid_features_default_terms() {
   $terms = array();
 
   $terms[] = array(
-    'name' => 'Résultat estimé au 3ème trimestre',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 4,
-    'uuid' => '0c7291f0-46d5-47aa-aec2-7d7dc40197ca',
-    'vocabulary_machine_name' => 'sous_type_document',
-  );
-  $terms[] = array(
     'name' => 'Résultats annuel',
     'description' => '',
     'format' => 'plain_text',
@@ -48,6 +40,14 @@ function kandb_doclib_feature_uuid_features_default_terms() {
     'format' => 'plain_text',
     'weight' => 7,
     'uuid' => '6b279a6f-5c1b-4cf4-bf14-c08ad494ff52',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
+    'name' => 'Documents relatifs aux comptes',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '8586f890-eebc-4f54-86c8-34aa0d9ed115',
     'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
