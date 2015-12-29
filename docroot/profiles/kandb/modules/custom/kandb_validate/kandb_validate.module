@@ -410,13 +410,9 @@ function alias_with_dossier($id_node,$id_dossier){
     $url = "";
     $query = db_select('url_alias', 'n')
       ->fields('n', array('alias'))
-      ->condition('source', 'node/' . $id_node);
-    $alias = $query->execute()->fetchCol();
-    foreach ($alias as $item){
-        if (strpos($item, $alias_dossiers) !== false) {
-            $url = $item;
-        }
-    }
-    return $url;
+      ->condition('source', 'node/' . $id_node)
+      ->condition('alias', '%' . $alias_dossiers . '%', 'LIKE');
+    $alias = $query->execute()->fetchField();
+    return $alias;
 
 }
