@@ -398,3 +398,25 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
     }
   }
 }
+
+/**
+ * Custom alias  by Dossier
+ * @param int $id_node and int $id_dossier .
+ *
+ */
+function alias_with_dossier($id_node,$id_dossier){
+    $alias_dossier = url('node/'. $id_dossier);
+    $alias_dossiers = str_replace('/', '', $alias_dossier);
+    $url = "";
+    $query = db_select('url_alias', 'n')
+      ->fields('n', array('alias'))
+      ->condition('source', 'node/' . $id_node);
+    $alias = $query->execute()->fetchCol();
+    foreach ($alias as $item){
+        if (strpos($item, $alias_dossiers) !== false) {
+            $url = $item;
+        }
+    }
+    return $url;
+
+}
