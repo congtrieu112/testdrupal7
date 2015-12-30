@@ -22,6 +22,18 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#title' => t('CTA Links'),
     '#tree' => TRUE,
   );
+  $form['fieldset_recruitment_section'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Recruitment Section',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_agenda_section'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Agenda Section',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
 
   $number_cta = NUMBER_CTA_RH;
   $default_menu_titles = unserialize(KANDB_GROUP_RH_HEADER_MENU_DEFAULT_TITLES);
@@ -54,6 +66,95 @@ function kandb_group_rh_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
+
+  $form['fieldset_recruitment_section']['image_group_hr_recruitment_section'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block Recruitment Section',
+    '#default_value' => variable_get('image_group_hr_recruitment_section'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_recruitment_section']['title_group_hr_recruitment_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_hr_recruitment_section', t('Recrutement')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_recruitment_section']['subtitle_group_hr_recruitment_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('SubTitle block'),
+    '#default_value' => variable_get('subtitle_group_hr_recruitment_section', t('Morbi leo sirus porta ac consectertur, vestibulum at eros.')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_recruitment_section']['desciption_1_group_hr_recruitment_section'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description 1'),
+    '#default_value' => variable_get('desciption_1_group_hr_recruitment_section'),
+  );
+  $form['fieldset_recruitment_section']['desciption_2_group_hr_recruitment_section'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description 2'),
+    '#default_value' => variable_get('desciption_2_group_hr_recruitment_section'),
+  );
+  // Agenda.
+  $form['fieldset_agenda_section']['title_group_hr_agenda_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title Block'),
+    '#default_value' => variable_get('title_group_hr_agenda_section', t('Agenda')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_agenda_section']['image_group_hr_agenda_section_1'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block Agenda Section block 1',
+    '#default_value' => variable_get('image_group_hr_agenda_section_1'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_agenda_section']['date_group_hr_agenda_section_1'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date 1'),
+    '#default_value' => variable_get('date_group_hr_agenda_section_1'),
+    '#date_format' => 'Y-m-d',
+  );
+  $form['fieldset_agenda_section']['title_group_hr_agenda_section_1'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title 1'),
+    '#default_value' => variable_get('title_group_hr_agenda_section_1', t('Forum des métiers du batiment')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_agenda_section']['description_group_hr_agenda_section_1'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description 1'),
+    '#default_value' => variable_get('description_group_hr_agenda_section_1'),
+  );
+
+  $form['fieldset_agenda_section']['image_group_hr_agenda_section_2'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block Agenda Section block 2',
+    '#default_value' => variable_get('image_group_hr_agenda_section_2'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_agenda_section']['date_group_hr_agenda_section_2'] = array(
+    '#type' => 'date_select',
+    '#title' => t('Date 2'),
+    '#default_value' => variable_get('date_group_hr_agenda_section_2'),
+    '#date_format' => 'Y-m-d',
+  );
+  $form['fieldset_agenda_section']['title_group_hr_agenda_section_2'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title 2'),
+    '#default_value' => variable_get('title_group_hr_agenda_section_2', t('Forum des maisons de France')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_agenda_section']['description_group_hr_agenda_section_2'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description 2'),
+    '#default_value' => variable_get('description_group_hr_agenda_section_2'),
+  );
+
 
   $form['#submit'] = array(
     'kandb_group_settings_cta_link'

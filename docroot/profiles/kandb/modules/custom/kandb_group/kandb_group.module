@@ -32,7 +32,7 @@ define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finan
 
 // RH page.
 define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Recrutement'), t('Explorer nos métiers'), t('Votre carrière'), t(' Postuler'))));
-define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/rh/recrutement', 'corporate/rh/explorer-nos-metiers', 'corporate/rh/votre-carriere', 'corporate/rh/postuler')));
+define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/ressources-humaines/recrutement', 'corporate/ressources-humaines/nos-metiers', 'corporate/ressources-humaines/votre-carriere', 'corporate/ressources-humaines/postuler')));
 
 /**
  * Implement of hook_menu().
@@ -136,7 +136,7 @@ function kandb_group_menu() {
   // HR page.
 
   $items['admin/content/ketb/group/rh'] = array(
-    'title' => '[RH] Setting',
+    'title' => '[RH] - Recrutement',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_admin_form'),
     'file' => 'kandb_group_hr.admin.inc',
@@ -144,7 +144,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['corporate/rh/recrutement'] = array(
+  $items['corporate/ressources-humaines/recrutement'] = array(
     'title' => 'RH - Recrutement',
     'page callback' => 'render_group_rh_recrutement',
     'type' => MENU_CALLBACK,
@@ -152,7 +152,7 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['corporate/rh/explorer-nos-metiers'] = array(
+  $items['corporate/ressources-humaines/nos-metiers'] = array(
     'title' => 'RH - Explorer nos métiers',
     'page callback' => 'render_group_rh_explorer_nos_metiers',
     'type' => MENU_CALLBACK,
@@ -160,7 +160,7 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['corporate/rh/votre-carriere'] = array(
+  $items['corporate/ressources-humaines/votre-carriere'] = array(
     'title' => 'RH - Votre carrière',
     'page callback' => 'render_group_rh_votre_carriere',
     'type' => MENU_CALLBACK,
@@ -168,7 +168,7 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['corporate/rh/postuler'] = array(
+  $items['corporate/ressources-humaines/postuler'] = array(
     'title' => 'RH -  Postuler',
     'page callback' => 'render_group_rh_postuler',
     'type' => MENU_CALLBACK,
@@ -473,4 +473,15 @@ function render_group_rh_votre_carriere() {
 function render_group_rh_postuler() {
   $data = array();
   return theme('group_rh_postuler', array('data' => $data));
+}
+
+function kandb_group_get_image_uri($image_id) {
+  if ($image_id) :
+    $recruitment_section_image = file_load($image_id);
+    if ($recruitment_section_image->uri):
+      return $recruitment_section_image->uri;
+    endif;
+  endif;
+
+  return '';
 }
