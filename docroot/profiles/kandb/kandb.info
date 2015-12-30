@@ -172,6 +172,8 @@ dependencies[] = kandb_grouper
 dependencies[] = kandb_date_formats
 dependencies[] = kandb_finance_gouvernance
 dependencies[] = kandb_taxonomy_comite
+dependencies[] = kandb_region_kb
+dependencies[] = kandb_conseiller_regional
 
 ; Blocks
 dependencies[] = kandb_recherche
