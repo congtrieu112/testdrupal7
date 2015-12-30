@@ -52,7 +52,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_presentation_admin_form'),
     'file' => 'kandb_group.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -78,7 +78,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_home_admin_form'),
     'file' => 'kandb_group_home.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -104,7 +104,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_publication_admin_form'),
     'file' => 'kandb_group_finance_publication.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -113,7 +113,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_header_admin_form'),
     'file' => 'kandb_finance_header.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -246,6 +246,22 @@ function kandb_group_theme($existing, $type, $theme, $path) {
   );
 }
 
+/**
+ * Implement of hook_form_alter().
+ */
+function kandb_group_form_alter(&$form, $form_state, $form_id) {
+  $inscription_form = webform_features_machine_name_load('inscription');
+  $inscription_form_id = isset($inscription_form->nid) ? 'webform_client_form_' . $inscription_form->nid : '';
+  if ($form_id == $inscription_form_id) {
+    $form['submitted']['inscription_email']['#theme_wrappers'] = array();
+    $form['submitted']['inscription_email']['#attributes']['placeholder'] = t('Votre adresse d’email');
+    $form['submitted']['inscription_point_dinteret']['#theme_wrappers'] = array();
+    $form['submitted']['inscription_point_dinteret']['#default_value'] = drupal_get_title();
+    $form['actions']['submit']['#attributes']['class'] = array('webform-submit', 'button-submit', 'js-btn-submit');
+    $form['actions']['submit']['#value'] = t('OK');
+  }
+}
+
 function render_group_homepage() {
   $data = array();
   $documents = kandb_group_get_document_node(LIMIT_DOCUMENT);
@@ -275,27 +291,12 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
+/**
+ * Render Publication page.
+ */
 function render_group_finance_publication($document_type_tid = '', $numof_years = 3, $current_lang = 'fr') {
   $data = array();
 
-  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
-  if ($term_document_id) {
-    $documents_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '=');
-    $documents_explode_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '!=');
-    if ($documents_communique) {
-      $data['documents_communique'] = $documents_communique;
-    }
-    if ($documents_explode_communique) {
-      $data['documents_explode_communique'] = $documents_explode_communique;
-    }
-  }
-
-  $group_header = module_invoke('bean', 'block_view', 'group-header');
-  if (isset($group_header['content']) && $group_header['content']) {
-    $data['group_header'] = $group_header['content'];
-  }
-
-  $query_arr = drupal_get_query_parameters();
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
@@ -312,7 +313,8 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   if ($current_lang == 'en') {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
     $current_lang_key = 1;
-  } else {
+  }
+  else {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
     $current_lang_key = 0;
   }
@@ -372,12 +374,12 @@ function render_finance_presentation_page($current_lang = 'fr') {
 function kandb_group_get_document_node($limit, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'document')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_langue', 'value', 0, '=')
-    ->fieldOrderBy('field_document_date', 'value', 'DESC')
-    ->propertyOrderBy('changed', 'DESC')
-    ->range(0, $limit)
+      ->entityCondition('bundle', 'document')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_langue', 'value', 0, '=')
+      ->fieldOrderBy('field_document_date', 'value', 'DESC')
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, $limit)
   ;
   $result = $query->execute();
   if (isset($result['node'])) {
@@ -445,11 +447,11 @@ function render_group_finance_gouvernance_default() {
 function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'finance_gouvernance')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
-    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
-    ->propertyOrderBy('changed', 'DESC')
+      ->entityCondition('bundle', 'finance_gouvernance')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+      ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+      ->propertyOrderBy('changed', 'DESC')
   ;
   $result = $query->execute();
 
@@ -502,4 +504,16 @@ function kandb_group_get_image_uri($image_id) {
   endif;
 
   return '';
+}
+
+/**
+ * Implements hook_permission().
+ */
+function kandb_group_permission() {
+  return array(
+    'administer K&B group page' => array(
+      'title' => t('Administer K&B group page'),
+      'description' => t('only allow specify roles can access group page'),
+    ),
+  );
 }
