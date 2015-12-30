@@ -53,11 +53,13 @@
                 <h3 class="heading__title heading__title--sub"><?php print t('Vos conseillers régionaux Aquitaine') . ' :'; ?></h3>
                 <ul class="counselors">
                   <?php foreach($conseillers as $conseiller) :
-                    $telephone = $conseiller['conseiller_regional_telephone2'];
+                    $tel = $telephone = $conseiller['conseiller_regional_telephone2'];
                     if($conseiller['conseiller_regional_telephone1'] && $conseiller['conseiller_regional_telephone2']) {
                       $telephone = $conseiller['conseiller_regional_telephone1'] . ' / ' . $conseiller['conseiller_regional_telephone2'];
+                      $tel = $conseiller['conseiller_regional_telephone1'];
                     } elseif($conseiller['conseiller_regional_telephone1'] && !$conseiller['conseiller_regional_telephone2']) {
                       $telephone = $conseiller['conseiller_regional_telephone1'];
+                      $tel = $conseiller['conseiller_regional_telephone1'];
                     }
 
                     $image_path = '';
@@ -71,7 +73,7 @@
                       <span class="icon icon-email"></span>
                     </a>
                     <?php if($telephone) : ?>
-                    <a href="tel:<?php print $telephone; ?>" class="phone">
+                    <a href="tel:<?php print $tel; ?>" class="phone">
                       <?php print $telephone; ?>
                       <span class="icon icon-tel"></span>
                     </a>
