@@ -1,0 +1,4 @@
+name = K&B Page Contact
+core = 7.x
+description = Declare contact page
+package = K&B Development
