@@ -448,6 +448,10 @@ function kandb_group_get_grouvernance_node($tid = array(), $lang) {
  */
 function render_group_rh_recrutement() {
   $data = array();
+  $offers = kandb_group_get_offers(4);
+  if ($offers) {
+    $data['offers'] = $offers;
+  }
   return theme('group_rh_recrutement', array('data' => $data));
 }
 
@@ -484,4 +488,22 @@ function kandb_group_get_image_uri($image_id) {
   endif;
 
   return '';
+}
+
+function kandb_group_get_offers($limit) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'rh_annonce')
+    ->propertyCondition('status', 1)
+    ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
+  ;
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
 }

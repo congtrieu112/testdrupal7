@@ -34,6 +34,12 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  $form['fieldset_offers_section'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Our recent job offers Section',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
 
   $number_cta = NUMBER_CTA_RH;
   $default_menu_titles = unserialize(KANDB_GROUP_RH_HEADER_MENU_DEFAULT_TITLES);
@@ -155,6 +161,13 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#default_value' => variable_get('description_group_hr_agenda_section_2'),
   );
 
+  $form['fieldset_offers_section']['title_group_hr_offres_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('SubTitle block'),
+    '#default_value' => variable_get('title_group_hr_offres_section', t('Nos dernières offres d’emploi')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
 
   $form['#submit'] = array(
     'kandb_group_settings_cta_link'

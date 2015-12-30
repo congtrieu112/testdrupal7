@@ -94,56 +94,35 @@ endif;
 </div>
 </section>
 <!-- [diary] end-->
-<!-- [latest Jobs] start-->
-<section class="section-padding latestJobs">
-    <div class="wrapper">
-        <header class="heading heading--bordered">
-            <h3 class="heading__title">Nos dernières offres d’emploi</h3>
-        </header>
-        <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="latestJobs__list">
-            <div class="latestJobs__item column medium-4 large-3">
-                <div class="latestJobs__item__content">
-                    <div class="latestJobs__item__heading">
-                        <h4 class="latestJobs__item__date">20.06.2015</h4>
-                        <h4 class="latestJobs__item__title">Comptable Général</h4><span class="latestJobs__item__address">Neuilly-Sur-Seine</span>
-                    </div>
-                    <p>En charge du suivi comptable de SCI et SNC, vous gérez les éléments suivants : suivi comptable…</p>
-                    <p class="text-bold">Expérience exigée :<span>5 ans minimum</span></p>
-                </div><a href="#" class="btn-rounded btn-primary">Voir l’offre<span class="icon icon-arrow"></span></a>
-            </div>
-            <div class="latestJobs__item column medium-4 large-3">
-                <div class="latestJobs__item__content">
-                    <div class="latestJobs__item__heading">
-                        <h4 class="latestJobs__item__date">20.06.2015</h4>
-                        <h4 class="latestJobs__item__title">Directeur Région</h4><span class="latestJobs__item__address">Nice</span>
-                    </div>
-                    <p>En charge du suivi comptable de SCI et SNC, vous gérez les éléments suivants : suivi comptable…</p>
-                    <p class="text-bold">Expérience exigée :<span>4 ans minimum</span></p>
-                </div><a href="#" class="btn-rounded btn-primary">Voir l’offre<span class="icon icon-arrow"></span></a>
-            </div>
-            <div class="latestJobs__item column medium-4 large-3">
-                <div class="latestJobs__item__content">
-                    <div class="latestJobs__item__heading">
-                        <h4 class="latestJobs__item__date">20.06.2015</h4>
-                        <h4 class="latestJobs__item__title">Comptable Général</h4><span class="latestJobs__item__address">Neuilly-Sur-Seine</span>
-                    </div>
-                    <p>En charge du suivi comptable de SCI et SNC, vous gérez les éléments suivants : suivi comptable…</p>
-                    <p class="text-bold">Expérience exigée :<span>3 ans minimum</span></p>
-                </div><a href="#" class="btn-rounded btn-primary">Voir l’offre<span class="icon icon-arrow"></span></a>
-            </div>
-            <div class="latestJobs__item column medium-4 large-3">
-                <div class="latestJobs__item__content">
-                    <div class="latestJobs__item__heading">
-                        <h4 class="latestJobs__item__date">20.06.2015</h4>
-                        <h4 class="latestJobs__item__title">Manager finance</h4><span class="latestJobs__item__address">Paris</span>
-                    </div>
-                    <p>En charge du suivi comptable de SCI et SNC, vous gérez les éléments suivants : suivi comptable…</p>
-                    <p class="text-bold">Expérience exigée :<span>5 ans minimum</span></p>
-                </div><a href="#" class="btn-rounded btn-primary">Voir l’offre<span class="icon icon-arrow"></span></a>
-            </div>
-        </div>
-        <div class="btn-wrapper"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
-        </div>
-    </div>
-</section>
-<!-- [latest Jobs] end-->
+<?php if (isset($data['offers']) && $data['offers']): ?>
+  <!-- [latest Jobs] start-->
+  <section class="section-padding latestJobs">
+      <div class="wrapper">
+          <header class="heading heading--bordered">
+              <h3 class="heading__title"><?php print variable_get('title_group_hr_offres_section', t('Nos dernières offres d’emploi')); ?></h3>
+          </header>
+          <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="latestJobs__list">
+              <?php
+              foreach ($data['offers'] as $item) :
+                $tax_fonction = isset($item->field_annonce_fonction[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($item->field_annonce_fonction[LANGUAGE_NONE][0]['tid']) : '';
+                $tax_ville = isset($item->field_annonce_ville[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($item->field_annonce_ville[LANGUAGE_NONE][0]['tid']) : '';
+                $tax_exp = isset($item->field_annonce_experience[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($item->field_annonce_experience[LANGUAGE_NONE][0]['tid']) : '';
+                ?>
+                <div class="latestJobs__item column medium-4 large-3">
+                    <div class="latestJobs__item__content">
+                        <div class="latestJobs__item__heading">
+                            <h4 class="latestJobs__item__date"><?php print date('d.m.Y', strtotime($item->field_annonce_date_debut[LANGUAGE_NONE][0]['value'])); ?></h4>
+                            <h4 class="latestJobs__item__title"><?php print isset($tax_fonction->name) ? $tax_fonction->name : ''  ?></h4><span class="latestJobs__item__address"><?php print isset($tax_ville->name) ? $tax_ville->name : ''  ?></span>
+                        </div>
+                        <p><?php print truncate_utf8($item->field_annonce_description[LANGUAGE_NONE][0]['value'], '200', TRUE, TRUE); ?></p>
+                        <p class="text-bold"><?php print t('Expérience exigée'); ?> :<span><?php print isset($tax_exp->name) ? $tax_exp->name : ''; ?></span></p>
+                    </div><a href="<?php print url('node/' . $item->nid); ?>" class="btn-rounded btn-primary"><?php print t('Voir l’offre'); ?><span class="icon icon-arrow"></span></a>
+                </div>
+              <?php endforeach; ?>
+          </div>
+          <div class="btn-wrapper"><a href="<?php print url('corporate/ressources-humaines/postuler'); ?>" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
+          </div>
+      </div>
+  </section>
+  <!-- [latest Jobs] end-->
+<?php endif; ?>
