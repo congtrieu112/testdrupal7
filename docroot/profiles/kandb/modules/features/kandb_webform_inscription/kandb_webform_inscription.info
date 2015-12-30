@@ -1,0 +1,13 @@
+name = K&B Webform inscription
+description = K&B Webform inscription
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = kandb_webform
+dependencies[] = strongarm
+dependencies[] = webform
+__drupal_alter_by_ref[][node][webform] = webform
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[webform][] = inscription

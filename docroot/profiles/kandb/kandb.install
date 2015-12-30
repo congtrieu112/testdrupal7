@@ -857,3 +857,12 @@ function kandb_update_7182() {
     module_enable(array('kandb_finance_assemblies'), TRUE);
   }
 }
+
+/*
+ * Enable kandb_finance_assemblies content module
+ */
+function kandb_update_7183() {
+  if (!module_exists('kandb_webform_inscription')) {
+    module_enable(array('kandb_webform_inscription'), TRUE);
+  }
+}
