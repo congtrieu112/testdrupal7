@@ -13,27 +13,51 @@ print theme('finance_header_block');
         <nav class="filter filter--left">
             <div class="filter__label show-for-medium-up"><?php print t('Afficher par'); ?>:</div>
             <div class="form-dropdown form-dropdown--floating filter__item">
-                <div>
-                    <button aria-expanded="false" aria-controls="governance" data-app-dropdown="data-app-dropdown" type="button" class="form-dropdown__trigger"><span class="text">Conseil d'Administration</span><span aria-hidden="true" class="icon icon-expand"></span></button>
-                </div>
+                <?php
+                    foreach ($voca as $value):
+                        if ($value->tid == $term_id) :
+                ?>
+                            <div>
+                                <button aria-expanded="false" aria-controls="governance" data-app-dropdown="data-app-dropdown" type="button" class="form-dropdown__trigger">
+                                    <span class="text">
+                                        <?php
+                                            $term_load = taxonomy_term_load($value->tid);
+                                            $name = $term_load->name;
+                                            if ($lang == 'en' && isset($term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'])) {
+                                              $name = $term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'];
+                                            }
+                                            print $name;
+                                        ?>
+                                    </span>
+                                    <span aria-hidden="true" class="icon icon-expand"></span>
+                                </button>
+                            </div>
+                <?php
+                        endif;
+                   endforeach;
+                ?>
                 <div id="governance" aria-hidden="true" class="form-dropdown__content form-dropdown__content--last hidden">
                     <?php if ($voca): ?>
+
                       <ul class="ul-unstyled undo-padding">
                           <?php
-                          foreach ($voca as $value):
-                            $selected = 'false';
-                            $term_load = taxonomy_term_load($value->tid);
-                            $name = $term_load->name;
-                            if ($lang == 'en' && isset($term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'])) {
-                              $name = $term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'];
-                            }
-                            if ($value->tid == $term_id) {
-                              $selected = 'true';
-                            }
-                            $path = url('corporate/finance/gouvernance/' . $value->tid . '/' . $lang);
-                            ?>
-                            <li class="bordered"><a href="<?php print $path; ?>" tabindex="0" aria-selected="<?php print $selected; ?>"><?php print $name; ?></a></li>
-                          <?php endforeach; ?>
+                            foreach ($voca as $value):
+                                if (kandb_group_get_grouvernance_node($value->tid, $lang)) :
+                                    $term_load = taxonomy_term_load($value->tid);
+                                    $name = $term_load->name;
+                                    if ($lang == 'en' && isset($term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'])) {
+                                      $name = $term_load->field_comite_title_en[LANGUAGE_NONE][0]['value'];
+                                    }
+                                    if ($value->tid == $term_id) {
+                                      $selected = 'true';
+                                    }
+                                    $path = url('corporate/finance/gouvernance/' . $value->tid . '/' . $lang);
+                                    ?>
+                                    <li class="bordered"><a href="<?php print $path; ?>" tabindex="0" aria-selected="<?php print $selected; ?>"><?php print $name; ?></a></li>
+                                <?php
+                                endif;
+                            endforeach; 
+                           ?>
                       </ul>
                     <?php endif; ?>
                 </div>
