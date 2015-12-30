@@ -143,6 +143,24 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
+  
+  $items['admin/content/ketb/group/apply-offers'] = array(
+    'title' => '[RH] - Apply',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_apply_offers_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/content/ketb/group/explore-our-businesses'] = array(
+    'title' => '[RH] - Explore Our Businesses',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_explore_our_businesses_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
 
   $items['corporate/ressources-humaines/recrutement'] = array(
     'title' => 'RH - Recrutement',
