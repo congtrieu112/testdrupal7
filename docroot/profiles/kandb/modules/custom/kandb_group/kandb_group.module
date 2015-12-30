@@ -47,7 +47,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_presentation_admin_form'),
     'file' => 'kandb_group.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -73,7 +73,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_home_admin_form'),
     'file' => 'kandb_group_home.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -99,7 +99,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_publication_admin_form'),
     'file' => 'kandb_group_finance_publication.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -108,7 +108,7 @@ function kandb_group_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_header_admin_form'),
     'file' => 'kandb_finance_header.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 
@@ -373,4 +373,18 @@ function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   }
 
   return NULL;
+}
+
+/**
+ * Implements hook_permission().
+ */
+
+
+function kandb_group_permission() {
+  return array(
+    'administer K&B group page' => array(
+      'title' => t('Administer K&B group page'),
+      'description' => t('only allow specify roles can access group page'),
+    ),
+  );
 }
