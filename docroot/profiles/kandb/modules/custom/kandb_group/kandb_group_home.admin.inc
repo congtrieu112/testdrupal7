@@ -48,7 +48,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     }
     $form['fieldset_group_block_finance']['links_fieldset']['cta']['cta_group_home_block_finance_' . $i] = array(
       '#type' => 'link_field',
-      '#title' => t('CTA') . ' #' . ($i+1),
+      '#title' => t('CTA') . ' #' . ($i + 1),
       '#field_parents' => NULL,
       '#description' => 'URL should be relative link. EX: /node/{nid}',
       '#language' => $language->language,
@@ -68,19 +68,34 @@ function kandb_group_home_admin_form($form, $form_state) {
     'bkandb_group_settings_cta_link'
   );
 
+  $form['#validate'][] = 'group_home_validate';
+
   return system_settings_form($form);
 }
 
 /*
  * Submit and save variable for CTA link.
  */
-
 function bkandb_group_settings_cta_link(&$form, &$form_state) {
   $val = $form_state['values'];
   if (isset($val['links_fieldset']['cta'])) {
     foreach ($val['links_fieldset']['cta'] as $key => $item) {
       if (isset($item['url']) && isset($item['title'])) {
         variable_set($key, $item);
+      }
+    }
+  }
+}
+
+/*
+ * Implement validate form for CTA link.
+ */
+function group_home_validate(&$form, &$form_state) {
+  $form_cta_fields = $form_state['input']['links_fieldset']['cta'];
+  foreach ($form_cta_fields as $key => $item) {
+    if ($item['url']) {
+      if (!trim($item['title'])) {
+        form_set_error('fieldset_group_block_finance][links_fieldset][cta][cta_group_home_block_finance_0][#default_value][title', 'You should fill title in CTA #' . $key . ' when url was filled');
       }
     }
   }

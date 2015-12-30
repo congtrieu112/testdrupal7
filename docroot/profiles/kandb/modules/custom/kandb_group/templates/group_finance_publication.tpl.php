@@ -55,89 +55,6 @@ print theme('finance_header_block');
   <!-- [content legroupeFinancePublications] end-->
 <?php endif; ?>
 
-<?php
-$doc_comuniques = isset($data['documents_communique']) ? $data['documents_communique'] : '';
-$doc_explode_comuniques = isset($data['documents_explode_communique']) ? $data['documents_explode_communique'] : '';
-if ($doc_comuniques || $doc_explode_comuniques) :
-  ?>
-  <!-- [recent Documents] start-->
-  <section class="section-padding">
-      <div class="wrapper">
-          <header class="heading heading--bordered">
-              <h1 class="heading__title"><?php print t('Communiqués et documents récents'); ?></h1>
-          </header>
-      </div>
-      <div class="wrapper--narrow downloadDocs">
-          <ul class="accordion fullWidth">
-              <li class="accordion__link">
-                  <div class="downloadDocs__heading">
-                      <h3 class="downloadDocs__title"><?php print t('Communiqués'); ?></h3>
-                  </div>
-                  <ul class="downloadDocs__list">
-                      <?php
-                      foreach ($doc_comuniques as $doc_comunique) :
-                        $doc_date = isset($doc_comunique->field_document_date[LANGUAGE_NONE][0]['value']) ? $doc_comunique->field_document_date[LANGUAGE_NONE][0]['value'] : '';
-                        $doc_title = isset($doc_comunique->title) ? $doc_comunique->title : '';
-                        $doc_uri = isset($doc_comunique->field_document_file[LANGUAGE_NONE][0]['uri']) ? $doc_comunique->field_document_file[LANGUAGE_NONE][0]['uri'] : '';
-                        ?>
-                        <li class="downloadDocs__item">
-                            <?php if ($doc_date) : ?>
-                              <div class="downloadDocs__item__date">
-                                  <spn><?php print date("d.m.Y", strtotime($doc_date)); ?></spn>
-                              </div>
-                            <?php endif; ?>
-                            <div class="downloadDocs__item__info">
-                                <?php if ($doc_title) : ?>
-                                  <h4 class="downloadDocs__item__heading"><?php print $doc_title; ?></h4>
-                                <?php endif; ?>
-                                <?php if ($doc_uri) : ?>
-                                  <div class="downloadDocs__item__link"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-                                <?php endif; ?>
-                            </div>
-                        </li>
-                      <?php endforeach; ?>
-                      <li class="btn-wrapper btn-wrapper--center"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF" class="btn-primary btn-rounded">Voir tout<span class="icon icon-arrow"></span></a></li>
-                  </ul>
-              </li>
-
-              <li class="accordion__link">
-                  <div class="downloadDocs__heading">
-                      <h3 class="downloadDocs__title"><?php print t('Communiqués'); ?></h3>
-                  </div>
-                  <ul class="downloadDocs__list">
-                      <?php
-                      foreach ($doc_explode_comuniques as $doc_explode_comunique) :
-                        $ex_doc_date = isset($doc_explode_comunique->field_document_date[LANGUAGE_NONE][0]['value']) ? $doc_explode_comunique->field_document_date[LANGUAGE_NONE][0]['value'] : '';
-                        $ex_doc_title = isset($doc_explode_comunique->title) ? $doc_explode_comunique->title : '';
-                        $ex_doc_uri = isset($doc_explode_comunique->field_document_file[LANGUAGE_NONE][0]['uri']) ? $doc_explode_comunique->field_document_file[LANGUAGE_NONE][0]['uri'] : '';
-                        ?>
-                        <li class="downloadDocs__item">
-                            <?php if ($ex_doc_date) : ?>
-                              <div class="downloadDocs__item__date">
-                                  <spn><?php print date("d.m.Y", strtotime($ex_doc_date)); ?></spn>
-                              </div>
-                            <?php endif; ?>
-                            <div class="downloadDocs__item__info">
-                                <?php if ($ex_doc_title) : ?>
-                                  <h4 class="downloadDocs__item__heading"><?php print $ex_doc_title; ?></h4>
-                                <?php endif; ?>
-                                <?php if ($ex_doc_uri) : ?>
-                                  <div class="downloadDocs__item__link"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF"><span class="icon icon-download-pdf"></span></a></div>
-                                <?php endif; ?>
-                            </div>
-                        </li>
-                      <?php endforeach; ?>
-                      <li class="btn-wrapper btn-wrapper--center"><a href="#" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="Télécharger le PDF" class="btn-primary btn-rounded">Voir tout<span class="icon icon-arrow"></span></a></li>
-                  </ul>
-              </li>
-
-          </ul>
-      </div>
-  </section>
-  <!-- [recent Documents] end-->
-
-<?php endif; ?>
-
 <?php if ($recent_document) : ?>
   <!-- [communiques Documents] start-->
   <section class="section-padding">
@@ -205,4 +122,27 @@ if ($doc_comuniques || $doc_explode_comuniques) :
       </div>
   </section>
   <!-- [communiques Documents] end-->  
-<?php endif;
+<?php endif; ?>
+
+<?php
+$inscription_form = webform_features_machine_name_load('inscription');
+$inscription_block_id = isset($inscription_form->nid) ? 'client-block-' . $inscription_form->nid : '';
+$block = module_invoke('webform', 'block_view', $inscription_block_id);
+
+?>
+<!-- [email form] start-->
+<section class="section-padding">
+    <div class="wrapper">
+        <form action="#" method="get" data-abide class="emailForm">
+            <div class="emailForm__title">
+                <p>Recevez toutes nos informations financières</p>
+            </div>
+            <div class="emailForm__input">
+                <label for="email-input"><span class="visually-hidden">Votre adresse d’email</span>
+                    <?php print render($block['content']); ?>
+                </label>
+            </div>
+        </form>
+    </div>
+</section>
+<!-- [email form] end-->

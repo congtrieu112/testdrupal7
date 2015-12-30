@@ -51,7 +51,8 @@ function kandb_group_rh_admin_form($form, $form_state) {
     if (isset($cta['url']) && $cta['url'] && isset($cta['title']) && $cta['title']) {
       $url = $cta['url'];
       $title = $cta['title'];
-    } else {
+    }
+    else {
       $url = $default_menu_links[$i];
       $title = $default_menu_titles[$i];
     }
@@ -189,4 +190,71 @@ function kandb_group_settings_cta_link(&$form, &$form_state) {
       }
     }
   }
+}
+
+/**
+ * Explore Our Businesses Admin Settings Form.
+ */
+function kandb_group_rh_explore_our_businesses_admin_form($form, $form_state) {
+  $form['explore_our_businesses_module_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Module Title'),
+    '#default_value' => variable_get('explore_our_businesses_module_title'),
+  );
+  $form['explore_our_businesses_button_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Button Link'),
+    '#default_value' => variable_get('explore_our_businesses_button_link'),
+  );
+  return system_settings_form($form);
+}
+
+/**
+ * Apply Offers Admin Settings Form.
+ */
+function kandb_group_rh_apply_offers_admin_form($form, $form_state) {
+  $form['fieldset_section_apply'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Section Apply',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_section_apply']['section_apply_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => variable_get('section_apply_title'),
+  );
+  $form['fieldset_section_apply']['section_apply_sub_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sub Title'),
+    '#default_value' => variable_get('section_apply_sub_title'),
+  );
+  $form['fieldset_section_apply']['section_apply_hang'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Hang'),
+    '#default_value' => variable_get('section_apply_hang'),
+  );
+  $form['fieldset_section_apply']['section_apply_descriptive'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Descriptive'),
+    '#default_value' => variable_get('section_apply_descriptive'),
+  );
+  $form['fieldset_section_apply']['section_apply_button_link'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Button Link'),
+    '#default_value' => variable_get('section_apply_button_link'),
+  );
+  $form['fieldset_section_offers'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Section Offers',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_section_offers']['section_offers_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => variable_get('section_offers_title'),
+  );
+
+  return system_settings_form($form);
 }
