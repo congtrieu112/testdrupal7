@@ -59,6 +59,10 @@
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   drupal_set_title(t('Documents à télécharger'));
+  if ($tid === 'en' || $tid === 'fr') {
+    $lang = $tid;
+    $tid = 0;
+  }
   $language_id = $lang == 'en' ? 1 : 0;
   if ($lang != 'en') {
     $lang = 'fr';
