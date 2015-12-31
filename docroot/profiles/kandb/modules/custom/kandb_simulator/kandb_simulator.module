@@ -1,0 +1,92 @@
+<?php
+
+/**
+ * Implementation of hook_menu()
+ * @return array
+ */
+function kandb_simulator_menu() {
+    $items = array();
+
+    $items['simulateur-capacite-achat'] = array(
+        'title' => 'simulator capacite achat',
+        'page callback' => 'render_simulator_capacite_achat',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['simulateur-mensualites-remboursement'] = array(
+        'title' => 'simulator mensualites remboursement',
+        'page callback' => 'render_simulator_mensualites_remboursement',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['simulateur-droits-ptz'] = array(
+        'title' => 'simulator droits ptz',
+        'page callback' => 'render_simulator_droits_ptz',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['simulateur-loi-pinel'] = array(
+        'title' => 'simulator loi pinel',
+        'page callback' => 'render_simulator_loi_pinel',
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+
+    return $items;
+}
+
+/**
+ * Render simulator capacite achat.
+ */
+function render_simulator_capacite_achat() {
+
+    return theme('simulator_capacite_achat', array());
+}
+
+/**
+ * Render simulator mensualites remboursement.
+ */
+function render_simulator_mensualites_remboursement() {
+
+    return theme('simulator_mensualites_remboursement', array());
+}
+
+/**
+ * Render simulator simulator droits ptz
+ */
+function render_simulator_droits_ptz() {
+
+    return theme('simulator_droits_ptz', array());
+}
+
+/**
+ * Render simulator loi pinel.
+ */
+function render_simulator_loi_pinel() {
+
+    return theme('simulator_loi_pinel', array());
+}
+
+/**
+ * Implement of hook_theme().
+ */
+function kandb_simulator_theme($existing, $type, $theme, $path) {
+    return array(
+        'simulator_capacite_achat' => array(
+            'template' => 'templates/simulator_capacite_achat',
+            'variables' => array(),
+        ),
+        'simulator_mensualites_remboursement' => array(
+            'template' => 'templates/simulator_mensualites_remboursement',
+            'variables' => array(),
+        ),
+        'simulator_droits_ptz' => array(
+            'template' => 'templates/simulator_droits_ptz',
+            'variables' => array(),
+        ),
+        'simulator_loi_pinel' => array(
+            'template' => 'templates/simulator_loi_pinel',
+            'variables' => array(),
+        ),
+    );
+}
