@@ -1,4 +1,13 @@
 <?php
+/**
+ * @file
+ * K&B B2C Simulator
+ */
+
+define('NUMBER_SIMULATOR', 4);
+//Similator page
+define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Calculer votre capacité d’achat'), t('Estimer les mensualités de remboursement'), t('Simuler vos droits au PTZ+'), t('Simuler mon investissement avec la loi Pinel'))));
+define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_LINKS', serialize(array('nos-outils/simulateur-capacite-achat', 'nos-outils/simulateur-mensualites-remboursement', 'nos-outils/simulateur-droits-ptz', 'nos-outils/simulateur-loi-pinel')));
 
 /**
  * Implementation of hook_menu()
@@ -31,6 +40,14 @@ function kandb_simulator_menu() {
         'access callback' => TRUE,
         'type' => MENU_NORMAL_ITEM,
     );
+    $items['admin/content/ketb/simulator'] = array(
+    'title' => 'Simulator',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_simulator_admin_form'),
+    'file' => 'kandb_simulator.admin.inc',
+    'access arguments' => array('administer content'),
+    'type' => MENU_LOCAL_TASK,
+  );
 
     return $items;
 }
