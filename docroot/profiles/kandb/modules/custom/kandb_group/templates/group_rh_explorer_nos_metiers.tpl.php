@@ -22,8 +22,8 @@ $button_link = variable_get('explore_our_businesses_button_link');
         <div class="metier__list">
             <?php for ($i = 0; $i <= KANDB_GROUP_OUR_BUSINESS_ITEMS_NUM; $i++) : ?>
               <?php
-              $wording = variable_get('fieldset_expolore_our_businesses_wording' . $i);
-              $description = variable_get('fieldset_expolore_our_businesses_description' . $i);
+              $wording = variable_get('expolore_our_businesses_wording' . $i);
+              $description = variable_get('expolore_our_businesses_description' . $i);
               $description = isset($description['value']) ? $description['value'] : '';
               ?>
               <?php if ($wording AND $description) : ?>

@@ -214,14 +214,14 @@ function kandb_group_rh_explore_our_businesses_admin_form($form, &$form_state) {
       '#collapsible' => TRUE,
       '#collapsed' => TRUE,
     );
-    $form['fieldset_expolore_our_businesses']['expolore_our_businesses_item_' . $i]['fieldset_expolore_our_businesses_wording' . $i] = array(
+    $form['fieldset_expolore_our_businesses']['expolore_our_businesses_item_' . $i]['expolore_our_businesses_wording' . $i] = array(
       '#type' => 'textfield',
       '#title' => t('Wording'),
-      '#default_value' => variable_get('fieldset_expolore_our_businesses_wording' . $i),
+      '#default_value' => variable_get('expolore_our_businesses_wording' . $i),
     );
-    $description = variable_get('fieldset_expolore_our_businesses_description' . $i);
+    $description = variable_get('expolore_our_businesses_description' . $i);
     $description = isset($description['value']) ? $description['value'] : '';
-    $form['fieldset_expolore_our_businesses']['expolore_our_businesses_item_' . $i]['fieldset_expolore_our_businesses_description' . $i] = array(
+    $form['fieldset_expolore_our_businesses']['expolore_our_businesses_item_' . $i]['expolore_our_businesses_description' . $i] = array(
       '#type' => 'text_format',
       '#title' => t('Description'),
       '#format' => 'simple',
@@ -239,5 +239,52 @@ function kandb_group_rh_explore_our_businesses_admin_form($form, &$form_state) {
     '#default_value' => variable_get('explore_our_businesses_button_link'),
   );
 
+  return system_settings_form($form);
+}
+
+function kandb_group_rh_your_career_admin_form($form, &$form_state) {
+  $form['your_career_module_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Module Title'),
+    '#default_value' => variable_get('your_career_module_title'),
+  );
+  $form['your_career_module_sub_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sub-Title'),
+    '#default_value' => variable_get('your_career_module_sub_title'),
+  );
+  $form['fieldset_your_career'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Your Career'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  for ($i = 0; $i <= KANDB_GROUP_YOUR_CAREER_ITEMS_NUM; $i++) {
+    $form['fieldset_your_career']['your_career_item_' . $i] = array(
+      '#type' => 'fieldset',
+      '#title' => t('Our Business ' . ($i + 1)),
+      '#collapsible' => TRUE,
+      '#collapsed' => TRUE,
+    );
+    $form['fieldset_your_career']['your_career_item_' . $i]['your_career_item_title_' . $i] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title'),
+      '#default_value' => variable_get('your_career_item_title_' . $i),
+    );
+    $description = variable_get('your_career_item_description_' . $i);
+    $description = isset($description['value']) ? $description['value'] : '';
+    $form['fieldset_your_career']['your_career_item_' . $i]['your_career_item_description_' . $i] = array(
+      '#type' => 'text_format',
+      '#title' => t('Description'),
+      '#format' => 'simple',
+      '#default_value' => $description,
+    );
+    $form['fieldset_your_career']['your_career_item_' . $i]['your_career_item_image_' . $i] = array(
+      '#type' => 'managed_file',
+      '#title' => t('Image Full'),
+      '#default_value' => variable_get('your_career_item_image_' . $i),
+      '#upload_location' => 'public://',
+    );
+  }
   return system_settings_form($form);
 }
