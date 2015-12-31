@@ -491,3 +491,34 @@ function kb_flush_data () {
   } while (!empty ($terms));
   return $result;
 }
+
+function kb_import_form_programme_node_form_alter(&$form, &$form_state, $form_id) {
+  if (isset($form['nid']['#value']) && $form['nid']['#value'] > 0) {
+    $form['actions'][] = array(
+      '#type' => 'submit',
+      '#value' => t('Import bien PDF'),
+      '#submit' => array('import_bien_pdf_for_programme_submit'),
+      '#weight' => 50,
+    );
+  }
+}
+
+function import_bien_pdf_for_programme_submit($form, $form_state) {
+  $id_programme = isset($form_state['values']['field_id_programme'][LANGUAGE_NONE][0]['value']) ? $form_state['values']['field_id_programme'][LANGUAGE_NONE][0]['value'] : '';
+  if ($id_programme == '') {
+    drupal_set_message(t('The programme_id value not validate'));
+    return ;
+  }
+  $file_log_name = 'import_bien_pdf_for_programme_' . $id_programme . '_log_' . date('Y-m-d_H_i', REQUEST_TIME) . '.txt';
+  variable_set('import_bien_pdf_for_programme_file_log_name', $file_log_name);
+  module_load_include('inc', 'kb_import', 'import_bien_pdf_for_particular_programme');
+  import_bien_pdf_for_particular_programme($id_programme);
+}
+
+function kb_import_bien_pdf_loging($message) {
+  if(module_exists('kandb_feed') && $message != ''){
+    $message = date("Y-m-d h:i A") . "\n" . $message . "\n\n";
+    $file_log_name = variable_get('import_bien_pdf_for_programme_file_log_name', 'import_bien_pdf_for_programme_log_' . date('Y-m-d_H_i', REQUEST_TIME) . '.txt');
+    createFileErrorLogTxt($file_log_name, $message);
+  }
+}

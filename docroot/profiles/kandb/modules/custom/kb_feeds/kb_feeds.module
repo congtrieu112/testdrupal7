@@ -1279,7 +1279,15 @@ function kb_feeds_menu() {
     'file' => 'kb_feeds.pages.inc',
   );
 
-
+  $items['admin/reports/feeds_errorlog/import-bien-pdf-for-programme'] = array(
+    'title' => 'Import bien pdf for programme',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'import_bien_pdf_for_programme'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+  
   return $items;
 }
 
