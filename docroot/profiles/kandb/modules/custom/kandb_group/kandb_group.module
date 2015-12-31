@@ -13,6 +13,7 @@ define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+define('KANDB_GROUP_OUR_BUSINESS_ITEMS_NUM', 20);
 
 // Publication document type tabs.
 // [Tab Name] => [Taxonomy term name, Number of year].
