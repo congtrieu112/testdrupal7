@@ -103,7 +103,7 @@
                     <?php endforeach; ?>
                 <?php endif; ?>
               <div class="toolbox__content">
-                <?php if ($flat_available || $de_a_pieces) :  ?>
+                <?php if ($flat_available && $de_a_pieces) :  ?>
                 <h3 class="heading__title toolbox__heading">
                   <?php print $flat_available; ?>
                   <?php print $de_a_pieces; ?>
