@@ -13,6 +13,8 @@ define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
+define('KANDB_GROUP_OUR_BUSINESS_ITEMS_NUM', 20);
+define('KANDB_GROUP_YOUR_CAREER_ITEMS_NUM', 5);
 
 // Publication document type tabs.
 // [Tab Name] => [Taxonomy term name, Number of year].
@@ -148,6 +150,15 @@ function kandb_group_menu() {
     'title' => '[RH] - Apply',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_apply_offers_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/content/ketb/group/your-career'] = array(
+    'title' => '[RH] - Your Career',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_your_career_admin_form'),
     'file' => 'kandb_group_hr.admin.inc',
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
