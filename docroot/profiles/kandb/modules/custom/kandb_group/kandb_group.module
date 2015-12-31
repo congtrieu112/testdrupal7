@@ -8,6 +8,7 @@ define('TYPE_DOCUMENT', 'Communiqué de presse');
 define('VOCAL_DOCUMENT', 'type_de_document');
 define('LIMIT_DOCUMENT', 3);
 define('NUMBER_CTA_GROUP', 6);
+define('NUMBER_CTA_RH', 4);
 define('LIMIT_CALENDRIER', 20);
 define('KANDB_GROUP_KPI_ITEMS_NUM', 20);
 define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
@@ -28,6 +29,10 @@ define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN', serialize(array(
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finance/presentation', 'corporate/finance/publication', 'corporate/finance/assemblee-generale', 'corporate/finance/gouvernance', 'corporate/finance/archives')));
+
+// RH page.
+define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Recrutement'), t('Explorer nos métiers'), t('Votre carrière'), t(' Postuler'))));
+define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/ressources-humaines/recrutement', 'corporate/ressources-humaines/nos-metiers', 'corporate/ressources-humaines/votre-carriere', 'corporate/ressources-humaines/postuler')));
 
 /**
  * Implement of hook_menu().
@@ -128,6 +133,66 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
+  // HR page.
+
+  $items['admin/content/ketb/group/rh'] = array(
+    'title' => '[RH] - Recrutement',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/content/ketb/group/apply-offers'] = array(
+    'title' => '[RH] - Apply',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_apply_offers_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+  
+  $items['admin/content/ketb/group/explore-our-businesses'] = array(
+    'title' => '[RH] - Explore Our Businesses',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_rh_explore_our_businesses_admin_form'),
+    'file' => 'kandb_group_hr.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['corporate/ressources-humaines/recrutement'] = array(
+    'title' => 'RH - Recrutement',
+    'page callback' => 'render_group_rh_recrutement',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/ressources-humaines/nos-metiers'] = array(
+    'title' => 'RH - Explorer nos métiers',
+    'page callback' => 'render_group_rh_explorer_nos_metiers',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/ressources-humaines/votre-carriere'] = array(
+    'title' => 'RH - Votre carrière',
+    'page callback' => 'render_group_rh_votre_carriere',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/ressources-humaines/postuler'] = array(
+    'title' => 'RH -  Postuler',
+    'page callback' => 'render_group_rh_postuler',
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
 
   return $items;
 }
@@ -157,7 +222,44 @@ function kandb_group_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_finance_gouvernance',
       'variables' => array(),
     ),
+    // RH page.
+    'group_rh_header' => array(
+      'template' => 'templates/group_rh_header',
+      'variables' => array(),
+    ),
+    'group_rh_recrutement' => array(
+      'template' => 'templates/group_rh_recrutement',
+      'variables' => array(),
+    ),
+    'group_rh_explorer_nos_metiers' => array(
+      'template' => 'templates/group_rh_explorer_nos_metiers',
+      'variables' => array(),
+    ),
+    'group_rh_votre_carriere' => array(
+      'template' => 'templates/group_rh_votre_carriere',
+      'variables' => array(),
+    ),
+    'group_rh_postuler' => array(
+      'template' => 'templates/group_rh_postuler',
+      'variables' => array(),
+    ),
   );
+}
+
+/**
+ * Implement of hook_form_alter().
+ */
+function kandb_group_form_alter(&$form, $form_state, $form_id) {
+  $inscription_form = webform_features_machine_name_load('inscription');
+  $inscription_form_id = isset($inscription_form->nid) ? 'webform_client_form_' . $inscription_form->nid : '';
+  if ($form_id == $inscription_form_id) {
+    $form['submitted']['inscription_email']['#theme_wrappers'] = array();
+    $form['submitted']['inscription_email']['#attributes']['placeholder'] = t('Votre adresse d’email');
+    $form['submitted']['inscription_point_dinteret']['#theme_wrappers'] = array();
+    $form['submitted']['inscription_point_dinteret']['#default_value'] = drupal_get_title();
+    $form['actions']['submit']['#attributes']['class'] = array('webform-submit', 'button-submit', 'js-btn-submit');
+    $form['actions']['submit']['#value'] = t('OK');
+  }
 }
 
 function render_group_homepage() {
@@ -189,27 +291,12 @@ function render_group_homepage() {
   return theme('group_homepage', array('data' => $data));
 }
 
+/**
+ * Render Publication page.
+ */
 function render_group_finance_publication($document_type_tid = '', $numof_years = 3, $current_lang = 'fr') {
   $data = array();
 
-  $term_document_id = kandb_group_get_term_from_name(TYPE_DOCUMENT, VOCAL_DOCUMENT);
-  if ($term_document_id) {
-    $documents_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '=');
-    $documents_explode_communique = kandb_group_get_document_node(LIMIT_DOCUMENT, $term_document_id, '!=');
-    if ($documents_communique) {
-      $data['documents_communique'] = $documents_communique;
-    }
-    if ($documents_explode_communique) {
-      $data['documents_explode_communique'] = $documents_explode_communique;
-    }
-  }
-
-  $group_header = module_invoke('bean', 'block_view', 'group-header');
-  if (isset($group_header['content']) && $group_header['content']) {
-    $data['group_header'] = $group_header['content'];
-  }
-
-  $query_arr = drupal_get_query_parameters();
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
@@ -226,7 +313,8 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   if ($current_lang == 'en') {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
     $current_lang_key = 1;
-  } else {
+  }
+  else {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
     $current_lang_key = 0;
   }
@@ -286,12 +374,12 @@ function render_finance_presentation_page($current_lang = 'fr') {
 function kandb_group_get_document_node($limit, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'document')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_langue', 'value', 0, '=')
-    ->fieldOrderBy('field_document_date', 'value', 'DESC')
-    ->propertyOrderBy('changed', 'DESC')
-    ->range(0, $limit)
+      ->entityCondition('bundle', 'document')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_langue', 'value', 0, '=')
+      ->fieldOrderBy('field_document_date', 'value', 'DESC')
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, $limit)
   ;
   $result = $query->execute();
   if (isset($result['node'])) {
@@ -359,11 +447,11 @@ function render_group_finance_gouvernance_default() {
 function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'finance_gouvernance')
-    ->propertyCondition('status', 1)
-    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
-    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
-    ->propertyOrderBy('changed', 'DESC')
+      ->entityCondition('bundle', 'finance_gouvernance')
+      ->propertyCondition('status', 1)
+      ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+      ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+      ->propertyOrderBy('changed', 'DESC')
   ;
   $result = $query->execute();
 
@@ -376,10 +464,74 @@ function kandb_group_get_grouvernance_node($tid = array(), $lang) {
 }
 
 /**
+ * Implement render page RH recrutement.
+ */
+function render_group_rh_recrutement() {
+  $data = array();
+  $offers = kandb_group_get_offers(4);
+  if ($offers) {
+    $data['offers'] = $offers;
+  }
+  return theme('group_rh_recrutement', array('data' => $data));
+}
+
+/**
+ * Implement render page RH explorer nos metiers.
+ */
+function render_group_rh_explorer_nos_metiers() {
+  $data = array();
+  return theme('group_rh_explorer_nos_metiers', array('data' => $data));
+}
+
+/**
+ * Implement render page RH votre carriere.
+ */
+function render_group_rh_votre_carriere() {
+  $data = array();
+  return theme('group_rh_votre_carriere', array('data' => $data));
+}
+
+/**
+ * Implement render page RH postuler.
+ */
+function render_group_rh_postuler() {
+  $data = array();
+  return theme('group_rh_postuler', array('data' => $data));
+}
+
+function kandb_group_get_image_uri($image_id) {
+  if ($image_id) :
+    $recruitment_section_image = file_load($image_id);
+    if ($recruitment_section_image->uri):
+      return $recruitment_section_image->uri;
+    endif;
+  endif;
+
+  return '';
+}
+
+
+function kandb_group_get_offers($limit) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'rh_annonce')
+    ->propertyCondition('status', 1)
+    ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
+  ;
+  $result = $query->execute();
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
+}
+
+/**
  * Implements hook_permission().
  */
-
-
 function kandb_group_permission() {
   return array(
     'administer K&B group page' => array(

@@ -1,0 +1,87 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Implements hook_menu()
+ */
+function kandb_page_contact_menu() {
+  $items = array();
+
+  $items['contact'] = array(
+    'title' => 'Contact',
+    'page callback' => 'contact_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_page_contact_theme($existing, $type, $theme, $path) {
+  return array(
+    'contact_page' => array(
+      'template' => 'templates/contact_page',
+      'variables' => array('region_contents' => '', 'conseiller_contents' => ''),
+    )
+  );
+}
+
+function contact_page() {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'region_kb');
+
+  $regions =  $query->execute();
+  $region_variables = array();
+  $conseiller_variables = array();
+  if($regions && isset($regions['node'])) {
+    foreach($regions['node'] as $region) {
+      $region_nid = isset($region->nid) ? $region->nid : '';
+      if($region_nid) {
+        $n_region = node_load($region_nid);
+        if($n_region) {
+          $region_variables[$region_nid]['region_nid'] = $region_nid;
+          $region_variables[$region_nid]['region_kb_id'] = isset($n_region->field_region_kb_id[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'] : '';
+          $region_variables[$region_nid]['region_title'] = $n_region->title;
+          $region_variables[$region_nid]['region_kb_libelle'] = isset($n_region->field_region_kb_libelle[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_libelle[LANGUAGE_NONE][0]['value'] : '';
+          $region_variables[$region_nid]['region_kb_adresse'] = isset($n_region->field_region_kb_adresse[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_adresse[LANGUAGE_NONE][0]['value'] : '';
+          $region_variables[$region_nid]['region_kb_telephone'] = isset($n_region->field_region_kb_telephone[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_telephone[LANGUAGE_NONE][0]['value'] : '';
+          $region_variables[$region_nid]['region_kb_longitude'] = isset($n_region->field_region_kb_longitude[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_longitude[LANGUAGE_NONE][0]['value'] : '';
+          $region_variables[$region_nid]['region_kb_latitude'] = isset($n_region->field_region_kb_latitude[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_latitude[LANGUAGE_NONE][0]['value'] : '';
+
+          $query2 = new EntityFieldQuery();
+          $query2->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'conseiller_regional')
+            ->fieldCondition('field_conseiller_regional_reg_kb', 'target_id', $region_nid);
+
+          $conseillers = $query2->execute();
+          if($conseillers && isset($conseillers['node'])) {
+            foreach($conseillers['node'] as $conseiller) {
+              $conseiller_nid = isset($conseiller->nid) ? $conseiller->nid : '';
+              if($conseiller_nid) {
+                $n_conseiller = node_load($conseiller_nid);
+                if($n_conseiller) {
+                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_title'] = $n_conseiller->title;
+                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone1'] = isset($n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value'] : '';
+                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone2'] = isset($n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value'] : '';
+                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_photo'] = isset($n_conseiller->field_conseiller_regional_photo[LANGUAGE_NONE][0]['uri']) ? $n_conseiller->field_conseiller_regional_photo[LANGUAGE_NONE][0]['uri'] : '';
+                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_email'] = isset($n_conseiller->field_conseiller_regional_email[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_email[LANGUAGE_NONE][0]['value'] : '';
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  return theme('contact_page', array('region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+}

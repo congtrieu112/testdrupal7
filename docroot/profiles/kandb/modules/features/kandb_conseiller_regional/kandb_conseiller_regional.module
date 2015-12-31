@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Conseiller Régional feature.
+ */
+
+include_once 'kandb_conseiller_regional.features.inc';

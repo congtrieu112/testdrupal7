@@ -386,7 +386,7 @@ endif;
                         <?php if (!empty($item["articles"])): ?>
                           <ul class="articleList__item__infos__links">
                             <?php foreach ($item["articles"] as $l): ?>
-                              <li><?php print l($l['entity']->title, 'node/' . $l['entity']->nid, array('attributes' => array('title' => $l['entity']->title))); ?></li>
+                              <li><?php print l($l['entity']->title,alias_with_dossier($l['entity']->nid, $node->nid), array('attributes' => array('title' => $l['entity']->title))); ?></li>
                             <?php endforeach; ?>
                           </ul>
                         <?php endif; ?>

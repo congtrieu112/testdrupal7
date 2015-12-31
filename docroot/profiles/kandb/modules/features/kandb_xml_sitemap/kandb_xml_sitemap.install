@@ -1,0 +1,28 @@
+<?php
+
+/**
+ * Add custom links to sitemap.xml
+ */
+function kandb_xml_sitemap_update_7100(&$sandbox) {
+  drupal_load('module', 'xmlsitemap');
+  $paths = array(
+    'villes',
+    'departements',
+    'regions',
+  );
+ 
+  $link = array(
+    'type' => 'custom',
+    'id' => 0,
+    'loc' => '',
+    'priority' => '0.5',
+    'changefreq' => '86400',
+    'language' => LANGUAGE_NONE
+  );
+ 
+  foreach($paths as $path) {
+    $link['loc'] = $path;
+    $link['id']++;
+    xmlsitemap_link_save($link);
+  }
+}

@@ -164,6 +164,7 @@ dependencies[] = kandb_view_rh_dernieres_offres_emploi
 dependencies[] = kandb_views
 dependencies[] = kandb_views_avant_premiere
 dependencies[] = kandb_webform
+dependencies[] = kandb_webform_inscription
 ;dependencies[] = kandb_webform_contact_settings
 dependencies[] = kandb_xml_sitemap
 dependencies[] = kandb_tmp_b2b
@@ -171,6 +172,8 @@ dependencies[] = kandb_grouper
 dependencies[] = kandb_date_formats
 dependencies[] = kandb_finance_gouvernance
 dependencies[] = kandb_taxonomy_comite
+dependencies[] = kandb_region_kb
+dependencies[] = kandb_conseiller_regional
 
 ; Blocks
 dependencies[] = kandb_recherche
