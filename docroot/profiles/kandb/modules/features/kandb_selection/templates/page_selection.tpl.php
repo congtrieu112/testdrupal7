@@ -7,7 +7,7 @@
 ?>
 <section data-interchange="[<?php print $backgrounds['small']; ?>, (small)], [<?php print $backgrounds['medium']; ?>, (medium)]" class="narrow-header" data-uuid="interchange-ihxhe4i33" >
   <div class="wrapper">
-    <div class="heading heading--bordered heading--white">
+    <div class="heading heading--bordered ">
       <div class="heading__title"><?php print $title; ?></div>
       <div class="heading__title heading__title--sub"><?php print $sub_title; ?></div>
     </div>
