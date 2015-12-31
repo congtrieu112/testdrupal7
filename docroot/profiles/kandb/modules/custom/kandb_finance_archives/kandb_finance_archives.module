@@ -59,6 +59,10 @@
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   drupal_set_title(t('Documents à télécharger'));
+  if ($tid === 'en' || $tid === 'fr') {
+    $lang = $tid;
+    $tid = 0;
+  }
   $language_id = $lang == 'en' ? 1 : 0;
   if ($lang != 'en') {
     $lang = 'fr';
@@ -72,7 +76,7 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     }
     $base_archive = base_path() . 'corporate/finance/archives/';
     foreach ($all_terms as $term) {
-      if (strtoupper($term->name) == 'GM' || strtoupper($term->name) == 'EGM') {
+      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
         continue ;
       }
       $content_archives['tab_header'][$term->tid] = array(
