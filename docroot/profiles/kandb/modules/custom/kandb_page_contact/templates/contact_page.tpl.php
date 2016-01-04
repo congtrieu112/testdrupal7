@@ -1,3 +1,4 @@
+<?php if($region_contents) : ?>
 <section class="bg-lightGrey section-padding contact">
   <div class="wrapper">
     <h2 class="heading heading--bordered">
@@ -37,7 +38,6 @@
     </div>
     <ul data-app-accordion class="accordion contacts__list">
       <?php
-        if($region_contents) :
           $count = 0;
           foreach($region_contents as $region) :
             if($region['region_kb_id'] != '') :
@@ -102,8 +102,8 @@
             $count++;
             endif;
           endforeach;
-        endif;
       ?>
     </ul>
   </div>
 </section>
+<?php endif; ?>
