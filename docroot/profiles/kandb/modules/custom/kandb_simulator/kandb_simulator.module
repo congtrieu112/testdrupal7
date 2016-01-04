@@ -1,49 +1,51 @@
 <?php
+
 define('NUMBER_SIMULATOR', 4);
 //Similator page
 define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Calculer votre capacité d’achat'), t('Estimer les mensualités de remboursement'), t('Simuler vos droits au PTZ+'), t('Simuler mon investissement avec la loi Pinel'))));
 define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_LINKS', serialize(array('nos-outils/simulateur-capacite-achat', 'nos-outils/simulateur-mensualites-remboursement', 'nos-outils/simulateur-droits-ptz', 'nos-outils/simulateur-loi-pinel')));
+
 /**
  * Implementation of hook_menu()
  * @return array
  */
 function kandb_simulator_menu() {
-    $items = array();
+  $items = array();
 
-    $items['nos-outils/simulateur-capacite-achat'] = array(
-        'title' => 'simulator capacite achat',
-        'page callback' => 'render_simulator_capacite_achat',
-        'access callback' => TRUE,
-        'type' => MENU_NORMAL_ITEM,
-    );
-    $items['nos-outils/simulateur-mensualites-remboursement'] = array(
-        'title' => 'simulator mensualites remboursement',
-        'page callback' => 'render_simulator_mensualites_remboursement',
-        'access callback' => TRUE,
-        'type' => MENU_NORMAL_ITEM,
-    );
-    $items['nos-outils/simulateur-droits-ptz'] = array(
-        'title' => 'simulator droits ptz',
-        'page callback' => 'render_simulator_droits_ptz',
-        'access callback' => TRUE,
-        'type' => MENU_NORMAL_ITEM,
-    );
-    $items['nos-outils/simulateur-loi-pinel'] = array(
-        'title' => 'simulator loi pinel',
-        'page callback' => 'render_simulator_loi_pinel',
-        'access callback' => TRUE,
-        'type' => MENU_NORMAL_ITEM,
-    );
-    $items['admin/content/ketb/simulator'] = array(
-    'title' => 'Simulator',
-    'page callback' => 'drupal_get_form',
-    'page arguments' => array('kandb_simulator_admin_form'),
-    'file' => 'kandb_simulator.admin.inc',
-    'access arguments' => array('administer content'),
-    'type' => MENU_LOCAL_TASK,
+  $items['nos-outils/simulateur-capacite-achat'] = array(
+      'title' => 'simulator capacite achat',
+      'page callback' => 'render_simulator_capacite_achat',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  $items['nos-outils/simulateur-mensualites-remboursement'] = array(
+      'title' => 'simulator mensualites remboursement',
+      'page callback' => 'render_simulator_mensualites_remboursement',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  $items['nos-outils/simulateur-droits-ptz'] = array(
+      'title' => 'simulator droits ptz',
+      'page callback' => 'render_simulator_droits_ptz',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  $items['nos-outils/simulateur-loi-pinel'] = array(
+      'title' => 'simulator loi pinel',
+      'page callback' => 'render_simulator_loi_pinel',
+      'access callback' => TRUE,
+      'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/content/ketb/simulator'] = array(
+      'title' => 'Simulator',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('kandb_simulator_admin_form'),
+      'file' => 'kandb_simulator.admin.inc',
+      'access arguments' => array('administer content'),
+      'type' => MENU_LOCAL_TASK,
   );
 
-    return $items;
+  return $items;
 }
 
 /**
@@ -51,7 +53,7 @@ function kandb_simulator_menu() {
  */
 function render_simulator_capacite_achat() {
 
-    return theme('simulator_capacite_achat', array());
+  return theme('simulator_capacite_achat', array());
 }
 
 /**
@@ -59,7 +61,7 @@ function render_simulator_capacite_achat() {
  */
 function render_simulator_mensualites_remboursement() {
 
-    return theme('simulator_mensualites_remboursement', array());
+  return theme('simulator_mensualites_remboursement', array());
 }
 
 /**
@@ -67,7 +69,7 @@ function render_simulator_mensualites_remboursement() {
  */
 function render_simulator_droits_ptz() {
 
-    return theme('simulator_droits_ptz', array());
+  return theme('simulator_droits_ptz', array());
 }
 
 /**
@@ -75,29 +77,29 @@ function render_simulator_droits_ptz() {
  */
 function render_simulator_loi_pinel() {
 
-    return theme('simulator_loi_pinel', array());
+  return theme('simulator_loi_pinel', array());
 }
 
 /**
  * Implement of hook_theme().
  */
 function kandb_simulator_theme($existing, $type, $theme, $path) {
-    return array(
-        'simulator_capacite_achat' => array(
-            'template' => 'templates/simulator_capacite_achat',
-            'variables' => array(),
-        ),
-        'simulator_mensualites_remboursement' => array(
-            'template' => 'templates/simulator_mensualites_remboursement',
-            'variables' => array(),
-        ),
-        'simulator_droits_ptz' => array(
-            'template' => 'templates/simulator_droits_ptz',
-            'variables' => array(),
-        ),
-        'simulator_loi_pinel' => array(
-            'template' => 'templates/simulator_loi_pinel',
-            'variables' => array(),
-        ),
-    );
+  return array(
+      'simulator_capacite_achat' => array(
+          'template' => 'templates/simulator_capacite_achat',
+          'variables' => array(),
+      ),
+      'simulator_mensualites_remboursement' => array(
+          'template' => 'templates/simulator_mensualites_remboursement',
+          'variables' => array(),
+      ),
+      'simulator_droits_ptz' => array(
+          'template' => 'templates/simulator_droits_ptz',
+          'variables' => array(),
+      ),
+      'simulator_loi_pinel' => array(
+          'template' => 'templates/simulator_loi_pinel',
+          'variables' => array(),
+      ),
+  );
 }
