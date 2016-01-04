@@ -884,3 +884,13 @@ function kandb_update_7185(&$sandbox) {
     module_enable(array('kandb_conseiller_regional'), TRUE);
   }
 }
+
+/**
+ * Enable kandb_activities
+ */
+function kandb_update_7186(&$sandbox) {
+  if (!module_exists('kandb_activities')) {
+    module_enable(array('kandb_activities'), TRUE);
+  }
+}
+
