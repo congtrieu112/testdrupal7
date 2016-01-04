@@ -83,23 +83,28 @@ function render_simulator_loi_pinel() {
 /**
  * Implement of hook_theme().
  */
-function kandb_simulator_theme($existing, $type, $theme, $path) {
+function kandb_simulator_theme($existing, $type, $theme, $path)
+{
   return array(
-      'simulator_capacite_achat' => array(
-          'template' => 'templates/simulator_capacite_achat',
-          'variables' => array(),
-      ),
-      'simulator_mensualites_remboursement' => array(
-          'template' => 'templates/simulator_mensualites_remboursement',
-          'variables' => array(),
-      ),
-      'simulator_droits_ptz' => array(
-          'template' => 'templates/simulator_droits_ptz',
-          'variables' => array(),
-      ),
-      'simulator_loi_pinel' => array(
-          'template' => 'templates/simulator_loi_pinel',
-          'variables' => array(),
-      ),
+    'simulator_capacite_achat' => array(
+      'template' => 'templates/simulator_capacite_achat',
+      'variables' => array(),
+    ),
+    'simulator_mensualites_remboursement' => array(
+      'template' => 'templates/simulator_mensualites_remboursement',
+      'variables' => array(),
+    ),
+    'simulator_droits_ptz' => array(
+      'template' => 'templates/simulator_droits_ptz',
+      'variables' => array(),
+    ),
+    'simulator_loi_pinel' => array(
+      'template' => 'templates/simulator_loi_pinel',
+      'variables' => array(),
+    ),
+    'simulator_header_block' => array(
+      'template' => 'templates/simulator_header_block',
+      'variables' => array(),
+    ),
   );
 }
