@@ -29,7 +29,9 @@ if (isset($group_header['content']) && $group_header['content']) {
             $url = $default_menu_links[$i];
             $title = $default_menu_titles[$i];
           endif;
-
+          if(count($arg) == 1 && $i ==0){
+            $class = 'active';
+          }
           // Active menu.
           if (url($current_path) == url($url)):
             $class = 'active';
