@@ -547,6 +547,11 @@ function kandb_theme_preprocess_node(&$vars) {
       $vars['field_photo_conseiller'][0]['contact_selection'] = image_style_url('contact_selection', $image);
     }
   }
+
+  $vars['livraison_date'] = isset($node->field_programme_livraison_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_livraison_date[LANGUAGE_NONE][0]['value'] : '';
+  $vars['actabilite_date'] = isset($node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value'] : '';
+
+  $vars['programme_loc_region_kb'] = isset($node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id'] : '';
 }
 
 /**
