@@ -4,3 +4,53 @@
  * @file
  * K&B B2C Group pages Activities.
  */
+
+/**
+ * Implement of hook_menu().
+ */
+function kandb_activities_menu() {
+  $items = array();
+
+  $items['corporate/activites/habitat'] = array(
+    'title' => 'Le Groupe - Activités - Habitat',
+    'page callback' => 'render_group_activities_habitat',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/ketb/group/active/habitat'] = array(
+    'title' => '[Activities] - Habitat',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_active_habitat_form'),
+    'file' => 'kandb_group_active_habitat.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implement of hook_theme().
+ */
+function kandb_activities_theme($existing, $type, $theme, $path) {
+  return array(
+    'group_activities_header' => array(
+      'template' => 'templates/group_active_header',
+      'variables' => array(),
+    ),
+
+    'group_activities_habitat' => array(
+      'template' => 'templates/group_active_habitat',
+      'variables' => array(),
+    ),
+  );
+}
+
+/**
+ * Implements render page habitat.
+ */
+function render_group_activities_habitat() {
+  $data = array();
+  return theme('group_activities_habitat', array('data' => $data));
+}
