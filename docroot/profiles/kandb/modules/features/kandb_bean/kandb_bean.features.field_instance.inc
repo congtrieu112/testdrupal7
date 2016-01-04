@@ -31,7 +31,7 @@ function kandb_bean_field_default_field_instances() {
     'entity_type' => 'bean',
     'field_name' => 'field_block_b2b_header_image',
     'label' => 'Image',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
@@ -76,7 +76,7 @@ function kandb_bean_field_default_field_instances() {
     'entity_type' => 'bean',
     'field_name' => 'field_block_b2b_header_img_small',
     'label' => 'Small image',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
@@ -219,7 +219,7 @@ function kandb_bean_field_default_field_instances() {
     'entity_type' => 'bean',
     'field_name' => 'field_block_header_image',
     'label' => 'Image',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
@@ -263,7 +263,7 @@ function kandb_bean_field_default_field_instances() {
     'entity_type' => 'bean',
     'field_name' => 'field_block_header_image_small',
     'label' => 'Small image',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
