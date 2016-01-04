@@ -885,7 +885,6 @@ function kandb_update_7185(&$sandbox) {
   }
 }
 
-
 /**
  * Enable "Kandb simulator" module
  */
@@ -895,5 +894,11 @@ function kandb_update_7186(&$sandbox) {
   }
 }
 
-
-
+/**
+ * Enable kandb_activities
+ */
+function kandb_update_7187(&$sandbox) {
+  if (!module_exists('kandb_activities')) {
+    module_enable(array('kandb_activities'), TRUE);
+  }
+}
