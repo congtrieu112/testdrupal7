@@ -15,7 +15,7 @@ if (isset($group_header['content']) && $group_header['content']) {
   <nav class="pageHeaderNav wrapper">
       <ul class="pageHeaderNav__list">
           <?php
-          $number_si = 4;
+          $number_si = NUMBER_SIMULATOR;
           for ($i = 0; $i < $number_si; $i++) :
             $url = $title = $class = '';
             $si = array();
