@@ -884,3 +884,16 @@ function kandb_update_7185(&$sandbox) {
     module_enable(array('kandb_conseiller_regional'), TRUE);
   }
 }
+
+
+/**
+ * Enable "Kandb simulator" module
+ */
+function kandb_update_7186(&$sandbox) {
+  if (!module_exists('kandb_simulator')) {
+    module_enable(array('kandb_simulator'), TRUE);
+  }
+}
+
+
+
