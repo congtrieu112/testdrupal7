@@ -48,6 +48,14 @@ function kandb_group_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  
+  // Front--finance-archives page
+    $items['corporate/actualites'] = array(
+      'title' => t('Actualites'),
+      'page callback' => 'kandb_group_page',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
 
   $items['admin/content/ketb/finance/presentation'] = array(
     'title' => '[Finance] Presentation',
@@ -204,6 +212,17 @@ function kandb_group_menu() {
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
+  
+  // Actualités page.
+  
+  $items['admin/content/ketb/group/rh'] = array(
+    'title' => '[Group] - Actualités',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_new_admin_form'),
+    'file' => 'kandb_group_new.admin.inc',
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+  );
 
   return $items;
 }
@@ -254,6 +273,10 @@ function kandb_group_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_rh_postuler',
       'variables' => array(),
     ),
+    'group_new' => array(
+      'template' => 'templates/group_new',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -299,6 +322,84 @@ function render_group_homepage() {
       $data['finance_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
+  
+  
+  // Block Ressources Humaines.
+  $ressources_humaines_img = variable_get('image_group_home_block_ressources_humaines', 0);
+  $ressources_humaines_img_load = file_load($ressources_humaines_img);
+  $ressources_humaines_img_uri = (isset($ressources_humaines_img_load->uri)) ? file_create_url($ressources_humaines_img_load->uri) : '';
+  $data['ressources_humaines_block']['image'] = $ressources_humaines_img_uri;
+  $ressources_humaines_title = variable_get('title_group_home_block_ressources_humaines');
+  $data['ressources_humaines_block']['title'] = $ressources_humaines_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_ressources_humaines_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['ressources_humaines_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  // Block Activités.
+  $activites_img = variable_get('image_group_home_block_activites', 0);
+  $activites_img_load = file_load($activites_img);
+  $activites_img_uri = (isset($activites_img_load->uri)) ? file_create_url($activites_img_load->uri) : '';
+  $data['activites_block']['image'] = $activites_img_uri;
+  $activites_title = variable_get('title_group_home_block_activites');
+  $data['activites_block']['title'] = $activites_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_activites_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['activites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  
+  // Block Actualités.
+  $actualites_img = variable_get('image_group_home_block_actualites', 0);
+  $actualites_img_load = file_load($actualites_img);
+  $actualites_img_uri = (isset($actualites_img_load->uri)) ? file_create_url($actualites_img_load->uri) : '';
+  $data['actualites_block']['image'] = $actualites_img_uri;
+  $actualites_title = variable_get('title_group_home_block_actualites');
+  $data['actualites_block']['title'] = $actualites_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_actualites_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['actualites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  // Block Développement Durable.
+  $developpement_durable_img = variable_get('image_group_home_block_developpement_durable', 0);
+  $developpement_durable_img_load = file_load($developpement_durable_img);
+  $developpement_durable_img_uri = (isset($developpement_durable_img_load->uri)) ? file_create_url($developpement_durable_img_load->uri) : '';
+  $data['developpement_durable_block']['image'] = $developpement_durable_img_uri;
+  $developpement_durable_title = variable_get('title_group_home_block_developpement_durable');
+  $data['developpement_durable_block']['title'] = $developpement_durable_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_developpement_durable_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['developpement_durable_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  
+  
+  
   return theme('group_homepage', array('data' => $data));
 }
 
@@ -550,4 +651,26 @@ function kandb_group_permission() {
       'description' => t('only allow specify roles can access group page'),
     ),
   );
+}
+
+function kandb_group_page() {
+  drupal_set_title(t('Communiqué de presse'));
+  $tid = 0;
+  $content_archives = array();
+  $page_title = t('Communiqué de presse');
+  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
+  if (isset($document_voca->vid)) {
+    $all_terms = taxonomy_get_tree($document_voca->vid);
+    if ($tid == 0 && !empty($all_terms)) {
+      $tid = $all_terms[0]->tid;
+    }
+    $base_archive = base_path() . 'corporate/archives/';
+    foreach ($all_terms as $term) {
+      if ($term->name == 'Communiqué de presse') {
+        $tid = $term->tid;
+      }
+    }
+  }
+  $content_archives['tab_content'] = get_document_by_type($tid, 0);
+  return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }

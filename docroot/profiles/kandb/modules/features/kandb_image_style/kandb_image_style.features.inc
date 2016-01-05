@@ -196,6 +196,22 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: habitat_img_780x380.
+  $styles['habitat_img_780x380'] = array(
+    'label' => 'Habitat img 780x380',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_crop',
+        'data' => array(
+          'width' => 780,
+          'height' => 380,
+          'anchor' => 'center-center',
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: homepageb2b_backgound_large.
   $styles['homepageb2b_backgound_large'] = array(
     'label' => 'HomepageB2B Backgound Large (1380x712)',
