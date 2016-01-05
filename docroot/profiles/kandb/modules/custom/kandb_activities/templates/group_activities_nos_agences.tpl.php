@@ -41,70 +41,64 @@ print theme('group_activities_header');
     </div>
     <ul data-app-accordion class="accordion contacts__list">
       <?php
-          $count = 0;
-          foreach($region_contents as $region) :
-            if($region['region_kb_id'] != '') :
-            $conseillers = isset($conseiller_contents[$region['region_nid']]) ? $conseiller_contents[$region['region_nid']] : '';
-      ?>
-            <li id="<?php print $region['region_kb_id']; ?>">
-                <a href="#<?php print $region['region_kb_id']; ?>" data-app-accordion-link data-contact-map-section='<?php print $region['region_kb_id']; ?>' class="accordion__link <?php print ($count == 0) ? 'active' : ''; ?>">
-                    <?php print $region['region_title']; ?>
-                    <span class="display-status"></span>
+        $count = 0;
+        $arg = arg();
+        if ($region_contents && isset($region_contents['node'])) :
+          foreach($region_contents['node'] as $region) :
+            $region_nid = isset($region->nid) ? $region->nid : '';
+            if ($region_nid) :
+              $n_region = node_load($region_nid);
+              $region_kb_id = isset($n_region->vid) ? $n_region->vid : '';
+              if ($region_kb_id):
+            ?>
+              <li id="<?php print $region_kb_id; ?>">
+                <a href="#<?php print $region_kb_id; ?>" data-app-accordion-link data-contact-map-section='<?php print $region_kb_id; ?>' class="accordion__link <?php print ($count == 0) ? 'active' : ''; ?>">
+                  <?php print $n_region->title; ?>
+                  <span class="display-status"></span>
                 </a>
-              <article data-app-accordion-content class="heading--small">
-                <?php if($conseillers) : ?>
-                <h3 class="heading__title heading__title--sub"><?php print t('Vos conseillers régionaux Aquitaine') . ' :'; ?></h3>
-                <ul class="counselors">
-                  <?php foreach($conseillers as $conseiller) :
-                    $tel = $telephone = $conseiller['conseiller_regional_telephone2'];
-                    if($conseiller['conseiller_regional_telephone1'] && $conseiller['conseiller_regional_telephone2']) {
-                      $telephone = $conseiller['conseiller_regional_telephone1'] . ' / ' . $conseiller['conseiller_regional_telephone2'];
-                      $tel = $conseiller['conseiller_regional_telephone1'];
-                    } elseif($conseiller['conseiller_regional_telephone1'] && !$conseiller['conseiller_regional_telephone2']) {
-                      $telephone = $conseiller['conseiller_regional_telephone1'];
-                      $tel = $conseiller['conseiller_regional_telephone1'];
-                    }
+                <article data-app-accordion-content class="heading--small">
+                  <ul class="counselors">
+                <?php
 
-                    $image_path = '';
-                    if($conseiller['conseiller_regional_photo']) {
-                      $image_path = image_style_url('69x69', $conseiller['conseiller_regional_photo']);
-                    }
-                  ?>
-                  <li style="background-image: url(<?php print $image_path; ?>);">
-                    <a href="mailto:<?php print $conseiller['conseiller_regional_email']; ?>" class="mail">
-                      <?php print $conseiller['conseiller_title']; ?>
-                      <span class="icon icon-email"></span>
-                    </a>
-                    <?php if($telephone) : ?>
-                    <a href="tel:<?php print $tel; ?>" class="phone">
-                      <?php print $telephone; ?>
-                      <span class="icon icon-tel"></span>
-                    </a>
-                    <?php endif; ?>
-                  </li>
-                  <?php endforeach; ?>
-                </ul>
-                <?php endif; ?>
+                    for ($i = 1; $i <= 5; $i++) :
+                      if ($arg[2] == 'nos-services') :
+                        $field_addr = 'field_kb_service'.$i.'_address';
+                        $field_email = 'field_kb_service'.$i.'_email';
+                        $field_telephone = 'field_kb_service'.$i.'_telephone';
+                      elseif ($arg[2] == 'nos-showroom') :
+                        $field_addr = 'field_kb_showroom'.$i.'_address';
+                        $field_email = 'field_kb_showroom'.$i.'_email';
+                        $field_telephone = 'field_kb_showroom'.$i.'_telephone';
+                      else :
+                        $field_addr = 'field_kb_agence'.$i.'_address';
+                        $field_email = 'field_kb_agence'.$i.'_email';
+                        $field_telephone = 'field_kb_agence'.$i.'_telephone';
+                      endif;
+                      $arr_field_addr = $n_region->$field_addr;
+                      $arr_field_email = $n_region->$field_email;
+                      $arr_field_telephone = $n_region->$field_telephone;
+                      $addr = isset($arr_field_addr[LANGUAGE_NONE][0]['value'])?$arr_field_addr[LANGUAGE_NONE][0]['value']:'';
+                      $email = isset($arr_field_email[LANGUAGE_NONE][0]['value'])?$arr_field_email[LANGUAGE_NONE][0]['value']:'';
+                      $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value'])?$arr_field_telephone[LANGUAGE_NONE][0]['value']:'';
+                      if ($addr && $email && $telephone) : ?>
+                      <li><?php print $addr; ?>
+                      <a href="mailto:<?php print $email; ?>" class="mail"><?php print $email; ?>
+                      <span class="icon icon-email"></span></a>
+                      <a href="tel:<?php print $telephone; ?>" class="phone"><?php print $telephone; ?><span class="icon icon-tel"></span></a>
+                      </li>
+                    <?php endif;
+                    endfor;
+                ?>
+                  </ul>
+                </article>
+              </li>
 
-                <div class="contacts__address">
-                  <a href="http://maps.google.com/maps?daddr=<?php print $region['region_kb_latitude']; ?>,<?php print $region['region_kb_longitude']; ?>">
-                    <img src="https://maps.googleapis.com/maps/api/staticmap?center=<?php print $region['region_kb_latitude']; ?>,<?php print $region['region_kb_longitude']; ?>&amp;region=France&amp;zoom=8&amp;size=400x200&amp;scale=2&amp;maptype=roadmap&amp;markers=color:blue%7C<?php print $region['region_kb_latitude']; ?>,<?php print $region['region_kb_longitude']; ?>"/>
-                  </a>
-                  <?php if($region['region_kb_libelle'] || $region['region_kb_adresse'] || $region['region_kb_telephone']) : ?>
-                  <div class="contacts__address__content">
-                    <h4 class="heading__title heading__title--sub"><?php print t('Notre adresse en Aquitaine') . ' :'; ?></h4>
-                    <p><?php print $region['region_kb_libelle']; ?></p>
-                    <p><?php print $region['region_kb_adresse']; ?></p>
-                    <p><?php print $region['region_kb_telephone']; ?></p>
-                  </div>
-                  <?php endif; ?>
-                </div>
-              </article>
-            </li>
-      <?php
+            <?php    //krumo($n_region);die;
             $count++;
+              endif;
             endif;
           endforeach;
+        endif;
       ?>
     </ul>
   </div>
