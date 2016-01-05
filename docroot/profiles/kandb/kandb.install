@@ -902,3 +902,13 @@ function kandb_update_7187(&$sandbox) {
     module_enable(array('kandb_activities'), TRUE);
   }
 }
+
+/**
+ * Enable kandb_habitat
+ */
+function kandb_update_7188(&$sandbox) {
+  if (!module_exists('kandb_habitat')) {
+    module_enable(array('kandb_habitat'), TRUE);
+  }
+}
+
