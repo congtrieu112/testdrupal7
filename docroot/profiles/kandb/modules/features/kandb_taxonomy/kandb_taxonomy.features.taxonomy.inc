@@ -41,14 +41,6 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
-    'comite' => array(
-      'name' => 'Comité',
-      'machine_name' => 'comite',
-      'description' => 'A simple taxonomy called "Comité" (machine name : comite), with a criteria to display complete description of the CT Finance Gou',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-    ),
     'departement' => array(
       'name' => 'Département',
       'machine_name' => 'departement',
