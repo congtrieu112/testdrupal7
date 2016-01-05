@@ -246,7 +246,7 @@ function kandb_group_home_admin_form($form, $form_state) {
   $form['fieldset_group_block_developpement_durable']['image_group_home_block_developpement_durable'] = array(
     '#type' => 'managed_file',
     '#title' => 'Image for block Developpement Durable in Group home page',
-    '#default_value' => variable_get('image_group_home_block_finance'),
+    '#default_value' => variable_get('image_group_home_block_developpement_durable'),
     '#upload_location' => 'public://',
   );
   $form['fieldset_group_block_developpement_durable']['title_group_home_block_developpement_durable'] = array(
