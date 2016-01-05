@@ -96,7 +96,8 @@ class KbParserCSV extends ParserCSV{
           $stored_line .= $line;
           continue;
       }
-      $fields = str_getcsv($line, $this->delimiter, '','\\');
+      
+      $fields = array_map('trim', str_getcsv($line, $this->delimiter, '','\\'));
 //      if(is_array($fields) && $total_column != count($fields)){
 //          $log_line = mb_convert_encoding($ori_line, "UTF-8", "ISO-8859-1");
 //          $logging .= str_replace('¤', '€' ,$log_line);;
