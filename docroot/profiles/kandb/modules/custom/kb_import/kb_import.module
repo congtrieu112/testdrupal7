@@ -226,7 +226,7 @@ function kb_import_feeds_after_import($source) {
 //    variable_set('feeds_process_limit', 1000);
 //  }
   if ($run_business_rule) {
-    $source->save();
+//    $source->save();
     if (module_exists('kandb_business_rules')) {
       kandb_business_rules_feeds_after_import_callback($id);
     }
