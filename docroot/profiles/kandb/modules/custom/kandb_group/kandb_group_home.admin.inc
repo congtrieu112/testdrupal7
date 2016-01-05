@@ -63,12 +63,239 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
+  
+  
+  
+  $form['fieldset_group_block_ressources_humaines'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'BLOCK Ressources Humaines',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  
+  $form['fieldset_group_block_ressources_humaines']['links_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CTA Links'),
+    '#tree' => TRUE,
+  );
+  $form['fieldset_group_block_ressources_humaines']['image_group_home_block_ressources_humaines'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block Ressources Humaines in Group home page',
+    '#default_value' => variable_get('image_group_home_block_ressources_humaines'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_group_block_ressources_humaines']['title_group_home_block_ressources_humaines'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_home_block_ressources_humaines', 'Ressources Humaines'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_ressources_humaines_' . $i);
+    if (isset($cta['url']) && isset($cta['title'])) {
+      $url = $cta['url'];
+      $title = $cta['title'];
+    }
+    $form['fieldset_group_block_ressources_humaines']['links_fieldset']['cta']['cta_group_home_block_ressources_humaines_' . $i] = array(
+      '#type' => 'link_field',
+      '#title' => t('CTA') . ' #' . ($i + 1),
+      '#field_parents' => NULL,
+      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#language' => $language->language,
+      '#field_name' => 'cta_title_group_home_block_ressources_humaines_' . $i,
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => $title,
+        'url' => $url,
+      ),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    );
+  }
+  
+  
+   $form['fieldset_group_block_activites'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'BLOCK Activités',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+   
+   $form['fieldset_group_block_activites']['links_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CTA Links'),
+    '#tree' => TRUE,
+  );
+  $form['fieldset_group_block_activites']['image_group_home_block_activites'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block activites in Group home page',
+    '#default_value' => variable_get('image_group_home_block_activites'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_group_block_activites']['title_group_home_block_activites'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_home_block_activites', 'Activités'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_activites_' . $i);
+    if (isset($cta['url']) && isset($cta['title'])) {
+      $url = $cta['url'];
+      $title = $cta['title'];
+    }
+    $form['fieldset_group_block_activites']['links_fieldset']['cta']['cta_group_home_block_activites_' . $i] = array(
+      '#type' => 'link_field',
+      '#title' => t('CTA') . ' #' . ($i + 1),
+      '#field_parents' => NULL,
+      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#language' => $language->language,
+      '#field_name' => 'cta_title_group_home_block_activites_' . $i,
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => $title,
+        'url' => $url,
+      ),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    );
+  }
+   
+   
+    $form['fieldset_group_block_actualites'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'BLOCK Actualités',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+    
+    $form['fieldset_group_block_actualites']['links_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CTA Links'),
+    '#tree' => TRUE,
+  );
+  $form['fieldset_group_block_actualites']['image_group_home_block_actualites'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block actualites in Group home page',
+    '#default_value' => variable_get('image_group_home_block_actualites'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_group_block_actualites']['title_group_home_block_actualites'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_home_block_actualites', 'Actualités'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_actualites_' . $i);
+    if (isset($cta['url']) && isset($cta['title'])) {
+      $url = $cta['url'];
+      $title = $cta['title'];
+    }
+    $form['fieldset_group_block_actualites']['links_fieldset']['cta']['cta_group_home_block_actualites_' . $i] = array(
+      '#type' => 'link_field',
+      '#title' => t('CTA') . ' #' . ($i + 1),
+      '#field_parents' => NULL,
+      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#language' => $language->language,
+      '#field_name' => 'cta_title_group_home_block_actualites_' . $i,
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => $title,
+        'url' => $url,
+      ),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    );
+  }
+    
+    
+     $form['fieldset_group_block_developpement_durable'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'BLOCK Développement Durable',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+     
+     $form['fieldset_group_block_developpement_durable']['links_fieldset'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('CTA Links'),
+    '#tree' => TRUE,
+  );
+  $form['fieldset_group_block_developpement_durable']['image_group_home_block_developpement_durable'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Image for block Developpement Durable in Group home page',
+    '#default_value' => variable_get('image_group_home_block_developpement_durable'),
+    '#upload_location' => 'public://',
+  );
+  $form['fieldset_group_block_developpement_durable']['title_group_home_block_developpement_durable'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_home_block_developpement_durable', ' Développement Durable'),
+    '#size' => 60,
+    '#maxlength' => 128,
+    '#required' => TRUE,
+  );
+
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_developpement_durable_' . $i);
+    if (isset($cta['url']) && isset($cta['title'])) {
+      $url = $cta['url'];
+      $title = $cta['title'];
+    }
+    $form['fieldset_group_block_developpement_durable']['links_fieldset']['cta']['cta_group_home_block_developpement_durable_' . $i] = array(
+      '#type' => 'link_field',
+      '#title' => t('CTA') . ' #' . ($i + 1),
+      '#field_parents' => NULL,
+      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#language' => $language->language,
+      '#field_name' => 'cta_title_group_home_block_developpement_durable_' . $i,
+      '#delta' => 0,
+      '#default_value' => array(
+        'title' => $title,
+        'url' => $url,
+      ),
+      '#size' => 60,
+      '#maxlength' => 128,
+      '#required' => FALSE,
+    );
+  }
+  
 
   $form['#submit'] = array(
     'bkandb_group_settings_cta_link'
   );
 
   $form['#validate'][] = 'group_home_validate';
+  
+  
+  
+  
+  
 
   return system_settings_form($form);
 }

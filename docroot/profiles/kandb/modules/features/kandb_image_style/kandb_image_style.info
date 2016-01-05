@@ -17,6 +17,7 @@ features[image][] = dossier_big_teaser_mobile
 features[image][] = dossier_small_teaser
 features[image][] = dossier_small_teaser_mobile
 features[image][] = finance_presentation_speech_215_x_215
+features[image][] = habitat_img_780x380
 features[image][] = homepageb2b_backgound_large
 features[image][] = homepageb2b_backgound_small
 features[image][] = hp_search_block

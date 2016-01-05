@@ -1,7 +1,7 @@
 <?php
 $arg = arg();
 $current_path = implode('/', $arg);
-$group_header = module_invoke('bean', 'block_view', 'activities-header');
+$group_header = module_invoke('bean', 'block_view', 'development-durable-header');
 if (isset($group_header['content']) && $group_header['content']) {
   print render($group_header['content']);
 }
@@ -10,9 +10,9 @@ if (isset($group_header['content']) && $group_header['content']) {
 <nav class="pageHeaderNav wrapper">
     <ul class="pageHeaderNav__list">
         <?php
-        $number_cta = 3;
-        $default_menu_titles = unserialize(KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES);
-        $default_menu_links = unserialize(KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS);
+        $number_cta = KANDB_GROUP_DEVELOPMENT_NUMBER_CTA_ACTIVE;
+        $default_menu_titles = unserialize(KANDB_GROUP_DEVELOPMENT_HEADER_MENU_DEFAULT_TITLES);
+        $default_menu_links = unserialize(KANDB_GROUP_DEVELOPMENT_HEADER_MENU_DEFAULT_LINKS);
         for ($i = 0; $i < $number_cta; $i++) :
           $url = $title = $class = '';
           $cta = array();
