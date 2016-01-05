@@ -91,8 +91,12 @@
         <?php endif; ?>
         <!-- -->
         <div class="btn-wrapper">
-            <?php  if(variable_get('bloc_bureau_cta_text') && variable_get('bloc_bureau_cta_url')) : ?>
-                <a href="<?php print variable_get('bloc_bureau_cta_url'); ?>" class="btn-rounded btn-primary"><?php print variable_get('bloc_bureau_cta_text'); ?></a>
+            <?php
+                $text = variable_get('bloc_bureau_cta_text');
+                $url =  variable_get('bloc_bureau_cta_url');
+                if($text && $url) :
+            ?>
+                <a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
             <?php endif; ?>
         </div>
     </div>
@@ -179,8 +183,12 @@
                     <p><?php print variable_get('bloc_logistique_habitat_description'); ?></p>
                 </div>
                 <div class="btn-wrapper">
-                    <?php  if(variable_get('bloc_logistique_cta_text') && variable_get('bloc_logistique_cta_url')) : ?>
-                        <a href="<?php print variable_get('bloc_logistique_cta_url'); ?>" class="btn-rounded btn-primary"><?php print variable_get('bloc_logistique_cta_text'); ?></a>
+                    <?php
+                        $text = variable_get('bloc_logistique_cta_text');
+                        $url =  variable_get('bloc_logistique_cta_url');
+                        if($text && $url) :
+                    ?>
+                        <a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
                     <?php endif; ?>
                 </div>
             <?php endif;?>
@@ -250,8 +258,12 @@
           </div>
         <?php endif; ?>
         <div class="btn-wrapper">
-            <?php if (variable_get('bloc_hotell_cta_text') && variable_get('bloc_hotell_cta_url')) : ?>
-                <a href="<?php print variable_get('bloc_hotell_cta_url'); ?>" class="btn-rounded btn-primary"><?php print variable_get('bloc_hotell_cta_text'); ?></a>
+            <?php
+                $text = variable_get('bloc_hotell_cta_text');
+                $url =  variable_get('bloc_hotell_cta_url');
+                if($text && $url) :
+            ?>
+                <a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
             <?php endif; ?>
         </div>
         <!-- -->
@@ -321,8 +333,12 @@
         <?php endif; ?>
         <!-- -->
         <div class="btn-wrapper">
-            <?php if (variable_get('bloc_commercer_cta_text') && variable_get('bloc_commercer_cta_url')) : ?>
-                <a href="<?php print variable_get('bloc_commercer_cta_url'); ?>" class="btn-rounded btn-primary"><?php print variable_get('bloc_commercer_cta_text'); ?></a>
+            <?php
+                $text = variable_get('bloc_commercer_cta_text');
+                $url =  variable_get('bloc_commercer_cta_url');
+                if($text && $url) :
+            ?>
+                <a href="<?php $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
             <?php endif; ?>
         </div>
     </div>
