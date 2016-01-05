@@ -5,6 +5,10 @@
  * K&B B2C Group pages Activities.
  */
 
+define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Habitat'), t('Tertiaire'), t('Nos agences'))));
+define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/activites/habitat', 'corporate/activites/tertiaire', 'corporate/activites/nos-agences')));
+define('NUMBER_CTA_ACTIVE', 3);
+
 /**
  * Implement of hook_menu().
  */

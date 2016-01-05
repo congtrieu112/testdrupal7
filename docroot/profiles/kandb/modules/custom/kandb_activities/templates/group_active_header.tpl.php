@@ -9,15 +9,31 @@ if (isset($group_header['content']) && $group_header['content']) {
 <!-- [pageHeaderNav] start-->
 <nav class="pageHeaderNav wrapper">
     <ul class="pageHeaderNav__list">
-        <li class = "pageHeaderNav__list__item ">
-            <a href = "#">Habitat</a>
-        </li>
-        <li class = "pageHeaderNav__list__item ">
-            <a href = "#">Tertiary</a>
-        </li>
-        <li class = "pageHeaderNav__list__item ">
-            <a href = "#">Our agencies</a>
-        </li>
+        <?php
+        $number_cta = 3;
+        $default_menu_titles = unserialize(KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES);
+        $default_menu_links = unserialize(KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS);
+        for ($i = 0; $i < $number_cta; $i++) :
+          $url = $title = $class = '';
+          $cta = array();
+          $cta = variable_get('cta_group_activites_block_header_' . $i);
+          if (isset($cta['url']) && isset($cta['title']) && $cta['url'] && $cta['title']):
+            $url = $cta['url'];
+            $title = $cta['title'];
+          else:
+            $url = $default_menu_links[$i];
+            $title = $default_menu_titles[$i];
+          endif;
+
+          // Active menu.
+          if (url($current_path) == url($url)):
+            $class = 'active';
+          endif;
+          ?>
+          <li class="pageHeaderNav__list__item <?php print $class; ?>">
+              <a href="<?php print url($url); ?>"><?php print $title; ?></a>
+          </li>
+        <?php endfor; ?>
     </ul>
 </nav>
 <!-- [pageHeaderNav] end-->
