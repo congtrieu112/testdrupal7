@@ -48,6 +48,14 @@ function kandb_group_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  
+  // Front--finance-archives page
+    $items['corporate/actualites'] = array(
+      'title' => t('Actualites'),
+      'page callback' => 'kandb_group_page',
+      'access arguments' => array('access content'),
+      'type' => MENU_NORMAL_ITEM,
+    );
 
   $items['admin/content/ketb/finance/presentation'] = array(
     'title' => '[Finance] Presentation',
@@ -204,6 +212,17 @@ function kandb_group_menu() {
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
+  
+  // Actualités page.
+  
+  $items['admin/content/ketb/group/rh'] = array(
+    'title' => '[Group] - Actualités',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_new_admin_form'),
+    'file' => 'kandb_group_new.admin.inc',
+    'access arguments' => array('access content'),
+    'type' => MENU_LOCAL_TASK,
+  );
 
   return $items;
 }
@@ -252,6 +271,10 @@ function kandb_group_theme($existing, $type, $theme, $path) {
     ),
     'group_rh_postuler' => array(
       'template' => 'templates/group_rh_postuler',
+      'variables' => array(),
+    ),
+    'group_new' => array(
+      'template' => 'templates/group_new',
       'variables' => array(),
     ),
   );
@@ -550,4 +573,26 @@ function kandb_group_permission() {
       'description' => t('only allow specify roles can access group page'),
     ),
   );
+}
+
+function kandb_group_page() {
+  drupal_set_title(t('Communiqué de presse'));
+  $tid = 0;
+  $content_archives = array();
+  $page_title = t('Communiqué de presse');
+  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
+  if (isset($document_voca->vid)) {
+    $all_terms = taxonomy_get_tree($document_voca->vid);
+    if ($tid == 0 && !empty($all_terms)) {
+      $tid = $all_terms[0]->tid;
+    }
+    $base_archive = base_path() . 'corporate/archives/';
+    foreach ($all_terms as $term) {
+      if ($term->name == 'Communiqué de presse') {
+        $tid = $term->tid;
+      }
+    }
+  }
+  $content_archives['tab_content'] = get_document_by_type($tid, 0);
+  return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }
