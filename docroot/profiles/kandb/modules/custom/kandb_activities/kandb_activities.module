@@ -4,7 +4,7 @@
  * @file
  * K&B B2C Group pages Activities.
  */
-
+define('BLOC_BUREAU_KPI_ITEMS_NUM', 20);
 /**
  * Implement of hook_menu().
  */
@@ -17,6 +17,12 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  $items['corporate/activites/tertiaire'] = array(
+    'title' => 'Le Groupe - Activités - Habitat',
+    'page callback' => 'render_group_activities_tertiaire',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
 
   $items['corporate/activites/nos-agences'] = array(
     'title' => 'Le Groupe - Activités - Nos agences',
@@ -24,7 +30,6 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
-
   $items['admin/content/ketb/group/active/habitat'] = array(
     'title' => '[Activities] - Habitat',
     'page callback' => 'drupal_get_form',
@@ -33,10 +38,16 @@ function kandb_activities_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-
+  $items['admin/content/ketb/group/active/tertiaire'] = array(
+    'title' => '[Activities] - Tertiaire',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_active_tertiaire_form'),
+    'file' => 'kandb_group_active_tertiaire.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
 }
-
 /**
  * Implement of hook_theme().
  */
@@ -49,6 +60,11 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
 
     'group_activities_habitat' => array(
       'template' => 'templates/group_active_habitat',
+      'variables' => array(),
+    ),
+
+    'group_activities_tertiaire' => array(
+      'template' => 'templates/group_active_tertiaire',
       'variables' => array(),
     ),
 
@@ -65,6 +81,13 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
 function render_group_activities_habitat() {
   $data = array();
   return theme('group_activities_habitat', array('data' => $data));
+}
+/**
+ * Implements render page habitat.
+ */
+function render_group_activities_tertiaire() {
+  $data = array();
+  return theme('group_activities_tertiaire', array('data' => $data));
 }
 
 /**
