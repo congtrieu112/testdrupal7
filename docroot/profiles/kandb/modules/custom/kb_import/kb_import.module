@@ -130,47 +130,6 @@ function kb_import_cronapi($op, $job = NULL) {
   return $items;
 }
 
-//function kb_import_feeds_before_import(FeedsSource $source) {
-//  variable_set('feeds_process_limit', 1000);
-//  $file_name = 'imported_lot.txt';
-//  if ($source->id == 'parcel_feed_import') {
-//    $uri = 'private://imported/';
-//    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-//    if ($prepare_file) {
-//      drupal_chmod($uri);
-//      file_save_data('', $uri . $file_name, FILE_EXISTS_REPLACE);
-//    }
-//  }
-//  if ($source->id == 'parcel_feed_import' || $source->id == 'programme_feed_import') {
-//    $kb_daily_import_status = get_daily_import_status ();
-//    $kb_migration_status = get_migration_status();
-//    if ($kb_migration_status['start_migration'] == 0 && $kb_daily_import_status['start_daily_import'] == 0) {
-//      variable_set('feeds_process_limit', 100);
-//    }
-//  }
-//}
-
-function kb_import_feeds_after_save(FeedsSource $source, $entity, $item, $entity_id) {
-  if ($source->id == 'parcel_feed_import' && $entity_id != 0) {
-    kb_store_items_imported($entity_id . "\n");
-  }
-}
-
-function kb_store_items_imported($new_data) {
-  $uri = 'private://imported/';
-  $file_name = 'imported_lot.txt';
-  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-  if ($prepare_file) {
-    $path = drupal_realpath($uri . $file_name);
-    $data = '';
-    if (file_exists($path)) {
-      $data = file_get_contents($path);
-    }
-    drupal_chmod($uri);
-    file_save_data($data . $new_data , $uri . $file_name, FILE_EXISTS_REPLACE);
-  }
-}
-
 function kb_import_feeds_after_import($source) {
   $kb_daily_import_importers = array(
     'city_feed_import',
@@ -179,23 +138,11 @@ function kb_import_feeds_after_import($source) {
     'programme_feed_import',
     'parcel_feed_import',
   );
-  $run_business_rule = TRUE;
   $id = $source->id;
   $status = 0;
-  if ($id == 'parcel_feed_import') {
-    $imported_ids = array();
-    $db_query = db_select('feeds_item', 'fi');
-    $db_query->fields('fi', array('entity_id'));
-    $db_query->condition('fi.entity_type', 'node');
-    $db_query->condition('fi.id', 'parcel_feed_import');
-    $imported_ids = $db_query->distinct()->execute()->fetchCol();
-    $new_data = implode("\n", $imported_ids);
-    kb_store_items_imported($new_data);
-  }
   $kb_daily_import_status = get_daily_import_status ();
   if (in_array($id, $kb_daily_import_importers) && isset($kb_daily_import_status['start_daily_import']) && $kb_daily_import_status['start_daily_import'] == 1) {
 //Set status value
-    $run_business_rule = FALSE;
     if (isset($source->exception) || !_check_successful_importer($source)) {
       $status = -1;
     }
@@ -210,7 +157,6 @@ function kb_import_feeds_after_import($source) {
   }
   $kb_migration_status = get_migration_status();
   if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
-    $run_business_rule = FALSE;
     if (isset($source->exception) || !_check_successful_importer($source)) {
       $status = -1;
     }
@@ -222,14 +168,8 @@ function kb_import_feeds_after_import($source) {
     kb_migration_logging ('migration : finish ' . $id);
     rules_invoke_event('migration_importer_finish', $id);
   }
-//  if ($id == 'parcel_feed_import' || $id == 'programme_feed_import') {
-//    variable_set('feeds_process_limit', 1000);
-//  }
-  if ($run_business_rule) {
-//    $source->save();
-    if (module_exists('kandb_business_rules')) {
-      kandb_business_rules_feeds_after_import_callback($id);
-    }
+  if ($id == 'parcel_feed_import' && module_exists('kandb_business_rules')) {
+    kandb_business_rules_feeds_after_import_prepare();
   }
 }
 
@@ -522,5 +462,24 @@ function kb_import_bien_pdf_loging($message) {
     $message = date("Y-m-d h:i A") . "\n" . $message . "\n\n";
     $file_log_name = variable_get('import_bien_pdf_for_programme_file_log_name', 'import_bien_pdf_for_programme_log_' . date('Y-m-d_H_i', REQUEST_TIME) . '.txt');
     createFileErrorLogTxt($file_log_name, $message);
+  }
+}
+
+function kb_import_form_alter (&$form, &$form_state, $form_id) {
+  if ($form_id == 'feeds_import_form' && isset($form['#importer_id']) && ($form['#importer_id'] == 'parcel_feed_import' || $form['#importer_id'] == 'programme_feed_import') && module_exists('kandb_business_rules')) {
+    $form['actions'] = array(
+      '#type' => 'actions',
+    );
+    $form['actions']['business_rule'] = array(
+      '#type' => 'submit',
+      '#value' => t('Run business rule after import'),
+      '#submit' => array('run_business_rule_after_import'),
+    );
+  }
+}
+
+function run_business_rule_after_import ($form, $form_state) {
+  if (isset($form['#importer_id']) && ($form['#importer_id'] == 'parcel_feed_import' || $form['#importer_id'] == 'programme_feed_import') && module_exists('kandb_business_rules')) {
+    kandb_business_rules_feeds_after_import_callback($form['#importer_id']);
   }
 }
