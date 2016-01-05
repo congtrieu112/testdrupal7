@@ -27,7 +27,6 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
-
   $items['corporate/activites/nos-agences'] = array(
     'title' => 'Le Groupe - Activités - Nos agences',
     'page callback' => 'render_group_activities_nos_agences',
@@ -42,7 +41,6 @@ function kandb_activities_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-<<<<<<< HEAD
   $items['admin/content/ketb/group/active/tertiaire'] = array(
     'title' => '[Activities] - Tertiaire',
     'page callback' => 'drupal_get_form',
@@ -51,8 +49,6 @@ function kandb_activities_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-=======
-
   $items['corporate/activites/habitat/%'] = array(
     'title' => 'Le Groupe - Activités - Habitat',
     'page callback' => 'render_group_activities_habitat_by_term',
@@ -60,8 +56,6 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
-
->>>>>>> c90cd18b2519179998afd1f4775d62b1d4cc553f
   return $items;
 }
 /**
@@ -77,15 +71,10 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_active_habitat',
       'variables' => array(),
     ),
-<<<<<<< HEAD
-
     'group_activities_tertiaire' => array(
       'template' => 'templates/group_active_tertiaire',
       'variables' => array(),
     ),
-
-=======
->>>>>>> c90cd18b2519179998afd1f4775d62b1d4cc553f
     'group_activities_nos_agences' => array(
       'template' => 'templates/group_activities_nos_agences',
       'variables' => array(),
