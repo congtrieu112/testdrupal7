@@ -265,10 +265,14 @@ function kb_import_finish_daily_import() {
     kb_daily_import_logging ('daily-import: Daily import success', FALSE);
     kb_daily_import_logging (date("Y-m-d h:i A"), FALSE);
     kb_daily_import_logging ('daily-import: Start run business rule for programme_feed_import');
-    kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+    if (module_exists('kandb_business_rules')) {
+      kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+    }
     kb_daily_import_logging ('daily-import: Finish run business rule for programme_feed_import');
     kb_daily_import_logging ('daily-import: Start run business rule for parcel_feed_import');
-    kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+    if (module_exists('kandb_business_rules')) {
+      kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+    }
     kb_daily_import_logging ('daily-import: Finish run business rule for parcel_feed_import');
   }
   else {
@@ -276,7 +280,9 @@ function kb_import_finish_daily_import() {
     kb_daily_import_logging (date("Y-m-d h:i A"), FALSE);
     if ($kb_daily_import_status['programme_feed_import_status'] == 1) {
       kb_daily_import_logging ('daily-import: Start run business rule for programme_feed_import');
-      kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+      if (module_exists('kandb_business_rules')) {
+        kandb_business_rules_feeds_after_import_callback('programme_feed_import');
+      }
       kb_daily_import_logging ('daily-import: Finish run business rule for programme_feed_import');
     }
   }
@@ -305,7 +311,9 @@ function kb_programme_migration_finish () {
       kb_migration_logging ('migration : migration success');
       if ($kb_migration_status['parcel_feed_import_status'] == 1) {
         kb_migration_logging ('migration: Start run business rule for parcel_feed_import');
-        kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        if (module_exists('kandb_business_rules')) {
+          kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        }
         kb_migration_logging ('migration: Finish run business rule for parcel_feed_import');
       }
       kb_migration_finish();
@@ -346,7 +354,9 @@ function kb_bien_migration_finish () {
     kb_migration_logging ('migration : migration success');
     if ($kb_migration_status['parcel_feed_import_status'] == 1) {
       kb_migration_logging ('migration: Start run business rule for parcel_feed_import');
-      kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+      if (module_exists('kandb_business_rules')) {
+        kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+      }
       kb_migration_logging ('migration: Finish run business rule for parcel_feed_import');
     }
     kb_migration_finish();
@@ -372,7 +382,9 @@ function kb_document_migration_finish () {
       kb_migration_logging ('migration : migration success');
       if ($kb_migration_status['parcel_feed_import_status'] == 1) {
         kb_migration_logging ('migration: Start run business rule for parcel_feed_import');
-        kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        if (module_exists('kandb_business_rules')) {
+          kandb_business_rules_feeds_after_import_callback('parcel_feed_import');
+        }
         kb_migration_logging ('migration: Finish run business rule for parcel_feed_import');
       }
       kb_migration_finish ();

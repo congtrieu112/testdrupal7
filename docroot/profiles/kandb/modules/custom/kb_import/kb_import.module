@@ -227,7 +227,9 @@ function kb_import_feeds_after_import($source) {
   }
   if ($run_business_rule) {
     $source->save();
-    kandb_business_rules_feeds_after_import_callback($id);
+    if (module_exists('kandb_business_rules')) {
+      kandb_business_rules_feeds_after_import_callback($id);
+    }
   }
 }
 
