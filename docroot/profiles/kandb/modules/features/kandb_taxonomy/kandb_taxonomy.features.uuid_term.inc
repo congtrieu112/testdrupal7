@@ -132,7 +132,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 1,
+          'value' => 0,
         ),
       ),
     ),
@@ -341,7 +341,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 1,
+          'value' => 0,
         ),
       ),
     ),
@@ -722,22 +722,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Hopitaux',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '1c65ab25-d08e-4479-b32b-8337d0629025',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 0,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
     'name' => '4 pièces',
     'description' => '',
     'format' => 'filtered_html',
@@ -869,6 +853,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Résultats annuel',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 5,
+    'uuid' => '20fd7b9c-ac98-47c6-b369-8d251c5b28fa',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'EST/NORD',
@@ -2042,6 +2034,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Autres informations',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 3,
+    'uuid' => '43f300ef-e6f6-41bc-9183-612d13d6bd6f',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
     'name' => 'EST/NORD/OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -2248,15 +2248,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
       ),
     ),
     'field_region' => array(),
-  );
-  $terms[] = array(
-    'name' => 'Accès mobilité Réduite',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '4b6c894c-d185-45a6-aad8-1ab1aaf9f2f7',
-    'vocabulary_machine_name' => 'caracteristiques_programme',
-    'field_picto_css_class' => array(),
   );
   $terms[] = array(
     'name' => 'Lot',
@@ -2471,13 +2462,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Corrèze',
@@ -2865,20 +2850,12 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Dernier étage',
+    'name' => 'Résultats du premier trimestre',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '5bcb4a56-fc94-46f2-ae83-085390b44107',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
+    'weight' => 1,
+    'uuid' => '5b8d5eb0-aab2-46ff-a9cb-8dac13423405',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'Picardie',
@@ -2936,24 +2913,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '5cf404d1-9a47-4af3-9178-72cee26f690d',
     'vocabulary_machine_name' => 'region',
-  );
-  $terms[] = array(
-    'name' => 'Ascenseur',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '5d51c992-aaae-44ac-a276-0339c23ab874',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(
-      'und' => array(
-        0 => array(
-          'value' => 'icon-ascenseur',
-          'format' => NULL,
-          'safe_value' => 'icon-ascenseur',
-        ),
-      ),
-    ),
-    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'SUD-EST/NORD',
@@ -3125,22 +3084,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Terrain',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => '68c19579-dd07-4ee5-8e82-032b5a255338',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
     'name' => 'EST/OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -3190,6 +3133,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Actionnaires de Kaufman & Broad',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 7,
+    'uuid' => '6b279a6f-5c1b-4cf4-bf14-c08ad494ff52',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'SUD/NORD/EST',
@@ -3922,6 +3873,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Documents relatifs aux comptes',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '8586f890-eebc-4f54-86c8-34aa0d9ed115',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
     'name' => 'SMCI',
     'description' => '',
     'format' => 'filtered_html',
@@ -4271,6 +4230,54 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Comité de Direction Elargi',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 5,
+    'uuid' => '939a6a4d-c53a-4157-abfa-6cc7ce67b27f',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comité de Direction Elargi',
+          'format' => NULL,
+          'safe_value' => 'Comité de Direction Elargi',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Conseil d\'Administration',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '93d7db19-9521-44c4-84a4-7eeec9fbc1b7',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Conseil d\'Administration',
+          'format' => NULL,
+          'safe_value' => 'Conseil d&#039;Administration',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD-OUEST/NORD-EST/SUD-OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -4283,6 +4290,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'NO/NE/SO',
           'format' => NULL,
           'safe_value' => 'NO/NE/SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Comité de Direction',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 4,
+    'uuid' => '967ddf18-97ec-4b59-8227-fa3d05ab3d8a',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comité de Direction',
+          'format' => NULL,
+          'safe_value' => 'Comité de Direction',
         ),
       ),
     ),
@@ -4504,13 +4535,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'SUD/NORD-EST',
@@ -4711,6 +4736,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Rapports',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 2,
+    'uuid' => 'a9ce1720-0071-4442-bd5a-7e0571fd2108',
+    'vocabulary_machine_name' => 'sous_type_document',
+  );
+  $terms[] = array(
     'name' => 'Aquitaine',
     'description' => '',
     'format' => 'filtered_html',
@@ -4895,22 +4928,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'tid' => '83c72ca9-5e9e-4a04-9d24-325a0de8700f',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Ecoles',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => 'af354588-f627-435e-844d-98e82e6701dd',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 0,
         ),
       ),
     ),
@@ -5207,6 +5224,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Comex',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 3,
+    'uuid' => 'b8a74054-c5dd-424b-941f-1eb36f9818cc',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comex',
+          'format' => NULL,
+          'safe_value' => 'Comex',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'studio',
     'description' => '',
     'format' => 'filtered_html',
@@ -5290,13 +5331,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => '8 / 9 ème étage',
@@ -5339,6 +5374,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Résultats estimés au 3ème trimestre',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'bee6cf02-11ed-4b73-be66-15e9b20c60f0',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'NORD-OUEST/SUD-OUEST/SUD-EST',
@@ -5387,6 +5430,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'RDC',
           'format' => NULL,
           'safe_value' => 'RDC',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Comité de Nomination et de Rémunération',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 2,
+    'uuid' => 'c1eddb82-d943-49eb-b887-87295257e252',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comité de Nomination et de Rémunération',
+          'format' => NULL,
+          'safe_value' => 'Comité de Nomination et de Rémunération',
         ),
       ),
     ),
@@ -5766,7 +5833,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 1,
+          'value' => 0,
         ),
       ),
     ),
@@ -5787,16 +5854,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-  );
-  $terms[] = array(
-    'name' => 'Commerces',
-    'description' => '',
-    'format' => 'filtered_html',
-    'weight' => 0,
-    'uuid' => 'ce6f6fa8-9ab1-4bfb-b6d2-b627bf110818',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Basse-Normandie',
@@ -6138,6 +6195,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'S/SO/E',
           'format' => NULL,
           'safe_value' => 'S/SO/E',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Composition',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 6,
+    'uuid' => 'd902ec70-9c91-47d2-a75f-6b4a70a5cb6a',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Composition',
+          'format' => NULL,
+          'safe_value' => 'Composition',
         ),
       ),
     ),
@@ -6488,6 +6569,30 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Comité d\'Audit',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 1,
+    'uuid' => 'e3630d67-213a-4955-a7b4-0e57592be799',
+    'vocabulary_machine_name' => 'comite',
+    'field_comite_display_description' => array(
+      'und' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+    ),
+    'field_comite_title_en' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comité d\'Audit',
+          'format' => NULL,
+          'safe_value' => 'Comité d&#039;Audit',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Sous-Sol',
     'description' => '',
     'format' => 'filtered_html',
@@ -6568,6 +6673,14 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+  );
+  $terms[] = array(
+    'name' => 'Résultats du premier semestre',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 6,
+    'uuid' => 'e4d551ff-55ea-4610-8564-8d3431239f64',
+    'vocabulary_machine_name' => 'sous_type_document',
   );
   $terms[] = array(
     'name' => 'Tarn',
@@ -7255,13 +7368,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
-        ),
-      ),
-    ),
+    'field_searchable' => array(),
   );
   $terms[] = array(
     'name' => 'Local Vélo',
@@ -7324,22 +7431,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'tid' => '068ab95f-a04c-467f-8d73-e102269c8fb0',
-        ),
-      ),
-    ),
-  );
-  $terms[] = array(
-    'name' => 'Accès mobilité réduite',
-    'description' => '',
-    'format' => 'plain_text',
-    'weight' => 0,
-    'uuid' => 'fdc23854-6ea5-4860-a58d-57d35aff1c25',
-    'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
-    'field_searchable' => array(
-      'und' => array(
-        0 => array(
-          'value' => 0,
         ),
       ),
     ),
