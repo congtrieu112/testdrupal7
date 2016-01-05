@@ -110,7 +110,7 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      $fields = str_getcsv($line, $this->delimiter, '','\\');
+      $fields = array_map('trim', str_getcsv($line, $this->delimiter, '','\\'));
 
 //      $quoted = FALSE;
 //      $currentIndex = 0;
