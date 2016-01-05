@@ -40,7 +40,7 @@
         <!-- -->
         <?php
             $bureau_kpi_component_arr = $last_bureau_kpi_component_arr = array();
-            for ($i = 1; $i <= KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM; $i++) :
+            for ($i = 1; $i <= BLOC_BUREAU_KPI_ITEMS_NUM; $i++) :
               $bureau_component_title = variable_get('bloc_bureau_kpi_component_title_' . $i);
               $bureau_kpi_component_sub_title = variable_get('bloc_bureau_kpi_component_sub_title_' . $i);
               $bureau_kpi_component_image = variable_get('bloc_bureau_kpi_component_image_' . $i );
@@ -110,7 +110,7 @@
         <!-- -->
         <?php
             $logistique_kpi_component_arr = $last_logistique_kpi_component_arr = array();
-            for ($i = 1; $i <= KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM; $i++) :
+            for ($i = 1; $i <= BLOC_BUREAU_KPI_ITEMS_NUM; $i++) :
               $logistique_component_title = variable_get('bloc_logistique_kpi_component_title_'. $i);
               $logistique_kpi_component_sub_title = variable_get('bloc_logistique_kpi_component_sub_title_'. $i);
               $logistique_kpi_component_image = variable_get('bloc_logistique_kpi_component_image_' . $i );
@@ -200,7 +200,7 @@
         <!-- -->
         <?php
             $hotell_kpi_component_arr = $last_hotell_kpi_component_arr = array();
-            for ($i = 1; $i <= KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM; $i++) :
+            for ($i = 1; $i <= BLOC_BUREAU_KPI_ITEMS_NUM; $i++) :
               $hotell_component_title = variable_get('bloc_hotell_kpi_component_title_' . $i);
               $hotell_kpi_component_sub_title = variable_get('bloc_hotell_kpi_component_sub_title_' . $i);
               $hotell_kpi_component_image = variable_get('bloc_hotell_kpi_component_image_' . $i );
@@ -270,7 +270,7 @@
         <!-- -->
         <?php
             $commercer_kpi_component_arr = $last_commercer_kpi_component_arr = array();
-            for ($i = 1; $i <= KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM; $i++) :
+            for ($i = 1; $i <= BLOC_BUREAU_KPI_ITEMS_NUM; $i++) :
               $commercer_component_title = variable_get('bloc_commercer_kpi_component_title_' . $i);
               $commercer_kpi_component_sub_title = variable_get('bloc_commercer_kpi_component_sub_title_' . $i);
               $commercer_kpi_component_image = variable_get('bloc_commercer_kpi_component_image_' . $i );
