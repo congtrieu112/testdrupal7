@@ -41,6 +41,14 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
+    'comite' => array(
+      'name' => 'Comité',
+      'machine_name' => 'comite',
+      'description' => 'A simple taxonomy called "Comité" (machine name : comite), with a criteria to display complete description of the CT Finance Gou',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
     'departement' => array(
       'name' => 'Département',
       'machine_name' => 'departement',
@@ -92,6 +100,14 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
     'region' => array(
       'name' => 'Région',
       'machine_name' => 'region',
+      'description' => '',
+      'hierarchy' => 0,
+      'module' => 'taxonomy',
+      'weight' => 0,
+    ),
+    'sous_type_document' => array(
+      'name' => 'Sous-type Document',
+      'machine_name' => 'sous_type_document',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',
