@@ -132,7 +132,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
@@ -341,7 +341,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
@@ -2471,7 +2471,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Corrèze',
@@ -2869,7 +2875,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
@@ -4498,7 +4504,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'SUD/NORD-EST',
@@ -5124,7 +5136,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
@@ -5278,7 +5290,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '8 / 9 ème étage',
@@ -5748,7 +5766,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_searchable' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
@@ -7237,7 +7255,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_searchable' => array(),
+    'field_searchable' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Local Vélo',
