@@ -222,7 +222,7 @@ function k_b_rh_annonce_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'ville',
+          'vocabulary' => 'ville_autocomplete',
           'parent' => 0,
         ),
       ),
