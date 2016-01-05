@@ -8,7 +8,10 @@
             <p class="heading__title heading__title--sub"><?php print variable_get('bloc_edito_sub_title'); ?></p>
         </header>
         <div class="heading--small activities__heading">
-            <?php print variable_get('bloc_edito_description'); ?>
+            <?php
+                $bloc_edito_description = variable_get('bloc_edito_description', array('value' => '', 'format' => NULL));
+                print $bloc_edito_description['value'];
+            ?>
         </div>
         <?php
               $edito_kpi_component_image = variable_get('bloc_edito_kpi_item_image');
@@ -35,7 +38,10 @@
             <p class="heading__title heading__title--sub"><?php print variable_get('bloc_bureau_sub_title'); ?></p>
         </header>
         <div class="heading--small activities__heading">
-            <?php print variable_get('bloc_bureau_description'); ?>
+            <?php
+                $bloc_bureau_description = variable_get('bloc_bureau_description', array('value' => '', 'format' => NULL));
+                print $bloc_bureau_description['value'];
+            ?>
         </div>
         <!-- -->
         <?php
@@ -109,7 +115,10 @@
             <p class="heading__title heading__title--sub"><?php print variable_get('bloc_logistique_habitat_sub_title'); ?></p>
         </header>
         <div class="heading--small activities__heading">
-            <?php print variable_get('bloc_logistique_description'); ?>
+            <?php
+                $bloc_logistique_description = variable_get('bloc_logistique_description', array('value' => '', 'format' => NULL));
+                print $bloc_logistique_description['value'];
+            ?>
         </div>
         <!-- -->
         <?php
@@ -203,7 +212,10 @@
             <p class="heading__title heading__title--sub"><?php print variable_get('bloc_hotell_sub_title'); ?></p>
         </header>
         <div class="heading--small activities__heading">
-            <?php print variable_get('bloc_hotell_description'); ?>
+            <?php
+                $bloc_hotell_description = variable_get('bloc_hotell_description', array('value' => '', 'format' => NULL));
+                print $bloc_hotell_description['value'];
+            ?>
         </div>
         <!-- -->
         <?php
@@ -277,7 +289,10 @@
             <p class="heading__title heading__title--sub"><?php print variable_get('bloc_commercer_sub_title'); ?></p>
         </header>
         <div class="heading--small activities__heading">
-            <?php print variable_get('bloc_commercer_description'); ?>
+            <?php
+                $bloc_commercer_description = variable_get('bloc_commercer_description', array('value' => '', 'format' => NULL));
+                print $bloc_commercer_description['value'];
+            ?>
         </div>
         <!-- -->
         <?php

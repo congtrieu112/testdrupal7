@@ -22,10 +22,13 @@ function kandb_group_active_tertiaire_form($form, $form_state) {
       '#title' => t('Sub title'),
       '#default_value' => variable_get('bloc_edito_sub_title'),
     );
+
+    $bloc_edito_description = variable_get('bloc_edito_description', array('value' => '', 'format' => NULL));
     $form['bloc_edito']['bloc_edito_description'] = array(
       '#title' => t('Description'),
       '#type' => 'text_format',
-      '#default_value' => variable_get('bloc_edito_description'),
+      '#format' => $bloc_edito_description['format'],
+      '#default_value' => $bloc_edito_description['value'],
     );
     $form['bloc_edito']['bloc_edito_kpi_item_image'] = array(
       '#type' => 'managed_file',
@@ -50,10 +53,12 @@ function kandb_group_active_tertiaire_form($form, $form_state) {
       '#title' => t('Sub title'),
       '#default_value' => variable_get('bloc_bureau_sub_title'),
     );
+    $bloc_bureau_description = variable_get('bloc_bureau_description', array('value' => '', 'format' => NULL));
     $form['bloc_bureau']['bloc_bureau_description'] = array(
       '#title' => t('Description'),
       '#type' => 'text_format',
-      '#default_value' => variable_get('bloc_bureau_description'),
+      '#format' => $bloc_bureau_description['format'],
+      '#default_value' => $bloc_bureau_description['value'],
     );
     $form['bloc_bureau']['bloc_bureau_kpi'] = array(
       '#type' => 'fieldset',
@@ -112,10 +117,12 @@ function kandb_group_active_tertiaire_form($form, $form_state) {
       '#title' => t('Sub title'),
       '#default_value' => variable_get('bloc_logistique_sub_title'),
     );
+    $bloc_logistique_description = variable_get('bloc_logistique_description', array('value' => '', 'format' => NULL));
     $form['bloc_logistique']['bloc_logistique_description'] = array(
       '#title' => t('Description'),
       '#type' => 'text_format',
-      '#default_value' => variable_get('bloc_logistique_description'),
+      '#format' => $bloc_logistique_description['format'],
+      '#default_value' => $bloc_logistique_description['value'],
     );
      // START Finance presentation KPI.
     $form['bloc_logistique']['bloc_logistique_kpi'] = array(
@@ -203,10 +210,12 @@ function kandb_group_active_tertiaire_form($form, $form_state) {
       '#title' => t('Sub title'),
       '#default_value' => variable_get('bloc_hotell_sub_title'),
     );
+    $bloc_hotell_description = variable_get('bloc_hotell_description', array('value' => '', 'format' => NULL));
     $form['bloc_hotell']['bloc_hotell_description'] = array(
       '#title' => t('Description'),
       '#type' => 'text_format',
-      '#default_value' => variable_get('bloc_hotell_description'),
+      '#format' => $bloc_hotell_description['format'],
+      '#default_value' => $bloc_hotell_description['value'],
     );
     $form['bloc_hotell']['bloc_hotell_kpi'] = array(
       '#type' => 'fieldset',
@@ -265,10 +274,12 @@ function kandb_group_active_tertiaire_form($form, $form_state) {
       '#title' => t('Sub title'),
       '#default_value' => variable_get('bloc_commercer_sub_title'),
     );
+    $bloc_commercer_description = variable_get('bloc_commercer_description', array('value' => '', 'format' => NULL));
     $form['bloc_commercer']['bloc_commercer_description'] = array(
       '#title' => t('Description'),
       '#type' => 'text_format',
-      '#default_value' => variable_get('bloc_commercer_description'),
+      '#format' => $bloc_commercer_description['format'],
+      '#default_value' => $bloc_commercer_description['value'],
     );
     $form['bloc_commercer']['bloc_commercer_kpi'] = array(
       '#type' => 'fieldset',
