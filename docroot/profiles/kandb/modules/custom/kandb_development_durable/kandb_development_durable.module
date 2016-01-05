@@ -1,0 +1,225 @@
+<?php
+
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+define('KANDB_GROUP_DEVELOPMENT_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Charte RSE'), t('Nos engagements clients'), t('Nos engagements partenaires'), t('Nos engagements equipes'), t('Realisations'))));
+define('KANDB_GROUP_DEVELOPMENT_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/developpement-durable/charte-rse', 'corporate/developpement-durable/nos-engagements-clients', 'corporate/developpement-durable/nos-engagements-partenaires', 'corporate/developpement-durable/nos-engagements-equipes', 'corporate/developpement-durable/nos-realisation')));
+define('KANDB_GROUP_DEVELOPMENT_NUMBER_CTA_ACTIVE', 5);
+
+/**
+ * Implement of hook_menu().
+ */
+function kandb_development_durable_menu() {
+  $items = array();
+
+  $items['corporate/developpement-durable/charte-rse'] = array(
+    'title' => 'Le Groupe - Development Durable - Charte RSE',
+    'page callback' => 'render_group_development_durable_charte',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/developpement-durable/nos-engagements-clients'] = array(
+    'title' => 'Le Groupe - Development Durable - Nos engagements clients',
+    'page callback' => 'render_group_development_durable_nos_engage_clients',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/developpement-durable/nos-engagements-partenaires'] = array(
+    'title' => 'Le Groupe - Development Durable - Nos engagements partenaires',
+    'page callback' => 'render_group_development_durable_nos_engage_partenaires',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/developpement-durable/nos-engagements-équipes'] = array(
+    'title' => 'Le Groupe - Development Durable - Nos engagements equipes',
+    'page callback' => 'render_group_development_durable_nos_engage_equipes',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/developpement-durable/nos-realisation'] = array(
+    'title' => 'Le Groupe - Development Durable - Realisations',
+    'page callback' => 'render_group_development_durable_realisations',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['admin/content/ketb/group/development/manage'] = array(
+    'title' => '[Development] - Manage',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_development_manage_form'),
+    'file' => 'kandb_development_durable.admin.inc',
+    'access arguments' => array('administer K&B Contact settings'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  return $items;
+}
+
+/**
+ * Implement of hook_theme().
+ */
+function kandb_development_durable_theme($existing, $type, $theme, $path) {
+  return array(
+    'group_durable_header' => array(
+      'template' => 'templates/group_durable_header',
+      'variables' => array(),
+    ),
+
+    'group_durable_general' => array(
+      'template' => 'templates/group_durable_general',
+      'variables' => array('data' => $data),
+    ),
+
+    'group_durable_realisations' => array(
+      'template' => 'templates/group_durable_realisations',
+      'variables' => array('data' => $data),
+    ),
+  );
+}
+
+/**
+ * Implements render page charte.
+ */
+function render_group_development_durable_charte() {
+  global $base_url;
+
+  $data = array();
+  $data['title'] = variable_get('charte_title_group_development_block', '');
+  $data['resume'] = variable_get('charte_resume_group_development_block', '');
+  $data['content'] = variable_get('charte_description_group_development_block', '');
+  $fid = variable_get('charte_image_group_development_block', '');
+
+  if($fid) {
+    $files = file_load($fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $data['path_image'] = $base_url . $url['path'];
+    }
+  }
+
+  return theme('group_durable_general', array('data' => $data));
+}
+
+/**
+ * Implements render page nos-engagements-clients.
+ */
+function render_group_development_durable_nos_engage_clients() {
+  global $base_url;
+
+  $data = array();
+  $data['title'] = variable_get('nos_clients_title_group_development_block', '');
+  $data['resume'] = variable_get('nos_clients_resume_group_development_block', '');
+  $data['content'] = variable_get('nos_clients_description_group_development_block', '');
+  $fid = variable_get('nos_clients_image_group_development_block', '');
+
+  if($fid) {
+    $files = file_load($fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $data['path_image'] = $base_url . $url['path'];
+    }
+  }
+
+  return theme('group_durable_general', array('data' => $data));
+}
+
+/**
+ * Implements render page nos-engagements-partenaires.
+ */
+function render_group_development_durable_nos_engage_partenaires() {
+  global $base_url;
+
+  $data = array();
+  $data['title'] = variable_get('nos_partenaires_title_group_development_block', '');
+  $data['resume'] = variable_get('nos_partenaires_resume_group_development_block', '');
+  $data['content'] = variable_get('nos_partenaires_description_group_development_block', '');
+  $fid = variable_get('nos_partenaires_image_group_development_block', '');
+
+  if($fid) {
+    $files = file_load($fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $data['path_image'] = $base_url . $url['path'];
+    }
+  }
+
+  return theme('group_durable_general', array('data' => $data));
+}
+
+/**
+ * Implements render page nos-engagements-equipes.
+ */
+function render_group_development_durable_nos_engage_equipes() {
+  global $base_url;
+
+  $data = array();
+  $data['title'] = variable_get('nos_equipes_title_group_development_block', '');
+  $data['resume'] = variable_get('nos_equipes_resume_group_development_block', '');
+  $data['content'] = variable_get('nos_equipes_description_group_development_block', '');
+  $fid = variable_get('nos_equipes_image_group_development_block', '');
+
+  if($fid) {
+    $files = file_load($fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $data['path_image'] = $base_url . $url['path'];
+    }
+  }
+
+  return theme('group_durable_general', array('data' => $data));
+}
+
+/**
+ * Implements render page nos-realisations.
+ */
+function render_group_development_durable_realisations() {
+  global $base_url;
+
+  $data = array();
+  $data['title'] = variable_get('realisations_title_group_development_block', '');
+  $data['subtitle'] = variable_get('realisations_subtitle_group_development_block', '');
+  $data['content'] = variable_get('realisations_description_group_development_block', '');
+  $fid = variable_get('realisations_image_group_development_block', '');
+
+  if($fid) {
+    $files = file_load($fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $data['path_image'] = $base_url . $url['path'];
+    }
+  }
+
+  $data['embed'] = variable_get('realisations_image_group_development_block', '');
+
+  $articles = array();
+  for($i = 1; $i <= 5; $i++) {
+    $articles[$i]['article_title'] = variable_get('realisations_article_' . $i . '_title_group_development_block');
+    $articles[$i]['article_subtitle'] = variable_get('realisations_article_' . $i . '_subtitle_group_development_block');
+    $fid = variable_get('realisations_article_' . $i . '_image_group_development_block');
+    if($fid) {
+      $files = file_load($fid);
+      if($files && isset($files->uri)) {
+        $url = file_create_url($files->uri);
+        $url = parse_url($url);
+        $articles[$i]['article_path_image'] = $base_url . $url['path'];
+      }
+    }
+  }
+
+  $data['articles'] = $articles;
+
+  return theme('group_durable_realisations', array('data' => $data));
+}
