@@ -303,8 +303,8 @@ function render_group_homepage() {
   
   // Block Ressources Humaines.
   $ressources_humaines_img = variable_get('image_group_home_block_ressources_humaines', 0);
-  $ressources_humaines_img_load = file_load($finance_img);
-  $ressources_humaines_img_uri = (isset($finace_img_load->uri)) ? file_create_url($ressources_humaines_img_load->uri) : '';
+  $ressources_humaines_img_load = file_load($ressources_humaines_img);
+  $ressources_humaines_img_uri = (isset($ressources_humaines_img_load->uri)) ? file_create_url($ressources_humaines_img_load->uri) : '';
   $data['ressources_humaines_block']['image'] = $ressources_humaines_img_uri;
   $ressources_humaines_title = variable_get('title_group_home_block_ressources_humaines');
   $data['ressources_humaines_block']['title'] = $ressources_humaines_title;
