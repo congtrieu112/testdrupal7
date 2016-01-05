@@ -299,6 +299,84 @@ function render_group_homepage() {
       $data['finance_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
+  
+  
+  // Block Ressources Humaines.
+  $ressources_humaines_img = variable_get('image_group_home_block_ressources_humaines', 0);
+  $ressources_humaines_img_load = file_load($finance_img);
+  $ressources_humaines_img_uri = (isset($finace_img_load->uri)) ? file_create_url($ressources_humaines_img_load->uri) : '';
+  $data['ressources_humaines_block']['image'] = $ressources_humaines_img_uri;
+  $ressources_humaines_title = variable_get('title_group_home_block_ressources_humaines');
+  $data['ressources_humaines_block']['title'] = $ressources_humaines_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_ressources_humaines_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['ressources_humaines_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  // Block Activités.
+  $activites_img = variable_get('image_group_home_block_activites', 0);
+  $activites_img_load = file_load($activites_img);
+  $activites_img_uri = (isset($activites_img_load->uri)) ? file_create_url($activites_img_load->uri) : '';
+  $data['activites_block']['image'] = $activites_img_uri;
+  $activites_title = variable_get('title_group_home_block_activites');
+  $data['activites_block']['title'] = $activites_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_activites_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['activites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  
+  // Block Actualités.
+  $actualites_img = variable_get('image_group_home_block_actualites', 0);
+  $actualites_img_load = file_load($actualites_img);
+  $actualites_img_uri = (isset($actualites_img_load->uri)) ? file_create_url($actualites_img_load->uri) : '';
+  $data['actualites_block']['image'] = $actualites_img_uri;
+  $actualites_title = variable_get('title_group_home_block_actualites');
+  $data['actualites_block']['title'] = $actualites_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_actualites_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['actualites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  // Block Développement Durable.
+  $developpement_durable_img = variable_get('image_group_home_block_developpement_durable', 0);
+  $developpement_durable_img_load = file_load($developpement_durable_img);
+  $developpement_durable_img_uri = (isset($developpement_durable_img_load->uri)) ? file_create_url($developpement_durable_img_load->uri) : '';
+  $data['developpement_durable_block']['image'] = $developpement_durable_img_uri;
+  $developpement_durable_title = variable_get('title_group_home_block_developpement_durable');
+  $data['developpement_durable_block']['title'] = $developpement_durable_title;
+  $number_cta = NUMBER_CTA_GROUP;
+  for ($i = 0; $i < $number_cta; $i++) {
+    $url = $title = '';
+    $cta = array();
+    $cta = variable_get('cta_group_home_block_developpement_durable_' . $i);
+    if (isset($cta['url']) && isset($cta['title']) && $cta['title'] && $cta['url']) {
+      $data['developpement_durable_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
+    }
+  }
+  
+  
+  
+  
+  
   return theme('group_homepage', array('data' => $data));
 }
 

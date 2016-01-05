@@ -22,6 +22,13 @@ function kandb_group_active_habitat_form($form, $form_state) {
     '#tree' => TRUE,
   );
 
+  $form['fieldset_habitat_section'] = array(
+    '#type' => 'fieldset',
+    '#title' => 'Habitat Section',
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+
 
   $number_cta = NUMBER_CTA_ACTIVE;
   $default_menu_titles = unserialize(KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES);
@@ -54,6 +61,33 @@ function kandb_group_active_habitat_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
+  // Section Habitat.
+  $form['fieldset_habitat_section']['title_group_habitat_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title block'),
+    '#default_value' => variable_get('title_group_habitat_section', t('A propos de l’habitat')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_habitat_section']['subtitle_group_habitat_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('SubTitle block'),
+    '#default_value' => variable_get('subtitle_group_habitat_section', t('Nulla vitae elit libero, a pharetra augue donec ullamcorper nulla non')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+    $form['fieldset_habitat_section']['label_group_habitat_section'] = array(
+    '#type' => 'textfield',
+    '#title' => t('SubTitle for Description'),
+    '#default_value' => variable_get('label_group_habitat_section', t('Donec id elit non mi porta gravida at eget metus morbi leo risus')),
+    '#size' => 60,
+    '#maxlength' => 128,
+  );
+  $form['fieldset_habitat_section']['desciption_group_habitat_section'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Description'),
+    '#default_value' => variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur')),
+  );
 
   $form['#submit'] = array(
     'kandb_group_active_habitat_cta_link'

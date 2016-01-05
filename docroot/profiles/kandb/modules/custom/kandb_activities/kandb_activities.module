@@ -4,10 +4,10 @@
  * @file
  * K&B B2C Group pages Activities.
  */
-
 define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Habitat'), t('Tertiaire'), t('Nos agences'))));
 define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/activites/habitat', 'corporate/activites/tertiaire', 'corporate/activites/nos-agences')));
 define('NUMBER_CTA_ACTIVE', 3);
+define('VOCAL_HABITAT', 'type_de_habitat');
 
 /**
  * Implement of hook_menu().
@@ -38,6 +38,14 @@ function kandb_activities_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['corporate/activites/habitat/%'] = array(
+    'title' => 'Le Groupe - Activités - Habitat',
+    'page callback' => 'render_group_activities_habitat_by_term',
+    'page arguments' => array(3),
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
   return $items;
 }
 
@@ -50,12 +58,10 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_active_header',
       'variables' => array(),
     ),
-
     'group_activities_habitat' => array(
       'template' => 'templates/group_active_habitat',
       'variables' => array(),
     ),
-
     'group_activities_nos_agences' => array(
       'template' => 'templates/group_activities_nos_agences',
       'variables' => array(),
@@ -68,6 +74,17 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
  */
 function render_group_activities_habitat() {
   $data = array();
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load(VOCAL_HABITAT)) {
+    $tree = taxonomy_get_tree($vocabulary->vid);
+    if ($tree) {
+      $data['type'] = $tree;
+      if (isset($tree[0]->tid)) {
+        $nodes = kandb_activities_get_habitat_node($tree[0]->tid);
+        $data['nodes'] = $nodes;
+        $data['active'] = $tree[0]->tid;
+      }
+    }
+  }
   return theme('group_activities_habitat', array('data' => $data));
 }
 
@@ -79,15 +96,15 @@ function render_group_activities_nos_agences() {
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'region_kb');
 
-  $regions =  $query->execute();
+  $regions = $query->execute();
   $region_variables = array();
   $conseiller_variables = array();
-  if($regions && isset($regions['node'])) {
-    foreach($regions['node'] as $region) {
+  if ($regions && isset($regions['node'])) {
+    foreach ($regions['node'] as $region) {
       $region_nid = isset($region->nid) ? $region->nid : '';
-      if($region_nid) {
+      if ($region_nid) {
         $n_region = node_load($region_nid);
-        if($n_region) {
+        if ($n_region) {
           $region_variables[$region_nid]['region_nid'] = $region_nid;
           $region_variables[$region_nid]['region_kb_id'] = isset($n_region->field_region_kb_id[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'] : '';
           $region_variables[$region_nid]['region_title'] = $n_region->title;
@@ -103,12 +120,12 @@ function render_group_activities_nos_agences() {
             ->fieldCondition('field_conseiller_regional_reg_kb', 'target_id', $region_nid);
 
           $conseillers = $query2->execute();
-          if($conseillers && isset($conseillers['node'])) {
-            foreach($conseillers['node'] as $conseiller) {
+          if ($conseillers && isset($conseillers['node'])) {
+            foreach ($conseillers['node'] as $conseiller) {
               $conseiller_nid = isset($conseiller->nid) ? $conseiller->nid : '';
-              if($conseiller_nid) {
+              if ($conseiller_nid) {
                 $n_conseiller = node_load($conseiller_nid);
-                if($n_conseiller) {
+                if ($n_conseiller) {
                   $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_title'] = $n_conseiller->title;
                   $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone1'] = isset($n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value'] : '';
                   $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone2'] = isset($n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value'] : '';
@@ -124,4 +141,71 @@ function render_group_activities_nos_agences() {
   }
 
   return theme('group_activities_nos_agences', array('region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+}
+
+/**
+ * Implement render habitat with term id.
+ */
+function render_group_activities_habitat_by_term($tid) {
+  $data = array();
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load(VOCAL_HABITAT)) {
+    $tree = taxonomy_get_tree($vocabulary->vid);
+    if ($tree) {
+      $data['type'] = $tree;
+      if ($tid) {
+        $nodes = kandb_activities_get_habitat_node($tid);
+        $data['nodes'] = $nodes;
+        $data['active'] = $tid;
+      }
+    }
+  }
+  return theme('group_activities_habitat', array('data' => $data));
+}
+
+/**
+ * Get grouvernance lasted.
+ */
+function kandb_activities_get_habitat_node($tid = array()) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'habitat')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_habitat_type', 'tid', $tid, '=')
+    ->propertyOrderBy('changed', 'DESC')
+  ;
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
+}
+
+/**
+ * Implement hook_form_alter
+ */
+function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
+  if ($form_id == 'habitat_node_form') {
+    $form['title']['#required'] = FALSE;
+    $form['title']['#disabled'] = TRUE;
+    $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
+    $form['#validate'][] = 'kandb_activities_habitat_validate';
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_activities_habitat_validate(&$form, &$form_state) {
+  $input = $form_state['input'];
+  $vals = $form_state['values'];
+  $code_postal = trim($input['field_habitat_code_postal'][LANGUAGE_NONE][0]['value']);
+  if (strlen($code_postal) > 6 && !is_int($code_postal)) {
+    form_set_error('field_habitat_code_postal', t('The code postal shoul be 4 or 5 character and must be numeric'));
+  } else {
+    $ville = taxonomy_term_load($vals['field_habitat_ville'][LANGUAGE_NONE][0]['tid']);
+    $form_state['values']['title'] = $code_postal . ' ' . $ville->name;
+  }
 }
