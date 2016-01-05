@@ -263,8 +263,22 @@ function kandb_group_development_manage_form($form, $form_state) {
     );
   }
 
+  $form['#field_uploads'] = array(
+    'charte_image_group_development_block',
+    'nos_clients_image_group_development_block',
+    'nos_partenaires_image_group_development_block',
+    'nos_equipes_image_group_development_block',
+    'realisations_image_group_development_block',
+    'realisations_article_1_image_group_development_block',
+    'realisations_article_2_image_group_development_block',
+    'realisations_article_3_image_group_development_block',
+    'realisations_article_4_image_group_development_block',
+    'realisations_article_5_image_group_development_block',
+  );
+
   $form['#submit'] = array(
-    'kandb_group_development_manage_cta_link'
+    'kandb_group_development_manage_cta_link',
+    'kandb_group_development_manage_form_update_status_managed_filed'
   );
   return system_settings_form($form);
 }
@@ -279,6 +293,41 @@ function kandb_group_development_manage_cta_link(&$form, &$form_state) {
     foreach ($val['links_fieldset']['cta'] as $key => $item) {
       if (isset($item['url']) && isset($item['title'])) {
         variable_set($key, $item);
+      }
+    }
+  }
+}
+
+/**
+ * Get value from Form and put to function managed_file_upload
+ */
+function kandb_group_development_manage_form_update_status_managed_filed(&$form, &$form_state) {
+  $field_uploads = $form['#field_uploads'];
+  foreach ($field_uploads as $field) {
+    $fid_form = $form_state['values'][$field];
+    $fid_variable = variable_get($field, FALSE);
+    $module_name = 'kandb_development_durable';
+    $type = $field;
+    group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
+  }
+}
+
+/**
+ * Managed file when users upload or delete.
+ */
+function group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type) {
+  if ($fid_form != 0 && $fid_form != $fid_variable) {
+    $file = file_load($fid_form);
+    $file->status = FILE_STATUS_PERMANENT;
+    file_save($file);
+    file_usage_add($file, $module_name, $type, 1);
+  }
+  elseif ($fid_form == 0) {
+    if ($fid_variable) {
+      $delete_file = file_load($fid_variable);
+      if($delete_file) {
+        file_usage_delete($delete_file, $module_name, $type, 1);
+        $status = file_delete($delete_file);
       }
     }
   }
