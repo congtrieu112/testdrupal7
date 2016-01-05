@@ -77,13 +77,12 @@ function kandb_group_development_manage_form($form, $form_state) {
     '#default_value' => variable_get('charte_resume_group_development_block'),
   );
 
-  $charte_description = variable_get('charte_description_group_development_block');
-  $charte_description = isset($charte_description['value']) ? $charte_description['value'] : '';
+  $charte_description = variable_get('charte_description_group_development_block', array('value' => '', 'format' => NULL));
   $form['fieldset_group_development_block']['charte_fieldset']['charte_description_group_development_block'] = array(
     '#type' => 'text_format',
     '#title' => t('Description'),
-    '#format' => 'simple',
-    '#default_value' => $charte_description,
+    '#format' => isset($charte_description['format']) ? $charte_description['format'] : '',
+    '#default_value' => isset($charte_description['value']) ? $charte_description['value'] : '',
   );
 
   $form['fieldset_group_development_block']['charte_fieldset']['charte_image_group_development_block'] = array(
@@ -113,13 +112,12 @@ function kandb_group_development_manage_form($form, $form_state) {
     '#default_value' => variable_get('nos_clients_resume_group_development_block'),
   );
 
-  $nos_clients_description = variable_get('nos_clients_description_group_development_block');
-  $nos_clients_description = isset($nos_clients_description['value']) ? $nos_clients_description['value'] : '';
+  $nos_clients_description = variable_get('nos_clients_description_group_development_block', array('value' => '', 'format' => NULL));
   $form['fieldset_group_development_block']['nos_clients_fieldset']['nos_clients_description_group_development_block'] = array(
     '#type' => 'text_format',
     '#title' => t('Description'),
-    '#format' => 'simple',
-    '#default_value' => $nos_clients_description,
+    '#format' => isset($nos_clients_description['format']) ? $nos_clients_description['format'] : 'simple',
+    '#default_value' => isset($nos_clients_description['value']) ? $nos_clients_description['value'] : '',
   );
 
   $form['fieldset_group_development_block']['nos_clients_fieldset']['nos_clients_image_group_development_block'] = array(
@@ -149,13 +147,12 @@ function kandb_group_development_manage_form($form, $form_state) {
     '#default_value' => variable_get('nos_partenaires_resume_group_development_block'),
   );
 
-  $nos_partenaires_description = variable_get('nos_partenaires_description_group_development_block');
-  $nos_partenaires_description = isset($nos_partenaires_description['value']) ? $nos_partenaires_description['value'] : '';
+  $nos_partenaires_description = variable_get('nos_partenaires_description_group_development_block', array('value' => '', 'format' => NULL));
   $form['fieldset_group_development_block']['nos_partenaires_fieldset']['nos_partenaires_description_group_development_block'] = array(
     '#type' => 'text_format',
     '#title' => t('Description'),
-    '#format' => 'simple',
-    '#default_value' => $nos_partenaires_description,
+    '#format' => isset($nos_partenaires_description['format']) ? $nos_partenaires_description['format'] : 'simple',
+    '#default_value' => isset($nos_partenaires_description['value']) ? $nos_partenaires_description['value'] : '',
   );
 
   $form['fieldset_group_development_block']['nos_partenaires_fieldset']['nos_partenaires_image_group_development_block'] = array(
@@ -185,13 +182,12 @@ function kandb_group_development_manage_form($form, $form_state) {
     '#default_value' => variable_get('nos_equipes_resume_group_development_block'),
   );
 
-  $nos_equipes_description = variable_get('nos_equipes_description_group_development_block');
-  $nos_equipes_description = isset($nos_equipes_description['value']) ? $nos_equipes_description['value'] : '';
+  $nos_equipes_description = variable_get('nos_equipes_description_group_development_block', array('value' => '', 'format' => NULL));
   $form['fieldset_group_development_block']['nos_equipes_fieldset']['nos_equipes_description_group_development_block'] = array(
     '#type' => 'text_format',
     '#title' => t('Description'),
-    '#format' => 'simple',
-    '#default_value' => $nos_equipes_description,
+    '#format' => isset($nos_equipes_description['format']) ? $nos_equipes_description['format'] : 'simple',
+    '#default_value' => isset($nos_equipes_description['value']) ? $nos_equipes_description['value'] : '',
   );
 
   $form['fieldset_group_development_block']['nos_equipes_fieldset']['nos_equipes_image_group_development_block'] = array(
@@ -221,13 +217,12 @@ function kandb_group_development_manage_form($form, $form_state) {
     '#default_value' => variable_get('realisations_subtitle_group_development_block'),
   );
 
-  $realisations_description = variable_get('realisations_description_group_development_block');
-  $realisations_description = isset($realisations_description['value']) ? $realisations_description['value'] : '';
+  $realisations_description = variable_get('realisations_description_group_development_block', array('value' => '', 'format' => NULL));
   $form['fieldset_group_development_block']['realisations_fieldset']['realisations_description_group_development_block'] = array(
     '#type' => 'text_format',
     '#title' => t('Description'),
-    '#format' => 'simple',
-    '#default_value' => $realisations_description,
+    '#format' => isset($realisations_description['format']) ? $realisations_description['format'] : 'simple',
+    '#default_value' => isset($realisations_description['value']) ? $realisations_description['value'] : '',
   );
 
   $form['fieldset_group_development_block']['realisations_fieldset']['realisations_image_group_development_block'] = array(
