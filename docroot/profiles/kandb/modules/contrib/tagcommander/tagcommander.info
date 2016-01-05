@@ -1,0 +1,6 @@
+name = TagCommander
+description = Manage TagCommander datalayer and container(s) via Drupal configuration
+core = 7.x
+files[] = tagcommander.module
+configure = admin/config/tagcommander
+package = TagCommander

@@ -1,0 +1,288 @@
+<?php
+
+require_once('lib/tagcommander.singleton.php');
+
+/**
+ * Return an array with all variables that used in Drupal
+ * @return array
+ */
+function tagcommander_cms_variables()
+{
+    $cms_variable = array(
+        'user/uid' => t('User Id'),
+        'user/name' => t('User Name'),
+        'user/mail' => t('User Mail'),
+        'user/timezone' => t('User Timezone'),
+        'user/hostname' => t('User hostname'),
+        'language/language' => t('Language'),
+        'site_name' => t('Site Name'),
+        'node/vid' => t('Node Id'),
+        'node/title' => t('Node Title'),
+        'node/type' => t('Node Type')
+    );
+
+    $modules_variables = module_invoke_all('tagcommander_variables');
+
+    if (is_array($modules_variables)) {
+        $cms_variable = array_merge($cms_variable, $modules_variables);
+    }
+
+    return $cms_variable;
+}
+
+/**
+ * Implements hook_help().
+ */
+function tagcommander_help($path, $arg)
+{
+    $output = '<img src="//cdn.tagcommander.com/images/TC/tag_commander.png"/><br/><br/>';
+    switch ($path) {
+        case 'admin/help#tagcommander':
+
+            $output .= file_get_contents(dirname(__FILE__) . '/help.html');
+
+
+            return $output;
+        case 'admin/config/tagcommander/containers':
+            $output = '<img src="//cdn.tagcommander.com/images/TC/tag_commander.png"/><br/>';
+            return $output;
+        case 'admin/structure/tagcommander/%':
+            return $output;
+        case 'admin/config/tagcommander/settings':
+            $output = '<img src="//cdn.tagcommander.com/images/TC/tag_commander.png"/><br/><br/>';
+            return $output;
+        case 'admin/config/tagcommander/mapping':
+            return $output;
+    }
+}
+
+
+/**
+ * Implements hook_permission().
+ */
+function tagcommander_permission()
+{
+    $permissions = array(
+        'administer tagcommander' => array(
+            'title' => t('Administrate TagCommander module'),
+        ),
+    );
+    return $permissions;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function tagcommander_theme()
+{
+    return array(
+        'tagcommander_overview_containers' => array(
+            'render element' => 'form'
+        ),
+        'tagcommander_admin_mappings' => array(
+            'render element' => 'form'
+        ),
+        'tagcommander_admin_settings' => array(
+            'render element' => 'form'
+        )
+    );
+}
+
+/**
+ * Implements hook_menu().
+ */
+function tagcommander_menu()
+{
+    // Administration pages.
+    $items['admin/config/tagcommander'] = array(
+        'title' => 'TagCommander',
+        'description' => 'Configure TagCommander Module.',
+        'position' => 'left',
+        'weight' => 0,
+        'page callback' => 'system_admin_menu_block_page',
+        'access arguments' => array('administer tagcommander'),
+        'file' => 'system.admin.inc',
+        'file path' => drupal_get_path('module', 'system'),
+    );
+    $items['admin/config/tagcommander/settings'] = array(
+        'title' => 'Account settings',
+        'description' => 'Configure TagCommander account.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('tagcommander_admin_settings'),
+        'access arguments' => array('administer tagcommander'),
+        'file' => 'tagcommander.admin.inc',
+        'weight' => -10,
+    );
+
+    //Containers management
+    $items['admin/config/tagcommander/containers'] = array(
+        'title' => 'Container(s) configuration',
+        'description' => 'Manage container(s) from TagCommander.',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('tagcommander_overview_containers'),
+        'access arguments' => array('administer tagcommander'),
+        'file' => 'tagcommander.admin.inc',
+    );
+    $items['admin/config/tagcommander/containers/list'] = array(
+        'title' => 'List',
+        'type' => MENU_DEFAULT_LOCAL_TASK,
+        'weight' => -10,
+    );
+
+    $items['admin/config/tagcommander/containers/delete'] = array(
+        'title' => 'Delete container',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('tagcommander_container_confirm_delete'),
+        'access arguments' => array('administer tagcommander'),
+        'file' => 'tagcommander.admin.inc',
+    );
+
+    $items['admin/config/tagcommander/containers/edit'] = array(
+        'title' => 'Edit container',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('tagcommander_form_container'),
+        'access arguments' => array('administer tagcommander'),
+        'file' => 'tagcommander.admin.inc',
+    );
+    try{
+        if (TagCommander::getInstance()->checkAccount()) {
+            $items['admin/config/tagcommander/containers/add'] = array(
+                'title' => 'Add container',
+                'page callback' => 'drupal_get_form',
+                'page arguments' => array('tagcommander_form_container'),
+                'access arguments' => array('administer tagcommander'),
+                'type' => MENU_LOCAL_ACTION,
+                'file' => 'tagcommander.admin.inc',
+                'position' => 'right'
+            );
+
+            $items['admin/config/tagcommander/mapping'] = array(
+                'title' => 'Datalayer configuration',
+                'description' => 'Configure datalayer.',
+                'page callback' => 'drupal_get_form',
+                'page arguments' => array('tagcommander_admin_mappings'),
+                'access arguments' => array('administer tagcommander'),
+                'file' => 'tagcommander.admin.inc',
+                'weight' => -10,
+            );
+            $items['admin/config/tagcommander/mapping/confirm'] = array(
+                'title' => 'Reset Variables Mapping',
+                'description' => 'Confirm reset & reload Mapping',
+                'page callback' => 'drupal_get_form',
+                'page arguments' => array('tagcommander_admin_mappings_reload'),
+                'access arguments' => array('administer tagcommander'),
+                'file' => 'tagcommander.admin.inc'
+            );
+        }
+    }catch(Exception $e)
+    {
+        drupal_set_message(t('Login or Password are invalid'), 'warning');
+    }
+
+
+    return $items;
+}
+
+/**
+ * Implements hook_preprocess_html().
+ */
+function tagcommander_preprocess_page(&$variables)
+{
+    if (FALSE === is_array($variables)) {
+        return;
+    }
+
+    if (arg(0) == 'admin') {
+        return;
+    }
+
+    $node = null;
+    if (arg(0) == 'node' && is_numeric(arg(1)) && !arg(2)) {
+        $node = node_load(arg(1));
+    }
+
+    $tc_vars = 'var tc_vars = new Array();';
+
+    $external_variables = variable_get('tagcommander_externals_variables', array());
+
+    if (empty($variables)) {
+        return;
+    }
+
+    foreach ($external_variables as $var) {
+        $value = '';
+        if ($var['value'] !== '') {
+            $val = $var['value'];
+            if (strpos($val, '/') !== false) {
+                $key = explode('/', $val);
+                if (in_array('node', $key) && isset($node) && count($key) == 3) {
+                    $value = tagcommander_get_value_from_node($node, $key, $var['default']);
+                } elseif (isset($variables[$key[0]]) && isset($variables[$key[0]]->$key[1])) {
+                    $value = $variables[$key[0]]->$key[1];
+                } else {
+                    $value = $var['default'];
+                }
+            }
+        } else {
+            $value = $var['default'];
+            $val = '';
+        }
+
+        $new_value = module_invoke_all('preprocess_variable_value', $value, $val);
+
+        if (!empty($new_value)) {
+            $value = current($new_value);
+        }
+
+        $tc_vars .= $var['label'] . " = '" . addslashes($value) . "';";
+    }
+
+    drupal_add_js($tc_vars, array('type' => 'inline', 'scope' => 'header', 'weight' => JS_LIBRARY));
+
+    $containers = variable_get('tagcommander_containers', array());
+
+    foreach ($containers as $container) {
+        $position = $container->position == 0 ? 'header' : 'footer';
+        drupal_add_js($container->url, array('type' => 'external', 'scope' => $position, 'weight' => JS_THEME));
+    }
+}
+
+function tagcommander_get_value_from_node($node, $key, $default)
+{
+    $type = $key[1];
+    $field_name = $key[2];
+    if ($node->type != $type) {
+        return $default;
+    }
+
+    if ($field_name == 'nid') {
+        return $node->nid;
+    }
+
+    if ($field_name == 'title') {
+        return $node->title;
+    }
+
+
+    $field = field_info_field($field_name);
+
+    if ($field['module'] == 'taxonomy' && isset($node->$field_name)) {
+        $array_value = array();
+
+        $terms = $node->$field_name;
+        foreach ($terms['und'] as $term) {
+            $array_value[] = $term['taxonomy_term']->name;
+        }
+
+        return implode(',', $array_value);
+    } elseif ($field['module'] == 'taxonomy') {
+        return $default;
+    }
+
+    if ($field['module'] == 'text' && isset($node->$field_name)) {
+        $field_node = $node->$field_name;
+
+        return addslashes(str_replace("\n", '', $field_node['und'][0]['safe_value']));
+    }
+    return $default;
+}
