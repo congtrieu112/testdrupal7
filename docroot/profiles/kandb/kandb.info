@@ -177,6 +177,7 @@ dependencies[] = kandb_finance_gouvernance
 dependencies[] = kandb_taxonomy_comite
 dependencies[] = kandb_region_kb
 dependencies[] = kandb_conseiller_regional
+dependencies[] = kandb_habitat
 
 ; Blocks
 dependencies[] = kandb_recherche
