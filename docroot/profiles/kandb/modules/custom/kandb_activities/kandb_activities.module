@@ -78,6 +78,11 @@ function render_group_activities_habitat() {
     $tree = taxonomy_get_tree($vocabulary->vid);
     if ($tree) {
       $data['type'] = $tree;
+      if (isset($tree[0]->tid)) {
+        $nodes = kandb_activities_get_habitat_node($tree[0]->tid);
+        $data['nodes'] = $nodes;
+        $data['active'] = $tree[0]->tid;
+      }
     }
   }
   return theme('group_activities_habitat', array('data' => $data));
@@ -147,7 +152,33 @@ function render_group_activities_habitat_by_term($tid) {
     $tree = taxonomy_get_tree($vocabulary->vid);
     if ($tree) {
       $data['type'] = $tree;
+      if ($tid) {
+        $nodes = kandb_activities_get_habitat_node($tid);
+        $data['nodes'] = $nodes;
+        $data['active'] = $tid;
+      }
     }
   }
   return theme('group_activities_habitat', array('data' => $data));
+}
+
+/**
+ * Get grouvernance lasted.
+ */
+function kandb_activities_get_habitat_node($tid = array()) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'habitat')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_habitat_type', 'tid', $tid, '=')
+    ->propertyOrderBy('changed', 'DESC')
+  ;
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $nids = array_keys($result['node']);
+    return entity_load('node', $nids);
+  }
+
+  return NULL;
 }

@@ -20,7 +20,11 @@ print theme('group_activities_header');
                 <ul class="ul-unstyled undo-padding">
                     <?php if (isset($data['type'])): ?>
                       <?php foreach ($data['type'] as $term): ?>
-                        <li class="bordered"><a href="<?php print $term->tid; ?>" class=""><span><?php print $term->name; ?></span></a></li>
+                        <?php if (isset($data['active']) && $term->tid == $data['active']): ?>
+                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>" class="active"><span><?php print $term->name; ?></span></a></li>
+                        <?php else: ?>
+                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>"><span><?php print $term->name; ?></span></a></li>
+                        <?php endif; ?>
                       <?php endforeach; ?>
                     <?php endif; ?>
                 </ul>
@@ -32,42 +36,26 @@ print theme('group_activities_header');
         - small: 450 x 380 (High compression)
         - medium: 780 x 380
         -->
-        <div class="activities__item">
-            <div class="activities__item__img">
-                <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/activity-small.jpg, (small)], [test_assets/activity-medium.jpg, (large)]"/>
-                <noscript><img src="test_assets/activity-medium.jpg" alt="test"/></noscript>
-                <!-- [Responsive img] end-->
+        <?php if (isset($data['nodes'])): ?>
+          <?php
+          foreach ($data['nodes'] as $node):
+            $ville = isset($node->field_habitat_ville[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($node->field_habitat_ville[LANGUAGE_NONE][0]['tid']) : '';
+            ?>
+            <div class="activities__item">
+                <div class="activities__item__img">
+                    <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print image_style_url('programme_teaser_3', $node->field_habitat_image['und'][0]['uri']); ?>, (small)], [<?php print image_style_url('bien_more_info_programe_large_780_x_298', $node->field_habitat_image['und'][0]['uri']) ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url('bien_more_info_programe_large_780_x_298', $node->field_habitat_image['und'][0]['uri']); ?>" alt="test"/></noscript>
+                    <!-- [Responsive img] end-->
+                </div>
+                <div class="activities__item__infos">
+                    <h4 class="activities__item__title"><?php print $node->field_habitat_code_postal[LANGUAGE_NONE][0]['value']; ?> <?php print isset($ville->name) ? $ville->name : ''; ?></h4>
+                    <p class="activities__item__subs"><?php print isset($node->field_habitat_address['und'][0]['value']) ? $node->field_habitat_address['und'][0]['value'] : ''; ?></p>
+                    <p><?php print isset($node->field_habitat_content['und'][0]['value']) ? nl2br($node->field_habitat_content['und'][0]['value']) : ''; ?></p>
+                </div>
             </div>
-            <div class="activities__item__infos">
-                <h4 class="activities__item__title">75014 Paris</h4>
-                <p class="activities__item__subs">Avenue Paul Vaillant Couturier SHON 8 2002</p>
-                <p>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
-        </div>
-        <div class="activities__item">
-            <div class="activities__item__img">
-                <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/activity-small.jpg, (small)], [test_assets/activity-medium.jpg, (large)]"/>
-                <noscript><img src="test_assets/activity-medium.jpg" alt="test"/></noscript>
-                <!-- [Responsive img] end-->
-            </div>
-            <div class="activities__item__infos">
-                <h4 class="activities__item__title">75014 Paris</h4>
-                <p class="activities__item__subs">Avenue Paul Vaillant Couturier SHON 8 2002</p>
-                <p>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
-        </div>
-        <div class="activities__item">
-            <div class="activities__item__img">
-                <!-- [Responsive img] start--><img alt="test" data-interchange="[test_assets/activity-small.jpg, (small)], [test_assets/activity-medium.jpg, (large)]"/>
-                <noscript><img src="test_assets/activity-medium.jpg" alt="test"/></noscript>
-                <!-- [Responsive img] end-->
-            </div>
-            <div class="activities__item__infos">
-                <h4 class="activities__item__title">75014 Paris</h4>
-                <p class="activities__item__subs">Avenue Paul Vaillant Couturier SHON 8 2002</p>
-                <p>Aenean lacinia bibendum nulla sed consectetur. Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-            </div>
-        </div>
+          <?php endforeach; ?>
+        <?php endif; ?>
+
     </div>
 </section>
 <!-- [Activities] end-->
