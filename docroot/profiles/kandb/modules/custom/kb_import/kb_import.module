@@ -168,6 +168,9 @@ function kb_import_feeds_after_import($source) {
     kb_migration_logging ('migration : finish ' . $id);
     rules_invoke_event('migration_importer_finish', $id);
   }
+  if ($id == 'parcel_feed_import' || $id == 'programme_feed_import') {
+    variable_set('business_rule_' . $id, 1);
+  }
   if ($id == 'parcel_feed_import' && module_exists('kandb_business_rules')) {
     kandb_business_rules_feeds_after_import_prepare();
   }
@@ -467,14 +470,18 @@ function kb_import_bien_pdf_loging($message) {
 
 function kb_import_form_alter (&$form, &$form_state, $form_id) {
   if ($form_id == 'feeds_import_form' && isset($form['#importer_id']) && ($form['#importer_id'] == 'parcel_feed_import' || $form['#importer_id'] == 'programme_feed_import') && module_exists('kandb_business_rules')) {
-    $form['actions'] = array(
-      '#type' => 'actions',
-    );
-    $form['actions']['business_rule'] = array(
-      '#type' => 'submit',
-      '#value' => t('Run business rule after import'),
-      '#submit' => array('run_business_rule_after_import'),
-    );
+    $business_rule_status = variable_get('business_rule_' . $form['#importer_id'], 0);
+    if ($business_rule_status == 1) {
+      $form['actions'] = array(
+        '#type' => 'actions',
+      );
+      $form['actions']['business_rule'] = array(
+        '#type' => 'submit',
+        '#value' => t('Run business rule after import'),
+        '#submit' => array('run_business_rule_after_import'),
+      );
+      $form['submit']['#disabled'] = TRUE;
+    }
   }
 }
 

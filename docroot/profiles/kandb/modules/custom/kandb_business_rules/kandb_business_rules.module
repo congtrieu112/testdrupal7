@@ -442,6 +442,9 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
 
   // Save all node program
   Kandb_Business_Rules::node_save_list_program();
+  if ($importer_id == 'parcel_feed_import' || $importer_id == 'programme_feed_import') {
+    variable_get('business_rule_' . $importer_id, 0);
+  }
 }
 
 
