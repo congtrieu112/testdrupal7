@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B CT Habitat feature.
+ */
+
+include_once 'kandb_habitat.features.inc';
