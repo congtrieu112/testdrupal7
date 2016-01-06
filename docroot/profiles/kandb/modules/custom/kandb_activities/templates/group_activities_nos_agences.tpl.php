@@ -20,8 +20,7 @@ $arg = arg();
         </div>
     </nav>
     <?php
-    if ($region_contents) :
-      ?>
+    if ($region_contents) : ?>
       <div class="wrapper contacts">
           <div class="contacts__carte">
               <div class="contacts__carte-wrapper">
@@ -55,7 +54,6 @@ $arg = arg();
           <ul data-app-accordion class="accordion contacts__list">
               <?php
               $count = 0;
-
               if ($region_contents && isset($region_contents['node'])) :
                 foreach ($region_contents['node'] as $region) :
                   $region_nid = isset($region->nid) ? $region->nid : '';
@@ -94,8 +92,7 @@ $arg = arg();
                                     $addr = isset($arr_field_addr[LANGUAGE_NONE][0]['value']) ? $arr_field_addr[LANGUAGE_NONE][0]['value'] : '';
                                     $email = isset($arr_field_email[LANGUAGE_NONE][0]['value']) ? $arr_field_email[LANGUAGE_NONE][0]['value'] : '';
                                     $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value']) ? $arr_field_telephone[LANGUAGE_NONE][0]['value'] : '';
-                                    if ($addr && $email && $telephone) :
-                                      ?>
+                                    if ($addr && $email && $telephone) : ?>
                                       <li><?php print $addr; ?>
                                           <a href="mailto:<?php print $email; ?>" class="mail"><?php print $email; ?>
                                               <span class="icon icon-email"></span></a>
