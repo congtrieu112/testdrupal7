@@ -155,21 +155,11 @@ $promotions = get_nids_promotions_by_avant($node->nid);
         <?php endif; ?>
         <div class="heading heading--bordered heading--small">
             <div class="heading__title">
-                <?php
-                    $title = variable_get('avant_premiere_title');
-                    if ($title) :
-                        print $title;
-                    endif;
-                ?>
+                <?php print variable_get('avant_premiere_title', ''); ?>
             </div>
         </div>
         <p>
-            <?php
-                $description = variable_get('avant_premiere_textarea');
-                if ($description) :
-                    print $description;
-                endif;
-            ?>
+            <?php print variable_get('avant_premiere_textarea', ''); ?>
         </p>
         <?php
         $webform = webform_features_machine_name_load('avant_contactez_nous');
@@ -190,12 +180,7 @@ $promotions = get_nids_promotions_by_avant($node->nid);
         }
         ?>
         <p>
-            <?php
-                $description_bottom = variable_get('avant_premiere_textarea_bottom');
-                if ($description) :
-                    print $description_bottom;
-                endif;
-            ?>
+            <?php print variable_get('avant_premiere_textarea_bottom', ''); ?>
         </p>
     </div>
 </header>
