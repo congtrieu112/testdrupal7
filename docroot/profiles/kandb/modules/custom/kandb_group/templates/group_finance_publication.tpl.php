@@ -31,6 +31,9 @@ print theme('finance_header_block');
                           $year = isset($arr_date[0]) ? $arr_date[0] : '';
                           $month = isset($arr_date[1]) ? $arr_date[1] : '';
                           $day = isset($arr_date[2]) ? $arr_date[2] : '';
+                          if ($day < 10) :
+                            $day = str_replace('0', '', $day);
+                          endif;
                         }
                         ?>
                         <li>
@@ -73,7 +76,7 @@ print theme('finance_header_block');
                       $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
                       $numof_years = $value['numof_years'];
                       ?>
-                      <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="btn-primary btn-rounded active">
+                      <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="btn-primary active">
                           <?php print $key; ?>
                       </a>
                     <?php endforeach; ?>
@@ -121,7 +124,7 @@ print theme('finance_header_block');
           </ul>
       </div>
   </section>
-  <!-- [communiques Documents] end-->  
+  <!-- [communiques Documents] end-->
 <?php endif; ?>
 
 <?php

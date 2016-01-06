@@ -48,14 +48,14 @@ function kandb_group_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
-  
+
   // Front--finance-archives page
-    $items['corporate/actualites'] = array(
-      'title' => t('Actualites'),
-      'page callback' => 'kandb_group_page',
-      'access arguments' => array('access content'),
-      'type' => MENU_NORMAL_ITEM,
-    );
+  $items['corporate/actualites'] = array(
+    'title' => t('Actualites'),
+    'page callback' => 'kandb_group_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
 
   $items['admin/content/ketb/finance/presentation'] = array(
     'title' => '[Finance] Presentation',
@@ -153,7 +153,7 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-  
+
   $items['admin/content/ketb/group/apply-offers'] = array(
     'title' => '[RH] - Apply',
     'page callback' => 'drupal_get_form',
@@ -162,7 +162,7 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-  
+
   $items['admin/content/ketb/group/your-career'] = array(
     'title' => '[RH] - Your Career',
     'page callback' => 'drupal_get_form',
@@ -171,7 +171,7 @@ function kandb_group_menu() {
     'access arguments' => array('administer K&B Contact settings'),
     'type' => MENU_LOCAL_TASK,
   );
-  
+
   $items['admin/content/ketb/group/explore-our-businesses'] = array(
     'title' => '[RH] - Explore Our Businesses',
     'page callback' => 'drupal_get_form',
@@ -212,9 +212,9 @@ function kandb_group_menu() {
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
-  
+
   // Actualités page.
-  
+
   $items['admin/content/ketb/group/rh'] = array(
     'title' => '[Group] - Actualités',
     'page callback' => 'drupal_get_form',
@@ -322,8 +322,8 @@ function render_group_homepage() {
       $data['finance_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-  
-  
+
+
   // Block Ressources Humaines.
   $ressources_humaines_img = variable_get('image_group_home_block_ressources_humaines', 0);
   $ressources_humaines_img_load = file_load($ressources_humaines_img);
@@ -340,8 +340,8 @@ function render_group_homepage() {
       $data['ressources_humaines_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-  
-  
+
+
   // Block Activités.
   $activites_img = variable_get('image_group_home_block_activites', 0);
   $activites_img_load = file_load($activites_img);
@@ -358,9 +358,9 @@ function render_group_homepage() {
       $data['activites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-  
-  
-  
+
+
+
   // Block Actualités.
   $actualites_img = variable_get('image_group_home_block_actualites', 0);
   $actualites_img_load = file_load($actualites_img);
@@ -377,8 +377,8 @@ function render_group_homepage() {
       $data['actualites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-  
-  
+
+
   // Block Développement Durable.
   $developpement_durable_img = variable_get('image_group_home_block_developpement_durable', 0);
   $developpement_durable_img_load = file_load($developpement_durable_img);
@@ -395,11 +395,11 @@ function render_group_homepage() {
       $data['developpement_durable_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-  
-  
-  
-  
-  
+
+
+
+
+
   return theme('group_homepage', array('data' => $data));
 }
 
@@ -622,15 +622,14 @@ function kandb_group_get_image_uri($image_id) {
   return '';
 }
 
-
 function kandb_group_get_offers($limit) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'rh_annonce')
-    ->propertyCondition('status', 1)
-    ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
-    ->propertyOrderBy('changed', 'DESC')
-    ->range(0, $limit)
+      ->entityCondition('bundle', 'rh_annonce')
+      ->propertyCondition('status', 1)
+      ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
+      ->propertyOrderBy('changed', 'DESC')
+      ->range(0, $limit)
   ;
   $result = $query->execute();
   if (isset($result['node'])) {
@@ -673,4 +672,25 @@ function kandb_group_page() {
   }
   $content_archives['tab_content'] = get_document_by_type($tid, 0);
   return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
+}
+
+/**
+ * Generate finance publication languge link in header block.
+ */
+function kandb_group_generate_finance_publication_language_link($current_path) {
+  $document_type_tabs_en = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
+  $document_type_tabs_fr = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
+
+  $numof_years_en = array_values($document_type_tabs_en)[0]['numof_years'];
+  $numof_years_fr = array_values($document_type_tabs_fr)[0]['numof_years'];
+
+  $document_type_name_en = array_values($document_type_tabs_en)[0]['doc_type_name'];
+  $document_type_name_fr = array_values($document_type_tabs_fr)[0]['doc_type_name'];
+  $document_type_tid_en = kandb_group_get_term_from_name($document_type_name_en, VOCAL_DOCUMENT);
+  $document_type_tid_fr = kandb_group_get_term_from_name($document_type_name_fr, VOCAL_DOCUMENT);
+
+  $switch_url_en = url($current_path . '/' . $document_type_tid_en . '/' . $numof_years_en . '/en');
+  $switch_url_fr = url($current_path . '/' . $document_type_tid_fr . '/' . $numof_years_fr . '/fr');
+
+  return array('switch_url_en' => $switch_url_en, 'switch_url_fr' => $switch_url_fr);
 }
