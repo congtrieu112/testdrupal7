@@ -1,5 +1,6 @@
 <?php
 print theme('group_activities_header');
+$arg = arg();
 ?>
 <section class="bg-lightGrey section-padding contact">
     <div class="wrapper">
@@ -20,7 +21,6 @@ print theme('group_activities_header');
     </nav>
     <?php
     if ($region_contents) :
-      $arg = arg();
       ?>
       <div class="wrapper contacts">
           <div class="contacts__carte">
