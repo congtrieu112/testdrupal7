@@ -2,6 +2,8 @@
 if (isset($data['group_header'])):
     print render($data['group_header']);
 endif;
+
+$class_first_block = 'active';
 ?>
 
 <section class="wrapper section-padding ourAdvices">
