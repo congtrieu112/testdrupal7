@@ -1072,7 +1072,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 29,
+      'weight' => 59,
     ),
   );
 
@@ -1140,7 +1140,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 30,
+      'weight' => 61,
     ),
   );
 
@@ -1208,7 +1208,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 60,
     ),
   );
 
@@ -1276,7 +1276,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 32,
+      'weight' => 29,
     ),
   );
 
@@ -1344,7 +1344,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 30,
     ),
   );
 
@@ -1412,7 +1412,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 34,
+      'weight' => 31,
     ),
   );
 
@@ -1480,7 +1480,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 35,
+      'weight' => 32,
     ),
   );
 
@@ -1548,7 +1548,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 33,
     ),
   );
 
@@ -1616,7 +1616,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 34,
     ),
   );
 
@@ -1684,7 +1684,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 38,
+      'weight' => 35,
     ),
   );
 
@@ -1752,7 +1752,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 36,
     ),
   );
 
@@ -1820,7 +1820,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 40,
+      'weight' => 37,
     ),
   );
 
@@ -1888,7 +1888,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 41,
+      'weight' => 38,
     ),
   );
 
@@ -1956,7 +1956,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 42,
+      'weight' => 39,
     ),
   );
 
@@ -2024,7 +2024,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 40,
     ),
   );
 
@@ -2092,7 +2092,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 44,
+      'weight' => 41,
     ),
   );
 
@@ -2160,7 +2160,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 45,
+      'weight' => 42,
     ),
   );
 
@@ -2228,7 +2228,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 46,
+      'weight' => 43,
     ),
   );
 
@@ -2296,7 +2296,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 47,
+      'weight' => 44,
     ),
   );
 
@@ -2364,7 +2364,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 48,
+      'weight' => 45,
     ),
   );
 
@@ -2432,7 +2432,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 49,
+      'weight' => 46,
     ),
   );
 
@@ -2500,7 +2500,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 50,
+      'weight' => 47,
     ),
   );
 
@@ -2568,7 +2568,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 51,
+      'weight' => 48,
     ),
   );
 
@@ -2636,7 +2636,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 52,
+      'weight' => 49,
     ),
   );
 
@@ -2704,7 +2704,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 53,
+      'weight' => 50,
     ),
   );
 
@@ -2772,7 +2772,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 54,
+      'weight' => 51,
     ),
   );
 
@@ -2840,7 +2840,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 55,
+      'weight' => 52,
     ),
   );
 
@@ -2908,7 +2908,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 56,
+      'weight' => 53,
     ),
   );
 
@@ -2976,7 +2976,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 57,
+      'weight' => 54,
     ),
   );
 
@@ -3044,7 +3044,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 58,
+      'weight' => 55,
     ),
   );
 
