@@ -78,7 +78,14 @@ function kandb_settings_menu() {
       'access arguments' => array('administer K&B Bien settings'),
       'type' => MENU_LOCAL_TASK,
     );
-
+   $menu['admin/content/ketb/avant-premiere'] = array(
+      'title' => 'Avant premiere',
+      'description' => 'Config form',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('kandb_avant_premiere'),
+      'access arguments' => array('administer K&B Bien settings'),
+      'type' => MENU_LOCAL_TASK,
+    );
   return $menu;
 }
 
@@ -454,6 +461,24 @@ function kandb_link_default_admin() {
       '#title' => t('Choose offre'),
       '#options' => $listopions,
       '#default_value' => variable_get('kandb_progamme_link_default_selected'),
+    );
+    return system_settings_form($form);
+}
+function kandb_avant_premiere(){
+     $form['avant_premiere_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title'),
+      '#default_value' => variable_get('avant_premiere_title'),
+    );
+     $form['avant_premiere_textarea'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Description'),
+      '#default_value' => variable_get('avant_premiere_textarea'),
+    );
+     $form['avant_premiere_textarea_bottom'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Description bottom'),
+      '#default_value' => variable_get('avant_premiere_textarea_bottom'),
     );
     return system_settings_form($form);
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Implements Back-end functions of KB Group.
@@ -221,6 +222,32 @@ function kandb_group_finance_presentation_admin_form($form, $form_state) {
 }
 
 /**
+ * Gouvernance admin form.
+ */
+function kandb_group_finance_gouvernance_admin_form($form, $form_state) {
+  $form['settings_links'] = array(
+    '#markup' => kandb_ground_finance_language_tabs(),
+  );
+
+  if (isset($form_state['input']['current_lang']) AND $form_state['input']['current_lang']) {
+    $current_lang = $form_state['input']['current_lang'];
+  }
+  else {
+    $query_arr = drupal_get_query_parameters();
+    $current_lang = (isset($query_arr['lang']) AND $query_arr['lang']) ? $query_arr['lang'] : 'fr';
+  }
+  $form['current_lang'] = array('#type' => 'hidden', '#value' => ($current_lang));
+
+  $form['finance_gouvernance_module_title_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Module Title'),
+    '#default_value' => variable_get('finance_gouvernance_module_title_' . $current_lang),
+    '#required' => TRUE,
+  );
+  return system_settings_form($form);
+}
+
+/**
  * Validation for Data Block - 1 Max fields (mandatory) for each text data entered.
  */
 function finance_presentation_notebooks_data_block_validate($form, &$form_state) {
@@ -234,7 +261,7 @@ function finance_presentation_notebooks_data_block_validate($form, &$form_state)
       break;
     }
   }
-  
+
   if ($validated == FALSE) {
     form_set_error('finance_presentation_notebooks_data_block_line_1', t('Data Block - 1 Max fields (mandatory) for each text data entered'));
   }
@@ -254,7 +281,7 @@ function finance_presentation_notebooks_data_block_2_validate($form, &$form_stat
       break;
     }
   }
-  
+
   if ($validated == FALSE) {
     form_set_error('finance_presentation_notebooks_data_block_2_line_1', t('Data Block 2 - 1 Max fields (mandatory) for each text data entered'));
   }

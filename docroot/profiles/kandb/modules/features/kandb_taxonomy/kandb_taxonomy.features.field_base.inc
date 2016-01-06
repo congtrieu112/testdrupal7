@@ -361,6 +361,27 @@ function kandb_taxonomy_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_name_in_english'
+  $field_bases['field_name_in_english'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_name_in_english',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_numero_departement'
   $field_bases['field_numero_departement'] = array(
     'active' => 1,
