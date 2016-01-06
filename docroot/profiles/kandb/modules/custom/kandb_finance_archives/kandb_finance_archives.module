@@ -40,6 +40,15 @@
       'type' => MENU_NORMAL_ITEM,
     );
     
+    $items['admin/content/ketb/finance/archives'] = array(
+      'title' => '[Finance] Archives',
+      'page callback' => 'drupal_get_form',
+      'page arguments' => array('kandb_finance_archives_admin_form'),
+      'access arguments' => array('administer K&B group page'),
+      'file' => 'kandb_finance_archives.admin.inc',
+      'type' => MENU_LOCAL_TASK,
+    );
+    
     return $items;
   }
 
@@ -58,7 +67,6 @@
   }
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
-  drupal_set_title(t('Documents à télécharger'));
   if ($tid === 'en' || $tid === 'fr') {
     $lang = $tid;
     $tid = 0;
@@ -67,6 +75,14 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   if ($lang != 'en') {
     $lang = 'fr';
   }
+  $page_title = t('Documents à télécharger');
+  if ($language_id == 1) {
+    $page_title = variable_get('page_title_archives_en', $page_title);
+  }
+  else {
+    $page_title = variable_get('page_title_archives_fr', $page_title);
+  }
+  drupal_set_title(t($page_title));
   $content_archives = array();
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
   if (isset($document_voca->vid)) {
@@ -79,6 +95,12 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
       if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
         continue ;
       }
+      elseif ($language_id == 1) {
+        $term = taxonomy_term_load($term->tid);
+        if (isset ($term->field_name_in_english[LANGUAGE_NONE][0]['value'])) {
+          $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
+        }
+      }
       $content_archives['tab_header'][$term->tid] = array(
         'tab_title' => $term->name,
         'tab_url' => $base_archive . $term->tid . '/' . $lang,
@@ -90,7 +112,7 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     }
   }
   $content_archives['tab_content'] = get_document_by_type($tid, $language_id);
-  return theme('archive', array('content_archives' => $content_archives, 'pager' => theme('pager')));
+  return theme('archive', array('content_archives' => $content_archives, 'page_title' => $page_title, 'pager' => theme('pager')));
 }
 
 function get_document_by_type($tid = 0, $language_id = 0) {

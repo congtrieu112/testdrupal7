@@ -9,6 +9,7 @@ define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Ha
 define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/activites/habitat', 'corporate/activites/tertiaire', 'corporate/activites/nos-agences')));
 define('NUMBER_CTA_ACTIVE', 3);
 define('VOCAL_HABITAT', 'type_de_habitat');
+
 /**
  * Implement of hook_menu().
  */
@@ -33,12 +34,27 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+
+  $items['corporate/activites/nos-services'] = array(
+    'title' => 'Le Groupe - Activités - Nos agences',
+    'page callback' => 'render_group_activities_nos_agences',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
+  $items['corporate/activites/nos-showroom'] = array(
+    'title' => 'Le Groupe - Activités - Nos agences',
+    'page callback' => 'render_group_activities_nos_agences',
+    'type' => MENU_CALLBACK,
+    'access arguments' => array('access content'),
+  );
+
   $items['admin/content/ketb/group/active/habitat'] = array(
     'title' => '[Activities] - Habitat',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_habitat_form'),
     'file' => 'kandb_group_active_habitat.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
   $items['admin/content/ketb/group/active/tertiaire'] = array(
@@ -46,7 +62,7 @@ function kandb_activities_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_tertiaire_form'),
     'file' => 'kandb_group_active_tertiaire.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
   $items['corporate/activites/habitat/%'] = array(
@@ -56,8 +72,17 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  $items['admin/content/ketb/group/active/agences'] = array(
+    'title' => '[Activities] - Nos - agences - service - showroom',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_active_agences_form'),
+    'file' => 'kandb_group_active_agences.admin.inc',
+    'access arguments' => array('administer K&B group page'),
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
 }
+
 /**
  * Implement of hook_theme().
  */
@@ -100,6 +125,7 @@ function render_group_activities_habitat() {
   }
   return theme('group_activities_habitat', array('data' => $data));
 }
+
 /**
  * Implements render page habitat.
  */
@@ -117,50 +143,8 @@ function render_group_activities_nos_agences() {
     ->entityCondition('bundle', 'region_kb');
 
   $regions = $query->execute();
-  $region_variables = array();
-  $conseiller_variables = array();
-  if ($regions && isset($regions['node'])) {
-    foreach ($regions['node'] as $region) {
-      $region_nid = isset($region->nid) ? $region->nid : '';
-      if ($region_nid) {
-        $n_region = node_load($region_nid);
-        if ($n_region) {
-          $region_variables[$region_nid]['region_nid'] = $region_nid;
-          $region_variables[$region_nid]['region_kb_id'] = isset($n_region->field_region_kb_id[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'] : '';
-          $region_variables[$region_nid]['region_title'] = $n_region->title;
-          $region_variables[$region_nid]['region_kb_libelle'] = isset($n_region->field_region_kb_libelle[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_libelle[LANGUAGE_NONE][0]['value'] : '';
-          $region_variables[$region_nid]['region_kb_adresse'] = isset($n_region->field_region_kb_adresse[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_adresse[LANGUAGE_NONE][0]['value'] : '';
-          $region_variables[$region_nid]['region_kb_telephone'] = isset($n_region->field_region_kb_telephone[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_telephone[LANGUAGE_NONE][0]['value'] : '';
-          $region_variables[$region_nid]['region_kb_longitude'] = isset($n_region->field_region_kb_longitude[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_longitude[LANGUAGE_NONE][0]['value'] : '';
-          $region_variables[$region_nid]['region_kb_latitude'] = isset($n_region->field_region_kb_latitude[LANGUAGE_NONE][0]['value']) ? $n_region->field_region_kb_latitude[LANGUAGE_NONE][0]['value'] : '';
 
-          $query2 = new EntityFieldQuery();
-          $query2->entityCondition('entity_type', 'node')
-            ->entityCondition('bundle', 'conseiller_regional')
-            ->fieldCondition('field_conseiller_regional_reg_kb', 'target_id', $region_nid);
-
-          $conseillers = $query2->execute();
-          if ($conseillers && isset($conseillers['node'])) {
-            foreach ($conseillers['node'] as $conseiller) {
-              $conseiller_nid = isset($conseiller->nid) ? $conseiller->nid : '';
-              if ($conseiller_nid) {
-                $n_conseiller = node_load($conseiller_nid);
-                if ($n_conseiller) {
-                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_title'] = $n_conseiller->title;
-                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone1'] = isset($n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele1[LANGUAGE_NONE][0]['value'] : '';
-                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_telephone2'] = isset($n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_tele2[LANGUAGE_NONE][0]['value'] : '';
-                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_photo'] = isset($n_conseiller->field_conseiller_regional_photo[LANGUAGE_NONE][0]['uri']) ? $n_conseiller->field_conseiller_regional_photo[LANGUAGE_NONE][0]['uri'] : '';
-                  $conseiller_variables[$region_nid][$conseiller_nid]['conseiller_regional_email'] = isset($n_conseiller->field_conseiller_regional_email[LANGUAGE_NONE][0]['value']) ? $n_conseiller->field_conseiller_regional_email[LANGUAGE_NONE][0]['value'] : '';
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
-
-  return theme('group_activities_nos_agences', array('region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+  return theme('group_activities_nos_agences', array('region_contents' => $regions));
 }
 
 /**

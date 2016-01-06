@@ -2,7 +2,17 @@
 if (!isset($content_archives) || empty($content_archives)) {
   return;
 }
+
 $class_first_block = 'active';
+
+$title = '';
+if(array_key_exists(arg(3), $content_archives['tab_header'])):
+    $data = $content_archives['tab_header'][arg(3)];
+    $title = $data['tab_title'];
+else :
+    $title =  t('Les actualités');
+endif;
+
 print theme('finance_header_block');
 ?>
 <section class="section-padding">
@@ -11,7 +21,7 @@ print theme('finance_header_block');
       <h1 class="heading__title"><?php print t('Documents à télécharger'); ?></h1>
     </header>
     <nav class="form-dropdown form-dropdown--responsive">
-      <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print t('Les actualités'); ?><span aria-hidden="true" class="icon icon-expand"></span></button>
+      <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
       <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
         <ul class="ul-unstyled undo-padding">
           <?php foreach($content_archives['tab_header'] as $tab_content) : ?>
