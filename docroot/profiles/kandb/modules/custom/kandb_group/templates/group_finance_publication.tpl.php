@@ -31,6 +31,9 @@ print theme('finance_header_block');
                           $year = isset($arr_date[0]) ? $arr_date[0] : '';
                           $month = isset($arr_date[1]) ? $arr_date[1] : '';
                           $day = isset($arr_date[2]) ? $arr_date[2] : '';
+                          if ($day < 10) :
+                            $day = str_replace('0', '', $day);
+                          endif;
                         }
                         ?>
                         <li>
