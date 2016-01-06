@@ -14,7 +14,7 @@
  */
 function kandb_habiteo_install() {
 
-  variable_set('habiteo_feed_url', 'http://kaufmanetbroadtyz9frhrd6.devcloud.acquia-sites.com/maquettes');
+  variable_set('habiteo_feed_url', 'http://www.habiteo.com/flux');
   variable_set('habiteo_feed_token', '3c7070bcf6bc98a6ea813ff7ff78953d');
   variable_set('habiteo_widget_security_key', '5dsf66U3QBz1nuLl7zI82E');
   variable_set('habiteo_visite-virtuelle_url', 'http://widgets.habiteo.com/visite-virtuelle');
