@@ -17,6 +17,16 @@ else :
 endif;
 
 $current_path = implode('/', $arg);
+
+if ($current_path == 'corporate/finance/publication') :
+  $current_path_arr = kandb_group_generate_finance_publication_language_link($current_path);
+  $switch_url_en = $current_path_arr['switch_url_en'];
+  $switch_url_fr = $current_path_arr['switch_url_fr'];
+else :
+  $switch_url_en = url($current_path . '/en');
+  $switch_url_fr = url($current_path . '/fr');
+endif;
+
 $block_title = variable_get('finance_header_title_' . $current_lang);
 $block_sub_title = variable_get('finance_header_sub_title_' . $current_lang);
 $block_img_full_id = variable_get('finance_header_image_full_' . $current_lang);
@@ -30,8 +40,8 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
   <div class="lang">
       <nav class="wrapper">
           <ul>
-              <li class="fr <?php print $fr_active; ?>"><a href="<?php print url($current_path . '/fr'); ?>" title="<?php print t('Version française de la page'); ?>">fr</a></li>
-              <li class="en <?php print $en_active; ?>"><a href="<?php print url($current_path . '/en'); ?>" title="<?php print t('English version of the page'); ?>">en</a></li>
+              <li class="fr <?php print $fr_active; ?>"><a href="<?php print $switch_url_fr; ?>" title="<?php print t('Version française de la page'); ?>">fr</a></li>
+              <li class="en <?php print $en_active; ?>"><a href="<?php print $switch_url_en; ?>" title="<?php print t('English version of the page'); ?>">en</a></li>
           </ul>
       </nav>
   </div>
@@ -62,15 +72,9 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
               $url = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : $default_menu_links[$i];
               $title = $default_menu_titles[$i];
             endif;
-            
-            if ($current_lang == 'en') :
-              if (url($current_path . '/' . $current_lang) == url($url)):
-                $class = 'active';
-              endif;
-            else :
-              if (url($current_path . '/' . $current_lang) == url($url) || url($current_path) == url($url)):
-                $class = 'active';
-              endif;
+
+            if (strpos($current_path, $url) !== FALSE) :
+              $class = 'active';
             endif;
             ?>
             <li class="pageHeaderNav__list__item <?php print $class; ?>">
@@ -87,4 +91,5 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
   <div class="wrapper">
       <hr class="hr">
   </div>
-<?php endif;
+  <?php
+ endif;
