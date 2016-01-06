@@ -106,7 +106,7 @@ print theme('group_activities_header');
                 </article>
               </li>
 
-            <?php    //krumo($n_region);die;
+            <?php
             $count++;
               endif;
             endif;
