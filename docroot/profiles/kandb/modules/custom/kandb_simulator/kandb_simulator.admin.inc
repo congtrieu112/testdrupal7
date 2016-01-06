@@ -140,6 +140,34 @@ function kandb_simulator_admin_form($form, $form_state) {
       '#size' => 60,
       '#maxlength' => 128,
   );
+  $form['fieldset_simuler_mon_section']['adresse_ip_simulator_mon_section'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Adresse IP'),
+      '#default_value' => variable_get('adresse_ip_simulator_mon_section'),
+      '#size' => 60,
+      '#maxlength' => 128,
+  );
+  $form['fieldset_simuler_mon_section']['adresse_ip_simulator_mon_section'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Adresse IP'),
+      '#default_value' => variable_get('adresse_ip_simulator_mon_section'),
+      '#size' => 60,
+      '#maxlength' => 128,
+  );
+  $form['fieldset_simuler_mon_section']['param_dossier_simulator_mon_section'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Param Dossier'),
+      '#default_value' => variable_get('param_dossier_simulator_mon_section'),
+      '#size' => 60,
+      '#maxlength' => 128,
+  );
+  $form['fieldset_simuler_mon_section']['param_id_simulator_mon_section'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Param ID'),
+      '#default_value' => variable_get('param_id_simulator_mon_section'),
+      '#size' => 60,
+      '#maxlength' => 128,
+  );
 
 
   $form['#submit'] = array(
