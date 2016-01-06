@@ -9,6 +9,7 @@ define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Ha
 define('KANDB_GROUP_ACTIVITES_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/activites/habitat', 'corporate/activites/tertiaire', 'corporate/activites/nos-agences')));
 define('NUMBER_CTA_ACTIVE', 3);
 define('VOCAL_HABITAT', 'type_de_habitat');
+
 /**
  * Implement of hook_menu().
  */
@@ -53,7 +54,7 @@ function kandb_activities_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_habitat_form'),
     'file' => 'kandb_group_active_habitat.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
   $items['admin/content/ketb/group/active/tertiaire'] = array(
@@ -61,7 +62,7 @@ function kandb_activities_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_tertiaire_form'),
     'file' => 'kandb_group_active_tertiaire.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
   $items['corporate/activites/habitat/%'] = array(
@@ -71,8 +72,17 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
+  $items['admin/content/ketb/group/active/agences'] = array(
+    'title' => '[Activities] - Nos - agences - service - showroom',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_active_agences_form'),
+    'file' => 'kandb_group_active_agences.admin.inc',
+    'access arguments' => array('administer K&B group page'),
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
 }
+
 /**
  * Implement of hook_theme().
  */
@@ -115,6 +125,7 @@ function render_group_activities_habitat() {
   }
   return theme('group_activities_habitat', array('data' => $data));
 }
+
 /**
  * Implements render page habitat.
  */
@@ -127,9 +138,9 @@ function render_group_activities_tertiaire() {
  * Implements render page Nos agences.
  */
 function render_group_activities_nos_agences() {
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'region_kb');
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'region_kb');
 
   $regions = $query->execute();
 
