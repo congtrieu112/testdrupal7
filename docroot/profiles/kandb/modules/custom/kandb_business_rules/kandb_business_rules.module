@@ -7,31 +7,32 @@ include_once 'class-kandb-business-rule.php';
  */
 function kandb_business_rules_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
   Kandb_Business_Rules::set_is_feed_import();
-  if ($source->id === FEED_ID_IMPORT_BIEN) {   // Is import for bien.
-    // Set list nodes of bien.
-    Kandb_Business_Rules::set_list_biens();
-    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
-
-    // Get all node from db and remmove all node what it has in file import.
-    // To get list node don't have in file import.
-    foreach ($result->items as $row) {
-      $id_bien_in_file = $row[FEED_COLUMN_ID];
-      $node_bien = Kandb_Business_Rules::get_bien_from_id_bien($id_bien_in_file);
-
-      // If it is update, then remove from list node.
-      // Use for RULE BIEN 103, 104, is update.
-      if (!empty($node_bien)) {
-        $node_bien = array_shift($node_bien);
-
-        if (($key = array_search($node_bien->nid, $list_nodes_bien)) !== false) {
-          unset($list_nodes_bien[$key]);
-        }
-      }
-    }
-
-    Kandb_Business_Rules::set_list_biens($list_nodes_bien);
-  }
-  elseif ($source->id === 'migration_program_import') {
+//  if ($source->id === FEED_ID_IMPORT_BIEN) {   // Is import for bien.
+//    // Set list nodes of bien.
+//    Kandb_Business_Rules::set_list_biens();
+//    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+//
+//    // Get all node from db and remmove all node what it has in file import.
+//    // To get list node don't have in file import.
+//    foreach ($result->items as $row) {
+//      $id_bien_in_file = $row[FEED_COLUMN_ID];
+//      $node_bien = Kandb_Business_Rules::get_bien_from_id_bien($id_bien_in_file);
+//
+//      // If it is update, then remove from list node.
+//      // Use for RULE BIEN 103, 104, is update.
+//      if (!empty($node_bien)) {
+//        $node_bien = array_shift($node_bien);
+//
+//        if (($key = array_search($node_bien->nid, $list_nodes_bien)) !== false) {
+//          unset($list_nodes_bien[$key]);
+//        }
+//      }
+//    }
+//
+//    Kandb_Business_Rules::set_list_biens($list_nodes_bien);
+//  }
+//  elseif ($source->id === 'migration_program_import') {
+  if ($source->id === 'migration_program_import') {
     foreach ($result->items as &$row) {
       $slider_rt2012_titre = isset($row['reglementationthermiquetitre']) ? trim($row['reglementationthermiquetitre']) : '';
       $slider_rt2012_description = isset($row['reglementationthermiquezone1']) ? trim($row['reglementationthermiquezone1']) : '';
@@ -99,6 +100,7 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       $entity_id = (isset($entity->nid)) ? $entity->nid : 0;
       // RULE BIEN 101, 102, is update.
       if (!empty($entity_id)) {
+        kandb_business_rules_store_imported_items($entity_id);
         if (!($status_in_file === TAXONOMY_STATUS_LOGEMENT_L || $status_in_file === TAXONOMY_STATUS_LOGEMENT_R)) {
           $node_bien = node_load($entity_id);
           $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $node_bien->field_bien_statut[LANGUAGE_NONE][0]['tid'];
@@ -335,12 +337,51 @@ function kandb_business_rules_node_update($node) {
   }
 }
 
-function kandb_business_rules_feeds_after_import_prepare() {
+function kandb_business_rules_feeds_before_import(FeedsSource $source) {
+  if ($source->id == 'parcel_feed_import') {
+    $file_name = 'imported_lot.txt';
+    $uri = 'private://imported/';
+    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+    if ($prepare_file) {
+      drupal_chmod($uri);
+      file_save_data('', $uri . $file_name, FILE_EXISTS_REPLACE);
+    }
+  }
+}
+
+function kandb_business_rules_store_imported_items($entity_id) {
   $uri = 'private://imported/';
   $file_name = 'imported_lot.txt';
-  $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
-  $data = implode("\n", $list_nodes_bien);
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $file_name);
+    $data = '';
+    if (file_exists($path)) {
+      $data = file_get_contents($path);
+    }
+    drupal_chmod($uri);
+    file_save_data($data . $entity_id . "\n" , $uri . $file_name, FILE_EXISTS_REPLACE);
+  }
+}
+
+function kandb_business_rules_feeds_after_import_prepare() {
+  $uri = 'private://imported/';
+  $file_name = 'business_rules_lot.txt';
+  Kandb_Business_Rules::set_list_biens();
+  $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+  $imported_file_name = 'imported_lot.txt';
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    $path = drupal_realpath($uri . $imported_file_name);
+    drupal_chmod($uri);
+    $data_imported = '';
+    if (file_exists($path)) {
+      $data_imported = file_get_contents($path);
+    }
+    $imported_items = array_unique(array_map('trim', explode("\n", $data_imported)));
+    $list_nodes_bien = array_diff($list_nodes_bien, $imported_items);
+  }
+  $data = implode("\n", $list_nodes_bien);
   if ($prepare_file) {
     drupal_realpath($uri . $file_name);
     drupal_chmod($uri);
@@ -355,7 +396,7 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
 //    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
     $list_nodes_bien = array();
     $uri = 'private://imported/';
-    $file_name = 'imported_lot.txt';
+    $file_name = 'business_rules_lot.txt';
     $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
     if ($prepare_file) {
       $path = drupal_realpath($uri . $file_name);
