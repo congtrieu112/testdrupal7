@@ -1,14 +1,26 @@
 <?php
 print theme('group_activities_header');
 ?>
-<?php if($region_contents) : ?>
+<?php if($region_contents) :
+  $arg = arg();
+?>
 <section class="bg-lightGrey section-padding contact">
   <div class="wrapper">
     <h2 class="heading heading--bordered">
-      <div class="heading__title"><?php //print t('Contacts'); ?></div>
+      <div class="heading__title"><?php print t('Contactez-nous'); ?></div>
       <div class="heading__title heading__title--sub"><?php //print t("Retrouvez ci-dessous les coordonées de l'ensemble des conseillers régionaux K&B Patrimoine"); ?></div>
     </h2>
   </div>
+  <nav class="form-dropdown form-dropdown--responsive">
+<button class="form-dropdown__trigger" data-app-dropdown-responsive="small-only" data-app-dropdown="data-app-dropdown" aria-controls="dropdown-downloadDocs" aria-expanded="false">Les actualités<span class="icon icon-expand" aria-hidden="true"></span></button>
+    <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-downloadDocs">
+      <ul class="ul-unstyled undo-padding">
+        <li class="bordered"><a class="<?php print $arg[2]=='nos-agences'?'active':''; ?>" href="<?php print url('corporate/activites/nos-agences'); ?>"><span><?php print t('Nos agences'); ?></span></a></li>
+        <li class="bordered"><a class="<?php print $arg[2]=='nos-services'?'active':''; ?>" href="<?php print url('corporate/activites/nos-services'); ?>"><span><?php print t('Nos services'); ?></span></a></li>
+        <li class="bordered"><a class="<?php print $arg[2]=='nos-showroom'?'active':''; ?>" href="<?php print url('corporate/activites/nos-showroom'); ?>"><span><?php print t('Nos showroom'); ?></span></a></li>
+      </ul>
+    </div>
+  </nav>
   <div class="wrapper contacts">
     <div class="contacts__carte">
       <div class="contacts__carte-wrapper">
@@ -42,7 +54,7 @@ print theme('group_activities_header');
     <ul data-app-accordion class="accordion contacts__list">
       <?php
         $count = 0;
-        $arg = arg();
+
         if ($region_contents && isset($region_contents['node'])) :
           foreach($region_contents['node'] as $region) :
             $region_nid = isset($region->nid) ? $region->nid : '';
