@@ -49,6 +49,18 @@ function kandb_simulator_menu() {
       'access arguments' => array('administer content'),
       'type' => MENU_LOCAL_TASK,
   );
+  $items['nos-outils/simulateur-droits-ptz/ajax'] = array(
+      'title' => 'simulator droits ptz iframe',
+      'page callback' => 'render_iframe_simulator_droits_ptz',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+  );
+  $items['nos-outils/simulateur-droits-ptz/ptz_ab1b2c'] = array(
+      'title' => 'simulator droits ptz iframe',
+      'page callback' => 'render_iframe_simulator_droits_ptz_ptz_ab1b2c',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -110,5 +122,19 @@ function kandb_simulator_theme($existing, $type, $theme, $path) {
       'template' => 'templates/simulator_header_block',
       'variables' => array(),
     ),
+    'simulator_ptz_ab1b2c' => array(
+      'template' => 'templates/simulator_ptz_ab1b2c',
+      'variables' => array(),
+    ),
   );
+}
+
+function render_iframe_simulator_droits_ptz() {
+  $path = realpath(drupal_get_path('module', 'kandb_simulator'));
+  $content = file_get_contents($path . '/files/ptz_plus_neuf.html');
+  print $content;
+}
+
+function render_iframe_simulator_droits_ptz_ptz_ab1b2c() {
+  print theme('simulator_ptz_ab1b2c');
 }
