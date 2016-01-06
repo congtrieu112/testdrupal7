@@ -97,14 +97,6 @@ function kandb_taxonomy_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
-    'sous_type_document' => array(
-      'name' => 'Sous-type Document',
-      'machine_name' => 'sous_type_document',
-      'description' => '',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-    ),
     'status_logement' => array(
       'name' => 'Statut du logement',
       'machine_name' => 'status_logement',

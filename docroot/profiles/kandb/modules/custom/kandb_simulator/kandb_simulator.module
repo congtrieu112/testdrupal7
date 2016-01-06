@@ -49,6 +49,33 @@ function kandb_simulator_menu() {
       'access arguments' => array('administer content'),
       'type' => MENU_LOCAL_TASK,
   );
+  $items['nos-outils/simulateur-droits-ptz/ajax'] = array(
+      'title' => 'simulator droits ptz iframe',
+      'page callback' => 'render_iframe_simulator_droits_ptz',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+  );
+  $items['nos-outils/simulateur-droits-ptz/ptz_ab1b2c'] = array(
+      'title' => 'simulator droits ptz iframe',
+      'page callback' => 'render_iframe_simulator_droits_ptz_ptz_ab1b2c',
+      'access callback' => TRUE,
+      'type' => MENU_CALLBACK,
+  );
+  
+  $items['nos-outils/simulateur-capacite-achat-fnfg'] = array(
+      'title' => 'simulator capacite achat fnfg',
+      'page callback' => 'render_simulator_capacite_achat_fnfg',
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
+  );
+
+
+  $items['nos-outils/simulateur-mensualites-remboursement-calcfin'] = array(
+      'title' => 'simulateur mensualites remboursement calcfin',
+      'page callback' => 'render_simulateur_mensualites_remboursement_calcfin',
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
+  );
 
   return $items;
 }
@@ -86,6 +113,27 @@ function render_simulator_loi_pinel() {
 }
 
 /**
+ * Render simulator capacite achat fnfg.
+ */
+function render_simulator_capacite_achat_fnfg() {
+  
+  print theme('simulator_capacite_achat_fnfg', array());
+  drupal_exit();
+
+}
+
+
+/**
+ * Render simulator mensualites remboursement calcfin.
+ */
+function render_simulateur_mensualites_remboursement_calcfin () {
+  
+  print theme('simulateur_mensualites_remboursement_calcfin', array());
+  drupal_exit();
+
+}
+
+/**
  * Implement of hook_theme().
  */
 function kandb_simulator_theme($existing, $type, $theme, $path) {
@@ -110,5 +158,27 @@ function kandb_simulator_theme($existing, $type, $theme, $path) {
       'template' => 'templates/simulator_header_block',
       'variables' => array(),
     ),
+    'simulator_ptz_ab1b2c' => array(
+      'template' => 'templates/simulator_ptz_ab1b2c',
+      'variables' => array(),
+    ),
+      'simulator_capacite_achat_fnfg' => array(
+      'template' => 'templates/simulator_capacite_achat_fnfg',
+      'variables' => array(),
+    ),
+    'simulateur_mensualites_remboursement_calcfin' => array(
+      'template' => 'templates/simulateur_mensualites_remboursement_calcfin',
+      'variables' => array(),
+    ),
   );
+}
+
+function render_iframe_simulator_droits_ptz() {
+  $path = realpath(drupal_get_path('module', 'kandb_simulator'));
+  $content = file_get_contents($path . '/files/ptz_plus_neuf.html');
+  print $content;
+}
+
+function render_iframe_simulator_droits_ptz_ptz_ab1b2c() {
+  print theme('simulator_ptz_ab1b2c');
 }
