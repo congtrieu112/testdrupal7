@@ -27,7 +27,15 @@ function kandb_finance_assemblies_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
-
+  
+  $items['admin/content/ketb/finance/assemblies'] = array(
+    'title' => '[Finance] Assemblies',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_finance_assemblies_admin_form'),
+    'access arguments' => array('administer K&B group page'),
+    'file' => 'kandb_finance_assemblies.admin.inc',
+    'type' => MENU_LOCAL_TASK,
+  );
   return $items;
 }
 
@@ -54,6 +62,14 @@ function kandb_finance_assemblies_page($lang = 'fr') {
   else {
     $language_id = 1;
   }
+  $page_title = t('Assemblées Générales');
+  if ($language_id == 1) {
+    $page_title = variable_get('page_title_archives_en', $page_title);
+  }
+  else {
+    $page_title = variable_get('page_title_archives_fr', $page_title);
+  }
+  drupal_set_title(t($page_title));
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
   if (isset($document_voca->vid)) {
     $all_terms = taxonomy_get_tree($document_voca->vid);
@@ -66,7 +82,7 @@ function kandb_finance_assemblies_page($lang = 'fr') {
   }
   if (!empty($tids) && !empty($document_types)) {
     $assembly_content = finance_assemblies_get_nodes($tids, $language_id, $document_types);
-    return theme('assembly', array('assembly_content' => $assembly_content, 'pager' => theme('pager')));
+    return theme('assembly', array('assembly_content' => $assembly_content, 'page_title' => $page_title, 'pager' => theme('pager')));
   }
   else {
     drupal_set_message('There are no content on this page');
