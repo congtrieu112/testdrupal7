@@ -62,7 +62,7 @@ $arg = arg();
                     //$tax_region = taxonomy_term_load($n_region->field_field_region_id_ref[LANGUAGE_NONE][0]['tid']);
                     //$region_kb_id = $tax_region ? $tax_region->field_region_map[LANGUAGE_NONE][0]['value'] : '';
                     if ($n_region):
-                      $region_kb_id = $n_region->field_region_kb_map[LANGUAGE_NONE][0]['value'];
+                      $region_kb_id = $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'];
                       ?>
                       <li id="<?php print $region_kb_id; ?>">
                           <a href="#<?php print $region_kb_id; ?>" data-app-accordion-link data-contact-map-section='<?php print $region_kb_id; ?>' class="accordion__link <?php print ($count == 0) ? 'active' : ''; ?>">
