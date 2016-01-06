@@ -902,3 +902,12 @@ function kandb_update_7187(&$sandbox) {
     module_enable(array('kandb_activities'), TRUE);
   }
 }
+
+/**
+ * Enable kandb_activities
+ */
+function kandb_update_7188(&$sandbox) {
+  if (!module_exists('jquery_update')) {
+    module_enable(array('jquery_update'), TRUE);
+  }
+}

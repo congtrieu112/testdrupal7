@@ -94,7 +94,7 @@ function k_b_rh_annonce_strongarm() {
           ),
           'teaser_inline' => array(
             'weight' => '1',
-            'visible' => TRUE,
+            'visible' => FALSE,
           ),
         ),
       ),

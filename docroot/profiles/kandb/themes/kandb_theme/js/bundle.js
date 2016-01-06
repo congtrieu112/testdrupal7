@@ -8942,8 +8942,6 @@ return GMaps;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
-(function (global){
-; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -18155,11 +18153,6 @@ return jQuery;
 
 }));
 
-; browserify_shim__define__module__export__(typeof $ != "undefined" ? $ : window.$);
-
-}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
-
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],6:[function(require,module,exports){
 /*!
  * JavaScript Cookie v2.0.4
@@ -37414,7 +37407,7 @@ AppAccordion.prototype = {
               duration: 500,
               progress: function(elements, complete, remaining, start, tweenValue) {
                 if( Foundation.utils.is_small_only() ) {
-                  var linkPosition    = $this.offset().top,
+                  var linkPosition    = $this.closest('.accordion__link').offset().top,
                       windowPosition  = $(window).scrollTop(),
                       moveTo          = linkPosition - 100 - windowPosition,
                       value           = windowPosition + moveTo * complete;
@@ -38041,8 +38034,11 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
 
 
 // ajax callbacks
-$(document).on('ajaxComplete', function(e){
+$(document).on('ajaxComplete', function(e, xhr, settings){
+  console.log("ajaxComplete");
+
   // reinit all App methods
+  //App.launchUpdaters(e, xhr);
   App.launchUpdaters();
 });
 
@@ -38769,6 +38765,28 @@ App.form = function() {
 
 
   $('form').find('.label-checkbox > span').addClass('needsclick');
+
+
+  // INPUT FILE STYLING
+  var inputFileBind = function($inputFile) {
+    $inputFile.off('change.inputFile').on('change.inputFile', function(e) {
+      var $this = $(this),
+          value = $this.val();
+      $this.prev('[data-fake-file]').val( value.split('\\').pop() );
+    });
+  };
+
+  $('form').find('.form-file').each(function(){
+    var $this = $(this),
+        thisName = $this.attr('name'),
+        fakeInput = '<input type="text" readonly data-fake-file id="fake-'+ thisName +'" placeholder="Choisissez un fichier">';
+
+    // create fake input
+    $this.before(fakeInput);
+
+    // binding
+    inputFileBind($this);
+  });
 
 };
 
@@ -39588,7 +39606,7 @@ App.updaters.appSeeMore = function() {
 var trigger = 'select[data-app-select]';
 
 App.appComboSelect = function() {
-  $(trigger)
+  $(document).find(trigger)
     .comboSelect({
         comboClass         : 'combo-select', /* outer container class */
         comboArrowClass    : 'combo-select-arrow', /* arrow class */
@@ -39622,10 +39640,10 @@ App.appComboSelect = function() {
     });
 };
 
-App.appComboSelect();
+App.appComboSelect(trigger);
 
 // auto refresh after ajax response
-App.updaters.appComboSelect = function() {
+App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
 },{}],31:[function(require,module,exports){
@@ -39961,6 +39979,7 @@ App.topBarHeight = function() {
 
 
 },{}],34:[function(require,module,exports){
+(function (global){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39979,7 +39998,7 @@ App.topBarHeight = function() {
     define(['jquery'], factory);
   } else if (typeof exports === 'object' && typeof require === 'function') {
     // Browserify
-    factory(require('jquery'));
+    factory((typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null));
   } else {
     // Browser globals
     factory(jQuery);
@@ -40597,7 +40616,8 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],35:[function(require,module,exports){
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{}],35:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40605,7 +40625,7 @@ App.topBarHeight = function() {
 
 'use strict';
 
-require('jquery');
+//var $ = require('jquery');
 require('lodash');
 var foundation          = require('foundation');
 var velocity            = require("velocity-animate");
@@ -40650,10 +40670,17 @@ _.merge(window.App.settings, window.Drupal.settings.kandb_settings);
 
 
 // refresh functions after ajax response
-App.launchUpdaters = function(obj){
-  var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
+/*App.launchUpdaters = function(e, xhr){
+  //var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
   $.each( App.updaters , function( key, value ) {
-    App.updaters[key](_obj);
+    App.updaters[key]( xhr, $(xhr.responseText) );
+  });
+};*/
+
+App.launchUpdaters = function(){
+  //var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
+  $.each( App.updaters , function( key, value ) {
+    App.updaters[key](  );
   });
 };
 
@@ -40702,4 +40729,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);

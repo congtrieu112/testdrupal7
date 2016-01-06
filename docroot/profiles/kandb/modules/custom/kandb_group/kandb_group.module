@@ -507,7 +507,7 @@ function render_group_rh_votre_carriere() {
  */
 function render_group_rh_postuler() {
   $vars = array();
-  $vars['view'] = views_embed_view('nos_derni_res_offres_d_emploi');
+  $vars['view'] = views_embed_view('nos_derni_res_offres_d_emploi', 'page');
   return theme('group_rh_postuler', $vars);
 }
 

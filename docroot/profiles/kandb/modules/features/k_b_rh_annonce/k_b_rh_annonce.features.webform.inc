@@ -23,7 +23,7 @@ $webforms = array();
   'translate' => 0,
   'uuid' => 'c6106028-928d-4fb4-9b16-a1b5b8800074',
   'webform' => array(
-    'next_serial' => 1,
+    'next_serial' => 2,
     'confirmation' => '',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
@@ -682,7 +682,7 @@ Zimbabwe|Zimbabwe',
       ),
       '_tre_rappel___rappeler_prenom' => array(
         'form_key' => 'lettre_motivation',
-        'name' => 'Joindre votre lettre de motivation',
+        'name' => 'Joindre votre lettre de motivation * (pdf ou word, 1 Mo max.) :',
         'type' => 'file',
         'value' => '',
         'extra' => array(
@@ -715,7 +715,7 @@ Zimbabwe|Zimbabwe',
       ),
       '_tre_rappel___rappeler_telephone' => array(
         'form_key' => 'curriculum_vitae',
-        'name' => 'Joindre votre CV',
+        'name' => 'Joindre votre CV* (pdf ou word, 1 Mo max.) :',
         'type' => 'file',
         'value' => '',
         'extra' => array(
@@ -726,10 +726,9 @@ Zimbabwe|Zimbabwe',
           'filtering' => array(
             'size' => '1 MB',
             'types' => array(
-              0 => 'gif',
-              1 => 'pdf',
-              2 => 'doc',
-              3 => 'docx',
+              0 => 'pdf',
+              1 => 'doc',
+              2 => 'docx',
             ),
             'addextensions' => '',
           ),
