@@ -7,12 +7,12 @@ $subtitle = variable_get('subtitle_simulator_mon_section', '');
 $adresse_ip = variable_get('adresse_ip_simulator_mon_section', '');
 $param_dossier = variable_get('param_dossier_simulator_mon_section', '');
 $param_id = variable_get('param_id_simulator_mon_section', '');
-$iframe = '';
+$iframe_url = '';
 if($adresse_ip && $param_dossier && $param_id) {
-  $iframe = '<IFRAME style="width:570px; height:700px; margin:0px; padding:0px;" allowtransparency="true" frameborder="0" scrolling="no" src="http://' . $adresse_ip . '/' . $param_dossier . '/scellier/simulrf1.asp?id=' . $param_id . '&MenageRgiHorsRF=40000&CSS_CadreHaut_TextColor=444400&CSS_Cadre_Entete_BackColor=355B95&CSS_Cadre_Body_BackColor=E0E2F9&CSS_Cadre_BorderColor=355B95&CSS_Result1_TextColor=000080&CSS_Result1_BackColor=8080FF&CSS_Result2_TextColor=000080&CSS_Result2_BackColor=8080FF"></IFRAME>';
+  $iframe_url = 'http://' . $adresse_ip . '/' . $param_dossier . '/scellier/simulrf1.asp?id=' . $param_id . '&MenageRgiHorsRF=40000&CSS_CadreHaut_TextColor=444400&CSS_Cadre_Entete_BackColor=355B95&CSS_Cadre_Body_BackColor=E0E2F9&CSS_Cadre_BorderColor=355B95&CSS_Result1_TextColor=000080&CSS_Result1_BackColor=8080FF&CSS_Result2_TextColor=000080&CSS_Result2_BackColor=8080FF';
 }
 ?>
-<?php if($title || $subtitle || $iframe) : ?>
+<?php if($title || $subtitle || $iframe_url) : ?>
 <!-- [content Advice] start-->
 <section class="wrapper section-padding ourAdvices">
   <!-- [Advice introduction] start-->
@@ -22,12 +22,12 @@ if($adresse_ip && $param_dossier && $param_id) {
     <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
     <?php endif; ?>
   </header>
-  <?php if ($iframe) : ?>
+  <?php if ($iframe_url) : ?>
   <div class="swapItem">
     <div class="swapItem__1">
       <div class="wrapper--medium-up">
-        <div class="iframe iframe--video-de-quartier">
-          <?php print $iframe; ?>
+          <div class="iframe iframe--video-de-quartier" style="min-height:720px">
+          <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
         </div>
       </div>
     </div>
