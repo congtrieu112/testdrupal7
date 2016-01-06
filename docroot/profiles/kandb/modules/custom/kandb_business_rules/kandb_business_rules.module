@@ -335,25 +335,38 @@ function kandb_business_rules_node_update($node) {
   }
 }
 
+function kandb_business_rules_feeds_after_import_prepare() {
+  $uri = 'private://imported/';
+  $file_name = 'imported_lot.txt';
+  $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+  $data = implode("\n", $list_nodes_bien);
+  $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  if ($prepare_file) {
+    drupal_realpath($uri . $file_name);
+    drupal_chmod($uri);
+    file_save_data($data , $uri . $file_name, FILE_EXISTS_REPLACE);
+  }
+}
+
 function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
   if ($importer_id === FEED_ID_IMPORT_BIEN) {   // is import for bien.
     // RULE BIEN 103 & 104.
     // Get list node don't have in file import.
-    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
-//    $list_nodes_bien = array();
-//    $uri = 'private://imported/';
-//    $file_name = 'imported_lot.txt';
-//    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
-//    if ($prepare_file) {
-//      $path = drupal_realpath($uri . $file_name);
-//      $data = '';
-//      if (file_exists($path)) {
-//        $data = file_get_contents($path);
-//      }
-//      if ($data) {
-//        $list_nodes_bien = array_unique(array_map('trim', explode("\n", $data)));
-//      }
-//    }
+//    $list_nodes_bien = Kandb_Business_Rules::get_list_biens();
+    $list_nodes_bien = array();
+    $uri = 'private://imported/';
+    $file_name = 'imported_lot.txt';
+    $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+    if ($prepare_file) {
+      $path = drupal_realpath($uri . $file_name);
+      $data = '';
+      if (file_exists($path)) {
+        $data = file_get_contents($path);
+      }
+      if ($data) {
+        $list_nodes_bien = array_unique(array_map('trim', explode("\n", $data)));
+      }
+    }
     if (!empty($list_nodes_bien)) {
       $reset_sleep = 0;
       foreach ($list_nodes_bien as $nid) {
@@ -429,6 +442,9 @@ function kandb_business_rules_feeds_after_import_callback($importer_id = '') {
 
   // Save all node program
   Kandb_Business_Rules::node_save_list_program();
+  if ($importer_id == 'parcel_feed_import' || $importer_id == 'programme_feed_import') {
+    variable_set('business_rule_' . $importer_id, 0);
+  }
 }
 
 

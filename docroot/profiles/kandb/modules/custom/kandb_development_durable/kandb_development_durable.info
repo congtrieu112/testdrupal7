@@ -1,0 +1,4 @@
+name = K&B Group Page Development Durable
+description = "Define function for Group Pages Development Durable"
+package = K&B Development
+core = 7.x

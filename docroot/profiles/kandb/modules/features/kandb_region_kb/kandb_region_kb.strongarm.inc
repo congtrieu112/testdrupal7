@@ -65,22 +65,22 @@ function kandb_region_kb_strongarm() {
           'weight' => '1',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '5',
         ),
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '6',
         ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '4',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '2',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '3',
         ),
       ),
       'display' => array(
