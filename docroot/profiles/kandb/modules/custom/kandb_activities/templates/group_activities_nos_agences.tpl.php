@@ -60,12 +60,13 @@ print theme('group_activities_header');
             $region_nid = isset($region->nid) ? $region->nid : '';
             if ($region_nid) :
               $n_region = node_load($region_nid);
-              $region_kb_id = isset($n_region->vid) ? $n_region->vid : '';
+              $tax_region = taxonomy_term_load($n_region->field_field_region_id_ref[LANGUAGE_NONE][0]['tid']);
+              $region_kb_id = $tax_region?$tax_region->field_region_map[LANGUAGE_NONE][0]['value']:'';
               if ($region_kb_id):
             ?>
               <li id="<?php print $region_kb_id; ?>">
                 <a href="#<?php print $region_kb_id; ?>" data-app-accordion-link data-contact-map-section='<?php print $region_kb_id; ?>' class="accordion__link <?php print ($count == 0) ? 'active' : ''; ?>">
-                  <?php print $n_region->title; ?>
+                  <?php print ($tax_region)?$tax_region->name:''; ?>
                   <span class="display-status"></span>
                 </a>
                 <article data-app-accordion-content class="heading--small">
