@@ -97,9 +97,16 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
+  
+  $form['#field_uploads'] = array(
+    'finance_header_image_full_' . $current_lang,
+    'finance_header_image_small_' . $current_lang
+      
+  );
 
   $form['#submit'] = array(
-    'bkandb_menu_cta_link'
+    'bkandb_menu_cta_link',
+    'kandb_finance_header'
   );
   return system_settings_form($form);
 }
@@ -136,5 +143,20 @@ function bkandb_menu_cta_link(&$form, &$form_state) {
         variable_set($key, $item);
       }
     }
+  }
+}
+
+/**
+ * Get value from Form and put to function managed_file_upload
+ */
+function kandb_finance_header(&$form, &$form_state) {
+  module_load_include('inc', 'kandb_development_durable', 'kandb_development_durable.admin');
+  $field_uploads = $form['#field_uploads'];
+  foreach ($field_uploads as $field) {
+    $fid_form = $form_state['values'][$field];
+    $fid_variable = variable_get($field, FALSE);
+    $module_name = 'kandb_group';
+    $type = $field;
+    group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
   }
 }
