@@ -1650,6 +1650,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 5,
     'uuid' => '32e0e9ef-e42e-4a56-b565-1ac6c37add6c',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Meetings information',
+          'format' => NULL,
+          'safe_value' => 'Meetings information',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Champagne-Ardenne',
@@ -2306,6 +2315,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 3,
     'uuid' => '4dda9e67-a196-48a5-b9f9-b70f98528abb',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Financial presentations',
+          'format' => NULL,
+          'safe_value' => 'Financial presentations',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '39 ème étage',
@@ -2368,6 +2386,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
       'und' => array(
         0 => array(
           'tid' => 'a9cfd8d8-2bfb-4651-94db-e487ca43960c',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'uawurigehu',
+    'description' => 'description of uawurigehu',
+    'format' => 'plain_text',
+    'weight' => 3,
+    'uuid' => '4fd39890-5e85-4b58-af37-540f2ee8b0d7',
+    'vocabulary_machine_name' => 'ville',
+    'field_code_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Conventio ea immitto in iustum molior pecus premo sino velit.',
+          'format' => 'plain_text',
+          'safe_value' => 'Conventio ea immitto in iustum molior pecus premo sino velit.',
+        ),
+      ),
+    ),
+    'field_idk' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Haero incassum olim secundum similis valetudo validus. Esse illum importunus ut. Caecus dolus ex iusto macto nulla persto praesent vereor. Dolore et oppeto. Eu exerci fere gemino nunc paratus praemitto quidem sagaciter ut. Commoveo defui ex persto.',
+          'format' => 'plain_text',
+          'safe_value' => 'Haero incassum olim secundum similis valetudo validus. Esse illum importunus ut. Caecus dolus ex iusto macto nulla persto praesent vereor. Dolore et oppeto. Eu exerci fere gemino nunc paratus praemitto quidem sagaciter ut. Commoveo defui ex persto.',
         ),
       ),
     ),
@@ -2660,6 +2704,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'spo',
+    'description' => 'description of spo',
+    'format' => 'plain_text',
+    'weight' => 2,
+    'uuid' => '56a3f447-48dd-4ff7-a8db-f17b6747cea0',
+    'vocabulary_machine_name' => 'ville',
+    'field_code_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Comis conventio euismod ex luctus nostrud probo quidem utinam. Consequat neque usitas velit vero. Abbas ad dolore eu luctus nutus virtus. Causa elit ex odio oppeto quia tamen vicis. Appellatio importunus incassum os praesent quibus roto vel. Hendrerit pro',
+          'format' => 'plain_text',
+          'safe_value' => 'Comis conventio euismod ex luctus nostrud probo quidem utinam. Consequat neque usitas velit vero. Abbas ad dolore eu luctus nutus virtus. Causa elit ex odio oppeto quia tamen vicis. Appellatio importunus incassum os praesent quibus roto vel. Hendrerit pro',
+        ),
+      ),
+    ),
+    'field_idk' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aptent vulpes wisi. Dolore haero iusto jugis quidem sudo typicus. Exerci facilisi lobortis os refero validus vero vulpes.',
+          'format' => 'plain_text',
+          'safe_value' => 'Aptent vulpes wisi. Dolore haero iusto jugis quidem sudo typicus. Exerci facilisi lobortis os refero validus vero vulpes.',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Rond-point',
     'description' => '',
     'format' => 'filtered_html',
@@ -2700,6 +2770,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 4,
     'uuid' => '5838ee3c-817b-44ea-a2a7-35437c5629d4',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Reports',
+          'format' => NULL,
+          'safe_value' => 'Reports',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Seine Saint Denis',
@@ -2794,9 +2873,10 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Assemblée générale',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 6,
+    'weight' => 7,
     'uuid' => '5ae4be86-b081-4861-b92e-0b2487e6f3bb',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(),
   );
   $terms[] = array(
     'name' => 'Haute Garonne',
@@ -2991,6 +3071,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'field_picto_css_class' => array(),
   );
   $terms[] = array(
+    'name' => 'tr',
+    'description' => 'description of tr',
+    'format' => 'plain_text',
+    'weight' => 4,
+    'uuid' => '639a3ed3-ceaf-4a01-86f9-b15cfa739c67',
+    'vocabulary_machine_name' => 'ville',
+    'field_code_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Consectetuer eros esse immitto imputo lucidus neque populus. Natu neque paulatim quia refoveo tincidunt. Abluo brevitas metuo nostrud. Iaceo inhibeo nimis similis ullamcorper vulputate. Abbas iusto jumentum nisl sed.',
+          'format' => 'plain_text',
+          'safe_value' => 'Consectetuer eros esse immitto imputo lucidus neque populus. Natu neque paulatim quia refoveo tincidunt. Abluo brevitas metuo nostrud. Iaceo inhibeo nimis similis ullamcorper vulputate. Abbas iusto jumentum nisl sed.',
+        ),
+      ),
+    ),
+    'field_idk' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Appellatio haero luptatum pneum suscipit tation wisi. Macto mos persto quibus sit turpis. Accumsan commodo molior nobis populus probo rusticus vicis vindico. Elit facilisi quia. At consectetuer duis hendrerit ideo illum iriure paratus venio.',
+          'format' => 'plain_text',
+          'safe_value' => 'Appellatio haero luptatum pneum suscipit tation wisi. Macto mos persto quibus sit turpis. Accumsan commodo molior nobis populus probo rusticus vicis vindico. Elit facilisi quia. At consectetuer duis hendrerit ideo illum iriure paratus venio.',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => '25 ème étage',
     'description' => '',
     'format' => 'filtered_html',
@@ -3003,6 +3109,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 25,
           'format' => NULL,
           'safe_value' => 25,
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'phasle',
+    'description' => 'description of phasle',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '64810679-8055-4b9f-882f-615afab41d87',
+    'vocabulary_machine_name' => 'ville',
+    'field_code_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Augue comis commoveo huic ille molior torqueo. Imputo metuo neque pecus plaga qui. Aliquam ille lobortis magna persto quidne ulciscor veniam.',
+          'format' => 'plain_text',
+          'safe_value' => 'Augue comis commoveo huic ille molior torqueo. Imputo metuo neque pecus plaga qui. Aliquam ille lobortis magna persto quidne ulciscor veniam.',
+        ),
+      ),
+    ),
+    'field_idk' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Commoveo gemino laoreet natu nostrud vicis. Quadrum refoveo venio. Causa damnum euismod interdico os pagus pecus praemitto utrum. Ex loquor oppeto vereor vulputate ymo. Aptent decet illum melior neque occuro pneum qui uxor valetudo.',
+          'format' => 'plain_text',
+          'safe_value' => 'Commoveo gemino laoreet natu nostrud vicis. Quadrum refoveo venio. Causa damnum euismod interdico os pagus pecus praemitto utrum. Ex loquor oppeto vereor vulputate ymo. Aptent decet illum melior neque occuro pneum qui uxor valetudo.',
         ),
       ),
     ),
@@ -3431,6 +3563,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 1,
     'uuid' => '74fb33a5-b8f0-4f27-8286-97fce348e71d',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Shareholder documents',
+          'format' => NULL,
+          'safe_value' => 'Shareholder documents',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'St Quentin en Yvelines (N118 – A12)',
@@ -4602,6 +4743,32 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'ru',
+    'description' => 'description of ru',
+    'format' => 'plain_text',
+    'weight' => 1,
+    'uuid' => 'a78d8b00-dbcd-4f4a-9dd2-4af2bc7a6d8e',
+    'vocabulary_machine_name' => 'ville',
+    'field_code_departement' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Aliquip amet cui dignissim huic refero sagaciter tego vulputate zelus. Dignissim dolore enim haero. Adipiscing importunus refero. Causa praesent sagaciter tincidunt. Aliquip bene feugiat interdico letalis natu quibus secundum.',
+          'format' => 'plain_text',
+          'safe_value' => 'Aliquip amet cui dignissim huic refero sagaciter tego vulputate zelus. Dignissim dolore enim haero. Adipiscing importunus refero. Causa praesent sagaciter tincidunt. Aliquip bene feugiat interdico letalis natu quibus secundum.',
+        ),
+      ),
+    ),
+    'field_idk' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Accumsan brevitas duis gemino incassum tamen tego ut venio. Abdo consectetuer diam esca macto odio velit. Abigo facilisi in patria similis te. Exputo neque zelus. Ad amet bene eu eum immitto letalis mauris tego utrum.',
+          'format' => 'plain_text',
+          'safe_value' => 'Accumsan brevitas duis gemino incassum tamen tego ut venio. Abdo consectetuer diam esca macto odio velit. Abigo facilisi in patria similis te. Exputo neque zelus. Ad amet bene eu eum immitto letalis mauris tego utrum.',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD-OUEST/NORD',
     'description' => '',
     'format' => 'filtered_html',
@@ -5231,6 +5398,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'bddbac61-26b7-452d-ae2a-8842e7781976',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Press release',
+          'format' => NULL,
+          'safe_value' => 'Press release',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Domotique',
@@ -5336,9 +5512,10 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Assemblée Générale Extraordinaire',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 7,
+    'weight' => 8,
     'uuid' => 'c27fed84-5f08-4d6e-8f6c-fc78d9319bff',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(),
   );
   $terms[] = array(
     'name' => '7 / 8 ème étage',
@@ -6513,9 +6690,18 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Autres Informations réglementée',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 6,
     'uuid' => 'e5e9e415-fdba-4a69-a1f5-316036b90260',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Other regular information',
+          'format' => NULL,
+          'safe_value' => 'Other regular information',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Loggia',
@@ -6695,6 +6881,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 2,
     'uuid' => 'ec06a6f2-b0bd-4c91-b91d-91d45498f1c6',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Legal information',
+          'format' => NULL,
+          'safe_value' => 'Legal information',
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'NORD/SUD',
