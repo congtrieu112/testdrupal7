@@ -10,52 +10,6 @@
 function kandb_region_kb_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-region_kb-field_field_region_id_ref'
-  $field_instances['node-region_kb-field_field_region_id_ref'] = array(
-    'bundle' => 'region_kb',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_field_region_id_ref',
-    'label' => 'Identifiant',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'node-region_kb-field_kb_agence1_address'
   $field_instances['node-region_kb-field_kb_agence1_address'] = array(
     'bundle' => 'region_kb',
@@ -1072,7 +1026,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 59,
+      'weight' => 29,
     ),
   );
 
@@ -1140,7 +1094,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 61,
+      'weight' => 30,
     ),
   );
 
@@ -1208,7 +1162,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 60,
+      'weight' => 31,
     ),
   );
 
@@ -1276,7 +1230,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 29,
+      'weight' => 32,
     ),
   );
 
@@ -1344,7 +1298,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 30,
+      'weight' => 33,
     ),
   );
 
@@ -1412,7 +1366,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 31,
+      'weight' => 34,
     ),
   );
 
@@ -1480,7 +1434,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 32,
+      'weight' => 35,
     ),
   );
 
@@ -1548,7 +1502,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 33,
+      'weight' => 36,
     ),
   );
 
@@ -1616,7 +1570,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 34,
+      'weight' => 37,
     ),
   );
 
@@ -1684,7 +1638,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 35,
+      'weight' => 38,
     ),
   );
 
@@ -1752,7 +1706,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 36,
+      'weight' => 39,
     ),
   );
 
@@ -1820,7 +1774,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 37,
+      'weight' => 40,
     ),
   );
 
@@ -1888,7 +1842,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 38,
+      'weight' => 41,
     ),
   );
 
@@ -1956,7 +1910,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 39,
+      'weight' => 42,
     ),
   );
 
@@ -2024,7 +1978,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 40,
+      'weight' => 43,
     ),
   );
 
@@ -2092,7 +2046,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 41,
+      'weight' => 44,
     ),
   );
 
@@ -2160,7 +2114,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 42,
+      'weight' => 45,
     ),
   );
 
@@ -2228,7 +2182,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 43,
+      'weight' => 46,
     ),
   );
 
@@ -2296,7 +2250,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 44,
+      'weight' => 47,
     ),
   );
 
@@ -2364,7 +2318,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 45,
+      'weight' => 48,
     ),
   );
 
@@ -2432,7 +2386,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 46,
+      'weight' => 49,
     ),
   );
 
@@ -2500,7 +2454,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 47,
+      'weight' => 50,
     ),
   );
 
@@ -2568,7 +2522,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 48,
+      'weight' => 51,
     ),
   );
 
@@ -2636,7 +2590,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 49,
+      'weight' => 52,
     ),
   );
 
@@ -2704,7 +2658,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 50,
+      'weight' => 53,
     ),
   );
 
@@ -2772,7 +2726,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 51,
+      'weight' => 54,
     ),
   );
 
@@ -2840,7 +2794,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 52,
+      'weight' => 55,
     ),
   );
 
@@ -2908,7 +2862,7 @@ function kandb_region_kb_field_default_field_instances() {
         'rows' => 5,
       ),
       'type' => 'text_textarea',
-      'weight' => 53,
+      'weight' => 56,
     ),
   );
 
@@ -2976,7 +2930,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 54,
+      'weight' => 57,
     ),
   );
 
@@ -3044,7 +2998,7 @@ function kandb_region_kb_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 55,
+      'weight' => 58,
     ),
   );
 
@@ -3163,6 +3117,74 @@ function kandb_region_kb_field_default_field_instances() {
       ),
       'type' => 'entityreference_autocomplete',
       'weight' => 13,
+    ),
+  );
+
+  // Exported field_instance: 'node-region_kb-field_region_kb_id'
+  $field_instances['node-region_kb-field_region_kb_id'] = array(
+    'bundle' => 'region_kb',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '(Aquitaine: 0, Bretagne: 1, Côte d\'Azur: 2, Languedoc Rousillon: 3, Midi Pyrénées: 4, Normandie: 5, Provence: 6, Pyrénées Atlantiques: 7, Rhône Alpes: 8, Nord: 9)',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 54,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_region_kb_id',
+    'label' => 'Région',
+    'required' => 1,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
     ),
   );
 
@@ -3512,13 +3534,14 @@ function kandb_region_kb_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('(Aquitaine: 0, Bretagne: 1, Côte d\'Azur: 2, Languedoc Rousillon: 3, Midi Pyrénées: 4, Normandie: 5, Provence: 6, Pyrénées Atlantiques: 7, Rhône Alpes: 8, Nord: 9)');
   t('Adresse');
   t('Conseiler');
   t('Email');
-  t('Identifiant');
   t('Latitude');
   t('Libellé');
   t('Longitude');
+  t('Région');
   t('Téléphone');
 
   return $field_instances;
