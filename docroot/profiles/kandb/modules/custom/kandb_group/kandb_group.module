@@ -223,8 +223,7 @@ function kandb_group_menu() {
   );
 
   // Actualités page.
-
-  $items['admin/content/ketb/group/rh'] = array(
+  $items['admin/content/ketb/group/actualites'] = array(
     'title' => '[Group] - Actualités',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_new_admin_form'),
