@@ -10,52 +10,6 @@
 function kandb_region_kb_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-region_kb-field_field_region_id_ref'
-  $field_instances['node-region_kb-field_field_region_id_ref'] = array(
-    'bundle' => 'region_kb',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'taxonomy',
-        'settings' => array(),
-        'type' => 'taxonomy_term_reference_link',
-        'weight' => 7,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_field_region_id_ref',
-    'label' => 'Identifiant',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 0,
-      'module' => 'taxonomy',
-      'settings' => array(
-        'autocomplete_path' => 'taxonomy/autocomplete',
-        'size' => 60,
-      ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 7,
-    ),
-  );
-
   // Exported field_instance: 'node-region_kb-field_kb_agence1_address'
   $field_instances['node-region_kb-field_kb_agence1_address'] = array(
     'bundle' => 'region_kb',
@@ -3166,6 +3120,74 @@ function kandb_region_kb_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-region_kb-field_region_kb_id'
+  $field_instances['node-region_kb-field_region_kb_id'] = array(
+    'bundle' => 'region_kb',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '(Aquitaine: 0, Bretagne: 1, Côte d\'Azur: 2, Languedoc Rousillon: 3, Midi Pyrénées: 4, Normandie: 5, Provence: 6, Pyrénées Atlantiques: 7, Rhône Alpes: 8, Nord: 9)',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 54,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_region_kb_id',
+    'label' => 'Région',
+    'required' => 1,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
   // Exported field_instance: 'node-region_kb-field_region_kb_latitude'
   $field_instances['node-region_kb-field_region_kb_latitude'] = array(
     'bundle' => 'region_kb',
@@ -3512,13 +3534,14 @@ function kandb_region_kb_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('(Aquitaine: 0, Bretagne: 1, Côte d\'Azur: 2, Languedoc Rousillon: 3, Midi Pyrénées: 4, Normandie: 5, Provence: 6, Pyrénées Atlantiques: 7, Rhône Alpes: 8, Nord: 9)');
   t('Adresse');
   t('Conseiler');
   t('Email');
-  t('Identifiant');
   t('Latitude');
   t('Libellé');
   t('Longitude');
+  t('Région');
   t('Téléphone');
 
   return $field_instances;
