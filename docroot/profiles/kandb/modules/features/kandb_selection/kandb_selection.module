@@ -123,6 +123,8 @@ function kandb_selection_ajax_selection(){
     array('mon_espace', 'block_2', implode('+', $ids_articles))
   );
 
+
+
   print theme('ajax_selection', $content);
   drupal_exit();
 }

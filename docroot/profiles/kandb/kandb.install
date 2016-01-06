@@ -884,3 +884,31 @@ function kandb_update_7185(&$sandbox) {
     module_enable(array('kandb_conseiller_regional'), TRUE);
   }
 }
+
+/**
+ * Enable "Kandb simulator" module
+ */
+function kandb_update_7186(&$sandbox) {
+  if (!module_exists('kandb_simulator')) {
+    module_enable(array('kandb_simulator'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_activities
+ */
+function kandb_update_7187(&$sandbox) {
+  if (!module_exists('kandb_activities')) {
+    module_enable(array('kandb_activities'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_habitat
+ */
+function kandb_update_7188(&$sandbox) {
+  if (!module_exists('kandb_habitat')) {
+    module_enable(array('kandb_habitat'), TRUE);
+  }
+}
+
