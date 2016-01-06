@@ -12521,6 +12521,21 @@ a.tag.tag--important:hover {
     font-size: 1.875rem;
     color: #199edd; }
 
+.b2bDocuments .downloadDocs__list {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 1.66667rem; }
+
+.b2bDocuments .downloadDocs__item {
+  background-color: #ffffff; }
+
+.b2bDocuments__heading {
+  font-family: "Helvetica Neue LT W04_55 Roman";
+  display: table-cell; }
+
+.b2bDocuments .downloadDocs__item__link {
+  vertical-align: middle;
+  padding-right: 0.83333rem; }
+
 @media only screen and (min-width: 48em) {
   .downloadDocs .accordion__link {
     padding: 1.5625rem; }
@@ -12595,7 +12610,24 @@ a.tag.tag--important:hover {
       padding-left: 0.625rem;
       padding-right: 0.625rem;
       width: 33.33333%;
-      float: left; } }
+      float: left; }
+  .b2bDocuments .downloadDocs__list {
+    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    margin-top: 1.875rem; }
+    .b2bDocuments .downloadDocs__list:before, .b2bDocuments .downloadDocs__list:after {
+      content: " ";
+      display: table; }
+    .b2bDocuments .downloadDocs__list:after {
+      clear: both; }
+    .b2bDocuments .downloadDocs__list li {
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+      width: 50%;
+      float: left;
+      padding-top: 0;
+      padding-bottom: 0; } }
 
 .presidentQuote__content {
   display: -webkit-box;
@@ -13618,6 +13650,120 @@ a.tag.tag--important:hover {
       padding: 0 1.875rem; }
   .activities__heading, .activities__desc {
     padding: 0 18%; } }
+
+.noResults ul {
+  margin: 0;
+  list-style: none; }
+
+.noResults__heading {
+  text-align: center;
+  padding: 1.875rem 0; }
+  .noResults__heading p {
+    margin: 0;
+    font-family: "Helvetica Neue LT W04_75 Bold";
+    color: #003e5e; }
+
+.noResults__category__filter {
+  text-align: center;
+  padding-bottom: 1.25rem;
+  margin-bottom: 2.1875rem;
+  border-bottom: 1px solid #e0e0e0; }
+  .noResults__category__filter dt,
+  .noResults__category__filter dd,
+  .noResults__category__filter ul,
+  .noResults__category__filter nav {
+    display: inline-block;
+    margin: 0;
+    vertical-align: middle; }
+  .noResults__category__filter dt {
+    padding-right: 1.25rem; }
+  .noResults__category__filter li {
+    padding: 0 0.3125rem; }
+  .noResults__category__filter a {
+    padding: 0;
+    font-family: "Helvetica Neue LT W04_75 Bold";
+    text-transform: uppercase;
+    color: #003e5e; }
+
+.noResults__category__list dt {
+  font-family: "Helvetica Neue LT W04_75 Bold";
+  font-size: 1.33333rem;
+  color: #003e5e;
+  text-transform: uppercase; }
+
+.noResults__category__list dd a {
+  font-family: "Helvetica Neue LT W04_75 Bold";
+  font-size: 0.79167rem;
+  color: #199edd; }
+
+@media only screen and (min-width: 48em) {
+  .noResults__heading {
+    padding: 2.8125rem 0; }
+    .noResults__heading h2 {
+      font-size: 1.125rem; }
+    .noResults__heading p {
+      font-size: 1.125rem; }
+  .noResults__category__filter dt,
+  .noResults__category__filter dd,
+  .noResults__category__filter ul,
+  .noResults__category__filter li,
+  .noResults__category__filter a {
+    font-size: 1.125rem; }
+  .noResults__category__filter li {
+    display: inline-block; }
+  .noResults__category__filter .form-dropdown {
+    min-height: initial;
+    margin: 0; }
+    .noResults__category__filter .form-dropdown__content {
+      display: inline-block;
+      vertical-align: middle; }
+  .noResults__category__list dt {
+    font-size: 2rem; }
+  .noResults__category__list dd a {
+    font-size: 1.1875rem; } }
+
+.typeLogements ul {
+  margin: 0;
+  list-style: none; }
+
+.typeLogements__heading {
+  padding: 0.83333rem 0 0.625rem;
+  text-align: center; }
+  .typeLogements__heading h3 {
+    font-family: "Helvetica Neue LT W04_75 Bold";
+    font-size: 1rem;
+    color: #003e5e; }
+  .typeLogements__heading p {
+    margin-top: 1.04167rem; }
+
+.typeLogements__list {
+  padding: 1.66667rem 1.45833rem;
+  margin-top: 3.125rem; }
+  .typeLogements__list dt {
+    font-family: "Helvetica Neue LT W04_75 Bold";
+    font-size: 1.25rem; }
+  .typeLogements__list dd {
+    margin: 0;
+    padding-top: 0.83333rem; }
+  .typeLogements__list li {
+    margin-top: 0.625rem; }
+  .typeLogements__list a {
+    font-family: "Helvetica Neue LT W04_75 Bold"; }
+
+@media only screen and (min-width: 48em) {
+  .typeLogements__heading {
+    padding: 1.25rem 0 0.9375rem; }
+    .typeLogements__heading h3 {
+      font-size: 1.5rem; }
+    .typeLogements__heading p {
+      width: 60%;
+      margin: 1.5625rem auto 0; }
+  .typeLogements__list {
+    padding: 2.5rem 2.1875rem; }
+    .typeLogements__list dt {
+      font-size: 1.875rem; }
+    .typeLogements__list dd {
+      padding-top: 0.9375rem; } }
 
 .homepage__search {
   padding-top: 8.75rem;
