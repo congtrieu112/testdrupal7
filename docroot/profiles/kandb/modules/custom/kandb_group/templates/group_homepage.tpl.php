@@ -14,7 +14,7 @@ endif;
                           <dl class="articleList__item__infos__list">
                               <?php foreach ($data['documents'] as $document) : ?>
                                 <dt>
-                                <a href="<?php print url('corporate/finance/archives'); ?>">
+                                <a href="<?php print url('corporate/finance/publication'); ?>">
                                     <span class="icon icon-communique"></span>
                                     <span class="text"><?php print date('d.m.Y', strtotime($document->field_document_date[LANGUAGE_NONE][0]['value'])); ?></span>
                                 </a>
