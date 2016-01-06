@@ -34,7 +34,7 @@ function kandb_habitat_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_habitat_address',
     'label' => 'Address',
-    'required' => 0,
+    'required' => 1,
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
