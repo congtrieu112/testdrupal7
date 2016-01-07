@@ -15,7 +15,7 @@ print theme('group_activities_header');
         <p class="activities__desc"><?php print nl2br(variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur'))) ?></p>
         <!-- [linksBlock: buttons] start-->
         <nav class="form-dropdown form-dropdown--responsive">
-            <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">Les actualités<span aria-hidden="true" class="icon icon-expand"></span></button>
+            <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $data['term_name'] ;?><span aria-hidden="true" class="icon icon-expand"></span></button>
             <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
                 <ul class="ul-unstyled undo-padding">
                     <?php if (isset($data['type'])): ?>
