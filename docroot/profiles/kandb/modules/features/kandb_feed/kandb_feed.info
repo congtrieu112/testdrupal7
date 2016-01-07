@@ -36,6 +36,7 @@ features[feeds_importer][] = document_import_uk
 features[feeds_importer][] = kb_patrimoine_import
 features[feeds_importer][] = maison_feed_import
 features[feeds_importer][] = migration_bien_import
+features[feeds_importer][] = migration_program_import_v2
 features[feeds_importer][] = migration_program_video_import
 features[feeds_importer][] = parcel_feed_import
 features[feeds_importer][] = partenaire_import
