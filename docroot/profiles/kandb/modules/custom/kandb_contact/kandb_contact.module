@@ -416,6 +416,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
           case $webform_id_telechargement_documents:
             $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
             $form['submitted']['ma_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            $form['#submit'][] = 'telechargement_documents_download_header';
               break;
           default:
             break;
@@ -677,4 +678,48 @@ function kandb_contact_get_telechargement_documents_url () {
   }
   $url = url('node/'. $webform_telechargement_documents->nid);
   return $url;
+}
+function telechargement_documents_download_header($form, $form_state){
+
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+      ->fieldCondition('field_id_programme', 'value',  $form['submitted']['ma_idkp']['#default_value'], '=');
+    $result = $query->execute();
+
+    if (!empty($result['node'])) {
+      $nid = key($result['node']);
+    }
+    //get link zip file
+    $addMore = '_';
+    $node = node_load($nid);
+    $path = file_create_url('public://');
+    $real_path = drupal_realpath('public://');
+    if (isset($_GET['download']) && $_GET['download'] == 'zip' ){
+       $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+       if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
+           $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+       }
+    }else{
+        //download txt
+        $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
+        $filePath = $filePath = $real_path.'/' . $node->field_plaquette_commerciale['und'][0]['filename'];
+    }
+    if ($filePath) {
+        if (file_exists($filePath)) {
+            // http headers for zip downloads
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: public");
+            header("Content-Description: File Transfer");
+            header("Content-type: application/octet-stream");
+            header("Content-Disposition: attachment; filename=\"".$fileName."\"");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: ".filesize($filePath));
+            ob_end_flush();
+            @readfile($filePath);
+            exit();
+        }
+
+    }
 }
