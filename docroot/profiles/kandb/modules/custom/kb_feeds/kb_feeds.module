@@ -876,7 +876,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       $reject = FALSE;
       $result->items[$key]['KBLANGUAGE'] = 1;
       $result->items[$key]['KBSTATUS'] = 1;
-      $result->items[$key]['KBDOCUMENTTYPE'] = 1;
+      $result->items[$key]['KBDOCUMENTTYPE'] = 'Communiqué de presse';
       $result->items[$key]['LIENFICHIER'] = 'public:/' . $result->items[$key]['LIENFICHIER'];
       if (!isset($result->items[$key]['IDENTIFIANTCOMMUNIQUE']) || $result->items[$key]['IDENTIFIANTCOMMUNIQUE'] == '') {
         $reject = TRUE;
@@ -892,10 +892,15 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       else {
         $document_description = '';
         if (isset($result->items[$key]['CONTENULIENTXT']) && $result->items[$key]['CONTENULIENTXT'] != '') {
-          $path = drupal_realpath($result->items[$key]['CONTENULIENTXT']);
+          $path = drupal_realpath('public:/' . $result->items[$key]['CONTENULIENTXT']);
           if (file_exists($path)) {
-            $document_description = file_get_contents($path);
-            $result->items[$key]['CONTENULIENTXT'] = $document_description;
+            $document_description = file_get_contents('public:/' . $result->items[$key]['CONTENULIENTXT']);
+              $encoding = mb_detect_encoding($document_description, "UTF-8,ISO-8859-15,UTF-16");
+              if($encoding != 'UTF-8') {
+                 $document_description = mb_convert_encoding($document_description, "UTF-8", $encoding);
+              }
+              $document_description = strlen($document_description) > 0 ? $document_description : '';
+              $result->items[$key]['CONTENULIENTXT'] = $document_description;
           }
         }
       }
