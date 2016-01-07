@@ -406,6 +406,118 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'document_import_uk';
+  $feeds_importer->config = array(
+    'name' => 'Document Import UK',
+    'description' => 'Import pdf contents from DocBibliothequeUK.xls',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/DocBibliothequeUk.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => ',',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'kb_patrimoine_import' => 0,
+          'maison_feed_import' => 0,
+          'migration_bien_import' => 0,
+          'migration_program_import' => 0,
+          'migration_program_video_import' => 0,
+          'parcel_feed_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
+          'programme_feed_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'field_document_id',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'IdentifiantDocBibliotheque',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => 'TitreDuDocument',
+            'target' => 'title',
+            'unique' => FALSE,
+          ),
+          3 => array(
+            'source' => 'Categorie',
+            'target' => 'field_document_type',
+            'unique' => FALSE,
+          ),
+          4 => array(
+            'source' => 'DATE',
+            'target' => 'field_document_date:start',
+            'unique' => FALSE,
+          ),
+          5 => array(
+            'source' => 'Statut',
+            'target' => 'status',
+            'unique' => FALSE,
+          ),
+          6 => array(
+            'source' => 'Statut',
+            'target' => 'sticky',
+            'unique' => FALSE,
+          ),
+          7 => array(
+            'source' => 'LienFichier',
+            'target' => 'field_document_file:uri',
+            'unique' => FALSE,
+          ),
+          8 => array(
+            'source' => 'DocumentFileOld',
+            'target' => 'Temporary target 1',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 1,
+        'bundle' => 'document',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['document_import_uk'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'kb_patrimoine_import';
   $feeds_importer->config = array(
     'name' => 'Kb Patrimoine Import',
