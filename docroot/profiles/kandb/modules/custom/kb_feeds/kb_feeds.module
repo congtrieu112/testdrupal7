@@ -866,46 +866,6 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
   $key_errorlog = '';
-  if ($source->id === 'document_import_communique_de_presse_en') {
-    $uri = 'public://ketbmedia/uk/com';
-    $prepare_file = file_prepare_directory($uri, FILE_MODIFY_PERMISSIONS);
-    if (!$prepare_file) {
-      return;
-    }
-    foreach ($result->items as $key => $row) {
-      $reject = FALSE;
-      $result->items[$key]['KBLANGUAGE'] = 1;
-      $result->items[$key]['KBSTATUS'] = 1;
-      $result->items[$key]['KBDOCUMENTTYPE'] = 'Communiqué de presse';
-      $result->items[$key]['LIENFICHIER'] = 'public:/' . $result->items[$key]['LIENFICHIER'];
-      if (!isset($result->items[$key]['IDENTIFIANTCOMMUNIQUE']) || $result->items[$key]['IDENTIFIANTCOMMUNIQUE'] == '') {
-        $reject = TRUE;
-      }
-      $path = drupal_realpath($result->items[$key]['LIENFICHIER']);
-      if (!file_exists($path)) {
-        $reject = TRUE;
-      }
-      if ($reject) {
-        unset($result->items[$key]);
-        continue;
-      }
-      else {
-        $document_description = '';
-        if (isset($result->items[$key]['CONTENULIENTXT']) && $result->items[$key]['CONTENULIENTXT'] != '') {
-          $path = drupal_realpath('public:/' . $result->items[$key]['CONTENULIENTXT']);
-          if (file_exists($path)) {
-            $document_description = file_get_contents('public:/' . $result->items[$key]['CONTENULIENTXT']);
-              $encoding = mb_detect_encoding($document_description, "UTF-8,ISO-8859-15,UTF-16");
-              if($encoding != 'UTF-8') {
-                 $document_description = mb_convert_encoding($document_description, "UTF-8", $encoding);
-              }
-              $document_description = strlen($document_description) > 0 ? $document_description : '';
-              $result->items[$key]['CONTENULIENTXT'] = $document_description;
-          }
-        }
-      }
-    }
-  }
   if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse") {
     global $base_url;
     foreach ($result->items as $key => $row) {
