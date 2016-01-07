@@ -33,10 +33,10 @@ function kandb_install() {
   theme_enable(array($theme));
 
   // Disable KandB Content TMP after install
-  if (module_exists('kandb_tmp_content')) {
-    module_disable(array('kandb_tmp_content'), TRUE);
-    drupal_uninstall_modules(array('kandb_tmp_content'));
-  }
+//  if (module_exists('kandb_tmp_content')) {
+//    module_disable(array('kandb_tmp_content'), TRUE);
+//    drupal_uninstall_modules(array('kandb_tmp_content'));
+//  }
 }
 
 /**
@@ -259,12 +259,12 @@ function kandb_update_7115(&$sandbox) {
 /**
  * Disable "Feature kandb tmp content" feature after the installation profile
  */
-function kandb_update_7116(&$sandbox) {
-  if (module_exists('kandb_tmp_content')) {
-    module_disable(array('kandb_tmp_content'), TRUE);
-    drupal_uninstall_modules(array('kandb_tmp_content'));
-  }
-}
+//function kandb_update_7116(&$sandbox) {
+//  if (module_exists('kandb_tmp_content')) {
+//    module_disable(array('kandb_tmp_content'), TRUE);
+//    drupal_uninstall_modules(array('kandb_tmp_content'));
+//  }
+//}
 
 /**
  * Enable "Feature kandb dossier menu views" feature
@@ -680,11 +680,11 @@ function kandb_update_7162() {
 /*
  * Enable kandb_view_finance_archives module
  */
-function kandb_update_7163() {
-  if (!module_exists('kandb_view_finance_archives')) {
-    module_disable(array('kandb_view_finance_archives'), TRUE);
-  }
-}
+//function kandb_update_7163() {
+//  if (!module_exists('kandb_view_finance_archives')) {
+//    module_disable(array('kandb_view_finance_archives'), TRUE);
+//  }
+//}
 
 /*
  * Enable stringoverrides_advanced module
@@ -912,3 +912,47 @@ function kandb_update_7188(&$sandbox) {
   }
 }
 
+/**
+ * Enable kandb_date_formats
+ */
+function kandb_update_7189(&$sandbox) {
+  if (!module_exists('kandb_date_formats')) {
+    module_enable(array('kandb_date_formats'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_finance_presentation
+ */
+function kandb_update_7190(&$sandbox) {
+  if (!module_exists('kandb_finance_presentation')) {
+    module_enable(array('kandb_finance_presentation'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_development_durable
+ */
+function kandb_update_7191(&$sandbox) {
+  if (!module_exists('kandb_development_durable')) {
+    module_enable(array('kandb_development_durable'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_tmp_content
+ */
+function kandb_update_7192(&$sandbox) {
+  if (!module_exists('kandb_tmp_content')) {
+    module_enable(array('kandb_tmp_content'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_view_finance_archives
+ */
+function kandb_update_7193(&$sandbox) {
+  if (!module_exists('kandb_view_finance_archives')) {
+    module_enable(array('kandb_view_finance_archives'), TRUE);
+  }
+}
