@@ -874,6 +874,63 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
   $key_errorlog = '';
+  if ($source->id === "document_import_communique_de_presse_uk") {
+    $uri = 'public://ketbmedia/uk/com';
+    $prepare_file = file_prepare_directory($uri, FILE_MODIFY_PERMISSIONS);
+    if (!$prepare_file) {
+      $logging .= "ketbmedia/uk/com folder does not exit or not writable";
+      unset($result->items);
+    }
+    else {
+      $warning = variable_get($source->id . '_warning', 0);
+      $rejected = variable_get($source->id . '_rejected', 0);
+      foreach ($result->items as $key => $row) {
+        $skip_import = FALSE;
+        $warning_import = FALSE;
+        if (!isset($row['identifiantcommunique']) || $row['identifiantcommunique'] == '') {
+          $logging .= "Column identifiantcommunique does not exist | Skip imported \n";
+          $skip_import = TRUE;
+        }
+        else {
+          if (!isset($row['lienfichier']) || $row['lienfichier'] == '') {
+            $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+            $skip_import = TRUE;
+          }
+          else {
+            $path = drupal_realpath($row['lienfichier']);
+            if (!file_exists($path)) {
+              $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+              $skip_import = TRUE;
+            }
+          }
+          if (!isset($row['titreducommunique']) || $row['titreducommunique'] == '') {
+            $logging .= $row['identifiantcommunique'] . " | document_title empty | Skip imported \n";
+            $skip_import = TRUE;
+          }
+          if ((!isset($row['date']) || $row['date'] == '') && !$skip_import) {
+            $logging .= $row['identifiantcommunique'] . " | document_date empty | Warning \n";
+            $warning_import = TRUE;
+          }
+          if ((!isset($row['contenulientxt']) || $row['contenulientxt'] == '') && !$skip_import) {
+            $logging .= $row['identifiantcommunique'] . " | document_contenulientxt empty | Warning \n";
+            $warning_import = TRUE;
+          }
+        }
+        if ($warning_import) {
+          $warning++;
+          variable_set($source->id . '_warning', $warning);
+        }
+        if ($skip_import) {
+          $rejected++;
+          variable_set($source->id . '_rejected', $rejected);
+          unset($result->items[$key]);
+        }
+      }
+    }
+    if ($logging) {
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+  }
   if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse" || $source->id === "document_import_uk") {
     global $base_url;
     foreach ($result->items as $key => $row) {
@@ -1223,6 +1280,15 @@ function kb_feeds_menu() {
     'title' => 'Document import communique',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/document-import-communique-uk'] = array(
+    'title' => 'Document import communique UK',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse_uk'),
     'access arguments' => array('administer content types'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',

@@ -280,34 +280,52 @@ class DocCommuniqueCSVParser extends ParserCSV{
           if($columnName == 'contenulientxt') {
               $field = trim($field);
               if($field != '') {
+                $txt_uri = '';
+                if ($this->id == 'document_import_communique_de_presse') {
                   $txt_file_name = substr($field, strrpos($field, '/') + 1);
                   $txt_uri = 'public://import/pdf_migration_folder/' . $txt_file_name;
-                  $txt_file_prepare = file_prepare_directory($txt_uri, FILE_MODIFY_PERMISSIONS);
-                  $txt_path = drupal_realpath($txt_uri);
-                  if(!file_exists($txt_path)) {
-                      $is_log = TRUE;
-                      $field = '';
-                  } else {
-                    $txt_data = file_get_contents($txt_path);
-                    $encoding = mb_detect_encoding($txt_data, "UTF-8,ISO-8859-15,UTF-16");
-                    if ($txt_data) {
-                        if($encoding != 'UTF-8') {
-                            $txt_data = mb_convert_encoding($txt_data, "UTF-8", $encoding);
-                        }
-                        $field = $txt_data;
+                }
+                elseif ($this->id == 'document_import_communique_de_presse_uk') {
+                  $txt_uri = 'public:/' . $field;
+                }
+                $txt_file_prepare = file_prepare_directory($txt_uri, FILE_MODIFY_PERMISSIONS);
+                $txt_path = drupal_realpath($txt_uri);
+                if(!file_exists($txt_path)) {
+                    $is_log = TRUE;
+                    $field = '';
+                } 
+                else {
+                  $txt_data = file_get_contents($txt_path);
+                  $encoding = mb_detect_encoding($txt_data, "UTF-8,ISO-8859-15,UTF-16");
+                  if ($txt_data) {
+                    if($encoding != 'UTF-8') {
+                        $txt_data = mb_convert_encoding($txt_data, "UTF-8", $encoding);
                     }
+                    $field = $txt_data;
                   }
+                  else {
+                    $field = '';
+                  }
+                }
               }
           }
           if($columnName == 'lienfichier') {
               if(trim($field) != '') {
+                if ($this->id == 'document_import_communique_de_presse') {
                   $pdf_file_name = substr($field, strrpos($field, '/') + 1);
                   $pdf_uri = 'public://import/pdf_migration_folder/' . $pdf_file_name;
-                  file_prepare_directory($pdf_uri, FILE_MODIFY_PERMISSIONS);
-                  $pdf_path = drupal_realpath($pdf_uri);
-                  if(!file_exists($pdf_path)) {
-                      $is_log = TRUE;
-                  }
+                }
+                elseif ($this->id == 'document_import_communique_de_presse_uk') {
+                  $pdf_uri = $field;
+                }
+                file_prepare_directory($pdf_uri, FILE_MODIFY_PERMISSIONS);
+                $pdf_path = drupal_realpath($pdf_uri);
+                if(!file_exists($pdf_path)) {
+                    $is_log = TRUE;
+                }
+                else {
+                  $field = '';
+                }
               }
           }
           if($columnName == 'statut') {
