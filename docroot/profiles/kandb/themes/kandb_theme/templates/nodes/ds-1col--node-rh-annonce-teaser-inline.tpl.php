@@ -6,7 +6,7 @@ $webform_path = $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid)
 
 <article id="postuler<?php print $id; ?>" class="accordion__link postuler__item">
   <header class="latestJobs__item__heading"><span class="latestJobs__item__date"><?php if(isset($field_annonce_date_mise_en_ligne[0]['value'])) print date_format(date_create($field_annonce_date_mise_en_ligne[0]['value']), 'd.m.Y'); ?></span>
-    <h2 class="latestJobs__item__title"><?php if(isset($field_annonce_fonction[0]['taxonomy_term']->name)) print $field_annonce_fonction[0]['taxonomy_term']->name; ?></h2><span class="latestJobs__item__address"><?php if(isset($field_annonce_ville[0]['value'])) print $field_annonce_ville[0]['taxonomy_term']->name; ?></span>
+    <h2 class="latestJobs__item__title"><?php if(isset($field_annonce_fonction[0]['taxonomy_term']->name)) print $field_annonce_fonction[0]['taxonomy_term']->name; ?></h2><span class="latestJobs__item__address"><?php if(isset($field_annonce_ville[0]['taxonomy_term']->name)) print $field_annonce_ville[0]['taxonomy_term']->name; ?></span>
   </header>
   <div data-app-accordion-link="#postuler<?php print $id; ?>" role="button" class="display-status" "><span class="show-for-sr">fermer</span></div>
   <div class="postuler__item__content">
