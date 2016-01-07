@@ -26,7 +26,7 @@ if($adresse_ip && $param_dossier && $param_id) {
   <div class="swapItem">
     <div class="swapItem__1">
       <div class="wrapper--medium-up">
-          <div class="iframe iframe--video-de-quartier" style="min-height:730px">
+          <div class="iframe iframe--scrollMobile" style="min-height:730px">
           <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
         </div>
       </div>
