@@ -443,21 +443,26 @@ if (!empty($list_document)):
       <div class="wrapper">
           <div class="programDocumentDownload" id="downloadDocument">
               <?php
-              $nocontent = 'data-reveal-id="downloadInformationForm"';
+                    $nocontent = 'data-reveal-id="downloadInformationForm"';
+                    $url = kandb_contact_get_telechargement_documents_url();
               ?>
               <div class="programDocumentDownload__heading">
                   <header class="heading">
                       <h2 class="heading__title">Documents <br>téléchargeables</h2>
                   </header>
-                  <a  href="<?php if (isset($link_to_zip) && $link_to_zip) print $link_to_zip; ?>">
-                      <button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded hide-for-small-only">
+                        <a href="<?php print $url.'?download=zip'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                        <button <?php if (!isset($link_to_zip) || !$link_to_zip) print $nocontent; ?> class="btn-primary btn-rounded hide-for-small-only">
                           Tout télécharger (.zip)</button></a>
               </div>
               <div class="programDocumentDownload__items">
                   <ul class="row">
                       <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
-                            <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
+                            <?php if ($item["title"] == 'Plaquette commerciale') :?>
+                                <a href="<?php print $url.'?download=txt'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                            <?php else : ?>
+                                <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
+                            <?php endif; ?>
                                 <span class="icon <?php print $item["icon"] ?>"></span>
                                 <div class="heading heading--small">
                                     <div class="heading__title"><?php print $item["title"] ?></div>

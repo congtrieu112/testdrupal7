@@ -80,11 +80,19 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
       $url = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : $default_menu_links[$i];
       $title = $default_menu_titles[$i];
     }
+
+    $url_desctiption = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : ($current_lang == 'fr' ? $default_menu_links[$i] . '/fr': $default_menu_links[$i]);
+    $description = 'URL should be relative link. EX: /node/{nid}.';
+    $description .= '<br /> <br />';
+    $description .= 'Please remember to put language code (fr) at the end of the URL.';
+    $description .= ' For example: '. $url_desctiption;
+
     $form['fieldset_finance_menu']['links_fieldset']['cta']['cta_menu_item_finance_' . $i . '_' . $current_lang] = array(
       '#type' => 'link_field',
       '#title' => t('CTA') . ' #' . ($i + 1),
       '#field_parents' => NULL,
-      '#description' => 'URL should be relative link. EX: /node/{nid}',
+      '#description' => $description,
+
       '#language' => $language->language,
       '#field_name' => 'cta_menu_item_finance_' . $i . '_' . $current_lang,
       '#delta' => 0,
@@ -97,11 +105,10 @@ function kandb_group_finance_header_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-  
   $form['#field_uploads'] = array(
     'finance_header_image_full_' . $current_lang,
     'finance_header_image_small_' . $current_lang
-      
+
   );
 
   $form['#submit'] = array(
