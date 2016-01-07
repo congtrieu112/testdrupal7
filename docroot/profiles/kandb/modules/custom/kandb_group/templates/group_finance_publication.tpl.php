@@ -1,4 +1,7 @@
 <?php
+$current_url = url(current_path(), array('absolute' => TRUE));
+$current_path = explode('/', $current_url);
+$current_path_alias = $current_path[count($current_path)- 3] . $current_path[count($current_path) - 2];
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
 
@@ -70,16 +73,26 @@ print theme('finance_header_block');
           <ul data-app-accordion="communiquesDocs" class="accordion fullWidth">
               <?php if ($recent_document_menus) : ?>
                 <li class="btn-wrapper btn-wrapper--center">
-                    <?php foreach ($recent_document_menus as $key => $value) : ?>
-                      <?php
-                      $document_type_name = $value['doc_type_name'];
-                      $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
-                      $numof_years = $value['numof_years'];
-                      ?>
-                      <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="btn-primary active">
-                          <?php print $key; ?>
-                      </a>
-                    <?php endforeach; ?>
+                    <nav class="form-dropdown form-dropdown--responsive">
+                        <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">Les actualités<span aria-hidden="true" class="icon icon-expand"></span></button>
+                        <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
+                          <ul class="ul-unstyled undo-padding">
+                            <?php foreach ($recent_document_menus as $key => $value) : ?>
+                              <?php
+                              $document_type_name = $value['doc_type_name'];
+                              $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
+                              $numof_years = $value['numof_years'];
+                              ?>
+                                <li class="bordered">
+                                    <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if (($document_type_tid.$numof_years) == $current_path_alias) : print 'active'; endif ?>">
+                                        <span><?php print $key; ?></span>
+                                    </a>
+                                </li>
+                            <?php endforeach; ?>
+                          </ul>
+                        </div>
+                    </nav>
+
                 </li>
               <?php endif; ?>
               <?php $i_active = 0; ?>
