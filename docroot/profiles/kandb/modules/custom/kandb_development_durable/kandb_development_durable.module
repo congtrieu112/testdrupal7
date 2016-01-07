@@ -202,7 +202,7 @@ function render_group_development_durable_realisations() {
     }
   }
 
-  $data['embed'] = variable_get('realisations_image_group_development_block', '');
+  $data['embed'] = variable_get('realisations_embed_group_development_block', '');
 
   $articles = array();
   for($i = 1; $i <= 5; $i++) {
