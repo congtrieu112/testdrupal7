@@ -17,7 +17,6 @@ else :
 endif;
 
 $current_path = implode('/', $arg);
-
 if ($current_path == 'corporate/finance/publication') :
   $current_path_arr = kandb_group_generate_finance_publication_language_link($current_path);
   $switch_url_en = $current_path_arr['switch_url_en'];
@@ -59,6 +58,9 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
       <ul class="pageHeaderNav__list">
           <?php
           $number_cta = 5;
+          $current_path = current_path();
+          $current_path = explode('/', $current_path);
+          $current_path =$current_path[2];
           for ($i = 0; $i < $number_cta; $i++) :
             $url = $title = $class = '';
             $cta = array();
@@ -72,8 +74,9 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
               $url = $current_lang == 'en' ? $default_menu_links[$i] . '/en' : $default_menu_links[$i];
               $title = $default_menu_titles[$i];
             endif;
-
-            if (strpos($current_path, $url) !== FALSE) :
+            $url_alias = explode('/', $url);
+            $url_alias = $url_alias[2];
+            if ($current_path == $url_alias) :
               $class = 'active';
             endif;
             ?>
