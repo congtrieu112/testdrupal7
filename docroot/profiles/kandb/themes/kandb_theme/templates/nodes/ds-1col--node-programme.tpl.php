@@ -248,7 +248,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
 
                 <?php if ($en_quelques_mots) : ?>
                   <p class="intro">
-                      <?php print $en_quelques_mots; ?>
+                      <em><?php print t('En quelques mots'); ?></em>
                   </p>
                 <?php endif; ?>
 
