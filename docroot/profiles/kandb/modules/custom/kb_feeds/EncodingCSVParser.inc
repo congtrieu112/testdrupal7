@@ -74,8 +74,10 @@ class EncodingCSVParser extends ParserCSV {
     $concat_string = '';
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
       $line = trim($lineIterator->current(), "\r\n");
-      $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
-
+      if(!mb_check_encoding($line, 'UTF-8')) {
+        $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+      }
+      
       if (empty($line)) {
         continue;
       }
@@ -110,7 +112,7 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      $fields = str_getcsv($line, $this->delimiter, '','\\');
+      $fields = array_map('trim', str_getcsv($line, $this->delimiter, '','\\'));
 
 //      $quoted = FALSE;
 //      $currentIndex = 0;
@@ -212,7 +214,7 @@ class EncodingCSVParser extends ParserCSV {
         }
       }
 
-      if($this->id == 'document_import' || $this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import') {
+      if($this->id == 'document_import' || $this->id == 'partenaire_import' || $this->id == 'partenaire_programme_import' || $this->id == 'document_import_uk') {
         $arr = array_filter($row);
         if(count($arr) > 0) {
           $mylinesParsed++;
@@ -240,7 +242,7 @@ class EncodingCSVParser extends ParserCSV {
         break;
       }
     }
-    
+
     $total = variable_get($this->id . '_total', 0);
     if($mylinesParsed > 0) {
       variable_set($this->id . '_total', $mylinesParsed + $total);

@@ -1075,6 +1075,63 @@ function kandb_taxonomy_field_default_field_instances() {
   );
 
   // Exported field_instance:
+  // 'taxonomy_term-type_de_document-field_name_in_english'
+  $field_instances['taxonomy_term-type_de_document-field_name_in_english'] = array(
+    'bundle' => 'type_de_document',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_name_in_english',
+    'label' => 'Name in English',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 1,
+    ),
+  );
+
+  // Exported field_instance:
   // 'taxonomy_term-type_de_programme-field_id_type_programme'
   $field_instances['taxonomy_term-type_de_programme-field_id_type_programme'] = array(
     'bundle' => 'type_de_programme',
@@ -1459,6 +1516,7 @@ function kandb_taxonomy_field_default_field_instances() {
   t('IDK');
   t('IDKA');
   t('Icon name');
+  t('Name in English');
   t('Numéro');
   t('Picto CSS class');
   t('Region');

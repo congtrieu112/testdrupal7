@@ -9,7 +9,7 @@ print theme('finance_header_block');
 <section class="section-padding">
   <div class="wrapper">
     <header class="heading heading--bordered">
-      <h1 class="heading__title"><?php print t('Assemblées Générales'); ?></h1>
+      <h1 class="heading__title"><?php print $page_title; ?></h1>
     </header>
   </div>
   <div class="wrapper--narrow downloadDocs">

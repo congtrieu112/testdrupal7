@@ -173,7 +173,9 @@ function kandb_group_rh_admin_form($form, $form_state) {
   $form['#submit'] = array(
     'kandb_group_settings_cta_link'
   );
-
+  $form['#validate'] = array(
+    'kandb_group_rh_admin_validate_form'
+  );
   return system_settings_form($form);
 }
 
@@ -285,8 +287,44 @@ function kandb_group_rh_your_career_admin_form($form, &$form_state) {
       '#default_value' => variable_get('your_career_item_image_' . $i),
       '#upload_location' => 'public://',
     );
+    $form['#field_uploads'][] = 'your_career_item_image_' . $i;
   }
+
+  $form['#submit'] = array(
+    'kandb_group_hr'
+  );
+
   return system_settings_form($form);
+}
+
+/**
+ * Get value from Form and put to function managed_file_upload
+ */
+function kandb_group_hr(&$form, &$form_state) {
+  module_load_include('inc', 'kandb_development_durable', 'kandb_development_durable.admin');
+  $field_uploads = $form['#field_uploads'];
+  foreach ($field_uploads as $field) {
+    $fid_form = $form_state['values'][$field];
+    $fid_variable = variable_get($field, FALSE);
+    $module_name = 'kandb_group';
+    $type = $field;
+    group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
+  }
+}
+/*
+ * Validate for CTA link.
+ */
+function kandb_group_rh_admin_validate_form(&$form, &$form_state){
+  $val = $form_state['values'];
+  if (isset($val['links_fieldset']['cta'])) {
+    foreach ($val['links_fieldset']['cta'] as $key => $item) {
+      if (isset($item['title'])) {
+        if (preg_match('/[\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $item['title'])) {
+          form_set_error('links_fieldset][cta]['.$key.'][title', t('Please check the title again, only alphanumeric is acceptable'));
+        }
+      }
+    }
+  }
 }
 
 /**

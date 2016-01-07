@@ -1,11 +1,13 @@
 <?php
 print theme('finance_header_block');
+
+$module_title = variable_get('finance_gouvernance_module_title_' . $lang);
 ?>
 <!-- [Finance Gouvernance] start-->
 <section class="section-padding financeGouvernance">
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <h1 class="heading__title"><?php print t('Gouvernance d\'entreprise'); ?></h1>
+            <h1 class="heading__title"><?php print $module_title; ?></h1>
         </header>
     </div>
     <div class="wrapper">

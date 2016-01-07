@@ -181,6 +181,26 @@ function render_test_habiteo() {
   return 'Import habiteo into programme';
 }
 
+function drupal_add_existing_file($file_drupal_path, $uid = 1, $status = 1) {
+  $files = file_load_multiple(array(), array('uri' => $file_drupal_path));
+  $file = reset($files);
+
+  if (!$file) {
+    $file = (object) array(
+        'filename' => basename($file_drupal_path),
+        'filepath' => $file_drupal_path,
+        'filemime' => file_get_mimetype($file_drupal_path),
+        'filesize' => filesize($file_drupal_path),
+        'uid' => $uid,
+        'status' => $status,
+        'timestamp' => time(),
+        'uri' => $file_drupal_path,
+    );
+    drupal_write_record('file_managed', $file);
+  }
+  return $file;
+}
+
 /**
  * Update field_programme_habiteo_id when field_id_programme has exist.
  */
@@ -267,22 +287,31 @@ function render_test_habiteo_bien() {
 /**
  * Update field_bien_habiteo_id when field_id_bienhas exist.
  */
-function kandb_habiteo_update_bien($id, $habiteo_id, $type = 'bien') {
+function kandb_habiteo_update_bien($id, $habiteo_id, $images, $type = 'bien') {
+
   $file_log_name = 'habiteo_bien' . '_log_' . date('Y-m-d') . '.txt';
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'bien')
-    ->fieldCondition('field_id_bien', 'value', $id, '=');
+    ->fieldCondition('field_numero_lot', 'value', $id, '=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
     $items_nids = array_keys($result['node']);
     $items = entity_load('node', $items_nids);
     if ($items) {
+      if (isset($images[0]) && $images[0]) {
+        $image_path = $images[0];
+        $image = system_retrieve_file($image_path, NULL, FALSE, FILE_EXISTS_RENAME);
+        $file = drupal_add_existing_file($image);
+      }
       foreach ($items as $item) {
         $item->field_bien_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
         $item->flag_habiteo = 1;
+        if (isset($file->fid)) {
+          $item->field_image_principale[LANGUAGE_NONE]['0']['fid'] = $file->fid;
+        }
         node_save($item);
         $logging = $habiteo_id . '|bien|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
         createFileErrorLogTxt($file_log_name, $logging);
@@ -325,7 +354,7 @@ function kandb_habiteo_import_bien($path) {
         if (!isset($item->error)) {
           if ($item->id_partenaire) {
             // Import bien.
-            kandb_habiteo_update_bien($item->id_partenaire, $item->id);
+            kandb_habiteo_update_bien($item->id_partenaire, $item->id, $item->images);
           } else {
             $item_id = isset($item->id) ? $item->id : 'null';
             $logging = $item_id . '|bien|' . 'id_partenaire is null' . '|' . $path . "\n";

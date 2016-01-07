@@ -498,16 +498,19 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           }
         }
       }
-    } elseif ($entity->feeds_item->id == 'document_import') {
+    } elseif ($entity->feeds_item->id == 'document_import' || $entity->feeds_item->id == 'document_import_uk') {
       if ($totalItems > 7 || $totalItems <= 5) {
         $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items)' . '| Skip imported' . "\n";
       } else {
         $validates = array(
-          'term_name_warning' => array(
+          'term_name' => array(
             'categorie' => 'field_document_type',
           ),
           'date_time' => array(
             'date' => 'field_document_date'
+          ),
+          'text_box' => array(
+            'titredudocument' => 'title',
           ),
         );
 
@@ -532,6 +535,11 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
 
           $entity->status = $status;
           $entity->sticky = $sticky;
+
+          // French: 0; UK: 1
+          if($entity->feeds_item->id == 'document_import_uk') {
+            $entity->field_langue[LANGUAGE_NONE][0]['value'] = 1;
+          }
 
 //          if(isset($entity->{'Temporary target 1'}) || isset($entity->field_document_file[LANGUAGE_NONE])) {
 //            $document_files_old = $entity->{'Temporary target 1'};
@@ -866,18 +874,75 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
   $key_errorlog = '';
-  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse") {
+  if ($source->id === "document_import_communique_de_presse_uk") {
+    $uri = 'public://ketbmedia/uk/com';
+    $prepare_file = file_prepare_directory($uri, FILE_MODIFY_PERMISSIONS);
+    if (!$prepare_file) {
+      $logging .= "ketbmedia/uk/com folder does not exit or not writable";
+      unset($result->items);
+    }
+    else {
+      $warning = variable_get($source->id . '_warning', 0);
+      $rejected = variable_get($source->id . '_rejected', 0);
+      foreach ($result->items as $key => $row) {
+        $skip_import = FALSE;
+        $warning_import = FALSE;
+        if (!isset($row['identifiantcommunique']) || $row['identifiantcommunique'] == '') {
+          $logging .= "Column identifiantcommunique does not exist | Skip imported \n";
+          $skip_import = TRUE;
+        }
+        else {
+          if (!isset($row['lienfichier']) || $row['lienfichier'] == '') {
+            $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+            $skip_import = TRUE;
+          }
+          else {
+            $path = drupal_realpath($row['lienfichier']);
+            if (!file_exists($path)) {
+              $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+              $skip_import = TRUE;
+            }
+          }
+          if (!isset($row['titreducommunique']) || $row['titreducommunique'] == '') {
+            $logging .= $row['identifiantcommunique'] . " | document_title empty | Skip imported \n";
+            $skip_import = TRUE;
+          }
+          if ((!isset($row['date']) || $row['date'] == '') && !$skip_import) {
+            $logging .= $row['identifiantcommunique'] . " | document_date empty | Warning \n";
+            $warning_import = TRUE;
+          }
+          if ((!isset($row['contenulientxt']) || $row['contenulientxt'] == '') && !$skip_import) {
+            $logging .= $row['identifiantcommunique'] . " | document_contenulientxt empty | Warning \n";
+            $warning_import = TRUE;
+          }
+        }
+        if ($warning_import) {
+          $warning++;
+          variable_set($source->id . '_warning', $warning);
+        }
+        if ($skip_import) {
+          $rejected++;
+          variable_set($source->id . '_rejected', $rejected);
+          unset($result->items[$key]);
+        }
+      }
+    }
+    if ($logging) {
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+  }
+  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse" || $source->id === "document_import_uk") {
     global $base_url;
     foreach ($result->items as $key => $row) {
       $list_file_id = array();    // List column have upload file
-      if ($source->id === "document_import" || $source->id === 'document_import_communique_de_presse') {
+      if ($source->id === "document_import" || $source->id === 'document_import_communique_de_presse' || $source->id === "document_import_uk") {
         $list_file_id = array(
           "field_document_file" => "lienfichier"
         );
 
         $key_errorlog = $document_id = isset($result->items[$key]['identifiantcommunique']) ? $result->items[$key]['identifiantcommunique'] : '';
 
-        if($source->id === "document_import") {
+        if($source->id === "document_import" || $source->id === "document_import_uk") {
           $key_errorlog = $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
         }
 
@@ -999,8 +1064,8 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
         }
       }
 
-      if(!$file_upload_fields || !$file_upload_values) {
-        if ($source->id == 'document_import_communique_de_presse') {
+      if($file_upload_fields && $file_upload_values) {
+        if ($source->id == 'document_import_communique_de_presse' || $source->id == 'document_import_uk') {
           $rejected = variable_get($source->id . '_rejected', 0);
           $logging .= $key_errorlog . '|' . rtrim($file_upload_fields, ", ") . '|' . rtrim($file_upload_values, ", ") . '|' . 'File upload not exists' . '|' . 'Skip import' . "\n";
           variable_set($source->id . '_rejected', $rejected + 1);
@@ -1202,10 +1267,28 @@ function kb_feeds_menu() {
     'file' => 'kb_feeds.pages.inc',
   );
 
+  $items['admin/reports/feeds_errorlog/document-import-uk'] = array(
+    'title' => 'Document UK import',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'document_import_uk_log'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
   $items['admin/reports/feeds_errorlog/document-import-communique'] = array(
     'title' => 'Document import communique',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/document-import-communique-uk'] = array(
+    'title' => 'Document import communique UK',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'document_import_communique_de_presse_uk'),
     'access arguments' => array('administer content types'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',
@@ -1287,7 +1370,7 @@ function kb_feeds_menu() {
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',
   );
-  
+
   return $items;
 }
 
@@ -1655,7 +1738,7 @@ function validateFieldInFileImportFeeds($validates, $item, $entity, $key_id = 0,
               $error_date_field .= $field_name . ',';
               $value_date_field .= $field_name . ': ' . $item[$key] . ', ';
             } else {
-              if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) 00:00:00$/", $item[$key])) {
+              if (!preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1]) 00:00:00$/", $item[$key]) && !preg_match("/^(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])-[0-9]{4} 00:00:00$/", str_replace('/', '-', $item[$key]))) {
                 $error_date_field .= $field_name . ',';
                 $value_date_field .= $field_name . ': ' . $item[$key] . ', ';
               }

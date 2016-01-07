@@ -62,25 +62,25 @@ function kandb_region_kb_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'domain' => array(
-          'weight' => '1',
+          'weight' => '2',
         ),
         'locations' => array(
-          'weight' => '30',
+          'weight' => '6',
         ),
         'metatags' => array(
-          'weight' => '40',
+          'weight' => '7',
         ),
         'title' => array(
-          'weight' => '-5',
+          'weight' => '0',
         ),
         'path' => array(
-          'weight' => '30',
+          'weight' => '5',
         ),
         'redirect' => array(
-          'weight' => '30',
+          'weight' => '3',
         ),
         'xmlsitemap' => array(
-          'weight' => '30',
+          'weight' => '4',
         ),
       ),
       'display' => array(

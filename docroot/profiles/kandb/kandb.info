@@ -106,7 +106,7 @@ dependencies[] = kb_feeds
 dependencies[] = kb_import
 dependencies[] = kandb_habiteo
 dependencies[] = kandb_business_rules
-dependencies[] = kandb_alias_dossier_article
+; dependencies[] = kandb_alias_dossier_article
 dependencies[] = kb_mail
 dependencies[] = kandb_custom_gmap
 dependencies[] = kandb_validate
@@ -118,7 +118,8 @@ dependencies[] = kandb_finance_archives
 dependencies[] = kandb_finance_assemblies
 dependencies[] = kandb_simulator
 dependencies[] = kandb_activities
-
+dependencies[] = kandb_finance_presentation
+dependencies[] = kandb_development_durable
 
 ; Features
 dependencies[] = k_b_rh_annonce
@@ -177,6 +178,7 @@ dependencies[] = kandb_finance_gouvernance
 dependencies[] = kandb_taxonomy_comite
 dependencies[] = kandb_region_kb
 dependencies[] = kandb_conseiller_regional
+dependencies[] = kandb_habitat
 
 ; Blocks
 dependencies[] = kandb_recherche
