@@ -118,7 +118,8 @@ dependencies[] = kandb_finance_archives
 dependencies[] = kandb_finance_assemblies
 dependencies[] = kandb_simulator
 dependencies[] = kandb_activities
-
+dependencies[] = kandb_finance_presentation
+dependencies[] = kandb_development_durable
 
 ; Features
 dependencies[] = k_b_rh_annonce
