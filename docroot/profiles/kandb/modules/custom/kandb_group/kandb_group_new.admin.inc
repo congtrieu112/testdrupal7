@@ -63,12 +63,13 @@ function kandb_group_new_admin_form($form, $form_state) {
  * Get value from Form and put to function managed_file_upload
  */
 function kandb_group_new(&$form, &$form_state) {
+  module_load_include('inc', 'kandb_development_durable', 'kandb_development_durable.admin');
   $field_uploads = $form['#field_uploads'];
   foreach ($field_uploads as $field) {
     $fid_form = $form_state['values'][$field];
     $fid_variable = variable_get($field, FALSE);
     $module_name = 'kandb_group';
     $type = $field;
-    group_page_new_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
+    group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
   }
 }
