@@ -120,6 +120,7 @@ function render_group_activities_habitat() {
         $nodes = kandb_activities_get_habitat_node($tree[0]->tid);
         $data['nodes'] = $nodes;
         $data['active'] = $tree[0]->tid;
+        $data['term_name'] = $tree[0]->name;
       }
     }
   }
@@ -160,6 +161,8 @@ function render_group_activities_habitat_by_term($tid) {
         $nodes = kandb_activities_get_habitat_node($tid);
         $data['nodes'] = $nodes;
         $data['active'] = $tid;
+        $tax_type = taxonomy_term_load($tid);
+        $data['term_name'] = isset($tax_type->name) ? $tax_type->name : '';
       }
     }
   }
