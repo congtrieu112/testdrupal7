@@ -326,3 +326,71 @@ function kandb_group_rh_admin_validate_form(&$form, &$form_state){
     }
   }
 }
+
+/**
+ * Apply RH Admin Settings Form.
+ */
+function kandb_group_rh_apply_offers_admin_form($form, &$form_state) {
+  $form['fieldset_postuler'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Postuler Section'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_postuler']['rh_postuler_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => variable_get('rh_postuler_title'),
+  );
+  $form['fieldset_postuler']['rh_postuler_sub_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Sub Title'),
+    '#default_value' => variable_get('rh_postuler_sub_title'),
+  );
+  $form['fieldset_postuler']['rh_paragraph'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Postuler Paragraph'),
+    '#collapsible' => TRUE,
+    '#collapsed' => FALSE,
+  );
+  $form['fieldset_postuler']['rh_paragraph']['rh_postuler_title_paragraph'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => variable_get('rh_postuler_title_paragraph'),
+  );
+  $form['fieldset_postuler']['rh_paragraph']['rh_postuler_text_paragraph'] = array(
+    '#type' => 'textarea',
+    '#title' => t('Text'),
+    '#default_value' => variable_get('rh_postuler_text_paragraph'),
+  );
+  $form['fieldset_postuler']['rh_paragraph']['rh_postuler_button_paragraph'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Button label'),
+    '#default_value' => variable_get('rh_postuler_button_paragraph'),
+  );
+
+  $form['fieldset_last_offer'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Nos dernières offres d\'emploi Section'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_last_offer']['rh_last_offer_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Title'),
+    '#default_value' => variable_get('rh_last_offer_title'),
+  );
+
+  $form['fieldset_annonces'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Anonces'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  $form['fieldset_annonces']['rh_postuler_form_button'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label for "Postuler" button'),
+    '#default_value' => variable_get('rh_postuler_form_button'),
+  );
+  return system_settings_form($form);
+}

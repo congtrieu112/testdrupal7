@@ -5560,9 +5560,14 @@ button {
   @media only screen and (min-width: 48em) {
     .btn-wrapper.btn-wrapper--center {
       text-align: center; } }
-  @media only screen and (max-width: 47.9375em) {
-    .btn-wrapper.btn-wrapper--center > * {
-      width: 100%; } }
+  .btn-wrapper.btn-wrapper--center > * {
+    margin-bottom: 0; }
+    @media only screen and (max-width: 47.9375em) {
+      .btn-wrapper.btn-wrapper--center > * {
+        width: 100%;
+        margin-bottom: 0.83333rem; }
+        .btn-wrapper.btn-wrapper--center > *:last-child {
+          margin-bottom: 0; } }
 
 .icon-arrow {
   margin-left: 0.625rem;
@@ -6103,6 +6108,28 @@ _:-ms-lang(x), .infotip:after {
     width: auto !important;
     max-width: none; } }
 
+/*.pager {
+  list-style: none;
+  margin-left: 0;
+  text-align: center;
+
+  li {
+    display: inline-block;
+    padding: rem-calc(20);
+    font-family: $font-bold;
+    font-size: rem-calc(30*2/3);
+
+    a {
+      display: block;
+
+    }
+  }
+
+  .pager-next,
+  .pager-last {
+    display: none;
+  }
+}*/
 input[type="color"], input[type="date"], input[type="datetime"], input[type="datetime-local"], input[type="email"], input[type="month"], input[type="number"], input[type="password"], input[type="search"], input[type="tel"], input[type="text"], input[type="time"], input[type="url"], input[type="week"], textarea {
   height: 3.1875rem;
   padding: 0 1rem;
@@ -6145,9 +6172,93 @@ input[type="color"], input[type="date"], input[type="datetime"], input[type="dat
 .webform-component .form-textarea {
   height: 9.375rem; }
 
+.webform-component .form-managed-file {
+  position: relative;
+  display: -webkit-box;
+  display: -moz-box;
+  display: box;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%; }
+  .webform-component .form-managed-file input {
+    margin-bottom: 0;
+    height: 2.8125rem; }
+  .webform-component .form-managed-file input[type=file] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: transparent;
+    opacity: .01; }
+  .webform-component .form-managed-file [data-fake-file] {
+    margin-right: 0.625rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; }
+  .webform-component .form-managed-file input[type=file],
+  .webform-component .form-managed-file [data-fake-file] {
+    cursor: pointer;
+    background: #e0e0e0;
+    height: 2.8125rem;
+    font-size: 0.875rem;
+    -webkit-flex-grow: 1;
+    -moz-flex-grow: 1;
+    flex-grow: 1;
+    -ms-flex-positive: 1; }
+  .webform-component .form-managed-file input[type='submit'] {
+    position: relative;
+    z-index: 1; }
+  .webform-component .form-managed-file + .description {
+    display: none; }
+
+.webform-component.webform-container-inline {
+  margin-bottom: 1.25rem; }
+
 @media only screen and (min-width: 48em) {
   .webform-component label {
-    padding: 0.9375rem 0; } }
+    padding: 0.9375rem 0; }
+  .webform-component.webform-container-inline {
+    margin-bottom: 0.625rem; }
+    .webform-component.webform-container-inline label,
+    .webform-component.webform-container-inline .combo-select {
+      display: inline-block;
+      width: auto; }
+    .webform-component.webform-container-inline label {
+      margin-right: 1.25rem; }
+    .webform-component.webform-container-inline .combo-select input {
+      margin-bottom: 0; }
+  .webform-component .form-managed-file {
+    display: -webkit-inline-box;
+    display: -moz-inline-box;
+    display: inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-flex;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -webkit-box-orient: horizontal;
+    -moz-box-orient: horizontal;
+    box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -moz-box-direction: normal;
+    box-direction: normal;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    flex-direction: row;
+    -ms-flex-direction: row;
+    -webkit-box-align: center;
+    -moz-box-align: center;
+    box-align: center;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-align-items: center;
+    -o-align-items: center;
+    align-items: center;
+    -ms-flex-align: center;
+    width: auto; }
+    .webform-component .form-managed-file input[type=file],
+    .webform-component .form-managed-file [data-fake-file] {
+      width: 15.625rem; } }
 
 .form-actions {
   text-align: center;
@@ -6404,9 +6515,7 @@ input[type="checkbox"] + .label-checkbox {
       padding-bottom: 3.125rem; } }
 
 .f-topbar-fixed {
-  padding-top: 0 !important; }
-  .f-topbar-fixed #container {
-    padding-top: 4.16667rem; }
+  padding-top: 4.16667rem; }
 
 .narrow-header {
   position: relative;
@@ -6428,6 +6537,21 @@ input[type="checkbox"] + .label-checkbox {
     .content-centered {
       width: 45%;
       margin: 1.875rem auto; } }
+
+.blockText-centered {
+  padding: 1.66667rem 10%;
+  margin-bottom: 3.33333rem;
+  text-align: center; }
+  .blockText-centered__spaced {
+    margin-bottom: 1.66667rem; }
+    .blockText-centered__spaced p:last-child {
+      margin-bottom: 0; }
+  @media only screen and (min-width: 48em) {
+    .blockText-centered {
+      padding: 3.125rem 20%;
+      margin-bottom: 5rem; }
+      .blockText-centered__spaced {
+        margin-bottom: 1.875rem; } }
 
 .row--noGutter .columns:first-child {
   padding-left: 0; }
@@ -6616,7 +6740,7 @@ sup {
   font-size: 1.25rem;
   font-family: "Helvetica Neue LT W04_75 Bold";
   font-weight: 300;
-  margin-bottom: 1.875rem; }
+  margin-bottom: 1.25rem; }
   @media only screen and (min-width: 48em) {
     .heading--tiny {
       font-size: 1.625rem; } }
@@ -6648,6 +6772,16 @@ sup {
   @media only screen and (min-width: 48em) {
     .phone-green {
       text-align: left; } }
+
+.legalNote {
+  color: #869298;
+  font-size: 0.875rem;
+  padding: 1.25rem 0; }
+  .legalNote p {
+    margin: 0; }
+  @media only screen and (min-width: 48em) {
+    .legalNote {
+      font-size: 0.75rem; } }
 
 .bg-white, .homeDocs .wrapper, .homeDocs .wrapper--narrow {
   background-color: #ffffff; }
@@ -6728,11 +6862,11 @@ sup {
   position: absolute;
   width: 1px; }
 
-.ul-unstyled, .accordion, .squaredImageItem__img__tags, .programCharacteristics__nav, .pageHeaderNav__list, .mySelectionsProgrammes__actions, .mySelectionsProgramme .prices, .mySelectionsProgramme__large .squaredImageItem__actions, .mySelectionsProgramme .contact {
+.ul-unstyled, .accordion, .squaredImageItem__img__tags, .programCharacteristics__nav, .pageHeaderNav__list, .mySelectionsProgrammes__actions, .mySelectionsProgramme .prices, .mySelectionsProgramme__large .squaredImageItem__actions, .mySelectionsProgramme .contact, .postuler__details {
   list-style: none;
   padding: 0;
   margin: 0; }
-  .ul-unstyled > li, .accordion > li, .squaredImageItem__img__tags > li, .programCharacteristics__nav > li, .pageHeaderNav__list > li, .mySelectionsProgrammes__actions > li, .mySelectionsProgramme .prices > li, .mySelectionsProgramme__large .squaredImageItem__actions > li, .mySelectionsProgramme .contact > li {
+  .ul-unstyled > li, .accordion > li, .squaredImageItem__img__tags > li, .programCharacteristics__nav > li, .pageHeaderNav__list > li, .mySelectionsProgrammes__actions > li, .mySelectionsProgramme .prices > li, .mySelectionsProgramme__large .squaredImageItem__actions > li, .mySelectionsProgramme .contact > li, .postuler__details > li {
     padding: 0;
     margin: 0; }
 
@@ -6952,7 +7086,6 @@ a.tag.tag--important:hover {
   position: relative;
   padding-top: 30px;
   height: 0;
-  overflow: hidden;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */ }
@@ -6976,6 +7109,13 @@ a.tag.tag--important:hover {
   @media only screen and (min-width: 48em) {
     .iframe.iframe--visite-virtuelle {
       padding-bottom: 38%; } }
+  @media only screen and (max-width: 47.9375em) {
+    .iframe--scrollMobile {
+      height: auto; }
+      .iframe--scrollMobile .iframe__content {
+        width: auto;
+        min-width: 480px;
+        max-width: none; } }
 
 .sharing__items {
   list-style: none;
@@ -7345,7 +7485,7 @@ a.tag.tag--important:hover {
       padding-right: 3.75rem; } }
 
 .sticky .fixed {
-  box-shadow: 0 0 0.125rem 0 rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 0 1px #e0e0e0;
   background: #ffffff; }
 
 .header {
@@ -8222,6 +8362,12 @@ a.tag.tag--important:hover {
     margin-top: 1.875rem; }
     .squaredImageItem__btn .btn-primary, .squaredImageItem__btn input[type="submit"].form-submit, .squaredImageItem__btn .searchFormular .button-submit, .searchFormular .squaredImageItem__btn .button-submit, .squaredImageItem__btn .searchFormular button[type=submit], .searchFormular .squaredImageItem__btn button[type=submit] {
       margin-bottom: 0; }
+  .squaredImageItem__room {
+    margin: 0.625rem 0 0;
+    padding-top: 0.3125rem;
+    font-family: "Helvetica Neue LT W04_75 Bold";
+    color: #003e5e;
+    border-top: 1px solid #e0e0e0; }
   .squaredImageItem .remove-item {
     position: absolute;
     top: 0;
@@ -9785,6 +9931,8 @@ a.tag.tag--important:hover {
     float: left;
     width: 33.33333%;
     padding: 0 0.625rem; }
+    .articleList__item:nth-child(n+4) {
+      padding-top: 1.25rem; }
     .articleList__item__infos {
       padding-bottom: 3.125rem; }
       .articleList__item__infos__heading {
@@ -12916,10 +13064,6 @@ a.tag.tag--important:hover {
     width: 100%;
     display: block; } }
 
-@media only screen and (min-width: 48em) and (max-width: 64em) {
-  .latestJobs__item:last-child {
-    display: none; } }
-
 @media only screen and (min-width: 48em) {
   .latestJobs__list {
     margin: 0 -0.625rem;
@@ -13684,6 +13828,9 @@ a.tag.tag--important:hover {
     font-family: "Helvetica Neue LT W04_75 Bold";
     text-transform: uppercase;
     color: #003e5e; }
+  @media only screen and (max-width: 47.9375em) {
+    .noResults__category__filter .form-dropdown__content {
+      width: 100%; } }
 
 .noResults__category__list dt {
   font-family: "Helvetica Neue LT W04_75 Bold";
@@ -13764,6 +13911,96 @@ a.tag.tag--important:hover {
       font-size: 1.875rem; }
     .typeLogements__list dd {
       padding-top: 0.9375rem; } }
+
+.postuler__item {
+  position: relative;
+  background: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 1.66667rem 0 0 0;
+  margin-bottom: 0; }
+  .postuler__item__content {
+    margin-bottom: 1.66667rem; }
+    .postuler__item__content p:last-child {
+      margin-bottom: 0; }
+
+.postuler .accordion__link {
+  font-family: "Helvetica Neue LT W04_55 Roman"; }
+
+.postuler .display-status {
+  position: absolute;
+  top: 1.66667rem;
+  right: 0;
+  opacity: 1;
+  -webkit-transition-property: all;
+  -moz-transition-property: all;
+  transition-property: all;
+  -webkit-transition-duration: 0.3s;
+  -moz-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-timing-function: ease-out;
+  -moz-transition-timing-function: ease-out;
+  transition-timing-function: ease-out; }
+  .postuler .display-status.active {
+    opacity: 0; }
+
+.postuler__details {
+  color: #869298; }
+
+.postuler [data-app-accordion-content] {
+  margin-bottom: 1.66667rem; }
+
+.postuler .btn-wrapper {
+  padding-top: 1.66667rem;
+  margin-bottom: 0; }
+  .postuler .btn-wrapper a {
+    margin-bottom: 0; }
+
+@media only screen and (min-width: 48em) {
+  .postuler__item {
+    display: -webkit-box;
+    display: -moz-box;
+    display: box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-lines: single;
+    -moz-box-lines: single;
+    box-lines: single;
+    -webkit-flex-wrap: nowrap;
+    -moz-flex-wrap: nowrap;
+    -ms-flex-wrap: nowrap;
+    flex-wrap: nowrap;
+    padding: 2.5rem 0 0 0; }
+    .postuler__item .latestJobs__item__heading {
+      width: 30%; }
+    .postuler__item__content {
+      width: 70%;
+      margin-bottom: 2.5rem; }
+  .postuler__details {
+    padding-right: 3.125rem; }
+  .postuler .display-status {
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+    transform: translateY(-50%); }
+  .postuler .btn-wrapper {
+    text-align: left; } }
+
+@media only screen and (min-width: 64.0625em) {
+  .postuler__item .latestJobs__item__heading {
+    width: 40%; }
+  .postuler__item__content {
+    width: 60%; } }
+
+.postuler-popin {
+  margin-bottom: 1.25rem; }
+  .postuler-popin__intro {
+    font-family: "Helvetica Neue LT W04_75 Bold"; }
+  .postuler-popin__intro, .postuler-popin__details {
+    font-size: 1.25rem; }
 
 .homepage__search {
   padding-top: 8.75rem;

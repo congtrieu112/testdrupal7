@@ -191,7 +191,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/recrutement'] = array(
-    'title' => 'RH - Recrutement',
+    'title' => 'Recrutement',
     'page callback' => 'render_group_rh_recrutement',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -199,7 +199,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/nos-metiers'] = array(
-    'title' => 'RH - Explorer nos métiers',
+    'title' => 'Explorer nos métiers',
     'page callback' => 'render_group_rh_explorer_nos_metiers',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -207,7 +207,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/votre-carriere'] = array(
-    'title' => 'RH - Votre carrière',
+    'title' => 'Votre carrière',
     'page callback' => 'render_group_rh_votre_carriere',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -215,7 +215,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/postuler'] = array(
-    'title' => 'RH -  Postuler',
+    'title' => 'Postuler',
     'page callback' => 'render_group_rh_postuler',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -615,8 +615,9 @@ function render_group_rh_votre_carriere() {
  * Implement render page RH postuler.
  */
 function render_group_rh_postuler() {
-  $data = array();
-  return theme('group_rh_postuler', array('data' => $data));
+  $vars = array();
+  $vars['view'] = views_embed_view('nos_derni_res_offres_d_emploi', 'page');
+  return theme('group_rh_postuler', $vars);
 }
 
 function kandb_group_get_image_uri($image_id) {

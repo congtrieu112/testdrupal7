@@ -75,6 +75,49 @@ function kandb_theme_process_page(&$variables) {
   // Change template on AJAX request
   if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'page__ajax';
+
+    // If we are applying to a specific job we add info and change the title
+    if(isset($_GET['annonce']) && is_numeric($_GET['annonce'])) {
+      $annonce = node_load($_GET['annonce']);
+      $terms = taxonomy_term_load_multiple(array(
+        $annonce->field_annonce_fonction['und'][0]['tid'],
+        $annonce->field_annonce_type_contrat['und'][0]['tid'],
+        $annonce->field_annonce_ville['und'][0]['tid']
+      ));
+      $variables['title'] = $terms[$annonce->field_annonce_fonction['und'][0]['tid']]->name;
+
+      // Dirty to Delete
+      $date = str_replace(
+        array('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December', 'Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'),
+        array('janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre', 'Dimanche', 'Lundi', 'Mardi', 'Mercredi', 'Jeudi', 'Vendredi', 'Samedi'),
+        date('l d F Y', strtotime($annonce->field_annonce_date_mise_en_ligne['und'][0]['value']))
+      );
+
+      foreach($variables['node']->webform['components'] as $id => &$component) {
+        if($component['form_key'] == 'vous_souhaitez_postuler_a_un_post_de') {
+          $component['extra']['private'] = 1;
+          $component['extra']['attributes'] = array('style' => array('display:none;'));
+          $component['extra']['disabled'] = 1;
+          $component['extra']['placeholder'] = 'SELE4';
+        }
+      }
+      $variables['title_suffix'] = '<div class="postuler-popin">
+              <div class="postuler-popin__intro">' . $terms[$annonce->field_annonce_ville['und'][0]['tid']]->name . '</div>
+              <div class="postuler-popin__details">' . $terms[$annonce->field_annonce_type_contrat['und'][0]['tid']]->name . '  /  Service : ' . $annonce->field_annonce_service['und'][0]['value'] . '  /  Date de l’Annonce : ' . $date . '</div>
+            </div>';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_alter()
+ */
+function kandb_theme_form_alter(&$form, &$form_state, $form_id) {
+  // Hide the first field if we are applying for a specific job
+  if(isset($form['#node']) && $form['#node']->type == 'webform' && $form['#node']->webform['machine_name'] == 'candidature'){
+    if(isset($_GET['annonce'])){
+      $form['submitted']['row1']['vous_souhaitez_postuler_a_un_post_de']['#access'] = false;
+    }
   }
 }
 
