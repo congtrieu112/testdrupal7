@@ -1,7 +1,5 @@
 <?php
 
-define('FILE_STATUS_PERMANENT', 1);
-
 /**
  *  Implements hook_menu().
  */
@@ -183,7 +181,7 @@ function render_test_habiteo() {
   return 'Import habiteo into programme';
 }
 
-function drupal_add_existing_file($file_drupal_path, $uid = 1, $status = FILE_STATUS_PERMANENT) {
+function drupal_add_existing_file($file_drupal_path, $uid = 1, $status = 1) {
   $files = file_load_multiple(array(), array('uri' => $file_drupal_path));
   $file = reset($files);
 
