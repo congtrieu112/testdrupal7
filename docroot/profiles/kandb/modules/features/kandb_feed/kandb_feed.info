@@ -31,6 +31,7 @@ features[feeds_importer][] = city_feed_import
 features[feeds_importer][] = district_feed_import
 features[feeds_importer][] = document_import
 features[feeds_importer][] = document_import_communique_de_presse
+features[feeds_importer][] = document_import_uk
 features[feeds_importer][] = kb_patrimoine_import
 features[feeds_importer][] = maison_feed_import
 features[feeds_importer][] = migration_bien_import
