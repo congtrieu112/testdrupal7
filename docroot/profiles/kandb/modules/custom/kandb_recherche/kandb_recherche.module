@@ -144,6 +144,7 @@ function kandb_recherche_page(){
   }
 
   // If not result
+  $isThereAResult = TRUE;
   if ($result == NULL) {
     $tree = taxonomy_get_tree($vocabularies['departement']->vid);
     $departement = array();
@@ -154,11 +155,13 @@ function kandb_recherche_page(){
       );
     }
     $result = theme('result_departement', array('departement' => $departement));
+    $isThereAResult = FALSE;
   }
 
   return theme('recherche', array(
     'block_form' => $block_form,
     'result' => $result,
+    'isThereAResult' => $isThereAResult,
   ));
 }
 
