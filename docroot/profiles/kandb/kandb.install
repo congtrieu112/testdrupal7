@@ -356,14 +356,14 @@ function kandb_update_7126() {
   }
 }
 
-/**
- * Enable "Set alias for article in dossier" Module
- */
-function kandb_update_7127() {
-  if (!module_exists('kandb_alias_dossier_article')) {
-    module_enable(array('kandb_alias_dossier_article'), TRUE);
-  }
-}
+///**
+// * Enable "Set alias for article in dossier" Module
+// */
+//function kandb_update_7127() {
+//  if (!module_exists('kandb_alias_dossier_article')) {
+//    module_enable(array('kandb_alias_dossier_article'), TRUE);
+//  }
+//}
 
 /**
  * Enable "nodeorder" Module
@@ -954,5 +954,14 @@ function kandb_update_7192(&$sandbox) {
 function kandb_update_7193(&$sandbox) {
   if (!module_exists('kandb_view_finance_archives')) {
     module_enable(array('kandb_view_finance_archives'), TRUE);
+  }
+}
+
+/**
+ * Disable kandb_alias_dossier_article module
+ */
+function kandb_update_7194() {
+  if (module_exists('kandb_alias_dossier_article')) {
+    module_disable(array('kandb_alias_dossier_article'), FALSE);
   }
 }
