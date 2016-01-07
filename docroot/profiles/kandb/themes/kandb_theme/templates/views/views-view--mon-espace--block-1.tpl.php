@@ -29,15 +29,21 @@
 
 
 ?>
-<?php if ($rows): ?>
-    <!-- [mySelections: programmes] start-->
-    <section class="bg-lightGrey section-padding">
-        <div class="wrapper">
-            <h2 class="heading heading--bordered">
-                <div class="heading__title"><?php print t('Mes sélections'); ?></div>
-            </h2>
-        </div>
+
+<section class="bg-lightGrey section-padding">
+    <div class="wrapper">
+        <h2 class="heading heading--bordered">
+            <div class="heading__title"><?php print t('Mes sélections'); ?></div>
+        </h2>
+    </div>
+    <?php if ($rows): ?>
         <?php print $rows; ?>
-    </section>
-    <!-- [mySelections: programmes] end-->
-<?php endif; ?>
+    <?php else: ?>
+        <div class="noSelection bg-white">
+            <div class="heading--small">
+                <h2 class="heading__title">Vous n'avez enregistré aucune sélection</h2>
+                <p class="heading__title heading__title--sub">Trouvez dès maintenant les biens qui vous correspondent</p>
+            </div><a href="/<?php print URL_SEARCH_B2C; ?>" title="Je trouve mon bien" class="btn-primary btn-rounded">Je trouve mon bien</a>
+        </div>
+    <?php endif; ?>
+</section>
