@@ -8942,6 +8942,8 @@ return GMaps;
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],5:[function(require,module,exports){
+(function (global){
+; var __browserify_shim_require__=require;(function browserifyShim(module, exports, require, define, browserify_shim__define__module__export__) {
 /*!
  * jQuery JavaScript Library v2.1.4
  * http://jquery.com/
@@ -18153,6 +18155,11 @@ return jQuery;
 
 }));
 
+; browserify_shim__define__module__export__(typeof $ != "undefined" ? $ : window.$);
+
+}).call(global, undefined, undefined, undefined, undefined, function defineExport(ex) { module.exports = ex; });
+
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],6:[function(require,module,exports){
 /*!
  * JavaScript Cookie v2.0.4
@@ -39979,7 +39986,6 @@ App.topBarHeight = function() {
 
 
 },{}],34:[function(require,module,exports){
-(function (global){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -39998,7 +40004,7 @@ App.topBarHeight = function() {
     define(['jquery'], factory);
   } else if (typeof exports === 'object' && typeof require === 'function') {
     // Browserify
-    factory((typeof window !== "undefined" ? window['$'] : typeof global !== "undefined" ? global['$'] : null));
+    factory(require('jquery'));
   } else {
     // Browser globals
     factory(jQuery);
@@ -40616,8 +40622,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{}],35:[function(require,module,exports){
+},{"jquery":5}],35:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40625,7 +40630,7 @@ App.topBarHeight = function() {
 
 'use strict';
 
-//var $ = require('jquery');
+require('jquery');
 require('lodash');
 var foundation          = require('foundation');
 var velocity            = require("velocity-animate");
@@ -40729,4 +40734,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);

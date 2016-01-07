@@ -7086,7 +7086,6 @@ a.tag.tag--important:hover {
   position: relative;
   padding-top: 30px;
   height: 0;
-  overflow: hidden;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
   /* proportion value to aspect ratio 16:9 (9 / 16 = 0.5625 or 56.25%) */ }
@@ -7110,6 +7109,13 @@ a.tag.tag--important:hover {
   @media only screen and (min-width: 48em) {
     .iframe.iframe--visite-virtuelle {
       padding-bottom: 38%; } }
+  @media only screen and (max-width: 47.9375em) {
+    .iframe--scrollMobile {
+      height: auto; }
+      .iframe--scrollMobile .iframe__content {
+        width: auto;
+        min-width: 480px;
+        max-width: none; } }
 
 .sharing__items {
   list-style: none;
@@ -13057,10 +13063,6 @@ a.tag.tag--important:hover {
   .latestJobs .btn-wrapper .btn-primary, .latestJobs .btn-wrapper input[type="submit"].form-submit, .latestJobs .btn-wrapper .searchFormular .button-submit, .searchFormular .latestJobs .btn-wrapper .button-submit, .latestJobs .btn-wrapper .searchFormular button[type=submit], .searchFormular .latestJobs .btn-wrapper button[type=submit] {
     width: 100%;
     display: block; } }
-
-@media only screen and (min-width: 48em) and (max-width: 64em) {
-  .latestJobs__item:last-child {
-    display: none; } }
 
 @media only screen and (min-width: 48em) {
   .latestJobs__list {

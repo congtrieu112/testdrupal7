@@ -100,7 +100,6 @@ dependencies[] = domain_theme
 dependencies[] = expire
 dependencies[] = acquia_purge
 dependencies[] = cacheexclude
-dependencies[] = jquery_update
 
 ; Custom
 dependencies[] = kb_feeds

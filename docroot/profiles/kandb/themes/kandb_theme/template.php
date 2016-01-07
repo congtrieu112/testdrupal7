@@ -31,7 +31,7 @@ function kandb_theme_js_alter(&$javascript) {
       unset($javascript[drupal_get_path('theme', 'kandb_theme') . '/js/bundle.js']);
       unset($javascript[drupal_get_path('theme', 'kandb_theme') . '/js/modernizr.js']);
       foreach ($javascript as $key => $js_array) {
-        if (strpos($key, 'watcheezy') !== FALSE || strpos($key, 'jquery') !== FALSE) {
+        if (strpos($key, 'watcheezy') !== FALSE) {
           unset($javascript[$key]);
         }
       }
