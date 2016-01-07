@@ -5,9 +5,9 @@ print theme('simulator_header_block');
 global $base_url;
 $title = variable_get('title_simulator_vos_section', '');
 $subtitle = variable_get('subtitle_simulator_vos_section', '');
-$iframe = '<IFRAME style="width:1024px; height:1430px; margin:0px; padding:0px;" allowtransparency="true" frameborder="0" scrolling="no" src="' . $base_url . '/nos-outils/simulateur-droits-ptz/ajax"></IFRAME>';
+$iframe_url =  $base_url . '/nos-outils/simulateur-droits-ptz/ajax';
 ?>
-<?php if($title || $subtitle || $iframe) : ?>
+<?php if($title || $subtitle || $iframe_url) : ?>
 <!-- [content Advice] start-->
 <section class="wrapper section-padding ourAdvices">
   <!-- [Advice introduction] start-->
@@ -17,12 +17,13 @@ $iframe = '<IFRAME style="width:1024px; height:1430px; margin:0px; padding:0px;"
       <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
     <?php endif; ?>
   </header>
-  <?php if($iframe) : ?>
+  <?php if($iframe_url) : ?>
   <div class="swapItem">
     <div class="swapItem__1">
     <div class="wrapper--medium-up">
-      
-        <?php print $iframe; ?>
+      <div class="iframe iframe--scrollMobile" style="min-height: 1430px">
+          <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+        </div>
     </div>
     </div>
   </div>
