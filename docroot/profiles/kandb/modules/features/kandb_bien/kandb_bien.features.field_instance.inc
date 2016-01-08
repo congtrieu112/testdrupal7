@@ -94,6 +94,79 @@ function kandb_bien_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-bien-field_bien_habiteo_visite'
+  $field_instances['node-bien-field_bien_habiteo_visite'] = array(
+    'bundle' => 'bien',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 41,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'selection' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_3' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser_carrousel_4' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_bien_habiteo_visite',
+    'label' => 'Visite Virtuelle',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 32,
+    ),
+  );
+
   // Exported field_instance: 'node-bien-field_bien_low_tva_price'
   $field_instances['node-bien-field_bien_low_tva_price'] = array(
     'bundle' => 'bien',
@@ -2204,7 +2277,7 @@ function kandb_bien_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 32,
+      'weight' => 33,
     ),
   );
 
@@ -2749,6 +2822,7 @@ function kandb_bien_field_default_field_instances() {
   t('Titre');
   t('Type de Bien');
   t('Type de Maison');
+  t('Visite Virtuelle');
 
   return $field_instances;
 }

@@ -100,7 +100,7 @@ if (!empty($programme) && isset($node->field_nb_pieces[LANGUAGE_NONE][0]['tid'])
 $virtuelle_type = '';
 $virtuelle = FALSE;
 if (isset($bien_type->field_id_type_bien['und'][0]['value']) && $bien_type->field_id_type_bien['und'][0]['value'] == 'AP') {
-  if ($programme->field_programme_habiteo_bon_plan['und'][0]['value'] == 0) {
+  if (isset($node->field_bien_habiteo_visite['und'][0]['value']) && $node->field_bien_habiteo_visite['und'][0]['value']) {
     $virtuelle = TRUE;
   }
 }
@@ -460,7 +460,7 @@ if ($habiteo_id && $virtuelle):
       <div class="wrapper--medium-up">
 
           <div class="iframe iframe--visite-virtuelle">
-              <iframe src="" data-src="<?php print $habiteo_visite_virtuelle_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>&amp;type=<?php print $virtuelle_type; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+              <iframe src="" data-src="<?php print $habiteo_visite_virtuelle_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
           </div>
       </div>
       <div class="wrapper">
