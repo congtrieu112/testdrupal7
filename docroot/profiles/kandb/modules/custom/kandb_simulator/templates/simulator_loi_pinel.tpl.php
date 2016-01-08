@@ -9,7 +9,7 @@ $param_dossier = variable_get('param_dossier_simulator_mon_section', '');
 $param_id = variable_get('param_id_simulator_mon_section', '');
 $iframe_url = '';
 if($adresse_ip && $param_dossier && $param_id) {
-  $iframe_url = 'http://' . $adresse_ip . '/' . $param_dossier . '/scellier/simulrf1.asp?id=' . $param_id . '&MenageRgiHorsRF=40000&CSS_CadreHaut_TextColor=444400&CSS_Cadre_Entete_BackColor=355B95&CSS_Cadre_Body_BackColor=E0E2F9&CSS_Cadre_BorderColor=355B95&CSS_Result1_TextColor=000080&CSS_Result1_BackColor=8080FF&CSS_Result2_TextColor=000080&CSS_Result2_BackColor=8080FF';
+  $iframe_url = 'http://' . $adresse_ip . '/' . $param_dossier . '/scellier/simulrf1.asp?id=' . $param_id . '&MenageRgiHorsRF=40000&amp;CSS_CadreHaut_TextColor=444400&amp;CSS_Cadre_Entete_BackColor=355B95&amp;CSS_Cadre_Body_BackColor=E0E2F9&amp;CSS_Cadre_BorderColor=355B95&amp;CSS_Result1_TextColor=000080&amp;CSS_Result1_BackColor=8080FF&amp;CSS_Result2_TextColor=000080&amp;CSS_Result2_BackColor=8080FF&CSS_Cadre_Saisie_LigHeight=40&CSS_Cadre_BorderWidth=3&FlagCharte=6&CSS_BtnCalcul_BackColor=199edd&CSS_ResultTitle1_TextColor=003e5e&CSS_Cadre_Body_TextColor=003e5e&CSS_Cadre_Saisie_TextColor=003e5e&CSS_ResultTitle2_TextColor=003e5e&CSS_Cadre_Entete_TextColor=003e5e&CSS_Pie_TitleColor=003e5e&CSS_Pie_LabelColor=003e5e';
 }
 ?>
 <?php if($title || $subtitle || $iframe_url) : ?>
@@ -26,7 +26,7 @@ if($adresse_ip && $param_dossier && $param_id) {
   <div class="swapItem">
     <div class="swapItem__1">
       <div class="wrapper--medium-up">
-          <div class="iframe iframe--scrollMobile" style="min-height:730px">
+          <div class="iframe iframe--scrollMobile" style="min-height:1240px">
           <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
         </div>
       </div>
