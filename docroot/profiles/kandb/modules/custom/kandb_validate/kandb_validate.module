@@ -399,3 +399,10 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
   }
 }
 
+/*
+ * Implements hook_date_popup_process_alter().
+ */
+function kandb_validate_date_popup_process_alter(&$element, &$form_state, $context) {
+  unset($element['date']['#description']);
+  unset($element['time']['#description']);
+}

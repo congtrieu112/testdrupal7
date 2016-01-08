@@ -100,6 +100,7 @@ dependencies[] = domain_theme
 dependencies[] = expire
 dependencies[] = acquia_purge
 dependencies[] = cacheexclude
+dependencies[] = date_popup
 
 ; Custom
 dependencies[] = kb_feeds
@@ -179,6 +180,7 @@ dependencies[] = kandb_taxonomy_comite
 dependencies[] = kandb_region_kb
 dependencies[] = kandb_conseiller_regional
 dependencies[] = kandb_habitat
+dependencies[] = kandb_eu_cookie_compliance
 
 ; Blocks
 dependencies[] = kandb_recherche

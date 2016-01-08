@@ -6266,7 +6266,7 @@ function kandb_programme_field_default_field_instances() {
   $field_instances['node-programme-field_programme_online_date'] = array(
     'bundle' => 'programme',
     'deleted' => 0,
-    'description' => '',
+    'description' => 'Format : dd/MM/yyyy ',
     'display' => array(
       'default' => array(
         'label' => 'above',
@@ -6353,13 +6353,13 @@ function kandb_programme_field_default_field_instances() {
       'module' => 'date',
       'settings' => array(
         'increment' => 15,
-        'input_format' => 'm/d/Y - H:i:s',
+        'input_format' => 'd/m/Y - H:i:s',
         'input_format_custom' => '',
         'label_position' => 'above',
         'text_parts' => array(),
         'year_range' => '-3:+3',
       ),
-      'type' => 'date_text',
+      'type' => 'date_popup',
       'weight' => 38,
     ),
   );
@@ -9762,6 +9762,7 @@ function kandb_programme_field_default_field_instances() {
   t('En quelques mots');
   t('En quelques mots B2B');
   t('Etat des risques');
+  t('Format : dd/MM/yyyy ');
   t('Habiteo 3rd party');
   t('Habiteo 3rd party ID');
   t('Horaire de l\'espace de vente');

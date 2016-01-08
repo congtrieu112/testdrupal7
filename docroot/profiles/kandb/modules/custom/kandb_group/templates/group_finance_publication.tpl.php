@@ -25,7 +25,9 @@ print theme('finance_header_block');
               <ul>
                   <ul>
                       <?php
-                      foreach ($calenders as $date => $content) :
+                      foreach ($calenders as $key => $value) :
+                        $date = isset($value['date']) ? $value['date'] : '';
+                        $content = isset($value['content']) ? $value['content'] : '';
                         $arr_date = explode('-', $date);
                         $year = '';
                         $day = '';
