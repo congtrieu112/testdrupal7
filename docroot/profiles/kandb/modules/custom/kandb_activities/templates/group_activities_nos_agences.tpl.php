@@ -90,11 +90,16 @@ $arg = arg();
                                     $addr = isset($arr_field_addr[LANGUAGE_NONE][0]['value']) ? $arr_field_addr[LANGUAGE_NONE][0]['value'] : '';
                                     $email = isset($arr_field_email[LANGUAGE_NONE][0]['value']) ? $arr_field_email[LANGUAGE_NONE][0]['value'] : '';
                                     $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value']) ? $arr_field_telephone[LANGUAGE_NONE][0]['value'] : '';
-                                    if ($addr && $email && $telephone) : ?>
-                                      <li><?php print $addr; ?>
+                                    if ($addr) : ?>
+                                      <li><?php print $addr;
+                                        if ($email) : ?>
                                           <a href="mailto:<?php print $email; ?>" class="mail"><?php print $email; ?>
                                               <span class="icon icon-email"></span></a>
-                                          <a href="tel:<?php print $telephone; ?>" class="phone"><?php print $telephone; ?><span class="icon icon-tel"></span></a>
+                                        <?php endif; ?>
+                                        <?php if ($telephone) : ?>
+                                          <a href="tel:<?php print $telephone; ?>" class="phone"><?php print $telephone; ?>
+                                              <span class="icon icon-tel"></span></a>
+                                          <?php endif; ?>
                                       </li>
                                       <?php
                                     endif;
