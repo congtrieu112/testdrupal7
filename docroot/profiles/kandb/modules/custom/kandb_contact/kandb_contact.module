@@ -414,8 +414,8 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             }
             break;
           case $webform_id_telechargement_documents:
-
-            if($_REQUEST['contenttype'] == bien){
+            $parram = drupal_get_query_parameters();
+            if($parram['contenttype'] == 'bien'){
                 $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
                 $form['submitted']['ma_idkp']["#value"] = (!empty($id_bien)) ? $id_bien : '';
             }else{
@@ -687,7 +687,8 @@ function kandb_contact_get_telechargement_documents_url () {
   return $url;
 }
 function telechargement_documents_download_header($form, $form_state){
-    if ($_GET['contenttype'] == 'bien'){
+    $parram = drupal_get_query_parameters();
+    if ($parram['contenttype'] == 'bien'){
         $field = 'field_id_bien';
     } else //programme
     {
@@ -702,8 +703,8 @@ function telechargement_documents_download_header($form, $form_state){
     }
     $node = node_load($nid);
     $real_path = drupal_realpath('public://');
-    if ($_GET['contenttype'] == 'bien') {
-        if(isset($_GET['type']) && $_GET['type'] == 'txt'){
+    if ($parram['contenttype'] == 'bien') {
+        if(isset($parram['type']) && $parram['type'] == 'txt'){
             $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
             if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'])) {
                 $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
@@ -716,7 +717,7 @@ function telechargement_documents_download_header($form, $form_state){
             $filePath = $real_path . '/' . $fileName;
         }
     } else {
-        if (isset($_GET['download']) && $_GET['download'] == 'zip') {
+        if (isset($parram['download']) && $parram['download'] == 'zip') {
             $addMore = '_';
             $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
             if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
