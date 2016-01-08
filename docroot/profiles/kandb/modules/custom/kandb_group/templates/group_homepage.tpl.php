@@ -44,8 +44,8 @@ endif;
                                   <?php if (trim($value['title'])): ?>
                                     <li><a href="<?php print url($value['url']); ?>" title="<?php print trim($value['title']); ?>"><?php print trim($value['title']); ?></a></li>
                                   <?php endif; ?>
-
                                 <?php endforeach; ?>
+                                <li><a href="<?php print url('corporate/finance/presentation/en'); ?>" title="<?php print t('English version'); ?>"><?php print t('English version'); ?></a></li>
                               <?php endif; ?>
                           </ul>
                       </div>
