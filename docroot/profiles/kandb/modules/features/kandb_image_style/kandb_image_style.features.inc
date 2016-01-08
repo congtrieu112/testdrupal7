@@ -10,6 +10,21 @@
 function kandb_image_style_image_default_styles() {
   $styles = array();
 
+  // Exported image style: 560x365.
+  $styles['560x365'] = array(
+    'label' => '560x365',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 560,
+          'height' => 365,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: article_selection.
   $styles['article_selection'] = array(
     'label' => 'Article Selection (440x440)',

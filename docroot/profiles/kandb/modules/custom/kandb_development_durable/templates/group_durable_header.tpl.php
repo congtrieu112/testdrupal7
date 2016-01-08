@@ -16,7 +16,7 @@ if (isset($group_header['content']) && $group_header['content']) {
         for ($i = 0; $i < $number_cta; $i++) :
           $url = $title = $class = '';
           $cta = array();
-          $cta = variable_get('cta_group_activites_block_header_' . $i);
+          $cta = variable_get('cta_group_development_block_' . $i);
           if (isset($cta['url']) && isset($cta['title']) && $cta['url'] && $cta['title']):
             $url = $cta['url'];
             $title = $cta['title'];

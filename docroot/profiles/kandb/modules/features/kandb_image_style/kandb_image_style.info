@@ -6,6 +6,7 @@ version = 7.x-1.0
 dependencies[] = image
 dependencies[] = image_style_quality
 features[features_api][] = api:2
+features[image][] = 560x365
 features[image][] = article_selection
 features[image][] = bien_large__1380_x_600
 features[image][] = bien_more_info_programe_large_780_x_298
