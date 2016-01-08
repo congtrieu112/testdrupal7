@@ -37,6 +37,14 @@ endif;
                           <!-- [Responsive img] end-->
                       </div>
                       <div class="articleList__item__infos">
+                          <div class="lang">
+                            <nav class="wrapper">
+                              <ul>
+                                <li class="fr active"><a href="javascript:void(0)" title="<?php print t('Version française de la page'); ?>"><?php print t('fr'); ?></a></li>
+                                <li class="en"><a href="<?php print url('corporate/finance/presentation/en'); ?>" title="<?php print t('English version of the page'); ?>"><?php print t('en'); ?></a></li>
+                              </ul>
+                            </nav>
+                          </div>
                           <h4 class="articleList__item__infos__heading"><?php print $data['finance_block']['title']; ?></h4>
                           <ul class="articleList__item__infos__links">
                               <?php if (isset($data['finance_block']['cta'])): ?>
@@ -44,8 +52,8 @@ endif;
                                   <?php if (trim($value['title'])): ?>
                                     <li><a href="<?php print url($value['url']); ?>" title="<?php print trim($value['title']); ?>"><?php print trim($value['title']); ?></a></li>
                                   <?php endif; ?>
-
                                 <?php endforeach; ?>
+                                <li><a href="<?php print url('corporate/finance/presentation/en'); ?>" title="<?php print t('English version'); ?>"><?php print t('English version'); ?></a></li>
                               <?php endif; ?>
                           </ul>
                       </div>
