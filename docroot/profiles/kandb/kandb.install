@@ -966,11 +966,22 @@ function kandb_update_7194() {
   }
 }
 
+
 /**
  * Enable kandb_eu_cookie_compliance
  */
 function kandb_update_7195(&$sandbox) {
   if (!module_exists('kandb_eu_cookie_compliance')) {
     module_enable(array('kandb_eu_cookie_compliance'), TRUE);
+  }
+}
+        
+        
+/**
+ * Enable date_popup module
+ */
+function kandb_update_7196() {
+  if (!module_exists('date_popup')) {
+    module_enable(array('date_popup'), TRUE);
   }
 }
