@@ -668,24 +668,16 @@ function kandb_group_permission() {
 }
 
 function kandb_group_page() {
-  drupal_set_title(t('Communiqué de presse'));
-  $tid = 0;
-  $content_archives = array();
-  $page_title = t('Communiqué de presse');
-  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
-  if (isset($document_voca->vid)) {
-    $all_terms = taxonomy_get_tree($document_voca->vid);
-    if ($tid == 0 && !empty($all_terms)) {
-      $tid = $all_terms[0]->tid;
-    }
-    $base_archive = base_path() . 'corporate/archives/';
-    foreach ($all_terms as $term) {
-      if ($term->name == 'Communiqué de presse') {
-        $tid = $term->tid;
-      }
+  $document_type_tid = variable_get('group_actualites_document_type');
+  if (!$document_type_tid) {
+    $default_document_type = taxonomy_get_term_by_name('Actualités');
+    if (isset(array_values(taxonomy_get_term_by_name('Actualités'))[0])) {
+      $default_document_type = array_values(taxonomy_get_term_by_name('Actualités'))[0];
+      $document_type_tid = $default_document_type->tid;
     }
   }
-  $content_archives['tab_content'] = get_document_by_type($tid, 0);
+  $content_archives = array();
+  $content_archives['tab_content'] = get_document_by_type($document_type_tid, 0);
   return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }
 
