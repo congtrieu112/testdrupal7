@@ -965,3 +965,13 @@ function kandb_update_7194() {
     module_disable(array('kandb_alias_dossier_article'), FALSE);
   }
 }
+
+
+/**
+ * Enable date_popup module
+ */
+function kandb_update_7195() {
+  if (module_exists('date_popup')) {
+    module_disable(array('date_popup'), TRUE);
+  }
+}
