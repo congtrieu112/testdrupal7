@@ -1,7 +1,8 @@
 <?php
-if (isset($data['group_header'])):
-    print render($data['group_header']);
-endif;
+$actualites_header = module_invoke('bean', 'block_view', 'actualités-header');
+if (isset($actualites_header['content']) && $actualites_header['content']) {
+  print render($actualites_header['content']);
+}
 
 $class_first_block = 'active';
 $module_title = variable_get('group_actualites_module_title');

@@ -26,3 +26,13 @@ function kandb_xml_sitemap_update_7100(&$sandbox) {
     xmlsitemap_link_save($link);
   }
 }
+
+/**
+ * Remove some custom links from sitemap.xml
+ */
+function kandb_xml_sitemap_update_7101(&$sandbox) {
+  $db_query = db_delete('xmlsitemap');
+  $db_query->condition('xmlsitemap.type', 'custom');
+  $db_query->condition('xmlsitemap.loc', array('villes', 'departements', 'regions'), 'IN');
+  $db_query->execute();
+}
