@@ -56,7 +56,7 @@ function kandb_development_durable_menu() {
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_development_manage_form'),
     'file' => 'kandb_development_durable.admin.inc',
-    'access arguments' => array('administer K&B Contact settings'),
+    'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
 

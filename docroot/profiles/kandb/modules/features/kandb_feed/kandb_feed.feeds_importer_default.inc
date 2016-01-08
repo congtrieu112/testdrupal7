@@ -969,6 +969,89 @@ function kandb_feed_feeds_importer_default() {
   $feeds_importer = new stdClass();
   $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
   $feeds_importer->api_version = 1;
+  $feeds_importer->id = 'migration_program_import_v2';
+  $feeds_importer->config = array(
+    'name' => 'Migration program import v2',
+    'description' => 'Import programme_online_date from programme.csv',
+    'fetcher' => array(
+      'plugin_key' => 'KbFeedsHTTPFetcher',
+      'config' => array(
+        'auto_detect_feeds' => 0,
+        'use_pubsubhubbub' => 0,
+        'designated_hub' => '',
+        'request_timeout' => '',
+        'auto_scheme' => '',
+        'accept_invalid_cert' => 0,
+        'kb_url' => 'sites/default/files/import/Programme.csv',
+        'kb_url_type' => '0',
+      ),
+    ),
+    'parser' => array(
+      'plugin_key' => 'KbEncodingCSVParser',
+      'config' => array(
+        'delimiter' => '|',
+        'no_headers' => 0,
+      ),
+    ),
+    'processor' => array(
+      'plugin_key' => 'KbFeedsMiNodeProcessor',
+      'config' => array(
+        'expire' => '-1',
+        'author' => 0,
+        'authorize' => 1,
+        'related_importer' => array(
+          'migration_program_video_import' => 'migration_program_video_import',
+          'programme_feed_import' => 'programme_feed_import',
+          'kb_patrimoine_import' => 'kb_patrimoine_import',
+          'document_import_uk' => 0,
+          'node' => 0,
+          'user' => 0,
+          'city_feed_import' => 0,
+          'district_feed_import' => 0,
+          'document_import' => 0,
+          'document_import_communique_de_presse' => 0,
+          'maison_feed_import' => 0,
+          'migration_bien_import' => 0,
+          'parcel_feed_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
+        ),
+        'mappings' => array(
+          0 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'field_id_programme',
+            'unique' => FALSE,
+          ),
+          1 => array(
+            'source' => 'IdentifiantProgramme',
+            'target' => 'guid',
+            'unique' => 1,
+          ),
+          2 => array(
+            'source' => 'DateMiseEnLigne',
+            'target' => 'field_programme_online_date:start',
+            'unique' => FALSE,
+          ),
+        ),
+        'update_existing' => '2',
+        'update_non_existent' => 'skip',
+        'input_format' => 'plain_text',
+        'skip_hash_check' => 1,
+        'bundle' => 'programme',
+      ),
+    ),
+    'content_type' => '',
+    'update' => 0,
+    'import_period' => '-1',
+    'expire_period' => 3600,
+    'import_on_create' => 1,
+    'process_in_background' => 0,
+  );
+  $export['migration_program_import_v2'] = $feeds_importer;
+
+  $feeds_importer = new stdClass();
+  $feeds_importer->disabled = FALSE; /* Edit this to true to make a default feeds_importer disabled initially */
+  $feeds_importer->api_version = 1;
   $feeds_importer->id = 'migration_program_video_import';
   $feeds_importer->config = array(
     'name' => 'Migration program video import',
@@ -1000,18 +1083,21 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
-          'migration_program_import' => 'migration_program_import',
+          'migration_program_import_v2' => 'migration_program_import_v2',
           'programme_feed_import' => 'programme_feed_import',
+          'kb_patrimoine_import' => 'kb_patrimoine_import',
+          'document_import_uk' => 0,
+          'node' => 0,
+          'user' => 0,
           'city_feed_import' => 0,
           'district_feed_import' => 0,
           'document_import' => 0,
           'document_import_communique_de_presse' => 0,
-          'kb_patrimoine_import' => 0,
           'maison_feed_import' => 0,
           'migration_bien_import' => 0,
-          'node' => 0,
-          'user' => 0,
           'parcel_feed_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
         ),
         'mappings' => array(
           0 => array(
@@ -1474,10 +1560,10 @@ function kandb_feed_feeds_importer_default() {
         'author' => 0,
         'authorize' => 1,
         'related_importer' => array(
+          'migration_program_import_v2' => 'migration_program_import_v2',
           'kb_patrimoine_import' => 'kb_patrimoine_import',
-          'migration_program_import' => 'migration_program_import',
           'migration_program_video_import' => 'migration_program_video_import',
-          'parcel_feed_import' => 0,
+          'document_import_uk' => 0,
           'node' => 0,
           'user' => 0,
           'city_feed_import' => 0,
@@ -1486,6 +1572,9 @@ function kandb_feed_feeds_importer_default() {
           'document_import_communique_de_presse' => 0,
           'maison_feed_import' => 0,
           'migration_bien_import' => 0,
+          'parcel_feed_import' => 0,
+          'partenaire_import' => 0,
+          'partenaire_programme_import' => 0,
         ),
         'mappings' => array(
           0 => array(

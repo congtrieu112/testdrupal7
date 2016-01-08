@@ -323,7 +323,7 @@ function getListTidTaxonomyByName($bundle, $value) {
  */
 function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $logging = '';
-
+ 
   $totalItems = count($item);
   $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
 
@@ -1262,6 +1262,15 @@ function kb_feeds_menu() {
     'title' => 'Document import',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('feeds_errorlog_form', 'document_import_log'),
+    'access arguments' => array('administer content types'),
+    'type' => MENU_LOCAL_TASK,
+    'file' => 'kb_feeds.pages.inc',
+  );
+
+  $items['admin/reports/feeds_errorlog/migration-programme-import-v2'] = array(
+    'title' => 'Migration programme import v2',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('feeds_errorlog_form', 'migration_program_import_v2'),
     'access arguments' => array('administer content types'),
     'type' => MENU_LOCAL_TASK,
     'file' => 'kb_feeds.pages.inc',

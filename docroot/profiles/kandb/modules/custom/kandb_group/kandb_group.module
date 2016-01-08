@@ -420,12 +420,18 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
+    $content = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
     if ($date) {
-      $calenders[$date] = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
+      $calenders[$i] = array(
+        'date' => $date,
+        'content' => $content,
+      );
     }
   }
 
-  ksort($calenders);
+  usort($calenders, function($a, $b) {
+    return strtotime($a['date']) - strtotime($b['date']);
+  });
   $data['calenders'] = $calenders;
 
   // Component 4.
