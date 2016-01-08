@@ -19,9 +19,7 @@ function kandb_group_development_manage_form($form, $form_state) {
   $form['fieldset_group_development_block']['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
-    //'#tree' => TRUE,
-    '#collapsible' => TRUE,
-    '#collapsed' => TRUE,
+    '#tree' => TRUE,
   );
 
 
