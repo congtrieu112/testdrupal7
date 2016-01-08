@@ -184,7 +184,7 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = 'IdentifiantProgramme';
   $feeds_tamper->plugin_id = 'trim';
   $feeds_tamper->settings = array(
-    'mask' => '"',
+    'mask' => '1',
     'side' => 'trim',
   );
   $feeds_tamper->weight = 0;
