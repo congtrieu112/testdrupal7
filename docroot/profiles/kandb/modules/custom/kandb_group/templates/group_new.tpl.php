@@ -4,6 +4,8 @@ if (isset($data['group_header'])):
 endif;
 
 $class_first_block = 'active';
+$module_title = variable_get('group_actualites_module_title');
+$module_title = $module_title ? $module_title : t('Actualités');
 ?>
 
 <section class="wrapper section-padding ourAdvices">
@@ -34,7 +36,7 @@ $class_first_block = 'active';
 <section class="section-padding">
   <div class="wrapper">
     <header class="heading heading--bordered">
-      <h1 class="heading__title"><?php print t('Communiqué de presse'); ?></h1>
+      <h1 class="heading__title"><?php print $module_title; ?></h1>
     </header>
     <nav class="form-dropdown form-dropdown--responsive">
       <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print t('Les actualités'); ?><span aria-hidden="true" class="icon icon-expand"></span></button>
