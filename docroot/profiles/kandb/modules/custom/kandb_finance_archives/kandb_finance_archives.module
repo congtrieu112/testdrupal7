@@ -101,18 +101,25 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
           $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
         }
       }
-      $content_archives['tab_header'][$term->tid] = array(
-        'tab_title' => $term->name,
-        'tab_url' => $base_archive . $term->tid . '/' . $lang,
-        'class' => '',
-      );
+      $document = get_document_by_type($term->tid, $language_id);
+      if ($document) {
+        $content_archives['tab_header'][$term->tid] = array(
+          'tab_title' => $term->name,
+          'tab_url' => $base_archive . $term->tid . '/' . $lang,
+          'class' => '',
+        );
+      }
       if ($term->tid == $tid) {
         $content_archives['tab_header'][$term->tid]['class'] = 'active';
       }
     }
   }
   $content_archives['tab_content'] = get_document_by_type($tid, $language_id);
-  return theme('archive', array('content_archives' => $content_archives, 'page_title' => $page_title, 'pager' => theme('pager')));
+  return theme('archive', array(
+    'content_archives' => $content_archives, 
+    'page_title' => $page_title, 
+    'pager' => theme('pager')
+  ));
 }
 
 function get_document_by_type($tid = 0, $language_id = 0) {
