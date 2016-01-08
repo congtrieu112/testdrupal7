@@ -1,0 +1,9 @@
+name = Kandb EU cookie compliance
+description = Configure for EU Cookie Compliance module
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = eu_cookie_compliance
+dependencies[] = features
+features[features_api][] = api:2
+features[user_permission][] = display EU Cookie Compliance popup

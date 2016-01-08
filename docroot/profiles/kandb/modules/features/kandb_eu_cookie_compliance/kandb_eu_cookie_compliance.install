@@ -1,0 +1,56 @@
+<?php
+
+function kandb_eu_cookie_compliance_get_variable() {
+  $variables = array(
+    'eu_cookie_compliance_en' => array(
+      'popup_enabled' => 1,
+      'popup_clicking_confirmation' => 0,
+      'popup_position' => 0,
+      'popup_agree_button_message' => 'Close X',
+      'popup_disagree_button_message' => 'Learn more',
+      'popup_info' => array(
+        'value' => '<h2>Privace and cookies</h2>
+  <p>We use cookies to provide you with an innovative and exciting website. By clicking on \'Close\', you agree to allow the use of cookies on our website.</p>',
+        'format' => 'simple',
+      ),
+      'popup_agreed_enabled' => 0,
+      'popup_hide_agreed' => 0,
+      'popup_find_more_button_message' => 'More info',
+      'popup_hide_button_message' => 'Hide',
+      'popup_agreed' => array(
+        'value' => '<h2>Thank you for accepting cookies</h2>
+  <p>You can now hide this message or find out more about cookies.</p>',
+        'format' => 'simple',
+      ),
+      'popup_link' => 'https://en.wikipedia.org/wiki/HTTP_cookie',
+      'popup_link_new_window' => 1,
+//    'popup_height' => 
+      'popup_width' => '100%',
+      'popup_delay' => 1,
+      'popup_bg_hex' => 'ffffff',
+      'popup_text_hex' => 000000,
+      'domains_option' => 1,
+    ),
+  );
+  return $variables;
+}
+
+/**
+ * Implementation of hook_install()
+ */
+function kandb_eu_cookie_compliance_install(){
+  $variables = kandb_eu_cookie_compliance_get_variable();
+  foreach ($variables as $key => $value) {
+    variable_set($key, $value);
+  }
+}
+
+/**
+ * Implementation of hook_uninstall()
+ */
+function kandb_eu_cookie_compliance_uninstall(){
+  $variables = kandb_eu_cookie_compliance_get_variable();
+  foreach ($variables as $key => $value) {
+    variable_del($key);
+  }
+}

@@ -965,3 +965,12 @@ function kandb_update_7194() {
     module_disable(array('kandb_alias_dossier_article'), FALSE);
   }
 }
+
+/**
+ * Enable kandb_eu_cookie_compliance
+ */
+function kandb_update_7195(&$sandbox) {
+  if (!module_exists('kandb_eu_cookie_compliance')) {
+    module_enable(array('kandb_eu_cookie_compliance'), TRUE);
+  }
+}
