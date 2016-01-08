@@ -392,14 +392,27 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 </ul>
 
                 <ul class="toolsList">
+                    <?php
+                        $url = kandb_contact_get_telechargement_documents_url();
+                    ?>
                     <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
 
                     <?php if (!empty($plaquette_commerciale)): ?>
-                      <li><a href="<?php print $plaquette_commerciale; ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger la plaquette"); ?></span></a></li>
+                      <li>
+                          <a href="<?php print $url.'?contenttype=bien&type=txt' ; ?>" class="btn-white" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                              <span class="icon icon-flyer"></span>
+                              <span class="text"><?php print t("Télécharger la plaquette"); ?></span>
+                          </a>
+                      </li>
                     <?php endif; ?>
 
                     <?php if (isset($node->field_bien_plan[LANGUAGE_NONE][0]['uri'])) : ?>
-                      <li><a href="<?php print file_create_url($node->field_bien_plan[LANGUAGE_NONE][0]['uri']); ?>" class="btn-white"><span class="icon icon-flyer"></span><span class="text"><?php print t("Télécharger le plan"); ?></span></a></li>
+                      <li>
+                          <a href="<?php print $url.'?contenttype=bien' ; ?>" class="btn-white" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                              <span class="icon icon-flyer"></span>
+                              <span class="text"><?php print t("Télécharger le plan"); ?></span>
+                          </a>
+                      </li>
                     <?php endif; ?>
 
                     <?php if (kandb_check_filled_form_contact($programme)): ?>

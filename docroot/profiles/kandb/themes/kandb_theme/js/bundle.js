@@ -37414,7 +37414,7 @@ AppAccordion.prototype = {
               duration: 500,
               progress: function(elements, complete, remaining, start, tweenValue) {
                 if( Foundation.utils.is_small_only() ) {
-                  var linkPosition    = $this.offset().top,
+                  var linkPosition    = $this.closest('.accordion__link').offset().top,
                       windowPosition  = $(window).scrollTop(),
                       moveTo          = linkPosition - 100 - windowPosition,
                       value           = windowPosition + moveTo * complete;
@@ -38041,8 +38041,11 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
 
 
 // ajax callbacks
-$(document).on('ajaxComplete', function(e){
+$(document).on('ajaxComplete', function(e, xhr, settings){
+  console.log("ajaxComplete");
+
   // reinit all App methods
+  //App.launchUpdaters(e, xhr);
   App.launchUpdaters();
 });
 
@@ -38769,6 +38772,28 @@ App.form = function() {
 
 
   $('form').find('.label-checkbox > span').addClass('needsclick');
+
+
+  // INPUT FILE STYLING
+  var inputFileBind = function($inputFile) {
+    $inputFile.off('change.inputFile').on('change.inputFile', function(e) {
+      var $this = $(this),
+          value = $this.val();
+      $this.prev('[data-fake-file]').val( value.split('\\').pop() );
+    });
+  };
+
+  $('form').find('.form-file').each(function(){
+    var $this = $(this),
+        thisName = $this.attr('name'),
+        fakeInput = '<input type="text" readonly data-fake-file id="fake-'+ thisName +'" placeholder="Choisissez un fichier">';
+
+    // create fake input
+    $this.before(fakeInput);
+
+    // binding
+    inputFileBind($this);
+  });
 
 };
 
@@ -39588,7 +39613,7 @@ App.updaters.appSeeMore = function() {
 var trigger = 'select[data-app-select]';
 
 App.appComboSelect = function() {
-  $(trigger)
+  $(document).find(trigger)
     .comboSelect({
         comboClass         : 'combo-select', /* outer container class */
         comboArrowClass    : 'combo-select-arrow', /* arrow class */
@@ -39622,10 +39647,10 @@ App.appComboSelect = function() {
     });
 };
 
-App.appComboSelect();
+App.appComboSelect(trigger);
 
 // auto refresh after ajax response
-App.updaters.appComboSelect = function() {
+App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
 },{}],31:[function(require,module,exports){
@@ -40650,10 +40675,17 @@ _.merge(window.App.settings, window.Drupal.settings.kandb_settings);
 
 
 // refresh functions after ajax response
-App.launchUpdaters = function(obj){
-  var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
+/*App.launchUpdaters = function(e, xhr){
+  //var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
   $.each( App.updaters , function( key, value ) {
-    App.updaters[key](_obj);
+    App.updaters[key]( xhr, $(xhr.responseText) );
+  });
+};*/
+
+App.launchUpdaters = function(){
+  //var _obj = ( typeof(obj) === "undefined" ) ? document.body : obj ;
+  $.each( App.updaters , function( key, value ) {
+    App.updaters[key](  );
   });
 };
 

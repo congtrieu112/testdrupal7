@@ -191,7 +191,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/recrutement'] = array(
-    'title' => 'RH - Recrutement',
+    'title' => 'Recrutement',
     'page callback' => 'render_group_rh_recrutement',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -199,7 +199,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/nos-metiers'] = array(
-    'title' => 'RH - Explorer nos métiers',
+    'title' => 'Explorer nos métiers',
     'page callback' => 'render_group_rh_explorer_nos_metiers',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -207,7 +207,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/votre-carriere'] = array(
-    'title' => 'RH - Votre carrière',
+    'title' => 'Votre carrière',
     'page callback' => 'render_group_rh_votre_carriere',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -215,7 +215,7 @@ function kandb_group_menu() {
   );
 
   $items['corporate/ressources-humaines/postuler'] = array(
-    'title' => 'RH -  Postuler',
+    'title' => 'Postuler',
     'page callback' => 'render_group_rh_postuler',
     'type' => MENU_CALLBACK,
     'access callback' => TRUE,
@@ -420,12 +420,18 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
+    $content = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
     if ($date) {
-      $calenders[$date] = variable_get('finance_publication_calendrier_content_' . $current_lang . '_' . $i);
+      $calenders[$i] = array(
+        'date' => $date,
+        'content' => $content,
+      );
     }
   }
 
-  ksort($calenders);
+  usort($calenders, function($a, $b) {
+    return strtotime($a['date']) - strtotime($b['date']);
+  });
   $data['calenders'] = $calenders;
 
   // Component 4.
@@ -615,8 +621,9 @@ function render_group_rh_votre_carriere() {
  * Implement render page RH postuler.
  */
 function render_group_rh_postuler() {
-  $data = array();
-  return theme('group_rh_postuler', array('data' => $data));
+  $vars = array();
+  $vars['view'] = views_embed_view('nos_derni_res_offres_d_emploi', 'page');
+  return theme('group_rh_postuler', $vars);
 }
 
 function kandb_group_get_image_uri($image_id) {

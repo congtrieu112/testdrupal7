@@ -10,7 +10,8 @@ if(array_key_exists(arg(3), $content_archives['tab_header'])):
     $data = $content_archives['tab_header'][arg(3)];
     $title = $data['tab_title'];
 else :
-    $title =  t('Les actualités');
+    $data = array_shift(array_values($content_archives['tab_header']));
+    $title = $data['tab_title'];
 endif;
 
 print theme('finance_header_block');

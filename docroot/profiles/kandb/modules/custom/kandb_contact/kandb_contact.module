@@ -414,8 +414,16 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             }
             break;
           case $webform_id_telechargement_documents:
-            $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
-            $form['submitted']['ma_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            $parram = drupal_get_query_parameters();
+            if($parram['contenttype'] == 'bien'){
+                $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
+                $form['submitted']['ma_idkp']["#value"] = (!empty($id_bien)) ? $id_bien : '';
+            }else{
+                $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
+                $form['submitted']['ma_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            }
+
+            $form['#submit'][] = 'telechargement_documents_download_header';
               break;
           default:
             break;
@@ -677,4 +685,66 @@ function kandb_contact_get_telechargement_documents_url () {
   }
   $url = url('node/'. $webform_telechargement_documents->nid);
   return $url;
+}
+function telechargement_documents_download_header($form, $form_state){
+    $parram = drupal_get_query_parameters();
+    if ($parram['contenttype'] == 'bien'){
+        $field = 'field_id_bien';
+    } else //programme
+    {
+        $field = 'field_id_programme';
+    }
+    $query = new EntityFieldQuery();
+    $query->entityCondition('entity_type', 'node')
+        ->fieldCondition($field, 'value', $form['submitted']['ma_idkp']['#default_value'], '=');
+    $result = $query->execute();
+    if (!empty($result['node'])) {
+            $nid = key($result['node']);
+    }
+    $node = node_load($nid);
+    $real_path = drupal_realpath('public://');
+    if ($parram['contenttype'] == 'bien') {
+        if(isset($parram['type']) && $parram['type'] == 'txt'){
+            $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
+            if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'])) {
+                $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
+                $fileName = $programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'];
+                $filePath = $real_path . '/' . $fileName;;
+            }
+        } else {
+            //get link zip file
+            $fileName = $node->field_bien_plan['und'][0]['filename'];
+            $filePath = $real_path . '/' . $fileName;
+        }
+    } else {
+        if (isset($parram['download']) && $parram['download'] == 'zip') {
+            $addMore = '_';
+            $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+            if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
+                $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+            }
+        }
+        else {
+            //download txt
+            $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
+            $filePath = $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
+        }
+    }
+    if ($filePath) {
+        if (file_exists($filePath)) {
+            // http headers for zip downloads
+            header("Pragma: public");
+            header("Expires: 0");
+            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+            header("Cache-Control: public");
+            header("Content-Description: File Transfer");
+            header("Content-type: application/octet-stream");
+            header("Content-Disposition: attachment; filename=\"".$fileName."\"");
+            header("Content-Transfer-Encoding: binary");
+            header("Content-Length: ".filesize($filePath));
+            ob_end_flush();
+            @readfile($filePath);
+            exit();
+        }
+    }
 }

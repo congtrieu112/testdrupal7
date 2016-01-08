@@ -47,6 +47,62 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse_uk-kbdocumenttype-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse_uk';
+  $feeds_tamper->source = 'KbDocumentType';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => 'Communiqué de presse',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse_uk-kbdocumenttype-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse_uk-kblanguage-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse_uk';
+  $feeds_tamper->source = 'KbLanguage';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => '1',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse_uk-kblanguage-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse_uk-kbstatus-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse_uk';
+  $feeds_tamper->source = 'KbStatus';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => '1',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse_uk-kbstatus-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'document_import_communique_de_presse_uk-lienfichier-rewrite';
+  $feeds_tamper->importer = 'document_import_communique_de_presse_uk';
+  $feeds_tamper->source = 'LienFichier';
+  $feeds_tamper->plugin_id = 'rewrite';
+  $feeds_tamper->settings = array(
+    'text' => 'public:/[lienfichier]',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Rewrite';
+  $export['document_import_communique_de_presse_uk-lienfichier-rewrite'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'maison_feed_import-10-find_replace';
   $feeds_tamper->importer = 'maison_feed_import';
   $feeds_tamper->source = '10';
@@ -128,7 +184,7 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = 'IdentifiantProgramme';
   $feeds_tamper->plugin_id = 'trim';
   $feeds_tamper->settings = array(
-    'mask' => '"',
+    'mask' => '1',
     'side' => 'trim',
   );
   $feeds_tamper->weight = 0;

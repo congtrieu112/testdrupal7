@@ -42,6 +42,7 @@
  *
  * @ingroup themeable
  */
+  global $base_url;
 ?><!DOCTYPE html >
 <html lang="fr" class="no-js">
 
@@ -62,7 +63,7 @@
       var mtTracking = document.createElement('script');
       mtTracking.type='text/javascript';
       mtTracking.async='true';
-      mtTracking.src='assets/fonts/mtiFontTrackingCode.js';
+      mtTracking.src='<?php print $base_url; ?>/profiles/kandb/themes/kandb_theme/assets/fonts/mtiFontTrackingCode.js';
 
       (document.getElementsByTagName('head')[0]||document.getElementsByTagName('body')[0]).appendChild(mtTracking);
     })();

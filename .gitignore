@@ -9,3 +9,4 @@ docroot/sites/default/settings.local.php
 
 # Ignore index.php
 docroot/index.php
+.idea/

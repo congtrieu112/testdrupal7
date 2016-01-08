@@ -81,7 +81,7 @@
  */
 ?>
 <ul class="mySelectionsProgrammes__actions">
-  <li data-app-accordion-link="#programme<?php print $id; ?>" role="button" class="active display-status"><span class="show-for-sr">fermer</span></li>
+  <li data-app-accordion-link="#programme<?php print $id; ?>" role="button" class="<?php if($id == 1) print 'active'; ?> display-status"><span class="show-for-sr">fermer</span></li>
   <li data-cookie="programme" data-cookie-remove="<?php print $node->nid; ?>" data-cookie-callback="removeSelection" role="button" class="display-status display-status--suppr"><span class="show-for-sr">Supprimer le programme de vos sélections</span></li>
 </ul>
 <article id="programme<?php print $id; ?>" class="mySelectionsProgramme">

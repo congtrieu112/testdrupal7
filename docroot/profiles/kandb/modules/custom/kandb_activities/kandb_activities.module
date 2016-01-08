@@ -120,6 +120,7 @@ function render_group_activities_habitat() {
         $nodes = kandb_activities_get_habitat_node($tree[0]->tid);
         $data['nodes'] = $nodes;
         $data['active'] = $tree[0]->tid;
+        $data['term_name'] = $tree[0]->name;
       }
     }
   }
@@ -160,6 +161,8 @@ function render_group_activities_habitat_by_term($tid) {
         $nodes = kandb_activities_get_habitat_node($tid);
         $data['nodes'] = $nodes;
         $data['active'] = $tid;
+        $tax_type = taxonomy_term_load($tid);
+        $data['term_name'] = isset($tax_type->name) ? $tax_type->name : '';
       }
     }
   }
@@ -212,4 +215,28 @@ function kandb_activities_habitat_validate(&$form, &$form_state) {
     $ville = taxonomy_term_load($vals['field_habitat_ville'][LANGUAGE_NONE][0]['tid']);
     $form_state['values']['title'] = $code_postal . ' ' . $ville->name;
   }
+}
+
+/**
+ * Alter image Title for field_top_image instance.
+ */
+function kandb_activities_field_widget_form_alter(&$element, &$form_state, $context) {
+  // If this is an image field type of instance 'field_image_top'
+  if ($context['field']['type'] == 'image') {
+    // Loop through the element children (there will always be at least one).
+    foreach (element_children($element) as $key => $child) {
+      // Add the new process function to the element
+      $element[$key]['#process'][] = 'kandb_activities_image_field_widget_process';
+    }
+  }
+}
+
+/**
+ * Change the title field label.
+ */
+function kandb_activities_image_field_widget_process($element, &$form_state, $form) {
+  $element['title']['#title'] = t('Image Title');
+
+  // Return the altered element
+  return $element;
 }

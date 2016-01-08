@@ -17,7 +17,7 @@ $iframe_url = $base_url . '/nos-outils/simulateur-capacite-achat-fnfg';
   <div class="swapItem">
     <div class="swapItem__1">
     <div class="wrapper--medium-up">
-        <div class="iframe iframe--video-de-quartier">
+        <div class="iframe iframe--scrollMobile" style="min-height: 400px">
           <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
         </div>
     </div>
