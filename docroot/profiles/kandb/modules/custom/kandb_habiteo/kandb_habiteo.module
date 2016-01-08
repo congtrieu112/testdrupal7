@@ -383,6 +383,10 @@ function kandb_habiteo_import_bien($path, $programme_id) {
  * Import programme_habiteo_id into programmes CT.
  */
 function kandb_habiteo_import_programme() {
+  // Clean Habiteo Bien ID.
+  db_truncate('field_data_field_bien_habiteo_id')->execute();
+  db_truncate('field_revision_field_bien_habiteo_id')->execute();
+  
   $habiteo_feed_url = variable_get('habiteo_feed_url', '');
   $habiteo_feed_token = variable_get('habiteo_feed_token', '');
   $file_log_name = 'habiteo_programme' . '_log_' . date('Y-m-d') . '.txt';
