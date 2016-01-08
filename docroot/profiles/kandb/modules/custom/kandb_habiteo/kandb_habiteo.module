@@ -205,6 +205,8 @@ function drupal_add_existing_file($file_drupal_path, $uid = 1, $status = 1) {
  * Update field_programme_habiteo_id when field_id_programme has exist.
  */
 function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'programme') {
+  $habiteo_feed_url = variable_get('habiteo_feed_url', '');
+  $habiteo_feed_token = variable_get('habiteo_feed_token', '');
   $file_log_name = 'habiteo_programme' . '_log_' . date('Y-m-d') . '.txt';
   $query = new EntityFieldQuery();
 
@@ -213,18 +215,19 @@ function kandb_habiteo_update_programe($id, $habiteo_id, $bon_plan, $type = 'pro
     ->fieldCondition('field_id_programme', 'value', $id, '=');
 
   $result = $query->execute();
-
   if (isset($result['node'])) {
     $items_nids = array_keys($result['node']);
     $items = entity_load('node', $items_nids);
     if ($items) {
       foreach ($items as $item) {
+        $path_bien = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?id=' . $habiteo_id;
         $item->field_programme_habiteo_id[LANGUAGE_NONE][0]['value'] = $habiteo_id;
         $item->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'] = $bon_plan;
         $item->flag_habiteo = 1;
         node_save($item);
         $logging = $habiteo_id . '|programme|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
         createFileErrorLogTxt($file_log_name, $logging);
+        kandb_habiteo_import_bien($path_bien, $item->nid);
       }
     }
   } else {
@@ -287,13 +290,14 @@ function render_test_habiteo_bien() {
 /**
  * Update field_bien_habiteo_id when field_id_bienhas exist.
  */
-function kandb_habiteo_update_bien($id, $habiteo_id, $images, $type = 'bien') {
+function kandb_habiteo_update_bien($id, $habiteo_id, $images, $visite, $programme_id, $type = 'bien') {
 
   $file_log_name = 'habiteo_bien' . '_log_' . date('Y-m-d') . '.txt';
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'bien')
+    ->fieldCondition('field_programme', 'target_id', $programme_id)
     ->fieldCondition('field_numero_lot', 'value', $id, '=');
   $result = $query->execute();
 
@@ -311,6 +315,9 @@ function kandb_habiteo_update_bien($id, $habiteo_id, $images, $type = 'bien') {
         $item->flag_habiteo = 1;
         if (isset($file->fid)) {
           $item->field_image_principale[LANGUAGE_NONE]['0']['fid'] = $file->fid;
+        }
+        if (isset($item->field_bien_habiteo_visite)) {
+          $item->field_bien_habiteo_visite[LANGUAGE_NONE][0]['value'] = $visite;
         }
         node_save($item);
         $logging = $habiteo_id . '|bien|' . 'Success import' . '|' . 'nid:' . $item->nid . "\n";
@@ -344,7 +351,7 @@ function kandb_habiteo_cronapi($op, $job = NULL) {
 /**
  * Import bien_habiteo_id into bien CT.
  */
-function kandb_habiteo_import_bien($path) {
+function kandb_habiteo_import_bien($path, $programme_id) {
   $file_log_name = 'habiteo_bien' . '_log_' . date('Y-m-d') . '.txt';
   $request = drupal_http_request($path);
   if (isset($request->data)) {
@@ -354,7 +361,7 @@ function kandb_habiteo_import_bien($path) {
         if (!isset($item->error)) {
           if ($item->id_partenaire) {
             // Import bien.
-            kandb_habiteo_update_bien($item->id_partenaire, $item->id, $item->images);
+            kandb_habiteo_update_bien($item->id_partenaire, $item->id, $item->images, $item->visite, $programme_id);
           } else {
             $item_id = isset($item->id) ? $item->id : 'null';
             $logging = $item_id . '|bien|' . 'id_partenaire is null' . '|' . $path . "\n";
@@ -376,6 +383,10 @@ function kandb_habiteo_import_bien($path) {
  * Import programme_habiteo_id into programmes CT.
  */
 function kandb_habiteo_import_programme() {
+  // Clean Habiteo Bien ID.
+  db_truncate('field_data_field_bien_habiteo_id')->execute();
+  db_truncate('field_revision_field_bien_habiteo_id')->execute();
+  
   $habiteo_feed_url = variable_get('habiteo_feed_url', '');
   $habiteo_feed_token = variable_get('habiteo_feed_token', '');
   $file_log_name = 'habiteo_programme' . '_log_' . date('Y-m-d') . '.txt';
@@ -394,8 +405,6 @@ function kandb_habiteo_import_programme() {
             $logging = $item_id . '|programme|' . 'id_partenaire is null' . '|' . $path . "\n";
             createFileErrorLogTxt($file_log_name, $logging);
           }
-          $path_bien = $habiteo_feed_url . '/' . $habiteo_feed_token . '/lots?id=' . $item->id;
-          kandb_habiteo_import_bien($path_bien);
         }
       } else {
         $logging = 'URL' . '|programme|' . 'URL not exist data' . '|' . $path . "\n";
