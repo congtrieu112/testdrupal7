@@ -195,14 +195,17 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <ul class="characteristicList">
                     <?php
                     $vocabulary_name = 'caracteristiques_programme';
-                    $flag_etages = $flag_chauffage = TRUE;
+                    $flag_chauffage = TRUE;
+                    $flag_etages = FALSE;
                     if ($caracteristiques):
                       foreach ($caracteristiques as $caracteristique):
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages")
-                              $flag_etages = FALSE;
+                            if ($carac_term->name == "Etages") :
+                                $flag_etages = TRUE;
+                                break;
+                            endif;
                             if ($carac_term->name == "Chauffage"):
                               $flag_chauffage = FALSE;
                               if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
