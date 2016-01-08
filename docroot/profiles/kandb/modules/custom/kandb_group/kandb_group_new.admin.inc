@@ -56,6 +56,20 @@ function kandb_group_new_admin_form($form, $form_state) {
     'kandb_group_new'
   );
   
+  $form['group_actualites_module_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Module Title'),
+    '#default_value' => variable_get('group_actualites_module_title'),
+    '#required' => TRUE,
+  );
+  $form['group_actualites_document_type'] = array(
+    '#type' => 'select',
+    '#title' => t('Document Type'),
+    '#options' => taxonomy_allowed_values(field_info_field('field_document_type')),
+    '#default_value' => variable_get('group_actualites_document_type'),
+    '#required' => TRUE,
+  );
+  
   return system_settings_form($form);
 }
 

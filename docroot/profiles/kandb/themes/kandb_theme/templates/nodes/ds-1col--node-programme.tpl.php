@@ -195,14 +195,17 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <ul class="characteristicList">
                     <?php
                     $vocabulary_name = 'caracteristiques_programme';
-                    $flag_etages = $flag_chauffage = TRUE;
+                    $flag_chauffage = TRUE;
+                    $flag_etages = FALSE;
                     if ($caracteristiques):
                       foreach ($caracteristiques as $caracteristique):
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages")
-                              $flag_etages = FALSE;
+                            if ($carac_term->name == "Etages") :
+                                $flag_etages = TRUE;
+                                break;
+                            endif;
                             if ($carac_term->name == "Chauffage"):
                               $flag_chauffage = FALSE;
                               if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
@@ -379,25 +382,6 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <iframe src="" data-src="<?php print $habiteo_vue_generale_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
             </div>
           <?php endif; ?>
-      </div>
-  </section>
-<?php endif; ?>
-<!-- [3rd party: vue-generale] start-->
-<!-- [3rd party: vue-generale] start-->
-<?php if ($habiteo_id && $bon_plan == 0): ?>
-  <section class="section-padding show-for-medium-up" id="Vue3D" >
-      <div class="wrapper">
-          <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print t('Découvrez la plan de masse 3D'); ?></h2>
-          </header>
-          <?php if ($habiteo_id): ?>
-            <div class="iframe iframe--vue-generale">
-                <iframe src="" data-src="<?php print $habiteo_plan_3d_url; ?>?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-            </div>
-          <?php endif; ?>
-          <div class="content-centered">
-              <?php // TODO : // <p>Le quartier des Batignolles a conservé des allures de village avec ses petits commerces, ses galeries d'art et ses nombreux espaces verts qui en font l'un des plus charmants de Paris.</p>    ?>
-          </div>
       </div>
   </section>
 <?php endif; ?>

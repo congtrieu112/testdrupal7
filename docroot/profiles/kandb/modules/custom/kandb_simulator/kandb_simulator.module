@@ -3,7 +3,7 @@
 define('NUMBER_SIMULATOR', 4);
 //Similator page
 define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Calculer votre capacité d’achat'), t('Estimer les mensualités de remboursement'), t('Simuler vos droits au PTZ+'), t('Simuler mon investissement avec la loi Pinel'))));
-define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_LINKS', serialize(array('nos-outils/simulateur-capacite-achat', 'nos-outils/simulateur-mensualites-remboursement', 'nos-outils/simulateur-droits-ptz', 'nos-outils/simulateur-loi-pinel')));
+define('KANDB_SIMULATOR_HEADER_MENU_DEFAULT_LINKS', serialize(array('nos-outils/simulateur-frais-notaire', 'nos-outils/simulateur-mensualites-remboursement', 'nos-outils/simulateur-droits-ptz', 'nos-outils/simulateur-loi-pinel')));
 
 /**
  * Implementation of hook_menu()
@@ -17,7 +17,7 @@ function kandb_simulator_menu() {
       'access callback' => TRUE,
       'type' => MENU_NORMAL_ITEM,
   );
-  $items['nos-outils/simulateur-capacite-achat'] = array(
+  $items['nos-outils/simulateur-frais-notaire'] = array(
       'title' => 'simulator capacite achat',
       'page callback' => 'render_simulator_capacite_achat',
       'access callback' => TRUE,
@@ -61,7 +61,7 @@ function kandb_simulator_menu() {
       'access callback' => TRUE,
       'type' => MENU_CALLBACK,
   );
-  
+
   $items['nos-outils/simulateur-capacite-achat-fnfg'] = array(
       'title' => 'simulator capacite achat fnfg',
       'page callback' => 'render_simulator_capacite_achat_fnfg',
@@ -116,7 +116,7 @@ function render_simulator_loi_pinel() {
  * Render simulator capacite achat fnfg.
  */
 function render_simulator_capacite_achat_fnfg() {
-  
+
   print theme('simulator_capacite_achat_fnfg', array());
   drupal_exit();
 
@@ -127,7 +127,7 @@ function render_simulator_capacite_achat_fnfg() {
  * Render simulator mensualites remboursement calcfin.
  */
 function render_simulateur_mensualites_remboursement_calcfin () {
-  
+
   print theme('simulateur_mensualites_remboursement_calcfin', array());
   drupal_exit();
 
