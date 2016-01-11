@@ -5,8 +5,8 @@
 -->
 <?php drupal_set_title(''); ?>
 <?php
-  $title_sub = render($content['field_hp_block_search_stitle']);
-  $bien_total = get_total_bien_by_status_site();
+$title_sub = render($content['field_hp_block_search_stitle']);
+$bien_total = get_total_bien_by_status_site();
 ?>
 <section data-interchange="[<?php print image_style_url('hp_search_block_mobile', $content['field_hp_block_search_img_mob']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('hp_search_block', $content['field_hp_block_search_img_des']['#items'][0]['uri']); ?>, (medium)]" class="homepage__search">
     <div class="wrapper">
@@ -23,21 +23,21 @@
 <section class="wrapper section-padding">
     <header class="heading heading--bordered">
         <h2 class="heading__title">
-        <?php
+            <?php
             if (isset($content['field_hp_block_offer_titre'])) :
-                print render($content['field_hp_block_offer_titre']);
+              print render($content['field_hp_block_offer_titre']);
             else :
-                print variable_get('kandb_bloc_default_offre_title_homepage', '');
+              print variable_get('kandb_bloc_default_offre_title_homepage', '');
             endif;
-        ?>
+            ?>
         </h2>
         <p class="heading__title heading__title--sub">
             <?php
-                if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
-                    print $content['field_hp_block_offer_stitre'][0]['#markup'];
-                else :
-                    print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
-                endif;
+            if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
+              print $content['field_hp_block_offer_stitre'][0]['#markup'];
+            else :
+              print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
+            endif;
             ?>
         </p>
     </header>
@@ -70,3 +70,17 @@
     </div>
 </section>
 <!-- [homeDocs] end-->
+<!-- [references] start-->
+<section class="wrapper section-padding">
+    <header class="heading heading--bordered">
+        <h2 class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></h2>
+        <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre'][0]['#markup']); ?></p>
+    </header>
+    <?php print render($content['habitat_carousel']); ?>
+    <div class="btn-wrapper btn-wrapper--center">
+        <a href="<?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['url']) ? url($content['field_hp_block_cta_habitat']['#items'][0]['url']) : ''; ?>" class="btn-rounded btn-primary"><?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['title']) ? $content['field_hp_block_cta_habitat']['#items'][0]['title'] : ''; ?>
+            <span class="icon icon-arrow"></span>
+        </a>
+    </div>
+</section>
+<!-- [references] end-->
