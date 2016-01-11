@@ -56,6 +56,22 @@ function kandb_homepage_ds_custom_fields_info() {
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
+  $ds_field->field = 'habitat_carousel';
+  $ds_field->label = 'Habitat Carousel';
+  $ds_field->field_type = 6;
+  $ds_field->entities = array(
+    'bean' => 'bean',
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = '';
+  $ds_field->properties = array(
+    'block' => 'views|habitat_carrousel-block',
+    'block_render' => '3',
+  );
+  $export['habitat_carousel'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
   $ds_field->field = 'hp_block_conseil_big';
   $ds_field->label = 'Dossier - Big teaser';
   $ds_field->field_type = 6;

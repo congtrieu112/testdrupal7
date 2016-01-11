@@ -15,6 +15,7 @@ features[ctools][] = ds:ds:1
 features[ctools][] = field_group:field_group:1
 features[ctools][] = strongarm:strongarm:1
 features[ds_field_settings][] = node|homepage|default
+features[ds_fields][] = habitat_carousel
 features[ds_fields][] = hp_block_conseil_big
 features[ds_fields][] = hp_block_conseil_small
 features[ds_fields][] = hp_block_offre
