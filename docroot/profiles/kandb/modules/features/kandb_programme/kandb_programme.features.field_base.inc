@@ -314,6 +314,27 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'text_long',
   );
 
+  // Exported field_base: 'field_espace_vente_label'
+  $field_bases['field_espace_vente_label'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_espace_vente_label',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_espace_vente_latitude'
   $field_bases['field_espace_vente_latitude'] = array(
     'active' => 1,
