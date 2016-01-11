@@ -210,6 +210,9 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                               $flag_chauffage = FALSE;
                               if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
                                 $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                                if($chauffage) :
+                                   $carac_term->name = $chauffage->name;
+                                endif;
                               endif;
                             endif;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
@@ -241,7 +244,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                           $chauffage = taxonomy_term_load($chauffage[0]['tid']);
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                          print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                          print '<span class="text">' . $chauffage->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                           print '</li>';
                         endif;
                       endif;
