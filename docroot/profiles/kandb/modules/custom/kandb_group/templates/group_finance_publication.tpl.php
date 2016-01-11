@@ -119,9 +119,12 @@ print theme('finance_header_block');
                                         <?php if ($field_document_file) : ?>
                                           <ul class="communiquesDocs__list">
                                               <?php foreach ($field_document_file as $file) : ?>
+                                                <?php
+                                                $filename = str_replace('.pdf', '', $file['filename']);
+                                                ?>
                                                 <li>
-                                                    <div class="communiquesDocs__list__title"><span><?php print $file['filename']; ?></span></div>
-                                                    <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print $file['filename']; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                                                    <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
+                                                    <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
                                                 </li>
                                               <?php endforeach; ?>
                                           </ul>
