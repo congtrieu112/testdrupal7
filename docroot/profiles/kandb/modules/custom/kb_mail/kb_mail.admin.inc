@@ -16,6 +16,20 @@ function config_mailing_list() {
       '#default_value' => variable_get('kb_call_center_sender_mail', ''),
       '#required' => TRUE,
     );
+    $form['kb_call_center_reply_name'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Reply name'),
+      '#description' => t('The name of reply.'),
+      '#default_value' => variable_get('kb_call_center_reply_name', ''),
+      '#required' => TRUE,
+    );
+    $form['kb_call_center_reply_mail'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Reply mail'),
+      '#description' => t('The email of reply.'),
+      '#default_value' => variable_get('kb_call_center_reply_mail', ''),
+      '#required' => TRUE,
+    );
     $form['kb_call_center_mailing_list'] = array(
       '#type' => 'textarea',
       '#title' => t('Mailing list'),
