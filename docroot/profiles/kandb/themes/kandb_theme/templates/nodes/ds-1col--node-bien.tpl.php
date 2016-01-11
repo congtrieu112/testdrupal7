@@ -565,6 +565,7 @@ if (!empty($list_bien_more)):
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
+                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m<sup>2</sup>' : ''  ?></li>
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
@@ -599,7 +600,6 @@ if (!empty($list_bien_more)):
                                                     <?php endif; ?>
                                                 </ul>
                                             </li>
-                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m<sup>2</sup>' : ''  ?></li>
                                             <li class="item-exhibit">
                                                 <?php
                                                 if (isset($bien_more->field_etage[LANGUAGE_NONE][0])) {

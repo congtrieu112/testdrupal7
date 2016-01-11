@@ -151,6 +151,9 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                       <div class="list-item">
                                                           <div class="list-characteristics">
                                                               <ul>
+                                                                  <?php if ($superficie) : ?>
+                                                                <li class="item-area">
+                                                                  <?php print str_replace('.', ',', $superficie) . "m<sup>2</sup>"; ?></li><?php endif; ?>
                                                                   <?php if (count($arr_caracteris) > 0) : ?>
                                                                     <li class="item-ulities">
                                                                         <ul>
@@ -162,7 +165,6 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                                         </ul>
                                                                     </li>
                                                                   <?php endif; ?>
-                                                                  <?php if ($superficie) : ?><li class="item-area"><?php print str_replace('.', ',', $superficie) . "m<sup>2</sup>"; ?></li><?php endif; ?>
                                                                   <?php if ($etage) : ?><li class="item-exhibit"><?php print $etage; ?></li><?php endif; ?>
                                                               </ul>
                                                           </div>
