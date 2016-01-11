@@ -83,7 +83,7 @@ function kandb_settings_menu() {
       'description' => 'Config form',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('kandb_avant_premiere'),
-      'access arguments' => array('administer K&B Bien settings'),
+      'access arguments' => array('administer K&B content'),
       'type' => MENU_LOCAL_TASK,
     );
   return $menu;
