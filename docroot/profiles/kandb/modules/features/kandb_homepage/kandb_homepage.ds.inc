@@ -17,6 +17,11 @@ function kandb_homepage_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'homepage';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
+    'habitat_carousel' => array(
+      'weight' => '0',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'hp_block_conseil_big' => array(
       'weight' => '0',
       'label' => 'hidden',
@@ -48,6 +53,22 @@ function kandb_homepage_ds_field_settings_info() {
  */
 function kandb_homepage_ds_custom_fields_info() {
   $export = array();
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'habitat_carousel';
+  $ds_field->label = 'Habitat Carousel';
+  $ds_field->field_type = 6;
+  $ds_field->entities = array(
+    'bean' => 'bean',
+    'node' => 'node',
+  );
+  $ds_field->ui_limit = '';
+  $ds_field->properties = array(
+    'block' => 'views|habitat_carrousel-block',
+    'block_render' => '3',
+  );
+  $export['habitat_carousel'] = $ds_field;
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
@@ -129,27 +150,31 @@ function kandb_homepage_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'hp_block_search',
-        1 => 'hp_block_offre',
+        1 => 'hp_block_conseil_big',
         2 => 'hp_block_conseil_small',
-        3 => 'hp_block_conseil_big',
-        4 => 'field_hp_block_offer_titre',
-        5 => 'field_hp_block_offer_stitre',
-        6 => 'field_hp_block_conseil_titre',
-        7 => 'field_hp_block_conseil_stitre',
-        8 => 'field_hp_block_conseil_titre2',
-        9 => 'field_hp_block_ref_titre',
-        10 => 'field_hp_block_ref_stitre',
-        11 => 'field_hp_block_search_img_des',
-        12 => 'field_hp_block_search_img_mob',
-        13 => 'field_hp_block_search_title',
-        14 => 'field_hp_block_search_stitle',
+        3 => 'hp_block_offre',
+        4 => 'habitat_carousel',
+        5 => 'field_hp_block_offer_titre',
+        6 => 'field_hp_block_offer_stitre',
+        7 => 'field_hp_block_conseil_titre',
+        8 => 'field_hp_block_conseil_stitre',
+        9 => 'field_hp_block_conseil_titre2',
+        10 => 'field_hp_block_ref_titre',
+        11 => 'field_hp_block_ref_stitre',
+        12 => 'field_hp_block_search_img_des',
+        13 => 'field_hp_block_search_img_mob',
+        14 => 'field_hp_block_search_title',
+        15 => 'field_hp_block_search_stitle',
+        16 => 'field_hp_block_document',
+        17 => 'field_hp_block_cta_habitat',
       ),
     ),
     'fields' => array(
       'hp_block_search' => 'ds_content',
-      'hp_block_offre' => 'ds_content',
-      'hp_block_conseil_small' => 'ds_content',
       'hp_block_conseil_big' => 'ds_content',
+      'hp_block_conseil_small' => 'ds_content',
+      'hp_block_offre' => 'ds_content',
+      'habitat_carousel' => 'ds_content',
       'field_hp_block_offer_titre' => 'ds_content',
       'field_hp_block_offer_stitre' => 'ds_content',
       'field_hp_block_conseil_titre' => 'ds_content',
@@ -161,6 +186,8 @@ function kandb_homepage_ds_layout_settings_info() {
       'field_hp_block_search_img_mob' => 'ds_content',
       'field_hp_block_search_title' => 'ds_content',
       'field_hp_block_search_stitle' => 'ds_content',
+      'field_hp_block_document' => 'ds_content',
+      'field_hp_block_cta_habitat' => 'ds_content',
     ),
     'classes' => array(),
     'wrappers' => array(

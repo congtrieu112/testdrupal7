@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Views Habitat Carousel feature.
+ */
+
+include_once 'kandb_views_habitat_carousel.features.inc';

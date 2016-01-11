@@ -83,6 +83,8 @@ function kandb_homepage_field_group_info() {
     'children' => array(
       0 => 'field_hp_block_ref_stitre',
       1 => 'field_hp_block_ref_titre',
+      2 => 'field_hp_block_document',
+      3 => 'field_hp_block_cta_habitat',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -112,8 +114,8 @@ function kandb_homepage_field_group_info() {
     'children' => array(
       0 => 'field_hp_block_search_img_des',
       1 => 'field_hp_block_search_img_mob',
-      2 => 'field_hp_block_search_title',
-      3 => 'field_hp_block_search_stitle',
+      2 => 'field_hp_block_search_stitle',
+      3 => 'field_hp_block_search_title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
