@@ -32,6 +32,7 @@ function kandb_programme_field_group_info() {
       6 => 'field_espace_vente_tel2',
       7 => 'field_nom_conseiller',
       8 => 'field_photo_conseiller',
+      9 => 'field_espace_vente_label',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -137,10 +138,10 @@ function kandb_programme_field_group_info() {
       4 => 'field_programme_loc_long',
       5 => 'field_programme_loc_num',
       6 => 'field_programme_loc_region',
-      7 => 'field_programme_loc_rue',
-      8 => 'field_programme_loc_type',
-      9 => 'field_programme_loc_ville',
-      10 => 'field_programme_loc_region_kb',
+      7 => 'field_programme_loc_region_kb',
+      8 => 'field_programme_loc_rue',
+      9 => 'field_programme_loc_type',
+      10 => 'field_programme_loc_ville',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
