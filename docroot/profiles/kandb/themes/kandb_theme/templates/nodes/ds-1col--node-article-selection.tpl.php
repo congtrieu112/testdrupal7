@@ -83,11 +83,11 @@ $url = url('node/' . $node->nid);
 ?>
 <!-- [squaredImageItem] start-->
 <article data-selection-item="data-selection-item" class="squaredImageItem false">
-  <div class="squaredImageItem__img"><a href="<?php print $url; ?>" title="Go to programme page"><?php if(isset($field_article_image[LANGUAGE_NONE][0]['uri'])) : ?><img src="<?php print image_style_url('article_selection', $field_article_image[LANGUAGE_NONE][0]['uri']);  ?>" alt="<?php print t("description de la photo") ; ?>"/><?php endif; ?></a>
+  <div class="squaredImageItem__img"><a href="<?php print $url; ?>" title="<?php print $title; ?>"><?php if(isset($field_article_image[LANGUAGE_NONE][0]['uri'])) : ?><img src="<?php print image_style_url('article_selection', $field_article_image[LANGUAGE_NONE][0]['uri']);  ?>" alt="<?php print t("description de la photo") ; ?>"/><?php endif; ?></a>
     <button data-cookie="articles" data-cookie-remove="<?php print $node->nid; ?>" data-cookie-callback="removeSelectionSlide" class="display-status display-status--suppr remove-item"><span class="show-for-sr"><?php print t("Supprimer le programme de vos sélections"); ?></span></button>
   </div>
   <div class="squaredImageItem__infos">
-    <div class="squaredImageItem__details"><a href="<?php print $url; ?>" title="Go to article page" class="heading heading--small">
+    <div class="squaredImageItem__details"><a href="<?php print $url; ?>" title="<?php print $title; ?>" class="heading heading--small">
         <p class="heading__title heading__title--sub"><?php print date('d.m.Y', $created); ?></p>
         <h3 class="heading__title"><?php print $title; ?></h3></a>
     </div>
