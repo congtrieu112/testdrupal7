@@ -195,18 +195,24 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <ul class="characteristicList">
                     <?php
                     $vocabulary_name = 'caracteristiques_programme';
-                    $flag_etages = $flag_chauffage = TRUE;
+                    $flag_chauffage = TRUE;
+                    $flag_etages = FALSE;
                     if ($caracteristiques):
                       foreach ($caracteristiques as $caracteristique):
                         if (isset($caracteristique['tid'])) :
                           $carac_term = taxonomy_term_load($caracteristique['tid']);
                           if ($carac_term) :
-                            if ($carac_term->name == "Etages")
-                              $flag_etages = FALSE;
+                            if ($carac_term->name == "Etages") :
+                                $flag_etages = TRUE;
+                                break;
+                            endif;
                             if ($carac_term->name == "Chauffage"):
                               $flag_chauffage = FALSE;
                               if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
                                 $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                                if($chauffage) :
+                                   $carac_term->name = $chauffage->name;
+                                endif;
                               endif;
                             endif;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
@@ -238,7 +244,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                           $chauffage = taxonomy_term_load($chauffage[0]['tid']);
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                          print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                          print '<span class="text">' . $chauffage->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                           print '</li>';
                         endif;
                       endif;
@@ -398,7 +404,7 @@ if (!empty($file_plaquette_commerciale)) {
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
-    'title' => t('Fiche Renseignement'),
+    'title' => t('Prestations'),
     'icon' => 'icon-file'
   );
 }
@@ -406,7 +412,7 @@ if (!empty($file_fiche_renseignement)) {
 if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
-    'title' => t('Plan du bâtiment'),
+    'title' => t('Plan de masse'),
     'icon' => 'icon-planing '
   );
 }
@@ -486,7 +492,7 @@ if ($region_id && $programme_carousel):
   <!-- [offers] start-->
   <section class="section-padding bg-lightGrey">
       <div class="wrapper">
-          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', t('Les programmes les plus proches')); ?></h2>
+          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', 'Les programmes les plus proches'); ?></h2>
           <?php print $programme_carousel; ?>
           <?php
           if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :

@@ -748,3 +748,23 @@ function telechargement_documents_download_header($form, $form_state){
         }
     }
 }
+
+function kandb_contact_get_espace_vente_label() {
+  $espace_vente_label = variable_get('kandb_bloc_espace_vente_default_label', 'Votre conseillère');
+  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+    $node = node_load(arg(1));
+    $programme = NULL;
+    if (isset($node->type) && $node->type == 'programme') {
+      $programme = $node;
+    }
+    elseif (isset($node->type) && $node->type == 'bien') {
+      if (isset($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+        $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
+      }
+    }
+    if (isset($programme->field_espace_vente_label[LANGUAGE_NONE][0]['value'])) {
+      $espace_vente_label = $programme->field_espace_vente_label[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  return $espace_vente_label;
+}

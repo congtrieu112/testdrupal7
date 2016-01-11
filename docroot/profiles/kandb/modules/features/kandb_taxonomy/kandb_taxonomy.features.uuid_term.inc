@@ -514,6 +514,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Actualités',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '152983dd-28e4-4ae7-ac86-f7968fbc939a',
+    'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'News',
+          'format' => NULL,
+          'safe_value' => 'News',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'NORD/OUEST',
     'description' => '',
     'format' => 'filtered_html',
@@ -1400,6 +1417,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'SO',
           'format' => NULL,
           'safe_value' => 'SO',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
+    'name' => 'Documents de référence',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => '2d8fbb8b-4402-463b-9154-d4ceabeb6c26',
+    'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'References',
+          'format' => NULL,
+          'safe_value' => 'References',
         ),
       ),
     ),
@@ -5603,6 +5637,23 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
+    'name' => 'Communications financières',
+    'description' => '',
+    'format' => 'plain_text',
+    'weight' => 0,
+    'uuid' => 'c59d958a-3e75-4e5e-8a00-27685976f461',
+    'vocabulary_machine_name' => 'type_de_document',
+    'field_name_in_english' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Financial communications',
+          'format' => NULL,
+          'safe_value' => 'Financial communications',
+        ),
+      ),
+    ),
+  );
+  $terms[] = array(
     'name' => 'Mail',
     'description' => '',
     'format' => 'filtered_html',
@@ -6093,9 +6144,9 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => '5 pièces et +',
+    'name' => '5 pièces',
     'description' => '',
-    'format' => 'filtered_html',
+    'format' => 'simple',
     'weight' => 4,
     'uuid' => 'd4e30183-42fa-43eb-b969-8aaf68a35ef2',
     'vocabulary_machine_name' => 'nb_pieces',
