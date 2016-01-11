@@ -7,7 +7,7 @@ $habiteo_id = isset($node->field_bien_habiteo_id['und'][0]['value']) ? $node->fi
 $habiteo_key = variable_get('habiteo_widget_security_key');
 $habiteo_visite_virtuelle_url = variable_get('habiteo_visite-virtuelle_url');
 $habiteo_plan_3d_url = variable_get('habiteo_plan-3d_url');
-
+$label_parking_fee = variable_get('kandb_bien_default_label_parking_fee', 'Parking à partir de #num# €');
 
 $bien_type = array();
 if (isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
@@ -844,7 +844,7 @@ if (!empty($list_bien_more)):
                         <h3 class="heading__title"><?php print $title_principale_ville . " " . $title_principale; ?></h3>
                         <p class="heading__title heading__title--sub"><?php print $de_a_pieces; ?> <br><?php print $de_a_price; ?></p>
                     </div>
-                    <p class="moreInfoProgram__description"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
+                    <p class="moreInfoProgram__description"><?php print str_replace('#num#', '10 000', $label_parking_fee); ?>e</p>
                     <div class="btn-wrapper"><a href="<?php print $url_principale; ?>" title="<?php print $title_principale; ?>" class="btn-primary btn-rounded btn-download"><?php print t('Découvrir'); ?><span class="icon icon-arrow"></span></a></div>
 
                 </div>
