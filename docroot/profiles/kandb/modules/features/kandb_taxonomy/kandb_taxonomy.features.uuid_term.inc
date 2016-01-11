@@ -6144,9 +6144,9 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => '5 pièces et +',
+    'name' => '5 pièces',
     'description' => '',
-    'format' => 'filtered_html',
+    'format' => 'simple',
     'weight' => 4,
     'uuid' => 'd4e30183-42fa-43eb-b969-8aaf68a35ef2',
     'vocabulary_machine_name' => 'nb_pieces',
