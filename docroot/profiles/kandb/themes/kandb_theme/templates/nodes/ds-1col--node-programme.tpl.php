@@ -404,7 +404,7 @@ if (!empty($file_plaquette_commerciale)) {
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
-    'title' => t('Fiche Renseignement'),
+    'title' => t('Prestations'),
     'icon' => 'icon-file'
   );
 }
@@ -412,7 +412,7 @@ if (!empty($file_fiche_renseignement)) {
 if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
-    'title' => t('Plan du bâtiment'),
+    'title' => t('Plan de masse'),
     'icon' => 'icon-planing '
   );
 }
@@ -492,7 +492,7 @@ if ($region_id && $programme_carousel):
   <!-- [offers] start-->
   <section class="section-padding bg-lightGrey">
       <div class="wrapper">
-          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', t('Les programmes les plus proches')); ?></h2>
+          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', 'Les programmes les plus proches'); ?></h2>
           <?php print $programme_carousel; ?>
           <?php
           if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :
