@@ -64,7 +64,7 @@
                                                 <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
                                                     Cordialement,</br>
                                                       L'équipe Kaufman & Broad
-                                                </p>   
+                                                </p>
                                                 <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
                                                     Rappel de votre message : <?php print $mail_vars['rdv_message']; ?>
                                                 </p>
@@ -79,7 +79,7 @@
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; line-height: 9px">
                                     <tbody>
                                         <tr>
-                                            <td valign="middle" style="width: 167px;"><a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a>
+                                            <td valign="middle" style="width: 167px;"><a href="#" title="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;"><?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?></a>
                                             </td>
                                             <td valign="middle">
                                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="float: left">
