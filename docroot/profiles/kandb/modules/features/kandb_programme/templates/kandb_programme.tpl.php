@@ -4,7 +4,7 @@ $title = isset($logement_block['title']) ? $logement_block['title'] : '';
 $tva_name = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 $affichage = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : '';
 ksort($logement_block['total_bien']);
-if ($logement_block && isset($logement_block['total_bien'])) :
+    if ($logement_block && isset($logement_block['total_bien'])) :
   ?>
   <section class="section-padding bg-lightGrey" id="logements-disponibles">
       <div class="wrapper">
@@ -20,10 +20,21 @@ if ($logement_block && isset($logement_block['total_bien'])) :
             $arr_type = explode("-", $type);
             $type_de_bien = ''; $nb_pieces_tid = '';
             if(is_array($arr_type)) :
-              $type_de_bien = isset($arr_type[1]) ? $arr_type[1] : '';
-              $nb_pieces_tid = isset($arr_type[2]) ? $arr_type[2] : '';
+                 $type_de_bien = isset($arr_type[1]) ? $arr_type[1] : '';
+                if ($type_de_bien) :
+                   if( strtolower($type_de_bien) == 'maison' || strtolower($type_de_bien) == 'appartement') :
+                       if($total > 1) :
+                          $type_de_bien = $type_de_bien . 's';
+                       endif;
+                   endif;
+                 $nb_pieces_tid = isset($arr_type[2]) ? $arr_type[2] : '';
+                endif;
             endif;
-
+            if ($total > 1) :
+                $label = t('disponibles');
+            else :
+                $label = t('disponible');
+            endif;
             $nb_pieces = '';
             if($nb_pieces_tid) {
               $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
@@ -31,7 +42,6 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                 $nb_pieces = $nb_pieces_node->name;
               }
             }
-
             if ($count % 6 == 1) :
               print '<div class="unwrap">';
             endif;
@@ -46,7 +56,7 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                   </figure>
                 <?php endif; ?>
                 <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print $type_de_bien; ?><?php if($nb_pieces) : print t(' de ') . $nb_pieces; endif;?><?php print t(' disponibles'); ?></h3>
+                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print $type_de_bien; ?><?php if($nb_pieces) : print t(' de ') . $nb_pieces; endif;?><?php print ' ' . $label; ?></h3>
                     <div class="programParcelItem__prices">
                         <?php if (isset($logement_block['price_min_tva_un_20_bien'][$type]) && isset($logement_block['tva_bien'][$type]) && $affichage) : ?>
                           <p>
@@ -151,6 +161,9 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                       <div class="list-item">
                                                           <div class="list-characteristics">
                                                               <ul>
+                                                                  <?php if ($superficie) : ?>
+                                                                <li class="item-area">
+                                                                  <?php print str_replace('.', ',', $superficie) . "m<sup>2</sup>"; ?></li><?php endif; ?>
                                                                   <?php if (count($arr_caracteris) > 0) : ?>
                                                                     <li class="item-ulities">
                                                                         <ul>
@@ -162,7 +175,6 @@ if ($logement_block && isset($logement_block['total_bien'])) :
                                                                         </ul>
                                                                     </li>
                                                                   <?php endif; ?>
-                                                                  <?php if ($superficie) : ?><li class="item-area"><?php print str_replace('.', ',', $superficie) . "m<sup>2</sup>"; ?></li><?php endif; ?>
                                                                   <?php if ($etage) : ?><li class="item-exhibit"><?php print $etage; ?></li><?php endif; ?>
                                                               </ul>
                                                           </div>

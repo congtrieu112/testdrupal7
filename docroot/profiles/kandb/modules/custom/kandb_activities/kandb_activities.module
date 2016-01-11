@@ -200,6 +200,36 @@ function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
     $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
     $form['#validate'][] = 'kandb_activities_habitat_validate';
   }
+
+  if ($form_id == 'region_kb_node_form') {
+    $form['#validate'][] = 'kandb_activities_region_validate';
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_activities_region_validate(&$form, &$form_state) {
+  $input = $form_state['input'];
+  $vals = $form_state['values'];
+  $region = trim($vals['field_region_kb_id'][LANGUAGE_NONE][0]['value']);
+  // Check exist region
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'region_kb')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_region_kb_id', 'value', $region, '=');
+
+  if (isset($form['nid']['#value'])) {
+      $query->propertyCondition('nid', $form['nid']['#value'], '!=');
+  }
+
+  $result = $query->execute();
+
+  if ($result) {
+      $data_exist = node_load(key($result['node']));
+      form_set_error('field_region_kb_id', t('This region was be used by "'.$data_exist->title.'".'));
+  }
 }
 
 /**

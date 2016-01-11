@@ -178,12 +178,18 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                     <span class="icon icon-love"></span>
                     <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
                 </a>
+                <?php
+                    $subject = $title;
+                    if($node->field_programme_loc_ville) :
+                        $subject .=  ' / ' . $node->field_programme_loc_ville['und'][0]['taxonomy_term']->name;
+                    endif;
+                ?>
                 <div class="sharing">
                     <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
                         <?php if ($email = variable_get('kb_partage_email')) : ?>
                           <li class="sharing__items__item">
-                              <a href="mailto:<?php print $email; ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                              <a href="mailto:<?php print $email; ?>?subject=<?php print $subject;  ?>&body=<?php print url('node/' . $node->nid , array('absolute' => TRUE)); ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
                           </li>
                         <?php endif; ?>
                         <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
