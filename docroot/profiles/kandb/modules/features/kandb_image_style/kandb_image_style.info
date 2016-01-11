@@ -15,6 +15,7 @@ features[image][] = bien_more_info_programe_small_560_x_214
 features[image][] = contact_selection
 features[image][] = dossier_big_teaser
 features[image][] = dossier_big_teaser_mobile
+features[image][] = dossier_medium_850x345
 features[image][] = dossier_small_teaser
 features[image][] = dossier_small_teaser_mobile
 features[image][] = finance_presentation_speech_215_x_215

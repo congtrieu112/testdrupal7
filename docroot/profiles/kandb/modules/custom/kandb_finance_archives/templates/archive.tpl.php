@@ -26,7 +26,9 @@ print theme('finance_header_block');
       <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
         <ul class="ul-unstyled undo-padding">
           <?php foreach($content_archives['tab_header'] as $tab_content) : ?>
-          <li class="bordered"><a class="<?php print $tab_content['class']; ?>" href="<?php print $tab_content['tab_url']; ?>"><span><?php print $tab_content['tab_title'] ;?></span></a></li>
+            <?php if ($tab_content['tab_url']) : ?>
+              <li class="bordered"><a class="<?php print $tab_content['class']; ?>" href="<?php print $tab_content['tab_url']; ?>"><span><?php print $tab_content['tab_title'] ;?></span></a></li>
+            <?php endif;?>
           <?php endforeach; ?>
         </ul>
       </div>
