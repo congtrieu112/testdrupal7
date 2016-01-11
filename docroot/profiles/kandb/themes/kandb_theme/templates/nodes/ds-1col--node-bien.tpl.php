@@ -7,6 +7,8 @@ $habiteo_id = isset($node->field_bien_habiteo_id['und'][0]['value']) ? $node->fi
 $habiteo_key = variable_get('habiteo_widget_security_key');
 $habiteo_visite_virtuelle_url = variable_get('habiteo_visite-virtuelle_url');
 $habiteo_plan_3d_url = variable_get('habiteo_plan-3d_url');
+$label_parking_fee = variable_get('kandb_bien_default_label_parking_fee', 'Parking à partir de #num# €');
+$label_parking_nofee = variable_get('kandb_bien_default_label_parking_nofee', 'Parking Compris');
 
 
 $bien_type = array();
@@ -297,10 +299,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 if (isset($node->field_caracteristique_parking[LANGUAGE_NONE][0])) {
                   $fee_parking = $node->field_caracteristique_parking[LANGUAGE_NONE][0]["value"];
                   $msg_parking = '';
+                  //var_dump($fee_parking);exit;
                   if ($fee_parking > 0) {
-                    $msg_parking = t('Parking extérieur à partir de ') . numberFormatGlobalSpace($fee_parking, 0, ",", " ") . ' ' . t('€');
+                    $msg_parking = str_replace('#num#', numberFormatGlobalSpace($fee_parking, 0, ",", " "), $label_parking_fee);
                   } elseif ($fee_parking == 0) {
-                    $msg_parking = t('Parking Compris');
+                    $msg_parking = $label_parking_nofee;
                   }
 
                   if (!empty($msg_parking)) {
@@ -565,6 +568,7 @@ if (!empty($list_bien_more)):
                                     </div>
                                     <div class="list-characteristics">
                                         <ul>
+                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m<sup>2</sup>' : ''  ?></li>
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
@@ -587,7 +591,7 @@ if (!empty($list_bien_more)):
                                                     }
 
                                                     $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
+                                                    //$arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
                                                     //endedit
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
@@ -599,7 +603,6 @@ if (!empty($list_bien_more)):
                                                     <?php endif; ?>
                                                 </ul>
                                             </li>
-                                            <li class="item-area"><?php print (isset($bien_more->field_superficie[LANGUAGE_NONE][0])) ? $bien_more->field_superficie[LANGUAGE_NONE][0]["value"] . ' m<sup>2</sup>' : ''  ?></li>
                                             <li class="item-exhibit">
                                                 <?php
                                                 if (isset($bien_more->field_etage[LANGUAGE_NONE][0])) {
@@ -724,7 +727,7 @@ if (!empty($list_bien_more)):
                         <h3 class="heading__title"><?php print $title_principale_ville . " " . $title_principale; ?></h3>
                         <p class="heading__title heading__title--sub"><?php print $de_a_pieces; ?> <br><?php print $de_a_price; ?></p>
                     </div>
-                    <p class="moreInfoProgram__description"><?php print t('Parking extérieur à partir de'); ?>&nbsp;10.000€</p>
+                    <p class="moreInfoProgram__description"><?php print str_replace('#num#', '10 000', $label_parking_fee); ?></p>
                     <div class="btn-wrapper"><a href="<?php print $url_principale; ?>" title="<?php print $title_principale; ?>" class="btn-primary btn-rounded btn-download"><?php print t('Découvrir'); ?><span class="icon icon-arrow"></span></a></div>
 
                 </div>

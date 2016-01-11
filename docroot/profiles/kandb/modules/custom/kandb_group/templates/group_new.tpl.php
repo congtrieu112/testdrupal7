@@ -18,7 +18,7 @@ $module_title = $module_title ? $module_title : t('Actualités');
     <?php
       $image = variable_get('image_group_new');
       $image = is_numeric($image) ? file_load($image) : '';
-      $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_big_teaser', $image->uri) : '';
+      $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_medium_850x345', $image->uri) : '';
     ?>
     <article class="text-center">
         <figure class="ourAdvices__figure">            
@@ -26,7 +26,7 @@ $module_title = $module_title ? $module_title : t('Actualités');
             <noscript><img src="<?php print $image; ?>" alt="<?php print $title; ?>"/></noscript>            
             <!-- [Responsive img] end-->
         </figure>
-        <div class="heading--small ourAdvices__heading">
+        <div class="ourAdvices__text">
             <?php             
                 $descriptions_news = variable_get('description_news');
                 print $descriptions_news['value'];
