@@ -71,7 +71,7 @@
                                                     Nous reviendrons vers vous dans les meilleurs délais.
                                                 </p>
                                                 <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                                                    Nous vous remercions de la confiance accordée à notre site et espérons vous revoir prochainement sur <a href="http://www.ketb.com/" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a>
+                                                    Nous vous remercions de la confiance accordée à notre site et espérons vous revoir prochainement sur <a href="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" title="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;"><?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?></a>
                                                 </p>
                                             </td>
                                         </tr>
@@ -83,7 +83,7 @@
                             <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
                                 <p style="margin: 0; padding-top: 20px;"> Cordialement,<br/>
                                   L'équipe Kaufman & Broad
-                                </p>  
+                                </p>
                                 <p style="margin: 0; padding-top: 20px;">
                                   Rappel des coordonnées du conseiller commercial :<br />
                                   <?php print $mail_vars['programme_nom_conseiller']; ?><br />
@@ -96,8 +96,8 @@
                                   Horaires d'ouverture : <?php print $mail_vars['programme_espace_vente_horaire']; ?>
                                 </p>
                                 <p style="margin: 0; padding-top: 20px;">
-                                  Rappel de votre message : <?php print $mail_vars['rdv_message']; ?> 
-                                </p>                                
+                                  Rappel de votre message : <?php print $mail_vars['rdv_message']; ?>
+                                </p>
                             </td>
                         </tr>
                         <tr>
@@ -105,7 +105,7 @@
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; line-height: 9px">
                                     <tbody>
                                         <tr>
-                                            <td valign="middle" style="width: 167px;"><a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a>
+                                            <td valign="middle" style="width: 167px;"><a href="#" title="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;"><?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?></a>
                                             </td>
                                             <td valign="middle">
                                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="float: left">
