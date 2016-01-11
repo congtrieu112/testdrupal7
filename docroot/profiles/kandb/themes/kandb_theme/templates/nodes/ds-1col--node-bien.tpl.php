@@ -591,7 +591,7 @@ if (!empty($list_bien_more)):
                                                     }
 
                                                     $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
+                                                    //$arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
                                                     //endedit
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
