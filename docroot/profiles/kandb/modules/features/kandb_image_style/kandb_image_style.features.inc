@@ -159,6 +159,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: dossier_medium_850x345.
+  $styles['dossier_medium_850x345'] = array(
+    'label' => 'Dossier medium (850x345)',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 850,
+          'height' => 345,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: dossier_small_teaser.
   $styles['dossier_small_teaser'] = array(
     'label' => 'Dossier Small Teaser (560x365)',
