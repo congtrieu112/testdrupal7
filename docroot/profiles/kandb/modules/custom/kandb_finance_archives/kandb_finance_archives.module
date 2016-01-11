@@ -102,7 +102,7 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
         }
       }
       $document = get_document_by_type($term->tid, $language_id);
-      if ($document) {
+      if ($document && $term) {
         $content_archives['tab_header'][$term->tid] = array(
           'tab_title' => $term->name,
           'tab_url' => $base_archive . $term->tid . '/' . $lang,
