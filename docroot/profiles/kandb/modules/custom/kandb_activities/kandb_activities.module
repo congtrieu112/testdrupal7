@@ -200,6 +200,148 @@ function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
     $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
     $form['#validate'][] = 'kandb_activities_habitat_validate';
   }
+  // region_kb_node_form
+  if ($form_id == 'region_kb_node_form') {   
+    $form['#validate'][] = 'kandb_activities_region_node_validate';
+  }
+}
+
+function kandb_activities_region_node_validate(&$form, &$form_state){
+ // Adresse 1
+ $field_kb_agence1_telephone = $form_state['values']['field_kb_agence1_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_agence1_email = $form_state['values']['field_kb_agence1_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_agence1_email == null || ($field_kb_agence1_email && !valid_email_address($field_kb_agence1_email))) {
+    form_set_error('field_kb_agence1_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_agence1_telephone == null || (strlen($field_kb_agence1_telephone) > 0 && !preg_match('/^[0-9]{10}$/', $field_kb_agence2_telephone))) {
+     form_set_error('field_kb_agence1_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Adresse 2
+ $field_kb_agence2_telephone = $form_state['values']['field_kb_agence2_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_agence2_email = $form_state['values']['field_kb_agence2_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_agence2_email == null || ($field_kb_agence2_email && !valid_email_address($field_kb_agence2_email))) {
+    form_set_error('field_kb_agence2_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_agence2_telephone == null || (strlen($field_kb_agence2_telephone) > 0 && !preg_match('/^[0-9]{10}$/', $field_kb_agence2_telephone))) {
+     form_set_error('field_kb_agence2_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Adresse 3
+ $field_t_l_phone = $form_state['values']['field_t_l_phone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_agence3_email = $form_state['values']['field_kb_agence3_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_agence3_email == null || ($field_kb_agence3_email && !valid_email_address($field_kb_agence3_email))) {
+    form_set_error('field_kb_agence3_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_t_l_phone == null || (strlen($field_t_l_phone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_t_l_phone))) {
+     form_set_error('field_t_l_phone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Adresse 4
+ $field_kb_agence4_telephone = $form_state['values']['field_kb_agence4_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_agence4_email = $form_state['values']['field_kb_agence4_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_agence4_email == null || ($field_kb_agence4_email && !valid_email_address($field_kb_agence4_email))) {
+    form_set_error('field_kb_agence4_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_agence4_telephone == null || (strlen($field_kb_agence4_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_agence4_telephone))) {
+     form_set_error('field_kb_agence4_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Adresse 5
+ $field_kb_agence5_telephone = $form_state['values']['field_kb_agence5_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_agence5_email = $form_state['values']['field_kb_agence5_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_agence5_email == null || ($field_kb_agence5_email && !valid_email_address($field_kb_agence5_email))) {
+    form_set_error('field_kb_agence5_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_agence5_telephone == null || (strlen($field_kb_agence5_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_agence5_telephone))) {
+     form_set_error('field_kb_agence5_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Service 1
+ $field_kb_service1_telephone = $form_state['values']['field_kb_service1_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_service1_email = $form_state['values']['field_kb_service1_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_service1_email == null || ($field_kb_service1_email && !valid_email_address($field_kb_service1_email))) {
+    form_set_error('field_kb_service1_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_service1_telephone == null || (strlen($field_kb_service1_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_service1_telephone))) {
+     form_set_error('field_kb_service1_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Service 2
+ $field_kb_service2_telephone = $form_state['values']['field_kb_service2_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_service2_email = $form_state['values']['field_kb_service2_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_service2_email == null || ($field_kb_service2_email && !valid_email_address($field_kb_service2_email))) {
+    form_set_error('field_kb_service2_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_service2_telephone == null || (strlen($field_kb_service2_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_service2_telephone))) {
+     form_set_error('field_kb_service2_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Service 3
+ $field_kb_service3_telephone = $form_state['values']['field_kb_service3_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_service3_email = $form_state['values']['field_kb_service3_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_service3_email == null || ($field_kb_service3_email && !valid_email_address($field_kb_service3_email))) {
+    form_set_error('field_kb_service3_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_service3_telephone == null || (strlen($field_kb_service3_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_service3_telephone))) {
+     form_set_error('field_kb_service3_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Service 4
+ $field_kb_service4_telephone = $form_state['values']['field_kb_service4_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_service4_email = $form_state['values']['field_kb_service4_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_service4_email == null || ($field_kb_service4_email && !valid_email_address($field_kb_service4_email))) {
+    form_set_error('field_kb_service4_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_service4_telephone == null || (strlen($field_kb_service4_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_service4_telephone))) {
+     form_set_error('field_kb_service4_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Service 5
+ $field_kb_service5_telephone = $form_state['values']['field_kb_service5_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_service5_email = $form_state['values']['field_kb_service5_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_service5_email == null || ($field_kb_service5_email && !valid_email_address($field_kb_service5_email))) {
+    form_set_error('field_kb_service5_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_service5_telephone == null || (strlen($field_kb_service5_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_service5_telephone))) {
+     form_set_error('field_kb_service5_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Showroom 1
+ $field_kb_showroom1_telephone = $form_state['values']['field_kb_showroom1_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_showroom1_email = $form_state['values']['field_kb_showroom1_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_showroom1_email == null || ($field_kb_showroom1_email && !valid_email_address($field_kb_showroom1_email))) {
+    form_set_error('field_kb_showroom1_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_showroom1_telephone == null || (strlen($field_kb_showroom1_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_showroom1_telephone))) {
+     form_set_error('field_kb_showroom1_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Showroom 2
+ $field_kb_showroom2_telephone = $form_state['values']['field_kb_showroom2_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_showroom2_email = $form_state['values']['field_kb_showroom2_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_showroom2_email == null || ($field_kb_showroom2_email && !valid_email_address($field_kb_showroom2_email))) {
+    form_set_error('field_kb_showroom2_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_showroom2_telephone == null || (strlen($field_kb_showroom2_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_showroom2_telephone))) {
+     form_set_error('field_kb_showroom2_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Showroom 3
+ $field_kb_showroom3_telephone = $form_state['values']['field_kb_showroom3_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_showroom3_email = $form_state['values']['field_kb_showroom3_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_showroom3_email == null || ($field_kb_showroom3_email && !valid_email_address($field_kb_showroom3_email))) {
+    form_set_error('field_kb_showroom3_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_showroom3_telephone == null || (strlen($field_kb_showroom3_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_showroom3_telephone))) {
+     form_set_error('field_kb_showroom3_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Showroom 4
+ $field_kb_showroom4_telephone = $form_state['values']['field_kb_showroom4_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_showroom4_email = $form_state['values']['field_kb_showroom4_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_showroom4_email == null || ($field_kb_showroom4_email && !valid_email_address($field_kb_showroom4_email))) {
+    form_set_error('field_kb_showroom4_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_showroom4_telephone == null || (strlen($field_kb_showroom4_telephone) > 0 && !preg_match('/^[0-9]{1,10}$/', $field_kb_showroom4_telephone))) {
+     form_set_error('field_kb_showroom4_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
+ // Showroom 5
+ $field_kb_showroom5_telephone = $form_state['values']['field_kb_showroom5_telephone'][LANGUAGE_NONE][0]['value'];
+ $field_kb_showroom5_email = $form_state['values']['field_kb_showroom5_email'][LANGUAGE_NONE][0]['value'];
+ if ($field_kb_showroom5_email == null || ($field_kb_showroom5_email && !valid_email_address($field_kb_showroom5_email))) {
+    form_set_error('field_kb_showroom5_email', t('The e-mail address you specified is not valid.'));
+  }
+ if ($field_kb_showroom5_telephone == null || (strlen($field_kb_showroom5_telephone) > 0 && !preg_match('/^[0-9]{1,0}$/', $field_kb_showroom5_telephone))) {
+     form_set_error('field_kb_showroom5_telephone', t('Phone number must be in format xxx-xxx-nnnn-nnnn.'));
+  }
 }
 
 /**
