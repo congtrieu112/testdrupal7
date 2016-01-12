@@ -554,7 +554,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       }
     } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-      if ($totalItems > 17 || $totalItems <= 15) {
+      if ($totalItems > 18 || $totalItems <= 16) {
         $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
