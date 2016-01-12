@@ -121,6 +121,7 @@ dependencies[] = kandb_simulator
 dependencies[] = kandb_activities
 dependencies[] = kandb_finance_presentation
 dependencies[] = kandb_development_durable
+dependencies[] = kandb_page_contact
 
 ; Features
 dependencies[] = k_b_rh_annonce
