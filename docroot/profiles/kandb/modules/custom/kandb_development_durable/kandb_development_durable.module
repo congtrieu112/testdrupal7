@@ -75,12 +75,12 @@ function kandb_development_durable_theme($existing, $type, $theme, $path) {
 
     'group_durable_general' => array(
       'template' => 'templates/group_durable_general',
-      'variables' => array('data' => $data),
+      'variables' => array('data' => ''),
     ),
 
     'group_durable_realisations' => array(
       'template' => 'templates/group_durable_realisations',
-      'variables' => array('data' => $data),
+      'variables' => array('data' => ''),
     ),
   );
 }
