@@ -220,6 +220,13 @@ function kb_mail_mail($key, &$message, $params) {
     $message['subject'] .= $params['subject'];
     $message['body'][] = $params['body'];
     $message['headers']['Content-Type'] = 'text/html; charset=UTF-8; format=flowed';
+
+    $reply_name = variable_get('kb_call_center_reply_name', '');
+    $reply_mail = variable_get('kb_call_center_reply_mail', '');
+    $reply = $reply_mail ? $reply_name . '<' . $reply_mail . '>' : NULL;
+    if($reply) {
+      $message['headers']['Reply-To'] = $reply;
+    }
   }
 }
 function kandb_webform_build_variable_mail($webform_name = '', $values = array(), $programme = NULL, $bien = NULL, $avant_premiere = NULL) {

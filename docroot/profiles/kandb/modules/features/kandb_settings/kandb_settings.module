@@ -83,7 +83,7 @@ function kandb_settings_menu() {
       'description' => 'Config form',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('kandb_avant_premiere'),
-      'access arguments' => array('administer K&B Bien settings'),
+      'access arguments' => array('administer K&B content'),
       'type' => MENU_LOCAL_TASK,
     );
   return $menu;
@@ -385,6 +385,19 @@ function kandb_label_default_admin() {
     '#default_value' => variable_get('kandb_bien_default_title_more'),
     '#required' => TRUE,
   );
+  $form['kandb_bien_default_label_parking_fee'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label parking Bien(fee)'),
+    '#default_value' => variable_get('kandb_bien_default_label_parking_fee'),
+    '#description' => 'Ex: Parking à partir de #num# €. [#num#] will be replace with parking price',
+    '#required' => TRUE,
+  );
+  $form['kandb_bien_default_label_parking_nofee'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Label parking Bien(no-fee)'),
+    '#default_value' => variable_get('kandb_bien_default_label_parking_nofee'),
+    '#required' => TRUE,
+  );
   $form['kandb_program_default_title_map'] = array(
     '#type' => 'textfield',
     '#title' => t('Titre du bloc de Program Map'),
@@ -395,7 +408,7 @@ function kandb_label_default_admin() {
     '#type' => 'textfield',
     '#title' => t('Sub Titre du bloc de Program Map'),
     '#default_value' => variable_get('kandb_program_default_subtitle_map'),
-    '#required' => TRUE,
+    '#required' => FALSE,
   );
   $form['kandb_program_default_title_prestations'] = array(
     '#type' => 'textfield',
@@ -407,7 +420,7 @@ function kandb_label_default_admin() {
     '#type' => 'textfield',
     '#title' => t('Sub Titre du bloc de Program prestations'),
     '#default_value' => variable_get('kandb_program_default_subtitle_prestations'),
-    '#required' => TRUE,
+    '#required' => FALSE,
   );
   $form['kandb_program_titre_les_plus_proches'] = array(
     '#type' => 'textfield',
@@ -425,6 +438,12 @@ function kandb_label_default_admin() {
     '#type' => 'textfield',
     '#title' => t('Sub Titre default offre homepage'),
     '#default_value' => variable_get('kandb_bloc_default_offre_subtitle_homepage'),
+    '#required' => FALSE,
+  );
+  $form['kandb_bloc_espace_vente_default_label'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Espace vente default label'),
+    '#default_value' => variable_get('kandb_bloc_espace_vente_default_label'),
     '#required' => TRUE,
   );
   return system_settings_form($form);

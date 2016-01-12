@@ -99,12 +99,32 @@ function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $docume
   $db_query_latest_year->fields('dd', array('field_document_date_value'));
   $db_query_latest_year->condition('dd.entity_type', 'node');
   $db_query_latest_year->condition('dd.bundle', 'document');
+  $db_query_latest_year->leftJoin('node', 'n', 'n.nid=dd.entity_id');
+  $db_query_latest_year->condition('n.type', 'document');
+  $db_query_latest_year->condition('n.status', 1);
+  $db_query_latest_year->condition('n.title', '', '<>');
+  $db_query_latest_year->leftJoin('field_data_field_document_type', 'dt', 'dt.entity_id=n.nid');
+  $db_query_latest_year->condition('dt.entity_type', 'node');
+  $db_query_latest_year->condition('dt.bundle', 'document');
+  $db_query_latest_year->condition('dt.field_document_type_tid', $tids, 'IN');
+  $db_query_latest_year->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
+  $db_query_latest_year->condition('dl.entity_type', 'node');
+  $db_query_latest_year->condition('dl.bundle', 'document');
+  $db_query_latest_year->condition('dl.field_langue_value', $language_id);
+  $db_query_latest_year->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
+  $db_query_latest_year->condition('df.entity_type', 'node');
+  $db_query_latest_year->condition('df.bundle', 'document');
+  $db_query_latest_year->isNotNull('df.field_document_file_fid');
+  $db_query_latest_year->leftJoin('field_data_field_document_id', 'di', 'di.entity_id=n.nid');
+  $db_query_latest_year->condition('di.entity_type', 'node');
+  $db_query_latest_year->condition('di.bundle', 'document');
+  $db_query_latest_year->isNotNull('di.field_document_id_value');
   $db_query_latest_year->orderBy('dd.field_document_date_value', 'DESC');
   $latest_time = $db_query_latest_year->execute()->fetchField();
   if ($latest_time) {
     $latest_year = date('Y',strtotime($latest_time));
   }
-  $start_time = strtotime($latest_year . '-01-01 00:00:00');
+  $start_time = strtotime($latest_year - 3 . '-01-01 00:00:00');
   $end_time = strtotime($latest_year . '-12-31 23:59:59');
   $content = array();
   $db_query = db_select('node', 'n')->extend('PagerDefault');

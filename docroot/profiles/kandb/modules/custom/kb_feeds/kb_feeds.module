@@ -554,7 +554,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         $logging = $item['identifiantprogramme'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       }
     } elseif ($entity->feeds_item->id == 'document_import_communique_de_presse') {
-      if ($totalItems > 17 || $totalItems <= 15) {
+      if ($totalItems > 18 || $totalItems <= 16) {
         $logging = $item['identifiantcommunique'] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
         $validates = array(
@@ -931,7 +931,46 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       createFileErrorLogTxt($file_log_name, $logging);
     }
   }
-  if ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_communique_de_presse" || $source->id === "document_import_uk") {
+  elseif ($source->id === "document_import_communique_de_presse" ) {
+    $uri = 'public://import/pdf_migration_folder';
+    $prepare_file = file_prepare_directory($uri, FILE_MODIFY_PERMISSIONS);
+    if (!$prepare_file) {
+      $logging .= "import/pdf_migration_folder folder does not exit or not writable";
+      unset($result->items);
+    }
+    else {
+      $rejected = variable_get($source->id . '_rejected', 0);
+      foreach ($result->items as $key => $row) {
+        $skip_import = FALSE;
+        if (!isset($row['identifiantcommunique']) || $row['identifiantcommunique'] == '') {
+          $logging .= "Column identifiantcommunique does not exist | Skip imported \n";
+          $skip_import = TRUE;
+        }
+        else {
+          if (!isset($row['lienfichier']) || $row['lienfichier'] == '') {
+            $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+            $skip_import = TRUE;
+          }
+          else {
+            $path = drupal_realpath($row['lienfichier']);
+            if (!file_exists($path)) {
+              $logging .= $row['identifiantcommunique'] . " | document_file does not exist | Skip imported \n";
+              $skip_import = TRUE;
+            }
+          }
+        }
+        if ($skip_import) {
+          $rejected++;
+          variable_set($source->id . '_rejected', $rejected);
+          unset($result->items[$key]);
+        }
+      }
+    }
+    if ($logging) {
+      createFileErrorLogTxt($file_log_name, $logging);
+    }
+  }
+  elseif ($source->id === "document_import" || $source->id === "kb_patrimoine_import" || $source->id === "document_import_uk") {
     global $base_url;
     foreach ($result->items as $key => $row) {
       $list_file_id = array();    // List column have upload file

@@ -178,12 +178,18 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                     <span class="icon icon-love"></span>
                     <span class="text"><?php print t('Ajouter à mes sélections'); ?></span>
                 </a>
+                <?php
+                    $subject = $title;
+                    if($node->field_programme_loc_ville) :
+                        $subject .=  ' / ' . $node->field_programme_loc_ville['und'][0]['taxonomy_term']->name;
+                    endif;
+                ?>
                 <div class="sharing">
                     <ul class="sharing__items">
                         <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
                         <?php if ($email = variable_get('kb_partage_email')) : ?>
                           <li class="sharing__items__item">
-                              <a href="mailto:<?php print $email; ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                              <a href="mailto:<?php print $email; ?>?subject=<?php print $subject;  ?>&body=<?php print url('node/' . $node->nid , array('absolute' => TRUE)); ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
                           </li>
                         <?php endif; ?>
                         <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
@@ -210,6 +216,9 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                               $flag_chauffage = FALSE;
                               if ($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']):
                                 $chauffage = taxonomy_term_load($node->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                                if($chauffage) :
+                                   $carac_term->name = $chauffage->name;
+                                endif;
                               endif;
                             endif;
                             $picto_css_class = isset($carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $carac_term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
@@ -241,7 +250,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                           $chauffage = taxonomy_term_load($chauffage[0]['tid']);
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                          print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                          print '<span class="text">' . $chauffage->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
                           print '</li>';
                         endif;
                       endif;
@@ -401,7 +410,7 @@ if (!empty($file_plaquette_commerciale)) {
 if (!empty($file_fiche_renseignement)) {
   $list_document[] = array(
     'document' => $file_fiche_renseignement,
-    'title' => t('Fiche Renseignement'),
+    'title' => t('Prestations'),
     'icon' => 'icon-file'
   );
 }
@@ -409,7 +418,7 @@ if (!empty($file_fiche_renseignement)) {
 if (!empty($file_plan_batiment)) {
   $list_document[] = array(
     'document' => $file_plan_batiment,
-    'title' => t('Plan du bâtiment'),
+    'title' => t('Plan de masse'),
     'icon' => 'icon-planing '
   );
 }
@@ -489,7 +498,7 @@ if ($region_id && $programme_carousel):
   <!-- [offers] start-->
   <section class="section-padding bg-lightGrey">
       <div class="wrapper">
-          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', t('Les programmes les plus proches')); ?></h2>
+          <h2 class="heading--tiny"><?php print variable_get('kandb_program_titre_les_plus_proches', 'Les programmes les plus proches'); ?></h2>
           <?php print $programme_carousel; ?>
           <?php
           if ($nodeid = variable_get('kandb_progamme_link_default_selected')) :

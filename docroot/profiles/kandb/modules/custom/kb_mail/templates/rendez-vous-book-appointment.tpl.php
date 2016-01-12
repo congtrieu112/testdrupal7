@@ -56,7 +56,7 @@
                                                 </p>
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['programme_title']; ?></p>
                                                 <p style="margin: 0; padding-top: 55px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,</p>
-                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site&nbsp;<a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a> s'est montré intéréssé par un logement et souhaite que vous le contactiez pour prendre rendez-vous.
+                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site&nbsp;<a href="#" title="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; text-decoration: none;"><?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?></a> s'est montré intéréssé par un logement et souhaite que vous le contactiez pour prendre rendez-vous.
                                                 </p>
                                             </td>
                                         </tr>
@@ -104,7 +104,7 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td valign="top" style="padding: 0 10px;">
-                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Son message : 
+                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Son message :
                                                                                     <span style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #199edd; line-height: 20px;">
                                                                                         <?php print $mail_vars['rdv_message']; ?>
                                                                                     </span>
@@ -156,7 +156,7 @@
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; line-height: 9px">
                                     <tbody>
                                         <tr>
-                                            <td valign="middle" style="width: 167px;"><a href="#" title="http://www.ketb.com/" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;">http://www.ketb.com/</a>
+                                            <td valign="middle" style="width: 167px;"><a href="#" title="<?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?>" style="font-family: Helvetica, Arial, sans-serif; font-size: 9px; color: #003e5e; text-decoration: none;"><?php print isset($mail_vars['kandb_base_url']) ? $mail_vars['kandb_base_url'] : ''; ?></a>
                                             </td>
                                             <td valign="middle">
                                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="float: left">

@@ -975,8 +975,8 @@ function kandb_update_7195(&$sandbox) {
     module_enable(array('kandb_eu_cookie_compliance'), TRUE);
   }
 }
-        
-        
+
+
 /**
  * Enable date_popup module
  */
@@ -985,3 +985,22 @@ function kandb_update_7196() {
     module_enable(array('date_popup'), TRUE);
   }
 }
+
+/**
+ * Enable kandb_views_habitat_carousel module
+ */
+function kandb_update_7200() {
+  if (!module_exists('kandb_views_habitat_carousel')) {
+    module_enable(array('kandb_views_habitat_carousel'), TRUE);
+  }
+}
+
+/**
+ * Enable kandb_page_contact module
+ */
+function kandb_update_7201() {
+  if (!module_exists('kandb_page_contact')) {
+    module_enable(array('kandb_page_contact'), TRUE);
+  }
+}
+

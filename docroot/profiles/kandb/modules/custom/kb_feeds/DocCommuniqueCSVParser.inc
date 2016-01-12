@@ -154,9 +154,9 @@ class DocCommuniqueCSVParser extends ParserCSV{
       $lines = explode('|', $line);
       if($this->id == 'document_import_communique_de_presse') {
         $lines = explode('|', $line);
-        if(count($lines) < 14) {
+        if(count($lines) < 15) {
           $concat_string .= $line;
-          if(count(explode('|', $concat_string)) == 14) {
+          if(count(explode('|', $concat_string)) == 15) {
             $line = $concat_string;
             $concat_string = '';
           } else {
@@ -309,25 +309,23 @@ class DocCommuniqueCSVParser extends ParserCSV{
                 }
               }
           }
-          if($columnName == 'lienfichier') {
-              if(trim($field) != '') {
-                if ($this->id == 'document_import_communique_de_presse') {
-                  $pdf_file_name = substr($field, strrpos($field, '/') + 1);
-                  $pdf_uri = 'public://import/pdf_migration_folder/' . $pdf_file_name;
-                }
-                elseif ($this->id == 'document_import_communique_de_presse_uk') {
-                  $pdf_uri = $field;
-                }
-                file_prepare_directory($pdf_uri, FILE_MODIFY_PERMISSIONS);
-                $pdf_path = drupal_realpath($pdf_uri);
-                if(!file_exists($pdf_path)) {
-                    $is_log = TRUE;
-                }
-                else {
-                  $field = '';
-                }
-              }
-          }
+//          if($columnName == 'lienfichier') {
+//              if(trim($field) != '') {
+//                if ($this->id == 'document_import_communique_de_presse') {
+//                  $pdf_file_name = substr($field, strrpos($field, '/') + 1);
+//                  $pdf_uri = 'public://import/pdf_migration_folder/' . $pdf_file_name;
+//                }
+//                elseif ($this->id == 'document_import_communique_de_presse_uk') {
+//                  $pdf_uri = $field;
+//                }
+//                file_prepare_directory($pdf_uri, FILE_MODIFY_PERMISSIONS);
+//                $pdf_path = drupal_realpath($pdf_uri);
+//                if(!file_exists($pdf_path)) {
+//                    $is_log = TRUE;
+//                    $field = '';
+//                }
+//              }
+//          }
           if($columnName == 'statut') {
               if (trim($field) == 'On line') {
                  $field = 1;

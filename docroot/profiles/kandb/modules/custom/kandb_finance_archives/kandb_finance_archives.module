@@ -62,11 +62,24 @@
       'archive' => array(
         'template' => 'templates/archive',
         'variables' => array(),
-      )
+      ),
+      'archive_display_1' => array(
+        'template' => 'templates/archive_display_1',
+        'variables' => array(),
+      ),
+      'archive_display_2' => array(
+        'template' => 'templates/archive_display_2',
+        'variables' => array(),
+      ),
+      'archive_display_3' => array(
+        'template' => 'templates/archive_display_3',
+        'variables' => array(),
+      ),
     );
   }
 
 function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
+  $display_mode = 0;
   if ($tid === 'en' || $tid === 'fr') {
     $lang = $tid;
     $tid = 0;
@@ -87,22 +100,25 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
   if (isset($document_voca->vid)) {
     $all_terms = taxonomy_get_tree($document_voca->vid);
-    if ($tid == 0 && !empty($all_terms)) {
-      $tid = $all_terms[0]->tid;
-    }
     $base_archive = base_path() . 'corporate/finance/archives/';
     foreach ($all_terms as $term) {
+      $term = taxonomy_term_load($term->tid);
       if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
         continue ;
       }
       elseif ($language_id == 1) {
-        $term = taxonomy_term_load($term->tid);
         if (isset ($term->field_name_in_english[LANGUAGE_NONE][0]['value'])) {
           $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
         }
       }
-      $document = get_document_by_type($term->tid, $language_id);
-      if ($document) {
+      $document = get_document_by_type($term->tid, $language_id, FALSE);
+      if ($document && $term) {
+        if ($tid == 0) {
+          $tid = $term->tid;
+          if (isset($term->field_display_mode[LANGUAGE_NONE][0]['value'])) {
+            $display_mode = $term->field_display_mode[LANGUAGE_NONE][0]['value'];
+          }
+        }
         $content_archives['tab_header'][$term->tid] = array(
           'tab_title' => $term->name,
           'tab_url' => $base_archive . $term->tid . '/' . $lang,
@@ -114,17 +130,31 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
       }
     }
   }
-  $content_archives['tab_content'] = get_document_by_type($tid, $language_id);
+  if ($display_mode == 0 && $tid != 0) {
+    $tmp_term = taxonomy_term_load($tid);
+    if (isset($tmp_term->field_display_mode[LANGUAGE_NONE][0]['value'])) {
+      $display_mode = $tmp_term->field_display_mode[LANGUAGE_NONE][0]['value'];
+    }
+  }
+  $content_archives['tab_content'] = get_document_by_type($tid, $language_id, TRUE);
   return theme('archive', array(
     'content_archives' => $content_archives, 
     'page_title' => $page_title, 
-    'pager' => theme('pager')
+    'pager' => theme('pager'),
+    'display_mode' => $display_mode,
   ));
 }
 
-function get_document_by_type($tid = 0, $language_id = 0) {
+function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
   $content = array();
-  $db_query = db_select('node', 'n')->extend('PagerDefault');
+  if ($paging) {
+    $db_query = db_select('node', 'n')->extend('PagerDefault');
+    $db_query->limit(50);
+  }
+  else{
+    $db_query = db_select('node', 'n');
+    $db_query->range(0, 1);
+  }
   $db_query->fields('n', array('nid'));
   $db_query->condition('n.type', 'document');
   $db_query->condition('n.status', 1);
@@ -165,7 +195,6 @@ function get_document_by_type($tid = 0, $language_id = 0) {
   
   $db_query->distinct();
   $db_query->orderBy('dd.field_document_date_value', 'DESC');
-  $db_query->limit(50);
   $results = $db_query->execute()->fetchAll();
   foreach($results as $res) {
     $node = node_load($res->nid);

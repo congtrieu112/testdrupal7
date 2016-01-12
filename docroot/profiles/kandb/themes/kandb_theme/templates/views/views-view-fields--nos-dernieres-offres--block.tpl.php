@@ -82,7 +82,7 @@ endif;
         </div>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
-                <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print t('Go to programme page'); ?>" class="heading heading--small">
+                <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="heading heading--small">
                     <p class="heading__title">
                         <?php print $ville_name . ' / ' . $departement_code; ?>
                     </p>

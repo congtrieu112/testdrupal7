@@ -529,6 +529,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(),
   );
   $terms[] = array(
     'name' => 'NORD/OUEST',
@@ -1437,6 +1438,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'OUEST/NORD/EST',
@@ -1690,6 +1698,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'Meetings information',
           'format' => NULL,
           'safe_value' => 'Meetings information',
+        ),
+      ),
+    ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
         ),
       ),
     ),
@@ -2358,6 +2373,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '39 ème étage',
@@ -2813,6 +2835,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Seine Saint Denis',
@@ -2911,6 +2940,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'uuid' => '5ae4be86-b081-4861-b92e-0b2487e6f3bb',
     'vocabulary_machine_name' => 'type_de_document',
     'field_name_in_english' => array(),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Haute Garonne',
@@ -3603,6 +3639,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'Shareholder documents',
           'format' => NULL,
           'safe_value' => 'Shareholder documents',
+        ),
+      ),
+    ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
         ),
       ),
     ),
@@ -5441,6 +5484,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Domotique',
@@ -5550,6 +5600,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'uuid' => 'c27fed84-5f08-4d6e-8f6c-fc78d9319bff',
     'vocabulary_machine_name' => 'type_de_document',
     'field_name_in_english' => array(),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 2,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => '7 / 8 ème étage',
@@ -5649,6 +5706,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'Financial communications',
           'format' => NULL,
           'safe_value' => 'Financial communications',
+        ),
+      ),
+    ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
         ),
       ),
     ),
@@ -6144,9 +6208,9 @@ function kandb_taxonomy_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => '5 pièces et +',
+    'name' => '5 pièces',
     'description' => '',
-    'format' => 'filtered_html',
+    'format' => 'simple',
     'weight' => 4,
     'uuid' => 'd4e30183-42fa-43eb-b969-8aaf68a35ef2',
     'vocabulary_machine_name' => 'nb_pieces',
@@ -6753,6 +6817,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
   );
   $terms[] = array(
     'name' => 'Loggia',
@@ -6938,6 +7009,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
           'value' => 'Legal information',
           'format' => NULL,
           'safe_value' => 'Legal information',
+        ),
+      ),
+    ),
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
         ),
       ),
     ),

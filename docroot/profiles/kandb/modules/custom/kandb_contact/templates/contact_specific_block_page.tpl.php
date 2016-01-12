@@ -9,6 +9,7 @@ $array_info = array(
   'espace_vente_horaire' => '',
   'buttons' => kandb_contact_buttons(),
 );
+$espace_vente_label = kandb_contact_get_espace_vente_label();
 $photo_id = isset($programme->field_photo_conseiller[LANGUAGE_NONE][0]['fid']) ? $programme->field_photo_conseiller[LANGUAGE_NONE][0]['fid'] : variable_get('kandb_contact_photo');
 $array_info['nom_conseiller'] = isset($programme->field_nom_conseiller[LANGUAGE_NONE][0]['value']) ? $programme->field_nom_conseiller[LANGUAGE_NONE][0]['value'] : '';
 $array_info['espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value'] : '';
@@ -25,7 +26,7 @@ endif;
     <div style="background-image: url(<?php print $array_info['photo_uri']; ?>)" class="contactUs__img show-for-medium-up"></div>
     <div class="wrapper">
         <div class="contactUs__informations">
-            <p class="contactUs__informations__heading"><?php print t('Votre conseillère'); ?></p>
+            <p class="contactUs__informations__heading"><?php print $espace_vente_label; ?></p>
             <div class="small-wrapper">
                 <p class="contactUs__informations__text"><?php print $array_info['nom_conseiller']; ?></p>
                 <div class="show-for-medium-up">

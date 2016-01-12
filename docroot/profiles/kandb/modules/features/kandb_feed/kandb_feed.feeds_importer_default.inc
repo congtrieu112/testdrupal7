@@ -372,16 +372,21 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           15 => array(
+            'source' => 'Label',
+            'target' => 'field_document_file:description',
+            'unique' => FALSE,
+          ),
+          16 => array(
             'source' => 'Categorie',
             'target' => 'field_document_type',
             'unique' => FALSE,
           ),
-          16 => array(
+          17 => array(
             'source' => 'Sticky',
             'target' => 'sticky',
             'unique' => FALSE,
           ),
-          17 => array(
+          18 => array(
             'source' => 'DocumentFileOld',
             'target' => 'Temporary target 1',
             'unique' => FALSE,
@@ -463,21 +468,26 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           5 => array(
+            'source' => 'Label',
+            'target' => 'field_document_file:description',
+            'unique' => FALSE,
+          ),
+          6 => array(
             'source' => 'ContenuLienTxt',
             'target' => 'field_document_description',
             'format' => 'simple',
           ),
-          6 => array(
+          7 => array(
             'source' => 'KbLanguage',
             'target' => 'field_langue',
             'unique' => FALSE,
           ),
-          7 => array(
+          8 => array(
             'source' => 'KbStatus',
             'target' => 'status',
             'unique' => FALSE,
           ),
-          8 => array(
+          9 => array(
             'source' => 'KbDocumentType',
             'target' => 'field_document_type',
             'unique' => FALSE,
