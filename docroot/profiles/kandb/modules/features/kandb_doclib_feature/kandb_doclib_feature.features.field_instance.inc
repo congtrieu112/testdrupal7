@@ -548,7 +548,7 @@ function kandb_doclib_feature_field_default_field_instances() {
     'label' => 'Fichier',
     'required' => 0,
     'settings' => array(
-      'description_field' => 0,
+      'description_field' => 1,
       'file_directory' => '',
       'file_extensions' => 'pdf',
       'max_filesize' => '',

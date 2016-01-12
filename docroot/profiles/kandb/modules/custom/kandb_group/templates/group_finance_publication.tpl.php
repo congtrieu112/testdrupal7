@@ -120,7 +120,13 @@ print theme('finance_header_block');
                                           <ul class="communiquesDocs__list">
                                               <?php foreach ($field_document_file as $file) : ?>
                                                 <?php
-                                                $filename = str_replace('.pdf', '', $file['filename']);
+                                                  $filename = '';
+                                                  if ($file['description'] != '') {
+                                                    $filename = $file['description'];
+                                                  }
+                                                  else {
+                                                    $filename = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
+                                                  }
                                                 ?>
                                                 <li>
                                                     <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
