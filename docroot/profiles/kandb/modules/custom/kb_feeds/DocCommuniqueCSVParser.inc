@@ -322,9 +322,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
                 $pdf_path = drupal_realpath($pdf_uri);
                 if(!file_exists($pdf_path)) {
                     $is_log = TRUE;
-                }
-                else {
-                  $field = '';
+                    $field = '';
                 }
               }
           }

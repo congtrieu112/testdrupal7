@@ -29,6 +29,13 @@ if (isset($group_header['content']) && $group_header['content']) {
           if (url($current_path) == url($url)):
             $class = 'active';
           endif;
+
+          $arr_url = explode('/',$url);
+          if (isset($arr_url[2]) && $arr_url[2] == 'nos-agences') :
+            if (in_array($arg[2], array('nos-services', 'nos-showroom'))) :
+              $class = 'active';
+            endif;
+          endif;
           ?>
           <li class="pageHeaderNav__list__item <?php print $class; ?>">
               <a href="<?php print url($url); ?>"><?php print $title; ?></a>

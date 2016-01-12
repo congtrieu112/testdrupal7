@@ -27,12 +27,10 @@ function kandb_validate_avant_premiere(&$form, &$form_state) {
       if ($date_diff > 2) {
         form_set_error('field_avant_premiere_date_fin', t('the range between begin date and end date is from 1 - 3 days.'));
       }
-    }
-    else {
+    } else {
       form_set_error('field_avant_premiere_date_debut', t('The end date should be greater than begin date'));
     }
-  }
-  else {
+  } else {
     form_set_error('field_avant_premiere_date_debut', t('Both begin date and end date should be same year and month'));
   }
 }
@@ -47,7 +45,7 @@ function kandb_validate_get_dates_from_range($start, $end) {
   $realEnd->add($interval);
 
   $period = new DatePeriod(
-      new DateTime($start), $interval, $realEnd
+    new DateTime($start), $interval, $realEnd
   );
   foreach ($period as $date) {
     $array[] = $date->format('d');
@@ -67,7 +65,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
-        ->distinct();
+      ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -82,7 +80,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     // Fetch only records where date_time is greater than 30 days ago.
     $type_options_query->where('d.field_programme_online_date_value > DATE_ADD(NOW(), INTERVAL -30 DAY)');
     $type_options_query->fields('a', array('field_programme_loc_ville_tid'))
-        ->distinct();
+      ->distinct();
 
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
@@ -126,15 +124,14 @@ function kandb_validate_views_query_alter(&$view, &$query) {
     $view->query->where[2]['conditions'][0]['value'] = $next_year;
     // Alter field_trimestre_value.
     $view->query->where[2]['conditions'][1]['value'] = $next_quarter;
-  }
-  else if ($view->name == 'admin_views_node' && $view->current_display == 'system_1') {
+  } else if ($view->name == 'admin_views_node' && $view->current_display == 'system_1') {
     if (isset($view->query->where[1]['conditions'])) {
       $conditions = $view->query->where[1]['conditions'];
       $flag = FALSE;
       $programe_ids = array();
       foreach ($conditions as $key => $condition) {
         if ($condition['field'] == 'node.type' &&
-            in_array('bien', $condition['value']) //&&
+          in_array('bien', $condition['value']) //&&
         ) {
           $flag = TRUE;
         }
@@ -152,8 +149,7 @@ function kandb_validate_views_query_alter(&$view, &$query) {
           $view->query->where[1]['conditions'][$key]['field'] = 'field_data_field_programme.field_programme_target_id';
           $view->query->where[1]['conditions'][$key]['value'] = $programe_ids;
           $view->query->where[1]['conditions'][$key]['operator'] = 'in';
-        }
-        elseif (preg_match('/field_programme_target_id$/i', $condition['field'])) {
+        } elseif (preg_match('/field_programme_target_id$/i', $condition['field'])) {
           unset($view->query->where[1]['conditions'][$key]);
         }
       }
@@ -189,11 +185,11 @@ function date_quarter() {
 function get_nids_promotions_by_programme($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'promotion')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_promotion_programme', 'target_id', $nid)
-      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_programme', 'target_id', $nid)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -214,12 +210,10 @@ function kandb_validate_views_pre_render($view) {
     foreach ($my_arr as $key => $val) {
       if (!isset($new_arr[$val->nid])) {
         $new_arr[$val->nid] = $key;
-      }
-      else {
+      } else {
         if (isset($dups[$val->nid])) {
           $dups[$val->nid][] = $key;
-        }
-        else {
+        } else {
           $dups[$val->nid] = array($key);
         }
       }
@@ -250,10 +244,10 @@ function kandb_validate_views_pre_render($view) {
 function get_status_biens($nid, $tid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'bien')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_programme', 'target_id', $nid)
-      ->fieldCondition('field_bien_statut', 'tid', $tid);
+    ->entityCondition('bundle', 'bien')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_programme', 'target_id', $nid)
+    ->fieldCondition('field_bien_statut', 'tid', $tid);
 
   $result = $query->execute();
 
@@ -285,11 +279,11 @@ function get_tid_by_id_field($status) {
 function get_nids_promotions_by_avant($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'promotion')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
-      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_avant_premiere', 'target_id', $nid)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -306,11 +300,11 @@ function get_nids_promotions_by_avant($nid) {
 function get_nids_promotions_by_bien($nid) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'promotion')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_promotion_biens', 'target_id', $nid)
-      ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
-      ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
+    ->entityCondition('bundle', 'promotion')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_promotion_biens', 'target_id', $nid)
+    ->fieldCondition('field_promotion_start', 'value', date("Y-m-d H:i:s"), '<=')
+    ->fieldCondition('field_promotion_stop', 'value', date("Y-m-d H:i:s"), '>=');
   $result = $query->execute();
 
   if (isset($result['node'])) {
@@ -338,8 +332,8 @@ function get_total_bien_by_status_site() {
   $query->addExpression('COUNT(n.nid)', 'total');
   $query->addTag('node_access_domain');
   $query->condition('n.status', 1, '=')
-      //->condition('da.gid', $domain_id, '=')
-      ->condition('bt.field_bien_statut_tid', $bien_status_id, '=');
+    //->condition('da.gid', $domain_id, '=')
+    ->condition('bt.field_bien_statut_tid', $bien_status_id, '=');
 
   $result = $query->execute()->fetchCol();
   if ($result) {
@@ -380,7 +374,7 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
   }
 
   // Forwarded to the corresponding programme page if status is unpublish or bien statut diference disponible
-  if(isset($node->type) && $node->type == 'bien') {
+  if (isset($node->type) && $node->type == 'bien') {
     //Get bien type
     //0: Indisponible, 1: Disponible, 2: Reserve, 3: Vendu
     $bien_statut_1 = get_tid_by_id_field(1);
@@ -388,9 +382,9 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
 
     $bien_status = isset($node->status) ? $node->status : 0;
     $program_nid = isset($node->field_programme[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme[LANGUAGE_NONE][0]['target_id'] : '';
-    if(!$bien_status || ($bien_statut_1 && $bien_statut_2 && $bien_statut_1 != $bien_statut_2)) {
+    if (!$bien_status || ($bien_statut_1 && $bien_statut_2 && $bien_statut_1 != $bien_statut_2)) {
       // Go to page research if program nid is empty
-      if($program_nid) {
+      if ($program_nid) {
         drupal_goto('node/' . $node->field_programme[LANGUAGE_NONE][0]['target_id']);
       } else {
         drupal_goto('recherche');
@@ -402,7 +396,82 @@ function kandb_validate_node_view($node, $view_mode, $langcode) {
 /*
  * Implements hook_date_popup_process_alter().
  */
+
 function kandb_validate_date_popup_process_alter(&$element, &$form_state, $context) {
   unset($element['date']['#description']);
   unset($element['time']['#description']);
+}
+
+/**
+ * Create 2 kind file archive for 2 pages (B2B, B2C) for habitat.
+ */
+function create_file_archire_for_habitat($node) {
+  $path = drupal_realpath('public://');
+  $fileNameB2C = '/Habitat_' . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+
+  $dir = $path . '/Habitat/archive/' . $node->nid . '/';
+  if (file_exists($dir) && $node->nid) {
+    foreach (glob($dir . "/*.*") as $filename) {
+      if (is_file($filename)) {
+        unlink($filename);
+      }
+    }
+    rmdir($dir);
+  }
+
+  if (!file_exists($path . '/Habitat/')) {
+    mkdir($path . '/Habitat/', 0777);
+  } else {
+    chmod($path . '/Habitat/', 0777);
+  }
+
+  if (!file_exists($path . '/Habitat/archive/')) {
+    mkdir($path . '/Habitat/archive/', 0777);
+  }
+
+  if (!file_exists($path . '/Habitat/archive/' . $node->nid . '/')) {
+    mkdir($path . '/Habitat/archive/' . $node->nid . '/', 0777);
+  }
+
+  if (file_exists($path . '/Habitat/archive/' . $node->nid . '/')) {
+    $paramsB2C = array();
+    if (isset($node->field_hp_block_document['und'])) {
+      foreach ($node->field_hp_block_document['und'] as $item) {
+        $paramsB2C[$item['filename']] = $item['uri'];
+      }
+    }
+
+    $statusFileB2C = kandb_validate_create_file_zip($path . '/Habitat/archive/' . $node->nid . '/' . $fileNameB2C, $paramsB2C);
+  }
+}
+
+/**
+ * Implement create file zip
+ */
+function kandb_validate_create_file_zip($realPath, $params = array()) {
+  $zip = new ZipArchive();
+  if ($zip->open($realPath, ZipArchive::CREATE) == TRUE) {
+    foreach ($params as $fileName => $filePath) {
+      $zip->addFile(drupal_realpath($filePath), $fileName);
+    }
+
+    $zip->close();
+  }
+}
+
+/**
+ * Implement hook_form_Form_ID_alter().
+ */
+function kandb_validate_form_homepage_node_form_alter(&$form, &$form_state) {
+  $form['#submit'][] = 'kandb_validate_homepage_create_zip';
+}
+
+/**
+ * Implement hook_form_submit();
+ */
+function kandb_validate_homepage_create_zip(&$form, &$form_state) {
+  if (isset($form_state['values']['nid'])) {
+    $node = node_load($form_state['values']['nid']);
+    create_file_archire_for_habitat($node);
+  }
 }
