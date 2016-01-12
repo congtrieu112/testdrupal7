@@ -38,7 +38,7 @@ if(isset($arg[2])) {
     </div>
     <?php
     if ($region_contents) : ?>
-      <div class="wrapper--narrow downloadDocs wrapper contacts">
+      <div class="wrapper contacts">
           <div class="contacts__carte">
               <div class="contacts__carte-wrapper">
                   <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewbox="0 0 651.979 673.468" enable-background="new 0 0 651.979 673.468" data-contact-map data-contact-map-active="0" class="contactMap">
