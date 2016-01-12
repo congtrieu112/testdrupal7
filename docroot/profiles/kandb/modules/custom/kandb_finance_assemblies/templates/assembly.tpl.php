@@ -30,18 +30,25 @@ print theme('finance_header_block');
                     <?php foreach ($node->field_document_file[LANGUAGE_NONE] as $file): ?>
                       <?php
                         $file_path = '';
+                        $file_name = '';
                         if ($exist_download_function) {
                           $file_path = base_path() . 'download-document-file/' . $file['fid'];
                         }
                         else {
                           $file_path = file_create_url($file['uri']);
                         }
+                        if ($file['description'] != '') {
+                          $file_name = $file['description'];
+                        }
+                        else {
+                          $file_name = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
+                        }
                       ?>
                       <?php if($file_path != '') : ?>
                         <li class="downloadDocs__item">
                           <div class="downloadDocs__item__info">
-                            <h4 class="downloadDocs__item__heading"><?php print $file['filename']; ?></h4>
-                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print $file['filename']; ?>><span class="icon icon-download-pdf"></span></a></div>
+                            <h4 class="downloadDocs__item__heading"><?php print $file_name; ?></h4>
+                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print $file_name; ?>"><span class="icon icon-download-pdf"></span></a></div>
                           </div>
                         </li>
                       <?php endif; ?>
