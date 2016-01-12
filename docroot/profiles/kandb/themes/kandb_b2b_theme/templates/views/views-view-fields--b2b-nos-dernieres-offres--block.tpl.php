@@ -26,17 +26,6 @@ $style = isset($row->field_field_image_principale[0]['rendered']['#image_style']
 $ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
 $departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
-$status_promotion = $row->field_promotion_programme_node_status;
-$available = false;
-// Check date rage available promotion.
-if ($row->field_promotion_programme_node_title):
-  $current_date = time();
-  $start_date = strtotime($row->field_field_promotion_start[0]['raw']['value']);
-  $end_date = strtotime($row->field_field_promotion_stop[0]['raw']['value']);
-  if ($current_date > $start_date && $current_date < $end_date):
-    $available = true;
-  endif;
-endif;
 ?>
 
 <div class="slick-slider__item">
@@ -72,8 +61,6 @@ endif;
                     <?php endif; ?>
                     <?php
                   endforeach;
-                  ?>
-                  <?php
                   ?>
               </ul>
             <?php endif; ?>
