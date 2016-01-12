@@ -49,6 +49,18 @@ function kandb_homepage_strongarm() {
       'revision' => array(
         'custom_settings' => FALSE,
       ),
+      'print' => array(
+        'custom_settings' => FALSE,
+      ),
+      'selection' => array(
+        'custom_settings' => FALSE,
+      ),
+      'teaser_inline' => array(
+        'custom_settings' => FALSE,
+      ),
+      'teaser_on_bien' => array(
+        'custom_settings' => FALSE,
+      ),
     ),
     'extra_fields' => array(
       'form' => array(
@@ -70,8 +82,18 @@ function kandb_homepage_strongarm() {
         'redirect' => array(
           'weight' => '9',
         ),
+        'xmlsitemap' => array(
+          'weight' => '30',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'domain' => array(
+          'default' => array(
+            'weight' => '1',
+            'visible' => FALSE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__homepage'] = $strongarm;

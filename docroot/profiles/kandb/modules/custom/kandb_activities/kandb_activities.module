@@ -200,152 +200,185 @@ function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
     $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
     $form['#validate'][] = 'kandb_activities_habitat_validate';
   }
+
   // region_kb_node_form
   if ($form_id == 'region_kb_node_form') {   
     $form['#validate'][] = 'kandb_activities_region_node_validate';
+    $form['#validate'][] = 'kandb_activities_region_validate';
   }
 }
 
 /**
  * Implement hook_form_validate().
  */
-function kandb_activities_region_node_validate(&$form, &$form_state){
+function kandb_activities_region_node_validate(&$form, &$form_state) {
  $config_phone_regex = '/^(\+)[0-9]{11}$/';
  $config_error_phone = 'Phone number must be in format +xxxxxxxxxxx.';
+ // field_region_kb_telephone
+ $field_region_kb_telephone = $form_state['values']['field_region_kb_telephone'][LANGUAGE_NONE][0]['value'];
+ if ($field_region_kb_telephone != null && !preg_match($config_phone_regex, $field_region_kb_telephone)) {
+     form_set_error('field_region_kb_telephone', t($config_error_phone));
+  }
  // Adresse 1
  $field_kb_agence1_telephone = $form_state['values']['field_kb_agence1_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_agence1_email = $form_state['values']['field_kb_agence1_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_agence1_email)) {
+ if ($field_kb_agence1_email != null && !valid_email_address($field_kb_agence1_email)) {
     form_set_error('field_kb_agence1_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_agence1_telephone)) {
+ if ($field_kb_agence1_telephone != null && !preg_match($config_phone_regex, $field_kb_agence1_telephone)) {
      form_set_error('field_kb_agence1_telephone', t($config_error_phone));
   }
  // Adresse 2
  $field_kb_agence2_telephone = $form_state['values']['field_kb_agence2_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_agence2_email = $form_state['values']['field_kb_agence2_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_agence2_email)) {
+ if ($field_kb_agence2_email != null && !valid_email_address($field_kb_agence2_email)) {
     form_set_error('field_kb_agence2_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_agence2_telephone)) {
+ if ($field_kb_agence2_telephone != null && !preg_match($config_phone_regex, $field_kb_agence2_telephone)) {
      form_set_error('field_kb_agence2_telephone', t($config_error_phone));
   }
  // Adresse 3
  $field_t_l_phone = $form_state['values']['field_t_l_phone'][LANGUAGE_NONE][0]['value'];
  $field_kb_agence3_email = $form_state['values']['field_kb_agence3_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_agence3_email)) {
+ if ($field_kb_agence3_email != null && !valid_email_address($field_kb_agence3_email)) {
     form_set_error('field_kb_agence3_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_t_l_phone)) {
+ if ($field_t_l_phone != null && !preg_match($config_phone_regex, $field_t_l_phone)) {
      form_set_error('field_t_l_phone', t($config_error_phone));
   }
  // Adresse 4
  $field_kb_agence4_telephone = $form_state['values']['field_kb_agence4_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_agence4_email = $form_state['values']['field_kb_agence4_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_agence4_email)) {
+ if ($field_kb_agence4_email != null && !valid_email_address($field_kb_agence4_email)) {
     form_set_error('field_kb_agence4_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_agence4_telephone)) {
+ if ($field_kb_agence4_telephone != null && !preg_match($config_phone_regex, $field_kb_agence4_telephone)) {
      form_set_error('field_kb_agence4_telephone', t($config_error_phone));
   }
  // Adresse 5
  $field_kb_agence5_telephone = $form_state['values']['field_kb_agence5_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_agence5_email = $form_state['values']['field_kb_agence5_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_agence5_email)) {
+ if ($field_kb_agence5_email != null && !valid_email_address($field_kb_agence5_email)) {
     form_set_error('field_kb_agence5_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_agence5_telephone)) {
+ if ($field_kb_agence5_telephone != null && !preg_match($config_phone_regex, $field_kb_agence5_telephone)) {
      form_set_error('field_kb_agence5_telephone', t($config_error_phone));
   }
  // Service 1
  $field_kb_service1_telephone = $form_state['values']['field_kb_service1_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_service1_email = $form_state['values']['field_kb_service1_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_service1_email)) {
+ if ($field_kb_service1_email != null && !valid_email_address($field_kb_service1_email)) {
     form_set_error('field_kb_service1_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_service1_telephone)) {
+ if ($field_kb_service1_telephone != null && !preg_match($config_phone_regex, $field_kb_service1_telephone)) {
      form_set_error('field_kb_service1_telephone', t($config_error_phone));
   }
  // Service 2
  $field_kb_service2_telephone = $form_state['values']['field_kb_service2_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_service2_email = $form_state['values']['field_kb_service2_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_service2_email)) {
+ if ($field_kb_service2_email != null && !valid_email_address($field_kb_service2_email)) {
     form_set_error('field_kb_service2_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_service2_telephone)) {
+ if ($field_kb_service2_telephone != null && !preg_match($config_phone_regex, $field_kb_service2_telephone)) {
      form_set_error('field_kb_service2_telephone', t($config_error_phone));
   }
  // Service 3
  $field_kb_service3_telephone = $form_state['values']['field_kb_service3_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_service3_email = $form_state['values']['field_kb_service3_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_service3_email)) {
+ if ($field_kb_service3_email != null && !valid_email_address($field_kb_service3_email)) {
     form_set_error('field_kb_service3_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_service3_telephone)) {
+ if ($field_kb_service3_telephone != null && !preg_match($config_phone_regex, $field_kb_service3_telephone)) {
      form_set_error('field_kb_service3_telephone', t($config_error_phone));
   }
  // Service 4
  $field_kb_service4_telephone = $form_state['values']['field_kb_service4_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_service4_email = $form_state['values']['field_kb_service4_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_service4_email)) {
+ if ($field_kb_service4_email != null && !valid_email_address($field_kb_service4_email)) {
     form_set_error('field_kb_service4_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_service4_telephone)) {
+ if ($field_kb_service4_telephone != null && !preg_match($config_phone_regex, $field_kb_service4_telephone)) {
      form_set_error('field_kb_service4_telephone', t($config_error_phone));
   }
  // Service 5
  $field_kb_service5_telephone = $form_state['values']['field_kb_service5_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_service5_email = $form_state['values']['field_kb_service5_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_service5_email)) {
+ if ($field_kb_service5_email != null && !valid_email_address($field_kb_service5_email)) {
     form_set_error('field_kb_service5_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_service5_telephone)) {
+ if ($field_kb_service5_telephone != null && !preg_match($config_phone_regex, $field_kb_service5_telephone)) {
      form_set_error('field_kb_service5_telephone', t($config_error_phone));
   }
  // Showroom 1
  $field_kb_showroom1_telephone = $form_state['values']['field_kb_showroom1_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_showroom1_email = $form_state['values']['field_kb_showroom1_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_showroom1_email)) {
+ if ($field_kb_showroom1_email != null && !valid_email_address($field_kb_showroom1_email)) {
     form_set_error('field_kb_showroom1_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_showroom1_telephone)) {
+ if ($field_kb_showroom1_telephone != null && !preg_match($config_phone_regex, $field_kb_showroom1_telephone)) {
      form_set_error('field_kb_showroom1_telephone', t($config_error_phone));
   }
  // Showroom 2
  $field_kb_showroom2_telephone = $form_state['values']['field_kb_showroom2_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_showroom2_email = $form_state['values']['field_kb_showroom2_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_showroom2_email)) {
+ if ($field_kb_showroom2_email != null && !valid_email_address($field_kb_showroom2_email)) {
     form_set_error('field_kb_showroom2_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_showroom2_telephone)) {
+ if ($field_kb_showroom2_telephone != null && !preg_match($config_phone_regex, $field_kb_showroom2_telephone)) {
      form_set_error('field_kb_showroom2_telephone', t($config_error_phone));
   }
  // Showroom 3
  $field_kb_showroom3_telephone = $form_state['values']['field_kb_showroom3_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_showroom3_email = $form_state['values']['field_kb_showroom3_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_showroom3_email)) {
+ if ($field_kb_showroom3_email != null && !valid_email_address($field_kb_showroom3_email)) {
     form_set_error('field_kb_showroom3_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_showroom3_telephone)) {
+ if ($field_kb_showroom3_telephone != null && !preg_match($config_phone_regex, $field_kb_showroom3_telephone)) {
      form_set_error('field_kb_showroom3_telephone', t($config_error_phone));
   }
  // Showroom 4
  $field_kb_showroom4_telephone = $form_state['values']['field_kb_showroom4_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_showroom4_email = $form_state['values']['field_kb_showroom4_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_showroom4_email)) {
+ if ($field_kb_showroom4_email != null && !valid_email_address($field_kb_showroom4_email)) {
     form_set_error('field_kb_showroom4_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_showroom4_telephone)) {
+ if ($field_kb_showroom4_telephone != null && !preg_match($config_phone_regex, $field_kb_showroom4_telephone)) {
      form_set_error('field_kb_showroom4_telephone', t($config_error_phone));
   }
  // Showroom 5
  $field_kb_showroom5_telephone = $form_state['values']['field_kb_showroom5_telephone'][LANGUAGE_NONE][0]['value'];
  $field_kb_showroom5_email = $form_state['values']['field_kb_showroom5_email'][LANGUAGE_NONE][0]['value'];
- if (!valid_email_address($field_kb_showroom5_email)) {
+ if ($field_kb_showroom5_email != null && !valid_email_address($field_kb_showroom5_email)) {
     form_set_error('field_kb_showroom5_email', t('The e-mail address you specified is not valid.'));
   }
- if (!preg_match($config_phone_regex, $field_kb_showroom5_telephone)) {
+ if ($field_kb_showroom5_telephone != null && !preg_match($config_phone_regex, $field_kb_showroom5_telephone)) {
      form_set_error('field_kb_showroom5_telephone', t($config_error_phone));
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_activities_region_validate(&$form, &$form_state) {
+  $input = $form_state['input'];
+  $vals = $form_state['values'];
+  $region = trim($vals['field_region_kb_id'][LANGUAGE_NONE][0]['value']);
+  // Check exist region
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'region_kb')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_region_kb_id', 'value', $region, '=');
+
+  if (isset($form['nid']['#value'])) {
+      $query->propertyCondition('nid', $form['nid']['#value'], '!=');
+  }
+
+  $result = $query->execute();
+
+  if ($result) {
+      $data_exist = node_load(key($result['node']));
+      form_set_error('field_region_kb_id', t('This region was be used by "'.$data_exist->title.'".'));
   }
 }
 
