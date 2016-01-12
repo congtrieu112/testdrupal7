@@ -154,9 +154,9 @@ class DocCommuniqueCSVParser extends ParserCSV{
       $lines = explode('|', $line);
       if($this->id == 'document_import_communique_de_presse') {
         $lines = explode('|', $line);
-        if(count($lines) < 14) {
+        if(count($lines) < 15) {
           $concat_string .= $line;
-          if(count(explode('|', $concat_string)) == 14) {
+          if(count(explode('|', $concat_string)) == 15) {
             $line = $concat_string;
             $concat_string = '';
           } else {
