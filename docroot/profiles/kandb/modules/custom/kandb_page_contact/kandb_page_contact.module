@@ -88,8 +88,7 @@ function contact_page() {
     }
   }
   if (kandb_b2b_check_domain()) {
-    $name = "demande_de_contac";
-    $webform = webform_features_machine_name_load($name);
+    $webform = webform_features_machine_name_load('demande_de_contac');
     $url_form = "";
     if ($webform) {
       $url_form = $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid);
