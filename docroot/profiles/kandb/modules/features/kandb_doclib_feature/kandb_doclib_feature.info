@@ -52,7 +52,6 @@ features[field_instance][] = node-document-field_document_type
 features[field_instance][] = node-document-field_langue
 features[node][] = document
 features[taxonomy][] = sous_type_document
-features[taxonomy][] = type_de_document
 features[uuid_term][] = 20fd7b9c-ac98-47c6-b369-8d251c5b28fa
 features[uuid_term][] = 43f300ef-e6f6-41bc-9183-612d13d6bd6f
 features[uuid_term][] = 5b8d5eb0-aab2-46ff-a9cb-8dac13423405
