@@ -232,6 +232,14 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
+  $items['corporate/finance/publication/%'] = array(
+    'title' => 'Finance - Publication',
+    'page callback' => 'render_group_finance_publication_language',
+    'page arguments' => array(3),
+    'type' => MENU_CALLBACK,
+    'access callback' => TRUE,
+    'access arguments' => array('access content'),
+  );
   return $items;
 }
 
@@ -416,7 +424,6 @@ function render_group_homepage() {
  */
 function render_group_finance_publication($document_type_tid = '', $numof_years = 3, $current_lang = 'fr') {
   $data = array();
-
   $calenders = array();
   for ($i = 0; $i <= LIMIT_CALENDRIER; $i++) {
     $date = variable_get('finance_publication_calendrier_date_' . $current_lang . '_' . $i, '');
@@ -444,7 +451,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
     $current_lang_key = 0;
   }
-  if (!$document_type_tid) {
+  if (!$document_type_tid || (!empty($document_type_tid) && !is_numeric($document_type_tid))) {
     $document_type_name = array_values($document_type_tabs)[0]['doc_type_name'];
     $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
   }
@@ -461,7 +468,6 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   $query->condition('l.field_langue_value', $current_lang_key);
   $query->addExpression('MAX(YEAR(d.field_document_date_value))');
   $latest_years = $query->execute()->fetchField();
-
   $num_latest_year = 0;
   while ($num_latest_year < $numof_years AND $latest_years) {
     $query = db_select('node', 'n');
@@ -700,4 +706,16 @@ function kandb_group_generate_finance_publication_language_link($current_path) {
   $switch_url_fr = url($current_path . '/' . $document_type_tid_fr . '/' . $numof_years_fr . '/fr');
 
   return array('switch_url_en' => $switch_url_en, 'switch_url_fr' => $switch_url_fr);
+}
+
+/**
+ *
+ */
+/**
+ * Render Publication page for language.
+ */
+
+function render_group_finance_publication_language($language){
+  $document = render_group_finance_publication('', 3, $language);
+  return $document;
 }
