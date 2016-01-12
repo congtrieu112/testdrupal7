@@ -40,8 +40,11 @@ print theme('finance_header_block');
                       <?php if($file_path != '') : ?>
                         <li class="downloadDocs__item">
                           <div class="downloadDocs__item__info">
-                            <h4 class="downloadDocs__item__heading"><?php print $file['filename']; ?></h4>
-                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title=<?php print $file['filename']; ?>><span class="icon icon-download-pdf"></span></a></div>
+                            <?php
+                              $filename = str_replace('.pdf', '', $file['filename']);
+                            ?>
+                            <h4 class="downloadDocs__item__heading"><?php print !empty($filename)? $filename:''; ?></h4>
+                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
                           </div>
                         </li>
                       <?php endif; ?>
