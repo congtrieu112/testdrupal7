@@ -104,7 +104,7 @@ function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $docume
   if ($latest_time) {
     $latest_year = date('Y',strtotime($latest_time));
   }
-  $start_time = strtotime($latest_year . '-01-01 00:00:00');
+  $start_time = strtotime($latest_year - 3 . '-01-01 00:00:00');
   $end_time = strtotime($latest_year . '-12-31 23:59:59');
   $content = array();
   $db_query = db_select('node', 'n')->extend('PagerDefault');

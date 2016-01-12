@@ -1,6 +1,23 @@
 <?php
 print theme('group_activities_header');
 $arg = arg();
+$title = '';
+if(isset($arg[2])) {
+  switch ($arg[2]) {
+    case 'nos-agences':
+      $title = 'Nos agences';
+      break;
+    case 'nos-services':
+      $title = 'Nos services';
+      break;
+    case 'nos-showroom':
+      $title = 'Nos showroom';
+      break;
+    default:
+      $title = 'Nos agences';
+      break;
+  }
+}
 ?>
 <section class="bg-lightGrey section-padding contact">
     <div class="wrapper">
@@ -8,6 +25,16 @@ $arg = arg();
             <div class="heading__title"><?php print variable_get('title_group_agences_section', t('Contactez-nous')); ?></div>
             <p class="activities__desc"><?php print variable_get('desciption_group_agences_section', t('Retrouvez ci-dessous les coordonées de l\'ensemble des conseillers régionaux K&B Patrimoine')); ?></p>
         </h2>
+        <nav class="form-dropdown form-dropdown--responsive">
+          <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
+          <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
+              <ul class="ul-unstyled undo-padding">
+                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-agences' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-agences'); ?>"><span><?php print t('Nos agences'); ?></span></a></li>
+                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-services' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-services'); ?>"><span><?php print t('Nos services'); ?></span></a></li>
+                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-showroom' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-showroom'); ?>"><span><?php print t('Nos showroom'); ?></span></a></li>
+              </ul>
+          </div>
+      </nav>
     </div>
     <div class="wrapper">
         <nav class="form-dropdown form-dropdown--responsive">
