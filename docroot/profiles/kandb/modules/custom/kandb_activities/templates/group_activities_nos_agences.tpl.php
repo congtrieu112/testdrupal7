@@ -36,6 +36,18 @@ if(isset($arg[2])) {
           </div>
       </nav>
     </div>
+    <div class="wrapper">
+        <nav class="form-dropdown form-dropdown--responsive">
+            <button class="form-dropdown__trigger" data-app-dropdown-responsive="small-only" data-app-dropdown="data-app-dropdown" aria-controls="dropdown-downloadDocs" aria-expanded="false">Les actualités<span class="icon icon-expand" aria-hidden="true"></span></button>
+            <div class="form-dropdown__content hidden" aria-hidden="true" id="dropdown-downloadDocs">
+                <ul class="ul-unstyled undo-padding">
+                    <li class="bordered"><a class="<?php print $arg[2] == 'nos-agences' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-agences'); ?>"><span><?php print t('Nos agences'); ?></span></a></li>
+                    <li class="bordered"><a class="<?php print $arg[2] == 'nos-services' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-services'); ?>"><span><?php print t('Nos services'); ?></span></a></li>
+                    <li class="bordered"><a class="<?php print $arg[2] == 'nos-showroom' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-showroom'); ?>"><span><?php print t('Nos showroom'); ?></span></a></li>
+                </ul>
+            </div>
+        </nav>
+    </div>
     <?php
     if ($region_contents) : ?>
       <div class="wrapper contacts">
