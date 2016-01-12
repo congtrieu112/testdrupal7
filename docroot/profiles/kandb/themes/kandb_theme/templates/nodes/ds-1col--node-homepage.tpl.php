@@ -107,10 +107,12 @@ $number_pdf = count($node->field_hp_block_document['und']);
         <?php endif; ?>
     </header>
     <?php print render($content['habitat_carousel']); ?>
-    <div class="btn-wrapper btn-wrapper--center">
-        <a href="<?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['url']) ? url($content['field_hp_block_cta_habitat']['#items'][0]['url']) : ''; ?>" class="btn-rounded btn-primary"><?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['title']) ? $content['field_hp_block_cta_habitat']['#items'][0]['title'] : ''; ?>
-            <span class="icon icon-arrow"></span>
-        </a>
-    </div>
+    <?php if ($content['field_hp_block_cta_habitat']['#items'][0]['url'] && $content['field_hp_block_cta_habitat']['#items'][0]['title']): ?>
+      <div class="btn-wrapper btn-wrapper--center">
+          <a href="<?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['url']) ? url($content['field_hp_block_cta_habitat']['#items'][0]['url']) : ''; ?>" class="btn-rounded btn-primary"><?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['title']) ? $content['field_hp_block_cta_habitat']['#items'][0]['title'] : ''; ?>
+              <span class="icon icon-arrow"></span>
+          </a>
+      </div>
+    <?php endif; ?>
 </section>
 <!-- [references] end-->

@@ -1189,8 +1189,24 @@ Service Client<br />
       ),
     ),
   ),
-  'field_hp_block_ref_stitre' => array(),
-  'field_hp_block_ref_titre' => array(),
+  'field_hp_block_ref_stitre' => array(
+    'und' => array(
+      0 => array(
+        'value' => 'Plus de 40 ans d’expertise dans l’immobilier neuf',
+        'format' => NULL,
+        'safe_value' => 'Plus de 40 ans d’expertise dans l’immobilier neuf',
+      ),
+    ),
+  ),
+  'field_hp_block_ref_titre' => array(
+    'und' => array(
+      0 => array(
+        'value' => 'Nos références',
+        'format' => NULL,
+        'safe_value' => 'Nos références',
+      ),
+    ),
+  ),
   'field_hp_block_search_img_des' => array(
     'und' => array(
       0 => array(
@@ -1246,6 +1262,16 @@ Service Client<br />
         'value' => 'Concrétisons ensemble votre projet.',
         'format' => NULL,
         'safe_value' => 'Concrétisons ensemble votre projet.',
+      ),
+    ),
+  ),
+  'field_hp_block_document' => array(),
+  'field_hp_block_cta_habitat' => array(
+    'und' => array(
+      0 => array(
+        'url' => 'corporate/activites/habitat',
+        'title' => 'Voir toutes nos références',
+        'attributes' => array(),
       ),
     ),
   ),
