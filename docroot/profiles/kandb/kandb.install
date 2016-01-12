@@ -995,3 +995,12 @@ function kandb_update_7200() {
   }
 }
 
+/**
+ * Enable kandb_page_contact module
+ */
+function kandb_update_7201() {
+  if (!module_exists('kandb_page_contact')) {
+    module_enable(array('kandb_page_contact'), TRUE);
+  }
+}
+
