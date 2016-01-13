@@ -122,6 +122,7 @@ function kandb_partenaire_prepare_download_file($vuuid = '') {
   if ($vuuid == '') {
     return;
   }
+  $vuuid = urldecode($vuuid);
   $uri = 'public://partenaire/';
   $file_path = drupal_realpath($uri) . '/';
   $db_query = db_select('field_data_field_id_partenaire', 'idp');
