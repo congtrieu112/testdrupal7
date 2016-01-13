@@ -9,16 +9,39 @@ jQuery(function($){
     }
 
     /* search_results_number && search_results_affichage */
-    /* TODO : temporary */
+    /* TODO : temporary because result are not the same depending of if we search a bien or a programme */
     var number_result = $('.results__list .results__list__heading .heading__title--sub').text();
-    if(typeof(number_result) == undefined) {
-        number_result = '';
+    if(number_result == '') {
+       if(window.location.pathname.indexOf("/recherche") != -1) {
+           number_result = 0;
+       }else{
+           number_result = '';
+       }
     }
-        tc_vars['search_results_number'] = number_result;
-        tc_vars['search_results_affichage'] = number_result;
-    }elseif(){
-        tc_vars['search_results_number'] = number_result;
-        tc_vars['search_results_affichage'] = number_result;
+    tc_vars['search_results_number'] = number_result;
+    tc_vars['search_results_affichage'] = number_result;
+
+    /* Type block */
+    function addTypeBloc(element, css_class){
+        var href = element.attr('href');
+        if(href.indexOf('?') != -1){
+            href = href + "&type_block=" + css_class;
+        }else{
+            href = href + "?type_block=" + css_class;
+        }
+        element.attr('href', href);
+    }
+    var bloc_generique_link = $('.contactUs-mini .contactUs__cta a');
+    var bloc_votre_conseiller_link = $('#contact .contactUs__cta a');
+    if(bloc_generique_link.length){
+        bloc_generique_link.each(function(){
+            addTypeBloc($(this), 'bloc_generique');
+        });
+    }
+    if(bloc_votre_conseiller_link.length){
+        bloc_votre_conseiller_link.each(function(){
+            addTypeBloc($(this), 'bloc_votre_conseiller');
+        });
     }
 
 });

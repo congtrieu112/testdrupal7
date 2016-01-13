@@ -122,7 +122,8 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
   if($user->uid) $user_profile = user_load($user->uid);
 
   // Decompose url
-  $explode_url = explode('/', request_uri());
+  $url = parse_url(request_uri());
+  $explode_url = explode('/', $url['path']);
   if($explode_url[0] == '') array_shift($explode_url);
 
   $return = '';
@@ -130,7 +131,22 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
     /* Environnement */
     case 'env_template':
-      $return = ''; // TODO
+      if(drupal_is_front_page()){
+        $return = 'home';
+      }elseif($explode_url[0] == 'recherche') {
+        $return = 'resultats';
+      }else{
+        $object = menu_get_object();
+        if(is_object($object) && isset($object->type)){
+          if ($object->type == 'programme') {
+            $return = 'programme';
+          }elseif($object->type == 'webform') {
+            $return = 'formulaire_step1';
+          }elseif($object->type == 'programme') {
+            $return = 'formulaire/confirmation'; // TODO : Refaire le tag commander après un appel ajax de webform
+          }
+        }
+      }
       break;
     case 'env_language':
       $return = 'fr';
@@ -215,22 +231,32 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       break;
 
     /* Conversion */
-    case 'conversion_type': // TODO
+    case 'conversion_type':
+      $object = menu_get_object();
+      if(is_object($object) && isset($object->type) && $object->type == 'webform' && isset($object->webform['machine_name'])) {
+        if ($object->webform['machine_name'] == '_tre_rappel_') {
+          $return = 'Rappel';
+        }elseif ($object->webform['machine_name'] == 'prendre_rendez_vous') {
+          $return = 'RDV';
+        }elseif ($object->webform['machine_name'] == 'telechargement_documents') {
+          $return = 'Documentation';
+        }
+      }
+      break;
+    case 'conversion_id': // TODO : What does is this ?
       $return = '';
       break;
-    case 'conversion_id': // TODO
-      $return = '';
+    case 'type_bloc':
+      // See kandb_tagcommander.js for GET type_block
+      if(isset($_GET['type_block']) && $_GET['type_block'] != '') $return = $_GET['type_block'];
       break;
-    case 'type_bloc': // TODO
-      $return = '';
-      break;
-    case 'agence_associe': // TODO
+    case 'agence_associe': // TODO : Cannot do because the adress is one big block
       $return = '';
       break;
 
     /* Environnement */
     case 'programme_list':
-      $return = ''; // TODO
+      $return = ''; // TODO : Need more precision
       break;
     case 'search_request':
       $return = ((arg(0) == URL_SEARCH_B2C || arg(0) == URL_SEARCH_B2B) && isset($_GET['place']) ? $_GET['place'] : '');
@@ -268,7 +294,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         foreach($taxo as $id => $term) {
           $return[] = $term->name;
         }
-        $return = implode($return, '|');
+        $return = implode($return, ',');
       }
       break;
     case 'pinel_law': // TODO : Missing the checkbox
@@ -281,7 +307,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
     /* Programme */
     case 'programme_id':
       $object = menu_get_object();
-      if(is_object($object) && $object->type == 'programme') $return = $object->nid; // TODO : ID drupal ou ID Kaufman
+      if(is_object($object) && $object->type == 'programme' && isset($object->field_id_programme['und'][0]['value'])) $return = $object->field_id_programme['und'][0]['value']; // ID Kaufman
       break;
     case 'programme_region':
       $object = menu_get_object();
@@ -309,7 +335,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       break;
     case 'programme_type':
       $object = menu_get_object();
-      if(is_object($object) && $object->type == 'programme') $return = $object->type; // TODO : Précision
+      if(is_object($object) && $object->type == 'programme') $return = $object->type; // TODO : Need Precision
       break;
     case 'programme_name':
       $object = menu_get_object();
@@ -339,11 +365,50 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       break;
 
     /* Environnement */
-    case 'site_niveau_1': // TODO
-      $return = 12345;
+    case 'site_niveau_1':
+      if(strpos($base_url, 'www.') !== FALSE){
+        $return = 567577;
+      }else{
+        $return = 567578;
+      }
       break;
-    case 'site_niveau_2': // TODO
-      $return = 2345;
+    case 'site_niveau_2':
+      /*
+        1	Accueil
+        2	Nos offres
+        3	Nos services // TODO : does not exist
+        4	Nos conseils
+        5	Vos outils
+        6	Corporate
+        7	Mon espace
+        8	Moteur interne
+        9	Annexes // TODO : What is this ?
+        10	Pages d'objectifs // TODO : What is this ?
+        11	Clics transversaux // TODO : What is this ?
+      */
+      if(drupal_is_front_page()){
+        $return = 1; // Accueil
+      }elseif($explode_url[0] == 'notre-offre'){
+        $return = 2; // Nos offres
+      }elseif($explode_url[0] == 'nos-services'){ // TODO : does not exist
+        $return = 3; // Nos services
+      }elseif($explode_url[0] == 'nos-conseils'){
+        $return = 4; // Nos conseils
+      }elseif($explode_url[0] == 'nos-outils'){
+        $return = 5; // Nos outils
+      }elseif($explode_url[0] == 'corporate'){
+        $return = 6; // Corporate
+      }elseif($explode_url[0] == 'mon-espace'){
+        $return = 7; // Mon espace
+      }elseif($explode_url[0] == 'recherche'){
+        $return = 8; // Moteur interne
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 9; // Nos offres
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 10; // Nos offres
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 11; // Nos offres
+      }
       break;
     case 'xt_page':
       $return = implode('::', $explode_url);
