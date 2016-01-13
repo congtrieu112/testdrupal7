@@ -138,9 +138,15 @@ function kandb_partenaire_prepare_download_file($vuuid = '') {
       }
       elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
         $file_path .= 'document_lot_plan_b2c.zip';
+        if(is_file($file_path)) {
+          drupal_goto('sites/default/files/partenaire/document_lot_plan_b2c.zip');
+        }
       }
       elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
         $file_path .= 'document_lot_plan_b2b.zip';
+        if(is_file($file_path)) {
+          drupal_goto('sites/default/files/partenaire/document_lot_plan_b2b.zip');
+        }
       }
     }
   }
