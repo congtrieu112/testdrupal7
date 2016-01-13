@@ -82,15 +82,17 @@ print theme('finance_header_block');
                           <ul class="ul-unstyled undo-padding">
                             <?php foreach ($recent_document_menus as $key => $value) : ?>
                               <?php
-                              $document_type_name = $value['doc_type_name'];
-                              $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
-                              $numof_years = $value['numof_years'];
-                              ?>
-                                <li class="bordered">
-                                    <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if (($document_type_tid.$numof_years) == $current_path_alias) : print 'active'; endif ?>">
-                                        <span><?php print $key; ?></span>
-                                    </a>
-                                </li>
+                                $document_type_name = $value['doc_type_name'];
+                                $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
+                                $numof_years = $value['numof_years'];
+                            ?>
+                                <?php if (get_document_publication($document_type_tid, $numof_years, $current_lang)) : ?>
+                                    <li class="bordered">
+                                        <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if (($document_type_tid.$numof_years) == $current_path_alias) : print 'active'; endif ?>">
+                                            <span><?php print $key; ?></span>
+                                        </a>
+                                    </li>
+                                <?php endif; ?>
                             <?php endforeach; ?>
                           </ul>
                         </div>
