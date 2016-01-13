@@ -1504,17 +1504,17 @@ function kandb_feed_feeds_importer_default() {
         ),
         'mappings' => array(
           0 => array(
-            'source' => '0',
+            'source' => 'IdentifiantPartenaire',
             'target' => 'field_id_partenaire',
             'unique' => FALSE,
           ),
           1 => array(
-            'source' => '0',
+            'source' => 'IdentifiantPartenaire',
             'target' => 'guid',
             'unique' => 1,
           ),
           2 => array(
-            'source' => '1',
+            'source' => 'IdentifiantProgramme',
             'target' => 'field_partenaire_programmes',
             'unique' => FALSE,
           ),
