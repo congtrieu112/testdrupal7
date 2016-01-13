@@ -1034,3 +1034,8 @@ function kandb_update_7202() {
   }
 }
 
+function kandb_update_7203(&$sandbox) {
+  if (!module_exists('kandb_tagcommander')) {
+    module_enable(array('kandb_tagcommander'), TRUE);
+  }
+}
