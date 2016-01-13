@@ -122,33 +122,53 @@ function kandb_partenaire_prepare_download_file($vuuid = '') {
   if ($vuuid == '') {
     return;
   }
-  $vuuid = urldecode($vuuid);
+  $partenaire_directory = 'sites/default/files/partenaire/';
+  $vuuid_str = urldecode($vuuid);
   $uri = 'public://partenaire/';
   $file_path = drupal_realpath($uri) . '/';
   $db_query = db_select('field_data_field_id_partenaire', 'idp');
   $db_query->fields('idp', array('entity_id'));
   $db_query->condition('idp.entity_type', 'node');
-  $db_query->condition('idp.field_id_partenaire_value', $vuuid);
+  $db_query->condition('idp.field_id_partenaire_value', $vuuid_str);
   $pid = $db_query->execute()->fetchField();
   if ($pid) {
     $node = node_load($pid);
+    $file_exist = TRUE;
     if ($node->status == 1 && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
       if ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
         $file_path .= $vuuid . '/document_lot_plan.zip';
+        if(is_file($file_path)) {
+          drupal_goto($partenaire_directory . $vuuid . '/document_lot_plan.zip');
+        }
+        else {
+          $file_exist = FALSE;
+        }
       }
       elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
-        $file_path .= 'document_lot_plan_b2c.zip';
+        $file_path .= 'b2c/document_lot_plan.zip';
         if(is_file($file_path)) {
-          drupal_goto('sites/default/files/partenaire/document_lot_plan_b2c.zip');
+          drupal_goto($partenaire_directory . 'b2c/document_lot_plan.zip');
+        }
+        else {
+          $file_exist = FALSE;
         }
       }
       elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
-        $file_path .= 'document_lot_plan_b2b.zip';
+        $file_path .= 'b2b/document_lot_plan.zip';
         if(is_file($file_path)) {
-          drupal_goto('sites/default/files/partenaire/document_lot_plan_b2b.zip');
+          drupal_goto($partenaire_directory . 'b2b/document_lot_plan.zip');
+        }
+        else {
+          $file_exist = FALSE;
         }
       }
     }
+    if (!$file_exist) {
+      return 'File does not exist';
+    }
+  }
+  else {
+    return 'The partenaire not found';
   }
   if (is_file($file_path)) {
     header("Pragma: public");
@@ -214,13 +234,26 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
   $files_info = array();
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   if ($prepare_file) {
-    drupal_chmod($uri);
-    $path = drupal_realpath($uri);
+    drupal_chmod($uri . 'b2c', 0777);
+    drupal_chmod($uri . 'b2b', 0777);
+    $ori_path = $path = drupal_realpath($uri);
+    $path = $ori_path . '/b2c/';
     if (file_exists($path)) {
       foreach (glob($path . "/*.*") as $filename) {
         if (is_file($filename)) {
           $tmp_filename = str_replace($path . '/', '', $filename);
-          if ($tmp_filename == 'document_lot_plan_b2c.zip' || $tmp_filename == 'document_lot_plan_b2b.zip') {
+          if ($tmp_filename == 'document_lot_plan.zip') {
+            unlink($filename);
+          }
+        }
+      }
+    }
+    $path = $ori_path . '/b2b/';
+    if (file_exists($path)) {
+      foreach (glob($path . "/*.*") as $filename) {
+        if (is_file($filename)) {
+          $tmp_filename = str_replace($path . '/', '', $filename);
+          if ($tmp_filename == 'document_lot_plan.zip') {
             unlink($filename);
           }
         }
@@ -229,11 +262,11 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     //Create/update B2C file
     $all_pdf_files = get_files_in_bien_related(1);
     $files_info = kandb_partenaire_get_file_info($all_pdf_files);
-    kandb_partenaire_create_file_zip($path . '/document_lot_plan_b2c.zip', $files_info);
+    kandb_partenaire_create_file_zip($ori_path . '/b2c/document_lot_plan.zip', $files_info);
     //Create/update B2B file
     $all_pdf_files = get_files_in_bien_related(2);
     $files_info = kandb_partenaire_get_file_info($all_pdf_files);
-    kandb_partenaire_create_file_zip($path . '/document_lot_plan_b2b.zip', $files_info);
+    kandb_partenaire_create_file_zip($ori_path . '/b2b/document_lot_plan.zip', $files_info);
   }
 }
 
@@ -290,6 +323,7 @@ function kandb_partenaire_create_archive_file($node) {
   $all_pdf_files = array();  
   $uri = 'public://partenaire/'. $vuuid ;
   file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+  drupal_chmod($uri, 0777);
   $path = drupal_realpath($uri);
   
   if (file_exists($path)) {
