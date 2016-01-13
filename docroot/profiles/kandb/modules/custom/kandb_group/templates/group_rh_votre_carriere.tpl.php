@@ -12,7 +12,7 @@ $sub_title = variable_get('your_career_module_sub_title');
 ?>
 <!-- [content Advice] start-->
 <section class="wrapper section-padding ourAdvices">
-    <?php if ($module_title AND $sub_title) : ?>
+    <?php if ($module_title || $sub_title) : ?>
       <header class="heading heading--bordered">
           <h1 class="heading__title"><?php print $module_title; ?></h1>
           <p class="heading__title heading__title--sub"><?php print $sub_title; ?></p>
@@ -27,9 +27,10 @@ $sub_title = variable_get('your_career_module_sub_title');
       $image = is_numeric($image) ? file_load($image) : '';
       $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_big_teaser', $image->uri) : '';
       ?>
-      <?php if ($title AND $description AND $image) : ?>
+      <?php if ($title || $description || $image) : ?>
         <!-- [Article Advice] start-->
         <article class="text-center">
+            <?php if($image) : ?>
             <figure class="ourAdvices__figure">
                 <!-- images need to have 2 formats in data-interchange attribute:
                 - small:
@@ -40,10 +41,15 @@ $sub_title = variable_get('your_career_module_sub_title');
                 <noscript><img src="<?php print $image; ?>" alt="<?php print $title; ?>"/></noscript>
                 <!-- [Responsive img] end-->
             </figure>
+            <?php endif; ?>
+            <?php if($title) : ?>
             <div class="heading--small ourAdvices__heading">
                 <h2 class="heading__title"><?php print $title; ?></h2>
             </div>
+            <?php endif; ?>
+            <?php if($description) : ?>
             <p class="ourAdvices__text"><?php print $description; ?></p>
+            <?php endif; ?>
         </article>
         <!-- [Article Advice] end-->
       <?php endif; ?>

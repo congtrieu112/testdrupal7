@@ -20,19 +20,27 @@ $module_title = $module_title ? $module_title : t('Actualités');
       $image = is_numeric($image) ? file_load($image) : '';
       $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_medium_850x345', $image->uri) : '';
     ?>
+    <?php
+      $descriptions_news = variable_get('description_news', '');
+      if ($title || $descriptions_news || $image) :
+    ?>
     <article class="text-center">
+        <?php if($image) : ?>
         <figure class="ourAdvices__figure">
             <img alt="<?php print $title; ?>" data-interchange="[<?php print $image; ?>, (small)], [<?php print $image; ?>, (medium)]"/>
             <noscript><img src="<?php print $image; ?>" alt="<?php print $title; ?>"/></noscript>
             <!-- [Responsive img] end-->
         </figure>
+        <?php endif; ?>
+        <?php if(isset($descriptions_news['value'])) : ?>
         <div class="ourAdvices__text">
             <?php
-                $descriptions_news = variable_get('description_news');
-                print $descriptions_news['value'];
+              print $descriptions_news['value'];
             ?>
         </div>
+        <?php endif; ?>
     </article>
+    <?php endif; ?>
 </section>
 <section class="section-padding">
   <div class="wrapper">

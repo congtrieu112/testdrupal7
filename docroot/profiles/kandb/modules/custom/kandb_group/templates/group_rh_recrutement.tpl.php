@@ -28,8 +28,14 @@ endif;
             <h1 class="heading__title"><?php print variable_get('title_group_hr_recruitment_section', t('Recrutement')); ?></h1>
             <p class="heading__title heading__title--sub"><?php print variable_get('subtitle_group_hr_recruitment_section', t('Morbi leo sirus porta ac consectertur, vestibulum at eros.')) ?></p>
         </header>
+        <?php
+          $desc1 = variable_get('desciption_1_group_hr_recruitment_section', '');
+          $desc2 = variable_get('desciption_2_group_hr_recruitment_section', '');
+          if($desc1 || $desc2 || $recruitment_section_image_uri) :
+        ?>
         <!-- [Article Advice] start-->
         <article class="text-center">
+            <?php if($recruitment_section_image_uri) : ?>
             <figure class="ourAdvices__figure">
                 <!-- images need to have 2 formats in data-interchange attribute:
                 - small:
@@ -42,14 +48,16 @@ endif;
                 </noscript>
                 <!-- [Responsive img] end-->
             </figure>
-            <?php if (variable_get('desciption_1_group_hr_recruitment_section')): ?>
-              <p class="ourAdvices__text"><?php print variable_get('desciption_1_group_hr_recruitment_section'); ?></p>
             <?php endif; ?>
-            <?php if (variable_get('desciption_2_group_hr_recruitment_section')): ?>
-              <p class="ourAdvices__text"><?php print variable_get('desciption_2_group_hr_recruitment_section'); ?></p>
+            <?php if ($desc1): ?>
+              <p class="ourAdvices__text"><?php print $desc1; ?></p>
+            <?php endif; ?>
+            <?php if ($desc2): ?>
+              <p class="ourAdvices__text"><?php print $desc2; ?></p>
             <?php endif; ?>
         </article>
         <!-- [Article Advice] end-->
+        <?php endif; ?>
     </div>
 </section>
 <!-- [graphic presentation] end-->
@@ -120,7 +128,7 @@ endif;
                 </div><a href="<?php print url('node/' . $item->nid); ?>" class="btn-rounded btn-primary"><?php print t('Voir l’offre'); ?><span class="icon icon-arrow"></span></a>
               </article>
                  <?php endforeach; ?>
-            
+
             </div>
             <div class="btn-wrapper"><a href="<?php print url('corporate/ressources-humaines/postuler'); ?>" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
             </div>

@@ -13,12 +13,16 @@
             <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
         </header>
         <?php endif; ?>
+        <?php
+          $bloc_edito_description = variable_get('bloc_edito_description', array('value' => '', 'format' => NULL));
+          if($bloc_edito_description && isset($bloc_edito_description['value'])) :
+        ?>
         <div class="heading--small activities__heading">
             <?php
-                $bloc_edito_description = variable_get('bloc_edito_description', array('value' => '', 'format' => NULL));
                 print $bloc_edito_description['value'];
             ?>
         </div>
+        <?php endif; ?>
         <?php
               $edito_kpi_component_image = variable_get('bloc_edito_kpi_item_image');
               $edito_kpi_component_image = $edito_kpi_component_image ? file_load($edito_kpi_component_image) : '';
