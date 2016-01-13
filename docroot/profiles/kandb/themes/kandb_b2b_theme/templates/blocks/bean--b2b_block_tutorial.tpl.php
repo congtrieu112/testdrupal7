@@ -52,8 +52,18 @@ if (isset($content["field_block_b2b_header_img_small "]["#items"][0]['uri'])) {
             <div class="heading__title"><?php print $title ?></div>
             <div class="heading__title heading__title--sub"><?php print (isset($content['field_block_b2b_header_stitre']['#items'][0]['value'])) ? $content['field_block_b2b_header_stitre']['#items'][0]['value'] : ''  ?></div>
         </div>
-        <a href="#" class="btn-primary btn-rounded"><span class="button__content"><span class="icon"></span><?php print t('Discover how to manage your K & B space'); ?></span></a>
+        <a class="btn-primary btn-rounded" href="https://www.youtube.com/watch?v=<?php print $content['field_block_b2b_header_video']['#items'][0]['video_id']; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-1" class="fileItem__img"><span class="icon icon-play"></span>
+            <?php print t('Discover how to manage your K & B space'); ?>
+        </a>
     </div>
 </section>
 <!-- [header Advice] end-->
-<?php print render($content['field_block_b2b_header_video']); ?>
+<!-- [popin] start-->
+<div id="videofileItem-1" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full">
+    <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
+        <div class="flex-video youtube">
+            <iframe width="1280" height="720" src="" data-src="//www.youtube.com/embed/<?php print $content['field_block_b2b_header_video']['#items'][0]['video_id']; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true"></iframe>
+        </div>
+    </div>
+</div>
+<!-- [popin] end-->
