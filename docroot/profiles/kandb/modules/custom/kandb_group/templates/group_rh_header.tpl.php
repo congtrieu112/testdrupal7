@@ -44,6 +44,3 @@ if (isset($group_header['content']) && $group_header['content']) {
     <div class="wrapper"><a href="#" class="btn-white"><?php print t('Retour'); ?><span class="icon icon-arrow left"></span></a>
     </div>
 </div>
-<div class="wrapper">
-    <hr class="hr">
-</div>
