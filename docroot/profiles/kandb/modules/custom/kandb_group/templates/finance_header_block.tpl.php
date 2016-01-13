@@ -85,6 +85,8 @@ $block_img_small_uri = (isset($block_img_small_load->uri)) ? file_create_url($bl
           <a href="<?php print url('corporate'); ?>" class="btn-white"><?php print t('Retour'); ?><span class="icon icon-arrow left"></span></a>
       </div>
   </div>
-
+  <div class="wrapper">
+      <hr class="hr">
+  </div>
   <?php
  endif;
