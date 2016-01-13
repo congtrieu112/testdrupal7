@@ -237,7 +237,7 @@ function kandb_seo_page_sitemap_geo($localisation, $argument = NULL){
     }
   }
 
-  if($current_url == 'villes') {
+  if($current_url == 'villes' || $current_url == 'departements' || $current_url == 'regions') {
     // Search form
     $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
     $block_form = $block_form['content'];
