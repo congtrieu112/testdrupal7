@@ -14,7 +14,6 @@
  * @see system_settings_form()
  */
 function pathauto_patterns_form($form, $form_state) {
-  ini_set('memory_limit', '1024M');
   // Call the hook on all modules - an array of 'settings' objects is returned
   $all_settings = module_invoke_all('pathauto', 'settings');
   foreach ($all_settings as $settings) {
