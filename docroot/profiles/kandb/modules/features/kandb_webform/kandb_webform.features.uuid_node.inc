@@ -21,15 +21,15 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => 'b2218787-1244-499d-8562-5fbb818bea04',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1452689048,
+  'created' => 1452697321,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9a3cd655-8f47-49a4-8e60-b237aa91af32',
   'revision_uid' => 1,
   'webform' => array(
     'nid' => 1,
-    'next_serial' => 7,
-    'confirmation' => 'Merci, votre soumission a été reçue',
+    'next_serial' => 6,
+    'confirmation' => '',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
     'status' => 1,
@@ -57,8 +57,8 @@ function kandb_webform_uuid_features_default_content() {
     'preview_message' => '',
     'preview_message_format' => 'plain_text',
     'preview_excluded_components' => array(),
-    'machine_name' => 'avant_contactez_nous',
     'webform_ajax' => 1,
+    'machine_name' => 'avant_contactez_nous',
     'record_exists' => TRUE,
     'roles' => array(
       0 => 1,
@@ -84,7 +84,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 19,
-        'machine_name' => 'prendre_rendez_vous__rdv_adresse2',
+        'machine_name' => 'prendre_rendez_vous__row_1',
         'page_num' => 1,
       ),
       25 => array(
@@ -113,7 +113,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 31,
-        'machine_name' => 'prendre_rendez_vous__row_1',
+        'machine_name' => 'avant_contactez_nous__ap_nom',
         'page_num' => 1,
       ),
       26 => array(
@@ -142,7 +142,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 32,
-        'machine_name' => '_tre_rappel___rappeler_prenom',
+        'machine_name' => 'avant_contactez_nous__ap_prenom',
         'page_num' => 1,
       ),
       21 => array(
@@ -163,7 +163,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 20,
-        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
+        'machine_name' => 'prendre_rendez_vous__row_3',
         'page_num' => 1,
       ),
       27 => array(
@@ -192,7 +192,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 33,
-        'machine_name' => '_tre_rappel___rappeler_telephone',
+        'machine_name' => 'avant_contactez_nous__ap_adresse1',
         'page_num' => 1,
       ),
       28 => array(
@@ -242,7 +242,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 21,
-        'machine_name' => 'telechargement_documents__row_1',
+        'machine_name' => 'prendre_rendez_vous__row_5',
         'page_num' => 1,
       ),
       29 => array(
@@ -292,7 +292,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 22,
-        'machine_name' => 'telechargement_documents__ma_adresse_1',
+        'machine_name' => 'prendre_rendez_vous__row_2',
         'page_num' => 1,
       ),
       30 => array(
@@ -400,12 +400,12 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 23,
-        'machine_name' => 'prendre_rendez_vous__ville_prog',
+        'machine_name' => 'prendre_rendez_vous__row_4',
         'page_num' => 1,
       ),
-      33 => array(
+      40 => array(
         'nid' => 1,
-        'cid' => 33,
+        'cid' => 40,
         'pid' => 24,
         'form_key' => 'ap_telephone',
         'name' => 'Téléphone',
@@ -432,9 +432,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_telephone',
         'page_num' => 1,
       ),
-      34 => array(
+      41 => array(
         'nid' => 1,
-        'cid' => 34,
+        'cid' => 41,
         'pid' => 24,
         'form_key' => 'ap_email',
         'name' => 'E-mail',
@@ -460,9 +460,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_email',
         'page_num' => 1,
       ),
-      35 => array(
+      42 => array(
         'nid' => 1,
-        'cid' => 35,
+        'cid' => 42,
         'pid' => 0,
         'form_key' => 'ap_message',
         'name' => 'N\'hésitez pas à nous donner toute information utile concernant votre projet.',
@@ -484,12 +484,12 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 24,
-        'machine_name' => 'avant_contactez_nous__ap_message',
+        'machine_name' => '_tre_rappel___rappeler_nom',
         'page_num' => 1,
       ),
-      36 => array(
+      43 => array(
         'nid' => 1,
-        'cid' => 36,
+        'cid' => 43,
         'pid' => 0,
         'form_key' => 'ap_newsletter',
         'name' => 'Je souhaite recevoir les offres et la newsletter mensuelle',
@@ -514,71 +514,12 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 25,
-        'machine_name' => 'prendre_rendez_vous__rdv_email',
+        'machine_name' => '_tre_rappel___rappeler_prenom',
         'page_num' => 1,
       ),
-      37 => array(
+      44 => array(
         'nid' => 1,
-        'cid' => 37,
-        'pid' => 0,
-        'form_key' => 'ap_connu',
-        'name' => 'Comment nous avez-vous connu ?',
-        'type' => 'select',
-        'value' => '',
-        'extra' => array(
-          'items' => '1|Prospectus
-2|Courrier
-3|Relations
-4|Presse
-5|Radio
-6|TV
-7|Moteurs de recherche
-8|Sites Internet
-9|Réseaux sociaux
-10|Panneaux
-11|Bureau de vente
-12|E-mailing',
-          'multiple' => 0,
-          'title_display' => 'before',
-          'private' => 0,
-          'wrapper_classes' => '',
-          'css_classes' => '',
-          'aslist' => 1,
-          'empty_option' => '',
-          'optrand' => 0,
-          'other_option' => NULL,
-          'other_text' => 'Other...',
-          'description' => '',
-          'custom_keys' => FALSE,
-          'options_source' => '',
-          'analysis' => TRUE,
-        ),
-        'required' => 0,
-        'weight' => 26,
-        'machine_name' => 'prendre_rendez_vous__rdv_prenom',
-        'page_num' => 1,
-      ),
-      38 => array(
-        'nid' => 1,
-        'cid' => 38,
-        'pid' => 0,
-        'form_key' => 'ap_title',
-        'name' => 'Title avant premiere',
-        'type' => 'hidden',
-        'value' => '',
-        'extra' => array(
-          'hidden_type' => 'hidden',
-          'private' => 0,
-          'analysis' => FALSE,
-        ),
-        'required' => 0,
-        'weight' => 27,
-        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
-        'page_num' => 1,
-      ),
-      39 => array(
-        'nid' => 1,
-        'cid' => 39,
+        'cid' => 44,
         'pid' => 0,
         'form_key' => 'ap_type_contact',
         'name' => 'Type de contact',
@@ -591,7 +532,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 28,
-        'machine_name' => 'demande_de_contac__votre_societe',
+        'machine_name' => '_tre_rappel___rappeler_telephone',
         'page_num' => 1,
       ),
       17 => array(
@@ -609,7 +550,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 31,
-        'machine_name' => '_tre_rappel___rappeler_nom',
+        'machine_name' => 'telechargement_documents__row_1',
         'page_num' => 1,
       ),
       18 => array(
@@ -627,7 +568,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 32,
-        'machine_name' => 'prendre_rendez_vous__row_3',
+        'machine_name' => 'prendre_rendez_vous__rdv_prenom',
         'page_num' => 1,
       ),
       19 => array(
@@ -645,7 +586,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 33,
-        'machine_name' => 'prendre_rendez_vous__nom_prog',
+        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
         'page_num' => 1,
       ),
     ),
@@ -664,7 +605,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-13 19:44:08 +0700',
+  'date' => '2016-01-13 22:02:01 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -677,7 +618,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => 'fe0b08db-f104-4e79-8b9b-b4fd92f4232f',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1452689048,
+  'created' => 1452697321,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'eadba82f-d7b7-4990-ba66-4bdce5895ffe',
@@ -685,7 +626,7 @@ function kandb_webform_uuid_features_default_content() {
   'webform' => array(
     'nid' => 2,
     'next_serial' => 16,
-    'confirmation' => 'Merci, votre soumission a été reçue',
+    'confirmation' => '',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
     'status' => 1,
@@ -713,8 +654,8 @@ function kandb_webform_uuid_features_default_content() {
     'preview_message' => '',
     'preview_message_format' => 'plain_text',
     'preview_excluded_components' => array(),
-    'machine_name' => '_tre_rappel_',
     'webform_ajax' => 1,
+    'machine_name' => '_tre_rappel_',
     'record_exists' => TRUE,
     'roles' => array(
       0 => 1,
@@ -740,7 +681,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 3,
-        'machine_name' => 'demande_de_contac__votre_email',
+        'machine_name' => '_tre_rappel___row_1',
         'page_num' => 1,
       ),
       11 => array(
@@ -769,7 +710,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 8,
-        'machine_name' => '_tre_rappel___row_2',
+        'machine_name' => '_tre_rappel___rappeler_nom',
         'page_num' => 1,
       ),
       12 => array(
@@ -798,7 +739,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 9,
-        'machine_name' => '_tre_rappel___row_1',
+        'machine_name' => '_tre_rappel___rappeler_prenom',
         'page_num' => 1,
       ),
       6 => array(
@@ -819,7 +760,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 4,
-        'machine_name' => 'demande_de_contac__votre_nom',
+        'machine_name' => '_tre_rappel___row_2',
         'page_num' => 1,
       ),
       13 => array(
@@ -848,7 +789,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 10,
-        'machine_name' => 'prendre_rendez_vous__dept_prog',
+        'machine_name' => '_tre_rappel___rappeler_telephone',
         'page_num' => 1,
       ),
       15 => array(
@@ -896,7 +837,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 11,
-        'machine_name' => '_tre_rappel___rdv_idkp',
+        'machine_name' => '_tre_rappel___rappeler_horaire',
         'page_num' => 1,
       ),
       9 => array(
@@ -914,7 +855,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 5,
-        'machine_name' => 'demande_de_contac__laissez_lui_votre_message',
+        'machine_name' => '_tre_rappel___rdv_idkp',
         'page_num' => 1,
       ),
       10 => array(
@@ -932,7 +873,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 6,
-        'machine_name' => 'demande_de_contac__type_de_message',
+        'machine_name' => '_tre_rappel___rdv_idkl',
         'page_num' => 1,
       ),
       8 => array(
@@ -950,7 +891,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 7,
-        'machine_name' => 'demande_de_contac__votre_societe',
+        'machine_name' => '_tre_rappel___type_de_contact',
         'page_num' => 1,
       ),
     ),
@@ -969,7 +910,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-13 19:44:08 +0700',
+  'date' => '2016-01-13 22:02:01 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -982,14 +923,14 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '35ff043b-8e3e-4f46-a9b0-ae6bd04dfbec',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1452689048,
+  'created' => 1452697321,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'edd43469-b757-4395-8820-9134e007410d',
   'revision_uid' => 1,
   'webform' => array(
     'nid' => 3,
-    'next_serial' => 36,
+    'next_serial' => 39,
     'confirmation' => 'Merci, votre soumission a été reçue',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
@@ -1018,8 +959,8 @@ function kandb_webform_uuid_features_default_content() {
     'preview_message' => '',
     'preview_message_format' => 'plain_text',
     'preview_excluded_components' => array(),
-    'machine_name' => 'prendre_rendez_vous',
     'webform_ajax' => 1,
+    'machine_name' => 'prendre_rendez_vous',
     'record_exists' => TRUE,
     'roles' => array(
       0 => 1,
@@ -1045,7 +986,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 19,
-        'machine_name' => 'prendre_rendez_vous__rdv_adresse2',
+        'machine_name' => 'prendre_rendez_vous__row_1',
         'page_num' => 1,
       ),
       25 => array(
@@ -1074,36 +1015,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 38,
-        'machine_name' => 'prendre_rendez_vous__row_1',
-        'page_num' => 1,
-      ),
-      4 => array(
-        'nid' => 3,
-        'cid' => 4,
-        'pid' => 20,
-        'form_key' => 'rdv_prenom',
-        'name' => 'Prénom',
-        'type' => 'textfield',
-        'value' => '',
-        'extra' => array(
-          'title_display' => 'before',
-          'private' => 0,
-          'wrapper_classes' => 'webform-component webform-component-textfield small-12 medium-6 columns',
-          'css_classes' => '',
-          'width' => '',
-          'maxlength' => '',
-          'field_prefix' => '',
-          'field_suffix' => '',
-          'disabled' => 0,
-          'unique' => 0,
-          'description' => '',
-          'placeholder' => '',
-          'attributes' => array(),
-          'analysis' => FALSE,
-        ),
-        'required' => 1,
-        'weight' => 39,
-        'machine_name' => 'prendre_rendez_vous__rdv_prenom',
+        'machine_name' => 'avant_contactez_nous__ap_nom',
         'page_num' => 1,
       ),
       21 => array(
@@ -1124,12 +1036,12 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 20,
-        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
+        'machine_name' => 'prendre_rendez_vous__row_3',
         'page_num' => 1,
       ),
-      39 => array(
+      3 => array(
         'nid' => 3,
-        'cid' => 39,
+        'cid' => 3,
         'pid' => 21,
         'form_key' => 'rdv_adresse1',
         'name' => 'Adresse 1',
@@ -1153,12 +1065,12 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 21,
-        'machine_name' => 'demande_de_contac__votre_societe',
+        'machine_name' => 'prendre_rendez_vous__rdv_adresse1',
         'page_num' => 1,
       ),
-      40 => array(
+      33 => array(
         'nid' => 3,
-        'cid' => 40,
+        'cid' => 33,
         'pid' => 21,
         'form_key' => 'rdv_adresse2',
         'name' => 'Adresse 2',
@@ -1182,7 +1094,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 24,
-        'machine_name' => 'demande_de_contac__laissez_lui_votre_message',
+        'machine_name' => 'prendre_rendez_vous__rdv_adresse2',
         'page_num' => 1,
       ),
       22 => array(
@@ -1203,7 +1115,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 21,
-        'machine_name' => 'telechargement_documents__row_1',
+        'machine_name' => 'prendre_rendez_vous__row_5',
         'page_num' => 1,
       ),
       26 => array(
@@ -1232,7 +1144,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 39,
-        'machine_name' => '_tre_rappel___rappeler_prenom',
+        'machine_name' => 'avant_contactez_nous__ap_prenom',
         'page_num' => 1,
       ),
       23 => array(
@@ -1253,7 +1165,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 23,
-        'machine_name' => 'telechargement_documents__ma_adresse_1',
+        'machine_name' => 'prendre_rendez_vous__row_2',
         'page_num' => 1,
       ),
       27 => array(
@@ -1282,7 +1194,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 40,
-        'machine_name' => '_tre_rappel___rappeler_telephone',
+        'machine_name' => 'avant_contactez_nous__ap_adresse1',
         'page_num' => 1,
       ),
       28 => array(
@@ -1361,7 +1273,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 24,
-        'machine_name' => 'prendre_rendez_vous__ville_prog',
+        'machine_name' => 'prendre_rendez_vous__row_4',
         'page_num' => 1,
       ),
       30 => array(
@@ -1393,9 +1305,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_code_postal',
         'page_num' => 1,
       ),
-      36 => array(
+      39 => array(
         'nid' => 3,
-        'cid' => 36,
+        'cid' => 39,
         'pid' => 24,
         'form_key' => 'rdv_email',
         'name' => 'E-mail',
@@ -1448,9 +1360,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_pays',
         'page_num' => 1,
       ),
-      33 => array(
+      40 => array(
         'nid' => 3,
-        'cid' => 33,
+        'cid' => 40,
         'pid' => 0,
         'form_key' => 'rdv_newsletter',
         'name' => 'Je souhaite recevoir les offres et la newsletter mensuelle',
@@ -1478,9 +1390,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_telephone',
         'page_num' => 1,
       ),
-      34 => array(
+      41 => array(
         'nid' => 3,
-        'cid' => 34,
+        'cid' => 41,
         'pid' => 0,
         'form_key' => 'rdv_connu',
         'name' => 'Comment nous avez-vous connu ?',
@@ -1519,9 +1431,9 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'avant_contactez_nous__ap_email',
         'page_num' => 1,
       ),
-      35 => array(
+      42 => array(
         'nid' => 3,
-        'cid' => 35,
+        'cid' => 42,
         'pid' => 0,
         'form_key' => 'rdv_idkp',
         'name' => 'ID Program',
@@ -1534,25 +1446,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 28,
-        'machine_name' => 'avant_contactez_nous__ap_message',
-        'page_num' => 1,
-      ),
-      38 => array(
-        'nid' => 3,
-        'cid' => 38,
-        'pid' => 0,
-        'form_key' => 'rdv_idkl',
-        'name' => 'ID Lot',
-        'type' => 'hidden',
-        'value' => '',
-        'extra' => array(
-          'private' => 0,
-          'hidden_type' => 'value',
-          'analysis' => FALSE,
-        ),
-        'required' => 0,
-        'weight' => 29,
-        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
+        'machine_name' => '_tre_rappel___rappeler_nom',
         'page_num' => 1,
       ),
       16 => array(
@@ -1570,7 +1464,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 30,
-        'machine_name' => '_tre_rappel___rdv_idkl',
+        'machine_name' => 'prendre_rendez_vous__rdv_type_contact',
         'page_num' => 1,
       ),
       17 => array(
@@ -1588,7 +1482,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 31,
-        'machine_name' => '_tre_rappel___rappeler_nom',
+        'machine_name' => 'telechargement_documents__row_1',
         'page_num' => 1,
       ),
       18 => array(
@@ -1606,7 +1500,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 32,
-        'machine_name' => 'prendre_rendez_vous__row_3',
+        'machine_name' => 'prendre_rendez_vous__rdv_prenom',
         'page_num' => 1,
       ),
       19 => array(
@@ -1624,7 +1518,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 0,
         'weight' => 33,
-        'machine_name' => 'prendre_rendez_vous__nom_prog',
+        'machine_name' => 'prendre_rendez_vous__rdv_idkl',
         'page_num' => 1,
       ),
     ),
@@ -1643,7 +1537,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-13 19:44:08 +0700',
+  'date' => '2016-01-13 22:02:01 +0700',
 );
   return $nodes;
 }
