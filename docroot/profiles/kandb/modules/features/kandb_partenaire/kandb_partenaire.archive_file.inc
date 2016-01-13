@@ -234,7 +234,9 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
   $files_info = array();
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   if ($prepare_file) {
+    file_prepare_directory($uri . 'b2c', FILE_CREATE_DIRECTORY);
     drupal_chmod($uri . 'b2c', 0777);
+    file_prepare_directory($uri . 'b2b', FILE_CREATE_DIRECTORY);
     drupal_chmod($uri . 'b2b', 0777);
     $ori_path = $path = drupal_realpath($uri);
     $path = $ori_path . '/b2c/';
