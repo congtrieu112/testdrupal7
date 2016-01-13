@@ -212,8 +212,8 @@ function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
  * Implement hook_form_validate().
  */
 function kandb_activities_region_node_validate(&$form, &$form_state) {
- $config_phone_regex = '/^(\+)[0-9]{11}$/';
- $config_error_phone = t('Phone number must be in format +xxxxxxxxxxx.');
+ $config_phone_regex = '/^((((\+)[0-9]{11}))|([0-9]{10}))$/';
+ $config_error_phone = t('Phone number must be in format +xxxxxxxxxxx or xxxxxxxxxx');
  // field_region_kb_telephone
  $field_region_kb_telephone = $form_state['values']['field_region_kb_telephone'][LANGUAGE_NONE][0]['value'];
  if ($field_region_kb_telephone != null && !preg_match($config_phone_regex, $field_region_kb_telephone)) {
