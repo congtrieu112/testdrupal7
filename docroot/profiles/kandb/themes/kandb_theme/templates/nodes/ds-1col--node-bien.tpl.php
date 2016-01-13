@@ -329,7 +329,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                     if (isset($node->field_caracteristique[LANGUAGE_NONE][0])):
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
-                        $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';             
+                        $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
                         print '</li>';
@@ -338,7 +338,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                     ?>
                     <?php
                     $jardin = field_get_items('node', $node, 'field_caracteristique_jardin');
-                    if (isset($jardin[0]['value']) && $jardin[0]['value'] && $jardin[0]['value'] > 0) :
+                    if (isset($jardin[0]['value']) && $jardin[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Jardin Privatif', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
@@ -347,7 +347,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       endif;
                     endif;
                     $balcon = field_get_items('node', $node, 'field_caracteristique_balcon');
-                    if (isset($balcon[0]['value']) && $balcon[0]['value'] && $balcon[0]['value'] > 0):
+                    if (isset($balcon[0]['value']) && $balcon[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Balcon', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                       print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
@@ -356,7 +356,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       endif;
                     endif;
                     $terrasse = field_get_items('node', $node, 'field_caracteristique_terrasse');
-                    if (isset($terrasse[0]['value']) && $terrasse[0]['value'] && $terrasse[0]['value'] > 0):
+                    if (isset($terrasse[0]['value']) && $terrasse[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Terrasse', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
@@ -365,7 +365,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       endif;
                     endif;
                     $parking = field_get_items('node', $node, 'field_caracteristique_parking');
-                    if (isset($parking[0]['value']) && $parking[0]['value'] && $parking[0]['value'] > 0):
+                    if (isset($parking[0]['value']) && $parking[0]['value']):
                       if ($icons = get_taxonomy_by_vocabulary_name('Parking', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
@@ -374,7 +374,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       endif;
                     endif;
                     $box = field_get_items('node', $node, 'field_caracteristique_box');
-                    if (isset($box[0]['value']) && $box[0]['value'] && $box[0]['value'] > 0) :
+                    if (isset($box[0]['value']) && $box[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Box', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
@@ -383,7 +383,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       endif;
                     endif;
                     $cave = field_get_items('node', $node, 'field_caracteristique_cave');
-                    if (isset($cave[0]['value']) && $cave[0]['value'] && $cave[0]['value'] > 0) :
+                    if (isset($cave[0]['value']) && $cave[0]['value']) :
                       if ($icons = get_taxonomy_by_vocabulary_name('Cave', $vocabulary_name)):
                         $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
