@@ -80,7 +80,8 @@ print theme('finance_header_block');
                         <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">Les actualités<span aria-hidden="true" class="icon icon-expand"></span></button>
                         <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
                           <ul class="ul-unstyled undo-padding">
-                            <?php foreach ($recent_document_menus as $key => $value) : ?>
+
+                            <?php $i = 0; foreach ($recent_document_menus as $key => $value) : ?>
                               <?php
                                 $document_type_name = $value['doc_type_name'];
                                 $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
@@ -88,12 +89,12 @@ print theme('finance_header_block');
                             ?>
                                 <?php if (get_document_publication($document_type_tid, $numof_years, $current_lang)) : ?>
                                     <li class="bordered">
-                                        <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if (($document_type_tid.$numof_years) == $current_path_alias) : print 'active'; endif ?>">
+                                        <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) < 7 && $i == 0)  ) : print 'active'; endif ?>">
                                             <span><?php print $key; ?></span>
                                         </a>
                                     </li>
                                 <?php endif; ?>
-                            <?php endforeach; ?>
+                            <?php $i++; endforeach; ?>
                           </ul>
                         </div>
                     </nav>
