@@ -17,15 +17,8 @@ else :
 endif;
 
 $current_path = implode('/', $arg);
-if ($current_path == 'corporate/finance/publication') :
-  $current_path_arr = kandb_group_generate_finance_publication_language_link($current_path);
-  $switch_url_en = $current_path_arr['switch_url_en'];
-  $switch_url_fr = $current_path_arr['switch_url_fr'];
-else :
-  $switch_url_en = url($current_path . '/en');
-  $switch_url_fr = url($current_path . '/fr');
-endif;
-
+$switch_url_en = url($current_path . '/en');
+$switch_url_fr = url($current_path . '/fr');
 $block_title = variable_get('finance_header_title_' . $current_lang);
 $block_sub_title = variable_get('finance_header_sub_title_' . $current_lang);
 $block_img_full_id = variable_get('finance_header_image_full_' . $current_lang);

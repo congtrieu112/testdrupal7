@@ -30,9 +30,14 @@ function kandb_page_contact_theme($existing, $type, $theme, $path) {
     'contact_page' => array(
       'template' => 'templates/contact_page',
       'variables' => array('region_contents' => '', 'conseiller_contents' => ''),
-    )
+    ),
+      'contact_b2b_page' => array(
+      'template' => 'templates/contact_b2b_page',
+      'variables' => array('region_contents' => '', 'conseiller_contents' => ''),
+    ),
   );
 }
+
 
 function contact_page() {
   $query = new EntityFieldQuery();
@@ -82,6 +87,17 @@ function contact_page() {
       }
     }
   }
+  if (kandb_b2b_check_domain()) {
+    $webform = webform_features_machine_name_load('demande_de_contac');
+    $url_form = "";
+    if ($webform) {
+      $url_form = $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid);
+    }
 
-  return theme('contact_page', array('region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+
+    return theme('contact_b2b_page', array('contact_form_url'=>$url_form,'region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+  }
+  else {
+    return theme('contact_page', array('region_contents' => $region_variables, 'conseiller_contents' => $conseiller_variables));
+  }
 }
