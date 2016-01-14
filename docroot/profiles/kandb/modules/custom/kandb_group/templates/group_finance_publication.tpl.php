@@ -96,12 +96,18 @@ print theme('finance_header_block');
                         </button>
                         <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
                           <ul class="ul-unstyled undo-padding">
-                            <?php $i = 0; foreach ($recent_document_menus as $key => $value) : ?>
-                                <?php
+                            <?php
+                                $i = 0;
+                                if ($current_lang == 'en') :
+                                    $current_lang_key = 1;
+                                else :
+                                    $current_lang_key = 0;
+                                endif;
+                                foreach ($recent_document_menus as $key => $value) :
                                     $document_type_name = $value['doc_type_name'];
                                     $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
                                     $numof_years = $value['numof_years'];
-                                    if (get_document_publication($document_type_tid, $numof_years, $current_lang)) : ?>
+                                    if (get_document_publication($document_type_tid, $numof_years, $current_lang_key)) : ?>
                                         <li class="bordered">
                                             <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) <= 7 && $i == 0)  ) : print 'active'; endif ?>">
                                                 <span><?php print $key; ?></span>
