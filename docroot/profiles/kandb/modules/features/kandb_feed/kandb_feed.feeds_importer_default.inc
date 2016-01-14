@@ -245,6 +245,11 @@ function kandb_feed_feeds_importer_default() {
             'target' => 'Temporary target 1',
             'unique' => FALSE,
           ),
+          9 => array(
+            'source' => 'Label',
+            'target' => 'field_document_file:description',
+            'unique' => FALSE,
+          ),
         ),
         'update_existing' => '2',
         'update_non_existent' => 'skip',
@@ -602,6 +607,11 @@ function kandb_feed_feeds_importer_default() {
           8 => array(
             'source' => 'DocumentFileOld',
             'target' => 'Temporary target 1',
+            'unique' => FALSE,
+          ),
+          9 => array(
+            'source' => 'Label',
+            'target' => 'field_document_file:description',
             'unique' => FALSE,
           ),
         ),
