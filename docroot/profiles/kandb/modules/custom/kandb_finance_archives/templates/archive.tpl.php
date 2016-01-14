@@ -19,7 +19,7 @@ print theme('finance_header_block');
 <section class="section-padding">
   <div class="wrapper">
     <header class="heading heading--bordered">
-      <h1 class="heading__title"><?php print t('Documents à télécharger'); ?></h1>
+      <h1 class="heading__title"><?php print $page_title; ?></h1>
     </header>
     <nav class="form-dropdown form-dropdown--responsive">
       <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>

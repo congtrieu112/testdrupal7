@@ -232,7 +232,7 @@ function kandb_group_development_manage_form($form, $form_state) {
 
   $form['fieldset_group_development_block']['realisations_fieldset']['realisations_embed_group_development_block'] = array(
     '#type' => 'textfield',
-    '#title' => t('Embed'),
+    '#title' => t('Youtube Video ID'),
     '#default_value' => variable_get('realisations_embed_group_development_block'),
   );
 
@@ -248,10 +248,12 @@ function kandb_group_development_manage_form($form, $form_state) {
       '#title' => t('Article Title'),
       '#default_value' => variable_get('realisations_article_' . $i . '_title_group_development_block'),
     );
+    $article_description = variable_get('realisations_article_' . $i . '_subtitle_group_development_block', array('value' => '', 'format' => NULL));
     $form['fieldset_group_development_block']['realisations_fieldset']['article_fieldset_' . $i]['realisations_article_' . $i . '_subtitle_group_development_block'] = array(
-      '#type' => 'textfield',
-      '#title' => t('Article Subtitle'),
-      '#default_value' => variable_get('realisations_article_' . $i . '_subtitle_group_development_block'),
+      '#type' => 'text_format',
+      '#title' => t('Article Description'),
+      '#format' => isset($article_description['format']) ? $article_description['format'] : 'simple',
+      '#default_value' => isset($article_description['value']) ? $article_description['value'] : '',
     );
     $form['fieldset_group_development_block']['realisations_fieldset']['article_fieldset_' . $i]['realisations_article_' . $i . '_image_group_development_block'] = array(
       '#type' => 'managed_file',
