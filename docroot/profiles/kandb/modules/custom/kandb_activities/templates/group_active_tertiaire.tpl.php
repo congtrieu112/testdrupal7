@@ -213,16 +213,16 @@
                     <p class="activities__item__subs"><?php print variable_get('bloc_logistique_habitat_sub_title'); ?></p>
                     <p><?php print variable_get('bloc_logistique_habitat_description'); ?></p>
                 </div>
-                <div class="btn-wrapper">
-                    <?php
-                        $text = variable_get('bloc_logistique_cta_text');
-                        $url =  variable_get('bloc_logistique_cta_url');
-                        if($text && $url) :
-                    ?>
-                        <a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
-                    <?php endif; ?>
-                </div>
             <?php endif;?>
+        </div>
+        <div class="btn-wrapper">
+          <?php
+          $text = variable_get('bloc_logistique_cta_text');
+          $url = variable_get('bloc_logistique_cta_url');
+          if ($text && $url) :
+            ?>
+            <a href="<?php print $url; ?>" class="btn-rounded btn-primary"><?php print $text; ?></a>
+          <?php endif; ?>
         </div>
     </div>
 </section>
