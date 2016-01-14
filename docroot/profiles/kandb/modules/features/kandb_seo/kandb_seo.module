@@ -618,8 +618,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L2 : Régions > Tous les types de biens
     'regions/logements-immobiliers-neufs-' . $lieu_bien => array(
-      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
-      'meta_description' => 'Régions : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' - régions | Kaufman et Broad',
+      'meta_description' => $lieu_bien_real_name . ' : Vous recherchez un logement neuf ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad situés dans cette région ' . $lieu_bien_real_name . '.',
       'callbacks' => array(
         'kandb_seo_block_list_by_type_of_bien' => array('regions', $lieu_bien_real_name),
       ),
@@ -627,8 +627,8 @@ function kandb_seo_metatags_and_callbacks($url = false) {
 
     // L3 : Régions > Tous les types de biens > Listing Bien
     'regions/logements-immobiliers-neufs-' . $lieu_bien . '/achat-' . $type . '-' . $nb_pieces => array(
-      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
-      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux régions avec Kaufman et Broad.',
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : bien : ' . $real_type_name . ' ' . $real_nb_piece_name . '; lieu : ' . $lieu_bien_real_name . '. Découvrez les biens correspondant à votre recherche avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(
