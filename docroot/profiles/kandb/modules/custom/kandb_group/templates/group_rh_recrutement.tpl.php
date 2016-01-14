@@ -79,7 +79,11 @@ endif;
                     <div class="diary__list__content--title"><a href="#" title="<?php print $date_1_value; ?>"><?php print $date_1_value; ?></a>
                         <p><?php print variable_get('title_group_hr_agenda_section_1', t('Forum des métiers du batiment')); ?></p>
                     </div>
-                    <p class="diary__list__content--description"><?php print variable_get('description_group_hr_agenda_section_1'); ?></p>
+                    <p class="diary__list__content--description">
+                        <?php
+                        $description_group_hr_agenda_section_1 = variable_get('description_group_hr_agenda_section_1');
+                        print isset($description_group_hr_agenda_section_1['value']) ? $description_group_hr_agenda_section_1['value'] : '';
+                        ?></p>
                 </div>
             </li>
             <li>
@@ -93,7 +97,12 @@ endif;
                     <div class="diary__list__content--title"><a href="#" title="<?php print $date_2_value; ?>"><?php print $date_2_value; ?></a>
                         <p><?php print variable_get('title_group_hr_agenda_section_2', t('Forum des maisons de France')); ?></p>
                     </div>
-                    <p class="diary__list__content--description"><?php print variable_get('description_group_hr_agenda_section_2'); ?></p>
+                    <p class="diary__list__content--description">
+                        <?php
+                        $description_group_hr_agenda_section_2 = variable_get('description_group_hr_agenda_section_2');
+                        print isset($description_group_hr_agenda_section_2['value']) ? $description_group_hr_agenda_section_2['value'] : '';
+                        ?>
+                    </p>
                 </div>
             </li>
         </ul>
