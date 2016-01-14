@@ -61,6 +61,7 @@ dependencies[] = views_bulk_operations
 dependencies[] = views_ui
 dependencies[] = uuid
 dependencies[] = uuid_features
+dependencies[] = imce
 
 dependencies[] = ds
 dependencies[] = ds_ui
