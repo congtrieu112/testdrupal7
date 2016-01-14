@@ -1,5 +1,6 @@
 <?php
 print theme('group_activities_header');
+$description = variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur'));
 ?>
 
 <!-- [Activities] start-->
@@ -12,10 +13,10 @@ print theme('group_activities_header');
         <div class="heading--small activities__heading">
             <h2 class="heading__title"><?php print variable_get('label_group_habitat_section', t('Donec id elit non mi porta gravida at eget metus morbi leo risus')); ?></h2>
         </div>
-        <p class="activities__desc"><?php print nl2br(variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur'))) ?></p>
+        <p class="activities__desc"><?php print isset($description['value']) ? $description['value'] : ''; ?></p>
         <!-- [linksBlock: buttons] start-->
         <nav class="form-dropdown form-dropdown--responsive">
-            <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $data['term_name'] ;?><span aria-hidden="true" class="icon icon-expand"></span></button>
+            <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $data['term_name']; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
             <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
                 <ul class="ul-unstyled undo-padding">
                     <?php if (isset($data['type'])): ?>
