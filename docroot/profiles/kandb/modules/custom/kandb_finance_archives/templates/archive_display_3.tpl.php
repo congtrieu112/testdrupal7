@@ -1,3 +1,4 @@
+<?php $class_first_block = 'active'; ?>
 <div class="wrapper--narrow downloadDocs">
   <ul data-app-accordion="seeMore" class="accordion fullWidth">
     <?php foreach($content_archives['tab_content'] as $year =>  $nodes) :?>

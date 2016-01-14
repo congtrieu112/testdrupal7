@@ -103,10 +103,11 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     $base_archive = base_path() . 'corporate/finance/archives/';
     foreach ($all_terms as $term) {
       $term = taxonomy_term_load($term->tid);
-      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
-        continue ;
-      }
-      elseif ($language_id == 1) {
+//      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
+//        continue ;
+//      }
+//      elseif ($language_id == 1) {
+      if ($language_id == 1) {
         if (isset ($term->field_name_in_english[LANGUAGE_NONE][0]['value'])) {
           $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
         }
@@ -147,6 +148,8 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
 
 function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
   $content = array();
+  $current_year = date('Y', time());
+  $end_time = strtotime($current_year - 3 . '-12-31 23:59:59');
   if ($paging) {
     $db_query = db_select('node', 'n')->extend('PagerDefault');
     $db_query->limit(50);
@@ -192,7 +195,7 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
   $db_query->condition('dd.entity_type', 'node');
   $db_query->condition('dd.bundle', 'document');
   $db_query->addField('dd', 'field_document_date_value');
-  
+  $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) < :val_end', array('val_end' => $end_time));
   $db_query->distinct();
   $db_query->orderBy('dd.field_document_date_value', 'DESC');
   $results = $db_query->execute()->fetchAll();
