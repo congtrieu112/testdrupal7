@@ -2,8 +2,8 @@
 <html>
 <!--
 Programmes et formulaires contenus dans cette page sont la
-propri�t� d'ALTO Informatique, 33 Av. du Maine, 75755 Paris cedex 15
-Tous droits r�serv�s.
+propriété d'ALTO Informatique, 33 Av. du Maine, 75755 Paris cedex 15
+Tous droits réservés.
 -->
 
 <head>
@@ -215,7 +215,7 @@ if(sName==null || sName=="TypeAchat")
           }
     }
 
-fn_BodyOnLoad(1); // recalcul imm�diat
+fn_BodyOnLoad(1); // recalcul immédiat
 }
 
 
@@ -231,28 +231,28 @@ var travaux  =GetNum(f.travaux.value ,80); var t_travaux =_ttn;
 var PretPth  =GetNum(f.PretPth.value ,80); var t_PretPth =_ttn;
 
 if(TypeAchat<1 || TypeAchat>5)
-    { ers="Pr�cisez le type d'acquisition !";
+    { ers="Précisez le type d'acquisition !";
     }
 else
 if(t_terrain <0) { ers="Prix du terrain : saisie invalide" ; } else
 if(t_logement<0) { ers="Prix du logement : saisie invalide"; } else
 if(t_travaux <0) { ers="Prix des travaux : saisie invalide"; } else
-if(t_PretPth <0) { ers="Montant du pr�t : saisie invalide" ; }
+if(t_PretPth <0) { ers="Montant du prêt : saisie invalide" ; }
 else
 if(TypeAchat==1 && (terrain==0 && logement==0))
-    { ers="Pr�cisez le prix du terrain et/ou du logement !";
+    { ers="Précisez le prix du terrain et/ou du logement !";
     }
 else
 if((TypeAchat==2 || TypeAchat==3) && logement<=0)
-    { ers="Pr�cisez le prix du logement !";
+    { ers="Précisez le prix du logement !";
     }
 else
 if(TypeAchat==4 && (logement==0 && travaux==0))
-    { ers="Pr�cisez le prix du logement et/ou des travaux !";
+    { ers="Précisez le prix du logement et/ou des travaux !";
     }
 else
 if(!g_IsChange1)
-    { ///ers="R�sultats d�j� calcul�s !";
+    { ///ers="Résultats déjà calculés !";
     }
 if(ers!="" && IsAlert)
     { self.alert(ers);
@@ -358,7 +358,7 @@ return(brm);
 
 function NotaireCalculFrais(brm, assiette, type, IsNegociation, NbHabitation, IsDOM, NumDept)
 {
-var   CoeffSerie;  // appliqu� � s1,s2 : 1/3, 2/3 ...
+var   CoeffSerie;  // appliqué à s1,s2 : 1/3, 2/3 ...
 var   tempd;
 var   FraisNotaire=0;
 
@@ -388,7 +388,7 @@ emolument+=(type==1 || type==2 || type==3)
           ? brm.EmolFixeNeufT
           : brm.EmolFixeAncien;
 
-// en DOM (Guadeloupe, Guyane, Martinique) : emolument major�s +25%, mayotte= +40%
+// en DOM (Guadeloupe, Guyane, Martinique) : emolument major‚s +25%, mayotte= +40%
 
 if(NumDept==97 || (NumDept>=971 && NumDept<=976))
     { IsDOM=1; // force IsDOM
@@ -482,7 +482,7 @@ emolument+=(PcPel>0 || PasPtz>0 || Pth>PpdMax)
           ? brm.EmolFixePret
           : brm.EmolFixePpd;
 
-// en DOM (Guadeloupe, Guyane, Martinique) : emolument major�s +25%, mayotte= +40%
+// en DOM (Guadeloupe, Guyane, Martinique) : emolument major‚s +25%, mayotte= +40%
 
 if(NumDept==97 || (NumDept>=971 && NumDept<=976))
     { IsDOM=1; // force IsDOM
@@ -644,7 +644,7 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
   <table align="center" border="0" cellspacing="8" cellpadding="0">
     <tr>
       <td align="center" colspan="2"><font class="titre1">Calculez vos frais
-      de notaire et d&#146;hypoth�que</font></td>
+      de notaire et d&#146;hypothèque</font></td>
     </tr>
     <tr>
       <td class="tdg" valign="top">
@@ -658,58 +658,58 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
               <td class="td1" nowrap colspan="2">
               <div style="float:left;">Projet :</div>
               <select name="TypeAchat" size="1" onchange="ffff_OC('TypeAchat')" style="float:right;">
-                <option value="0">(pr�cisez votre projet)</option>
+                <option value="0">(précisez votre projet)</option>
                 <option value="1">Achat de terrain + construction</option>
                 <option value="2">Achat d&#146;un logement neuf en VEFA</option>
-                <option value="3">Achat d&#146;un logement neuf cl� en main</option>
+                <option value="3">Achat d&#146;un logement neuf clé en main</option>
                 <option value="4">Achat d&#146;un logement ancien</option>
-                <option value="5">R�alisation de travaux seuls</option>
+                <option value="5">Réalisation de travaux seuls</option>
               </select>
               </td>
             </tr>
             <tr>
               <td class="td1" nowrap colspan="2">
-              <div style="float:left;">D�partement :</div>
+              <div style="float:left;">Département :</div>
                             <select name="NumDept" size="1" onchange="ffff_OC('NumDept')" style="float:right;">
-<option value="0">(pr�cisez le d�partement)</option>
+<option value="0">(précisez le département)</option>
 <option value="1">01-Ain</option>
 <option value="2">02-Aisne</option>
 <option value="3">03-Allier</option>
 <option value="4">04-Alpes de Hte Provence</option>
 <option value="5">05-Hautes-Alpes</option>
 <option value="6">06-Alpes-Maritimes</option>
-<option value="7">07-Ard�che</option>
+<option value="7">07-Ardèche</option>
 <option value="8">08-Ardennes</option>
-<option value="9">09-Ari�ge</option>
+<option value="9">09-Ariège</option>
 <option value="10">10-Aube</option>
 <option value="11">11-Aude</option>
 <option value="12">12-Aveyron</option>
-<option value="13">13-Bouches-du-Rh�ne</option>
+<option value="13">13-Bouches-du-Rhône</option>
 <option value="14">14-Calvados</option>
 <option value="15">15-Cantal</option>
 <option value="16">16-Charente</option>
 <option value="17">17-Charente-Maritime</option>
 <option value="18">18-Cher</option>
-<option value="19">19-Corr�ze</option>
+<option value="19">19-Corrèze</option>
 <option value="20">20-Corse</option>
-<option value="21">21-C�te-d'Or</option>
-<option value="22">22-C�tes-d'Armor</option>
+<option value="21">21-Côte-d'Or</option>
+<option value="22">22-Côtes-d'Armor</option>
 <option value="23">23-Creuse</option>
 <option value="24">24-Dordogne</option>
 <option value="25">25-Doubs</option>
-<option value="26">26-Dr�me</option>
+<option value="26">26-Drôme</option>
 <option value="27">27-Eure</option>
 <option value="28">28-Eure-et-Loire</option>
-<option value="29">29-Finist�re</option>
+<option value="29">29-Finistère</option>
 <option value="30">30-Gard</option>
 <option value="31">31-Haute-Garonne</option>
 <option value="32">32-Gers</option>
 <option value="33">33-Gironde</option>
-<option value="34">34-H�rault</option>
+<option value="34">34-Hérault</option>
 <option value="35">35-Ille-et-Vilaine</option>
 <option value="36">36-Indre</option>
 <option value="37">37-Indre-et-Loire</option>
-<option value="38">38-Is�re</option>
+<option value="38">38-Isère</option>
 <option value="39">39-Jura</option>
 <option value="40">40-Landes</option>
 <option value="41">41-Loir-et-Cher</option>
@@ -719,7 +719,7 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
 <option value="45">45-Loiret</option>
 <option value="46">46-Lot</option>
 <option value="47">47-Lot-et-Garonne</option>
-<option value="48">48-Loz�re</option>
+<option value="48">48-Lozère</option>
 <option value="49">49-Maine-et-Loire</option>
 <option value="50">50-Manche</option>
 <option value="51">51-Marne</option>
@@ -729,20 +729,20 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
 <option value="55">55-Meuse</option>
 <option value="56">56-Morbihan</option>
 <option value="57">57-Moselle</option>
-<option value="58">58-Ni�vre</option>
+<option value="58">58-Nièvre</option>
 <option value="59">59-Nord</option>
 <option value="60">60-Oise</option>
 <option value="61">61-Orne</option>
 <option value="62">62-Pas-de-Calais</option>
-<option value="63">63-Puy-de-D�me</option>
-<option value="64">64-Pyr�n�es-Atlantiques</option>
-<option value="65">65-Hautes-Pyr�n�es</option>
-<option value="66">66-Pyr�n�es-Orientales</option>
+<option value="63">63-Puy-de-Dôme</option>
+<option value="64">64-Pyrénées-Atlantiques</option>
+<option value="65">65-Hautes-Pyrénées</option>
+<option value="66">66-Pyrénées-Orientales</option>
 <option value="67">67-Bas-Rhin</option>
 <option value="68">68-Haut-Rhin</option>
-<option value="69">69-Rh�ne</option>
-<option value="70">70-Haute-Sa�ne</option>
-<option value="71">71-Sa�ne-et-Loire</option>
+<option value="69">69-Rhône</option>
+<option value="70">70-Haute-Saône</option>
+<option value="71">71-Saône-et-Loire</option>
 <option value="72">72-Sarthe</option>
 <option value="73">73-Savoie</option>
 <option value="74">74-Haute-Savoie</option>
@@ -750,13 +750,13 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
 <option value="76">76-Seine-Maritime</option>
 <option value="77">77-Seine-et-Marne</option>
 <option value="78">78-Yvelines</option>
-<option value="79">79-Deux-S�vres</option>
+<option value="79">79-Deux-Sèvres</option>
 <option value="80">80-Somme</option>
 <option value="81">81-Tarn</option>
 <option value="82">82-Tarn-et-Garonne</option>
 <option value="83">83-Var</option>
 <option value="84">84-Vaucluse</option>
-<option value="85">85-Vend�e</option>
+<option value="85">85-Vendée</option>
 <option value="86">86-Vienne</option>
 <option value="87">87-Haute-Vienne</option>
 <option value="88">88-Vosges</option>
@@ -770,7 +770,7 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
 <option value="971">971-Guadeloupe</option>
 <option value="972">972-Martinique</option>
 <option value="973">973-Guyanne</option>
-<option value="974">974-La-R�union</option>
+<option value="974">974-La-Réunion</option>
 <option value="976">976-Mayotte</option>
               </select>
               </td>
@@ -784,20 +784,20 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
               <td class="td1" nowrap><input class="put1" name="logement" size="7" maxlength="8" onchange="ffff_OC('logement')">&nbsp;&euro;</td>
             </tr>
             <tr>
-              <td class="td1" nowrap>Co�t des travaux additionnels :</td>
+              <td class="td1" nowrap>Coût des travaux additionnels :</td>
               <td class="td1" nowrap><input class="put1" name="travaux" size="7" maxlength="8" onchange="ffff_OC('travaux')">&nbsp;&euro;</td>
             </tr>
             <tr>
-              <td class="td1" nowrap>Montant du pr�t sollicit� :</td>
+              <td class="td1" nowrap>Montant du prêt sollicité :</td>
               <td class="td1" nowrap><input class="put1" name="PretPth" size="7" maxlength="8" onchange="ffff_OC('PretPth')">&nbsp;&euro;</td>
             </tr>
             <tr>
               <td class="td1" nowrap colspan="2">
               <div style="float:left;">Taille de l&#146;ensemble immo.:</div>
               <select name="NbLogement" size="1" onchange="ffff_OC('NbLogement')" style="float:right;">
-                <option value="1">1 � 10 logements</option>
-                <option value="11">11 � 24 logements</option>
-                <option value="25">25 � 99 logements</option>
+                <option value="1">1 à 10 logements</option>
+                <option value="11">11 à 24 logements</option>
+                <option value="25">25 à 99 logements</option>
                 <option value="100">100 et plus</option>
               </select>
               </td>
@@ -806,7 +806,7 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
               <td class="td1" nowrap colspan="2">
               <label for="IsNegocie">
               <input type="checkbox" name="IsNegocie" id="IsNegocie" value="1" onclick="ffff_OC('IsNegocie')">
-              Bien n�goci� aupr�s du notaire</label>
+              Bien négocié auprès du notaire</label>
             </tr>
           </table>
           </td>
@@ -824,16 +824,16 @@ document.getElementById("result_FgTotal"     ).innerHTML=result.S_FgTotal   ;
       <table class="tab1" border="0" cellspacing="1" cellpadding="4" height="100" width="100%">
         <tr>
           <td class="td3" nowrap valign="top" align="center" width="50%">
-          Montant estim�<br>des frais de notaire<br>sur l&#146;acquisition :<br>&nbsp;
+          Montant estimé<br>des frais de notaire<br>sur l&#146;acquisition :<br>&nbsp;
           <br><font class="td1r"><div id="result_FnTotal"></div></font></td>
           <td class="td3" nowrap valign="top" align="center" width="50%">
-          Montant estim�<br>des frais d&#146;hypoth�que<br>sur le pr�t :<br>&nbsp;
+          Montant estimé<br>des frais d&#146;hypothèque<br>sur le prêt :<br>&nbsp;
           <br><font class="td1r"><div id="result_FgTotal"></div></font></td>
         </tr>
       </table>
     <div id="divreal" align="right">
       <a class="Note1" href="http://www.alto-informatique.com" target="_blank">
-        R�alisation alto-informatique.com
+        Réalisation alto-informatique.com
       </a>
     </div>
       </td>

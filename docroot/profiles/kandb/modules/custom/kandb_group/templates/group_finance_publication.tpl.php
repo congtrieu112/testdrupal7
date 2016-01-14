@@ -103,7 +103,7 @@ print theme('finance_header_block');
                                     $numof_years = $value['numof_years'];
                                     if (get_document_publication($document_type_tid, $numof_years, $current_lang)) : ?>
                                         <li class="bordered">
-                                            <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) < 7 && $i == 0)  ) : print 'active'; endif ?>">
+                                            <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) <= 7 && $i == 0)  ) : print 'active'; endif ?>">
                                                 <span><?php print $key; ?></span>
                                             </a>
                                         </li>
