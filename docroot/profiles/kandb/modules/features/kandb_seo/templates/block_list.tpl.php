@@ -9,8 +9,8 @@
               <dt><?php print $object['name']; ?></dt>
               <dd>
                 <ul>
-                  <li><a href="/<?php print $location; ?>/programmes-immobiliers-neufs-<?php print $object['sanitize_name']; ?>" title="Programmes neufs à <?php print $object['name']; ?>">Programmes neufs à <?php print $object['name']; ?></a></li>
-                  <li><a href="/<?php print $location; ?>/logements-immobiliers-neufs-<?php print $object['sanitize_name']; ?>-<?php print $object['numero_departement']; ?>" title="Logements neufs à <?php print $object['name']; ?>">Logements neufs à <?php print $object['name']; ?></a></li>
+                  <li><a href="/<?php print $location; ?>/programmes-immobiliers-neufs-<?php print $object['sanitize_name']; ?>" title="Programmes neufs à <?php print $object['name']; ?>">Programmes neufs <?php print $object['name']; ?></a></li>
+                  <li><a href="/<?php print $location; ?>/logements-immobiliers-neufs-<?php print $object['sanitize_name']; ?><?php print (!empty($object['numero_departement']) ? '-' . $object['numero_departement'] : ''); ?>" title="Logements neufs à <?php print $object['name']; ?>">Logements neufs <?php print $object['name']; ?></a></li>
                 </ul>
               </dd>
             </dl>
