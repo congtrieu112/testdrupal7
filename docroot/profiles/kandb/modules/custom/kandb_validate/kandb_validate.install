@@ -1,0 +1,18 @@
+<?php
+
+/**
+ * Update path alias for old article
+ */
+function kandb_validate_update_7100(&$sandbox) {
+  if(module_exists('pathauto')) {
+    $db_article = db_select('node', 'n');
+    $db_article->fields('n', array('nid'));
+    $db_article->condition('n.type', 'article');
+    $article_ids = $db_article->execute()->fetchCol();
+    $articles = node_load_multiple($article_ids);
+    foreach($articles as $node) {
+      pathauto_entity_path_delete_all('node', $node, "node/{$node->nid}");
+      pathauto_node_update_alias($node, 'insert');
+    }
+  }
+}

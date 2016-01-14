@@ -55,7 +55,7 @@ $articles = $data['articles']
   <?php for($i = 1; $i <= 5; $i++) :
     $block_1_title = isset($articles[$i]['article_title']) ? $articles[$i]['article_title'] : '';
     $uri_block_1_image = isset($articles[$i]['article_path_image']) ? $articles[$i]['article_path_image'] : '';
-    $block_1_text = isset($articles[$i]['article_subtitle']) ? $articles[$i]['article_subtitle'] : '';
+    $block_1_text = isset($articles[$i]['article_subtitle']['value']) ? $articles[$i]['article_subtitle']['value'] : '';
   ?>
 
     <?php if ($block_1_title) { ?>

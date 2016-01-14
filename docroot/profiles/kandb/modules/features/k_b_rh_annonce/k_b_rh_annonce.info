@@ -49,6 +49,5 @@ features[variable][] = menu_parent_rh_annonce
 features[variable][] = node_options_rh_annonce
 features[variable][] = node_preview_rh_annonce
 features[variable][] = node_submitted_rh_annonce
-features[views_view][] = nos_derni_res_offres_d_emploi
 features[webform][] = candidature
 files[] = includes/k_b_rh_annonce.admin.inc
