@@ -15,18 +15,20 @@ define('KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM', 10);
 define('KANDB_GROUP_DATA_BLOCK_ITEMS_NUM', 20);
 define('KANDB_GROUP_OUR_BUSINESS_ITEMS_NUM', 20);
 define('KANDB_GROUP_YOUR_CAREER_ITEMS_NUM', 5);
+define('KANDB_GROUP_NEWS_ITEMS_NUM', 4);
+define('NUMBER_CTA_NEWS', 3);
 
 // Publication document type tabs.
 // [Tab Name] => [Taxonomy term name, Number of year].
 define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR', serialize(array(
-  'Communication Financière' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Communication Financière' => array('doc_type_name' => 'Communications financières', 'numof_years' => 3),
   'Autres Informations réglementée' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
-  'Documents de référence' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+  'Documents de référence' => array('doc_type_name' => 'Documents de référence', 'numof_years' => 1),
 )));
 define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN', serialize(array(
-  'Financial Communication' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Financial Communication' => array('doc_type_name' => 'Communications financières', 'numof_years' => 3),
   'Other regulated information' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
-  'Reference documents' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+  'Reference documents' => array('doc_type_name' => 'Documents de référence', 'numof_years' => 1),
 )));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
@@ -35,6 +37,10 @@ define('KANDB_GROUP_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/finan
 // RH page.
 define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Recrutement'), t('Explorer nos métiers'), t('Votre carrière'), t(' Postuler'))));
 define('KANDB_GROUP_RH_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/ressources-humaines/recrutement', 'corporate/ressources-humaines/nos-metiers', 'corporate/ressources-humaines/votre-carriere', 'corporate/ressources-humaines/postuler')));
+
+// NEWS page.
+define('KANDB_GROUP_NEWS_HEADER_MENU_DEFAULT_TITLES', serialize(array(t('Actualités'), t('Nos valeurs'), t('Notre histoire'))));
+define('KANDB_GROUP_NEWS_HEADER_MENU_DEFAULT_LINKS', serialize(array('corporate/actualites', 'corporate/actualites/nos-valeurs', 'corporate/actualites/notre-histoire')));
 
 /**
  * Implement of hook_menu().
@@ -240,6 +246,42 @@ function kandb_group_menu() {
     'access callback' => TRUE,
     'access arguments' => array('access content'),
   );
+
+  // Nos Valeurs and Notre histoire.
+  $items['corporate/actualites/nos-valeurs'] = array(
+    'title' => t('Nos Valeurs'),
+    'page callback' => 'kandb_group_actualites_nos_valeurs_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['corporate/actualites/notre-histoire'] = array(
+    'title' => t('Notre histoire'),
+    'page callback' => 'kandb_group_actualites_notre_histoire_page',
+    'access arguments' => array('access content'),
+    'type' => MENU_NORMAL_ITEM,
+  );
+
+  $items['admin/content/ketb/group/nos-valeurs'] = array(
+    'title' => '[Actualités] - Nos Valeurs',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_nos_valeurs_admin_form'),
+    'file' => 'kandb_group_nos_value.admin.inc',
+    'access arguments' => array('administer K&B group page'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+  $items['admin/content/ketb/group/notre-histoire'] = array(
+    'title' => '[Actualités] - Notre histoire',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_group_notre_histoire_admin_form'),
+    'file' => 'kandb_group_notre_histoire.admin.inc',
+    'access arguments' => array('administer K&B group page'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
+
+
   return $items;
 }
 
@@ -291,6 +333,18 @@ function kandb_group_theme($existing, $type, $theme, $path) {
     ),
     'group_new' => array(
       'template' => 'templates/group_new',
+      'variables' => array(),
+    ),
+    'group_news_header' => array(
+      'template' => 'templates/group_news_header',
+      'variables' => array(),
+    ),
+    'group_news_nos_valeurs' => array(
+      'template' => 'templates/group_news_nos_valeurs',
+      'variables' => array(),
+    ),
+    'group_news_notre_histoire' => array(
+      'template' => 'templates/group_news_notre_histoire',
       'variables' => array(),
     ),
   );
@@ -435,7 +489,6 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
       );
     }
   }
-
   usort($calenders, function($a, $b) {
     return strtotime($a['date']) - strtotime($b['date']);
   });
@@ -446,8 +499,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   if ($current_lang == 'en') {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
     $current_lang_key = 1;
-  }
-  else {
+  } else {
     $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
     $current_lang_key = 0;
   }
@@ -455,7 +507,18 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     $document_type_name = array_values($document_type_tabs)[0]['doc_type_name'];
     $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
   }
+  $recent_document = get_document_publication($document_type_tid, $numof_years, $current_lang_key);
+  $data['recent_document'] = $recent_document;
+  return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
+}
 
+/**
+ * @param $document_type_tid
+ * @param $numof_years
+ * @param $current_lang
+ * @return Array
+ */
+function get_document_publication($document_type_tid, $numof_years, $current_lang) {
   // Get the latest year of all documents.
   $latest_years = '';
   $query = db_select('node', 'n');
@@ -465,7 +528,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
   $query->condition('n.type', 'document');
   $query->condition('n.status', 1);
   $query->condition('t.field_document_type_tid', $document_type_tid);
-  $query->condition('l.field_langue_value', $current_lang_key);
+  $query->condition('l.field_langue_value', $current_lang);
   $query->addExpression('MAX(YEAR(d.field_document_date_value))');
   $latest_years = $query->execute()->fetchField();
   $num_latest_year = 0;
@@ -478,7 +541,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     $query->condition('n.type', 'document');
     $query->condition('n.status', 1);
     $query->condition('t.field_document_type_tid', $document_type_tid);
-    $query->condition('l.field_langue_value', $current_lang_key);
+    $query->condition('l.field_langue_value', $current_lang);
     $query->where('YEAR(d.field_document_date_value) = :latest_year', array(':latest_year' => $latest_years));
 
     $rs = $query->execute()->fetchCol();
@@ -488,9 +551,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     }
     $latest_years--;
   }
-  $data['recent_document'] = $recent_document;
-
-  return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
+  return $recent_document;
 }
 
 /**
@@ -506,12 +567,12 @@ function render_finance_presentation_page($current_lang = 'fr') {
 function kandb_group_get_document_node($limit, $operation = '=') {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'document')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_langue', 'value', 0, '=')
-      ->fieldOrderBy('field_document_date', 'value', 'DESC')
-      ->propertyOrderBy('changed', 'DESC')
-      ->range(0, $limit)
+    ->entityCondition('bundle', 'document')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_langue', 'value', 0, '=')
+    ->fieldOrderBy('field_document_date', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
   ;
   $result = $query->execute();
   if (isset($result['node'])) {
@@ -579,11 +640,11 @@ function render_group_finance_gouvernance_default() {
 function kandb_group_get_grouvernance_node($tid = array(), $lang) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'finance_gouvernance')
-      ->propertyCondition('status', 1)
-      ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
-      ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
-      ->propertyOrderBy('changed', 'DESC')
+    ->entityCondition('bundle', 'finance_gouvernance')
+    ->propertyCondition('status', 1)
+    ->fieldCondition('field_gouvernance_comite', 'tid', $tid, '=')
+    ->fieldCondition('field_gouvernance_language', 'value', $lang, '=')
+    ->propertyOrderBy('changed', 'DESC')
   ;
   $result = $query->execute();
 
@@ -646,11 +707,11 @@ function kandb_group_get_image_uri($image_id) {
 function kandb_group_get_offers($limit) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-      ->entityCondition('bundle', 'rh_annonce')
-      ->propertyCondition('status', 1)
-      ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
-      ->propertyOrderBy('changed', 'DESC')
-      ->range(0, $limit)
+    ->entityCondition('bundle', 'rh_annonce')
+    ->propertyCondition('status', 1)
+    ->fieldOrderBy('field_annonce_date_debut', 'value', 'DESC')
+    ->propertyOrderBy('changed', 'DESC')
+    ->range(0, $limit)
   ;
   $result = $query->execute();
   if (isset($result['node'])) {
@@ -711,11 +772,19 @@ function kandb_group_generate_finance_publication_language_link($current_path) {
 /**
  *
  */
+
 /**
  * Render Publication page for language.
  */
-
-function render_group_finance_publication_language($language){
+function render_group_finance_publication_language($language) {
   $document = render_group_finance_publication('', 3, $language);
   return $document;
+}
+
+function kandb_group_actualites_nos_valeurs_page() {
+  return theme('group_news_nos_valeurs');
+}
+
+function kandb_group_actualites_notre_histoire_page() {
+  return theme('group_news_notre_histoire');
 }

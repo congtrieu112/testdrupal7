@@ -37440,6 +37440,17 @@ AppAccordion.prototype = {
             .velocity('slideUp', {
               duration: 500
             });
+          return;
+        }
+
+        if ( $this.is('.active.display-status') && (e.type === 'click' || e.keyCode === 13) ) {
+          that.close();
+          that.item.find(link).attr({
+              'aria-selected': 'false',
+              'aria-expanded': 'false'
+            })
+            .removeClass('active');
+          return;
         }
       });
 
@@ -37906,7 +37917,7 @@ AppAjax.prototype = {
           url: that.url(),
           data: dataAjax
         });
-      }, 10);
+      }, 1000);
     } else {
       caller.send({
         url: that.url(),
@@ -38126,7 +38137,7 @@ var activateSection = function(id) {
 
     if (el && className.indexOf(that.settings.activeClass) < 0) {
         el.attr('class', concatClassName(className, that.settings.activeClass));
-        $(el).velocity({fill: '#199edd'}, {opacity: 1});
+        $(el).velocity("stop").velocity({fill: '#199edd'}, {opacity: 1});
     }
 };
 
@@ -38137,7 +38148,7 @@ var cleanActiveSection = function() {
 
     if (activEl && className.indexOf(that.settings.activeClass) > 0) {
         activEl.attr('class', removeClassName(className, that.settings.activeClass));
-        $(activEl).velocity({fill: '#e0e0e0'}, {opacity: 1});
+        $(activEl).velocity("stop").velocity({fill: '#e0e0e0'}, {opacity: 1});
     }
 };
 
@@ -38152,15 +38163,15 @@ var scrollToMapTop = function(el, lastSection) {
     else {
         offset = $(el.parentNode).offset().top - mapOffsetTop();
     }
-    $('#container').velocity('scroll', {offset: offset});
+    $('#container').velocity('scroll', {offset: offset - 70});
 };
 
 var activateRegion = function() {
     var id = $(this).attr('data-contact-map-section'),
         lastSection = that.settings.currentSection;
 
-    console.log('height', $(this.parentNode).height());
-    console.log('outer height', $(this.parentNode).outerHeight(true));
+    //console.log('height', $(this.parentNode).height());
+    //console.log('outer height', $(this.parentNode).outerHeight(true));
     that.settings.currentSection = id;
 
     scrollToMapTop(this, lastSection);
@@ -38198,11 +38209,13 @@ var fixMap = function() {
 };
 
 var bindMapListeners = function (unbind) {
+    var $window = $(window);
+
     if (unbind) {
         hasMapListeners = false;
         $(sectionTriggerAttr).off('click', activateRegion);
-        $(window).off('scroll', fixMap);
-        $(window).off('resize', fixMapWidth);
+        $window.off('scroll', fixMap);
+        $window.off('resize', fixMapWidth);
         $(sections).off('click', clickMapSection);
     }
     else {
@@ -38211,11 +38224,11 @@ var bindMapListeners = function (unbind) {
             .off('click', activateRegion)
             .on('click', activateRegion);
 
-        $(window)
+        $window
             .off('scroll', fixMap)
             .on('scroll', fixMap);
 
-        $(window)
+        $window
             .off('resize', fixMapWidth)
             .on('resize', fixMapWidth);
 
@@ -38289,7 +38302,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
-},{"./app-top-bar.js":33}],16:[function(require,module,exports){
+},{"./app-top-bar.js":34}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -39863,9 +39876,9 @@ function AppSlick( el, opt, options ) {
   }
 
   if ( Foundation.utils.is_medium_up() ) {
-    this.settings = $.extend({}, defaults, defaultsMedium, options);
+    this.settings = $.extend({}, defaults, defaultsMedium, options, opt);
   } else {
-    this.settings = $.extend({}, defaults);
+    this.settings = $.extend({}, defaults, opt);
   }
 
   this.item = $(el);
@@ -39972,6 +39985,175 @@ App.updaters.appSlick = function() {
 
 },{}],33:[function(require,module,exports){
 /* ====================== */
+/* expand more info table row: app-table-outils.js */
+/* ====================== */
+
+"use strict";
+var trigger = '[data-expand-row-info]',
+    triggerCheckbox = '[data-table-checkbox]',
+    triggerSelectedCheckbox = '[data-check-selected-rows]',
+    indicator = '[data-expand-indicator]',
+    expandable = '[data-expandable-area]',
+    defaults = {};
+
+
+var toggleInfo = function(ev) {
+  var $target = $(ev.target); 
+  if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
+
+  var $row = $(ev.currentTarget),
+      $indicator = $row.find(indicator),
+      $nextRow = $row.next(),
+      $expandable = $nextRow.find(expandable);
+
+  if ($expandable.is(':visible')) {
+    $expandable.velocity('slideUp', {display: 'none'});
+    $indicator.velocity({rotateX: '0deg'});
+  } else {
+    $expandable.velocity('slideDown');
+    $indicator.velocity({rotateX: '180deg'});
+  }
+};
+
+function AppTableOutils(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppTableOutils.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', toggleInfo)
+            .on('click', toggleInfo);
+    }
+};
+
+/* ====================== */
+/* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
+/* ====================== */
+var toggleCheckbox = function(ev) {
+  var $target = $(ev.currentTarget),
+      $tbody = $target.closest('tbody');
+
+  if ($tbody) {
+      var isChecked = !!$target.is(':checked'),
+          $checkBoxes = $tbody.find('.' + $target.attr('class'));
+      //$checkBoxes.attr('checked', isChecked);
+      $checkBoxes.each(function(index, obj) {
+        if (!obj.disabled) {
+          obj.checked = isChecked;
+        }
+      });
+  }
+  else {
+      console.error('Input checkbox is not wrapped within a tbody');
+  }
+};
+
+function AppTableCheckbox(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppTableCheckbox.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('change', toggleCheckbox)
+            .on('change', toggleCheckbox);
+    }
+
+};
+
+
+/* ====================== */
+/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
+/* ====================== */
+var checkRows = function(ev) {
+  var $tbody = $(ev.currentTarget).closest('tbody'),
+      $checkboxes = $tbody.find('[type=checkbox]').filter(':checked');
+
+  if ($checkboxes.length === 0) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+};
+
+function AppCheckSelectedRows(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppCheckSelectedRows.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', checkRows)
+            .on('click', checkRows);
+    }
+
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+function jqueryFn(jq, ClassObj, args, opt) {
+    //var args = Array.prototype.slice.call(arguments, 1);
+
+    return jq.each(function() {
+        var item = $(this), instance = item.data(ClassObj.name);
+        if (!instance) {
+            // create plugin instance and save it in data
+            item.data(ClassObj.name, new ClassObj(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+
+}
+
+
+$.fn.appTableOutils = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppTableOutils, opt, args);
+};
+
+$.fn.appTableCheckbox = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppTableCheckbox, opt, args);
+};
+
+$.fn.appCheckSelectedRows = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppCheckSelectedRows, opt, args);
+};
+
+$(trigger).appTableOutils();
+$(triggerCheckbox).appTableCheckbox();
+$(triggerSelectedCheckbox).appCheckSelectedRows();
+
+
+},{}],34:[function(require,module,exports){
+/* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
 
@@ -39985,7 +40167,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -40622,7 +40804,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],35:[function(require,module,exports){
+},{"jquery":5}],36:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40719,6 +40901,7 @@ var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
 var appShowText         = require("./app-showText.js");
 var appPartager         = require("./app-partager.js");
+var appTableOutils      = require("./app-table-outils.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40734,4 +40917,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-table-outils.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);

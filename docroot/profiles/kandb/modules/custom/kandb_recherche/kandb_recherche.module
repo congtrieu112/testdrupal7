@@ -146,12 +146,12 @@ function kandb_recherche_page(){
   // If not result
   $isThereAResult = TRUE;
   if ($result == NULL) {
-    $tree = taxonomy_get_tree($vocabularies['departement']->vid);
+    $tree = kandb_seo_get_list_of_cities_by_programme_in('departements');
     $departement = array();
-    foreach ($tree as $id => $term) {
-      $departement[$id] = array(
-        'link' => kandb_recherche_get_action_url() . '?place=' . $term->name,
-        'name' => $term->name,
+    while($object = $tree->fetchAssoc()){
+      $departement[] = array(
+        'link' => kandb_recherche_get_action_url() . '?place=' . $object['name'],
+        'name' => $object['name'],
       );
     }
     $result = theme('result_departement', array('departement' => $departement));

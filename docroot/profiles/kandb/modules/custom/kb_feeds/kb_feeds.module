@@ -499,7 +499,32 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'document_import' || $entity->feeds_item->id == 'document_import_uk') {
-      if ($totalItems > 7 || $totalItems <= 5) {
+      if (isset($entity_id) && $entity_id > 0) {
+        $origin_node = node_load($entity_id, NULL, TRUE);
+        $is_new = FALSE;
+        $old_fids = array();
+        if (isset($origin_node->field_document_file[LANGUAGE_NONE])) {
+          foreach ($origin_node->field_document_file[LANGUAGE_NONE] as $index => $value) {
+            $old_fids[$index] = $value['fid'];
+          }
+        }
+        if (!empty($old_fids) && isset($entity->field_document_file[LANGUAGE_NONE])) {
+          foreach ($entity->field_document_file[LANGUAGE_NONE] as $index => $value) {
+            if (!in_array($value['fid'], $old_fids)) {
+              $is_new = TRUE;
+              $origin_node->field_document_file[LANGUAGE_NONE][] = $value;
+            }
+            elseif(isset($value['description']) && $value['description'] != '') {
+              $delta = array_search($value['fid'], $old_fids);
+              $origin_node->field_document_file[LANGUAGE_NONE][$delta]['description'] = $value['description'];
+            }
+          }
+        }
+        if ($is_new) {
+          $entity->field_document_file[LANGUAGE_NONE] = $origin_node->field_document_file[LANGUAGE_NONE];
+        }
+      }
+      if ($totalItems > 8 || $totalItems <= 6) {
         $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items)' . '| Skip imported' . "\n";
       } else {
         $validates = array(

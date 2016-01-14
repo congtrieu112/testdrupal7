@@ -5,10 +5,10 @@
  */
 ?>
 
-<?php print theme('group_rh_header'); ?>
+<?php print theme('group_news_header'); ?>
 <?php
-$module_title = variable_get('your_career_module_title');
-$sub_title = variable_get('your_career_module_sub_title');
+$module_title = variable_get('news_history_module_title');
+$sub_title = variable_get('news_history_module_sub_title');
 ?>
 <!-- [content Advice] start-->
 <section class="wrapper section-padding ourAdvices">
@@ -18,14 +18,14 @@ $sub_title = variable_get('your_career_module_sub_title');
           <p class="heading__title heading__title--sub"><?php print $sub_title; ?></p>
       </header>
     <?php endif; ?>
-    <?php for ($i = 0; $i <= KANDB_GROUP_YOUR_CAREER_ITEMS_NUM; $i++) : ?>
+    <?php for ($i = 0; $i <= KANDB_GROUP_NEWS_ITEMS_NUM; $i++) : ?>
       <?php
-      $title = variable_get('your_career_item_title_' . $i);
-      $description = variable_get('your_career_item_description_' . $i);
+      $title = variable_get('news_history_item_title_' . $i);
+      $description = variable_get('news_history_item_description_' . $i);
       $description = isset($description['value']) ? $description['value'] : '';
-      $image = variable_get('your_career_item_image_' . $i);
+      $image = variable_get('news_history_item_image_' . $i);
       $image = is_numeric($image) ? file_load($image) : '';
-      $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_big_teaser', $image->uri) : '';
+      $image = (isset($image->uri) AND $image->uri) ? image_style_url('dossier_medium_850x345', $image->uri) : '';
       ?>
       <?php if ($title || $description || $image) : ?>
         <!-- [Article Advice] start-->

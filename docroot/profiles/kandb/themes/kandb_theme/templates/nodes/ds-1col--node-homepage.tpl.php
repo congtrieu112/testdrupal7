@@ -76,8 +76,6 @@ $number_pdf = count($node->field_hp_block_document['und']);
 <!-- [references] start-->
 <section class="wrapper section-padding">
     <header class="heading heading--bordered">
-        <h2 class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></h2>
-        <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre'][0]['#markup']); ?></p>
         <?php
         if ($number_pdf > 1):
           $addMore = '_';
@@ -91,9 +89,7 @@ $number_pdf = count($node->field_hp_block_document['und']);
             if ($filePath) :
               if (file_exists($filePath)) :
                 ?>
-                <div class="downloadDocs__item__link">
-                    <a href="<?php print $linkfile; ?>" title="<?php print $fileName; ?>"><span class="icon icon-download-pdf"></span></a>
-                </div>
+                <div class="heading__document"><a href="<?php print $linkfile; ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
                 <?php
               endif;
             endif;
@@ -101,10 +97,10 @@ $number_pdf = count($node->field_hp_block_document['und']);
           ?>
         <?php elseif ($number_pdf > 0):
           ?>
-          <div class="downloadDocs__item__link">
-              <a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print $node->field_hp_block_document['und'][0]['filename']; ?>"><span class="icon icon-download-pdf"></span></a>
-          </div>
+          <div class="heading__document"><a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
         <?php endif; ?>
+        <h2 class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></h2>
+        <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre'][0]['#markup']); ?></p>
     </header>
     <?php print render($content['habitat_carousel']); ?>
     <?php if ($content['field_hp_block_cta_habitat']['#items'][0]['url'] && $content['field_hp_block_cta_habitat']['#items'][0]['title']): ?>

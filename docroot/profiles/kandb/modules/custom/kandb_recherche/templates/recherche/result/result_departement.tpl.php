@@ -8,8 +8,8 @@
       <dt>Aller à :</dt>
       <dd>
         <nav class="form-dropdown form-dropdown--responsive">
-          <div id="dropdown-downloadDocs" aria-hi          <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">Les actualités<span aria-hidden="true" class="icon icon-expand"></span></button>
-dden="true" class="form-dropdown__content hidden">
+          <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">Les actualités<span aria-hidden="true" class="icon icon-expand"></span></button>
+          <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
             <ul>
               <?php
                 $ancien_first_letter = false;
