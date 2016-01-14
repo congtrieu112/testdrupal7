@@ -26,7 +26,7 @@
         <?php
               $edito_kpi_component_image = variable_get('bloc_edito_kpi_item_image');
               $edito_kpi_component_image = $edito_kpi_component_image ? file_load($edito_kpi_component_image) : '';
-              $edito_kpi_component_image = (isset($edito_kpi_component_image->uri) AND $edito_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $edito_kpi_component_image->uri) : '';
+              $edito_kpi_component_image = (isset($edito_kpi_component_image->uri) AND $edito_kpi_component_image->uri) ? image_style_url('dossier_medium_850x345', $edito_kpi_component_image->uri) : '';
         ?>
         <?php if($edito_kpi_component_image) : ?>
             <div class="graphicPresentation__list">

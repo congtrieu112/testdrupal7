@@ -24,7 +24,7 @@ $webforms = array();
   'uuid' => '64c71631-71de-4f97-9058-b5fefcaf2611',
   'webform' => array(
     'next_serial' => 5,
-    'confirmation' => 'Thank you !!!',
+    'confirmation' => 'Merci, votre soumission a été reçue',
     'confirmation_format' => 'plain_text',
     'redirect_url' => '<none>',
     'status' => 1,
@@ -61,7 +61,7 @@ $webforms = array();
     ),
     'emails' => array(),
     'components' => array(
-      'inscription__inscription_email' => array(
+      'demande_de_contac__votre_nom' => array(
         'form_key' => 'inscription_email',
         'name' => 'inscription email',
         'type' => 'email',
@@ -83,10 +83,10 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 0,
-        'machine_name' => 'inscription__inscription_email',
+        'machine_name' => 'demande_de_contac__votre_nom',
         'page_num' => 1,
       ),
-      'inscription__inscription_point_dinteret' => array(
+      'demande_de_contac__votre_email' => array(
         'form_key' => 'inscription_point_dinteret',
         'name' => 'inscription point d\'intérêt',
         'type' => 'hidden',
@@ -98,7 +98,7 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 1,
-        'machine_name' => 'inscription__inscription_point_dinteret',
+        'machine_name' => 'demande_de_contac__votre_email',
         'page_num' => 1,
       ),
     ),
