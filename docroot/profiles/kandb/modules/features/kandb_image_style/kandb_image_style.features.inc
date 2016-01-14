@@ -10,6 +10,21 @@
 function kandb_image_style_image_default_styles() {
   $styles = array();
 
+  // Exported image style: 1380x400.
+  $styles['1380x400'] = array(
+    'label' => '1380x400',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 400,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: 560x365.
   $styles['560x365'] = array(
     'label' => '560x365',
@@ -19,6 +34,21 @@ function kandb_image_style_image_default_styles() {
         'data' => array(
           'width' => 560,
           'height' => 365,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: 640x400.
+  $styles['640x400'] = array(
+    'label' => '640x400',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 400,
         ),
         'weight' => 1,
       ),
