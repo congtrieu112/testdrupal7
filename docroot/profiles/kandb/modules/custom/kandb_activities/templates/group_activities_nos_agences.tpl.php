@@ -108,8 +108,8 @@ if(isset($arg[2])) {
                                     $email = isset($arr_field_email[LANGUAGE_NONE][0]['value']) ? $arr_field_email[LANGUAGE_NONE][0]['value'] : '';
                                     $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value']) ? $arr_field_telephone[LANGUAGE_NONE][0]['value'] : '';
                                     if ($addr && ($email || $telephone)) : ?>
-                                      <li><?php print $addr;
-                                        if ($email) : ?>
+                                      <li><p><?php print $addr;?></p>
+                                        <?php if ($email) : ?>
                                           <a href="mailto:<?php print $email; ?>" class="mail"><?php print $email; ?>
                                               <span class="icon icon-email"></span></a>
                                         <?php endif; ?>
