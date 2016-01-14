@@ -19,14 +19,14 @@ define('KANDB_GROUP_YOUR_CAREER_ITEMS_NUM', 5);
 // Publication document type tabs.
 // [Tab Name] => [Taxonomy term name, Number of year].
 define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR', serialize(array(
-  'Communication Financière' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Communication Financière' => array('doc_type_name' => 'Communications financières', 'numof_years' => 3),
   'Autres Informations réglementée' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
-  'Documents de référence' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+  'Documents de référence' => array('doc_type_name' => 'Documents de référence', 'numof_years' => 1),
 )));
 define('KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN', serialize(array(
-  'Financial Communication' => array('doc_type_name' => 'Communiqué de presse', 'numof_years' => 3),
+  'Financial Communication' => array('doc_type_name' => 'Communications financières', 'numof_years' => 3),
   'Other regulated information' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 3),
-  'Reference documents' => array('doc_type_name' => 'Autres Informations réglementée', 'numof_years' => 1),
+  'Reference documents' => array('doc_type_name' => 'Documents de référence', 'numof_years' => 1),
 )));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_FR', serialize(array(t('Présentation'), t('Publications'), t('Assemblée Générale'), t('Gouvernance'), t('Archives'))));
 define('KANDB_GROUP_HEADER_MENU_DEFAULT_TITLES_EN', serialize(array(t('Presentation'), t('Publications'), t('General Assembly'), t('Governance'), t('Archives'))));
