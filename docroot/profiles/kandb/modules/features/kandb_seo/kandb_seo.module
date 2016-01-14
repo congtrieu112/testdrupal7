@@ -75,6 +75,15 @@ function kandb_seo_menu() {
     'access arguments' => array('access content'),
   );
 
+  $items['admin/content/ketb/group/seo-logement'] = array(
+    'title' => '[Seo] - Logement',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_seo_logement_admin_form'),
+    'file' => 'kandb_seo_logement.admin.inc',
+    'access arguments' => array('administer K&B group page'),
+    'type' => MENU_LOCAL_TASK,
+  );
+
   return $items;
 }
 
