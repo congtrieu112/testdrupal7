@@ -550,7 +550,10 @@ function get_document_publication($document_type_tid, $numof_years, $current_lan
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
     $query->condition('d.entity_type', 'node');
     $query->condition('d.bundle', 'document');
-//  $db_query->isNotNull('df.field_document_file_fid');
+    $query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
+    $query->condition('df.entity_type', 'node');
+    $query->condition('df.bundle', 'document');
+    $query->isNotNull('df.field_document_file_fid');
     $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
     $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
     $query->fields('n', array('nid'));
