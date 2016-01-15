@@ -32,7 +32,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['finance_block']['image']; ?>, (small)], [<?php print $data['finance_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['finance_block']['title']; ?>" data-interchange="[<?php print $data['finance_block']['image']; ?>, (small)], [<?php print $data['finance_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['finance_block']['image']; ?>" alt="<?php print $data['finance_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -64,7 +64,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['ressources_humaines_block']['image']; ?>, (small)], [<?php print $data['ressources_humaines_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['ressources_humaines_block']['title']; ?>" data-interchange="[<?php print $data['ressources_humaines_block']['image']; ?>, (small)], [<?php print $data['ressources_humaines_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['ressources_humaines_block']['image']; ?>" alt="<?php print $data['finance_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -88,7 +88,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['activites_block']['image']; ?>, (small)], [<?php print $data['activites_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['activites_block']['title']; ?>" data-interchange="[<?php print $data['activites_block']['image']; ?>, (small)], [<?php print $data['activites_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['activites_block']['image']; ?>" alt="<?php print $data['activites_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -112,7 +112,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['actualites_block']['image']; ?>, (small)], [<?php print $data['actualites_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['actualites_block']['title']; ?>" data-interchange="[<?php print $data['actualites_block']['image']; ?>, (small)], [<?php print $data['actualites_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['actualites_block']['image']; ?>" alt="<?php print $data['actualites_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -136,7 +136,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['developpement_durable_block']['image']; ?>, (small)], [<?php print $data['developpement_durable_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['developpement_durable_block']['title']; ?>" data-interchange="[<?php print $data['developpement_durable_block']['image']; ?>, (small)], [<?php print $data['developpement_durable_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['developpement_durable_block']['image']; ?>" alt="<?php print $data['developpement_durable_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
