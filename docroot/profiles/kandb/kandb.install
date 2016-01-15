@@ -1008,30 +1008,10 @@ function kandb_update_7201() {
  * Update database stringoverrides_advanced
  */
 function kandb_update_7202() {
-  $sql_query = db_select('stringoverrides_advanced_source', 's');
-  $sql_query->fields('s', array('lid'));
-  $sql_query->condition('s.source', '%!name field is required.%', 'LIKE');
-  $locales = $sql_query->execute()->fetchCol();
-  if (empty($locales)) {
-    $id = db_insert('stringoverrides_advanced_source')
-        ->fields(array(
-          'location' => '/system/ajax',
-          'textgroup' => 'default',
-          'source' => '!name field is required.',
-          'version' => VERSION,
-        ))
-        ->execute();
-    $locales[0] = $id;
+  if (!module_exists('kandb_settings')) {
+    module_enable(array('kandb_settings'), TRUE);
   }
-  if (!empty($locales)) {
-    db_insert('stringoverrides_advanced_target')
-        ->fields(array(
-          'lid' => $locales[0],
-          'translation' => '!name field doit être renseigné.',
-          'language' => 'en',
-        ))
-        ->execute();
-  }
+  setting_error_message();
 }
 
 /**
