@@ -250,9 +250,8 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     $pathB2B = $ori_path . '/b2b/Programme.xml';
 
     // Preparing some data which use to create file XML
-    $arr_type_partenaire_export = array($pathB2C => PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C, $pathB2B => PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B, $ori_path => PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES);
-    foreach($arr_type_partenaire_export as $_path_parten_export => $_type_parten_export) {
-      unlink($_path_parten_export);
+    $arr_type_partenaire_export = array(PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C, PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B, PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES);
+    foreach($arr_type_partenaire_export as $_type_parten_export) {
       $listPartenaire = getListPartenairesCustom($_type_parten_export);
       $first_time = TRUE;
       if ($listPartenaire && $listPartenaire->rowCount() > 0) {
@@ -262,15 +261,13 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
           $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
           $partenaire_title = isset($partenaire->partenaire_title) ? $partenaire->partenaire_title : '';
           $partenaire_id = isset($partenaire->field_id_partenaire_value) ? $partenaire->field_id_partenaire_value : '';
-          $path = $_path_parten_export;
-          if($_type_parten_export == PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES) {
-            $first_time = TRUE;
-            $uriBoth = $uri . $partenaire_id;
-            file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
-            drupal_chmod($uriBoth, 0777);
-            unlink($_path_parten_export . '/' . $partenaire_id . '/Programme.xml');
-            $path = $_path_parten_export . '/' . $partenaire_id . '/Programme.xml';
-          }
+
+          $uriBoth = $uri . $partenaire_id;
+          file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
+          drupal_chmod($uriBoth, 0777);
+          unlink($ori_path . '/' . $partenaire_id . '/Programme.xml');
+          $path = $ori_path . '/' . $partenaire_id . '/Programme.xml';
+          error_log($path);
           if($programmes || $biens) {
             createFileXML($programmes, $biens, $partenaire_title, $first_time, $path);
           }
@@ -559,7 +556,7 @@ function createFileXML($programmes, $biens, $partenaire_title, $first_time, $pat
 
   $reponse = '';
   $doc = '';
-  if($first_time == TRUE) {
+  if(!file_exists($path)) {
     $doc = new DOMDocument('1.0');
     // we want a nice output
     $doc->formatOutput = true;
@@ -579,7 +576,7 @@ function createFileXML($programmes, $biens, $partenaire_title, $first_time, $pat
     $date = $entete->appendChild($date);
     $date_value = $doc->createTextNode(date("Y-m-d", time()));
     $date_value = $date->appendChild($date_value);
-  } elseif($first_time == FALSE && file_exists($path)) {
+  } elseif(file_exists($path)) {
     $doc = new DOMDocument();
     $doc->load($path);
 
