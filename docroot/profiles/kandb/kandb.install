@@ -1008,48 +1008,7 @@ function kandb_update_7201() {
  * Update database stringoverrides_advanced
  */
 function kandb_update_7202() {
-  // Param 1: text default. Param 2: Text translate. Param 3: url show text
-  $message_source = array(
-    '!name field is required.' => array('/system/ajax', '!name field doit être renseigné.'),
-  );
-
-  if (!empty($message_source)) {
-    foreach ($message_source as $key => $item) {
-
-      $sql_query = db_select('stringoverrides_advanced_source', 's');
-      $sql_query->fields('s', array('lid'));
-      $sql_query->condition('s.source', '%' . $key . '%', 'LIKE');
-      $locales_list = $sql_query->execute()->fetchCol();
-
-      if (!empty($locales_list)) {
-        $locales = $locales_list[0];
-      }
-      if (empty($locales_list)) {
-        $id = db_insert('stringoverrides_advanced_source')
-            ->fields(array(
-              'location' => $item[0],
-              'textgroup' => 'default',
-              'source' => $key,
-              'version' => VERSION,
-            ))
-            ->execute();
-        $locales = $id;
-      }
-      $query = db_select('stringoverrides_advanced_target', 's');
-      $query->fields('s', array('lid'));
-      $query->condition('s.lid', $locales);
-      $locales_translate = $query->execute()->fetchCol();
-      if (!empty($locales) && empty($locales_translate)) {
-        db_insert('stringoverrides_advanced_target')
-            ->fields(array(
-              'lid' => $locales,
-              'translation' => $item[1],
-              'language' => 'en',
-            ))
-            ->execute();
-      }
-    }
-  }
+  setting_error_message();
 }
 
 /**
