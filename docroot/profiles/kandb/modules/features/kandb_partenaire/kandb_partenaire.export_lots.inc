@@ -159,13 +159,18 @@ function kandb_get_bien_by_domain($type, $uri_lots) {
           $caracteristique_balcon = isset($bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] : '';
           //field_caracteristique_terrasse
           $caracteristique_terrasse = isset($bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] : '';
-
-          krumo($tax_orientation);
-          $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤PARKING NON INCLUS¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤775¤Parking compris|' . "\n";
+          //field_caracteristique_parking
+          $caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
+          $parking_carater = '';
+          if ($caracteristique_parking == 0) {
+            $parking_carater = t('Parking Compris');
+          }
+          if ($caracteristique_parking > 0) {
+            $parking_carater = $caracteristique_parking;
+          }
+          $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
           file_save_data($row, $uri_lots, FILE_EXISTS_REPLACE);
         }
-
-        krumo($biens);
       }
     }
   }
