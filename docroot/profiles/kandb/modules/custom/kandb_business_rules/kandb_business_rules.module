@@ -505,7 +505,6 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
     }
 
     $form['field_tva']['#disabled'] = TRUE;
-  //  $form['#submit'][] = 'recalculate_bien_action';
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
