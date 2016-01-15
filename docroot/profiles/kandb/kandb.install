@@ -1008,6 +1008,9 @@ function kandb_update_7201() {
  * Update database stringoverrides_advanced
  */
 function kandb_update_7202() {
+  if (!module_exists('kandb_settings')) {
+    module_enable(array('kandb_settings'), TRUE);
+  }
   setting_error_message();
 }
 
