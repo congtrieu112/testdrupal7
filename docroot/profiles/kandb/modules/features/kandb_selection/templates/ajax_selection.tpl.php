@@ -27,6 +27,7 @@
     <div class="noSelection bg-white">
       <div class="heading--small">
         <h2 class="heading__title">Vous n'avez enregistré aucun article</h2>
+      </div>
     </div>
   </div>
 </section>
