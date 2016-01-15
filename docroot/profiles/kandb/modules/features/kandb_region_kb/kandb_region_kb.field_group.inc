@@ -83,7 +83,7 @@ function kandb_region_kb_field_group_info() {
     'children' => array(
       0 => 'field_kb_agence3_address',
       1 => 'field_kb_agence3_email',
-      2 => 'field_t_l_phone',
+      2 => 'field_kb_agence3_telephone',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
