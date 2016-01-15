@@ -1,11 +1,15 @@
 <?php
 
+define('PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C', 1);
+define('PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B', 2);
+define('PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES', 3);
+
 /**
  * Implements hook_node_insert().
  * @param type $node
  */
 function kandb_partenaire_node_insert($node) {
-// By pass apply rule in case apply habiteo API. 
+// By pass apply rule in case apply habiteo API.
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
@@ -28,7 +32,7 @@ function kandb_partenaire_node_insert($node) {
  * @param type $node
  */
 function kandb_partenaire_node_update($node) {
-// By pass apply rule in case apply habiteo API. 
+// By pass apply rule in case apply habiteo API.
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
@@ -62,15 +66,15 @@ function kandb_partenaire_node_update($node) {
 //    elseif (isset ($node->original->field_bien_plan[LANGUAGE_NONE][0]['fid'])) {
 //      $update_archive = TRUE;
 //    }
-//    
+//
 //    if ($update_archive && $node->status == 0 && $node->original->status == 0) {
 //      $update_archive = FALSE;
 //    }
-//    
+//
 //    if ($update_archive && !isset ($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
 //      $update_archive = FALSE;
 //    }
-//    
+//
 //    if ($update_archive) {
 //      kandb_partenaire_update_archive_file($node);
 //    }
@@ -242,6 +246,39 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     drupal_chmod($uri . 'b2b', 0777);
     $ori_path = $path = drupal_realpath($uri);
     $path = $ori_path . '/b2c/';
+    $pathB2C = $ori_path . '/b2c/Programme.xml';
+    $pathB2B = $ori_path . '/b2b/Programme.xml';
+
+    // Preparing some data which use to create file XML
+    $arr_type_partenaire_export = array($pathB2C => PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C, $pathB2B => PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B, $ori_path => PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES);
+    foreach($arr_type_partenaire_export as $_path_parten_export => $_type_parten_export) {
+      unlink($_path_parten_export);
+      $listPartenaire = getListPartenairesCustom($_type_parten_export);
+      $first_time = TRUE;
+      if ($listPartenaire && $listPartenaire->rowCount() > 0) {
+        $partenaires = $listPartenaire->fetchAll();
+        foreach($partenaires as $partenaire) {
+          $programmes = isset($partenaire->field_partenaire_programmes_target_id) ? node_load($partenaire->field_partenaire_programmes_target_id) : '';
+          $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
+          $partenaire_title = isset($partenaire->partenaire_title) ? $partenaire->partenaire_title : '';
+          $partenaire_id = isset($partenaire->field_id_partenaire_value) ? $partenaire->field_id_partenaire_value : '';
+          $path = $_path_parten_export;
+          if($_type_parten_export == PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES) {
+            $first_time = TRUE;
+            $uriBoth = $uri . $partenaire_id;
+            file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
+            drupal_chmod($uriBoth, 0777);
+            unlink($_path_parten_export . '/' . $partenaire_id . '/Programme.xml');
+            $path = $_path_parten_export . '/' . $partenaire_id . '/Programme.xml';
+          }
+          if($programmes || $biens) {
+            createFileXML($programmes, $biens, $partenaire_title, $first_time, $path);
+          }
+          $first_time = FALSE;
+        }
+      }
+    }
+
     if (file_exists($path)) {
       foreach (glob($path . "/*.*") as $filename) {
         if (is_file($filename)) {
@@ -324,12 +361,12 @@ function kandb_partenaire_create_archive_file($node) {
     return ;
   }
   $partenaire_export = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
-  $all_pdf_files = array();  
+  $all_pdf_files = array();
   $uri = 'public://partenaire/'. $vuuid ;
   file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   drupal_chmod($uri, 0777);
   $path = drupal_realpath($uri);
-  
+
   if (file_exists($path)) {
     foreach (glob($path . "/*.*") as $filename) {
       if (is_file($filename)) {
@@ -413,4 +450,250 @@ function generate_uuid() {
       // 48 bits for "node".
       mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
   );
+}
+
+/**
+ * Get tid of taxonomy status du logement by name
+ * @param type $term_name
+ * @return int
+ */
+function getTidStatusDuLogementByName($term_name = TAXONOMY_STATUS_LOGEMENT_DISPONIBLE) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'taxonomy_term');
+  $query->propertyCondition('name', $term_name);
+  $query->range(0, 1);
+
+  $results = $query->execute();
+  if($results){
+    return array_shift($results["taxonomy_term"])->tid;
+  }
+
+  return 0;
+}
+
+/**
+ * Get list partenaires by Type Partenaire Export (custom)
+ * @param type $type
+ * @return boolean
+ */
+function getListPartenairesCustom($type) {
+  $tid = getTidStatusDuLogementByName(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+  if($tid) {
+    $listPartenaire_query = db_select('node', 'n');
+    $listPartenaire_query->leftjoin('field_data_field_partenaire_programmes', 'pp', 'n.nid=pp.field_partenaire_programmes_target_id');
+    $listPartenaire_query->leftJoin('field_data_field_partenaire_type_flux', 'ptf', 'pp.entity_id=ptf.entity_id');
+    $listPartenaire_query->leftJoin('field_data_field_id_partenaire', 'ip', 'ptf.entity_id=ip.entity_id');
+    $listPartenaire_query->leftJoin('field_data_field_partenaire_export', 'pe', 'pe.entity_id=ptf.entity_id');
+    $listPartenaire_query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
+    $listPartenaire_query->addExpression('(select title from node n where n.nid = pp.entity_id)', 'partenaire_title');
+    $listPartenaire_query
+      ->fields('pp', array('field_partenaire_programmes_target_id'))
+      ->fields('ip', array('field_id_partenaire_value'))
+      ->condition('field_partenaire_type_flux_value', 3)
+      ->condition('status', 1)
+      ->condition('field_partenaire_export_value', $type);
+
+    if ($type == PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C) {
+      $str = '(select group_concat(p.entity_id) from node n left join field_data_field_programme p on n.nid=p.entity_id left join domain_access d on d.nid=n.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n.status = 1 and bs.field_bien_statut_tid = ' . $tid . ' and d.gid = 3 and p.field_programme_target_id = pp.field_partenaire_programmes_target_id)';
+      $listPartenaire_query->condition('dm.gid', 3);
+      $listPartenaire_query->addExpression($str, 'bien_id');
+    }
+    elseif ($type == PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B) {
+      $str = '(select group_concat(p.entity_id) from node n left join field_data_field_programme p on n.nid=p.entity_id left join domain_access d on d.nid=n.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n.status = 1 and bs.field_bien_statut_tid = ' . $tid . ' and d.gid = 2 and p.field_programme_target_id = pp.field_partenaire_programmes_target_id)';
+      $listPartenaire_query->condition('dm.gid', 2);
+      $listPartenaire_query->addExpression($str, 'bien_id');
+    } elseif($type == PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES) {
+      $str = '(select group_concat(p.entity_id) from node n left join field_data_field_programme p on n.nid=p.entity_id left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n.status = 1 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = pp.field_partenaire_programmes_target_id)';
+      $listPartenaire_query->condition('dm.gid', array(2,3), 'IN');
+      $listPartenaire_query->addExpression($str, 'bien_id');
+      $listPartenaire_query->distinct();
+    }
+
+    return $listPartenaire_query->execute();
+  }
+
+  return FALSE;
+}
+
+/**
+ * Create file XML
+ * @global type $base_url
+ * @param type $programmes
+ * @param type $biens
+ * @param type $partenaire_title
+ * @param type $first_time
+ * @param type $path
+ */
+function createFileXML($programmes, $biens, $partenaire_title, $first_time, $path) {
+  global $base_url;
+  $programme_id = isset($programmes->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programmes->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
+  $programme_title = isset($programmes->title) ? $programmes->title : '';
+  $programme_loc_num = isset($programmes->field_programme_loc_num[LANGUAGE_NONE][0]['value']) ? $programmes->field_programme_loc_num[LANGUAGE_NONE][0]['value'] : '';
+  $programme_loc_type = isset($programmes->field_programme_loc_type[LANGUAGE_NONE][0]['tid']) ? $programmes->field_programme_loc_type[LANGUAGE_NONE][0]['tid'] : '';
+  $programme_loc_rue = isset($programmes->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $programmes->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
+  $term_programme_loc_type = taxonomy_term_load($programme_loc_type);
+  if($term_programme_loc_type) {
+    $programme_loc_type = isset($term_programme_loc_type->name) ? $term_programme_loc_type->name : '';
+  }
+  $programme_address = $programme_loc_num . ' ' . $programme_loc_type . ' ' . $programme_loc_rue;
+  $programme_cp = isset($programmes->field_programme_loc_cp[LANGUAGE_NONE][0]['value']) ? $programmes->field_programme_loc_cp[LANGUAGE_NONE][0]['value'] : '';
+  $programme_ville = isset($programmes->field_programme_loc_ville[LANGUAGE_NONE][0]['value']) ? $programmes->field_programme_loc_ville[LANGUAGE_NONE][0]['value'] : '';
+  $sender_mail = variable_get('kb_call_center_sender_mail', '');
+
+  $programme_annee = isset($programmes->field_annee[LANGUAGE_NONE][0]['value']) ? $programmes->field_annee[LANGUAGE_NONE][0]['value'] : '';
+  $programme_trimestre = isset($programmes->field_trimestre[LANGUAGE_NONE][0]['value']) ? $programmes->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
+  $programme_livraison = $programme_annee . $programme_trimestre;
+  $programme_en_quelques_mots = isset($programmes->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $programmes->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+  $programme_address_web = $base_url . '/' . drupal_get_path_alias('node/' . $programmes->nid);
+
+  $bien_image_principale_fid = isset($programmes->field_image_principale[LANGUAGE_NONE][0]['fid']) ? $programmes->field_image_principale[LANGUAGE_NONE][0]['fid'] : '';
+  $bien_perspective = '';
+  if($bien_image_principale_fid) {
+    $files = file_load($bien_image_principale_fid);
+    if($files && isset($files->uri)) {
+      $url = file_create_url($files->uri);
+      $url = parse_url($url);
+      $bien_perspective = $base_url . $url['path'];
+    }
+  }
+
+  $reponse = '';
+  $doc = '';
+  if($first_time == TRUE) {
+    $doc = new DOMDocument('1.0');
+    // we want a nice output
+    $doc->formatOutput = true;
+
+    $reponse = $doc->createElement('REPONSE');
+    $reponse = $doc->appendChild($reponse);
+
+    $entete = $doc->createElement('ENTETE');
+    $entete = $reponse->appendChild($entete);
+
+    $promoteur = $doc->createElement('PROMOTEUR');
+    $promoteur = $entete->appendChild($promoteur);
+    $promoteur_value = $doc->createTextNode($partenaire_title);
+    $promoteur_value = $promoteur->appendChild($promoteur_value);
+
+    $date = $doc->createElement('DATE');
+    $date = $entete->appendChild($date);
+    $date_value = $doc->createTextNode(date("Y-m-d", time()));
+    $date_value = $date->appendChild($date_value);
+  } elseif($first_time == FALSE && file_exists($path)) {
+    $doc = new DOMDocument();
+    $doc->load($path);
+
+    $reponse = $doc->firstChild;
+  }
+
+  $programme = $doc->createElement('PROGRAMME');
+  $programme = $reponse->appendChild($programme);
+
+  createElementXML($doc, $programme, 'REF_OPERATION', $programme_id);
+  createElementXML($doc, $programme, 'NUMERO', $programme_id);
+  createElementXML($doc, $programme, 'NOM', $programme_title);
+  createElementXML($doc, $programme, 'ADRESSE', $programme_address);
+  createElementXML($doc, $programme, 'CP', $programme_cp);
+  createElementXML($doc, $programme, 'VILLE', $programme_cp);
+  createElementXML($doc, $programme, 'PAYS', 'France');
+  createElementXML($doc, $programme, 'ADRESSE_MAIL', $sender_mail);
+  createElementXML($doc, $programme, 'ADRESSE_WEB', $programme_address_web);
+  createElementXML($doc, $programme, 'PERSPECTIVE', $bien_perspective);
+  createElementXML($doc, $programme, 'DATE_LIVRAISON', $programme_livraison);
+  createElementXML($doc, $programme, 'DATE_VENTE', '');
+  createElementXML($doc, $programme, 'OBJECTIF', 'mixte');
+  createElementXML($doc, $programme, 'DESCRIPTIF_COURT', '');
+  createElementXML($doc, $programme, 'DESCRIPTIF_LONG', $programme_en_quelques_mots);
+  createElementXML($doc, $programme, 'DESCRIPTIF_COURT_EN', '');
+  createElementXML($doc, $programme, 'DESCRIPTIF_LONG_EN', '');
+
+  foreach($biens as $bien) {
+    $lot = $doc->createElement('LOT');
+    $lot = $programme->appendChild($lot);
+
+    $bien_numero_lot = isset($bien->field_numero_lot[LANGUAGE_NONE][0]['value']) ? $bien->field_numero_lot[LANGUAGE_NONE][0]['value'] : '';
+    $term_bien_type =  isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
+    $bien_type = ($term_bien_type && isset($term_bien_type->name)) ? $term_bien_type->name : '';
+
+    $term_bien_orientation =  isset($bien->field_orientation[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_orientation[LANGUAGE_NONE][0]['tid']) : '';
+    $bien_orientation = ($term_bien_orientation && isset($term_bien_orientation->name)) ? $term_bien_orientation->name : '';
+
+    $term_bien_nb_pieces =  isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
+    $bien_nb_pieces = ($term_bien_nb_pieces && isset($term_bien_nb_pieces->name)) ? $term_bien_nb_pieces->name : '';
+
+    $term_bien_etage =  isset($bien->field_etage[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_etage[LANGUAGE_NONE][0]['tid']) : '';
+    $bien_etage = ($term_bien_etage && isset($term_bien_etage->name)) ? $term_bien_etage->name : '';
+
+    $bien_tva = isset($bien->field_tva[LANGUAGE_NONE][0]['tid']) ? 'N' : 'O';
+
+    $bien_plan_vente_fid = isset($bien->field_bien_plan[LANGUAGE_NONE][0]['fid']) ? $bien->field_bien_plan[LANGUAGE_NONE][0]['fid'] : '';
+    $bien_plan_vente = '';
+    if($bien_plan_vente_fid) {
+      $files = file_load($bien_plan_vente_fid);
+      if($files && isset($files->uri)) {
+        $url = file_create_url($files->uri);
+        $url = parse_url($url);
+        $bien_plan_vente = $base_url . $url['path'];
+      }
+    }
+
+    $bien_caracteristique_terrasse = isset($bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] : '';
+    $bien_caracteristique_balcon = isset($bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] : '';
+    $bien_caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
+    if($bien_caracteristique_parking && $bien_caracteristique_parking > 0) {
+      $bien_caracteristique_parking = 1;
+    } else {
+      $bien_caracteristique_parking = 0;
+    }
+
+    $bien_caracteristique_cave = isset($bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] : '';
+    if($bien_caracteristique_cave && $bien_caracteristique_cave > 0) {
+      $bien_caracteristique_cave = 1;
+    } else {
+      $bien_caracteristique_cave = 0;
+    }
+
+    createElementXML($doc, $lot, 'REF_LOT', $bien_numero_lot);
+    createElementXML($doc, $lot, 'NUMERO', $bien_numero_lot);
+    createElementXML($doc, $lot, 'ADRESSE_WEB', '');
+    createElementXML($doc, $lot, 'TYPE_BIEN', $bien_type);
+    createElementXML($doc, $lot, 'ORIENTATION', $bien_orientation);
+    createElementXML($doc, $lot, 'SURFACE_HABITABLE', '');
+    createElementXML($doc, $lot, 'SURFACE_TERRAIN', '');
+    createElementXML($doc, $lot, 'NB_PIECES', $bien_nb_pieces);
+    createElementXML($doc, $lot, 'ETAGE', $bien_etage);
+    createElementXML($doc, $lot, 'DATE_LIVRAISON', $programme_livraison);
+    createElementXML($doc, $lot, 'DATE_VENTE', '');
+    createElementXML($doc, $lot, 'PRIX_ACCESSION', '');
+    createElementXML($doc, $lot, 'MONTANT_MOBILIER', 0);
+    createElementXML($doc, $lot, 'MONTANT_TRAVAUX', 0);
+    createElementXML($doc, $lot, 'MONTANT_TERRAIN', 0);
+    createElementXML($doc, $lot, 'LOYER', 0);
+    createElementXML($doc, $lot, 'TVA_REDUITE', $bien_tva);
+    createElementXML($doc, $lot, 'TYPE_FISCALITE', '');
+    createElementXML($doc, $lot, 'OPTION', '');
+    createElementXML($doc, $lot, 'PLAN_VENTE', $bien_plan_vente);
+    createElementXML($doc, $lot, 'SURFACE_TERRASSE', $bien_caracteristique_terrasse);
+    createElementXML($doc, $lot, 'SURFACE_BALCON', $bien_caracteristique_balcon);
+    createElementXML($doc, $lot, 'PARKINGS', $bien_caracteristique_parking);
+    createElementXML($doc, $lot, 'GARAGES', '');
+    createElementXML($doc, $lot, 'CAVE', $bien_caracteristique_cave);
+    createElementXML($doc, $lot, 'NUM_TRANCHE', 1);
+  }
+
+  $status = 'Wrote: ' . $doc->save($path) . ' bytes';
+}
+
+/**
+ * Create elements in file XML
+ * @param type $doc
+ * @param type $parent
+ * @param type $tag_value
+ * @param type $append_value
+ */
+function createElementXML($doc, $parent, $tag_value, $append_value) {
+  $element = $doc->createElement($tag_value);
+  $element = $parent->appendChild($element);
+  $element_value = $doc->createTextNode($append_value);
+  $element_value = $element->appendChild($element_value);
 }
