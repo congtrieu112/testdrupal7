@@ -141,8 +141,9 @@ function render_group_activities_tertiaire() {
 function render_group_activities_nos_agences() {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', 'region_kb');
-
+    ->entityCondition('bundle', 'region_kb')
+    ->propertyCondition('status', 1)
+      ->fieldOrderBy('field_region_kb_id', 'value', 'ASC');
   $regions = $query->execute();
 
   return theme('group_activities_nos_agences', array('region_contents' => $regions));
@@ -202,7 +203,7 @@ function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
   }
 
   // region_kb_node_form
-  if ($form_id == 'region_kb_node_form') {   
+  if ($form_id == 'region_kb_node_form') {
     $form['#validate'][] = 'kandb_activities_region_node_validate';
     $form['#validate'][] = 'kandb_activities_region_validate';
   }
