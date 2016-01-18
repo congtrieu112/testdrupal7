@@ -220,43 +220,6 @@ function kandb_partenaire_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-partenaire-field_partenaire_nouveau'
-  $field_instances['node-partenaire-field_partenaire_nouveau'] = array(
-    'bundle' => 'partenaire',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'list',
-        'settings' => array(),
-        'type' => 'list_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_partenaire_nouveau',
-    'label' => 'Nouveau Flux',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_buttons',
-      'weight' => 3,
-    ),
-  );
-
   // Exported field_instance: 'node-partenaire-field_partenaire_plan'
   $field_instances['node-partenaire-field_partenaire_plan'] = array(
     'bundle' => 'partenaire',
@@ -337,6 +300,47 @@ function kandb_partenaire_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-partenaire-field_partenaire_type_flux'
+  $field_instances['node-partenaire-field_partenaire_type_flux'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => array(
+      0 => array(
+        'value' => 2,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_type_flux',
+    'label' => 'Type flux',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
+    ),
+  );
+
   // Translatables
   // Included for use with string extractors like potx.
   t('Contenu export');
@@ -344,9 +348,9 @@ function kandb_partenaire_field_default_field_instances() {
   t('Export des Plan');
   t('ID du partenaire');
   t('Images en Grande Perspective');
-  t('Nouveau Flux');
   t('Programmes selectionnés');
   t('Transfer actif');
+  t('Type flux');
 
   return $field_instances;
 }

@@ -129,12 +129,12 @@ print theme('group_activities_header');
         <?php
         $title = variable_get('bloc_logistique_title');
         $subtitle = variable_get('bloc_logistique_sub_title');
-            if ($title || $subtitle) :
-        ?>
-        <header class="heading heading--bordered">
-            <h1 class="heading__title"><?php print $title; ?></h1>
-            <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
-        </header>
+        if ($title || $subtitle) :
+          ?>
+          <header class="heading heading--bordered">
+              <h1 class="heading__title"><?php print $title; ?></h1>
+              <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
+          </header>
         <?php endif; ?>
         <div class="heading--small activities__heading">
             <?php

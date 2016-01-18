@@ -169,7 +169,7 @@ function kandb_business_rules_node_presave($node) {
   Kandb_Business_Rules::set_is_node_updating();
 
   if ($node && $node->type == 'programme' && !$is_node_updating) {
-    
+
     $statut_old = $node->original->field_programme_statut[LANGUAGE_NONE][0]['value'];
     $statut_new = $node->field_programme_statut[LANGUAGE_NONE][0]['value'];
 
@@ -509,12 +509,6 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
-  }
-  if($form_id == 'partenaire_node_form') {
-    $form['field_partenaire_programmes']['#access'] = FALSE;
-    if(isset($form['field_partenaire_export'][LANGUAGE_NONE]['#default_value']) && $form['field_partenaire_export'][LANGUAGE_NONE]['#default_value'] == 3) {
-      $form['field_partenaire_programmes']['#access'] = TRUE;
-    }
   }
 }
 
