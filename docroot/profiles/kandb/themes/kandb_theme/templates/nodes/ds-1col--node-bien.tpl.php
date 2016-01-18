@@ -220,7 +220,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                             <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
                             <?php print t('Lot') . ' ' . $bien_id ?>
                         </div>
-                        <div class="heading__title heading__title--sub"><?php print $ville ?> <br> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
+                        <div class="heading__title heading__title--sub"> <?php print $ville ?> <br> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
                     <ul class="tags-list">
                         <?php
