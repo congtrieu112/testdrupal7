@@ -37570,7 +37570,6 @@ var Callback = function ( scope ) {
     var $parent = $( _parent );
     $parent.html( ctrl.msg ).trigger('write');
     //that.fn.bindings.reinit( $parent );
-    $('.ajax-wait').removeClass('ajax-wait');
   };
 
   this.append = function ( data ){
@@ -37903,12 +37902,17 @@ AppAjax.prototype = {
     var that = this,
         dataAjax = typeof data !== 'undefined' ? data : "";
 
-    $target.addClass('ajax-wait');
+    // add spinner (will be replace by response)
+    $target.addClass('ajax-wait').html('<div></div>');
+
+    var triggerSend = function() {
+      $(document).trigger('ajaxResponse');
+    };
 
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
           parent: $target,
-          callback: ["write", that.triggerSend]
+          callback: ["write", triggerSend ]
         });
 
     if ( App.debug ) {
@@ -37926,10 +37930,6 @@ AppAjax.prototype = {
     }
 
     return this;
-  },
-
-  triggerSend: function() {
-    $(document).trigger('ajaxResponse');
   },
 
   url: function() {
@@ -38302,7 +38302,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
-},{"./app-top-bar.js":34}],16:[function(require,module,exports){
+},{"./app-top-bar.js":33}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -39985,175 +39985,6 @@ App.updaters.appSlick = function() {
 
 },{}],33:[function(require,module,exports){
 /* ====================== */
-/* expand more info table row: app-table-outils.js */
-/* ====================== */
-
-"use strict";
-var trigger = '[data-expand-row-info]',
-    triggerCheckbox = '[data-table-checkbox]',
-    triggerSelectedCheckbox = '[data-check-selected-rows]',
-    indicator = '[data-expand-indicator]',
-    expandable = '[data-expandable-area]',
-    defaults = {};
-
-
-var toggleInfo = function(ev) {
-  var $target = $(ev.target); 
-  if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
-
-  var $row = $(ev.currentTarget),
-      $indicator = $row.find(indicator),
-      $nextRow = $row.next(),
-      $expandable = $nextRow.find(expandable);
-
-  if ($expandable.is(':visible')) {
-    $expandable.velocity('slideUp', {display: 'none'});
-    $indicator.velocity({rotateX: '0deg'});
-  } else {
-    $expandable.velocity('slideDown');
-    $indicator.velocity({rotateX: '180deg'});
-  }
-};
-
-function AppTableOutils(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableOutils.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', toggleInfo)
-            .on('click', toggleInfo);
-    }
-};
-
-/* ====================== */
-/* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
-/* ====================== */
-var toggleCheckbox = function(ev) {
-  var $target = $(ev.currentTarget),
-      $tbody = $target.closest('tbody');
-
-  if ($tbody) {
-      var isChecked = !!$target.is(':checked'),
-          $checkBoxes = $tbody.find('.' + $target.attr('class'));
-      //$checkBoxes.attr('checked', isChecked);
-      $checkBoxes.each(function(index, obj) {
-        if (!obj.disabled) {
-          obj.checked = isChecked;
-        }
-      });
-  }
-  else {
-      console.error('Input checkbox is not wrapped within a tbody');
-  }
-};
-
-function AppTableCheckbox(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableCheckbox.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('change', toggleCheckbox)
-            .on('change', toggleCheckbox);
-    }
-
-};
-
-
-/* ====================== */
-/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
-/* ====================== */
-var checkRows = function(ev) {
-  var $tbody = $(ev.currentTarget).closest('tbody'),
-      $checkboxes = $tbody.find('[type=checkbox]').filter(':checked');
-
-  if ($checkboxes.length === 0) {
-    ev.preventDefault();
-    ev.stopPropagation();
-  }
-};
-
-function AppCheckSelectedRows(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppCheckSelectedRows.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', checkRows)
-            .on('click', checkRows);
-    }
-
-};
-
-/* =============== */
-/* MODULE DATA-API */
-/* =============== */
-function jqueryFn(jq, ClassObj, args, opt) {
-    //var args = Array.prototype.slice.call(arguments, 1);
-
-    return jq.each(function() {
-        var item = $(this), instance = item.data(ClassObj.name);
-        if (!instance) {
-            // create plugin instance and save it in data
-            item.data(ClassObj.name, new ClassObj(this, opt));
-        } else {
-            // if instance already created call method
-            if(typeof opt === 'string') {
-                instance[opt].apply(instance, args);
-            }
-        }
-    });
-
-}
-
-
-$.fn.appTableOutils = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableOutils, opt, args);
-};
-
-$.fn.appTableCheckbox = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableCheckbox, opt, args);
-};
-
-$.fn.appCheckSelectedRows = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppCheckSelectedRows, opt, args);
-};
-
-$(trigger).appTableOutils();
-$(triggerCheckbox).appTableCheckbox();
-$(triggerSelectedCheckbox).appCheckSelectedRows();
-
-
-},{}],34:[function(require,module,exports){
-/* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
 
@@ -40167,7 +39998,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],35:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -40804,7 +40635,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],36:[function(require,module,exports){
+},{"jquery":5}],35:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40901,7 +40732,6 @@ var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
 var appShowText         = require("./app-showText.js");
 var appPartager         = require("./app-partager.js");
-var appTableOutils      = require("./app-table-outils.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40917,4 +40747,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-table-outils.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-top-bar.js":33,"./combo-select.js":34,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[35]);

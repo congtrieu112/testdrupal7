@@ -96,7 +96,7 @@ $errors = form_get_errors();
                     </ul>
                     <div class="submit-wrapper">
                         <!-- "url" is a static variable: Js will take the current URL-->
-                        <button type="button" data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></button>
+                        <button type="button" data-cookie="recherches" data-cookie-add="url" class="searchFormular__save"><div><span class="icon icon-star"></span><span class="text">Enregistrer votre recherche</span></div></button>
                         <!-- submit-->
                         <?php
                             $bien_or_programme = 'programme';
