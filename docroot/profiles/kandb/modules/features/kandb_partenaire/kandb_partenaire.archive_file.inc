@@ -113,6 +113,16 @@ function kandb_partenaire_menu() {
     'page arguments' => array(1),
   );
 
+  $items['partenaires/%/PROGRAMME.TXT'] = array(
+    'title' => 'Download PROGRAMME.TXT',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_partenaire_download_programme_txt',
+    'page arguments' => array(1),
+    'file' => 'kandb_partenaire.programme_txt.inc',
+    'file path' => drupal_get_path('module', 'kandb_partenaire'),
+  );
+
   $items['partenaires/%/lots.txt'] = array(
     'title' => 'Download lot txt',
     'access callback' => TRUE,
@@ -128,6 +138,7 @@ function kandb_partenaire_menu() {
     'page callback' => 'kandb_test',
     'page arguments' => array(1),
     ); */
+
   return $items;
 }
 
@@ -335,6 +346,9 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     kandb_partenaire_create_file_zip($ori_path . '/b2b/document_lot_plan.zip', $files_info);
 
     kandb_get_partenaire_lot_plan();
+    //PROGRAMME.TXT
+    kandb_update_b2c_b2b_partenaire_programme_txt_files();
+
   }
 }
 
