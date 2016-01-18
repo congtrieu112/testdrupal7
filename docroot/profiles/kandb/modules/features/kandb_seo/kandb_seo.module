@@ -246,13 +246,6 @@ function kandb_seo_page_sitemap_geo($localisation, $argument = NULL){
     }
   }
 
-  if($current_url == 'villes' || $current_url == 'departements' || $current_url == 'regions') {
-    // Search form
-    $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
-    $block_form = $block_form['content'];
-    $vars['search_form'] = $block_form;
-  }
-
   return theme('page_sitemap_geo', $vars);
 }
 
@@ -325,7 +318,8 @@ function kandb_seo_block_list($location, $first_letter = false) {
   // Process the result
   $vars['results'] = array();
   while($object = $results->fetchAssoc()){
-    $vars['results'][] = array(
+    $letter = substr($object['name'], 0, 1);
+    $vars['results'][$letter][] = array(
       'name' => ucwords(strtolower($object['name']), '- '),
       'sanitize_name' => pathauto_cleanstring($object['name']),
       'numero_departement' => ($location != 'regions' ? $object['field_numero_departement_value'] : '' ),
