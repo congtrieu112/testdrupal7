@@ -769,7 +769,9 @@ function getListPartenaire($_type_parten_export) {
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'partenaire')
     ->propertyCondition('status', NODE_PUBLISHED)
-    ->fieldCondition('field_partenaire_export', 'value', $_type_parten_export);
+    ->fieldCondition('field_partenaire_export', 'value', $_type_parten_export)
+    ->fieldCondition('field_partenaire_type_flux', 'value', 3);
+
   $result = $query->execute();
 
   if (isset($result['node'])) {
