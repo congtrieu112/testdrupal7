@@ -35,10 +35,8 @@ $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_N
         </div>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
-                <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="heading heading--small">
-                    <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
-                    <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
-                </a>
+                <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
+                <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
             </div>
         </div>
     </article>
