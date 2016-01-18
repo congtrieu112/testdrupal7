@@ -21,25 +21,25 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
   if ($pid) {
     $node = node_load($pid);
     $file_exist = TRUE;
-    if ($node->status == 1 && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
+    if ($node->status == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
       if ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
-        $file_path .= $vuuid . '/document_lot_plan.zip';
+        $file_path .= $vuuid . '/lots.txt';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . $vuuid . '/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . $vuuid . '/lots.txt');
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
-        $file_path .= 'b2c/document_lot_plan.zip';
+        $file_path .= 'b2c/lots.txt';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2c/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . 'b2c/lots.txt');
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
-        $file_path .= 'b2b/document_lot_plan.zip';
+        $file_path .= 'b2b/lots.txt';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2b/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . 'b2b/lots.txt');
         } else {
           $file_exist = FALSE;
         }
@@ -58,7 +58,7 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     header("Cache-Control: public");
     header('Content-type: application/octet-stream');
     header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="document_lot_plan.zip"');
+    header('Content-Disposition: attachment; filename="lots.txt"');
     header("Content-Length: " . filesize($file_path));
 
     $fp = @fopen($file_path, "rb");
@@ -102,8 +102,8 @@ function kandb_get_partenaire_lot_plan() {
 }
 
 function kandb_create_partenaire_lot_file($nodes) {
+  kandb_export_common_b2b_b2c();
   if ($nodes) {
-    kandb_export_common_b2b_b2c();
     foreach ($nodes as $node) {
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
@@ -171,15 +171,19 @@ function kandb_export_common_b2b_b2c() {
   } else {
     chmod(drupal_realpath($uri_partenaire_b2c), 0777);
   }
-  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . '/lots.txt');
-  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . '/lots.txt');
+  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . 'lots.txt');
+  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . 'lots.txt');
 }
 
+/**
+ * Implements get biens by domain and export lots.
+ */
 function kandb_get_bien_by_domain($type, $uri_lots) {
-  $items = getListProgrammeBienByDomain($type);
+  $items = get_list_programme_bien_by_domain($type);
   if ($items) {
     foreach ($items as $item) {
       $row = '';
+      $biens = '';
       if (isset($item->entity_id) && isset($item->bien_id)) {
         $biens = isset($item->bien_id) ? node_load_multiple(explode(',', $item->bien_id)) : '';
         kandb_export_lots_txt($biens, $uri_lots);
@@ -188,13 +192,20 @@ function kandb_get_bien_by_domain($type, $uri_lots) {
   }
 }
 
-function kandb_test() {
+/**
+ * For testing.
+ */
+/* function kandb_test() {
   kandb_get_partenaire_lot_plan();
-}
+  } */
 
+/**
+ * Implements write content to txt.
+ */
 function kandb_export_lots_txt($biens, $uri_lots) {
   if ($biens) {
     foreach ($biens as $bien) {
+      $row = '';
       $numero_lot = isset($bien->field_numero_lot[LANGUAGE_NONE][0]['value']) ? $bien->field_numero_lot[LANGUAGE_NONE][0]['value'] : '';
       $programme_load = isset($bien->field_programme[LANGUAGE_NONE][0]['target_id']) ? node_load($bien->field_programme[LANGUAGE_NONE][0]['target_id']) : '';
       $programme_id = isset($programme_load->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme_load->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
@@ -229,13 +240,23 @@ function kandb_export_lots_txt($biens, $uri_lots) {
         $parking_carater = $caracteristique_parking;
       }
       $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
-      file_save_data($row, $uri_lots, FILE_EXISTS_REPLACE);
+
+      if (file_exists($uri_lots)) {
+        $current = file_get_contents($uri_lots);
+        $current .= $row;
+        file_save_data($current, $uri_lots, FILE_EXISTS_REPLACE);
+      } else {
+        file_save_data($row, $uri_lots, FILE_EXISTS_REPLACE);
+      }
     }
   }
 }
 
-function getListProgrammeBienByDomain($type) {
-  $tid = getTidStatusDuLogementByName(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+/**
+ * Implements get programmes and biens by domain.
+ */
+function get_list_programme_bien_by_domain($type) {
+  $tid = get_tid_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
   if ($tid) {
     $listPartenaire_query = db_select('node', 'n')->distinct();
     $listPartenaire_query->leftjoin('field_data_field_id_programme', 'ip', 'ip.entity_id=n.nid');
@@ -260,7 +281,10 @@ function getListProgrammeBienByDomain($type) {
   return FALSE;
 }
 
-function getTidStatusDuLogementByName($term_name = TAXONOMY_STATUS_LOGEMENT_DISPONIBLE) {
+/**
+ * Implement get term id for type bien.
+ */
+function get_tid_status_du_logement_by_name($term_name = TAXONOMY_STATUS_LOGEMENT_DISPONIBLE) {
   $query = new EntityFieldQuery();
   $query->entityCondition('entity_type', 'taxonomy_term');
   $query->propertyCondition('name', $term_name);
@@ -274,6 +298,9 @@ function getTidStatusDuLogementByName($term_name = TAXONOMY_STATUS_LOGEMENT_DISP
   return 0;
 }
 
+/**
+ * Implements get biens by programmes_id and type domain.
+ */
 function kandb_get_biens_by_programme_id_type($programme_id, $type = null) {
   $query = db_select('node', 'n');
   $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');

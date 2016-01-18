@@ -117,13 +117,13 @@ function kandb_partenaire_menu() {
     'page arguments' => array(1),
   );
 
-    $items['partenaire-test'] = array(
+  /* $items['partenaire-test'] = array(
     'title' => 'test Download lot txt',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'kandb_test',
     'page arguments' => array(1),
-  );
+    ); */
   return $items;
 }
 
@@ -281,6 +281,8 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     $all_pdf_files = get_files_in_bien_related(2);
     $files_info = kandb_partenaire_get_file_info($all_pdf_files);
     kandb_partenaire_create_file_zip($ori_path . '/b2b/document_lot_plan.zip', $files_info);
+
+    kandb_get_partenaire_lot_plan();
   }
 }
 
