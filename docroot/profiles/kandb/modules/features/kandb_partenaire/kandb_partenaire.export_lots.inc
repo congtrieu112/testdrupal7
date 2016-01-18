@@ -1,6 +1,7 @@
 <?php
 
 define('TYPE_FLUX', 2);
+define('TYPE_EXPORT', 3);
 define('ID_B2B', 2);
 define('ID_B2C', 3);
 
@@ -77,12 +78,16 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
   }
 }
 
+/**
+ * Get partenaire has reference type.
+ */
 function kandb_get_partenaire_lot_plan() {
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
     ->entityCondition('bundle', 'partenaire')
     ->fieldCondition('field_partenaire_type_flux', 'value', TYPE_FLUX, '=')
+    ->fieldCondition('field_partenaire_export', 'value', TYPE_EXPORT, '=')
     ->propertyCondition('status', NODE_PUBLISHED);
 
   $result = $query->execute();
@@ -98,6 +103,7 @@ function kandb_get_partenaire_lot_plan() {
 
 function kandb_create_partenaire_lot_file($nodes) {
   if ($nodes) {
+    kandb_export_common_b2b_b2c();
     foreach ($nodes as $node) {
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
@@ -114,17 +120,59 @@ function kandb_create_partenaire_lot_file($nodes) {
       }
       $export_type = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
       $uri_lots = $uri . '/lots.txt';
-      if ($export_type == 1) {
-        kandb_get_bien_by_domain(ID_B2C, $uri_lots);
-      }
-      if ($export_type == 2) {
-        kandb_get_bien_by_domain(ID_B2B, $uri_lots);
-      }
       if ($export_type == 3) {
-        kandb_get_bien_by_domain(null, $uri_lots);
+        if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
+          foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
+            $programme = node_load($item['target_id']);
+            $domain_type = $programme->domains;
+            if (isset($domain_type[2]) && isset($domain_type[3])) {
+              $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], null);
+            } else {
+              if (isset($domain_type[2])) {
+                $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[2]);
+              }
+              if (isset($domain_type[3])) {
+                $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[3]);
+              }
+            }
+            if ($bien_nids) {
+              $biens = node_load_multiple($bien_nids);
+              kandb_export_lots_txt($biens, $uri_lots);
+            }
+          }
+        }
       }
     }
   }
+}
+
+/**
+ * Implement export common b2c and b2b biens.
+ */
+function kandb_export_common_b2b_b2c() {
+  $uri_partenaire_b2b = 'public://partenaire/b2b/';
+  $uri_partenaire_b2c = 'public://partenaire/b2c/';
+  $path_file_b2b = drupal_realpath($uri_partenaire_b2b . '/lots.txt');
+  $path_file_b2c = drupal_realpath($uri_partenaire_b2c . '/lots.txt');
+  if (file_exists($path_file_b2b)) {
+    unlink($path_file_b2b);
+  }
+  if (file_exists($path_file_b2c)) {
+    unlink($path_file_b2c);
+  }
+
+  if (!file_exists($uri_partenaire_b2b)) {
+    mkdir(drupal_realpath($uri_partenaire_b2b), 0777);
+  } else {
+    chmod(drupal_realpath($uri_partenaire_b2b), 0777);
+  }
+  if (!file_exists($uri_partenaire_b2c)) {
+    mkdir(drupal_realpath($uri_partenaire_b2c), 0777);
+  } else {
+    chmod(drupal_realpath($uri_partenaire_b2c), 0777);
+  }
+  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . '/lots.txt');
+  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . '/lots.txt');
 }
 
 function kandb_get_bien_by_domain($type, $uri_lots) {
@@ -134,43 +182,7 @@ function kandb_get_bien_by_domain($type, $uri_lots) {
       $row = '';
       if (isset($item->entity_id) && isset($item->bien_id)) {
         $biens = isset($item->bien_id) ? node_load_multiple(explode(',', $item->bien_id)) : '';
-        foreach ($biens as $bien) {
-          $numero_lot = isset($bien->field_numero_lot[LANGUAGE_NONE][0]['value']) ? $bien->field_numero_lot[LANGUAGE_NONE][0]['value'] : '';
-          $programme_load = isset($bien->field_programme[LANGUAGE_NONE][0]['target_id']) ? node_load($bien->field_programme[LANGUAGE_NONE][0]['target_id']) : '';
-          $programme_id = isset($programme_load->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme_load->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
-          $tax_type = isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
-          $type = isset($tax_type->name) ? $tax_type->name : '';
-          $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
-          $tax_nb_pieces = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
-          $nb_pieces = isset($tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value']) ? $tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value'] : '';
-          $tax_nb_chambres = isset($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) : '';
-          $nb_chambres = isset($tax_nb_chambres->field_id_nombre_chambre[LANGUAGE_NONE][0]['value']) ? $tax_nb_chambres->field_id_nombre_chambre[LANGUAGE_NONE][0]['value'] : '';
-          //field_etage
-          $tax_etage = isset($bien->field_etage[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_etage[LANGUAGE_NONE][0]['tid']) : '';
-          $etage = isset($tax_etage->name) ? $tax_etage->name : '';
-          //field_superficie
-          $superficie = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
-          //field_orientation
-          $tax_orientation = isset($bien->field_orientation[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_orientation[LANGUAGE_NONE][0]['tid']) : '';
-          $orientation = isset($tax_orientation->name) ? $tax_orientation->name : '';
-          //field_caracteristique_jardin
-          $caracteristique_jardin = isset($bien->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] : '';
-          //field_caracteristique_balcon
-          $caracteristique_balcon = isset($bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] : '';
-          //field_caracteristique_terrasse
-          $caracteristique_terrasse = isset($bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] : '';
-          //field_caracteristique_parking
-          $caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
-          $parking_carater = '';
-          if ($caracteristique_parking == 0) {
-            $parking_carater = t('Parking Compris');
-          }
-          if ($caracteristique_parking > 0) {
-            $parking_carater = $caracteristique_parking;
-          }
-          $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
-          file_save_data($row, $uri_lots, FILE_EXISTS_REPLACE);
-        }
+        kandb_export_lots_txt($biens, $uri_lots);
       }
     }
   }
@@ -178,6 +190,48 @@ function kandb_get_bien_by_domain($type, $uri_lots) {
 
 function kandb_test() {
   kandb_get_partenaire_lot_plan();
+}
+
+function kandb_export_lots_txt($biens, $uri_lots) {
+  if ($biens) {
+    foreach ($biens as $bien) {
+      $numero_lot = isset($bien->field_numero_lot[LANGUAGE_NONE][0]['value']) ? $bien->field_numero_lot[LANGUAGE_NONE][0]['value'] : '';
+      $programme_load = isset($bien->field_programme[LANGUAGE_NONE][0]['target_id']) ? node_load($bien->field_programme[LANGUAGE_NONE][0]['target_id']) : '';
+      $programme_id = isset($programme_load->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme_load->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
+      $tax_type = isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
+      $type = isset($tax_type->name) ? $tax_type->name : '';
+      $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+      $tax_nb_pieces = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
+      $nb_pieces = isset($tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value']) ? $tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value'] : '';
+      $tax_nb_chambres = isset($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) : '';
+      $nb_chambres = isset($tax_nb_chambres->field_id_nombre_chambre[LANGUAGE_NONE][0]['value']) ? $tax_nb_chambres->field_id_nombre_chambre[LANGUAGE_NONE][0]['value'] : '';
+      //field_etage
+      $tax_etage = isset($bien->field_etage[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_etage[LANGUAGE_NONE][0]['tid']) : '';
+      $etage = isset($tax_etage->name) ? $tax_etage->name : '';
+      //field_superficie
+      $superficie = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+      //field_orientation
+      $tax_orientation = isset($bien->field_orientation[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_orientation[LANGUAGE_NONE][0]['tid']) : '';
+      $orientation = isset($tax_orientation->name) ? $tax_orientation->name : '';
+      //field_caracteristique_jardin
+      $caracteristique_jardin = isset($bien->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] : '';
+      //field_caracteristique_balcon
+      $caracteristique_balcon = isset($bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] : '';
+      //field_caracteristique_terrasse
+      $caracteristique_terrasse = isset($bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] : '';
+      //field_caracteristique_parking
+      $caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
+      $parking_carater = '';
+      if ($caracteristique_parking == 0) {
+        $parking_carater = t('Parking Compris');
+      }
+      if ($caracteristique_parking > 0) {
+        $parking_carater = $caracteristique_parking;
+      }
+      $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
+      file_save_data($row, $uri_lots, FILE_EXISTS_REPLACE);
+    }
+  }
 }
 
 function getListProgrammeBienByDomain($type) {
@@ -218,4 +272,26 @@ function getTidStatusDuLogementByName($term_name = TAXONOMY_STATUS_LOGEMENT_DISP
   }
 
   return 0;
+}
+
+function kandb_get_biens_by_programme_id_type($programme_id, $type = null) {
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');
+  $query->condition('p.field_programme_target_id', $programme_id);
+  $query->fields('n', array('nid'));
+  $query->condition('n.type', 'bien');
+  $query->condition('n.status', 1);
+  if ($type) {
+    $query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
+    $query->condition('dm.realm', 'domain_id');
+    $query->leftJoin('domain_access', 'dmp', 'dmp.nid=n.nid');
+    $query->condition('dmp.realm', 'domain_id');
+    $query->condition('dm.gid', $type);
+    $query->condition('dmp.gid', $type);
+  }
+  $result = $query->execute()->fetchCol();
+  if (isset($result)) {
+    return $result;
+  }
+  return false;
 }
