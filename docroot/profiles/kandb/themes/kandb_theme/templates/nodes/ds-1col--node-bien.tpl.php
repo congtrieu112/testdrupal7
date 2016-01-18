@@ -123,7 +123,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 <?php print t('Lot') . ' ' . $bien_id ?>
             </div>
             <div class="heading__title heading__title--sub">
-                <?php print $ville ?> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?>
+                <?php print $ville ?> <?php print $arrondissement ?> <br> <?php print (!empty($programme)) ? $programme->title : ''; ?>
             </div>
         </h1>
         <ul class="tags-list">
@@ -220,7 +220,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                             <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
                             <?php print t('Lot') . ' ' . $bien_id ?>
                         </div>
-                        <div class="heading__title heading__title--sub"><?php print $ville ?> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
+                        <div class="heading__title heading__title--sub"><?php print $ville ?> <br> <?php print $arrondissement ?> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
                     <ul class="tags-list">
                         <?php
@@ -724,7 +724,7 @@ if (!empty($list_bien_more)):
             <div data-equalizer-watch class="moreInfoProgram__content">
                 <div class="moreInfoProgram__content__inner">
                     <div class="heading heading--small">
-                        <h3 class="heading__title"><?php print $title_principale_ville . " " . $title_principale; ?></h3>
+                        <h3 class="heading__title"><?php print $title_principale_ville . "<br>" . $title_principale; ?></h3>
                         <p class="heading__title heading__title--sub"><?php print $de_a_pieces; ?> <br><?php print $de_a_price; ?></p>
                     </div>
                     <p class="moreInfoProgram__description"><?php print str_replace('#num#', '10 000', $label_parking_fee); ?></p>
