@@ -127,8 +127,8 @@ print theme('group_activities_header');
 <section class="section-padding activities">
     <div class="wrapper">
         <?php
-        $title = variable_get('bloc_logistique_habitat_title');
-        $subtitle = variable_get('bloc_logistique_habitat_sub_title');
+        $title = variable_get('bloc_logistique_title');
+        $subtitle = variable_get('bloc_logistique_sub_title');
         if ($title || $subtitle) :
           ?>
           <header class="heading heading--bordered">
