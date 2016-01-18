@@ -246,32 +246,50 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     drupal_chmod($uri . 'b2b', 0777);
     $ori_path = $path = drupal_realpath($uri);
     $path = $ori_path . '/b2c/';
-    $pathB2C = $ori_path . '/b2c/Programme.xml';
-    $pathB2B = $ori_path . '/b2b/Programme.xml';
 
     // Preparing some data which use to create file XML
     $arr_type_partenaire_export = array(PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C, PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B, PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES);
     foreach($arr_type_partenaire_export as $_type_parten_export) {
-      $listPartenaire = getListPartenairesCustom($_type_parten_export);
-      $first_time = TRUE;
-      if ($listPartenaire && $listPartenaire->rowCount() > 0) {
-        $partenaires = $listPartenaire->fetchAll();
-        foreach($partenaires as $partenaire) {
-          $programmes = isset($partenaire->field_partenaire_programmes_target_id) ? node_load($partenaire->field_partenaire_programmes_target_id) : '';
-          $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
-          $partenaire_title = isset($partenaire->partenaire_title) ? $partenaire->partenaire_title : '';
-          $partenaire_id = isset($partenaire->field_id_partenaire_value) ? $partenaire->field_id_partenaire_value : '';
+      if($_type_parten_export == PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C || $_type_parten_export == PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B) {
+        $listPartenaire = getListProgrammeBienByDomain($_type_parten_export);
+        $list_partenaires = getListPartenaire($_type_parten_export);
+        if($listPartenaire && $listPartenaire->rowCount() > 0 && $list_partenaires && count($list_partenaires) > 0) {
+          $partenaires = $listPartenaire->fetchAll();
+          foreach ($list_partenaires as $cls_list_partenaires) {
+            $partenaire_id = isset($cls_list_partenaires->field_id_partenaire[LANGUAGE_NONE][0]['value']) ? $cls_list_partenaires->field_id_partenaire[LANGUAGE_NONE][0]['value'] : '';
+            $partenaire_title = isset($cls_list_partenaires->title) ? $cls_list_partenaires->title : '';
 
-          $uriBoth = $uri . $partenaire_id;
-          file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
-          drupal_chmod($uriBoth, 0777);
-          unlink($ori_path . '/' . $partenaire_id . '/Programme.xml');
-          $path = $ori_path . '/' . $partenaire_id . '/Programme.xml';
-          error_log($path);
-          if($programmes || $biens) {
-            createFileXML($programmes, $biens, $partenaire_title, $first_time, $path);
+            $uriBoth = $uri . $partenaire_id;
+            file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
+            drupal_chmod($uriBoth, 0777);
+            unlink($ori_path . '/' . $partenaire_id . '/Programme.xml');
+            $path = $ori_path . '/' . $partenaire_id . '/Programme.xml';
+            foreach($partenaires as $partenaire) {
+              $programmes = isset($partenaire->entity_id) ? node_load($partenaire->entity_id) : '';
+              $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
+
+              if($programmes || $biens) {
+                createFileXML($programmes, $biens, $partenaire_title, $path);
+              }
+            }
           }
-          $first_time = FALSE;
+        }
+      } elseif($_type_parten_export == PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES) {
+        $listPartenaire = getListPartenairesCustom($_type_parten_export);
+        if ($listPartenaire && $listPartenaire->rowCount() > 0) {
+          $partenaires = $listPartenaire->fetchAll();
+          unlinkFile($partenaires, $ori_path, $uri);
+          foreach($partenaires as $partenaire) {
+            $programmes = isset($partenaire->field_partenaire_programmes_target_id) ? node_load($partenaire->field_partenaire_programmes_target_id) : '';
+            $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
+            $partenaire_title = isset($partenaire->partenaire_title) ? $partenaire->partenaire_title : '';
+            $partenaire_id = isset($partenaire->field_id_partenaire_value) ? $partenaire->field_id_partenaire_value : '';
+
+            $path = $ori_path . '/' . $partenaire_id . '/Programme.xml';
+            if($programmes || $biens) {
+              createFileXML($programmes, $biens, $partenaire_title, $path);
+            }
+          }
         }
       }
     }
@@ -500,7 +518,7 @@ function getListPartenairesCustom($type) {
       $listPartenaire_query->condition('dm.gid', 2);
       $listPartenaire_query->addExpression($str, 'bien_id');
     } elseif($type == PARTENAIRE_EXPORT_SELECTION_DE_PROGRAMMES) {
-      $str = '(select group_concat(p.entity_id) from node n left join field_data_field_programme p on n.nid=p.entity_id left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n.status = 1 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = pp.field_partenaire_programmes_target_id)';
+      $str = '(select group_concat(p.entity_id) from node n left join field_data_field_programme p on n.nid=p.entity_id left join domain_access d on d.nid=n.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n.status = 1 and bs.field_bien_statut_tid = ' . $tid . ' and d.gid in(select gid from domain_access where nid=p.field_programme_target_id) and p.field_programme_target_id = pp.field_partenaire_programmes_target_id)';
       $listPartenaire_query->condition('dm.gid', array(2,3), 'IN');
       $listPartenaire_query->addExpression($str, 'bien_id');
       $listPartenaire_query->distinct();
@@ -518,10 +536,9 @@ function getListPartenairesCustom($type) {
  * @param type $programmes
  * @param type $biens
  * @param type $partenaire_title
- * @param type $first_time
  * @param type $path
  */
-function createFileXML($programmes, $biens, $partenaire_title, $first_time, $path) {
+function createFileXML($programmes, $biens, $partenaire_title, $path) {
   global $base_url;
   $programme_id = isset($programmes->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programmes->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
   $programme_title = isset($programmes->title) ? $programmes->title : '';
@@ -693,4 +710,62 @@ function createElementXML($doc, $parent, $tag_value, $append_value) {
   $element = $parent->appendChild($element);
   $element_value = $doc->createTextNode($append_value);
   $element_value = $element->appendChild($element_value);
+}
+
+function getListProgrammeBienByDomain($type) {
+  $tid = getTidStatusDuLogementByName(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+  if($tid) {
+    $listPartenaire_query = db_select('node', 'n')->distinct();
+    $listPartenaire_query->leftjoin('field_data_field_id_programme', 'ip', 'ip.entity_id=n.nid');
+    $listPartenaire_query->leftJoin('domain_access', 'd', 'd.nid=n.nid');
+    $listPartenaire_query
+      ->fields('ip', array('entity_id'))
+      ->condition('status', 1);
+
+    if ($type == PARTENAIRE_EXPORT_GRAND_PUBLIC_B2C) {
+      $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 3 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
+      $listPartenaire_query->condition('d.gid', 3);
+      $listPartenaire_query->addExpression($str, 'bien_id');
+    }
+    elseif ($type == PARTENAIRE_EXPORT_PRESCRIPTEURS_B2B) {
+      $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 2 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
+      $listPartenaire_query->condition('d.gid', 2);
+      $listPartenaire_query->addExpression($str, 'bien_id');
+    }
+
+    return $listPartenaire_query->execute();
+  }
+
+  return FALSE;
+}
+
+function getListPartenaire($_type_parten_export) {
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+    ->entityCondition('bundle', 'partenaire')
+    ->propertyCondition('status', NODE_PUBLISHED)
+    ->fieldCondition('field_partenaire_export', 'value', $_type_parten_export);
+  $result = $query->execute();
+
+  if (isset($result['node'])) {
+    $partenaire_nids = array_keys($result['node']);
+    $partenaire_items = entity_load('node', $partenaire_nids);
+  }
+
+  return $partenaire_items;
+}
+
+function unlinkFile($partenaires, $ori_path, $uri) {
+  foreach($partenaires as $partenaire) {
+    $programmes = isset($partenaire->field_partenaire_programmes_target_id) ? node_load($partenaire->field_partenaire_programmes_target_id) : '';
+    $biens = isset($partenaire->bien_id) ? node_load_multiple(explode(',', $partenaire->bien_id)) : '';
+    $partenaire_id = isset($partenaire->field_id_partenaire_value) ? $partenaire->field_id_partenaire_value : '';
+
+    if($programmes || $biens) {
+      $uriBoth = $uri . $partenaire_id;
+      file_prepare_directory($uriBoth, FILE_CREATE_DIRECTORY);
+      drupal_chmod($uriBoth, 0777);
+      unlink($ori_path . '/' . $partenaire_id . '/Programme.xml');
+    }
+  }
 }
