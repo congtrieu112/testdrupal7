@@ -1,10 +1,6 @@
 <!-- [searchResults] start-->
 <section class="wrapper">
   <div class="noResults">
-    <div class="noResults__heading">
-      <h2>Nous n'avons pas trouvé de résultats correspondant à votre recherche.</h2>
-      <p>Trouvez votre logement dans le département de votre choix:</p>
-    </div>
     <div class="noResults__category">
       <dl class="noResults__category__filter">
         <dt>Aller à :</dt>
