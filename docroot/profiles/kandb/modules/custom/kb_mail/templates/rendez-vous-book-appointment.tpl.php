@@ -121,6 +121,7 @@
                                                                                 </p>
                                                                                 <?php if ($mail_vars['bien_lot_id']) : ?>
                                                                                   <p style="margin: 0;">
+                                                                                    Le bien qui l'intéresse :<br>
                                                                                       <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
                                                                                   </p>
                                                                                 <?php endif; ?>
