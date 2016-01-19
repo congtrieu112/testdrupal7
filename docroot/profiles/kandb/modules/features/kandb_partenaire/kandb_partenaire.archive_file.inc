@@ -796,3 +796,32 @@ function unlinkFile($partenaires, $ori_path, $uri) {
     }
   }
 }
+
+function update_partenaire_specific_lot_plan(){
+  $partenaires = get_partenaire_specific();
+  foreach ($partenaires as $partenaire) {
+    kandb_partenaire_create_archive_file($partenaire);
+  }
+}
+
+function get_partenaire_specific(){
+  $partenaire = array();
+  $db_query = db_select('node', 'n');
+  $db_query->fields('n', array('nid'));
+  $db_query->condition('n.status', 1);
+  $db_query->condition('n.type', 'partenaire');
+  $db_query->leftJoin('field_data_field_partenaire_plan', 'pl', 'pl.entity_id=n.nid');
+  $db_query->condition('pl.entity_type', 'node');
+  $db_query->condition('pl.bundle', 'partenaire');
+  $db_query->condition('pl.field_partenaire_plan_value', 1);
+  $db_query->leftJoin('field_data_field_partenaire_export', 'pe', 'pe.entity_id=n.nid');
+  $db_query->condition('pe.entity_type', 'node');
+  $db_query->condition('pe.bundle', 'partenaire');
+  $db_query->condition('pe.field_partenaire_export_value', 3);
+  $db_query->leftJoin('field_data_field_partenaire_programmes', 'pp', 'pp.entity_id=n.nid');
+  $db_query->condition('pp.entity_type', 'node');
+  $db_query->condition('pp.bundle', 'partenaire');
+  $db_query->isNotNull('pp.field_partenaire_programmes_target_id');
+  $partenaire = $db_query->distinct()->execute()->fetchCol();
+  return node_load_multiple($partenaire);
+}
