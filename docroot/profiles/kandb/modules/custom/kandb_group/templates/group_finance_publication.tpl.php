@@ -2,15 +2,10 @@
 define(MAX_LENGTH_FILENAME, 50);
 $current_url = url(current_path(), array('absolute' => TRUE));
 $current_path = explode('/', $current_url);
-$current_path_alias = $current_path[count($current_path)- 3] . $current_path[count($current_path) - 2];
+$current_path_alias = $current_path[count($current_path)- 3];
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
-
-if ($current_lang == 'en') :
-  $recent_document_menus = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
-else :
-  $recent_document_menus = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
-endif;
+;
 
 print theme('finance_header_block');
 ?>
@@ -74,40 +69,33 @@ print theme('finance_header_block');
       </div>
       <div class="wrapper--narrow downloadDocs">
           <ul data-app-accordion="communiquesDocs" class="accordion fullWidth">
-              <?php if ($recent_document_menus) : ?>
+              <?php  if ($data['tab_document']) : ?>
                 <li class="btn-wrapper btn-wrapper--center">
                     <nav class="form-dropdown form-dropdown--responsive">
                         <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger">
-                           <?php
-                                $i = 0;
-                                foreach ($recent_document_menus as $key => $value) :
-                                    $document_type_name = $value['doc_type_name'];
-                                    $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
-                                    $numof_years = $value['numof_years'];
-                                    if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) < 7 && $i == 0)  ) :
-                            ?>
-                                <span><?php print $key; ?></span>
                             <?php
+                               $i = 0;
+                               foreach ($data['tab_document'] as $key => $value) :
+                                    if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0)) : ?>
+                                        <span><?php print $value['tab_title']; ?></span>
+                             <?php
                                     endif;
                                     $i++;
                                 endforeach;
-                             ?>
+                              ?>
                             <span aria-hidden="true" class="icon icon-expand"></span>
                         </button>
                         <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
                           <ul class="ul-unstyled undo-padding">
-                            <?php $i = 0; foreach ($recent_document_menus as $key => $value) : ?>
-                                <?php
-                                    $document_type_name = $value['doc_type_name'];
-                                    $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
-                                    $numof_years = $value['numof_years'];
-                                    if (get_document_publication($document_type_tid, $numof_years, $current_lang)) : ?>
-                                        <li class="bordered">
-                                            <a href="<?php print url('corporate/finance/publication/' . $document_type_tid . '/' . $numof_years . '/' . $current_lang); ?>" title="<?php print $key; ?>" class="<?php if ((($document_type_tid.$numof_years) == $current_path_alias) || (count($current_path) <= 7 && $i == 0)  ) : print 'active'; endif ?>">
-                                                <span><?php print $key; ?></span>
-                                            </a>
-                                        </li>
-                                <?php endif; ?>
+                            <?php
+                               $i = 0;
+                               foreach ($data['tab_document'] as $key => $value) :
+                            ?>
+                                <li class="bordered">
+                                    <a href="<?php print $value['tab_url']; ?>" title="<?php print $value['tab_title']; ?>" class="<?php if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0)) : print 'active'; endif; ?>">
+                                        <span><?php print $value['tab_title']; ?></span>
+                                    </a>
+                                </li>
                             <?php $i++; endforeach; ?>
                           </ul>
                         </div>
@@ -150,7 +138,7 @@ print theme('finance_header_block');
                                                     <?php if(strlen($filename) < MAX_LENGTH_FILENAME): ?>
                                                       <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
                                                     <?php else: ?>
-                                                      <div class="communiquesDocs__list__title"><span><?php $filename = substr($filename, 0, 50); print $filename . '...'; ?></span></div>
+                                                      <div class="communiquesDocs__list__title"><span><?php print $filename ; ?></span></div>
                                                     <?php endif;?>
                                                     <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
                                                 </li>

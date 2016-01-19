@@ -130,31 +130,6 @@ function kandb_partenaire_field_default_field_bases() {
     'type' => 'list_boolean',
   );
 
-  // Exported field_base: 'field_partenaire_nouveau'
-  $field_bases['field_partenaire_nouveau'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_partenaire_nouveau',
-    'indexes' => array(
-      'value' => array(
-        0 => 'value',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'list',
-    'settings' => array(
-      'allowed_values' => array(
-        0 => 'Ancien',
-        1 => 'Nouveau',
-      ),
-      'allowed_values_function' => '',
-    ),
-    'translatable' => 0,
-    'type' => 'list_boolean',
-  );
-
   // Exported field_base: 'field_partenaire_plan'
   $field_bases['field_partenaire_plan'] = array(
     'active' => 1,
@@ -183,7 +158,7 @@ function kandb_partenaire_field_default_field_bases() {
   // Exported field_base: 'field_partenaire_programmes'
   $field_bases['field_partenaire_programmes'] = array(
     'active' => 1,
-    'cardinality' => 1,
+    'cardinality' => -1,
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_partenaire_programmes',
@@ -213,6 +188,32 @@ function kandb_partenaire_field_default_field_bases() {
     ),
     'translatable' => 0,
     'type' => 'entityreference',
+  );
+
+  // Exported field_base: 'field_partenaire_type_flux'
+  $field_bases['field_partenaire_type_flux'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_partenaire_type_flux',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        1 => 'TXT v1',
+        2 => 'TXT v2',
+        3 => 'XML v1',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_text',
   );
 
   return $field_bases;

@@ -38,7 +38,7 @@ function kandb_group_nos_valeurs_admin_form($form, $form_state) {
     $form['fieldset_news_values']['news_values_item_' . $i]['news_values_item_description_' . $i] = array(
       '#type' => 'text_format',
       '#title' => t('Description'),
-      '#format' => 'simple',
+      '#format' => 'full_html',
       '#default_value' => $description,
     );
     $form['fieldset_news_values']['news_values_item_' . $i]['news_values_item_image_' . $i] = array(
