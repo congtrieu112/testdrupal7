@@ -125,7 +125,6 @@
                                                                                       <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
                                                                                   </p>
                                                                                 <?php endif; ?>
-                                                                                <p style="margin: 0;"><?php print $mail_vars['programme_loc_type'] ?> <?php print $mail_vars['programme_loc_rue']; ?></p>
                                                                                 <p style="margin: 0;"><?php if (isset($mail_vars['rdv_newsletter']) && $mail_vars['rdv_newsletter'] == TRUE) : ?> Oui je souhaite recevoir les offres de KB <?php endif; ?></p>
                                                                             </td>
                                                                         </tr>
