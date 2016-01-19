@@ -194,7 +194,7 @@ function kandb_webform_submit(&$form, &$form_state) {
     }
     else {
       $has_prefix = FALSE;
-      $subject = t('Message Avant Première');
+      $subject = t('Avant Première');
       $sub_vars = array('avant_premiere_title', 'avant_premiere_ville', 'avant_premiere_department');
       foreach ($sub_vars as $var) {
         if ($variables[$var]) {
