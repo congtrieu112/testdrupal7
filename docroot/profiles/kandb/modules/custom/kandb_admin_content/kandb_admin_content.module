@@ -20,14 +20,3 @@ function kandb_admin_content_form_alter(&$form, &$form_state, $form_id){
         $form['field_program_low_tva_price_max']['#disabled'] = TRUE;
     }
 }
-
-/**
- * Translate month to France
- * @param string $monthString Description
- */
-function translatorMonth($monthString) {
-  $english = array('Jan','Febr','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec');
-  $french = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre');
-
-  return str_replace($english, $french, $monthString);
-}

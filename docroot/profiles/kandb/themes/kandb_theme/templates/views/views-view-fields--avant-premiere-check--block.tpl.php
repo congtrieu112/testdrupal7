@@ -22,7 +22,6 @@
  *
  * @ingroup views_templates
  */
-module_load_include('module', 'kandb_admin_content', 'kandb_admin_content');
 $style = $row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_avant_premiere_ville[0]['rendered']['#title']) ? $row->field_field_avant_premiere_ville[0]['rendered']['#title'] : '';
 $departement_tax = isset($row->field_field_avant_premiere_department[0]['rendered']['#options']['entity']) ? $row->field_field_avant_premiere_department[0]['rendered']['#options']['entity'] : '';
@@ -44,8 +43,7 @@ if (module_exists('kandb_validate')) {
   $start_date = $node->field_avant_premiere_date_debut[LANGUAGE_NONE][0]['value'];
   $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
   $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
-  $month_start = date('M' ,strtotime($start_date));
-  $date_range_string = implode(' & ', $date_range) . ' ' . translatorMonth($month_start);
+  $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
 }
 
 $promotion = array();
@@ -72,7 +70,7 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                   <li>
                       <?php if($row->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
                       <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
-
+                      
                         <!-- [popin] start-->
                         <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                             <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -89,7 +87,7 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                   <?php
                   if ($promotion) :
                     foreach ($promotion as $value) :
-                      if (isset($value->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $value->field_field_promotion_mention_legale[0]['rendered']['#markup']) :
+                      if (isset($value->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $value->field_field_promotion_mention_legale[0]['rendered']['#markup']) : 
                       ?>
                       <li>
                           <button data-reveal-trigger="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></button>
