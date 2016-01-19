@@ -1,47 +1,47 @@
 #
 # Apache/PHP/Drupal settings:
 #
-Order deny,allow
-deny from all
+#Order deny,allow
+#deny from all
 
 #Digitas internal
-allow from 10.226.
-allow from 10.224.
+#allow from 10.226.
+#allow from 10.224.
 
 #Digitas team
-Allow from 88.182.96.107
-Allow from 88.161.115.109
-Allow from 78.193.247.63
-Allow from 81.200.189.8
+#Allow from 88.182.96.107
+#Allow from 88.161.115.109
+#Allow from 78.193.247.63
+#Allow from 81.200.189.8
 
 #Kaufman
-Allow from 217.167.236.137
-Allow from 46.218.77.35
-Allow from 46.218.77.36
+#Allow from 217.167.236.137
+#Allow from 46.218.77.35
+#Allow from 46.218.77.36
 
 #Facebook
-allow from env=fb_bot
+#allow from env=fb_bot
 
 #Sutrix
-allow from 113.161.76.29
-allow from 210.245.110.120
-allow from 115.78.237.241
-allow from 103.19.166.128/28
+#allow from 113.161.76.29
+#allow from 210.245.110.120
+#allow from 115.78.237.241
+#allow from 103.19.166.128/28
 
 #GTmetrix
- allow from 204.187.14.
+ #allow from 204.187.14.
 
 #Woorank
-allow from 52.1.130.94
-allow from 52.4.171.200
-allow from 52.4.114.110
-allow from 52.0.14.146
-allow from 52.4.146.95
+#allow from 52.1.130.94
+#allow from 52.4.171.200
+#allow from 52.4.114.110
+#allow from 52.0.14.146
+#allow from 52.4.146.95
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
 
-
+Order allow,deny
 
 
 </FilesMatch>
