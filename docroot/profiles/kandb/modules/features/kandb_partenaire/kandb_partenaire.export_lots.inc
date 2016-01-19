@@ -82,6 +82,8 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
  * Get partenaire has reference type.
  */
 function kandb_get_partenaire_lot_plan() {
+  // Export b2b and b2c biens lost.txt.
+  kandb_export_common_b2b_b2c();
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
@@ -101,8 +103,10 @@ function kandb_get_partenaire_lot_plan() {
   }
 }
 
+/*
+ * Implement export parternair has reference.
+ */
 function kandb_create_partenaire_lot_file($nodes) {
-  kandb_export_common_b2b_b2c();
   if ($nodes) {
     foreach ($nodes as $node) {
       $uri_partenaire = 'public://partenaire/';
