@@ -12,12 +12,6 @@ allow from 10.224.
 Allow from 88.182.96.107
 Allow from 88.161.115.109
 Allow from 78.193.247.63
-Allow from 81.200.189.8
-
-#Kaufman
-Allow from 217.167.236.137
-Allow from 46.218.77.35
-Allow from 46.218.77.36
 
 #Facebook
 allow from env=fb_bot
