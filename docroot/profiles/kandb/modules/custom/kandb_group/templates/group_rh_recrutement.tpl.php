@@ -29,34 +29,34 @@ endif;
             <p class="heading__title heading__title--sub"><?php print variable_get('subtitle_group_hr_recruitment_section', t('Morbi leo sirus porta ac consectertur, vestibulum at eros.')) ?></p>
         </header>
         <?php
-          $desc1 = variable_get('desciption_1_group_hr_recruitment_section', '');
-          $desc2 = variable_get('desciption_2_group_hr_recruitment_section', '');
-          if($desc1 || $desc2 || $recruitment_section_image_uri) :
-        ?>
-        <!-- [Article Advice] start-->
-        <article class="text-center">
-            <?php if($recruitment_section_image_uri) : ?>
-            <figure class="ourAdvices__figure">
-                <!-- images need to have 2 formats in data-interchange attribute:
-                - small:
-                - medium: 850 x 345
-                -->
-                <!-- [Responsive img] start-->
-                <img alt="A woman and a baby playing" data-interchange="[<?php print image_style_url('dossier_small_teaser', $recruitment_section_image_uri); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $recruitment_section_image_uri); ?>, (medium)]"/>
-                <noscript>
-                <img src="<?php print image_style_url('dossier_big_teaser', $recruitment_section_image_uri); ?>" alt="<?php print variable_get('title_group_hr_recruitment_section', t('Recrutement')); ?>"/>
-                </noscript>
-                <!-- [Responsive img] end-->
-            </figure>
-            <?php endif; ?>
-            <?php if ($desc1): ?>
-              <p class="ourAdvices__text"><?php print $desc1; ?></p>
-            <?php endif; ?>
-            <?php if ($desc2): ?>
-              <p class="ourAdvices__text"><?php print $desc2; ?></p>
-            <?php endif; ?>
-        </article>
-        <!-- [Article Advice] end-->
+        $desc1 = variable_get('desciption_1_group_hr_recruitment_section', '');
+        $desc2 = variable_get('desciption_2_group_hr_recruitment_section', '');
+        if ($desc1 || $desc2 || $recruitment_section_image_uri) :
+          ?>
+          <!-- [Article Advice] start-->
+          <article class="text-center">
+              <?php if ($recruitment_section_image_uri) : ?>
+                <figure class="ourAdvices__figure">
+                    <!-- images need to have 2 formats in data-interchange attribute:
+                    - small:
+                    - medium: 850 x 345
+                    -->
+                    <!-- [Responsive img] start-->
+                    <img alt="A woman and a baby playing" data-interchange="[<?php print image_style_url('dossier_small_teaser', $recruitment_section_image_uri); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $recruitment_section_image_uri); ?>, (medium)]"/>
+                    <noscript>
+                    <img src="<?php print image_style_url('dossier_big_teaser', $recruitment_section_image_uri); ?>" alt="<?php print variable_get('title_group_hr_recruitment_section', t('Recrutement')); ?>"/>
+                    </noscript>
+                    <!-- [Responsive img] end-->
+                </figure>
+              <?php endif; ?>
+              <?php if ($desc1): ?>
+                <p class="ourAdvices__text"><?php print isset($desc1['value']) ? $desc1['value'] : ''; ?></p>
+              <?php endif; ?>
+              <?php if ($desc2): ?>
+                <p class="ourAdvices__text"><?php print isset($desc2['value']) ? $desc2['value'] : ''; ?></p>
+              <?php endif; ?>
+          </article>
+          <!-- [Article Advice] end-->
         <?php endif; ?>
     </div>
 </section>
@@ -79,7 +79,11 @@ endif;
                     <div class="diary__list__content--title"><a href="#" title="<?php print $date_1_value; ?>"><?php print $date_1_value; ?></a>
                         <p><?php print variable_get('title_group_hr_agenda_section_1', t('Forum des métiers du batiment')); ?></p>
                     </div>
-                    <p class="diary__list__content--description"><?php print variable_get('description_group_hr_agenda_section_1'); ?></p>
+                    <p class="diary__list__content--description">
+                        <?php
+                        $description_group_hr_agenda_section_1 = variable_get('description_group_hr_agenda_section_1');
+                        print isset($description_group_hr_agenda_section_1['value']) ? $description_group_hr_agenda_section_1['value'] : '';
+                        ?></p>
                 </div>
             </li>
             <li>
@@ -93,7 +97,12 @@ endif;
                     <div class="diary__list__content--title"><a href="#" title="<?php print $date_2_value; ?>"><?php print $date_2_value; ?></a>
                         <p><?php print variable_get('title_group_hr_agenda_section_2', t('Forum des maisons de France')); ?></p>
                     </div>
-                    <p class="diary__list__content--description"><?php print variable_get('description_group_hr_agenda_section_2'); ?></p>
+                    <p class="diary__list__content--description">
+                        <?php
+                        $description_group_hr_agenda_section_2 = variable_get('description_group_hr_agenda_section_2');
+                        print isset($description_group_hr_agenda_section_2['value']) ? $description_group_hr_agenda_section_2['value'] : '';
+                        ?>
+                    </p>
                 </div>
             </li>
         </ul>
@@ -104,12 +113,12 @@ endif;
 <!-- [diary] end-->
 <?php if (isset($data['offers']) && $data['offers']): ?>
   <!-- [RH latest Jobs] start-->
-        <section class="section-padding latestJobs">
-          <div class="wrapper">
-            <header class="heading heading--bordered">
+  <section class="section-padding latestJobs">
+      <div class="wrapper">
+          <header class="heading heading--bordered">
               <h3 class="heading__title"><?php print variable_get('title_group_hr_offres_section', t('Nos dernières offres d’emploi')); ?></h3>
-            </header>
-            <div data-equalizer data-equalizer-mq="medium-up" data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="latestJobs__list">
+          </header>
+          <div data-equalizer data-equalizer-mq="medium-up" data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" data-slick-responsive="small-only" class="latestJobs__list">
               <?php
               $i = 0;
               foreach ($data['offers'] as $item) :
@@ -119,20 +128,20 @@ endif;
                 $tax_exp = isset($item->field_annonce_experience[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($item->field_annonce_experience[LANGUAGE_NONE][0]['tid']) : '';
                 ?>
                 <article class="latestJobs__item column medium-3 <?php print ($i == count($data['offers'])) ? "end" : ""; ?>">
-                <div data-equalizer-watch="data-equalizer-watch" class="latestJobs__item__content">
-                  <header class="latestJobs__item__heading"><span class="latestJobs__item__date"><?php print date('d.m.Y', strtotime($item->field_annonce_date_debut[LANGUAGE_NONE][0]['value'])); ?></span>
-                    <h4 class="latestJobs__item__title"><?php print isset($tax_fonction->name) ? $tax_fonction->name : ''  ?></h4><span class="latestJobs__item__address"><?php print isset($tax_ville->name) ? $tax_ville->name : ''  ?></span>
-                  </header>
-                  <p><?php print truncate_utf8($item->field_annonce_description[LANGUAGE_NONE][0]['value'], '200', TRUE, TRUE); ?></p>
-                  <p class="text-bold"><?php print t('Expérience exigée'); ?> :<span><?php print isset($tax_exp->name) ? $tax_exp->name : ''; ?></span></p>
-                </div><a href="<?php print url('node/' . $item->nid); ?>" class="btn-rounded btn-primary"><?php print t('Voir l’offre'); ?><span class="icon icon-arrow"></span></a>
-              </article>
-                 <?php endforeach; ?>
+                    <div data-equalizer-watch="data-equalizer-watch" class="latestJobs__item__content">
+                        <header class="latestJobs__item__heading"><span class="latestJobs__item__date"><?php print date('d.m.Y', strtotime($item->field_annonce_date_debut[LANGUAGE_NONE][0]['value'])); ?></span>
+                            <h4 class="latestJobs__item__title"><?php print isset($tax_fonction->name) ? $tax_fonction->name : ''  ?></h4><span class="latestJobs__item__address"><?php print isset($tax_ville->name) ? $tax_ville->name : ''  ?></span>
+                        </header>
+                        <p><?php print truncate_utf8($item->field_annonce_description[LANGUAGE_NONE][0]['value'], '200', TRUE, TRUE); ?></p>
+                        <p class="text-bold"><?php print t('Expérience exigée'); ?> :<span><?php print isset($tax_exp->name) ? $tax_exp->name : ''; ?></span></p>
+                    </div><a href="<?php print url('node/' . $item->nid); ?>" class="btn-rounded btn-primary"><?php print t('Voir l’offre'); ?><span class="icon icon-arrow"></span></a>
+                </article>
+              <?php endforeach; ?>
 
-            </div>
-            <div class="btn-wrapper"><a href="<?php print url('corporate/ressources-humaines/postuler'); ?>" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
-            </div>
           </div>
-        </section>
-        <!-- [RH latest Jobs] end-->
+          <div class="btn-wrapper"><a href="<?php print url('corporate/ressources-humaines/postuler'); ?>" class="btn-rounded btn-primary"><?php print t('Voir toutes nos offres'); ?><span class="icon icon-arrow"></span></a>
+          </div>
+      </div>
+  </section>
+  <!-- [RH latest Jobs] end-->
 <?php endif; ?>

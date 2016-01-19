@@ -246,13 +246,6 @@ function kandb_seo_page_sitemap_geo($localisation, $argument = NULL){
     }
   }
 
-  if($current_url == 'villes' || $current_url == 'departements' || $current_url == 'regions') {
-    // Search form
-    $block_form = module_invoke('kandb_recherche', 'block_view', 'recherche_complete_b2c');
-    $block_form = $block_form['content'];
-    $vars['search_form'] = $block_form;
-  }
-
   return theme('page_sitemap_geo', $vars);
 }
 
@@ -325,10 +318,11 @@ function kandb_seo_block_list($location, $first_letter = false) {
   // Process the result
   $vars['results'] = array();
   while($object = $results->fetchAssoc()){
-    $vars['results'][] = array(
+    $letter = substr($object['name'], 0, 1);
+    $vars['results'][$letter][] = array(
       'name' => ucwords(strtolower($object['name']), '- '),
       'sanitize_name' => pathauto_cleanstring($object['name']),
-      'numero_departement' => $object['field_numero_departement_value'],
+      'numero_departement' => ($location != 'regions' ? $object['field_numero_departement_value'] : '' ),
     );
   }
 
@@ -425,8 +419,10 @@ function kandb_seo_metatags_and_callbacks($url = false) {
     // Infos for the metas bellow
     $info_location_bien = str_replace('logements-immobiliers-neufs-', '', $arg_1);
     $info_location_bien = explode('-', $info_location_bien);
-    $code_dept = $info_location_bien[(count($info_location_bien) - 1)];
-    unset($info_location_bien[(count($info_location_bien) - 1)]);
+    if($arg_0 != 'regions') {
+      $code_dept = $info_location_bien[(count($info_location_bien) - 1)];
+      unset($info_location_bien[(count($info_location_bien) - 1)]);
+    }
     $lieu_bien = implode('-', $info_location_bien);
 
     // Check if what it asked exists
@@ -615,18 +611,18 @@ function kandb_seo_metatags_and_callbacks($url = false) {
     ),
 
     // L2 : Régions > Tous les types de biens
-    'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept => array(
-      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
-      'meta_description' => 'Régions : Vous recherchez un logement neuf ' . $lieu_bien_real_name . ' ' . $code_dept . ' ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad dans le ' . $code_dept . '.',
+    'regions/logements-immobiliers-neufs-' . $lieu_bien => array(
+      'title' => 'Logements neufs ' . $lieu_bien_real_name . ' - régions | Kaufman et Broad',
+      'meta_description' => $lieu_bien_real_name . ' : Vous recherchez un logement neuf ? Décrouvrez maintenant les nombreux biens de Kaufman et Broad situés dans cette région ' . $lieu_bien_real_name . '.',
       'callbacks' => array(
         'kandb_seo_block_list_by_type_of_bien' => array('regions', $lieu_bien_real_name),
       ),
     ),
 
     // L3 : Régions > Tous les types de biens > Listing Bien
-    'regions/logements-immobiliers-neufs-' . $lieu_bien . '-' . $code_dept . '/achat-' . $type . '-' . $nb_pieces => array(
-      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' ' . $code_dept . ' - régions | Kaufman et Broad',
-      'meta_description' => 'Vos critères d\'achat immobilier sont : ' . $real_type_name . ' ' . $real_nb_piece_name . ' et ' . $lieu_bien_real_name . ' ' . $code_dept . '. Découvrez les biens correspondant aux régions avec Kaufman et Broad.',
+    'regions/logements-immobiliers-neufs-' . $lieu_bien . '/achat-' . $type . '-' . $nb_pieces => array(
+      'title' => 'Achat ' . $real_type_name . ' ' . $real_nb_piece_name . ' ' . $lieu_bien_real_name . ' - régions | Kaufman et Broad',
+      'meta_description' => 'Vos critères d\'achat immobilier sont : bien : ' . $real_type_name . ' ' . $real_nb_piece_name . '; lieu : ' . $lieu_bien_real_name . '. Découvrez les biens correspondant à votre recherche avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_get_search_page' => array(
           array(

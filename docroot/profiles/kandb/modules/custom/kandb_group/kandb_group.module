@@ -447,8 +447,6 @@ function render_group_homepage() {
       $data['actualites_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-
-
   // Block Développement Durable.
   $developpement_durable_img = variable_get('image_group_home_block_developpement_durable', 0);
   $developpement_durable_img_load = file_load($developpement_durable_img);
@@ -465,14 +463,8 @@ function render_group_homepage() {
       $data['developpement_durable_block']['cta'][] = array('url' => $cta['url'], 'title' => $cta['title']);
     }
   }
-
-
-
-
-
   return theme('group_homepage', array('data' => $data));
 }
-
 /**
  * Render Publication page.
  */
@@ -493,25 +485,56 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     return strtotime($a['date']) - strtotime($b['date']);
   });
   $data['calenders'] = $calenders;
-
   // Component 4.
-  $recent_document = array();
-  if ($current_lang == 'en') {
-    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_EN);
-    $current_lang_key = 1;
-  } else {
-    $document_type_tabs = unserialize(KANDB_GROUP_PUBLICATION_DOC_TYPE_TABS_FR);
-    $current_lang_key = 0;
-  }
-  if (!$document_type_tid || (!empty($document_type_tid) && !is_numeric($document_type_tid))) {
-    $document_type_name = array_values($document_type_tabs)[0]['doc_type_name'];
-    $document_type_tid = kandb_group_get_term_from_name($document_type_name, VOCAL_DOCUMENT);
-  }
-  $recent_document = get_document_publication($document_type_tid, $numof_years, $current_lang_key);
-  $data['recent_document'] = $recent_document;
-  return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
+    $recent_document = array();
+    $document_type_tabs = get_types_document($current_lang);
+    if(!$document_type_tid){
+        $data['recent_document'] = $document_type_tabs[0]['document'];
+    }else{
+        if ($current_lang == 'en') {
+            $current_lang_key = 1;
+        }
+        else {
+            $current_lang_key = 0;
+        }
+        $data['recent_document'] = get_document_publication($document_type_tid, 3, $current_lang_key);
+    }
+    $data['tab_document'] = $document_type_tabs;
+    return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));
 }
-
+function get_types_document($lang){
+  $array = array('Communications financières', 'Communiqué de presse', 'Documents de référence', 'Autres Informations réglementée', 'Rapports', 'Présentations financières', "Réunions d'information");
+  $content_archives = array();
+  $language_id = $lang == 'en' ? 1 : 0;
+  $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
+  if (isset($document_voca->vid)) {
+    $all_terms = taxonomy_get_tree($document_voca->vid);
+    $base_archive = base_path() . 'corporate/finance/publication/';
+    foreach ($all_terms as $term) {
+      $term = taxonomy_term_load($term->tid);
+      if (!in_array($term->name, $array)) {
+        continue ;
+      }
+      elseif ($language_id == 1) {
+        if (isset ($term->field_name_in_english[LANGUAGE_NONE][0]['value'])) {
+          $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
+        }
+      }
+      $document = get_document_publication($term->tid, 3, $language_id);
+      if ($document && $term) {
+        $content_archives[] = array(
+          'tab_id' => $term->tid,
+          'lang' => $lang,
+          'tab_title' => $term->name,
+          'tab_url' => $base_archive . $term->tid . '/3/' . $lang,
+          'document' => $document,
+          'class' => '',
+        );
+      }
+    }
+  }
+  return $content_archives;
+}
 /**
  * @param $document_type_tid
  * @param $numof_years
@@ -520,21 +543,17 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
  */
 function get_document_publication($document_type_tid, $numof_years, $current_lang) {
   // Get the latest year of all documents.
-  $latest_years = '';
-  $query = db_select('node', 'n');
-  $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
-  $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
-  $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
-  $query->condition('n.type', 'document');
-  $query->condition('n.status', 1);
-  $query->condition('t.field_document_type_tid', $document_type_tid);
-  $query->condition('l.field_langue_value', $current_lang);
-  $query->addExpression('MAX(YEAR(d.field_document_date_value))');
-  $latest_years = $query->execute()->fetchField();
+  $latest_years = date("Y", time());
   $num_latest_year = 0;
   while ($num_latest_year < $numof_years AND $latest_years) {
     $query = db_select('node', 'n');
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
+    $query->condition('d.entity_type', 'node');
+    $query->condition('d.bundle', 'document');
+    $query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
+    $query->condition('df.entity_type', 'node');
+    $query->condition('df.bundle', 'document');
+    $query->isNotNull('df.field_document_file_fid');
     $query->leftJoin('field_data_field_document_type', 't', 't.entity_id = n.nid');
     $query->leftJoin('field_data_field_langue', 'l', 'l.entity_id = n.nid');
     $query->fields('n', array('nid'));
@@ -543,12 +562,11 @@ function get_document_publication($document_type_tid, $numof_years, $current_lan
     $query->condition('t.field_document_type_tid', $document_type_tid);
     $query->condition('l.field_langue_value', $current_lang);
     $query->where('YEAR(d.field_document_date_value) = :latest_year', array(':latest_year' => $latest_years));
-
     $rs = $query->execute()->fetchCol();
     if ($rs) {
       $recent_document[$latest_years] = $rs;
-      $num_latest_year++;
     }
+    $num_latest_year++;
     $latest_years--;
   }
   return $recent_document;
@@ -744,7 +762,7 @@ function kandb_group_page() {
     }
   }
   $content_archives = array();
-  $content_archives['tab_content'] = get_document_by_type($document_type_tid, 0);
+  $content_archives['tab_content'] = get_document_by_type($document_type_tid, 0, TRUE, 0);
   return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }
 

@@ -76,17 +76,19 @@ function kandb_group_active_habitat_form($form, $form_state) {
     '#size' => 60,
     '#maxlength' => 128,
   );
-    $form['fieldset_habitat_section']['label_group_habitat_section'] = array(
+  $form['fieldset_habitat_section']['label_group_habitat_section'] = array(
     '#type' => 'textfield',
     '#title' => t('SubTitle for Description'),
     '#default_value' => variable_get('label_group_habitat_section', t('Donec id elit non mi porta gravida at eget metus morbi leo risus')),
     '#size' => 60,
     '#maxlength' => 128,
   );
+  $default_description = variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur'));
   $form['fieldset_habitat_section']['desciption_group_habitat_section'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
     '#title' => t('Description'),
-    '#default_value' => variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur')),
+    '#format' => 'full_html',
+    '#default_value' => isset($default_description['value']) ? $default_description['value'] : '',
   );
 
   $form['#submit'] = array(
