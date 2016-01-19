@@ -118,6 +118,7 @@ function kandb_theme_form_alter(&$form, &$form_state, $form_id) {
     if(isset($_GET['annonce'])){
       $form['submitted']['row1']['vous_souhaitez_postuler_a_un_post_de']['#access'] = false;
     }
+    $form['#suffix'] = '<div class="legalNote">Les données collectées vous concernant sont destinées au Groupe Kaufman & Broad, responsable du traitement, qui les utilise à des fins d\'information commerciale. Conformément à l\'article 34 de la loi Informatique et Libertés vous disposez d\'un droit d\'accès, de modification, de rectification et de suppression des données qui vous concernent. Pour l\'exercer, adressez-vous à Kaufman & Broad, Département Internet, 127 avenue Charles de Gaulle, 92207 Neuilly-sur-Seine Cedex.</div>';
   }
 }
 
