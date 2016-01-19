@@ -23,23 +23,23 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     $file_exist = TRUE;
     if ($node->status == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
       if ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
-        $file_path .= $vuuid . '/lots.txt';
+        $file_path .= $vuuid . '/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . $vuuid . '/lots.txt');
+          $file_path = $partenaire_directory . $vuuid . '/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
-        $file_path .= 'b2c/lots.txt';
+        $file_path .= 'b2c/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2c/lots.txt');
+          $file_path = $partenaire_directory . 'b2c/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
-        $file_path .= 'b2b/lots.txt';
+        $file_path .= 'b2b/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2b/lots.txt');
+          $file_path = $partenaire_directory . 'b2b/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
@@ -52,27 +52,12 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     return 'The partenaire not found';
   }
   if (is_file($file_path)) {
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header('Content-type: application/octet-stream');
-    header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="lots.txt"');
-    header("Content-Length: " . filesize($file_path));
-
-    $fp = @fopen($file_path, "rb");
-    if ($fp) {
-      while (!feof($fp)) {
-        echo fread($fp, 8192);
-        flush();
-        if (connection_status() != 0) {
-          @fclose($file_path);
-          die();
-        }
-      }
-      @fclose($file_path);
+    $content = file_get_contents($file_path);
+    if ($content) {
+      header('Content-Type: text/txt; charset=utf-8');
+      print $content;
     }
+    drupal_exit();
   } else {
     drupal_set_message(t('The file to download does not exist.'));
   }
@@ -82,6 +67,8 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
  * Get partenaire has reference type.
  */
 function kandb_get_partenaire_lot_plan() {
+  // Export b2b and b2c biens lost.txt.
+  kandb_export_common_b2b_b2c();
   $query = new EntityFieldQuery();
 
   $query->entityCondition('entity_type', 'node')
@@ -101,14 +88,17 @@ function kandb_get_partenaire_lot_plan() {
   }
 }
 
+/*
+ * Implement export parternair has reference.
+ */
+
 function kandb_create_partenaire_lot_file($nodes) {
-  kandb_export_common_b2b_b2c();
   if ($nodes) {
     foreach ($nodes as $node) {
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
       $uri = $uri_partenaire . $id_partenaire;
-      $path_file = drupal_realpath($uri . '/lots.txt');
+      $path_file = drupal_realpath($uri . '/LOT.TXT');
       if (file_exists($path_file)) {
         unlink($path_file);
       }
@@ -119,7 +109,7 @@ function kandb_create_partenaire_lot_file($nodes) {
         chmod(drupal_realpath($uri), 0777);
       }
       $export_type = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
-      $uri_lots = $uri . '/lots.txt';
+      $uri_lots = $uri . '/LOT.TXT';
       if ($export_type == 3) {
         if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
@@ -152,8 +142,8 @@ function kandb_create_partenaire_lot_file($nodes) {
 function kandb_export_common_b2b_b2c() {
   $uri_partenaire_b2b = 'public://partenaire/b2b/';
   $uri_partenaire_b2c = 'public://partenaire/b2c/';
-  $path_file_b2b = drupal_realpath($uri_partenaire_b2b . '/lots.txt');
-  $path_file_b2c = drupal_realpath($uri_partenaire_b2c . '/lots.txt');
+  $path_file_b2b = drupal_realpath($uri_partenaire_b2b . '/LOT.TXT');
+  $path_file_b2c = drupal_realpath($uri_partenaire_b2c . '/LOT.TXT');
   if (file_exists($path_file_b2b)) {
     unlink($path_file_b2b);
   }
@@ -171,8 +161,8 @@ function kandb_export_common_b2b_b2c() {
   } else {
     chmod(drupal_realpath($uri_partenaire_b2c), 0777);
   }
-  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . 'lots.txt');
-  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . 'lots.txt');
+  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . 'LOT.TXT');
+  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . 'LOT.TXT');
 }
 
 /**
@@ -211,7 +201,7 @@ function kandb_export_lots_txt($biens, $uri_lots) {
       $programme_id = isset($programme_load->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme_load->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
       $tax_type = isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
       $type = isset($tax_type->name) ? $tax_type->name : '';
-      $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+      $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? (int) $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
       $tax_nb_pieces = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
       $nb_pieces = isset($tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value']) ? $tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value'] : '';
       $tax_nb_chambres = isset($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) : '';
@@ -233,13 +223,14 @@ function kandb_export_lots_txt($biens, $uri_lots) {
       //field_caracteristique_parking
       $caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
       $parking_carater = '';
+      $parking_mode = ($caracteristique_parking > 0) ? t('PARKING NON INCLUS') : t('');
       if ($caracteristique_parking == 0) {
         $parking_carater = t('Parking Compris');
       }
       if ($caracteristique_parking > 0) {
-        $parking_carater = $caracteristique_parking;
+        $parking_carater = (int) $caracteristique_parking;
       }
-      $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
+      $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_mode . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
 
       if (file_exists($uri_lots)) {
         $current = file_get_contents($uri_lots);
