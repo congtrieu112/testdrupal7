@@ -223,7 +223,7 @@
               $i = 0;
               foreach($url as $title_url => $link) {
                 ?>
-                  <li class="contact__item"><a href="<?php print $link; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-<?php print ($i ? 'tel' : 'email'); ?>"></span><?php print $title_url; ?></span></a></li>
+                  <li class="contact__item"><a href="<?php print $link; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-<?php print ($i ? 'email' : 'tel'); ?>"></span><?php print $title_url; ?></span></a></li>
                 <?php
                 $i++;
               }
