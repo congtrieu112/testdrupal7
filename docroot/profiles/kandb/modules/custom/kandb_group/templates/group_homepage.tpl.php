@@ -32,7 +32,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['finance_block']['image']; ?>, (small)], [<?php print $data['finance_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['finance_block']['title']; ?>" data-interchange="[<?php print $data['finance_block']['image']; ?>, (small)], [<?php print $data['finance_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['finance_block']['image']; ?>" alt="<?php print $data['finance_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -53,7 +53,6 @@ endif;
                                     <li><a href="<?php print url($value['url']); ?>" title="<?php print trim($value['title']); ?>"><?php print trim($value['title']); ?></a></li>
                                   <?php endif; ?>
                                 <?php endforeach; ?>
-                                <li><a href="<?php print url('corporate/finance/presentation/en'); ?>" title="<?php print t('English version'); ?>"><?php print t('English version'); ?></a></li>
                               <?php endif; ?>
                           </ul>
                       </div>
@@ -64,7 +63,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['ressources_humaines_block']['image']; ?>, (small)], [<?php print $data['ressources_humaines_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['ressources_humaines_block']['title']; ?>" data-interchange="[<?php print $data['ressources_humaines_block']['image']; ?>, (small)], [<?php print $data['ressources_humaines_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['ressources_humaines_block']['image']; ?>" alt="<?php print $data['finance_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -88,7 +87,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['activites_block']['image']; ?>, (small)], [<?php print $data['activites_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['activites_block']['title']; ?>" data-interchange="[<?php print $data['activites_block']['image']; ?>, (small)], [<?php print $data['activites_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['activites_block']['image']; ?>" alt="<?php print $data['activites_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -112,7 +111,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['actualites_block']['image']; ?>, (small)], [<?php print $data['actualites_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['actualites_block']['title']; ?>" data-interchange="[<?php print $data['actualites_block']['image']; ?>, (small)], [<?php print $data['actualites_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['actualites_block']['image']; ?>" alt="<?php print $data['actualites_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -136,7 +135,7 @@ endif;
               <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                   <div class="inner">
                       <div class="articleList__item__img">
-                          <!-- [Responsive img] start--><img alt="test" data-interchange="[<?php print $data['developpement_durable_block']['image']; ?>, (small)], [<?php print $data['developpement_durable_block']['image']; ?>, (large)]"/>
+                          <!-- [Responsive img] start--><img alt="<?php print $data['developpement_durable_block']['title']; ?>" data-interchange="[<?php print $data['developpement_durable_block']['image']; ?>, (small)], [<?php print $data['developpement_durable_block']['image']; ?>, (large)]"/>
                           <noscript><img src="<?php print $data['developpement_durable_block']['image']; ?>" alt="<?php print $data['developpement_durable_block']['title']; ?>"/></noscript>
                           <!-- [Responsive img] end-->
                       </div>
@@ -155,7 +154,7 @@ endif;
                       </div>
                   </div>
               </div>
-            <?php endif; ?> 
+            <?php endif; ?>
             <!--            <div data-equalizer-watch="data-equalizer-watch" class="articleList__item">
                             <div class="inner">
                                 <div class="articleList__item__img">

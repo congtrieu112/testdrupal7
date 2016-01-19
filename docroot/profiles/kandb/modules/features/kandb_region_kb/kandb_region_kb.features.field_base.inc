@@ -172,6 +172,27 @@ function kandb_region_kb_field_default_field_bases() {
     'type' => 'text',
   );
 
+  // Exported field_base: 'field_kb_agence3_telephone'
+  $field_bases['field_kb_agence3_telephone'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_kb_agence3_telephone',
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'text',
+    'settings' => array(
+      'max_length' => 255,
+    ),
+    'translatable' => 0,
+    'type' => 'text',
+  );
+
   // Exported field_base: 'field_kb_agence4_address'
   $field_bases['field_kb_agence4_address'] = array(
     'active' => 1,
@@ -1049,27 +1070,6 @@ function kandb_region_kb_field_default_field_bases() {
     'deleted' => 0,
     'entity_types' => array(),
     'field_name' => 'field_region_kb_telephone',
-    'indexes' => array(
-      'format' => array(
-        0 => 'format',
-      ),
-    ),
-    'locked' => 0,
-    'module' => 'text',
-    'settings' => array(
-      'max_length' => 255,
-    ),
-    'translatable' => 0,
-    'type' => 'text',
-  );
-
-  // Exported field_base: 'field_t_l_phone'
-  $field_bases['field_t_l_phone'] = array(
-    'active' => 1,
-    'cardinality' => 1,
-    'deleted' => 0,
-    'entity_types' => array(),
-    'field_name' => 'field_t_l_phone',
     'indexes' => array(
       'format' => array(
         0 => 'format',

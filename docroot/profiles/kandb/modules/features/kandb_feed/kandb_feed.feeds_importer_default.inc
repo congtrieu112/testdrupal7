@@ -1422,26 +1422,21 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           4 => array(
-            'source' => 'TypeDeFlux',
-            'target' => 'field_partenaire_nouveau',
-            'unique' => FALSE,
-          ),
-          5 => array(
             'source' => 'LotPlan',
             'target' => 'field_partenaire_plan',
             'unique' => FALSE,
           ),
-          6 => array(
+          5 => array(
             'source' => 'EnvoiAvantPremier',
             'target' => 'field_partenaire_avant_premiere',
             'unique' => FALSE,
           ),
-          7 => array(
+          6 => array(
             'source' => 'GrandePerspective',
             'target' => 'field_partenaire_grande_perspect',
             'unique' => FALSE,
           ),
-          8 => array(
+          7 => array(
             'source' => 'TypeExport',
             'target' => 'field_partenaire_export',
             'unique' => FALSE,

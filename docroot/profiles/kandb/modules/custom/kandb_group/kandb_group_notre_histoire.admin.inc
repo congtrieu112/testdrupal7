@@ -38,7 +38,7 @@ function kandb_group_notre_histoire_admin_form($form, $form_state) {
     $form['fieldset_news_history']['news_history_item_' . $i]['news_history_item_description_' . $i] = array(
       '#type' => 'text_format',
       '#title' => t('Description'),
-      '#format' => 'simple',
+      '#format' => 'full_html',
       '#default_value' => $description,
     );
     $form['fieldset_news_history']['news_history_item_' . $i]['news_history_item_image_' . $i] = array(

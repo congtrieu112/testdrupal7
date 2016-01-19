@@ -27,6 +27,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     '#title' => 'Image for block finance in Group home page',
     '#default_value' => variable_get('image_group_home_block_finance'),
     '#upload_location' => 'public://',
+    '#required' => TRUE,
   );
   $form['fieldset_group_block_finance']['title_group_home_block_finance'] = array(
     '#type' => 'textfield',
@@ -63,16 +64,16 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-  
-  
-  
+
+
+
   $form['fieldset_group_block_ressources_humaines'] = array(
     '#type' => 'fieldset',
     '#title' => 'BLOCK Ressources Humaines',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-  
+
   $form['fieldset_group_block_ressources_humaines']['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
@@ -119,15 +120,15 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-  
-  
+
+
    $form['fieldset_group_block_activites'] = array(
     '#type' => 'fieldset',
     '#title' => 'BLOCK Activités',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-   
+
    $form['fieldset_group_block_activites']['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
@@ -174,15 +175,15 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-   
-   
+
+
     $form['fieldset_group_block_actualites'] = array(
     '#type' => 'fieldset',
     '#title' => 'BLOCK Actualités',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-    
+
     $form['fieldset_group_block_actualites']['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
@@ -229,15 +230,15 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-    
-    
+
+
      $form['fieldset_group_block_developpement_durable'] = array(
     '#type' => 'fieldset',
     '#title' => 'BLOCK Développement Durable',
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
-     
+
      $form['fieldset_group_block_developpement_durable']['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
@@ -284,18 +285,18 @@ function kandb_group_home_admin_form($form, $form_state) {
       '#required' => FALSE,
     );
   }
-  
+
 
   $form['#submit'] = array(
     'bkandb_group_settings_cta_link'
   );
 
   $form['#validate'][] = 'group_home_validate';
-  
-  
-  
-  
-  
+
+
+
+
+
 
   return system_settings_form($form);
 }
