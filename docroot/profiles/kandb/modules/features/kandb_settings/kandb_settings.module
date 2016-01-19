@@ -515,7 +515,19 @@ function kandb_avant_premiere(){
 function setting_error_message(){
   // Param 1: text default. Param 2: Text translate. Param 3: url show text
   $message_source = array(
-    '!name field is required.' => array('/system/ajax', '!name field doit être renseigné.'),
+    '!name field is required.' => array('/system/ajax', 'Le champ !name doit être renseigné.'),
+    'The specified passwords do not match.' => array('', 'Les mots de passe ne sont pas identiques.'),
+    'Password field is required.' => array('', 'Le champ mot de passe doit être renseigné.'),
+    'The specified date is invalid.' => array('', 'La date spécifiée est invalide.'),
+    '%name must be an integer.' => array('', 'Le champ %name doit être un entier.'),
+    '%name must be a positive integer.' => array('', 'Le champ %name doit être un entier positif.'),
+    '%name must be a number.' => array('', 'Le champ %name doit être un nombre.'),
+    'An upload size of @value is too large, you are allow to upload files @max or less.' => array('', "Vous essayez d'envoyer un fichier trop volumineux (@value). La taille maximale autorisée est de @max."),
+    'The entered date must be @start_date or later.' => array('', 'La date doit être postérieur à @start_date.'),
+    'The entered date must be @end_date or earlier.' => array('', 'La date doit être antérieur à @end_date.'),
+    '!name field value must be less than @max.' => array('', 'Le champ !name doit être inférieur à @max.'),
+    '!name field value must be greater than @min.' => array('', 'Le champ !name doit être supérieur à @min.'),
+    '!name field value of @value must be an integer.' => array('', 'Le champ !name doit être un entier (actuellement @value).'),
   );
 
   if (!empty($message_source)) {
