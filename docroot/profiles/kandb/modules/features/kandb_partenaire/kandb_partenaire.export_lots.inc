@@ -52,27 +52,12 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     return 'The partenaire not found';
   }
   if (is_file($file_path)) {
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header('Content-type: application/octet-stream');
-    header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="LOT.TXT"');
-    header("Content-Length: " . filesize($file_path));
-
-    $fp = @fopen($file_path, "rb");
-    if ($fp) {
-      while (!feof($fp)) {
-        echo fread($fp, 8192);
-        flush();
-        if (connection_status() != 0) {
-          @fclose($file_path);
-          die();
-        }
-      }
-      @fclose($file_path);
+    $content = file_get_contents($file_path);
+    if ($content) {
+      header('Content-Type: text/txt; charset=utf-8');
+      print $content;
     }
+    drupal_exit();
   } else {
     drupal_set_message(t('The file to download does not exist.'));
   }

@@ -237,7 +237,10 @@ function kandb_update_b2c_b2b_partenaire_build_programme_data($programmes = arra
     ksort($row);
     $rows[] = implode('¤', $row);
   }
-  $data = implode('|', $rows);
+  $data = implode("|\n", $rows);
+  if ($data) {
+    $data .= '|';
+  }
   return $data;
 }
 
@@ -252,7 +255,7 @@ function get_type_of_bien_disponibles_by_programme_id($biens = array()){
   $db_query->condition('ft.bundle', 'bien');
   $db_query->condition('ft.entity_id', $biens, 'IN');
   $tids = $db_query->distinct()->execute()->fetchCol();
-  
+
   foreach($tids as $tid){
     $term = taxonomy_term_load($tid);
     if(isset($term->name)){
@@ -340,27 +343,12 @@ function kandb_partenaire_download_programme_txt($vuuid = '') {
     return $message;
   }
   if (is_file($file_path)) {
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header('Content-type: application/octet-stream');
-    header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="' . $file_name . '"');
-    header("Content-Length: " . filesize($file_path));
-
-    $fp = @fopen($file_path, "rb");
-    if ($fp) {
-      while (!feof($fp)) {
-        echo fread($fp, 8192);
-        flush();
-        if (connection_status() != 0) {
-          @fclose($file_path);
-          die();
-        }
-      }
-      @fclose($file_path);
+    $content = file_get_contents($file_path);
+    if ($content) {
+      header('Content-Type: text/txt; charset=utf-8');
+      print $content;
     }
+    drupal_exit();
   }
   else {
     $message = t('The file to download does not exist.');
