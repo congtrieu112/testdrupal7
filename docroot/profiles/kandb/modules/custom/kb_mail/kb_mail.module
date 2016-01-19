@@ -238,7 +238,13 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
     $variables['programme_loc_ville'] = '';
     $variables['programme_loc_department'] = '';
     $variables['programme_idkp'] = isset($programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
-    $variables['programme_loc_type'] = isset($programme->field_programme_loc_type[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_type[LANGUAGE_NONE][0]['value'] : '';
+    $name_programme_loc_type = '';
+    if(isset($programme->field_programme_loc_type[LANGUAGE_NONE][0]['tid'])){
+       $tid_programme_loc_type = $programme->field_programme_loc_type[LANGUAGE_NONE][0]['tid'];
+       $list_programme_loc_type = taxonomy_term_load($tid_programme_loc_type);
+       $name_programme_loc_type = !empty($list_programme_loc_type) ? $list_programme_loc_type->name: '';
+    }
+    $variables['programme_loc_type'] = $name_programme_loc_type;
     $variables['programme_loc_rue'] = isset($programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value']) ? $programme->field_programme_loc_rue[LANGUAGE_NONE][0]['value'] : '';
     $variables['programme_nom_conseiller'] = isset($programme->field_nom_conseiller[LANGUAGE_NONE][0]['value']) ? $programme->field_nom_conseiller[LANGUAGE_NONE][0]['value'] : '';
     $variables['programme_espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value'] : '';
