@@ -23,23 +23,23 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     $file_exist = TRUE;
     if ($node->status == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
       if ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
-        $file_path .= $vuuid . '/lots.txt';
+        $file_path .= $vuuid . '/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . $vuuid . '/lots.txt');
+          $file_path = $partenaire_directory . $vuuid . '/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
-        $file_path .= 'b2c/lots.txt';
+        $file_path .= 'b2c/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2c/lots.txt');
+          $file_path = $partenaire_directory . 'b2c/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
-        $file_path .= 'b2b/lots.txt';
+        $file_path .= 'b2b/LOT.TXT';
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2b/lots.txt');
+          $file_path = $partenaire_directory . 'b2b/LOT.TXT';
         } else {
           $file_exist = FALSE;
         }
@@ -58,7 +58,7 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
     header("Cache-Control: public");
     header('Content-type: application/octet-stream');
     header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="lots.txt"');
+    header('Content-Disposition: attachment; filename="LOT.TXT"');
     header("Content-Length: " . filesize($file_path));
 
     $fp = @fopen($file_path, "rb");
@@ -106,13 +106,14 @@ function kandb_get_partenaire_lot_plan() {
 /*
  * Implement export parternair has reference.
  */
+
 function kandb_create_partenaire_lot_file($nodes) {
   if ($nodes) {
     foreach ($nodes as $node) {
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
       $uri = $uri_partenaire . $id_partenaire;
-      $path_file = drupal_realpath($uri . '/lots.txt');
+      $path_file = drupal_realpath($uri . '/LOT.TXT');
       if (file_exists($path_file)) {
         unlink($path_file);
       }
@@ -123,7 +124,7 @@ function kandb_create_partenaire_lot_file($nodes) {
         chmod(drupal_realpath($uri), 0777);
       }
       $export_type = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
-      $uri_lots = $uri . '/lots.txt';
+      $uri_lots = $uri . '/LOT.TXT';
       if ($export_type == 3) {
         if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
@@ -156,8 +157,8 @@ function kandb_create_partenaire_lot_file($nodes) {
 function kandb_export_common_b2b_b2c() {
   $uri_partenaire_b2b = 'public://partenaire/b2b/';
   $uri_partenaire_b2c = 'public://partenaire/b2c/';
-  $path_file_b2b = drupal_realpath($uri_partenaire_b2b . '/lots.txt');
-  $path_file_b2c = drupal_realpath($uri_partenaire_b2c . '/lots.txt');
+  $path_file_b2b = drupal_realpath($uri_partenaire_b2b . '/LOT.TXT');
+  $path_file_b2c = drupal_realpath($uri_partenaire_b2c . '/LOT.TXT');
   if (file_exists($path_file_b2b)) {
     unlink($path_file_b2b);
   }
@@ -175,8 +176,8 @@ function kandb_export_common_b2b_b2c() {
   } else {
     chmod(drupal_realpath($uri_partenaire_b2c), 0777);
   }
-  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . 'lots.txt');
-  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . 'lots.txt');
+  kandb_get_bien_by_domain(ID_B2C, $uri_partenaire_b2c . 'LOT.TXT');
+  kandb_get_bien_by_domain(ID_B2B, $uri_partenaire_b2b . 'LOT.TXT');
 }
 
 /**

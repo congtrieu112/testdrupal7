@@ -123,8 +123,8 @@ function kandb_partenaire_menu() {
     'file path' => drupal_get_path('module', 'kandb_partenaire'),
   );
 
-  $items['partenaires/%/lots.txt'] = array(
-    'title' => 'Download lot txt',
+  $items['partenaires/%/LOT.TXT'] = array(
+    'title' => 'Download LOT TXT',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'kandb_partenaire_lots_prepare_download_file',
