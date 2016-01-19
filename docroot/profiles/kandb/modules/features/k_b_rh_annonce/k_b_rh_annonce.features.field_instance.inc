@@ -293,7 +293,7 @@ function k_b_rh_annonce_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_annonce_experience',
     'label' => 'Expérience exigée',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
