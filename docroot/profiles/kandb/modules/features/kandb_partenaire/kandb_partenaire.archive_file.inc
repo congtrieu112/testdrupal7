@@ -344,7 +344,9 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     $all_pdf_files = get_files_in_bien_related(2);
     $files_info = kandb_partenaire_get_file_info($all_pdf_files);
     kandb_partenaire_create_file_zip($ori_path . '/b2b/document_lot_plan.zip', $files_info);
-
+    //Update file for partenaire specific
+    update_partenaire_specific_lot_plan();
+    
     kandb_get_partenaire_lot_plan();
     //PROGRAMME.TXT
     kandb_update_b2c_b2b_partenaire_programme_txt_files();
