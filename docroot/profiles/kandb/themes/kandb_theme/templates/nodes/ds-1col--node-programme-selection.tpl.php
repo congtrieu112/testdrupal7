@@ -200,8 +200,8 @@
             <li><a href="<?php print url($field_plaquette_commerciale[0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
           <?php endif; ?>
           <li>
-            <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
-            <div class="sharing f-dropdown" id="sharing-0" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
+            <button data-dropdown="sharing-<?php print $id; ?>" aria-controls="sharing-<?php print $id; ?>" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
+            <div class="sharing f-dropdown" id="sharing-<?php print $id; ?>" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
               <ul class="sharing__items">
                 <li class="sharing__items__item"><a href="mailto:" title="partage par email" class="icon icon-email"></a></li>
               </ul>
