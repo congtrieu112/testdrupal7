@@ -197,7 +197,7 @@
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>
-            <li><a href="<?php print url($field_plaquette_commerciale[0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+            <li><a href="<?php print file_create_url($field_plaquette_commerciale['und'][0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
           <?php endif; ?>
           <li>
             <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
