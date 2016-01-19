@@ -238,6 +238,7 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
     $variables['programme_loc_ville'] = '';
     $variables['programme_loc_department'] = '';
     $variables['programme_idkp'] = isset($programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
+    $name_programme_loc_type = '';
     if(isset($programme->field_programme_loc_type[LANGUAGE_NONE][0]['tid'])){
        $tid_programme_loc_type = $programme->field_programme_loc_type[LANGUAGE_NONE][0]['tid'];
        $list_programme_loc_type = taxonomy_term_load($tid_programme_loc_type);
