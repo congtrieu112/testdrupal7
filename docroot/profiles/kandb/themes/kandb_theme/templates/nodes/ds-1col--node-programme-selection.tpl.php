@@ -210,11 +210,12 @@
         </ul>
       </div>
       <?php if(!empty($field_nom_conseiller)): ?>
+
         <ul class="bg-lightGrey contact">
           <li class="contact__item">
-            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
-            --><img alt="Contact Programme " src="<?php print $field_photo_conseiller[0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
-            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[0]['value']; ?></a>
+            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)-->
+            <img alt="<?php print t('Contact Programme'); ?> " src="<?php print $field_photo_conseiller[LANGUAGE_NONE][0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
+            <p class="text"><?php print t('Votre conseillère'); ?> <strong><?php print $field_nom_conseiller[LANGUAGE_NONE][0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[LANGUAGE_NONE][0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[LANGUAGE_NONE][0]['value']; ?></a>
           </li>
 
           <?php
