@@ -201,7 +201,7 @@ function kandb_export_lots_txt($biens, $uri_lots) {
       $programme_id = isset($programme_load->field_id_programme[LANGUAGE_NONE][0]['value']) ? $programme_load->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
       $tax_type = isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
       $type = isset($tax_type->name) ? $tax_type->name : '';
-      $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+      $prix_tva_20 = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? (int) $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
       $tax_nb_pieces = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
       $nb_pieces = isset($tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value']) ? $tax_nb_pieces->field_id_nombre_pieces[LANGUAGE_NONE][0]['value'] : '';
       $tax_nb_chambres = isset($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']) : '';
@@ -223,13 +223,14 @@ function kandb_export_lots_txt($biens, $uri_lots) {
       //field_caracteristique_parking
       $caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
       $parking_carater = '';
+      $parking_mode = ($caracteristique_parking > 0) ? t('PARKING NON INCLUS') : t('');
       if ($caracteristique_parking == 0) {
         $parking_carater = t('Parking Compris');
       }
       if ($caracteristique_parking > 0) {
-        $parking_carater = $caracteristique_parking;
+        $parking_carater = (int) $caracteristique_parking;
       }
-      $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_carater . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
+      $row .= $numero_lot . '¤' . $programme_id . '¤' . $type . '¤' . $prix_tva_20 . '¤' . $nb_pieces . '¤' . $nb_chambres . '¤' . $etage . '¤' . $superficie . '¤' . $orientation . '¤' . $parking_mode . '¤' . $caracteristique_jardin . '¤' . $caracteristique_balcon . '¤' . $caracteristique_terrasse . '¤¤¤¤' . $parking_carater . '|' . "\n";
 
       if (file_exists($uri_lots)) {
         $current = file_get_contents($uri_lots);
