@@ -382,7 +382,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
   <?php print render($program_characteristic['content']); ?>
 <?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
-<?php if ($habiteo_id && $bon_plan): ?>
+<?php if ($habiteo_id && !$bon_plan): ?>
   <section class="section-padding show-for-medium-up" id="Vue3D">
       <div class="wrapper">
           <header class="heading heading--bordered">
