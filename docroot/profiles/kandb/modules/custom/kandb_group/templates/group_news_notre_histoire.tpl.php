@@ -48,7 +48,7 @@ $sub_title = variable_get('news_history_module_sub_title');
             </div>
             <?php endif; ?>
             <?php if($description) : ?>
-            <p class="ourAdvices__text"><?php print $description; ?></p>
+            <div class="ourAdvices__text"><?php print $description; ?></div>
             <?php endif; ?>
         </article>
         <!-- [Article Advice] end-->

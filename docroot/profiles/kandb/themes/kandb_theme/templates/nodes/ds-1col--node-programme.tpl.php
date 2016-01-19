@@ -360,15 +360,17 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <div class="heading heading--small text-center">
                     <h3 class="heading__title"><?php print isset($field_quartier_video_titre[0]['value']) ? $field_quartier_video_titre[0]['value'] : ''; ?></h3>
                 </div>
-                <?php
-                if ($video_id):
-                  ?>
-                  <div class="iframe iframe--video-de-quartier">
-                      <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
-                  </div>
-                  <?php
-                endif;
-                ?>
+                <?php if($habiteo_id):?>
+                <div class="iframe iframe--video-de-quartier">
+                    <iframe src="" data-src="http://widgets.habiteo.com/video-de-quartier?id=<?php print $habiteo_id; ?>&amp;key=<?php print $habiteo_key; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
+                </div>
+                <?php else:?>
+                <?php if($video_id):?>
+                      <div class="iframe iframe--video-de-quartier">
+                        <iframe frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" width="100%" src="https://www.youtube.com/embed/<?php print $video_id; ?>" class="iframe__content" frameborder="0" allowfullscreen></iframe>
+                      </div>
+                <?php endif; ?>
+                <?php endif; ?>
                 <div class="content-centered">
                     <p><?php print isset($field_quartier_video_desc[0]['value']) ? $field_quartier_video_desc[0]['value'] : ''; ?></p>
                 </div>
@@ -380,7 +382,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
   <?php print render($program_characteristic['content']); ?>
 <?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
-<?php if ($habiteo_id && $bon_plan): ?>
+<?php if ($habiteo_id && !$bon_plan): ?>
   <section class="section-padding show-for-medium-up" id="Vue3D">
       <div class="wrapper">
           <header class="heading heading--bordered">

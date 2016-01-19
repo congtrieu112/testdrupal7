@@ -127,25 +127,14 @@ print theme('group_activities_header');
 <section class="section-padding activities">
     <div class="wrapper">
         <?php
-<<<<<<< HEAD
-        $title = variable_get('bloc_logistique_habitat_title');
-        $subtitle = variable_get('bloc_logistique_habitat_sub_title');
+        $title = variable_get('bloc_logistique_title');
+        $subtitle = variable_get('bloc_logistique_sub_title');
         if ($title || $subtitle) :
           ?>
           <header class="heading heading--bordered">
               <h1 class="heading__title"><?php print $title; ?></h1>
               <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
           </header>
-=======
-        $title = variable_get('bloc_logistique_title');
-        $subtitle = variable_get('bloc_logistique_sub_title');
-            if ($title || $subtitle) :
-        ?>
-        <header class="heading heading--bordered">
-            <h1 class="heading__title"><?php print $title; ?></h1>
-            <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
-        </header>
->>>>>>> afdc509462fca29ad08825abb1c5e49da7fb7383
         <?php endif; ?>
         <div class="heading--small activities__heading">
             <?php

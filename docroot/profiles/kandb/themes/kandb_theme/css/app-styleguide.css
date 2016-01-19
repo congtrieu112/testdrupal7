@@ -5912,33 +5912,33 @@ _:-ms-lang(x), .infotip:after {
     transform: scale(1);
     opacity: 1; } }
 
-.ajax-wait {
-  margin: 0.0625rem auto;
-  width: 5rem;
-  height: 5rem;
+.ajax-wait > div {
+  margin: 2.5rem auto;
+  width: 6.25rem;
+  height: 6.25rem;
   position: relative;
   text-align: center;
   -webkit-animation: sk-rotate 2s infinite linear;
   -moz-animation: sk-rotate 2s infinite linear;
   animation: sk-rotate 2s infinite linear; }
-  .ajax-wait:before, .ajax-wait:after {
-    content: "";
+  .ajax-wait > div:before, .ajax-wait > div:after {
+    content: " ";
     width: 60%;
     height: 60%;
     display: inline-block;
     position: absolute;
-    top: 0;
-    background-color: #e0e0e0;
+    top: 0.625rem;
+    background-color: rgba(134, 146, 152, 0.4);
     border-radius: 100%;
     -webkit-animation: sk-bounce 2s infinite ease-in-out;
     -moz-animation: sk-bounce 2s infinite ease-in-out;
     animation: sk-bounce 2s infinite ease-in-out; }
-  .ajax-wait:after {
+  .ajax-wait > div:after {
     top: auto;
-    bottom: 0;
-    -webkit-animation-delay: -1s;
-    -moz-animation-delay: -1s;
-    animation-delay: -1s; }
+    bottom: 0.625rem;
+    -webkit-animation-delay: -0.5s;
+    -moz-animation-delay: -0.5s;
+    animation-delay: -0.5s; }
 
 .filter {
   display: -webkit-box;
@@ -12274,7 +12274,7 @@ a.tag.tag--important:hover {
     padding-bottom: 1.25rem; } }
 
 .top-actions {
-  margin-top: 1.25rem; }
+  margin-top: 2.5rem; }
   .top-actions .wrapper, .top-actions .wrapper--narrow {
     display: -webkit-box;
     display: -moz-box;
@@ -13023,7 +13023,6 @@ a.tag.tag--important:hover {
     background-color: #ffffff; }
   @media only screen and (min-width: 64.0625em) {
     .actionnaireCarnet__listInfor, .actionnaireCarnet__static {
-      padding-bottom: 2.08333rem;
       background-color: #ffffff; }
       .actionnaireCarnet__listInfor > .inner, .actionnaireCarnet__static > .inner {
         padding: 0 0.83333rem; } }
@@ -13105,20 +13104,18 @@ a.tag.tag--important:hover {
   font-family: "Helvetica Neue LT W04_75 Bold";
   color: #003e5e; }
 
-.actionnaireCarnet__static__note {
-  padding-bottom: 1.66667rem; }
-  .actionnaireCarnet__static__note ol {
-    margin: 0;
-    padding-top: 1.875rem;
-    counter-reset: list; }
-    .actionnaireCarnet__static__note ol > li {
-      list-style: none;
-      font-size: 0.75rem;
-      font-style: italic;
-      color: #869298; }
-      .actionnaireCarnet__static__note ol > li:before {
-        content: counter(list) ") ";
-        counter-increment: list; }
+.actionnaireCarnet__static__note ol {
+  margin: 0;
+  padding-top: 1.875rem;
+  counter-reset: list; }
+  .actionnaireCarnet__static__note ol > li {
+    list-style: none;
+    font-size: 0.75rem;
+    font-style: italic;
+    color: #869298; }
+    .actionnaireCarnet__static__note ol > li:before {
+      content: counter(list) ") ";
+      counter-increment: list; }
 
 @media only screen and (min-width: 48em) {
   .actionnaireCarnet__listInfor > .inner, .actionnaireCarnet__static > .inner {
@@ -13917,6 +13914,9 @@ a.tag.tag--important:hover {
   margin: 0;
   list-style: none; }
 
+.noResults [class*="block-grid-"] > li {
+  padding-bottom: 0; }
+
 .noResults__heading {
   text-align: center;
   padding: 1.875rem 0; }
@@ -13960,6 +13960,12 @@ a.tag.tag--important:hover {
   font-family: "Helvetica Neue LT W04_75 Bold";
   font-size: 0.79167rem;
   color: #199edd; }
+
+.noResults dl {
+  padding-top: 3.75rem; }
+
+.noResults dl, .noResults dd {
+  margin-bottom: 0; }
 
 @media only screen and (min-width: 48em) {
   .noResults__heading {
