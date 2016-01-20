@@ -92,7 +92,7 @@ print theme('finance_header_block');
                                foreach ($data['tab_document'] as $key => $value) :
                             ?>
                                 <li class="bordered">
-                                    <a href="<?php print $value['tab_url']; ?>" title="<?php print $value['tab_title']; ?>" class="<?php if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0)) : print 'active'; endif; ?>">
+                                    <a href="<?php print $value['tab_url']; ?>" title="<?php print $value['tab_title']; ?>" class="<?php if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0) || ($data['flag'] && $i == 0)) : print 'active'; endif; ?>">
                                         <span><?php print $value['tab_title']; ?></span>
                                     </a>
                                 </li>
