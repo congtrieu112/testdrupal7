@@ -104,6 +104,10 @@ function kandb_activities_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_activities_nos_agences',
       'variables' => array(),
     ),
+    'group_activities_nos_agences_sub' => array(
+      'template' => 'templates/group_activities_nos_agences_sub',
+      'variables' => array(),
+    ),
   );
 }
 
