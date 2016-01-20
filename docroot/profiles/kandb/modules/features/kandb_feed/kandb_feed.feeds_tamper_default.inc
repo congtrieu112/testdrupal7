@@ -692,6 +692,36 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
   $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-identifiantpartenaire-trim_partenaire_id_left';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'IdentifiantPartenaire';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '{',
+    'side' => 'ltrim',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Trim';
+  $export['partenaire_import-identifiantpartenaire-trim_partenaire_id_left'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_import-identifiantpartenaire-trim_partenaire_id_right';
+  $feeds_tamper->importer = 'partenaire_import';
+  $feeds_tamper->source = 'IdentifiantPartenaire';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '}',
+    'side' => 'rtrim',
+  );
+  $feeds_tamper->weight = 2;
+  $feeds_tamper->description = 'Trim';
+  $export['partenaire_import-identifiantpartenaire-trim_partenaire_id_right'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
   $feeds_tamper->id = 'partenaire_import-lotplan-find_replace_plan_non';
   $feeds_tamper->importer = 'partenaire_import';
   $feeds_tamper->source = 'LotPlan';
@@ -837,13 +867,13 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->source = 'TypeExport';
   $feeds_tamper->plugin_id = 'find_replace';
   $feeds_tamper->settings = array(
-    'find' => 'Sélection de programmes Grand Public',
+    'find' => 'Sélection de programmes',
     'replace' => '3',
     'case_sensitive' => 0,
     'word_boundaries' => 1,
     'whole' => 1,
     'regex' => TRUE,
-    'regex_find' => '/^Sélection de programmes Grand Public$/ui',
+    'regex_find' => '/^Sélection de programmes$/ui',
   );
   $feeds_tamper->weight = 2;
   $feeds_tamper->description = 'Find replace';
@@ -888,6 +918,36 @@ function kandb_feed_feeds_tamper_default() {
   $feeds_tamper->weight = 1;
   $feeds_tamper->description = 'Find replace';
   $export['partenaire_import-typeexport-find_replace_prog_prescript'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_programme_import-identifiantpartenaire-trim_partenaire_id_left';
+  $feeds_tamper->importer = 'partenaire_programme_import';
+  $feeds_tamper->source = 'IdentifiantPartenaire';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '{',
+    'side' => 'ltrim',
+  );
+  $feeds_tamper->weight = 0;
+  $feeds_tamper->description = 'Trim';
+  $export['partenaire_programme_import-identifiantpartenaire-trim_partenaire_id_left'] = $feeds_tamper;
+
+  $feeds_tamper = new stdClass();
+  $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
+  $feeds_tamper->api_version = 2;
+  $feeds_tamper->id = 'partenaire_programme_import-identifiantpartenaire-trim_partenaire_id_right';
+  $feeds_tamper->importer = 'partenaire_programme_import';
+  $feeds_tamper->source = 'IdentifiantPartenaire';
+  $feeds_tamper->plugin_id = 'trim';
+  $feeds_tamper->settings = array(
+    'mask' => '}',
+    'side' => 'rtrim',
+  );
+  $feeds_tamper->weight = 1;
+  $feeds_tamper->description = 'Trim';
+  $export['partenaire_programme_import-identifiantpartenaire-trim_partenaire_id_right'] = $feeds_tamper;
 
   $feeds_tamper = new stdClass();
   $feeds_tamper->disabled = FALSE; /* Edit this to true to make a default feeds_tamper disabled initially */
