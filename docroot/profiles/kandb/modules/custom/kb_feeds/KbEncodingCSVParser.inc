@@ -37,6 +37,7 @@ class KbEncodingCSVParser extends FeedsCSVParser {
     if ($importer_id && !variable_get($importer_id . '_log_name')) {
       $file_log_name = $importer_id . '_log_' . date('Y-m-d_H-i-s') . '.txt';
       variable_set($importer_id . '_log_name', $file_log_name);
+      $status = db_delete('variable')->condition('name', 'partenaire_programme_import_ids_%', 'LIKE')->execute();
     }
 
     // Determine section to parse, parse.

@@ -1,6 +1,3 @@
-<?php
-define(MAX_LENGTH_FILENAME, 50);
-?>
 <div class="wrapper--narrow downloadDocs">
   <ul data-app-accordion="communiquesDocs" class="accordion fullWidth">
       <?php $i_active = 0; ?>
