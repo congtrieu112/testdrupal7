@@ -554,6 +554,74 @@ function kandb_region_kb_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-region_kb-field_kb_agence3_telephone'
+  $field_instances['node-region_kb-field_kb_agence3_telephone'] = array(
+    'bundle' => 'region_kb',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 55,
+      ),
+      'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_kb_agence3_telephone',
+    'label' => 'Téléphone',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 22,
+    ),
+  );
+
   // Exported field_instance: 'node-region_kb-field_kb_agence4_address'
   $field_instances['node-region_kb-field_kb_agence4_address'] = array(
     'bundle' => 'region_kb',
@@ -3461,74 +3529,6 @@ function kandb_region_kb_field_default_field_instances() {
       ),
       'type' => 'text_textfield',
       'weight' => 12,
-    ),
-  );
-
-  // Exported field_instance: 'node-region_kb-field_t_l_phone'
-  $field_instances['node-region_kb-field_t_l_phone'] = array(
-    'bundle' => 'region_kb',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 17,
-      ),
-      'full' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_t_l_phone',
-    'label' => 'Téléphone',
-    'required' => 0,
-    'settings' => array(
-      'better_formats' => array(
-        'allowed_formats' => array(
-          'full_html' => 'full_html',
-          'plain_text' => 'plain_text',
-          'simple' => 'simple',
-        ),
-        'allowed_formats_toggle' => 0,
-        'default_order_toggle' => 0,
-        'default_order_wrapper' => array(
-          'formats' => array(
-            'full_html' => array(
-              'weight' => -8,
-            ),
-            'plain_text' => array(
-              'weight' => -10,
-            ),
-            'simple' => array(
-              'weight' => -9,
-            ),
-          ),
-        ),
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 22,
     ),
   );
 

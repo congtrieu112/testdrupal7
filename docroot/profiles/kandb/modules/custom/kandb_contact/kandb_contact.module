@@ -35,6 +35,15 @@ function kandb_contact_menu() {
     'access arguments' => array('access download'),
   );
 
+  $items['document_download/%'] = array(
+    'title' => 'Document download',
+    'description' => 'Download file after submit the webform',
+    'page callback' => 'document_download',
+    'page arguments' => array(1),
+    'type' => MENU_NORMAL_ITEM,
+    'access arguments' => array('access download'),
+  );
+
   return $items;
 }
 
@@ -147,27 +156,28 @@ function kandb_contact_buttons($only_links = false) {
     if ($webform) {
       $url[$webform->title] = $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid);
       $links[] = theme_link(
-        array(
-          'text' => $webform->title,
-          'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
-          'options' => array(
-            'attributes' => array(
-              'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
-              'data-reveal-ajax' => array('true'),
-              'data-reveal-id' => array('popinLeadForm'),
-            ),
-            'html' => FALSE,
+          array(
+            'text' => $webform->title,
+            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+            'options' => array(
+              'attributes' => array(
+                'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
+                'data-reveal-ajax' => array('true'),
+                'data-reveal-id' => array('popinLeadForm'),
+              ),
+              'html' => FALSE,
+            )
           )
-        )
       );
     }
   }
 
-  if($only_links) return $url;
+  if ($only_links)
+    return $url;
 
   return theme('contact_buttons', array(
     'links' => $links
-    )
+      )
   );
 }
 
@@ -204,7 +214,8 @@ function kandb_contact_get_all_variables($is_mini_contact = FALSE) {
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
     );
-  } else {
+  }
+  else {
     $variables = array(
       'kandb_contact_numero_text' => '',
       'kandb_contact_numero_vert' => '',
@@ -415,16 +426,24 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             break;
           case $webform_id_telechargement_documents:
             $parram = drupal_get_query_parameters();
-            if($parram['contenttype'] == 'bien'){
-                $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
-                $form['submitted']['ma_idkp']["#value"] = (!empty($id_bien)) ? $id_bien : '';
-            }else{
-                $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
-                $form['submitted']['ma_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
+            if ($parram['contenttype'] == 'bien') {
+              $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_bien)) ? $id_bien : '';
+              $form['submitted']['ma_idkp']["#value"] = (!empty($id_bien)) ? $id_bien : '';
+            }
+            else {
+              $form['submitted']['ma_idkp']["#default_value"] = (!empty($id_programme)) ? $id_programme : '';
+              $form['submitted']['ma_idkp']["#value"] = (!empty($id_programme)) ? $id_programme : '';
             }
 
+            // Include JS inline to close the popin document.
+            drupal_add_js(
+                'Drupal.ajax.prototype.commands.closePopin = function(ajax, response, status) {
+                // Whatever you want to do. i.e. :
+                jQuery(".close-reveal-modal").trigger("click");
+              }', 'inline'
+            );
             $form['#submit'][] = 'telechargement_documents_download_header';
-              break;
+            break;
           default:
             break;
         }
@@ -531,11 +550,11 @@ function kandb_webform_client_validate(&$form, &$form_state) {
 function webform_contact_list_submitted_data($form, $form_state) {
   module_load_include('inc', 'webform', 'includes/webform.submissions');
   $webforms = db_select('webform', 'w')
-    ->distinct()
-    ->fields('w', array('nid'))
-    ->condition('machine_name', array('_tre_rappel_', 'prendre_rendez_vous', 'avant_contactez_nous'), 'IN')
-    ->execute()
-    ->fetchAll();
+      ->distinct()
+      ->fields('w', array('nid'))
+      ->condition('machine_name', array('_tre_rappel_', 'prendre_rendez_vous', 'avant_contactez_nous'), 'IN')
+      ->execute()
+      ->fetchAll();
 
   $nids = array();
   $op_type = array();
@@ -550,12 +569,12 @@ function webform_contact_list_submitted_data($form, $form_state) {
   }
 
   $results = db_select('webform_submitted_data', 'wsd')
-    ->distinct()
-    ->fields('wsd', array('nid', 'sid'))
-    ->condition('nid', $nids, 'IN')
-    //->extend('PagerDefault')->limit(2)
-    ->execute()
-    ->fetchAll();
+      ->distinct()
+      ->fields('wsd', array('nid', 'sid'))
+      ->condition('nid', $nids, 'IN')
+      //->extend('PagerDefault')->limit(2)
+      ->execute()
+      ->fetchAll();
 
   $options = array();
 
@@ -678,75 +697,90 @@ function kandb_contact_specific_block_page($programme) {
   return theme('contact_specific_block_page', array('programme' => $programme));
 }
 
-function kandb_contact_get_telechargement_documents_url () {
+function kandb_contact_get_telechargement_documents_url() {
   $webform_telechargement_documents = webform_features_machine_name_load('telechargement_documents');
   if (!isset($webform_telechargement_documents->nid)) {
     return '';
   }
-  $url = url('node/'. $webform_telechargement_documents->nid);
+  $url = url('node/' . $webform_telechargement_documents->nid);
   return $url;
 }
-function telechargement_documents_download_header($form, $form_state){
-    $parram = drupal_get_query_parameters();
-    if ($parram['contenttype'] == 'bien'){
-        $field = 'field_id_bien';
-    } else //programme
-    {
-        $field = 'field_id_programme';
+
+function telechargement_documents_download_header($form, $form_state) {
+  $parram = drupal_get_query_parameters();
+  if ($parram['contenttype'] == 'bien') {
+    $field = 'field_id_bien';
+  }
+  else { //programme
+    $field = 'field_id_programme';
+  }
+  $query = new EntityFieldQuery();
+  $query->entityCondition('entity_type', 'node')
+      ->fieldCondition($field, 'value', $form['submitted']['ma_idkp']['#default_value'], '=');
+  $result = $query->execute();
+  if (!empty($result['node'])) {
+    $nid = key($result['node']);
+  }
+  $node = node_load($nid);
+  $real_path = drupal_realpath('public://');
+  if ($parram['contenttype'] == 'bien') {
+    if (isset($parram['type']) && $parram['type'] == 'txt') {
+      $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
+      if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'])) {
+        $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
+        $fileName = $programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'];
+        $filePath = $real_path . '/' . $fileName;
+        ;
+      }
     }
-    $query = new EntityFieldQuery();
-    $query->entityCondition('entity_type', 'node')
-        ->fieldCondition($field, 'value', $form['submitted']['ma_idkp']['#default_value'], '=');
-    $result = $query->execute();
-    if (!empty($result['node'])) {
-            $nid = key($result['node']);
+    else {
+      //get link zip file
+      $fileName = $node->field_bien_plan['und'][0]['filename'];
+      $filePath = $real_path . '/' . $fileName;
     }
-    $node = node_load($nid);
-    $real_path = drupal_realpath('public://');
-    if ($parram['contenttype'] == 'bien') {
-        if(isset($parram['type']) && $parram['type'] == 'txt'){
-            $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
-            if (isset($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'])) {
-                $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
-                $fileName = $programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'];
-                $filePath = $real_path . '/' . $fileName;;
-            }
-        } else {
-            //get link zip file
-            $fileName = $node->field_bien_plan['und'][0]['filename'];
-            $filePath = $real_path . '/' . $fileName;
-        }
-    } else {
-        if (isset($parram['download']) && $parram['download'] == 'zip') {
-            $addMore = '_';
-            $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
-            if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
-                $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
-            }
-        }
-        else {
-            //download txt
-            $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
-            $filePath = $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
-        }
+  }
+  else {
+    if (isset($parram['download']) && $parram['download'] == 'zip') {
+      $addMore = '_';
+      $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+      if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
+        $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+      }
     }
-    if ($filePath) {
-        if (file_exists($filePath)) {
-            // http headers for zip downloads
-            header("Pragma: public");
-            header("Expires: 0");
-            header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-            header("Cache-Control: public");
-            header("Content-Description: File Transfer");
-            header("Content-type: application/octet-stream");
-            header("Content-Disposition: attachment; filename=\"".$fileName."\"");
-            header("Content-Transfer-Encoding: binary");
-            header("Content-Length: ".filesize($filePath));
-            ob_end_flush();
-            @readfile($filePath);
-            exit();
-        }
+    else {
+      //download txt
+      $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
+      $filePath = $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
     }
+  }
+  if ($filePath) {
+    if (file_exists($filePath)) {
+      ctools_include('ajax');
+      ctools_add_js('ajax-responder');
+      $commands[] = array('command' => 'closePopin');
+      $document_uri = base64_encode($node->field_plaquette_commerciale['und'][0]['uri']);
+      $commands[] = ctools_ajax_command_redirect('document_download/' . $document_uri);
+      print ajax_render($commands);
+      exit();
+    }
+  }
+}
+
+/**
+ * Implements download document.
+ */
+function document_download($path_uri) {
+  if ($path_uri) {
+    $path_uri = base64_decode($path_uri);
+    $content_disposition = 'attachment; filename="' . basename($path_uri) . '"';
+    $headers = array
+      (
+      'Content-type' => 'application/octet-stream',
+      'Content-Disposition' => $content_disposition,
+      'Content-Transfer-Encoding' => 'binary',
+    );
+    file_transfer($path_uri, $headers);
+  }
 }
 
 function kandb_contact_get_espace_vente_label() {
