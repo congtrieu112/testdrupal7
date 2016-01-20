@@ -21,20 +21,22 @@ print theme('finance_header_block');
     <header class="heading heading--bordered">
       <h1 class="heading__title"><?php print $page_title; ?></h1>
     </header>
-    <nav class="form-dropdown form-dropdown--responsive">
-      <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
-      <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
-        <ul class="ul-unstyled undo-padding">
-          <?php foreach($content_archives['tab_header'] as $tab_content) : ?>
-            <?php if ($tab_content['tab_url']) : ?>
-              <li class="bordered"><a class="<?php print $tab_content['class']; ?>" href="<?php print $tab_content['tab_url']; ?>"><span><?php print $tab_content['tab_title'] ;?></span></a></li>
-            <?php endif;?>
-          <?php endforeach; ?>
-        </ul>
-      </div>
-    </nav>
+    <?php if ($hidetab) : ?>
+      <nav class="form-dropdown form-dropdown--responsive">
+        <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
+        <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
+          <ul class="ul-unstyled undo-padding">
+            <?php foreach($content_archives['tab_header'] as $tab_content) : ?>
+              <?php if ($tab_content['tab_url']) : ?>
+                <li class="bordered"><a class="<?php print $tab_content['class']; ?>" href="<?php print $tab_content['tab_url']; ?>"><span><?php print $tab_content['tab_title'] ;?></span></a></li>
+              <?php endif;?>
+            <?php endforeach; ?>
+          </ul>
+        </div>
+      </nav>
+    <?php endif; ?>
   </div>
-  <?php 
+  <?php
   $args = array(
     'content_archives' => $content_archives,
     'pager' => theme('pager'),
