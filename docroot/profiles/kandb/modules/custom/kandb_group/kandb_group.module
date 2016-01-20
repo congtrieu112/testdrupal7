@@ -765,7 +765,7 @@ function kandb_group_page() {
     }
   }
   $content_archives = array();
-  $content_archives['tab_content'] = get_document_by_type($document_type_tid, 0);
+  $content_archives['tab_content'] = get_document_by_type($document_type_tid, 0, TRUE, 0);
   return theme('group_new', array('content_archives' => $content_archives, 'pager' => theme('pager')));
 }
 

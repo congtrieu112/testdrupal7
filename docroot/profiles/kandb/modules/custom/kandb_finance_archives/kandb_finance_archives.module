@@ -153,10 +153,10 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
   ));
 }
 
-function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
+function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE, $skip_year = 3) {
   $content = array();
   $current_year = date('Y', time());
-  $end_time = strtotime($current_year - 3 . '-12-31 23:59:59');
+  $end_time = strtotime($current_year - $skip_year . '-12-31 23:59:59');
   if ($paging) {
     $db_query = db_select('node', 'n')->extend('PagerDefault');
     $db_query->limit(50);
