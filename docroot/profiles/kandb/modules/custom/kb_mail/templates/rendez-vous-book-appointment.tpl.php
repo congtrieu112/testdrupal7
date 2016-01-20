@@ -120,6 +120,7 @@
                                                                                     <?php print $mail_vars['programme_loc_type']; ?> <?php print $mail_vars['programme_loc_rue']; ?>
                                                                                 </p>
                                                                                 <?php if ($mail_vars['bien_lot_id']) : ?>
+                                                                                  Le bien qui l'intéresse :<br />
                                                                                   <p style="margin: 0;">
                                                                                     Le bien qui l'intéresse :<br>
                                                                                       <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
