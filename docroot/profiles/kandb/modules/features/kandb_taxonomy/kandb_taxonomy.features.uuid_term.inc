@@ -5963,7 +5963,15 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'ce124ec1-4ade-4f49-9438-f47e8ab85e86',
     'vocabulary_machine_name' => 'caracteristiques',
-    'field_icon_name' => array(),
+    'field_icon_name' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'icon-terrasse',
+          'format' => NULL,
+          'safe_value' => 'icon-terrasse',
+        ),
+      ),
+    ),
     'field_searchable' => array(
       'und' => array(
         0 => array(
