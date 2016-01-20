@@ -45,7 +45,7 @@ if (module_exists('kandb_validate')) {
   $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
   $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
   $month_start = date('M' ,strtotime($start_date));
-  $date_range_string = implode(' & ', $date_range) . ' ' . translatorMonth('fr',$month_start);
+  $date_range_string = implode(' & ', $date_range) . ' ' . translatorMonth($month_start, 'fr');
 }
 
 $promotion = array();
