@@ -63,7 +63,7 @@
                                                   <br />
                                                   Ville : <?php print $mail_vars['rdv_ville']; ?><?php if ($mail_vars['rdv_lieudit']) : ?> - <?php print $mail_vars['rdv_lieudit']; ?> <?php endif; ?><br />
                                                   Code Postal : <?php print $mail_vars['rdv_code_postal']; ?><br />
-                                                  Pays : <br />
+                                                  Pays : <?php print $mail_vars['rdv_pays']; ?> <br />
                                                   E-mail : <?php  print $mail_vars['rdv_email']; ?><br />
                                                   Telephone : <?php print $mail_vars['rdv_telephone']; ?><br />
                                                   Son message : <?php print $mail_vars['rdv_message']; ?><br />
