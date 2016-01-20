@@ -112,6 +112,9 @@ function kandb_business_rules_feeds_presave(FeedsSource $source, $entity, $item)
       if (empty($entity_id)) {
         $status_invisible = Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_INDISPONIBLE);
         $entity->field_bien_statut[LANGUAGE_NONE][0]["tid"] = $status_invisible;
+        //"Published" option should be set to "false".
+        //(Published should be set to TRUE only manually).
+        $entity->status = NODE_NOT_PUBLISHED;
         kb_logging_business_rule($id_bien . ': B-106');
       }
 
