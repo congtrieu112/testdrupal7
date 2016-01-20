@@ -491,7 +491,7 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     if(!$document_type_tid){
       $data['recent_document'] = $document_type_tabs[0]['document'];
     }else{
-        $flag = FALSE;
+       $data['flag'] = FALSE;
         if ($current_lang == 'en') {
             $current_lang_key = 1;
         }
