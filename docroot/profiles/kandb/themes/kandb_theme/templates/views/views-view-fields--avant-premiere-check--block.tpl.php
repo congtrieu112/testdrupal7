@@ -72,7 +72,7 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                   <li>
                       <?php if($row->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
                       <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
-
+                      
                         <!-- [popin] start-->
                         <div data-reveal="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" aria-hidden="true" role="dialog" class="reveal-modal full scroll reduced">
                             <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
@@ -89,7 +89,7 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                   <?php
                   if ($promotion) :
                     foreach ($promotion as $value) :
-                      if (isset($value->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $value->field_field_promotion_mention_legale[0]['rendered']['#markup']) :
+                      if (isset($value->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $value->field_field_promotion_mention_legale[0]['rendered']['#markup']) : 
                       ?>
                       <li>
                           <button data-reveal-trigger="avant_premiere_<?php print $value->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $value->field_promotion_avant_premiere_node_title; ?></button>
