@@ -25,9 +25,12 @@ function kandb_admin_content_form_alter(&$form, &$form_state, $form_id){
  * Translate month to France
  * @param string $monthString Description
  */
-function translatorMonth($monthString) {
-  $english = array('Jan','Febr','Mar','Apr','May','Jun','Jul','Aug','Sept','Oct','Nov','Dec');
-  $french = array('Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre');
-
-  return str_replace($english, $french, $monthString);
+function translatorMonth($monthString, $language_code = 'fr') {
+  $language = array(
+    'en' => array('Jan', 'Febr', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'),
+    'fr' => array('Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'));
+  if (isset($language[$language_code])) {
+    return str_replace($language['en'], $language[$language_code], $monthString);
+  }
+  return $monthString;
 }
