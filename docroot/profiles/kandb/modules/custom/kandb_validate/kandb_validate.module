@@ -467,20 +467,3 @@ function kandb_validate_node_update($node){
     create_file_archire_for_habitat(node_load($node->nid, NULL, TRUE));
   }
 }
-
-/**
- * Implement hook_form_Form_ID_alter().
- */
-//function kandb_validate_form_homepage_node_form_alter(&$form, &$form_state) {
-//  $form['#submit'][] = 'kandb_validate_homepage_create_zip';
-//}
-
-/**
- * Implement hook_form_submit();
- */
-//function kandb_validate_homepage_create_zip(&$form, &$form_state) {
-//  if (isset($form_state['values']['nid'])) {
-//    $node = node_load($form_state['values']['nid']);
-//    create_file_archire_for_habitat($node);
-//  }
-//}
