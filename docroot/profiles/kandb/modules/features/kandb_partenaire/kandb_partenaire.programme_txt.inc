@@ -1,15 +1,17 @@
 <?php
 
 function kandb_update_b2c_b2b_partenaire_programme_txt_files() {
+  ini_set ('memory_limit', '1024M');
+  set_time_limit(0);
   $domain_b2b_id = domain_load_domain_id('kandb_b2b');
   $domain_b2c_id = domain_load_domain_id('kandb_b2c');
   $b2b_programmes = $b2c_programmes = array();
   $b2b_programme_ids = kandb_update_b2c_b2b_partenaire_get_programme($domain_b2b_id);
   $b2c_programme_ids = kandb_update_b2c_b2b_partenaire_get_programme($domain_b2c_id);
-  $b2b_programmes = node_load_multiple($b2b_programme_ids);
-  $b2c_programmes = node_load_multiple($b2c_programme_ids);
-  $b2b_data = kandb_update_b2c_b2b_partenaire_build_programme_data($b2b_programmes);
-  $b2c_data = kandb_update_b2c_b2b_partenaire_build_programme_data($b2c_programmes);
+  $b2b_programme_ids_arr = array_chunk($b2b_programme_ids, 100);
+  $b2c_programme_ids_arr = array_chunk($b2c_programme_ids, 100);
+  $b2b_data = '';
+  $b2c_data = '';
   $uri = 'public://partenaire/';
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   if ($prepare_file) {
@@ -43,11 +45,30 @@ function kandb_update_b2c_b2b_partenaire_programme_txt_files() {
         }
       }
     }
-    if ($b2b_data) {
-      file_save_data($b2b_data, $uri_b2b . '/' . $file_name, FILE_EXISTS_REPLACE);
+    file_save_data($b2b_data, $uri_b2b . '/' . $file_name, FILE_EXISTS_REPLACE);
+    foreach ($b2b_programme_ids_arr as $k => $v) {
+      $b2b_data = kandb_update_b2c_b2b_partenaire_build_programme_data($v);
+      if ($b2b_data && $k == count($b2b_programme_ids_arr) - 1) {
+        $b2b_data .= "|";
+      }
+      elseif ($b2b_data) {
+        $b2b_data .= "|\n";
+      }
+      file_put_contents($ori_path . '/b2b/' . $file_name, $b2b_data, FILE_APPEND);
+      sleep(5);
     }
-    if ($b2c_data) {
-      file_save_data($b2c_data, $uri_b2c . '/' . $file_name, FILE_EXISTS_REPLACE);
+    file_save_data($b2c_data, $uri_b2c . '/' . $file_name, FILE_EXISTS_REPLACE);
+    
+    foreach ($b2c_programme_ids_arr as $k => $v) {
+      $b2c_data = kandb_update_b2c_b2b_partenaire_build_programme_data($v);
+      if ($b2c_data && $k == count($b2c_programme_ids_arr) - 1) {
+        $b2c_data .= "|";
+      }
+      elseif ($b2c_data) {
+        $b2c_data .= "|\n";
+      }
+      file_put_contents($ori_path . '/b2c/' . $file_name, $b2c_data, FILE_APPEND);
+      sleep(5);
     }
     $patenaires = get_partenaire();
     foreach ($patenaires as $patenaire) {
@@ -74,7 +95,7 @@ function kandb_update_b2c_b2b_partenaire_programme_txt_files() {
           }
         }
         $programme_patenaire = kandb_update_b2c_b2b_partenaire_get_programme(NULL, $programme_patenaire);
-        $data_patenaire = kandb_update_b2c_b2b_partenaire_build_programme_data(node_load_multiple($programme_patenaire));
+        $data_patenaire = kandb_update_b2c_b2b_partenaire_build_programme_data($programme_patenaire);
         if ($data_patenaire) {
           file_save_data($data_patenaire, $uri_patenaire . '/' . $file_name, FILE_EXISTS_REPLACE);
         }
@@ -128,11 +149,13 @@ function kandb_update_b2c_b2b_partenaire_build_programme_data($programmes = arra
     return $data;
   }
   $default_row = array();
-  $mailing_list = trim(variable_get('kb_call_center_mailing_list', ''));
+  $mailing_list = trim(str_replace("\r", '', variable_get('kb_call_center_mailing_list', '')));
   $default_row[18] = $default_row[19] = str_replace("\n", ';', $mailing_list);
   $default_row[20] = $default_row[21] = trim(variable_get('kb_call_center_sender_mail', ''));
   $rows = array();
-  foreach ($programmes as $programme) {
+  $reset_sleep = 0;
+  foreach ($programmes as $nid) {
+    $programme = node_load($nid);
     $biens = get_bien_disponibles_by_programme_id($programme->nid);
     $row = $default_row;
     $col_term_name = array(
@@ -236,11 +259,13 @@ function kandb_update_b2c_b2b_partenaire_build_programme_data($programmes = arra
     }
     ksort($row);
     $rows[] = implode('¤', $row);
+    $reset_sleep++;
+    if ($reset_sleep == 50) {
+      $reset_sleep = 0;
+      sleep(5);
+    }
   }
   $data = implode("|\n", $rows);
-  if ($data) {
-    $data .= '|';
-  }
   return $data;
 }
 
@@ -270,14 +295,6 @@ function get_bien_disponibles_by_programme_id($programme_id = 0){
   if (!is_numeric($programme_id) || $programme_id == 0) {
     return $biens;
   }
-  $db_query_bien = db_select('node', 'n');
-  $db_query_bien->fields('n', array('nid'));
-  $db_query_bien->condition('n.status', 1);
-  $db_query_bien->condition('n.type', 'bien');
-  $all_biens = $db_query_bien->distinct()->execute()->fetchCol();
-  if (empty($all_biens)) {
-    return $biens;
-  }
   $db_query = db_select('field_data_field_programme', 'prog');
   $db_query->fields('prog', array('entity_id'));
   $db_query->leftJoin('field_data_field_bien_statut', 'ft', 'ft.entity_id=prog.entity_id');
@@ -287,9 +304,10 @@ function get_bien_disponibles_by_programme_id($programme_id = 0){
   $db_query->condition('xls.entity_type', 'taxonomy_term');
   $db_query->condition('xls.bundle', 'status_logement');
   $db_query->condition('xls.field_id_xls_value', 1);
-  $db_query->condition('prog.entity_id', $all_biens, 'IN');
   $db_query->condition('prog.entity_type', 'node');
   $db_query->condition('prog.bundle', 'bien');
+  $db_query->leftJoin('node', 'n', 'n.nid=prog.entity_id');
+  $db_query->condition('n.status', 1);
   $db_query->condition('prog.field_programme_target_id', $programme_id);
   $biens = $db_query->distinct()->execute()->fetchCol();
   return $biens;

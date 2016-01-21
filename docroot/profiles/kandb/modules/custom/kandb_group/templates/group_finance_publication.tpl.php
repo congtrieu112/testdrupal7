@@ -1,11 +1,9 @@
 <?php
-define(MAX_LENGTH_FILENAME, 50);
 $current_url = url(current_path(), array('absolute' => TRUE));
 $current_path = explode('/', $current_url);
 $current_path_alias = $current_path[count($current_path)- 3];
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
-;
 
 print theme('finance_header_block');
 ?>
@@ -92,7 +90,7 @@ print theme('finance_header_block');
                                foreach ($data['tab_document'] as $key => $value) :
                             ?>
                                 <li class="bordered">
-                                    <a href="<?php print $value['tab_url']; ?>" title="<?php print $value['tab_title']; ?>" class="<?php if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0)) : print 'active'; endif; ?>">
+                                    <a href="<?php print $value['tab_url']; ?>" title="<?php print $value['tab_title']; ?>" class="<?php if ($current_path_alias == $value['tab_id'] || (count($current_path) <= 7 && $i == 0) || ($data['flag'] && $i == 0)) : print 'active'; endif; ?>">
                                         <span><?php print $value['tab_title']; ?></span>
                                     </a>
                                 </li>
@@ -134,12 +132,8 @@ print theme('finance_header_block');
                                                     $filename = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
                                                   }
                                                 ?>
-                                                <li>
-                                                    <?php if(strlen($filename) < MAX_LENGTH_FILENAME): ?>
-                                                      <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
-                                                    <?php else: ?>
-                                                      <div class="communiquesDocs__list__title"><span><?php print $filename ; ?></span></div>
-                                                    <?php endif;?>
+                                                <li>                                                    
+                                                    <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>                                                    
                                                     <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
                                                 </li>
                                               <?php endforeach; ?>

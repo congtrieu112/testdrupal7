@@ -293,23 +293,25 @@ function get_tid_status_du_logement_by_name($term_name = TAXONOMY_STATUS_LOGEMEN
  * Implements get biens by programmes_id and type domain.
  */
 function kandb_get_biens_by_programme_id_type($programme_id, $type = null) {
-  $query = db_select('node', 'n');
-  $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');
-  $query->condition('p.field_programme_target_id', $programme_id);
-  $query->fields('n', array('nid'));
-  $query->condition('n.type', 'bien');
-  $query->condition('n.status', 1);
-  if ($type) {
-    $query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
-    $query->condition('dm.realm', 'domain_id');
-    $query->leftJoin('domain_access', 'dmp', 'dmp.nid=n.nid');
-    $query->condition('dmp.realm', 'domain_id');
-    $query->condition('dm.gid', $type);
-    $query->condition('dmp.gid', $type);
-  }
-  $result = $query->execute()->fetchCol();
-  if (isset($result)) {
-    return $result;
+  $tid = get_tid_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+  if ($tid) {
+    $query = db_select('node', 'n');
+    $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');
+    $query->condition('p.field_programme_target_id', $programme_id);
+    $query->leftJoin('field_data_field_bien_statut', 't', 't.entity_id = n.nid');
+    $query->condition('t.field_bien_statut_tid', $tid);
+    $query->fields('n', array('nid'));
+    $query->condition('n.type', 'bien');
+    $query->condition('n.status', 1);
+    if ($type) {
+      $query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
+      $query->condition('dm.realm', 'domain_id');
+      $query->condition('dm.gid', $type);
+    }
+    $result = $query->execute()->fetchCol();
+    if (isset($result)) {
+      return $result;
+    }
   }
   return false;
 }

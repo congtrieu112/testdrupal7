@@ -182,18 +182,69 @@
         <div class="squaredImageItem__details">
           <div class="heading heading--bordered">
             <h3 class="heading__title"><?php print $title; ?></h3>
-            <p class="heading__title heading__title--sub">Paris / 75</p>
+            <p class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) print t('/ ')?> <?php print $node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']; ?></p>
           </div>
           <div class="text heading--small">
-            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
+            <strong><?php print t('Livraison'); ?></strong>
+            <?php print t('à partir du'); ?>
+            <?php if ($trimstre) print $trimstre; ?>
+            <?php if ($annee) print $annee; ?>
+            <br/>
+            <?php if ($flat_available) print $flat_available; ?>
+            <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
           </div>
-          <ul class="prices">
-            <?php if (isset($field_program_low_tva_price_min[0]['value'])) : ?>
-              <li><span class="text">À partir de <strong><?php print number_format($field_program_low_tva_price_min[0]['value'], 0, ',', ' ');?>€</strong></span><span class="tva"><?php print $field_tva[0]['taxonomy_term']->name; ?></span></li>
-            <?php endif; ?>
-            <li><span class="text">À partir de <strong><?php print number_format($field_programme_price_min[0]['value'], 0, ',', ' '); ?>€</strong></span><span class="tva tva--high">TVA 20%</span></li>
+          <?php if ($de_a_price_tva || $de_a_price) : ?>
+          <ul class="prices">              
+              
+              <?php if(empty($tva) && !$affichage_double_grille): ?>
+              <li>
+                  <span class="text">
+                      <?php if ($de_a_price) print $de_a_price; ?>
+                  </span>
+              </li>
+              <?php endif; ?>
+              
+              <?php if($tva && !$affichage_double_grille): ?>
+              <li>
+                  <span class="text">
+                      <?php if ($de_a_price) print $de_a_price; ?>
+                  </span>
+              </li>
+              <li>
+                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
+                    <?php if ($tva) : ?>
+                  <span class="tva tva--high">TVA 20%</span>
+                    <?php endif; ?>
+              </li>
+              <?php endif; ?>
+              
+              <?php if($tva && $affichage_double_grille): ?>
+              <li>
+                  <span class="text">
+                      <?php if ($de_a_price) print $de_a_price; ?>
+                  </span>
+              </li>
+              <li>
+                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
+                    <?php if ($tva) : ?>
+                  <span class="tva tva--high">TVA 20%</span>
+                    <?php endif; ?>
+              </li>
+              <li>
+                  <span class="text">
+                      <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
+                  </span>
+              </li>
+              <li>
+                  <?php if ($tva) : ?>
+                  <span class="tva tva--high"><?php print $tva; ?></span>
+                  <?php endif; ?>
+              </li>
+              <?php endif; ?>
+              
           </ul>
-        </div>
+          <?php endif; ?>
+        </div>          
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>
