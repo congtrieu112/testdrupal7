@@ -30670,7 +30670,7 @@ return jQuery;
 |___/_|_|\___|_|\_(_)/ |___/
                    |__/
 
- Version: 1.5.9
+ Version: 1.5.8
   Author: Ken Wheeler
  Website: http://kenwheeler.github.io
     Docs: http://kenwheeler.github.io/slick
@@ -30745,7 +30745,6 @@ return jQuery;
                 touchMove: true,
                 touchThreshold: 5,
                 useCSS: true,
-                useTransform: false,
                 variableWidth: false,
                 vertical: false,
                 verticalSwiping: false,
@@ -31164,6 +31163,8 @@ return jQuery;
                 .attr('data-slick-index', index)
                 .data('originalStyling', $(element).attr('style') || '');
         });
+
+        _.$slidesCache = _.$slides;
 
         _.$slider.addClass('slick-slider');
 
@@ -31630,8 +31631,6 @@ return jQuery;
 
         if (filter !== null) {
 
-            _.$slidesCache = _.$slides;
-
             _.unload();
 
             _.$slideTrack.children(this.options.slide).detach();
@@ -31662,7 +31661,7 @@ return jQuery;
         if (_.options.infinite === true) {
             while (breakPoint < _.slideCount) {
                 ++pagerQty;
-                breakPoint = counter + _.options.slidesToScroll;
+                breakPoint = counter + _.options.slidesToShow;
                 counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
             }
         } else if (_.options.centerMode === true) {
@@ -31670,7 +31669,7 @@ return jQuery;
         } else {
             while (breakPoint < _.slideCount) {
                 ++pagerQty;
-                breakPoint = counter + _.options.slidesToScroll;
+                breakPoint = counter + _.options.slidesToShow;
                 counter += _.options.slidesToScroll <= _.options.slidesToShow ? _.options.slidesToScroll : _.options.slidesToShow;
             }
         }
@@ -31739,33 +31738,15 @@ return jQuery;
                 targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow);
             }
 
-            if (_.options.rtl === true) {
-                if (targetSlide[0]) {
-                    targetLeft = (_.$slideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
-                } else {
-                    targetLeft =  0;
-                }
-            } else {
-                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
-            }
+            targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
 
             if (_.options.centerMode === true) {
-                if (_.slideCount <= _.options.slidesToShow || _.options.infinite === false) {
+                if (_.options.infinite === false) {
                     targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex);
                 } else {
                     targetSlide = _.$slideTrack.children('.slick-slide').eq(slideIndex + _.options.slidesToShow + 1);
                 }
-
-                if (_.options.rtl === true) {
-                    if (targetSlide[0]) {
-                        targetLeft = (_.$slideTrack.width() - targetSlide[0].offsetLeft - targetSlide.width()) * -1;
-                    } else {
-                        targetLeft =  0;
-                    }
-                } else {
-                    targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
-                }
-
+                targetLeft = targetSlide[0] ? targetSlide[0].offsetLeft * -1 : 0;
                 targetLeft += (_.$list.width() - targetSlide.outerWidth()) / 2;
             }
         }
@@ -32177,7 +32158,6 @@ return jQuery;
 
         if (imgCount > 0) {
             targetImage = $('img[data-lazy]', _.$slider).first();
-            targetImage.attr('src', null);
             targetImage.attr('src', targetImage.attr('data-lazy')).removeClass('slick-loading').load(function() {
                     targetImage.removeAttr('data-lazy');
                     _.progressiveLazyLoad();
@@ -32196,22 +32176,8 @@ return jQuery;
 
     Slick.prototype.refresh = function( initializing ) {
 
-        var _ = this, currentSlide, firstVisible;
-
-        firstVisible = _.slideCount - _.options.slidesToShow;
-
-        // check that the new breakpoint can actually accept the
-        // "current slide" as the current slide, otherwise we need
-        // to set it to the closest possible value.
-        if ( !_.options.infinite ) {
-            if ( _.slideCount <= _.options.slidesToShow ) {
-                _.currentSlide = 0;
-            } else if ( _.currentSlide > firstVisible ) {
-                _.currentSlide = firstVisible;
-            }
-        }
-
-         currentSlide = _.currentSlide;
+        var _ = this,
+            currentSlide = _.currentSlide;
 
         _.destroy(true);
 
@@ -32590,7 +32556,8 @@ return jQuery;
             _.transformType = 'transform';
             _.transitionType = 'transition';
         }
-        _.transformsEnabled = _.options.useTransform && (_.animType !== null && _.animType !== false);
+        _.transformsEnabled = (_.animType !== null && _.animType !== false);
+
     };
 
 
@@ -33285,13 +33252,18 @@ return jQuery;
     };
 
     Slick.prototype.activateADA = function() {
-        var _ = this;
+        var _ = this,
+        _isSlideOnFocus =_.$slider.find('*').is(':focus');
+        // _isSlideOnFocus = _.$slides.is(':focus') || _.$slides.find('*').is(':focus');
 
         _.$slideTrack.find('.slick-active').attr({
-            'aria-hidden': 'false'
+            'aria-hidden': 'false',
+            'tabindex': '0'
         }).find('a, input, button, select').attr({
             'tabindex': '0'
         });
+
+        (_isSlideOnFocus) &&  _.$slideTrack.find('.slick-active').focus();
 
     };
 
@@ -33319,9 +33291,9 @@ return jQuery;
             opt = arguments[0],
             args = Array.prototype.slice.call(arguments, 1),
             l = _.length,
-            i,
+            i = 0,
             ret;
-        for (i = 0; i < l; i++) {
+        for (i; i < l; i++) {
             if (typeof opt == 'object' || typeof opt == 'undefined')
                 _[i].slick = new Slick(_[i], opt);
             else
@@ -37570,7 +37542,6 @@ var Callback = function ( scope ) {
     var $parent = $( _parent );
     $parent.html( ctrl.msg ).trigger('write');
     //that.fn.bindings.reinit( $parent );
-    $('.ajax-wait').removeClass('ajax-wait');
   };
 
   this.append = function ( data ){
@@ -37903,12 +37874,17 @@ AppAjax.prototype = {
     var that = this,
         dataAjax = typeof data !== 'undefined' ? data : "";
 
-    $target.addClass('ajax-wait');
+    // add spinner (will be replace by response)
+    $target.addClass('ajax-wait').html('<div></div>');
+
+    var triggerSend = function() {
+      $(document).trigger('ajaxResponse');
+    };
 
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
           parent: $target,
-          callback: ["write", that.triggerSend]
+          callback: ["write", triggerSend ]
         });
 
     if ( App.debug ) {
@@ -37926,10 +37902,6 @@ AppAjax.prototype = {
     }
 
     return this;
-  },
-
-  triggerSend: function() {
-    $(document).trigger('ajaxResponse');
   },
 
   url: function() {
@@ -39334,6 +39306,105 @@ $.fn.appPartager = function(opt) {
 $(trigger).appPartager();
 
 },{}],26:[function(require,module,exports){
+/* ============================ */
+/* popinCookies : app-popinCookies.js */
+/* ============================ */
+
+'use strict';
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger       = '[data-popincookies]',
+    accept        = '[data-popincookies-accept]',
+    closer        = '[data-popincookies-close]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppPopinCookies( el, opt ) {
+  this.settings = $.extend({}, defaults, opt);
+  this.item = $(el);
+
+  this.currentState = $.fn.Cookies.get( "popinCookies" );
+
+  if ( this.currentState !== "accept" ) {
+    this.init();
+  }
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppPopinCookies.prototype = {
+
+  init: function() {
+    var that = this;
+
+    $(trigger).show().attr("aria-hidden", "false");
+
+    this.binding();
+
+    return this;
+  },
+
+  binding: function() {
+    var that = this;
+
+    this.item.find(closer).on('click.popinCookies-close', function(e){
+      e.preventDefault();
+      $.fn.Cookies.set( "popinCookies", "close", { expires: 365 } );
+      that.closePopin();
+    });
+
+    this.item.find(accept).on('click.popinCookies-accept', function(e){
+      e.preventDefault();
+      $.fn.Cookies.set( "popinCookies", "accept", { expires: 365 } );
+      that.closePopin();
+    });
+  },
+
+  closePopin: function() {
+    this.item.velocity("slideUp", { duration: 250 });
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appPopinCookies = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppPopinCookies');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppPopinCookies', new AppPopinCookies(this, opt));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+        instance[opt].apply(instance, args);
+      }
+    }
+  });
+};
+
+$(trigger).appPopinCookies();
+},{}],27:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -39437,7 +39508,7 @@ App.reveal();
 App.updaters.reveal = function() {
   App.revealBind();
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39465,7 +39536,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39515,7 +39586,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39616,7 +39687,7 @@ $(trigger).appSeeMore();
 App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
 };
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39666,7 +39737,7 @@ App.appComboSelect(trigger);
 App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-showText.js */
 /* ======================== */
@@ -39782,7 +39853,7 @@ App.updaters.appShowMoreText = function() {
   $(trigger).appShowMoreText();
 };
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39982,175 +40053,6 @@ $(trigger).appSlick();
 App.updaters.appSlick = function() {
   $(trigger).appSlick();
 };
-
-},{}],33:[function(require,module,exports){
-/* ====================== */
-/* expand more info table row: app-table-outils.js */
-/* ====================== */
-
-"use strict";
-var trigger = '[data-expand-row-info]',
-    triggerCheckbox = '[data-table-checkbox]',
-    triggerSelectedCheckbox = '[data-check-selected-rows]',
-    indicator = '[data-expand-indicator]',
-    expandable = '[data-expandable-area]',
-    defaults = {};
-
-
-var toggleInfo = function(ev) {
-  var $target = $(ev.target); 
-  if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
-
-  var $row = $(ev.currentTarget),
-      $indicator = $row.find(indicator),
-      $nextRow = $row.next(),
-      $expandable = $nextRow.find(expandable);
-
-  if ($expandable.is(':visible')) {
-    $expandable.velocity('slideUp', {display: 'none'});
-    $indicator.velocity({rotateX: '0deg'});
-  } else {
-    $expandable.velocity('slideDown');
-    $indicator.velocity({rotateX: '180deg'});
-  }
-};
-
-function AppTableOutils(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableOutils.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', toggleInfo)
-            .on('click', toggleInfo);
-    }
-};
-
-/* ====================== */
-/* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
-/* ====================== */
-var toggleCheckbox = function(ev) {
-  var $target = $(ev.currentTarget),
-      $tbody = $target.closest('tbody');
-
-  if ($tbody) {
-      var isChecked = !!$target.is(':checked'),
-          $checkBoxes = $tbody.find('.' + $target.attr('class'));
-      //$checkBoxes.attr('checked', isChecked);
-      $checkBoxes.each(function(index, obj) {
-        if (!obj.disabled) {
-          obj.checked = isChecked;
-        }
-      });
-  }
-  else {
-      console.error('Input checkbox is not wrapped within a tbody');
-  }
-};
-
-function AppTableCheckbox(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableCheckbox.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('change', toggleCheckbox)
-            .on('change', toggleCheckbox);
-    }
-
-};
-
-
-/* ====================== */
-/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
-/* ====================== */
-var checkRows = function(ev) {
-  var $tbody = $(ev.currentTarget).closest('tbody'),
-      $checkboxes = $tbody.find('[type=checkbox]').filter(':checked');
-
-  if ($checkboxes.length === 0) {
-    ev.preventDefault();
-    ev.stopPropagation();
-  }
-};
-
-function AppCheckSelectedRows(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppCheckSelectedRows.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', checkRows)
-            .on('click', checkRows);
-    }
-
-};
-
-/* =============== */
-/* MODULE DATA-API */
-/* =============== */
-function jqueryFn(jq, ClassObj, args, opt) {
-    //var args = Array.prototype.slice.call(arguments, 1);
-
-    return jq.each(function() {
-        var item = $(this), instance = item.data(ClassObj.name);
-        if (!instance) {
-            // create plugin instance and save it in data
-            item.data(ClassObj.name, new ClassObj(this, opt));
-        } else {
-            // if instance already created call method
-            if(typeof opt === 'string') {
-                instance[opt].apply(instance, args);
-            }
-        }
-    });
-
-}
-
-
-$.fn.appTableOutils = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableOutils, opt, args);
-};
-
-$.fn.appTableCheckbox = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableCheckbox, opt, args);
-};
-
-$.fn.appCheckSelectedRows = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppCheckSelectedRows, opt, args);
-};
-
-$(trigger).appTableOutils();
-$(triggerCheckbox).appTableCheckbox();
-$(triggerSelectedCheckbox).appCheckSelectedRows();
-
 
 },{}],34:[function(require,module,exports){
 /* ====================== */
@@ -40901,7 +40803,7 @@ var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
 var appShowText         = require("./app-showText.js");
 var appPartager         = require("./app-partager.js");
-var appTableOutils      = require("./app-table-outils.js");
+var appPopinCookies     = require("./app-popinCookies.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40917,4 +40819,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-table-outils.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-popinCookies.js":26,"./app-reveal.js":27,"./app-scroll-to.js":28,"./app-searchFormular.js":29,"./app-seeMore.js":30,"./app-select.js":31,"./app-showText.js":32,"./app-slick.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);
