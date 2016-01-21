@@ -12,7 +12,7 @@ $bien_total = get_total_bien_by_status_site();
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
-            <div class="heading__title heading__title--sub"><?php print str_replace('#num#', '<strong>' . number_format($bien_total, NULL, ',', '&nbsp;') . '</strong>', $title_sub); ?></div>
+            <div class="heading__title heading__title--sub"><?php print str_replace('#num# biens', '<strong>' . number_format($bien_total, NULL, ',', '&nbsp;') . ' biens</strong>', $title_sub); ?></div>
         </div>
         <?php print render($content['hp_block_search']); ?>
     </div>
