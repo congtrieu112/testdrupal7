@@ -489,15 +489,21 @@ function render_group_finance_publication($document_type_tid = '', $numof_years 
     $recent_document = array();
     $document_type_tabs = get_types_document($current_lang);
     if(!$document_type_tid){
-        $data['recent_document'] = $document_type_tabs[0]['document'];
+      $data['recent_document'] = $document_type_tabs[0]['document'];
     }else{
+       $data['flag'] = FALSE;
         if ($current_lang == 'en') {
             $current_lang_key = 1;
         }
         else {
             $current_lang_key = 0;
         }
-        $data['recent_document'] = get_document_publication($document_type_tid, 3, $current_lang_key);
+        $recent_document = get_document_publication($document_type_tid, 3, $current_lang_key);
+        if (!$recent_document){
+          $recent_document = $document_type_tabs[0]['document'];
+          $data['flag'] = TRUE;
+        }
+        $data['recent_document'] = $recent_document;
     }
     $data['tab_document'] = $document_type_tabs;
     return theme('group_finance_publication', array('current_lang' => $current_lang, 'data' => $data));

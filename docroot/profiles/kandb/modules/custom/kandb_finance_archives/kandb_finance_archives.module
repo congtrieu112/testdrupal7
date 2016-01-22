@@ -15,7 +15,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['corporate/finance/archives/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
@@ -23,7 +23,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['corporate/finance/archives/%/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
@@ -31,7 +31,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['download-document-file/%'] = array(
       'title' => t('Télécharger le PDF'),
       'page callback' => 'kandb_finance_archives_download_file',
@@ -39,7 +39,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['admin/content/ketb/finance/archives'] = array(
       'title' => '[Finance] Archives',
       'page callback' => 'drupal_get_form',
@@ -48,11 +48,11 @@
       'file' => 'kandb_finance_archives.admin.inc',
       'type' => MENU_LOCAL_TASK,
     );
-    
+
     return $items;
   }
 
- 
+
 
   /**
    * Implements hook_theme().
@@ -138,10 +138,17 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     }
   }
   $content_archives['tab_content'] = get_document_by_type($tid, $language_id, TRUE);
+  $hidetab = TRUE;
+  if (!$content_archives['tab_content'] && $tid != 0){
+    drupal_goto($base_archive . $lang);
+  } elseif(!$content_archives['tab_content'] && $tid == 0){
+    $hidetab = FALSE;
+  }
   return theme('archive', array(
-    'content_archives' => $content_archives, 
-    'page_title' => $page_title, 
+    'content_archives' => $content_archives,
+    'page_title' => $page_title,
     'pager' => theme('pager'),
+    'hidetab' => $hidetab,
     'display_mode' => $display_mode,
   ));
 }
@@ -162,19 +169,19 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE, $skip_
   $db_query->condition('n.type', 'document');
   $db_query->condition('n.status', 1);
   $db_query->condition('n.title', '', '<>');
-  
+
   $db_query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
   $db_query->condition('df.entity_type', 'node');
   $db_query->condition('df.bundle', 'document');
   $db_query->isNotNull('df.field_document_file_fid');
-  
+
   $db_query->leftJoin('field_data_field_document_type', 'dt', 'dt.entity_id=n.nid');
   $db_query->condition('dt.entity_type', 'node');
   $db_query->condition('dt.bundle', 'document');
   $db_query->condition('dt.field_document_type_tid', $tid);
-  
+
   $db_query->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
-  
+
   if ($language_id == 1) {
     $db_query->condition('dl.entity_type', 'node');
     $db_query->condition('dl.bundle', 'document');
@@ -190,7 +197,7 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE, $skip_
     $db_or->isNull('dl.field_langue_value');
     $db_query->condition($db_or);
   }
-  
+
   $db_query->leftJoin('field_data_field_document_date', 'dd', 'dd.entity_id=n.nid');
   $db_query->condition('dd.entity_type', 'node');
   $db_query->condition('dd.bundle', 'document');

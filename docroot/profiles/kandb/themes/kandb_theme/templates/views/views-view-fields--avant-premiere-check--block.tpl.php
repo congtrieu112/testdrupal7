@@ -22,6 +22,7 @@
  *
  * @ingroup views_templates
  */
+module_load_include('module', 'kandb_admin_content', 'kandb_admin_content');
 $style = $row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style'];
 $ville_name = isset($row->field_field_avant_premiere_ville[0]['rendered']['#title']) ? $row->field_field_avant_premiere_ville[0]['rendered']['#title'] : '';
 $departement_tax = isset($row->field_field_avant_premiere_department[0]['rendered']['#options']['entity']) ? $row->field_field_avant_premiere_department[0]['rendered']['#options']['entity'] : '';
@@ -43,7 +44,8 @@ if (module_exists('kandb_validate')) {
   $start_date = $node->field_avant_premiere_date_debut[LANGUAGE_NONE][0]['value'];
   $end_date = $node->field_avant_premiere_date_fin[LANGUAGE_NONE][0]['value'];
   $date_range = kandb_validate_get_dates_from_range($start_date, $end_date);
-  $date_range_string = implode(' & ', $date_range) . ' ' . format_date(strtotime($start_date), 'custom', 'F');
+  $month_start = date('M' ,strtotime($start_date));
+  $date_range_string = implode(' & ', $date_range) . ' ' . translatorMonth($month_start, 'fr');
 }
 
 $promotion = array();
