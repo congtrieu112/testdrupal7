@@ -576,6 +576,10 @@ function kandb_theme_preprocess_node(&$vars) {
 
   if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
     $node = &$vars['node'];
+    
+    $department = taxonomy_term_load($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
+    $vars['num_department'] = isset($department->field_numero_departement) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+    
     $ville = taxonomy_term_load($node->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
     $vars['ville_name'] = $ville->name;
     
