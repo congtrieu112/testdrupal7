@@ -285,7 +285,7 @@ class Kandb_Business_Rules {
         ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
         ->fieldCondition('field_programme', 'target_id', $id_programe, '=')
         ->fieldOrderBy('field_prix_tva_20', 'value', $sort)
-        ->range(0, 1)
+        //->range(0, 1)
       ;
 
     if($domain == DOMAIN_B2B) {
@@ -321,25 +321,25 @@ class Kandb_Business_Rules {
 
       $min_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B);
       $max_price_b2b = self::get_programe_min_max_price($item->nid, DOMAIN_B2B, FALSE);
-      if(!empty($current_bien)){
-        $current_bien_price = (isset($current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"])) ? (float) $current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : -1;
-        $current_bien_status = isset($current_bien->status) ? $current_bien->status : 0;
-        $current_bien_domain = isset($current_bien->domains) ? array_keys($current_bien->domains) : '';
-        if($current_bien_price > $max_price && isset($current_bien_domain[0]) && $current_bien_status){
-          if($current_bien_domain[0] == DOMAIN_B2B) {
-            $max_price_b2b = $current_bien_price;
-          } elseif($current_bien_domain[0] == DOMAIN_B2C) {
-            $max_price = $current_bien_price;
-          }
-        }
-        if($current_bien_price != -1 && $min_price > $current_bien_price && isset($current_bien_domain[0]) && $current_bien_status){
-          if($current_bien_domain[0] == DOMAIN_B2B) {
-            $min_price_b2b = $current_bien_price;
-          } elseif ($current_bien_domain[0] == DOMAIN_B2C) {
-            $min_price = $current_bien_price;
-          }
-        }
-      }
+//      if(!empty($current_bien)){
+//        $current_bien_price = (isset($current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"])) ? (float) $current_bien->field_prix_tva_20[LANGUAGE_NONE][0]["value"] : -1;
+//        $current_bien_status = isset($current_bien->status) ? $current_bien->status : 0;
+//        $current_bien_domain = isset($current_bien->domains) ? array_keys($current_bien->domains) : '';
+//        if($current_bien_price > $max_price && isset($current_bien_domain[0]) && $current_bien_status){
+//          if($current_bien_domain[0] == DOMAIN_B2B) {
+//            $max_price_b2b = $current_bien_price;
+//          } elseif($current_bien_domain[0] == DOMAIN_B2C) {
+//            $max_price = $current_bien_price;
+//          }
+//        }
+//        if($current_bien_price != -1 && $min_price > $current_bien_price && isset($current_bien_domain[0]) && $current_bien_status){
+//          if($current_bien_domain[0] == DOMAIN_B2B) {
+//            $min_price_b2b = $current_bien_price;
+//          } elseif ($current_bien_domain[0] == DOMAIN_B2C) {
+//            $min_price = $current_bien_price;
+//          }
+//        }
+//      }
 
       if (isset(self::$_list_progam_to_save [$item->nid])) {
         $node_programe = self::$_list_progam_to_save [$item->nid];
@@ -546,7 +546,8 @@ class Kandb_Business_Rules {
     $query = new EntityFieldQuery();
     $query->entityCondition('entity_type', 'node')
         ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-        ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=');
+        ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
+        ->fieldCondition('field_programme', 'target_id', $id_progamme, '=');
 
     return intval($query->count()->execute());
   }
@@ -571,11 +572,15 @@ class Kandb_Business_Rules {
       $count_biens_available = self::get_biens_available_in_progamme($item->nid);
       if($count_biens_available == 0){
         $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 0;
-        self::$_list_progam_to_save [$item->nid] = $node_programe;
-        if ($must_logging) {
-          $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
-          kb_logging_business_rule($programme_id . ': P-102');
-        }
+      } else {
+        $node_programe->field_programme_statut[LANGUAGE_NONE][0]["value"] = 1;
+      }
+
+      self::$_list_progam_to_save [$item->nid] = $node_programe;
+
+      if ($must_logging) {
+        $programme_id = isset($node_programe->field_id_programme[LANGUAGE_NONE][0]["value"]) ? $node_programe->field_id_programme[LANGUAGE_NONE][0]["value"] : '';
+        kb_logging_business_rule($programme_id . ': P-102');
       }
     }
   }
