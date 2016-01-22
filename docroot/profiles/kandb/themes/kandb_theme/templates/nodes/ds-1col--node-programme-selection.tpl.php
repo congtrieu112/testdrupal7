@@ -182,7 +182,7 @@
         <div class="squaredImageItem__details">
           <div class="heading heading--bordered">
             <h3 class="heading__title"><?php print $title; ?></h3>
-            <p class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) print t('/ ')?> <?php print $node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']; ?></p>
+            <p class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($num_department)) print t('/ ')?> <?php print $num_department; ?></p>
           </div>
           <div class="text heading--small">
             <strong><?php print t('Livraison'); ?></strong>
