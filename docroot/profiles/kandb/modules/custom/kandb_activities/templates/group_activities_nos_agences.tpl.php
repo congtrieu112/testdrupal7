@@ -19,6 +19,21 @@ if(isset($arg[2])) {
   }
 }
 ?>
+<?php
+if ($region_contents) :
+  $content['nos-agences'] = array('title' => t('Nos agences'),
+    'url' => url('corporate/activites/nos-agences'),
+    'content' => theme('group_activities_nos_agences_sub', array('region_contents' => $region_contents, 'arg' => 'nos-agences'))
+  );
+  $content['nos-services'] = array('title' => t('Nos services'),
+    'url' => url('corporate/activites/nos-services'),
+    'content' => theme('group_activities_nos_agences_sub', array('region_contents' => $region_contents, 'arg' => 'nos-services'))
+  );
+  $content['nos-showroom'] = array('title' => t('Nos showroom'),
+    'url' => url('corporate/activites/nos-showroom'),
+    'content' => theme('group_activities_nos_agences_sub', array('region_contents' => $region_contents, 'arg' => 'nos-showroom')),
+  );
+  ?>
 <section class="bg-lightGrey section-padding contact">
     <div class="wrapper">
         <h2 class="heading heading--bordered">
@@ -28,16 +43,32 @@ if(isset($arg[2])) {
         <nav class="form-dropdown form-dropdown--responsive">
           <button aria-expanded="false" aria-controls="dropdown-downloadDocs" data-app-dropdown="data-app-dropdown" data-app-dropdown-responsive="small-only" class="form-dropdown__trigger"><?php print $title; ?><span aria-hidden="true" class="icon icon-expand"></span></button>
           <div id="dropdown-downloadDocs" aria-hidden="true" class="form-dropdown__content hidden">
-              <ul class="ul-unstyled undo-padding">
-                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-agences' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-agences'); ?>"><span><?php print t('Nos agences'); ?></span></a></li>
-                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-services' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-services'); ?>"><span><?php print t('Nos services'); ?></span></a></li>
-                  <li class="bordered"><a class="<?php print $arg[2] == 'nos-showroom' ? 'active' : ''; ?>" href="<?php print url('corporate/activites/nos-showroom'); ?>"><span><?php print t('Nos showroom'); ?></span></a></li>
+            <ul class="ul-unstyled undo-padding">
+                <?php
+                if (!empty($content)):
+                  foreach ($content as $key => $item):
+                    if (!empty($item['content'])):
+                      if ($arg[2] == $key):
+                        $class = 'active';
+                      else:
+                        $class = '';
+                      endif;
+                      ?>
+                      <li class="bordered">
+                        <a class="<?php print $class; ?>" href="<?php print $item['url']; ?>">
+                          <span><?php print $item['title']; ?></span>
+                        </a>
+                      </li>
+                      <?php
+                    endif;
+                  endforeach;
+                endif;
+                ?>
               </ul>
           </div>
       </nav>
     </div>
-    <?php
-    if ($region_contents) : ?>
+
       <div class="wrapper contacts">
           <div class="contacts__carte">
               <div class="contacts__carte-wrapper">
@@ -70,71 +101,9 @@ if(isset($arg[2])) {
           </div>
           <ul data-app-accordion class="accordion contacts__list">
               <?php
-              $count = 0;
-              if ($region_contents && isset($region_contents['node'])) :
-                foreach ($region_contents['node'] as $region) :
-                  $region_nid = isset($region->nid) ? $region->nid : '';
-                  if ($region_nid) :
-                    $n_region = node_load($region_nid);
-                    if ($n_region):
-                      $region_kb_id = $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'];
-                      $html = '';
-                      for ($i = 1; $i <= 5; $i++) :
-                        if ($arg[2] == 'nos-services') :
-                          $field_addr = 'field_kb_service' . $i . '_address';
-                          $field_email = 'field_kb_service' . $i . '_email';
-                          $field_telephone = 'field_kb_service' . $i . '_telephone';
-                        elseif ($arg[2] == 'nos-showroom') :
-                          $field_addr = 'field_kb_showroom' . $i . '_address';
-                          $field_email = 'field_kb_showroom' . $i . '_email';
-                          $field_telephone = 'field_kb_showroom' . $i . '_telephone';
-                        else :
-                          $field_addr = 'field_kb_agence' . $i . '_address';
-                          $field_email = 'field_kb_agence' . $i . '_email';
-                          $field_telephone = 'field_kb_agence' . $i . '_telephone';
-                        endif;
-                        $arr_field_addr = isset($n_region->$field_addr) ? $n_region->$field_addr : array();
-                        $arr_field_email = isset($n_region->$field_email) ? $n_region->$field_email : array();
-                        $arr_field_telephone = isset($n_region->$field_telephone) ? $n_region->$field_telephone : array();
-                        $addr = isset($arr_field_addr[LANGUAGE_NONE][0]['value']) ? $arr_field_addr[LANGUAGE_NONE][0]['value'] : '';
-                        $email = isset($arr_field_email[LANGUAGE_NONE][0]['value']) ? $arr_field_email[LANGUAGE_NONE][0]['value'] : '';
-                        $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value']) ? $arr_field_telephone[LANGUAGE_NONE][0]['value'] : '';
-                        if ($addr && ($email || $telephone)) :
-                          $html .= '<li>';
-                          $html .= '<a href="javascript:void(0)" class="mail">' . $addr . '<span class="icon icon-marker"></span></a>';
-                          if ($email):
-                            $html .= '<a href="mailto:' . $email . '" class="mail">' . $email . '<span class="icon icon-email"></span></a>';
-                          endif;
-                          if ($telephone) :
-                            $html .= '<a href="tel:' . $telephone . '" class="phone">' . $telephone . '<span class="icon icon-tel"></span></a>';
-                          endif;
-                          $html .= '</li>';
-                        endif;
-                      endfor;
-                    ?>
-                    <?php if($html):?>
-                      <li id="<?php print $region_kb_id; ?>">
-                          <a href="#<?php print $region_kb_id; ?>" data-app-accordion-link data-contact-map-section='<?php print $region_kb_id; ?>' class="accordion__link <?php print ($count == 0) ? 'active' : ''; ?>">
-                              <?php print ($n_region->title) ? $n_region->title : ''; ?>
-                              <span class="display-status"></span>
-                          </a>
-                          <article data-app-accordion-content class="heading--small">
-                              <ul class="counselors">
-                                  <?php print $html;?>
-                              </ul>
-                          </article>
-                      </li>
-                      <?php
-                      endif;
-                      ?>
-                      <?php
-                      $count++;
-                    endif;
-                  endif;
-                endforeach;
-              endif;
+              print $content[$arg[2]]['content'];
               ?>
           </ul>
       </div>
-    <?php endif; ?>
 </section>
+ <?php endif;
