@@ -389,12 +389,15 @@ function kandb_activities_region_validate(&$form, &$form_state) {
 function kandb_activities_habitat_validate(&$form, &$form_state) {
   $input = $form_state['input'];
   $vals = $form_state['values'];
+  $tid_rigion = isset ( $input['field_habitat_region'][LANGUAGE_NONE]) ?  $input['field_habitat_region'][LANGUAGE_NONE] : '';
+  $title_rigion = ($tid_rigion) ?  taxonomy_term_load($tid_rigion)->name : "";
+
   $code_postal = trim($input['field_habitat_code_postal'][LANGUAGE_NONE][0]['value']);
   if (strlen($code_postal) > 6 && !is_int($code_postal)) {
     form_set_error('field_habitat_code_postal', t('The code postal shoul be 4 or 5 character and must be numeric'));
   } else {
     $ville = taxonomy_term_load($vals['field_habitat_ville'][LANGUAGE_NONE][0]['tid']);
-    $form_state['values']['title'] = $code_postal . ' ' . $ville->name;
+    $form_state['values']['title'] = $code_postal . ' ' . $title_rigion;
   }
 }
 
