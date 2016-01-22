@@ -59,7 +59,7 @@ if (isset($content['field_dossier_video']['#object']->field_dossier_video['und']
 if (isset($content['field_dossier_video']['#object']->field_dossier_video['und'][0]['input']))
   $id_video_content = $content['field_dossier_video']['#object']->field_dossier_video['und'][0]['video_id'];
 //end get video
-//Block 1 of the dossier page	
+//Block 1 of the dossier page
 //get uri image
 if (isset($content['field_dossier_block1_image']['#object']->field_dossier_block1_image['und'][0]['uri']))
   $uri_block_1_image = $content['field_dossier_block1_image']['#object']->field_dossier_block1_image['und'][0]['uri'];
@@ -70,7 +70,7 @@ if (isset($content['field_dossier_block1_title']['#object']->field_dossier_block
 if (isset($content['field_dossier_block1_text']['#object']->field_dossier_block1_text['und'][0]['value']))
   $block_1_text = $content['field_dossier_block1_text']['#object']->field_dossier_block1_text['und'][0]['value'];
 //end Block 1 of the dossier page
-//block 2 of the dossier page	
+//block 2 of the dossier page
 //get uri image
 if (isset($content['field_dossier_block2_image']['#object']->field_dossier_block2_image['und'][0]['uri']))
   $uri_block_2_image = $content['field_dossier_block2_image']['#object']->field_dossier_block2_image['und'][0]['uri'];
@@ -80,8 +80,8 @@ if (isset($content['field_dossier_block2_title']['#object']->field_dossier_block
 //get text block 2
 if (isset($content['field_dossier_block2_text']['#object']->field_dossier_block2_text['und'][0]['value']))
   $block_2_text = $content['field_dossier_block2_text']['#object']->field_dossier_block2_text['und'][0]['value'];
-//end block 2 of the dossier page	
-//block 3 of the dossier page	
+//end block 2 of the dossier page
+//block 3 of the dossier page
 //get uri image
 if (isset($content['field_dossier_block3_image']['#object']->field_dossier_block3_image['und'][0]['uri']))
   $uri_block_3_image = $content['field_dossier_block3_image']['#object']->field_dossier_block3_image['und'][0]['uri'];
@@ -91,8 +91,8 @@ if (isset($content['field_dossier_block3_title']['#object']->field_dossier_block
 //get text block 3
 if (isset($content['field_dossier_block3_text']['#object']->field_dossier_block3_text['und'][0]['value']))
   $block_3_text = $content['field_dossier_block3_text']['#object']->field_dossier_block3_text['und'][0]['value'];
-//end block 3 of the dossier page	
-//block 4 of the dossier page	
+//end block 3 of the dossier page
+//block 4 of the dossier page
 //get uri image
 if (isset($content['field_dossier_block4_image']['#object']->field_dossier_block4_image['und'][0]['uri']))
   $uri_block_4_image = $content['field_dossier_block4_image']['#object']->field_dossier_block4_image['und'][0]['uri'];
@@ -102,8 +102,8 @@ if (isset($content['field_dossier_block4_title']['#object']->field_dossier_block
 //get text block 4
 if (isset($content['field_dossier_block4_text']['#object']->field_dossier_block4_text['und'][0]['value']))
   $block_4_text = $content['field_dossier_block4_text']['#object']->field_dossier_block4_text['und'][0]['value'];
-//end block 4 of the dossier page	
-//block 5 of the dossier page	
+//end block 4 of the dossier page
+//block 5 of the dossier page
 //get uri image
 if (isset($content['field_dossier_block5_image']['#object']->field_dossier_block5_image['und'][0]['uri']))
   $uri_block_5_image = $content['field_dossier_block5_image']['#object']->field_dossier_block5_image['und'][0]['uri'];
@@ -113,7 +113,7 @@ if (isset($content['field_dossier_block5_title']['#object']->field_dossier_block
 //get text block 5
 if (isset($content['field_dossier_block5_text']['#object']->field_dossier_block5_text['und'][0]['value']))
   $block_5_text = $content['field_dossier_block5_text']['#object']->field_dossier_block5_text['und'][0]['value'];
-//end block 5 of the dossier page	
+//end block 5 of the dossier page
 //title of main block article
 if (isset($content['field_dossier_articles_title']['#object']->field_dossier_articles_title['und'][0]['value']))
   $title_main_block_article = $content['field_dossier_articles_title']['#object']->field_dossier_articles_title['und'][0]['value'];
@@ -231,7 +231,7 @@ endif;
     <!-- [Advice introduction] end-->
 
 
-    <?php if ($block_1_title) { ?>
+    <?php if ($block_1_title || $uri_block_1_image || $block_1_text) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -257,7 +257,7 @@ endif;
       <!-- [Article Advice] end-->
     <?php } ?>
 
-    <?php if ($block_2_title) { ?>
+    <?php if ($block_2_title || $uri_block_2_image || $block_2_text) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -282,7 +282,7 @@ endif;
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
-    <?php if ($block_3_title) { ?>
+    <?php if ($block_3_title || $uri_block_3_image || $block_3_text) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -307,7 +307,7 @@ endif;
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
-    <?php if ($block_4_title) { ?>
+    <?php if ($block_4_title || $uri_block_4_image || $block_4_text) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
@@ -332,7 +332,7 @@ endif;
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
-    <?php if ($block_5_title) { ?>
+    <?php if ($block_5_title || $uri_block_5_image || $block_5_text) { ?>
       <!-- [Article Advice] start-->
       <article class="text-center">
           <figure class="ourAdvices__figure">
