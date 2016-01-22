@@ -251,7 +251,7 @@ endif;
             </div>
           <?php endif; ?>
           <?php if ($block_1_text): ?>
-            <p class="ourAdvices__text"><?php print $block_1_text ?></p>
+            <div class="ourAdvices__text"><?php print $block_1_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
@@ -277,7 +277,7 @@ endif;
             </div>
           <?php endif; ?>
           <?php if ($block_2_text): ?>
-            <p class="ourAdvices__text"><?php print $block_2_text ?></p>
+            <div class="ourAdvices__text"><?php print $block_2_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
@@ -302,7 +302,7 @@ endif;
             </div>
           <?php endif; ?>
           <?php if ($block_3_text): ?>
-            <p class="ourAdvices__text"><?php print $block_3_text ?></p>
+            <div class="ourAdvices__text"><?php print $block_3_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
@@ -327,7 +327,7 @@ endif;
             </div>
           <?php endif; ?>
           <?php if ($block_4_text): ?>
-            <p class="ourAdvices__text"><?php print $block_4_text ?></p>
+            <div class="ourAdvices__text"><?php print $block_4_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
@@ -352,7 +352,7 @@ endif;
             </div>
           <?php endif; ?>
           <?php if ($block_5_text): ?>
-            <p class="ourAdvices__text"><?php print $block_5_text ?></p>
+            <div class="ourAdvices__text"><?php print $block_5_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
