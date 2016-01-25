@@ -480,7 +480,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       'meta_description' => 'Découvrez tous les logements neufs par villes commençant par ' . $lettre . '. Villes : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_block_lieu' => array('villes'),
-        'kandb_seo_block_letters' => array('villes', $lettre),
+        //'kandb_seo_block_letters' => array('villes', $lettre),
         'kandb_seo_block_list' => array('villes', $lettre),
       )
     ),
@@ -541,7 +541,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       'meta_description' => 'Découvrez tous les logements neufs par départements commençant par ' . $lettre . '. Départements : sélectionnez le lieu et l\'offre désirés avec Kaufman et Broad.',
       'callbacks' => array(
         'kandb_seo_block_lieu' => array('departements'),
-        'kandb_seo_block_letters' => array('departements', $lettre),
+        //'kandb_seo_block_letters' => array('departements', $lettre),
         'kandb_seo_block_list' => array('departements', $lettre),
       )
     ),
@@ -593,6 +593,7 @@ function kandb_seo_metatags_and_callbacks($url = false) {
       'meta_description' => 'Découvrez maintenant le classement de tous les logements neufs par régions et parcourez les différentes offres de Kaufman et Broad par régions.',
       'callbacks' => array(
         'kandb_seo_block_lieu' => array('regions'),
+        'kandb_seo_block_letters' => array('regions', NULL),
         'kandb_seo_block_list' => array('regions'),
       )
     ),
@@ -797,6 +798,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   // We order by city usage
   if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter']) {
     $query->addExpression('COUNT(ttd.tid)', 'number_of_use');
+    $query->orderBy('ttd.name');
     $query->orderBy('number_of_use');
     // Otherwise, we order by city name
   }else{
