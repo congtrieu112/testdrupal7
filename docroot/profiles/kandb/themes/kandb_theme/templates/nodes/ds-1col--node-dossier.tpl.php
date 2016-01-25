@@ -227,13 +227,13 @@ endif;
     <?php endif; ?>
     <!-- [popin] end-->
 
-    <p class="ourAdvices__text"><?php print $introduction ?></p>
+    <div class="color-grey"><?php print $introduction ?></div>
     <!-- [Advice introduction] end-->
 
 
     <?php if ($block_1_title || $uri_block_1_image || $block_1_text) { ?>
       <!-- [Article Advice] start-->
-      <article class="text-center">
+      <article class="">
           <figure class="ourAdvices__figure">
               <!-- images need to have 2 formats in data-interchange attribute:
               - small:
@@ -246,12 +246,12 @@ endif;
               <?php endif; ?>
           </figure>
           <?php if ($block_1_title): ?>
-            <div class="heading--small ourAdvices__heading">
+            <div class="heading--small ourAdvices__heading text-center">
                 <h2 class="heading__title"><?php print $block_1_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_1_text): ?>
-            <div class="ourAdvices__text"><?php print $block_1_text ?></div>
+            <div class="color-grey"><?php print $block_1_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
@@ -259,7 +259,7 @@ endif;
 
     <?php if ($block_2_title || $uri_block_2_image || $block_2_text) { ?>
       <!-- [Article Advice] start-->
-      <article class="text-center">
+      <article class="">
           <figure class="ourAdvices__figure">
               <!-- images need to have 2 formats in data-interchange attribute:
               - small:
@@ -272,19 +272,19 @@ endif;
               <?php endif; ?>
           </figure>
           <?php if ($block_2_title): ?>
-            <div class="heading--small ourAdvices__heading">
+            <div class="heading--small ourAdvices__heading text-center">
                 <h2 class="heading__title"><?php print $block_2_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_2_text): ?>
-            <div class="ourAdvices__text"><?php print $block_2_text ?></div>
+            <div class="color-grey"><?php print $block_2_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
     <?php if ($block_3_title || $uri_block_3_image || $block_3_text) { ?>
       <!-- [Article Advice] start-->
-      <article class="text-center">
+      <article class="">
           <figure class="ourAdvices__figure">
               <!-- images need to have 2 formats in data-interchange attribute:
               - small:
@@ -297,19 +297,19 @@ endif;
               <?php endif; ?>
           </figure>
           <?php if ($block_3_title): ?>
-            <div class="heading--small ourAdvices__heading">
+            <div class="heading--small ourAdvices__heading text-center">
                 <h2 class="heading__title"><?php print $block_3_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_3_text): ?>
-            <div class="ourAdvices__text"><?php print $block_3_text ?></div>
+            <div class="color-grey"><?php print $block_3_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
     <?php if ($block_4_title || $uri_block_4_image || $block_4_text) { ?>
       <!-- [Article Advice] start-->
-      <article class="text-center">
+      <article class="">
           <figure class="ourAdvices__figure">
               <!-- images need to have 2 formats in data-interchange attribute:
               - small:
@@ -322,19 +322,19 @@ endif;
               <?php endif; ?>
           </figure>
           <?php if ($block_4_title): ?>
-            <div class="heading--small ourAdvices__heading">
+            <div class="heading--small ourAdvices__heading text-center">
                 <h2 class="heading__title"><?php print $block_4_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_4_text): ?>
-            <div class="ourAdvices__text"><?php print $block_4_text ?></div>
+            <div class="color-grey"><?php print $block_4_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
     <?php } ?>
     <?php if ($block_5_title || $uri_block_5_image || $block_5_text) { ?>
       <!-- [Article Advice] start-->
-      <article class="text-center">
+      <article class="">
           <figure class="ourAdvices__figure">
               <!-- images need to have 2 formats in data-interchange attribute:
               - small:
@@ -347,12 +347,12 @@ endif;
               <?php endif; ?>
           </figure>
           <?php if ($block_5_title): ?>
-            <div class="heading--small ourAdvices__heading">
+            <div class="heading--small ourAdvices__heading text-center">
                 <h2 class="heading__title"><?php print $block_5_title ?></h2>
             </div>
           <?php endif; ?>
           <?php if ($block_5_text): ?>
-            <div class="ourAdvices__text"><?php print $block_5_text ?></div>
+            <div class="color-grey"><?php print $block_5_text ?></div>
           <?php endif; ?>
       </article>
       <!-- [Article Advice] end-->
