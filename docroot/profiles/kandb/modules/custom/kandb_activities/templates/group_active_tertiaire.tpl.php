@@ -85,28 +85,38 @@ print theme('group_activities_header');
           <div class="wrapper actionnaireCarnet__listInfor">
               <?php if ($bureau_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <?php foreach ($bureau_kpi_component_arr as $item) : ?>
-                      <div class="graphicPresentation__item columns medium-6">
+                    <?php $i = 0; foreach ($bureau_kpi_component_arr as $item) : ?>
+                      <?php if ($i % 2 == 0) : ?>
+                        <div data-equalizer="" data-equalizer-mq="medium-up" class="graphicPresentation__list">
+                      <?php endif; ?>
+                        <div class="graphicPresentation__item columns medium-6" data-equalizer-watch="data-equalizer-watch">
                           <h4 class="graphicPresentation__item__heading"><?php print $item['bureau_kpi_component_title']; ?></h4>
                           <p class="desc"><?php print $item['bureau_kpi_component_sub_title']; ?></p>
                           <div class="graphicPresentation__item__img">
+                            <!-- [Responsive img] start-->
                               <img alt="<?php print $item['bureau_kpi_component_title']; ?>" data-interchange="[<?php print $item['bureau_kpi_component_image']; ?>, (small)], [<?php print $item['bureau_kpi_component_image']; ?>, (large)]"/>
                               <noscript><img src="<?php print $item['bureau_kpi_component_image']; ?>" alt="<?php print $item['bureau_kpi_component_title']; ?>"/></noscript>
+                            <!-- [Responsive img] end-->
                           </div>
-                      </div>
+                        </div>
+                      <?php $i++; if ($i % 2 == 0) : ?>
+                        </div>
+                      <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
               <?php endif; ?>
               <?php if ($last_bureau_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <div class="graphicPresentation__item columns text-center">
-                        <h4 class="graphicPresentation__item__heading"><?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?></h4>
-                        <p class="desc"><?php print $last_bureau_kpi_component_arr['bureau_kpi_component_sub_title']; ?></p>
-                        <div class="graphicPresentation__item__img">
-                            <img alt="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?>" data-interchange="[<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>, (small)], [<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>, (large)]"/>
-                            <noscript><img src="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>" alt="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?>"/></noscript>
-                        </div>
+                  <div class="graphicPresentation__item columns text-center">
+                    <h4 class="graphicPresentation__item__heading"><?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?></h4>
+                    <p class="desc"><?php print $last_bureau_kpi_component_arr['bureau_kpi_component_sub_title']; ?></p>
+                    <div class="graphicPresentation__item__img">
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?>" data-interchange="[<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>, (small)], [<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>, (large)]"/>
+                      <noscript><img src="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_image']; ?>" alt="<?php print $last_bureau_kpi_component_arr['bureau_kpi_component_title']; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
                     </div>
+                  </div>
                 </div>
               <?php endif; ?>
           </div>
@@ -170,28 +180,38 @@ print theme('group_activities_header');
           <div class="wrapper actionnaireCarnet__listInfor">
               <?php if ($logistique_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <?php foreach ($logistique_kpi_component_arr as $item) : ?>
-                      <div class="graphicPresentation__item columns medium-6">
-                          <h4 class="graphicPresentation__item__heading"><?php print $item['logistique_kpi_component_title']; ?></h4>
-                          <p class="desc"><?php print $item['logistique_kpi_component_sub_title']; ?></p>
-                          <div class="graphicPresentation__item__img">
+                    <?php $i = 0; foreach ($logistique_kpi_component_arr as $item) : ?>
+                      <?php if ($i % 2 == 0) : ?>
+                         <div data-equalizer="" data-equalizer-mq="medium-up" class="graphicPresentation__list">
+                      <?php endif; ?>
+                         <div class="graphicPresentation__item columns medium-6" data-equalizer-watch="data-equalizer-watch">
+                           <h4 class="graphicPresentation__item__heading"><?php print $item['logistique_kpi_component_title']; ?></h4>
+                           <p class="desc"><?php print $item['logistique_kpi_component_sub_title']; ?></p>
+                           <div class="graphicPresentation__item__img">
+                             <!-- [Responsive img] start-->
                               <img alt="<?php print $item['logistique_kpi_component_title']; ?>" data-interchange="[<?php print $item['logistique_kpi_component_image']; ?>, (small)], [<?php print $item['logistique_kpi_component_image']; ?>, (large)]"/>
                               <noscript><img src="<?php print $item['logistique_kpi_component_image']; ?>" alt="<?php print $item['logistique_kpi_component_title']; ?>"/></noscript>
-                          </div>
-                      </div>
+                             <!-- [Responsive img] end-->
+                           </div>
+                         </div>
+                      <?php $i++; if ($i % 2 == 0) : ?>
+                         </div>
+                      <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
               <?php endif; ?>
               <?php if ($last_logistique_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <div class="graphicPresentation__item columns text-center">
-                        <h4 class="graphicPresentation__item__heading"><?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?></h4>
-                        <p class="desc"><?php print $last_logistique_kpi_component_arr['logistique_kpi_component_sub_title']; ?></p>
-                        <div class="graphicPresentation__item__img">
-                            <img alt="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?>" data-interchange="[<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>, (small)], [<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>, (large)]"/>
-                            <noscript><img src="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>" alt="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?>"/></noscript>
-                        </div>
+                  <div class="graphicPresentation__item columns text-center">
+                    <h4 class="graphicPresentation__item__heading"><?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?></h4>
+                    <p class="desc"><?php print $last_logistique_kpi_component_arr['logistique_kpi_component_sub_title']; ?></p>
+                    <div class="graphicPresentation__item__img">
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?>" data-interchange="[<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>, (small)], [<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>, (large)]"/>
+                      <noscript><img src="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_image']; ?>" alt="<?php print $last_logistique_kpi_component_arr['logistique_kpi_component_title']; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
                     </div>
+                  </div>
                 </div>
               <?php endif; ?>
           </div>
@@ -278,28 +298,38 @@ print theme('group_activities_header');
           <div class="wrapper actionnaireCarnet__listInfor">
               <?php if ($hotell_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <?php foreach ($hotell_kpi_component_arr as $item) : ?>
-                      <div class="graphicPresentation__item columns medium-6">
-                          <h4 class="graphicPresentation__item__heading"><?php print $item['hotell_kpi_component_title']; ?></h4>
-                          <p class="desc"><?php print $item['hotell_kpi_component_sub_title']; ?></p>
-                          <div class="graphicPresentation__item__img">
+                    <?php $i = 0; foreach ($hotell_kpi_component_arr as $item) : ?>
+                      <?php if ($i % 2 == 0) : ?>
+                        <div data-equalizer="" data-equalizer-mq="medium-up" class="graphicPresentation__list">
+                      <?php endif; ?>
+                          <div class="graphicPresentation__item columns medium-6" data-equalizer-watch="data-equalizer-watch">
+                            <h4 class="graphicPresentation__item__heading"><?php print $item['hotell_kpi_component_title']; ?></h4>
+                            <p class="desc"><?php print $item['hotell_kpi_component_sub_title']; ?></p>
+                            <div class="graphicPresentation__item__img">
+                              <!-- [Responsive img] start-->
                               <img alt="<?php print $item['hotell_kpi_component_title']; ?>" data-interchange="[<?php print $item['hotell_kpi_component_image']; ?>, (small)], [<?php print $item['hotell_kpi_component_image']; ?>, (large)]"/>
                               <noscript><img src="<?php print $item['hotell_kpi_component_image']; ?>" alt="<?php print $item['hotell_kpi_component_title']; ?>"/></noscript>
+                              <!-- [Responsive img] end-->
+                            </div>
                           </div>
-                      </div>
+                         <?php $i++; if ($i % 2 == 0) : ?>
+                            </div>
+                      <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
               <?php endif; ?>
               <?php if ($last_hotell_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <div class="graphicPresentation__item columns text-center">
-                        <h4 class="graphicPresentation__item__heading"><?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?></h4>
-                        <p class="desc"><?php print $last_hotell_kpi_component_arr['hotell_kpi_component_sub_title']; ?></p>
-                        <div class="graphicPresentation__item__img">
-                            <img alt="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?>" data-interchange="[<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>, (small)], [<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>, (large)]"/>
-                            <noscript><img src="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>" alt="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?>"/></noscript>
-                        </div>
+                  <div class="graphicPresentation__item columns text-center">
+                    <h4 class="graphicPresentation__item__heading"><?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?></h4>
+                    <p class="desc"><?php print $last_hotell_kpi_component_arr['hotell_kpi_component_sub_title']; ?></p>
+                    <div class="graphicPresentation__item__img">
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?>" data-interchange="[<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>, (small)], [<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>, (large)]"/>
+                      <noscript><img src="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_image']; ?>" alt="<?php print $last_hotell_kpi_component_arr['hotell_kpi_component_title']; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
                     </div>
+                  </div>
                 </div>
               <?php endif; ?>
           </div>
@@ -361,28 +391,38 @@ print theme('group_activities_header');
           <div class="wrapper actionnaireCarnet__listInfor">
               <?php if ($commercer_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <?php foreach ($commercer_kpi_component_arr as $item) : ?>
-                      <div class="graphicPresentation__item columns medium-6">
-                          <h4 class="graphicPresentation__item__heading"><?php print $item['commercer_kpi_component_title']; ?></h4>
-                          <p class="desc"><?php print $item['commercer_kpi_component_sub_title']; ?></p>
-                          <div class="graphicPresentation__item__img">
+                    <?php $i = 0; foreach ($commercer_kpi_component_arr as $item) : ?>
+                      <?php if ($i % 2 == 0) : ?>
+                        <div data-equalizer="" data-equalizer-mq="medium-up" class="graphicPresentation__list">
+                      <?php endif; ?>
+                          <div class="graphicPresentation__item columns medium-6" data-equalizer-watch="data-equalizer-watch">
+                            <h4 class="graphicPresentation__item__heading"><?php print $item['commercer_kpi_component_title']; ?></h4>
+                            <p class="desc"><?php print $item['commercer_kpi_component_sub_title']; ?></p>
+                            <div class="graphicPresentation__item__img">
+                              <!-- [Responsive img] start-->
                               <img alt="<?php print $item['commercer_kpi_component_title']; ?>" data-interchange="[<?php print $item['commercer_kpi_component_image']; ?>, (small)], [<?php print $item['commercer_kpi_component_image']; ?>, (large)]"/>
                               <noscript><img src="<?php print $item['commercer_kpi_component_image']; ?>" alt="<?php print $item['commercer_kpi_component_title']; ?>"/></noscript>
+                              <!-- [Responsive img] end-->
+                            </div>
                           </div>
-                      </div>
+                      <?php $i++; if ($i % 2 == 0) : ?>
+                        </div>
+                      <?php endif; ?>
                     <?php endforeach; ?>
                 </div>
               <?php endif; ?>
               <?php if ($last_commercer_kpi_component_arr) : ?>
                 <div class="graphicPresentation__list">
-                    <div class="graphicPresentation__item columns text-center">
-                        <h4 class="graphicPresentation__item__heading"><?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?></h4>
-                        <p class="desc"><?php print $last_commercer_kpi_component_arr['commercer_kpi_component_sub_title']; ?></p>
-                        <div class="graphicPresentation__item__img">
-                            <img alt="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?>" data-interchange="[<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>, (small)], [<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>, (large)]"/>
-                            <noscript><img src="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>" alt="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?>"/></noscript>
-                        </div>
+                  <div class="graphicPresentation__item columns text-center">
+                    <h4 class="graphicPresentation__item__heading"><?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?></h4>
+                    <p class="desc"><?php print $last_commercer_kpi_component_arr['commercer_kpi_component_sub_title']; ?></p>
+                    <div class="graphicPresentation__item__img">
+                      <!-- [Responsive img] start-->
+                      <img alt="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?>" data-interchange="[<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>, (small)], [<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>, (large)]"/>
+                      <noscript><img src="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_image']; ?>" alt="<?php print $last_commercer_kpi_component_arr['commercer_kpi_component_title']; ?>"/></noscript>
+                      <!-- [Responsive img] end-->
                     </div>
+                  </div>
                 </div>
               <?php endif; ?>
           </div>
