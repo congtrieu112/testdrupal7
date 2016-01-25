@@ -12,7 +12,7 @@ $bien_total = get_total_bien_by_status_site();
     <div class="wrapper">
         <div class="heading heading--bordered heading--white">
             <div class="heading__title"><?php print render($content['field_hp_block_search_title']); ?></div>
-            <div class="heading__title heading__title--sub"><?php print str_replace('#num#', $bien_total, $title_sub); ?></div>
+            <div class="heading__title heading__title--sub"><?php print str_replace('#num# biens', '<strong>' . number_format($bien_total, NULL, ',', '&nbsp;') . ' biens</strong>', $title_sub); ?></div>
         </div>
         <?php print render($content['hp_block_search']); ?>
     </div>
@@ -89,7 +89,7 @@ $number_pdf = count($node->field_hp_block_document['und']);
             if ($filePath) :
               if (file_exists($filePath)) :
                 ?>
-                <div class="heading__document"><a href="<?php print $linkfile; ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
+                <div class="heading__document"><a href="<?php print $linkfile; ?>" title="<?php print t('TÃ©lÃ©charger le pdf'); ?>" class="btn-white"><?php print t('TÃ©lÃ©charger le pdf'); ?><span class="icon icon-download left"></span></a></div>
                 <?php
               endif;
             endif;
@@ -97,7 +97,7 @@ $number_pdf = count($node->field_hp_block_document['und']);
           ?>
         <?php elseif ($number_pdf > 0):
           ?>
-          <div class="heading__document"><a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
+          <div class="heading__document"><a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print t('TÃ©lÃ©charger le pdf'); ?>" class="btn-white"><?php print t('TÃ©lÃ©charger le pdf'); ?><span class="icon icon-download left"></span></a></div>
         <?php endif; ?>
         <h2 class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></h2>
         <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre'][0]['#markup']); ?></p>
