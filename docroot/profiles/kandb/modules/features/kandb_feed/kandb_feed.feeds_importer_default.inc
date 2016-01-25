@@ -1280,7 +1280,7 @@ function kandb_feed_feeds_importer_default() {
             'unique' => FALSE,
           ),
           14 => array(
-            'source' => '13',
+            'source' => '14',
             'target' => 'field_bien_type_maison',
             'unique' => FALSE,
           ),
