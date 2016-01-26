@@ -5,8 +5,7 @@ $current_path_alias = $current_path[count($current_path)- 3];
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
 
-$current_lang = isset($current_lang) ? $current_lang : 'fr';
-$current_lang = $current_lang == 'en' ? 'en' : 'fr';
+$current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 'fr';
 
 $title_calendrier = variable_get('finance_publication_calendrier_title_' . $current_lang);
 $title_document = variable_get('finance_publication_document_title_' . $current_lang);
