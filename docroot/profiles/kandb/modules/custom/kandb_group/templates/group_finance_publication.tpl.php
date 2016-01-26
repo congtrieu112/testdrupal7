@@ -5,6 +5,11 @@ $current_path_alias = $current_path[count($current_path)- 3];
 $calenders = isset($data['calenders']) ? $data['calenders'] : '';
 $recent_document = isset($data['recent_document']) ? $data['recent_document'] : '';
 
+$current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 'fr';
+
+$title_calendrier = variable_get('finance_publication_calendrier_title_' . $current_lang);
+$title_document = variable_get('finance_publication_document_title_' . $current_lang);
+
 print theme('finance_header_block');
 ?>
 
@@ -13,7 +18,7 @@ print theme('finance_header_block');
   <section class="section-padding legroupeFinaceCalendar bg-lightGrey">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h1 class="heading__title"><?php print t('Calendrier'); ?></h1>
+              <h1 class="heading__title"><?php print !empty($title_calendrier) ? $title_calendrier : t('Calendrier') ?></h1>
           </header>
           <div class="legroupeFinaceCalendar__list">
               <ul>
@@ -62,7 +67,7 @@ print theme('finance_header_block');
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h1 class="heading__title"><?php print t('Communiqués et documents récents'); ?></h1>
+              <h1 class="heading__title"><?php print !empty($title_document) ? $title_document : t('Communiqués et documents récents') ?></h1>
           </header>
       </div>
       <div class="wrapper--narrow downloadDocs">
@@ -165,16 +170,18 @@ $inscription_form = webform_features_machine_name_load('inscription');
 $inscription_block_id = isset($inscription_form->nid) ? 'client-block-' . $inscription_form->nid : '';
 $block = module_invoke('webform', 'block_view', $inscription_block_id);
 
+$email_title = variable_get('finance_publication_email_title_'.$current_lang);
+$email_input = variable_get('finance_publication_email_input_'.$current_lang);
 ?>
 <!-- [email form] start-->
 <section class="section-padding">
     <div class="wrapper">
         <form action="#" method="get" data-abide class="emailForm">
             <div class="emailForm__title">
-                <p>Recevez toutes nos informations financières</p>
+                <p><?php print !empty($email_title) ? $email_title : t('Recevez toutes nos informations financières') ?></p>
             </div>
             <div class="emailForm__input">
-                <label for="email-input"><span class="visually-hidden">Votre adresse d’email</span>
+                <label for="email-input"><span class="visually-hidden"><?php print !empty($email_input) ? $email_input : t('Votre adresse d’email') ?></span>
                     <?php print render($block['content']); ?>
                 </label>
             </div>
