@@ -527,7 +527,7 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
           $entity->field_document_file[LANGUAGE_NONE] = $origin_node->field_document_file[LANGUAGE_NONE];
         }
       }
-      if ($totalItems > 8 || $totalItems <= 6) {
+      if ($totalItems > 8 || $totalItems < 6) {
         $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items)' . '| Skip imported' . "\n";
       } else {
         $validates = array(
@@ -1046,25 +1046,6 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
           $key_errorlog = $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
         }
 
-        if($document_id) {
-          $query = new EntityFieldQuery();
-          $query->entityCondition('entity_type', 'node')
-            ->entityCondition('bundle', 'document')
-            ->fieldCondition('field_document_id', 'value', $document_id, '=')
-            ->range(0, 1);
-
-
-          $results = $query->execute();
-          if($results) {
-            $nids = array_keys($results["node"]);
-            $nodes = node_load($nids[0]);
-
-            $result->items[$key]['documentfileold'] = array();
-            if($nodes && isset($nodes->field_document_file[LANGUAGE_NONE])) {
-              $result->items[$key]['documentfileold'] = $nodes->field_document_file[LANGUAGE_NONE];
-            }
-          }
-        }
       } elseif ($source->id === "kb_patrimoine_import") {
         if(isset($row["identifiantprogramme"])) {
           $key_errorlog = $id_program = $row["identifiantprogramme"];
@@ -1117,23 +1098,25 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       // Parse url for pdf file.
       foreach ($list_file_id as $key_col_file => $item_col_file) {
         $item_col_file = strtolower($item_col_file);
-
         $file = $row[$item_col_file];
         if (!empty($file)) {
           $path_url = $base_url . '/sites/default/files';
+          $pos = strripos($file,"/");
+          $directory = substr($file, 0, $pos + 1);
+          $file_name = substr($file, $pos + 1);
           if ($file[0] === '/') {
-            $path_url .= $file;
+            $path_url .= $directory . str_replace(' ', '%20', $file_name);
           } else {
-            $path_url .= '/' . $file;
+            $path_url .= '/' . $directory . str_replace(' ', '%20', $file_name);
           }
 
           $argHeader = @get_headers($path_url);
           if (!preg_match("|200|", $argHeader[0])) {
             $pos = strripos($path_url,"/");
-            $path_url_uncaps = substr($path_url, 0, $pos + 1) . strtolower(substr($path_url, $pos + 1));
+            $path_url_uncaps = substr($path_url, 0, $pos + 1) . str_replace(' ', '%20', strtolower(substr($path_url, $pos + 1)));
             $argHeader_uncaps = @get_headers($path_url_uncaps);
             if (!preg_match("|200|", $argHeader_uncaps[0])) {
-              $path_url_caps = substr($path_url, 0, $pos + 1) . strtoupper(substr($path_url, $pos + 1));
+              $path_url_caps = substr($path_url, 0, $pos + 1) . str_replace(' ', '%20', strtoupper(substr($path_url, $pos + 1)));
               $argHeader_caps = @get_headers($path_url_caps);
               if (!preg_match("|200|", $argHeader_caps[0])) {
                 $file_upload_fields .=  $key_col_file . ', ';
@@ -1146,19 +1129,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
             }
           }
 
-          $exists = FALSE;
-          if ($source->id == 'document_import' || $source->id == 'document_import_communique_de_presse') {
-            $explode_file = explode('/', $path_url);
-            $file_name = $explode_file[count($explode_file) - 1];
-            foreach($result->items[$key]['documentfileold'] as $document_file) {
-              if($file_name == $document_file["filename"]) {
-                $exists = TRUE;
-                break;
-              }
-            }
-          }
-
-          if($exists === FALSE && $source->id != 'document_import_communique_de_presse') {
+          if($source->id != 'document_import_communique_de_presse') {
             $result->items[$key][$item_col_file] = $path_url;
           }
         }
