@@ -520,6 +520,13 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '152983dd-28e4-4ae7-ac86-f7968fbc939a',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
@@ -529,7 +536,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
-    'field_display_mode' => array(),
   );
   $terms[] = array(
     'name' => 'NORD/OUEST',
@@ -1429,19 +1435,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => '2d8fbb8b-4402-463b-9154-d4ceabeb6c26',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'References',
           'format' => NULL,
           'safe_value' => 'References',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
         ),
       ),
     ),
@@ -1692,19 +1698,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 5,
     'uuid' => '32e0e9ef-e42e-4a56-b565-1ac6c37add6c',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Meetings information',
           'format' => NULL,
           'safe_value' => 'Meetings information',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
@@ -2364,19 +2370,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 3,
     'uuid' => '4dda9e67-a196-48a5-b9f9-b70f98528abb',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Financial presentations',
           'format' => NULL,
           'safe_value' => 'Financial presentations',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
@@ -2826,19 +2832,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 4,
     'uuid' => '5838ee3c-817b-44ea-a2a7-35437c5629d4',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Reports',
           'format' => NULL,
           'safe_value' => 'Reports',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
@@ -2939,7 +2945,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 7,
     'uuid' => '5ae4be86-b081-4861-b92e-0b2487e6f3bb',
     'vocabulary_machine_name' => 'type_de_document',
-    'field_name_in_english' => array(),
     'field_display_mode' => array(
       'und' => array(
         0 => array(
@@ -2947,6 +2952,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_name_in_english' => array(),
   );
   $terms[] = array(
     'name' => 'Haute Garonne',
@@ -3633,19 +3639,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 1,
     'uuid' => '74fb33a5-b8f0-4f27-8286-97fce348e71d',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Shareholder documents',
           'format' => NULL,
           'safe_value' => 'Shareholder documents',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
@@ -5475,19 +5481,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'bddbac61-26b7-452d-ae2a-8842e7781976',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Press release',
           'format' => NULL,
           'safe_value' => 'Press release',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
@@ -5599,7 +5605,6 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 8,
     'uuid' => 'c27fed84-5f08-4d6e-8f6c-fc78d9319bff',
     'vocabulary_machine_name' => 'type_de_document',
-    'field_name_in_english' => array(),
     'field_display_mode' => array(
       'und' => array(
         0 => array(
@@ -5607,6 +5612,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_name_in_english' => array(),
   );
   $terms[] = array(
     'name' => '7 / 8 ème étage',
@@ -5700,19 +5706,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 0,
     'uuid' => 'c59d958a-3e75-4e5e-8a00-27685976f461',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Financial communications',
           'format' => NULL,
           'safe_value' => 'Financial communications',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
         ),
       ),
     ),
@@ -6816,19 +6822,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 6,
     'uuid' => 'e5e9e415-fdba-4a69-a1f5-316036b90260',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 1,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Other regular information',
           'format' => NULL,
           'safe_value' => 'Other regular information',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 1,
         ),
       ),
     ),
@@ -7011,19 +7017,19 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'weight' => 2,
     'uuid' => 'ec06a6f2-b0bd-4c91-b91d-91d45498f1c6',
     'vocabulary_machine_name' => 'type_de_document',
+    'field_display_mode' => array(
+      'und' => array(
+        0 => array(
+          'value' => 3,
+        ),
+      ),
+    ),
     'field_name_in_english' => array(
       'und' => array(
         0 => array(
           'value' => 'Legal information',
           'format' => NULL,
           'safe_value' => 'Legal information',
-        ),
-      ),
-    ),
-    'field_display_mode' => array(
-      'und' => array(
-        0 => array(
-          'value' => 3,
         ),
       ),
     ),
