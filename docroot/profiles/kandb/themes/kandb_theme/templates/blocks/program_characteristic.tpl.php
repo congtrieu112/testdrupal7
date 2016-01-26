@@ -245,7 +245,7 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
                           </div>
                           <div class="programCharacteristicsItem__content">
                               <h3 class="heading--tiny"><?php print isset($programme_variables['slider_rt2012_titre']) ? $programme_variables['slider_rt2012_titre'] : ''  ?></h3>
-                              <p><?php print isset($programme_variables['slider_rt2012_description']) ? $programme_variables['slider_rt2012_description'] : ''  ?></p>
+                              <p><?php print isset($programme_variables['slider_rt2012_description']) ? $programme_variables['slider_rt2012_description'] : '' ?></p>
                           </div>
                       </article>
                       <!-- [programCharacteristicsItem] end-->
