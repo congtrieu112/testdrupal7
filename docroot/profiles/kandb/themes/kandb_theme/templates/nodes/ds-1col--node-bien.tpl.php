@@ -293,7 +293,6 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 if (isset($node->field_caracteristique_parking[LANGUAGE_NONE][0])) {
                   $fee_parking = $node->field_caracteristique_parking[LANGUAGE_NONE][0]["value"];
                   $msg_parking = '';
-                  //var_dump($fee_parking);exit;
                   if ($fee_parking > 0) {
                     $msg_parking = str_replace('#num#', numberFormatGlobalSpace($fee_parking, 0, ",", " "), $label_parking_fee);
                   } elseif ($fee_parking == 0) {
@@ -324,9 +323,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
                         $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                        print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
-                        print '</li>';
+                        if(!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) {
+                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                          print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
+                          print '</li>';
+                        }
                       endforeach;
                     endif;
                     ?>
