@@ -29,33 +29,9 @@ $ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title
 $ville_id = isset($row->field_field_programme_loc_ville[0]['raw']['tid']) ? $row->field_field_programme_loc_ville[0]['raw']['tid'] : '';
 $departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
 $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
-// Check date rage available promotion.
-$value = 0;
-$trimestre = isset($row->_field_data['nid']['entity']->field_trimestre[LANGUAGE_NONE][0]['value']) ? $row->_field_data['nid']['entity']->field_trimestre[LANGUAGE_NONE][0]['value'] : "";
-$start_year = isset($row->_field_data['nid']['entity']->field_annee[LANGUAGE_NONE][0]['value']) ? $row->_field_data['nid']['entity']->field_annee[LANGUAGE_NONE][0]['value'] : "";
-$year_curent = date("Y");
-$month_curent = date("m");
-$result = $month_curent / 3;
-if ($trimestre && $start_year && ($start_year - $year_curent == 1 || $year_curent == $start_date)) :
-    switch ($result) :
-        case ($result <= 1 ) :
-            $value = ($trimestre == 1 && $start_year == $year_curent || $trimestre == 2 && $start_year == $year_curent ) ? TRUE : FALSE;
-            break;
-        case ($result > 1 && $result <= 2) :
-            $value = ($trimestre == 2 && $start_year == $year_curent || $trimestre == 3 && $start_year == $year_curent) ? TRUE : FALSE;
-            break;
-        case ($result > 2 && $result <= 3) :
-            $value = ($trimestre == 3 && $start_year == $year_curent || $trimestre == 4 && $start_year == $year_curent) ? TRUE : FALSE;
-            break;
-        case ($result > 3 && $result <= 4) :
-            $value = ($trimestre == 4 && $year_curent == $start_year || $trimestre == 1 && $start_year - $year_curent == 1 ) ? TRUE : FALSE;
-            break;
-        default:
-            break;
-    endswitch;
-endif;
 
-if ($value) :
+
+
 ?>
     <li data-app-filter-item="<?php print $ville_id; ?>">
         <!-- [squaredImageItem] start-->
@@ -110,4 +86,3 @@ if ($value) :
         </article>
         <!-- [squaredImageItem] end-->
     </li>
-<?php endif; ?>
