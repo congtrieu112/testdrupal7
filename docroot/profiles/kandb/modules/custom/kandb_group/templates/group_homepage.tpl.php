@@ -1,4 +1,5 @@
 <?php
+global $user;
 if (isset($data['group_header'])):
   print render($data['group_header']);
 endif;
@@ -55,7 +56,17 @@ endif;
                                 <?php endforeach; ?>
                               <?php endif; ?>
                           </ul>
+                          <?php
+                          if(in_array('Administrateur Général', $user->roles)):
+                          ?>
+                          <p>
+                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
+                          </p>
+                          <?php
+                          endif;
+                          ?>
                       </div>
+
                   </div>
               </div>
             <?php endif; ?>
@@ -79,6 +90,15 @@ endif;
                                 <?php endforeach; ?>
                               <?php endif; ?>
                           </ul>
+                          <?php
+                          if(in_array('Administrateur Général', $user->roles)):
+                          ?>
+                          <p>
+                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
+                          </p>
+                          <?php
+                          endif;
+                          ?>
                       </div>
                   </div>
               </div>
@@ -103,6 +123,15 @@ endif;
                                 <?php endforeach; ?>
                               <?php endif; ?>
                           </ul>
+                          <?php
+                          if(in_array('Administrateur Général', $user->roles)):
+                          ?>
+                          <p>
+                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
+                          </p>
+                          <?php
+                          endif;
+                          ?>
                       </div>
                   </div>
               </div>
@@ -127,6 +156,15 @@ endif;
                                 <?php endforeach; ?>
                               <?php endif; ?>
                           </ul>
+                          <?php
+                          if(in_array('Administrateur Général', $user->roles)):
+                          ?>
+                          <p>
+                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
+                          </p>
+                          <?php
+                          endif;
+                          ?>
                       </div>
                   </div>
               </div>
@@ -151,6 +189,15 @@ endif;
                                 <?php endforeach; ?>
                               <?php endif; ?>
                           </ul>
+                          <?php
+                          if(in_array('Administrateur Général', $user->roles)):
+                          ?>
+                          <p>
+                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
+                          </p>
+                          <?php
+                          endif;
+                          ?>
                       </div>
                   </div>
               </div>
