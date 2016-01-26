@@ -115,31 +115,33 @@ print theme('finance_header_block');
                                 <?php if (is_numeric($doc_nid) AND $document = node_load($doc_nid)) : ?>
                                   <?php if ($document): ?>
                                     <?php
-                                    $title = $document->title;
-                                    $field_document_file = field_get_items('node', $document, 'field_document_file');
+                                      $title = $document->title;
+                                      $field_document_file = field_get_items('node', $document, 'field_document_file');
                                     ?>
-                                    <div class="communiquesDocs__item bg-lightGrey">
-                                        <h4 class="communiquesDocs__title"><?php print $title; ?></h4>
-                                        <?php if ($field_document_file) : ?>
-                                          <ul class="communiquesDocs__list">
-                                              <?php foreach ($field_document_file as $file) : ?>
-                                                <?php
-                                                  $filename = '';
-                                                  if ($file['description'] != '') {
-                                                    $filename = $file['description'];
-                                                  }
-                                                  else {
-                                                    $filename = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
-                                                  }
-                                                ?>
-                                                <li>                                                    
-                                                    <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>                                                    
-                                                    <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
-                                                </li>
-                                              <?php endforeach; ?>
-                                          </ul>
-                                        <?php endif; ?>
-                                    </div>
+                                    <?php if ($field_document_file) : ?>
+                                      <div class="communiquesDocs__item bg-lightGrey">
+                                          <h4 class="communiquesDocs__title"><?php print $title; ?></h4>
+                                          <?php if ($field_document_file) : ?>
+                                            <ul class="communiquesDocs__list">
+                                                <?php foreach ($field_document_file as $file) : ?>
+                                                  <?php
+                                                    $filename = '';
+                                                    if ($file['description'] != '') {
+                                                      $filename = $file['description'];
+                                                    }
+                                                    else {
+                                                      $filename = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
+                                                    }
+                                                  ?>
+                                                  <li>
+                                                      <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
+                                                      <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                                                  </li>
+                                                <?php endforeach; ?>
+                                            </ul>
+                                          <?php endif; ?>
+                                      </div>
+                                    <?php endif; ?>
                                   <?php endif; ?>
                                 <?php endif; ?>
                               <?php endforeach; ?>
