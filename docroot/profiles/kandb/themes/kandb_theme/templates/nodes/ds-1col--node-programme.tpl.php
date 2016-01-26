@@ -305,14 +305,8 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
 <section class="section-padding" id="quartier" >
     <div class="wrapper">
         <header class="heading heading--bordered">
-            <?php
-            $subtitle_map = variable_get('kandb_program_default_subtitle_map',t("A l'image des famille")) ;
-           if($subtitle_map == '-' || !$subtitle_map) :
-             $subtitle_map = t("A l'image des famille");
-           endif;
-            ?>
             <h2 class="heading__title"><?php print isset($field_quartier_titre[0]['value']) ? $field_quartier_titre[0]['value'] : variable_get('kandb_program_default_title_map', t('Un quarter')); ?></h2>
-            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) ? strip_tags($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) : $subtitle_map; ?></p>
+            <p class="heading__title heading__title--sub"><?php print isset($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) ? strip_tags($field_quartier_sous_titre[LANGUAGE_NONE][0]['safe_value']) : variable_get('kandb_program_default_subtitle_map', t("A l'image des famille")); ?></p>
         </header>
     </div>
     <div class="swapItem">
