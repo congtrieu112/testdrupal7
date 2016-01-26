@@ -167,6 +167,12 @@ function kandb_views_avant_premiere_views_default_views() {
   $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
   $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
   $handler->display->display_options['filters']['current_all']['value'] = '1';
+  /* Filter criterion: Content: Date fin lancement (field_avant_premiere_date_fin) */
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['id'] = 'field_avant_premiere_date_fin_value';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['table'] = 'field_data_field_avant_premiere_date_fin';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['field'] = 'field_avant_premiere_date_fin_value';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['default_date'] = 'now';
 
   /* Display: Avant Première (List) */
   $handler = $view->new_display('block', 'Avant Première (List)', 'block_1');
