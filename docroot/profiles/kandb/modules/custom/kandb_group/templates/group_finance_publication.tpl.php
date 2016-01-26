@@ -129,13 +129,18 @@ print theme('finance_header_block');
                                                     $filename = $file['description'];
                                                   }
                                                   else {
-                                                    $filename = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
+                                                    $array = array('.pdf','_');
+                                                    $filename = str_replace($array, ' ', $file['filename']);
                                                   }
                                                 ?>
-                                                <li>                                                    
-                                                    <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>                                                    
-                                                    <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
-                                                </li>
+                                            <li class="downloadDocs__item">
+                                              <div class="downloadDocs__item__link">
+                                                <a href="<?php print '/download-document-file/' . $file['fid']; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" title="<?php print !empty($filename) ? $filename : ''; ?>">
+                                                  <span class="icon icon-download"></span>
+                                                </a>
+                                              </div>
+                                              <h4 class="b2bDocuments__heading"><?php print !empty($filename) ? $filename : ''; ?></h4>
+                                             </li>
                                               <?php endforeach; ?>
                                           </ul>
                                         <?php endif; ?>
