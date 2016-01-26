@@ -211,6 +211,12 @@ function kandb_view_livraison_immediate_views_default_views() {
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
   $handler->display->display_options['filters']['status']['group'] = 1;
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
+  $handler->display->display_options['filters']['current_all']['group'] = 1;
   /* Filter criterion: Content: Année (field_annee) */
   $handler->display->display_options['filters']['field_annee_value_1']['id'] = 'field_annee_value_1';
   $handler->display->display_options['filters']['field_annee_value_1']['table'] = 'field_data_field_annee';
@@ -232,10 +238,11 @@ function kandb_view_livraison_immediate_views_default_views() {
   $handler->display->display_options['filters']['status_1']['value'] = '1';
   $handler->display->display_options['filters']['status_1']['group'] = 2;
   /* Filter criterion: Domain Access: Available on current domain */
-  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
-  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
-  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
-  $handler->display->display_options['filters']['current_all']['value'] = '1';
+  $handler->display->display_options['filters']['current_all_1']['id'] = 'current_all_1';
+  $handler->display->display_options['filters']['current_all_1']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all_1']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all_1']['value'] = '1';
+  $handler->display->display_options['filters']['current_all_1']['group'] = 2;
   $translatables['livraison_immediate'] = array(
     t('Master'),
     t('Livraison Immediate'),

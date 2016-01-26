@@ -141,7 +141,10 @@ class DocCommuniqueCSVParser extends ParserCSV{
 
       // Make really sure we've got lines without trailing newlines.
       $line = trim($lineIterator->current(), "\r\n");
-      $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+      $encoding = mb_detect_encoding($line, "UTF-8,UTF-16");
+      if($encoding != 'UTF-8') {
+        $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+      }
       // Skip empty lines.
       if (empty($line)) {
         continue;
