@@ -758,8 +758,13 @@ function telechargement_documents_download_header($form, $form_state) {
       ctools_include('ajax');
       ctools_add_js('ajax-responder');
       $commands[] = array('command' => 'closePopin');
-      $document_uri = base64_encode($node->field_plaquette_commerciale['und'][0]['uri']);
-      $commands[] = ctools_ajax_command_redirect('document_download/' . $document_uri);
+      $programme_nid = $node->nid;
+      $filezipName = 'Programme_' . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
+      $document_uri = "public://Programme/archive/" . $programme_nid . "/" . $filezipName;
+      if (file_exists($document_uri)) {
+        $document_uri = base64_encode("public://Programme/archive/" . $programme_nid . "/" . $filezipName);
+        $commands[] = ctools_ajax_command_redirect('document_download/' . $document_uri);
+      }
       print ajax_render($commands);
       exit();
     }
