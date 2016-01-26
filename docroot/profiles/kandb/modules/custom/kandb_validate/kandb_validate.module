@@ -64,6 +64,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('taxonomy_term_data', 'c', 'c.tid = a.field_avant_premiere_ville_tid');
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
+    $type_options_query->condition('b.status', 1, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
       ->distinct();
 
