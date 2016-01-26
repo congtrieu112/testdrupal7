@@ -10085,6 +10085,11 @@ a.tag.tag--important:hover {
   padding: 1.25rem 0;
   margin-bottom: 0; }
 
+.programHeader .toolbox__subtitle {
+  font-size: 0.8125rem;
+  font-weight: bold;
+  margin: 0.5rem 0; }
+
 .programHeader .toolbox__intro {
   font-family: "Helvetica Neue LT W04_75 Bold";
   font-weight: 300;
@@ -10450,51 +10455,15 @@ a.tag.tag--important:hover {
     border-left: none;
     border-right: none; }
 
-.bienHeader .heading__title {
+.bienHeader .heading__title.smaller {
   font-size: 1.66667rem; }
+  .bienHeader .heading__title.smaller.heading__title--sub {
+    font-size: 1.33333rem; }
 
 .bienHeader .content-price.bienPrice {
   text-align: left;
   padding-bottom: 0;
   border-bottom: none; }
-  .bienHeader .content-price.bienPrice .content-price__item {
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: start;
-    -moz-box-pack: start;
-    box-pack: start;
-    -webkit-justify-content: flex-start;
-    -moz-justify-content: flex-start;
-    -ms-justify-content: flex-start;
-    -o-justify-content: flex-start;
-    justify-content: flex-start;
-    -ms-flex-pack: start;
-    -webkit-box-align: center;
-    -moz-box-align: center;
-    box-align: center;
-    -webkit-align-items: center;
-    -moz-align-items: center;
-    -ms-align-items: center;
-    -o-align-items: center;
-    align-items: center;
-    -ms-flex-align: center; }
-  .bienHeader .content-price.bienPrice .text {
-    font-size: 0.9375rem;
-    margin: 0;
-    padding-right: 0.625rem; }
-  .bienHeader .content-price.bienPrice .tags {
-    font-size: 0.625rem; }
-  .bienHeader .content-price.bienPrice .tva {
-    font-size: 0.625rem; }
-    .bienHeader .content-price.bienPrice .tva--btn {
-      margin-left: 0.625rem;
-      font-size: 0.625rem;
-      white-space: nowrap; }
 
 .bienHeader .toolsList {
   padding: 1.25rem 0 0;
@@ -10513,7 +10482,7 @@ a.tag.tag--important:hover {
     -ms-transform: translateY(-100%);
     -o-transform: translateY(-100%);
     transform: translateY(-100%); }
-  .bienHeader .heading__title {
+  .bienHeader .heading__title.smaller {
     font-size: 1.875rem; }
   .bienHeader .heading--bordered:before {
     width: 1.875rem;
@@ -10570,28 +10539,13 @@ a.tag.tag--important:hover {
     .bienHeader .contactUs-mini > a {
       text-align: center; }
     .bienHeader .contactUs-mini .contactUs__cta > a {
-      margin-bottom: 0; }
-  .bienHeader .content-price.bienPrice .text {
-    font-size: 1.5rem;
-    padding-right: 0.9375rem; }
-  .bienHeader .content-price.bienPrice .tva {
-    font-size: 0.75rem;
-    white-space: nowrap; }
-    .bienHeader .content-price.bienPrice .tva--btn {
-      font-size: 0.75rem;
-      margin-left: 0.9375rem; } }
+      margin-bottom: 0; } }
 
 @media only screen and (min-width: 48em) and (max-width: 64em) {
   .bienHeader {
     margin-bottom: 0.625rem; }
-    .bienHeader .heading__title {
+    .bienHeader .heading__title.smaller {
       font-size: 1.5rem; }
-    .bienHeader .content-price.bienPrice .text {
-      font-size: 1.0625rem; }
-    .bienHeader .content-price.bienPrice .tva {
-      font-size: 0.625rem; }
-      .bienHeader .content-price.bienPrice .tva--btn {
-        font-size: 0.625rem; }
     .bienHeader .programHeader__content {
       width: 96%;
       margin: 0 auto; }
@@ -12882,29 +12836,19 @@ a.tag.tag--important:hover {
     .downloadDocs__item__link > *:hover span {
       color: #199edd; }
   .communiquesDocs .communiquesDocs__list {
-    display: -webkit-box;
-    display: -moz-box;
-    display: box;
-    display: -webkit-flex;
-    display: -moz-flex;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: justify;
-    -moz-box-pack: justify;
-    box-pack: justify;
-    -webkit-justify-content: space-between;
-    -moz-justify-content: space-between;
-    -ms-justify-content: space-between;
-    -o-justify-content: space-between;
-    justify-content: space-between;
-    -ms-flex-pack: justify;
-    margin: 0 -0.625rem; }
+    margin: 0 -0.625rem;
+    max-width: none;
+    width: auto; }
+    .communiquesDocs .communiquesDocs__list:before, .communiquesDocs .communiquesDocs__list:after {
+      content: " ";
+      display: table; }
+    .communiquesDocs .communiquesDocs__list:after {
+      clear: both; }
     .communiquesDocs .communiquesDocs__list li {
-      -webkit-flex-grow: 1;
-      -moz-flex-grow: 1;
-      flex-grow: 1;
-      -ms-flex-positive: 1;
-      padding: 0 0.625rem; }
+      padding-left: 0.625rem;
+      padding-right: 0.625rem;
+      width: 33.33333%;
+      float: left; }
   .b2bDocuments .downloadDocs__list {
     margin: 0 auto;
     max-width: 100%;
