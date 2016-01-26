@@ -137,7 +137,7 @@ function kandb_domains_domain_conf_default_variables() {
     'anonymous' => 'Anonymous',
     'admin_theme' => 'adminimal',
     'date_default_timezone' => 'Europe/Paris',
-    'cache' => 0,
+    'cache' => 1,
     'cache_lifetime' => 0,
     'maintenance_mode' => 0,
     'maintenance_mode_message' => 'Kaufman &amp; Broad Patrimoine is currently under maintenance. We should be back shortly. Thank you for your patience.',
