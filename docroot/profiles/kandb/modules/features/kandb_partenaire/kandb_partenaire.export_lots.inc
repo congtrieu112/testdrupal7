@@ -54,7 +54,7 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
   if (is_file($file_path)) {
     $content = file_get_contents($file_path);
     if ($content) {
-      header('Content-Type: text/txt; charset=utf-8');
+      header('Content-Type: text/plain; charset=utf-8');
       print $content;
     }
     drupal_exit();
