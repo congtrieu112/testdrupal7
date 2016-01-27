@@ -159,12 +159,6 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
-      // Not fould image bien.
-      // Check image programme.
-      if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) &&
-        $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
-        $image_principale = $programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
-      } else { // Not fould image programme
         // Get default per image on each pieces and gammes.
         if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
           !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
@@ -175,7 +169,6 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
             $image_principale = $file_load->uri;
           }
         }
-      }
 
     }
 
