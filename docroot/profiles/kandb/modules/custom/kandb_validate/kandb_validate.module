@@ -64,6 +64,7 @@ function kandb_validate_get_ville_has_reference($view_name, $result) {
     $type_options_query->leftJoin('taxonomy_term_data', 'c', 'c.tid = a.field_avant_premiere_ville_tid');
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
     $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
+    $type_options_query->condition('b.status', 1, '=');
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
       ->distinct();
 
@@ -460,18 +461,10 @@ function kandb_validate_create_file_zip($realPath, $params = array()) {
 }
 
 /**
- * Implement hook_form_Form_ID_alter().
+ * Implement hook_node_update().
  */
-function kandb_validate_form_homepage_node_form_alter(&$form, &$form_state) {
-  $form['#submit'][] = 'kandb_validate_homepage_create_zip';
-}
-
-/**
- * Implement hook_form_submit();
- */
-function kandb_validate_homepage_create_zip(&$form, &$form_state) {
-  if (isset($form_state['values']['nid'])) {
-    $node = node_load($form_state['values']['nid']);
-    create_file_archire_for_habitat($node);
+function kandb_validate_node_update($node){
+  if ($node->type == 'homepage') {
+    create_file_archire_for_habitat(node_load($node->nid, NULL, TRUE));
   }
 }

@@ -6,7 +6,7 @@
         <?php foreach ($results as $letter => $objects) : ?>
         <div class="typeLogements__list bg-white" style="padding: 2px; margin: 2px">
             <dl>
-              <dt><?php print $letter; ?></dt>
+                <dt id="list-<?php print strtolower($letter); ?>"><?php print strtoupper($letter); ?></dt>
               <?php foreach($objects as $object) : ?>
               <dt><?php print $object['name']; ?></dt>
               <dd>
