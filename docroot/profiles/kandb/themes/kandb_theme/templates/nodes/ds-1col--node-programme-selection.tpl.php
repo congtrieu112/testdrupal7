@@ -196,7 +196,7 @@
           <?php if ($de_a_price_tva || $de_a_price) : ?>
           <ul class="prices">              
               
-              <?php if(empty($tva) && !$affichage_double_grille): ?>
+              <?php if(empty($tva) && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
@@ -204,40 +204,30 @@
               </li>
               <?php endif; ?>
               
-              <?php if($tva && !$affichage_double_grille): ?>
+              <?php if($tva && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
                   </span>
               </li>
               <li>
-                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
-                    <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
-                    <?php endif; ?>
+                  <span class="tva tva--high">TVA 20%</span>                  
               </li>
               <?php endif; ?>
               
-              <?php if($tva && $affichage_double_grille): ?>
-              <li>
-                  <span class="text">
-                      <?php if ($de_a_price) print $de_a_price; ?>
-                  </span>
-              </li>
+              <?php if($tva && $affichage_double_grille == 1): ?>
               <li>
                   <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
                     <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
+                      <span class="tva tva--high">TVA 20%</span>
                     <?php endif; ?>
               </li>
               <li>
                   <span class="text">
                       <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
                   </span>
-              </li>
-              <li>
                   <?php if ($tva) : ?>
-                  <span class="tva tva--high"><?php print $tva; ?></span>
+                    <span class="tva tva--high"><?php print $tva; ?></span>
                   <?php endif; ?>
               </li>
               <?php endif; ?>
