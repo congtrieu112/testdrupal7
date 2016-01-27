@@ -10,3 +10,6 @@ docroot/sites/default/settings.local.php
 # Ignore index.php
 docroot/index.php
 .idea/
+
+# Ignore module outside profile
+docroot/sites/all/modules/contrib/
