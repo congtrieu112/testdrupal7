@@ -157,7 +157,7 @@ function kandb_contact_buttons($only_links = false) {
       $url[$webform->title] = $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid);
       $links[] = theme_link(
           array(
-            'text' => $webform->title,
+            'text' => '<span>' . $webform->title . '</span>',
             'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
             'options' => array(
               'attributes' => array(
@@ -165,7 +165,7 @@ function kandb_contact_buttons($only_links = false) {
                 'data-reveal-ajax' => array('true'),
                 'data-reveal-id' => array('popinLeadForm'),
               ),
-              'html' => FALSE,
+              'html' => TRUE,
             )
           )
       );

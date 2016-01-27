@@ -116,15 +116,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
         <h1 class="heading heading--bordered">
-            <div class="heading__title">
-                <?php print (!empty($bien_type)) ? $bien_type->name : ''  ?>
-                <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?>
-                <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
-                <?php print t('Lot') . ' ' . $bien_id ?>
-            </div>
-            <div class="heading__title heading__title--sub">
-                <?php print $ville ?> <?php print $arrondissement ?> <br> <?php print (!empty($programme)) ? $programme->title : ''; ?>
-            </div>
+          <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
+          <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
+          <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
+          <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
+          <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
         </h1>
         <ul class="tags-list">
             <?php
@@ -214,13 +210,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 <!-- tablet+desktop heading-->
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
-                        <div class="heading__title">
-                            <?php print (!empty($bien_type)) ? $bien_type->name : ''  ?>
-                            <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?>
-                            <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
-                            <?php print t('Lot') . ' ' . $bien_id ?>
-                        </div>
-                        <div class="heading__title heading__title--sub"> <?php print $ville ?> <?php print $arrondissement ?> <br> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
+                      <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
+                      <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
+                      <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
+                      <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
+                      <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
                     <ul class="tags-list">
                         <?php
