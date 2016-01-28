@@ -54,6 +54,7 @@ function kandb_recherche_page(){
   $block_form = $block_form['content'];
 
   $result = NULL;
+  $isThereAResult = FALSE;
   $vocabularies = taxonomy_vocabulary_get_names();
 
   // Result
@@ -77,6 +78,7 @@ function kandb_recherche_page(){
       }else{
         $result = views_embed_view('solr_views', 'page_1');
       }
+      $isThereAResult = TRUE;
 
     // Otherwise we propose some new result
     }else{
@@ -131,20 +133,35 @@ function kandb_recherche_page(){
           );
         }
 
+        // Postal code
+        $return['postal_code'] = array();
+        $postal_code_array = array();
+        foreach($postal_code as $id => $programme){
+          $postal_code_array[] = $programme->field_programme_loc_cp['und'][0]['value'];
+        }
+        if(!empty($postal_code_array)) {
+          $postal_code_array = array_unique($postal_code_array);
+          sort($postal_code_array);
+          foreach ($postal_code_array as $postal_text) {
+            $return['postal_code'][] = array(
+              'link' => kandb_recherche_get_action_url() . '?place=' . $postal_text,
+              'name' => $postal_text,
+            );
+          }
+        }
+
         $result = theme('result_beginning_with', array(
           'ville' => $return['ville'],
           'departement' => $return['departement'],
           'region' => $return['region'],
           'programme' => $return['programme'],
+          'postal_code' => $return['postal_code'],
         ));
-
-      // Otherwise list all departement
       }
     }
   }
 
   // If not result
-  $isThereAResult = TRUE;
   if ($result == NULL) {
     $tree = kandb_seo_get_list_of_cities_by_programme_in('departements');
     $departement = array();
