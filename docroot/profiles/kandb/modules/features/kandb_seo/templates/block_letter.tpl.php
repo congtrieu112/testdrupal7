@@ -1,10 +1,6 @@
 <!-- [searchResults] start-->
 <section class="wrapper">
   <div class="noResults">
-    <div class="noResults__heading">
-      <h2>Nous n'avons pas trouvé de résultats correspondant à votre recherche.</h2>
-      <p>Trouvez votre logement dans le département de votre choix:</p>
-    </div>
     <div class="noResults__category">
       <dl class="noResults__category__filter">
         <dt>Aller à :</dt>
@@ -25,6 +21,10 @@
           </nav>
         </dd>
       </dl>
+
+      <?php
+        if(arg(0) == 'regions') :
+      ?>
       <div class="noResults__category__list">
         <ul>
           <ul class="small-block-grid-2 medium-block-grid-3">
@@ -32,7 +32,7 @@
               <?php foreach ($collections as $letter => $collection) : ?>
               <li>
                 <dl>
-                  <dt id="list-<?php print $letter; ?>"><?php print $letter; ?></dt>
+                  <dt><?php print $letter; ?></dt>
                   <dd>
                     <ul>
                       <?php foreach ($collection as $ville_name) : ?>
@@ -47,6 +47,9 @@
           </ul>
         </ul>
       </div>
+      <?php
+        endif;
+      ?>
     </div>
   </div>
 </section>

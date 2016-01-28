@@ -60,9 +60,9 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_title_en' => array(
       'und' => array(
         0 => array(
-          'value' => 'Governance',
+          'value' => 'Board of directors',
           'format' => NULL,
-          'safe_value' => 'Governance',
+          'safe_value' => 'Board of directors',
         ),
       ),
     ),
@@ -93,9 +93,9 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_title_en' => array(
       'und' => array(
         0 => array(
-          'value' => 'Executive Committee',
+          'value' => 'Management commitee',
           'format' => NULL,
-          'safe_value' => 'Executive Committee',
+          'safe_value' => 'Management commitee',
         ),
       ),
     ),
@@ -110,7 +110,7 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Comex',
+    'name' => 'Comité Executif',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 3,
@@ -119,25 +119,25 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_display_description' => array(
       'und' => array(
         0 => array(
-          'value' => 0,
+          'value' => 1,
         ),
       ),
     ),
     'field_comite_title_en' => array(
       'und' => array(
         0 => array(
-          'value' => 'Comex',
+          'value' => 'Executive commitee',
           'format' => NULL,
-          'safe_value' => 'Comex',
+          'safe_value' => 'Executive commitee',
         ),
       ),
     ),
     'field_comite_title_fr' => array(
       'und' => array(
         0 => array(
-          'value' => 'Comex',
+          'value' => 'Comité Executif',
           'format' => NULL,
-          'safe_value' => 'Comex',
+          'safe_value' => 'Comité Executif',
         ),
       ),
     ),
@@ -159,9 +159,9 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_title_en' => array(
       'und' => array(
         0 => array(
-          'value' => 'Careers Committee',
+          'value' => 'Remuneration & benefits commitee',
           'format' => NULL,
-          'safe_value' => 'Careers Committee',
+          'safe_value' => 'Remuneration &amp; benefits commitee',
         ),
       ),
     ),
@@ -225,9 +225,9 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_title_en' => array(
       'und' => array(
         0 => array(
-          'value' => 'Audit Committee',
+          'value' => 'Independent auditors commitee',
           'format' => NULL,
-          'safe_value' => 'Audit Committee',
+          'safe_value' => 'Independent auditors commitee',
         ),
       ),
     ),

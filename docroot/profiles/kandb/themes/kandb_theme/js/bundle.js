@@ -6724,7 +6724,7 @@ function a(b,d){function e(a,b){return function(){return a.apply(b,arguments)}}v
 }(this, function() {
 
 /*!
- * GMaps.js v0.4.21
+ * GMaps.js v0.4.22
  * http://hpneo.github.com/gmaps/
  *
  * Copyright 2015, Gustavo Leon
@@ -6739,7 +6739,9 @@ var extend_object = function(obj, new_obj) {
   }
 
   for (name in new_obj) {
-    obj[name] = new_obj[name];
+    if (new_obj[name] !== undefined) {
+      obj[name] = new_obj[name];
+    }
   }
 
   return obj;
@@ -6827,7 +6829,6 @@ var arrayToLatLng = function(coords, useGeoJSON) {
 };
 
 var getElementsByClassName = function (class_name, context) {
-
     var element,
         _class = class_name.replace('.', '');
 
@@ -6935,13 +6936,11 @@ var GMaps = (function(global) {
         };
 
       if (typeof(options.el) === 'string' || typeof(options.div) === 'string') {
-
-          if (identifier.indexOf("#") > -1) {
-              this.el = getElementById(identifier, options.context);
-          } else {
-              this.el = getElementsByClassName.apply(this, [identifier, options.context]);
-          }
-
+        if (identifier.indexOf("#") > -1) {
+            this.el = getElementById(identifier, options.context);
+        } else {
+            this.el = getElementsByClassName.apply(this, [identifier, options.context]);
+        }
       } else {
           this.el = identifier;
       }
@@ -8087,7 +8086,7 @@ GMaps.prototype.getRoutes = function(options) {
       }
 
       if (options.callback) {
-        options.callback(self.routes);
+        options.callback(self.routes, result, status);
       }
     }
     else {
@@ -8099,7 +8098,7 @@ GMaps.prototype.getRoutes = function(options) {
 };
 
 GMaps.prototype.removeRoutes = function() {
-  this.routes = [];
+  this.routes.length = 0;
 };
 
 GMaps.prototype.getElevations = function(options) {
@@ -8147,6 +8146,35 @@ GMaps.prototype.getElevations = function(options) {
 
 GMaps.prototype.cleanRoute = GMaps.prototype.removePolylines;
 
+GMaps.prototype.renderRoute = function(options, renderOptions) {
+  var self = this,
+      panel = ((typeof renderOptions.panel === 'string') ? document.getElementById(renderOptions.panel.replace('#', '')) : renderOptions.panel),
+      display;
+
+  renderOptions.panel = panel;
+  renderOptions = extend_object({
+    map: this.map
+  }, renderOptions);
+  display = new google.maps.DirectionsRenderer(renderOptions);
+
+  this.getRoutes({
+    origin: options.origin,
+    destination: options.destination,
+    travelMode: options.travelMode,
+    waypoints: options.waypoints,
+    unitSystem: options.unitSystem,
+    error: options.error,
+    avoidHighways: options.avoidHighways,
+    avoidTolls: options.avoidTolls,
+    optimizeWaypoints: options.optimizeWaypoints,
+    callback: function(routes, response, status) {
+      if (status === google.maps.DirectionsStatus.OK) {
+        display.setDirections(response);
+      }
+    }
+  });
+};
+
 GMaps.prototype.drawRoute = function(options) {
   var self = this;
 
@@ -8157,10 +8185,13 @@ GMaps.prototype.drawRoute = function(options) {
     waypoints: options.waypoints,
     unitSystem: options.unitSystem,
     error: options.error,
-    callback: function(e) {
-      if (e.length > 0) {
+    avoidHighways: options.avoidHighways,
+    avoidTolls: options.avoidTolls,
+    optimizeWaypoints: options.optimizeWaypoints,
+    callback: function(routes) {
+      if (routes.length > 0) {
         var polyline_options = {
-          path: e[e.length - 1].overview_path,
+          path: routes[routes.length - 1].overview_path,
           strokeColor: options.strokeColor,
           strokeOpacity: options.strokeOpacity,
           strokeWeight: options.strokeWeight
@@ -8171,9 +8202,9 @@ GMaps.prototype.drawRoute = function(options) {
         }
 
         self.drawPolyline(polyline_options);
-        
+
         if (options.callback) {
-          options.callback(e[e.length - 1]);
+          options.callback(routes[routes.length - 1]);
         }
       }
     }
@@ -8227,7 +8258,7 @@ GMaps.prototype.travelRoute = function(options) {
 
 GMaps.prototype.drawSteppedRoute = function(options) {
   var self = this;
-  
+
   if (options.origin && options.destination) {
     this.getRoutes({
       origin: options.origin,
@@ -8719,6 +8750,10 @@ GMaps.prototype.off = function(event_name) {
   GMaps.off(event_name, this);
 };
 
+GMaps.prototype.once = function(event_name, handler) {
+  return GMaps.once(event_name, this, handler);
+};
+
 GMaps.custom_events = ['marker_added', 'marker_removed', 'polyline_added', 'polyline_removed', 'polygon_added', 'polygon_removed', 'geolocated', 'geolocation_failed'];
 
 GMaps.on = function(event_name, object, handler) {
@@ -8746,6 +8781,13 @@ GMaps.off = function(event_name, object) {
   }
   else {
     object.registered_events[event_name] = [];
+  }
+};
+
+GMaps.once = function(event_name, object, handler) {
+  if (GMaps.custom_events.indexOf(event_name) == -1) {
+    if(object instanceof GMaps) object = object.map;
+    return google.maps.event.addListenerOnce(object, event_name, handler);
   }
 };
 
@@ -18162,7 +18204,7 @@ return jQuery;
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],6:[function(require,module,exports){
 /*!
- * JavaScript Cookie v2.0.4
+ * JavaScript Cookie v2.1.0
  * https://github.com/js-cookie/js-cookie
  *
  * Copyright 2006, 2015 Klaus Hartl & Fagner Brack
@@ -18218,8 +18260,12 @@ return jQuery;
 					}
 				} catch (e) {}
 
-				value = encodeURIComponent(String(value));
-				value = value.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+				if (!converter.write) {
+					value = encodeURIComponent(String(value))
+						.replace(/%(23|24|26|2B|3A|3C|3E|3D|2F|3F|40|5B|5D|5E|60|7B|7D|7C)/g, decodeURIComponent);
+				} else {
+					value = converter.write(value, key);
+				}
 
 				key = encodeURIComponent(String(key));
 				key = key.replace(/%(23|24|26|2B|5E|60|7C)/g, decodeURIComponent);
@@ -18257,7 +18303,9 @@ return jQuery;
 				}
 
 				try {
-					cookie = converter && converter(cookie, name) || cookie.replace(rdecode, decodeURIComponent);
+					cookie = converter.read ?
+						converter.read(cookie, name) : converter(cookie, name) ||
+						cookie.replace(rdecode, decodeURIComponent);
 
 					if (this.json) {
 						try {
@@ -18298,7 +18346,7 @@ return jQuery;
 		return api;
 	}
 
-	return init();
+	return init(function () {});
 }));
 
 },{}],7:[function(require,module,exports){
@@ -37570,7 +37618,6 @@ var Callback = function ( scope ) {
     var $parent = $( _parent );
     $parent.html( ctrl.msg ).trigger('write');
     //that.fn.bindings.reinit( $parent );
-    $('.ajax-wait').removeClass('ajax-wait');
   };
 
   this.append = function ( data ){
@@ -37754,7 +37801,8 @@ AppAjaxForm.prototype = {
 
   callback: function( ctrl ) {
     var $this = ctrl.datas.parent.closest(trigger),
-        settings = $this.data('appAjaxForm').settings;
+        settings = $this.data('appAjaxForm').settings,
+        timeOut;
 
     var closePopin = function() {
       $this.closest('.reveal-modal').foundation('reveal', 'close');
@@ -37765,7 +37813,7 @@ AppAjaxForm.prototype = {
     $this.data('appAjaxForm').displayMessage( ctrl.msg, 'success' );
 
     if (settings.callback && settings.callback === 'close') {
-      var timeOut = setTimeout(function(){
+      timeOut = setTimeout(function(){
         closePopin();
       }, 4000);
     }
@@ -37903,12 +37951,17 @@ AppAjax.prototype = {
     var that = this,
         dataAjax = typeof data !== 'undefined' ? data : "";
 
-    $target.addClass('ajax-wait');
+    // add spinner (will be replace by response)
+    $target.addClass('ajax-wait').html('<div></div>');
+
+    var triggerSend = function() {
+      $(document).trigger('ajaxResponse');
+    };
 
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
           parent: $target,
-          callback: ["write", that.triggerSend]
+          callback: ["write", triggerSend ]
         });
 
     if ( App.debug ) {
@@ -37926,10 +37979,6 @@ AppAjax.prototype = {
     }
 
     return this;
-  },
-
-  triggerSend: function() {
-    $(document).trigger('ajaxResponse');
   },
 
   url: function() {
@@ -38247,6 +38296,20 @@ var checkDisplay = function() {
     }
 };
 
+var enableSections = function() {
+  var currentSections = $(sectionTriggerAttr).map(function(index, obj) {
+          return obj.getAttribute(sectionTrigger);
+        }).toArray(),
+      availableSections = $(sections).toArray().reduce(function(memo, section) {
+        if (currentSections.indexOf(breakId(section.id)) > -1) {
+          section.setAttribute('class', section.getAttribute('class') + ' enabled');
+          memo.push(section);
+        }
+
+        return memo;
+      }, []);
+};
+
 /* ================= */
 /* MODULE DEFINITION */
 /* ================= */
@@ -38276,6 +38339,8 @@ AppContactMap.prototype = {
             .off('resize', checkDisplay)
             .on('resize', checkDisplay);
 
+        enableSections(sections);
+
         return this;
     }
 };
@@ -38302,6 +38367,7 @@ $.fn.appContactMap = function(opt) {
 };
 
 $(trigger).appContactMap();
+
 },{"./app-top-bar.js":34}],16:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
@@ -39334,6 +39400,105 @@ $.fn.appPartager = function(opt) {
 $(trigger).appPartager();
 
 },{}],26:[function(require,module,exports){
+/* ============================ */
+/* popinCookies : app-popinCookies.js */
+/* ============================ */
+
+'use strict';
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger       = '[data-popincookies]',
+    accept        = '[data-popincookies-accept]',
+    closer        = '[data-popincookies-close]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppPopinCookies( el, opt ) {
+  this.settings = $.extend({}, defaults, opt);
+  this.item = $(el);
+
+  this.currentState = $.fn.Cookies.get( "popinCookies" );
+
+  if ( this.currentState !== "accept" ) {
+    this.init();
+  }
+}
+
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppPopinCookies.prototype = {
+
+  init: function() {
+    var that = this;
+
+    $(trigger).show().attr("aria-hidden", "false");
+
+    this.binding();
+
+    return this;
+  },
+
+  binding: function() {
+    var that = this;
+
+    this.item.find(closer).on('click.popinCookies-close', function(e){
+      e.preventDefault();
+      $.fn.Cookies.set( "popinCookies", "close", { expires: 365 } );
+      that.closePopin();
+    });
+
+    this.item.find(accept).on('click.popinCookies-accept', function(e){
+      e.preventDefault();
+      $.fn.Cookies.set( "popinCookies", "accept", { expires: 365 } );
+      that.closePopin();
+    });
+  },
+
+  closePopin: function() {
+    this.item.velocity("slideUp", { duration: 250 });
+  }
+
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appPopinCookies = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppPopinCookies');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppPopinCookies', new AppPopinCookies(this, opt));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+        instance[opt].apply(instance, args);
+      }
+    }
+  });
+};
+
+$(trigger).appPopinCookies();
+},{}],27:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -39437,7 +39602,7 @@ App.reveal();
 App.updaters.reveal = function() {
   App.revealBind();
 };
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39465,7 +39630,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39484,18 +39649,18 @@ var openMore = function() {
 
 var typeNumber = function() {
   // Because firefox allow alphabetic input...
-  var $input = $('input[type=number]'),
-      characters = [48,49,50,51,52,53,54,55,56,57,8,46,37,38,39,40,9];
-      // 0-9 ; del ; backspace ; arrows ; tab
+  var $input = $('input[data-input-number]');
 
-  $input.off('keypress.inputNumber').on('keypress.inputNumber', function(e){
-    var key = e.keyCode || e.which;
+  $input
+    .attr('type', 'tel')
+    .off('keyup.inputNumber')
+    .on('keyup.inputNumber', function(e){
+        var $this = $(this),
+            value = $this.val().replace(/\D/g,'');
 
-    if( $.inArray( key, characters ) === -1 ) {
-      e.preventDefault();
-    }
-  });
-};
+        $this.val( value );
+      });
+    };
 
 var searchInit = function() {
   var $root = $('.searchFormular');
@@ -39515,7 +39680,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39616,7 +39781,7 @@ $(trigger).appSeeMore();
 App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
 };
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39666,7 +39831,7 @@ App.appComboSelect(trigger);
 App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-showText.js */
 /* ======================== */
@@ -39782,7 +39947,7 @@ App.updaters.appShowMoreText = function() {
   $(trigger).appShowMoreText();
 };
 
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -39982,175 +40147,6 @@ $(trigger).appSlick();
 App.updaters.appSlick = function() {
   $(trigger).appSlick();
 };
-
-},{}],33:[function(require,module,exports){
-/* ====================== */
-/* expand more info table row: app-table-outils.js */
-/* ====================== */
-
-"use strict";
-var trigger = '[data-expand-row-info]',
-    triggerCheckbox = '[data-table-checkbox]',
-    triggerSelectedCheckbox = '[data-check-selected-rows]',
-    indicator = '[data-expand-indicator]',
-    expandable = '[data-expandable-area]',
-    defaults = {};
-
-
-var toggleInfo = function(ev) {
-  var $target = $(ev.target); 
-  if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
-
-  var $row = $(ev.currentTarget),
-      $indicator = $row.find(indicator),
-      $nextRow = $row.next(),
-      $expandable = $nextRow.find(expandable);
-
-  if ($expandable.is(':visible')) {
-    $expandable.velocity('slideUp', {display: 'none'});
-    $indicator.velocity({rotateX: '0deg'});
-  } else {
-    $expandable.velocity('slideDown');
-    $indicator.velocity({rotateX: '180deg'});
-  }
-};
-
-function AppTableOutils(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableOutils.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', toggleInfo)
-            .on('click', toggleInfo);
-    }
-};
-
-/* ====================== */
-/* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
-/* ====================== */
-var toggleCheckbox = function(ev) {
-  var $target = $(ev.currentTarget),
-      $tbody = $target.closest('tbody');
-
-  if ($tbody) {
-      var isChecked = !!$target.is(':checked'),
-          $checkBoxes = $tbody.find('.' + $target.attr('class'));
-      //$checkBoxes.attr('checked', isChecked);
-      $checkBoxes.each(function(index, obj) {
-        if (!obj.disabled) {
-          obj.checked = isChecked;
-        }
-      });
-  }
-  else {
-      console.error('Input checkbox is not wrapped within a tbody');
-  }
-};
-
-function AppTableCheckbox(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppTableCheckbox.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('change', toggleCheckbox)
-            .on('change', toggleCheckbox);
-    }
-
-};
-
-
-/* ====================== */
-/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
-/* ====================== */
-var checkRows = function(ev) {
-  var $tbody = $(ev.currentTarget).closest('tbody'),
-      $checkboxes = $tbody.find('[type=checkbox]').filter(':checked');
-
-  if ($checkboxes.length === 0) {
-    ev.preventDefault();
-    ev.stopPropagation();
-  }
-};
-
-function AppCheckSelectedRows(el, opts) {
-    this.settings = $.extend({}, defaults, opts);
-    this.$el = $(el);
-    this.init();
-}
-
-AppCheckSelectedRows.prototype = {
-    init: function() {
-        this.bindEvents();
-        return this;
-    },
-
-    bindEvents: function() {
-        this.$el
-            .off('click', checkRows)
-            .on('click', checkRows);
-    }
-
-};
-
-/* =============== */
-/* MODULE DATA-API */
-/* =============== */
-function jqueryFn(jq, ClassObj, args, opt) {
-    //var args = Array.prototype.slice.call(arguments, 1);
-
-    return jq.each(function() {
-        var item = $(this), instance = item.data(ClassObj.name);
-        if (!instance) {
-            // create plugin instance and save it in data
-            item.data(ClassObj.name, new ClassObj(this, opt));
-        } else {
-            // if instance already created call method
-            if(typeof opt === 'string') {
-                instance[opt].apply(instance, args);
-            }
-        }
-    });
-
-}
-
-
-$.fn.appTableOutils = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableOutils, opt, args);
-};
-
-$.fn.appTableCheckbox = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppTableCheckbox, opt, args);
-};
-
-$.fn.appCheckSelectedRows = function(opt) {
-  var args = Array.prototype.slice.call(arguments, 1);
-  jqueryFn(this, AppCheckSelectedRows, opt, args);
-};
-
-$(trigger).appTableOutils();
-$(triggerCheckbox).appTableCheckbox();
-$(triggerSelectedCheckbox).appCheckSelectedRows();
-
 
 },{}],34:[function(require,module,exports){
 /* ====================== */
@@ -40901,7 +40897,7 @@ var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
 var appShowText         = require("./app-showText.js");
 var appPartager         = require("./app-partager.js");
-var appTableOutils      = require("./app-table-outils.js");
+var appPopinCookies     = require("./app-popinCookies.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -40917,4 +40913,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-reveal.js":26,"./app-scroll-to.js":27,"./app-searchFormular.js":28,"./app-seeMore.js":29,"./app-select.js":30,"./app-showText.js":31,"./app-slick.js":32,"./app-table-outils.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-popinCookies.js":26,"./app-reveal.js":27,"./app-scroll-to.js":28,"./app-searchFormular.js":29,"./app-seeMore.js":30,"./app-select.js":31,"./app-showText.js":32,"./app-slick.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);

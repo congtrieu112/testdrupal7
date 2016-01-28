@@ -50,6 +50,8 @@
                                         </tr>
                                         <tr>
                                             <td valign="top" style="padding: 0 13px;">
+                                                <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #003e5e; line-height: 30px;"><?php print  $mail_vars['avant_premiere_ville']; ?> / <?php print $mail_vars['avant_premiere_department']; ?></p>
+                                                <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['avant_premiere_title']; ?></p>
                                                 <p style="margin: 0; padding-top: 55px;padding-bottom:50px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 20px;">
                                                   Bonjour<br /><br />
                                                   Un visiteur du site <?php print $mail_vars['kandb_base_url']; ?> s'est montré intéressé par une "avant première" et a souhaité laisser un message.<br />
@@ -61,14 +63,13 @@
                                                   <br />
                                                   Ville : <?php print $mail_vars['rdv_ville']; ?><?php if ($mail_vars['rdv_lieudit']) : ?> - <?php print $mail_vars['rdv_lieudit']; ?> <?php endif; ?><br />
                                                   Code Postal : <?php print $mail_vars['rdv_code_postal']; ?><br />
-                                                  Pays : <br />
+                                                  Pays : <?php print $mail_vars['rdv_pays']; ?> <br />
                                                   E-mail : <?php  print $mail_vars['rdv_email']; ?><br />
                                                   Telephone : <?php print $mail_vars['rdv_telephone']; ?><br />
                                                   Son message : <?php print $mail_vars['rdv_message']; ?><br />
-                                                  Origine Publicitaire : <?php print $mail_vars['rdv_connu']; ?><br />
                                                   L'avant première qui l'intéresse : <br />
                                                   <?php print $mail_vars['avant_premiere_title']; ?><br />
-                                                  <?php print $mail_vars['rdv_ville']; ?> / <?php print $mail_vars['avant_premiere_department']; ?><br />
+                                                  <?php print $mail_vars['avant_premiere_ville']; ?> / <?php print $mail_vars['avant_premiere_department']; ?><br />
                                                   <br />
                                                   <?php if(isset($mail_vars['rdv_newsletter']) && $mail_vars['rdv_newsletter'] == TRUE) : ?>  je souhaite recevoir les offres de KB <?php endif; ?><br />
                                                   <br />

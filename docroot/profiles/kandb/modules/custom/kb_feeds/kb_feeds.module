@@ -323,7 +323,7 @@ function getListTidTaxonomyByName($bundle, $value) {
  */
 function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id) {
   $logging = '';
- 
+
   $totalItems = count($item);
   $totalColumn = isset($source->getConfig()['KbFeedsCSVParser']['total_column']) ? $source->getConfig()['KbFeedsCSVParser']['total_column'] : $totalItems;
 
@@ -422,6 +422,9 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       if (empty($entity->domains)) {
         $logging = $item[0] . '||' . ' Domains value not validate |' . $item[30] . '| Skip imported' . "\n";
       }
+      if ($item[14] == '') {
+        $logging .= $item[0] . '||' . ' "Type de Maison" value is null | Warning' . "\n";
+      }
       if ($totalItems != $totalColumn) {
         $logging .= $item[0] . '||' . 'Structure error (Total column diffenrence total items' . '| Skip imported' . "\n";
       } else {
@@ -499,7 +502,32 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
         }
       }
     } elseif ($entity->feeds_item->id == 'document_import' || $entity->feeds_item->id == 'document_import_uk') {
-      if ($totalItems > 7 || $totalItems <= 5) {
+      if (isset($entity_id) && $entity_id > 0) {
+        $origin_node = node_load($entity_id, NULL, TRUE);
+        $is_new = FALSE;
+        $old_fids = array();
+        if (isset($origin_node->field_document_file[LANGUAGE_NONE])) {
+          foreach ($origin_node->field_document_file[LANGUAGE_NONE] as $index => $value) {
+            $old_fids[$index] = $value['fid'];
+          }
+        }
+        if (!empty($old_fids) && isset($entity->field_document_file[LANGUAGE_NONE])) {
+          foreach ($entity->field_document_file[LANGUAGE_NONE] as $index => $value) {
+            if (!in_array($value['fid'], $old_fids)) {
+              $is_new = TRUE;
+              $origin_node->field_document_file[LANGUAGE_NONE][] = $value;
+            }
+            elseif(isset($value['description']) && $value['description'] != '') {
+              $delta = array_search($value['fid'], $old_fids);
+              $origin_node->field_document_file[LANGUAGE_NONE][$delta]['description'] = $value['description'];
+            }
+          }
+        }
+        if ($is_new) {
+          $entity->field_document_file[LANGUAGE_NONE] = $origin_node->field_document_file[LANGUAGE_NONE];
+        }
+      }
+      if ($totalItems > 8 || $totalItems < 6) {
         $logging = $item['identifiantdocbibliotheque'] . '||' . 'Structure error (Total column diffenrence total items)' . '| Skip imported' . "\n";
       } else {
         $validates = array(
@@ -846,6 +874,29 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
       );
 
       $logging = validateFieldInFileImportFeeds($validates, $item, $entity);
+      if (!$logging || !strpos($logging, 'Skip import')) {
+        $partenaire_programmes = isset($entity->field_partenaire_programmes[LANGUAGE_NONE][0]['target_id']) ? $entity->field_partenaire_programmes[LANGUAGE_NONE] : '';
+        $partenaire_id = isset($entity->field_id_partenaire[LANGUAGE_NONE][0]['value']) ? $entity->field_id_partenaire[LANGUAGE_NONE][0]['value'] : '';
+        $programmes = explode(",", rtrim(variable_get('partenaire_programme_import_ids_' . $partenaire_id), ",,"));
+        if($programmes) {
+          $query = new EntityFieldQuery();
+          $query->entityCondition('entity_type', 'node')
+            ->entityCondition('bundle', 'programme')
+            ->fieldCondition('field_id_programme', 'value', $programmes, 'IN');
+          $results = $query->execute();
+          if($results) {
+            $programme_nids = array_keys($results["node"]);
+            $count = count($entity->field_partenaire_programmes[LANGUAGE_NONE]);
+            foreach($programme_nids as $k => $programme_nid) {
+              $arr_target_programme_nid = array('target_id' => (string) $programme_nid);
+              if(!in_array($arr_target_programme_nid, $partenaire_programmes)) {
+                $count++;
+                $entity->field_partenaire_programmes[LANGUAGE_NONE][$count]['target_id'] = (string) $programme_nid;
+              }
+            }
+          }
+        }
+      }
     }
   }
 
@@ -870,6 +921,16 @@ function kb_feeds_feeds_presave(FeedsSource $source, $entity, $item, $entity_id)
  * @param type $item
  */
 function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $result) {
+  if($source->id === 'partenaire_programme_import') {
+    foreach ($result->items as $key => $row) {
+      $partenaire_id = isset($row['identifiantpartenaire']) ? $row['identifiantpartenaire'] : '';
+      $programme_id = (isset($row['identifiantprogramme']) && $row['identifiantprogramme']) ? $row['identifiantprogramme'] . ',' : '';
+      if(strpos(variable_get('partenaire_programme_import_ids_' . $partenaire_id, ''), $programme_id) === FALSE) {
+        $programme_id .= variable_get('partenaire_programme_import_ids_' . $partenaire_id);
+        variable_set('partenaire_programme_import_ids_' . $partenaire_id, $programme_id);
+      }
+    }
+  }
   //$file_log_name = $source->id . '_log_' . date('Y-m-d') . '.txt';
   $file_log_name = variable_get($source->id . '_log_name');
   $logging = '';
@@ -985,25 +1046,6 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
           $key_errorlog = $document_id = isset($result->items[$key]['identifiantdocbibliotheque']) ? $result->items[$key]['identifiantdocbibliotheque'] : '';
         }
 
-        if($document_id) {
-          $query = new EntityFieldQuery();
-          $query->entityCondition('entity_type', 'node')
-            ->entityCondition('bundle', 'document')
-            ->fieldCondition('field_document_id', 'value', $document_id, '=')
-            ->range(0, 1);
-
-
-          $results = $query->execute();
-          if($results) {
-            $nids = array_keys($results["node"]);
-            $nodes = node_load($nids[0]);
-
-            $result->items[$key]['documentfileold'] = array();
-            if($nodes && isset($nodes->field_document_file[LANGUAGE_NONE])) {
-              $result->items[$key]['documentfileold'] = $nodes->field_document_file[LANGUAGE_NONE];
-            }
-          }
-        }
       } elseif ($source->id === "kb_patrimoine_import") {
         if(isset($row["identifiantprogramme"])) {
           $key_errorlog = $id_program = $row["identifiantprogramme"];
@@ -1056,23 +1098,25 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
       // Parse url for pdf file.
       foreach ($list_file_id as $key_col_file => $item_col_file) {
         $item_col_file = strtolower($item_col_file);
-
         $file = $row[$item_col_file];
         if (!empty($file)) {
           $path_url = $base_url . '/sites/default/files';
+          $pos = strripos($file,"/");
+          $directory = substr($file, 0, $pos + 1);
+          $file_name = substr($file, $pos + 1);
           if ($file[0] === '/') {
-            $path_url .= $file;
+            $path_url .= $directory . str_replace(' ', '%20', $file_name);
           } else {
-            $path_url .= '/' . $file;
+            $path_url .= '/' . $directory . str_replace(' ', '%20', $file_name);
           }
 
           $argHeader = @get_headers($path_url);
           if (!preg_match("|200|", $argHeader[0])) {
             $pos = strripos($path_url,"/");
-            $path_url_uncaps = substr($path_url, 0, $pos + 1) . strtolower(substr($path_url, $pos + 1));
+            $path_url_uncaps = substr($path_url, 0, $pos + 1) . str_replace(' ', '%20', strtolower(substr($path_url, $pos + 1)));
             $argHeader_uncaps = @get_headers($path_url_uncaps);
             if (!preg_match("|200|", $argHeader_uncaps[0])) {
-              $path_url_caps = substr($path_url, 0, $pos + 1) . strtoupper(substr($path_url, $pos + 1));
+              $path_url_caps = substr($path_url, 0, $pos + 1) . str_replace(' ', '%20', strtoupper(substr($path_url, $pos + 1)));
               $argHeader_caps = @get_headers($path_url_caps);
               if (!preg_match("|200|", $argHeader_caps[0])) {
                 $file_upload_fields .=  $key_col_file . ', ';
@@ -1085,19 +1129,7 @@ function kb_feeds_feeds_after_parse(FeedsSource $source, FeedsParserResult $resu
             }
           }
 
-          $exists = FALSE;
-          if ($source->id == 'document_import' || $source->id == 'document_import_communique_de_presse') {
-            $explode_file = explode('/', $path_url);
-            $file_name = $explode_file[count($explode_file) - 1];
-            foreach($result->items[$key]['documentfileold'] as $document_file) {
-              if($file_name == $document_file["filename"]) {
-                $exists = TRUE;
-                break;
-              }
-            }
-          }
-
-          if($exists === FALSE && $source->id != 'document_import_communique_de_presse') {
+          if($source->id != 'document_import_communique_de_presse') {
             $result->items[$key][$item_col_file] = $path_url;
           }
         }
@@ -2085,6 +2117,7 @@ function kb_feeds_feeds_after_import(FeedsSource $source) {
   //$config_feeds = isset($source->getConfig()["KbFeedsCSVParser"]["no_headers"]) ? $source->getConfig()["KbFeedsCSVParser"]["no_headers"] : 'NULL';
   //$config_doc = isset($source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"]) ? $source->getConfig()["KbDocCommuniqueCSVParser"]["no_headers"] : 'NULL';
 
+  //$status = db_delete('variable')->condition('name', 'partenaire_programme_import_ids_%', 'LIKE')->execute();
   $state = $source->state(FEEDS_PROCESS);
   $skipped = $state->skipped;
   $created = $state->created;

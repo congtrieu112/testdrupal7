@@ -22,6 +22,10 @@
  *
  * @ingroup views_templates
  */
+$node = node_load($row->nid);
+$region = isset ($node->field_habitat_region[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($node->field_habitat_region[LANGUAGE_NONE][0]['tid'])->name : "";
+$postal_code = isset($node->field_habitat_code_postal[LANGUAGE_NONE][0]['value']) ? $node->field_habitat_code_postal[LANGUAGE_NONE][0]['value'] : "";
+$title = $postal_code ." ". $region ;
 $style = isset($row->field_field_habitat_image[0]['rendered']['#image_style']) ? $row->field_field_habitat_image[0]['rendered']['#image_style'] : '';
 $ville_name = isset($row->field_field_habitat_ville[0]['rendered']['#title']) ? $row->field_field_habitat_ville[0]['rendered']['#title'] : '';
 $departement_tax = isset($row->field_field_habitat_departement[0]['rendered']['#options']['entity']) ? $row->field_field_habitat_departement[0]['rendered']['#options']['entity'] : '';
@@ -35,10 +39,8 @@ $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_N
         </div>
         <div class="squaredImageItem__infos">
             <div class="squaredImageItem__details">
-                <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>" class="heading heading--small">
-                    <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
-                    <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p>
-                </a>
+                <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
+                <p class="heading__title heading__title--sub"><?php print $title ; ?></p>
             </div>
         </div>
     </article>

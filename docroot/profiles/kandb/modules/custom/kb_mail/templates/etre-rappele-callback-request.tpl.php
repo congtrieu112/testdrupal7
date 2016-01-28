@@ -1,10 +1,9 @@
 <table border="0" cellpadding="0" cellspacing="0" width="600" align="center" bgcolor="#ffffff" style="width: 650px;">
-    <tbody>
-        <tr>
+    <tbody><tr>
             <td style="padding: 20px 40px;">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%">
                     <tbody><tr>
-                            <td valign="middle"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail')); ?>/images/logo.png" alt="" width="173" height="13" style="border: none; display: block; width: 173px; height: 13px"></td>
+                            <td valign="middle"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/logo.png" alt="" width="173" height="13" style="border: none; display: block; width: 173px; height: 13px"></td>
                             <td valign="middle">
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="float:right">
                                     <tbody>
@@ -22,8 +21,7 @@
                                 </table>
                             </td>
                         </tr>
-                    </tbody>
-                </table>
+                    </tbody></table>
             </td>
         </tr>
     </tbody>
@@ -31,7 +29,7 @@
 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 650px; background-color: #fff;">
     <tbody>
         <tr>
-            <td valign="middle"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail')); ?>/images/email-newsletter.jpg" alt="" width="650" height="216" style="border: none; display: block; width: 650px; height: 216px"></td>
+            <td valign="middle"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/email-newsletter.jpg" alt="" width="650" height="216" style="border: none; display: block; width: 650px; height: 216px"></td>
         </tr>
     </tbody>
 </table>
@@ -50,32 +48,103 @@
                                         </tr>
                                         <tr>
                                             <td valign="top" style="padding: 0 13px;">
-                                                <p style="margin: 0; padding-top: 55px;padding-bottom:50px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 20px;">
-                                                  Bonjour<br/>
-                                                  Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur :<br/>
-
-                                                  Ses coordonnées :<br/>
-                                                  Langue : FR<br/>
-                                                  Nom :  <?php print $mail_vars['rappeler_nom']; ?><br/>
-                                                  Prénom :  <?php print $mail_vars['rappeler_prenom']; ?><br/>
-                                                  Téléphone :  <?php  print $mail_vars['rappeler_telephone']; ?><br/>
-                                                  Date et heure à laquelle il souhaite être contacté : <?php print $mail_vars['rappeler_horaire']; ?><br/>
-                                                  <br/>
-
-                                                  Le programme qui l'intéresse :<br/>
-                                                  <?php  print $mail_vars['programme_title']; ?><br/>
-                                                  <?php  print $mail_vars['programme_loc_ville']; ?> - <?php print $mail_vars['programme_loc_department']; ?><br/>
-                                                  IDKP : <?php print $mail_vars['programme_idkp']; ?><br/>
-                                                  <?php if ($mail_vars['bien_lot_id'] == 'A33') : ?>
-                                                    <?php print $mail_vars['bien_type']; ?> <?php  print $mail_vars['bien_nb_pieces']; ?> <?php print $mail_vars['bien_superficie'] ?> Lot <?php print $mail_vars['bien_lot_id'] ?><br/>
-                                                  <?php endif; ?>
-                                                  Cordialement,<br/>
-                                                  L'équipe internet Kaufman & Broad.
+                                                <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #003e5e; line-height: 30px;">
+                                                    <?php
+                                                      if (isset($mail_vars['programme_loc_type'])) :
+                                                        print $mail_vars['programme_loc_ville'] . ' ' . $mail_vars['programme_loc_department'];
+                                                      endif;
+                                                   ?>
                                                 </p>
+                                                <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['programme_title']; ?></p>
+                                                <p style="margin: 0; padding-top: 55px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,</p>
+                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur
+                                                </p>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top" style="padding-top: 27px;">
+                                                <table cellspacing="0" cellpadding="0" border="0" bgcolor="#f2f5f6" align="center" style="width: 100%; background-color: #f2f5f6;">
+                                                    <tbody>
+                                                        <tr>
+                                                            <td valign="top" style="padding: 30px;">
+                                                                <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; border-bottom: 1px solid #a9bec8;">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td valign="top" style="padding: 0 10px;">
+                                                                                <p style="margin: 0; padding-bottom: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Ses coordonnées</p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td valign="top" style="width: 50%; margin: 0; padding: 0 0 25px 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+
+                                                                               <p style="margin: 0;">Langue&nbsp;: <span style="text-transform: uppercase;"><?php print t('FR'); ?></span></p>
+                                                                                <p style="margin: 0;">Nom&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['rappeler_nom'])) : print $mail_vars['rappeler_nom']; endif; ?></span>
+                                                                                </p>
+                                                                                <p style="margin: 0;">Prénom&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['rappeler_prenom'])) : print $mail_vars['rappeler_prenom']; endif; ?></span>
+                                                                                </p>
+                                                                                <p style="margin: 0;">Téléphone&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['rappeler_telephone'])) : print $mail_vars['rappeler_telephone']; endif; ?></span>
+                                                                                </p>
+
+                                                                                <?php if ($mail_vars['rappeler_horaire'] ) : ?>
+                                                                                  <p style="margin: 0;">Date et heure à laquelle il souhaite être contacté&nbsp;: <br />
+                                                                                    <?php print $mail_vars['rappeler_horaire']; ?><br />
+                                                                                  </p>
+                                                                                <?php endif; ?>
+                                                                            </td>
+
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                                <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%;">
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td valign="top" style="padding: 0 10px;">
+                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Le programme qui l'intéress :
+
+                                                                                </p>
+                                                                            </td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td valign="top" style="margin: 0; padding: 0 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                                                                <p style="margin: 0;">
+
+                                                                                    <?php print isset($mail_vars['programme_title']) ? $mail_vars['programme_title'] : ""; ?><br>
+                                                                                    <?php if ($mail_vars['programme_loc_ville'] && $mail_vars['programme_loc_department']) : ?>
+                                                                                      <?php print $mail_vars['programme_loc_ville']; ?> -  <?php print $mail_vars['programme_loc_department']; ?>
+                                                                                    <?php endif; ?>
+                                                                                </p>
+
+                                                                                <p style="margin: 0;">IDKP&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['programme_idkp'])) : print $mail_vars['programme_idkp']; endif; ?></span>
+                                                                                </p>
+
+                                                                                <?php if ($mail_vars['bien_lot_id']) : ?>
+                                                                                  <p style="margin: 0;">
+
+                                                                                      <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_nb_pieces'] ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
+                                                                                  </p>
+                                                                                <?php endif; ?>
+
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                <p style="margin: 0; padding-top: 20px;">
+                                    Cordialement. <p></p>
+                                    &nbsp;L'équipe internet Kaufman &amp; Board
+                                </p>
                             </td>
                         </tr>
                         <tr>
@@ -91,11 +160,11 @@
                                                             <td valign="middle">
                                                                 <p style="margin: 0 25px 0 0; font-size: 9px; line-height: 9px; text-transform: uppercase; color: #003e5e;">Suivez-nous sur</p>
                                                             </td>
-                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail')); ?>/images/icon-facebook.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
+                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/icon-facebook.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
                                                             </td>
-                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail')); ?>/images/icon-twitter.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
+                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/icon-twitter.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
                                                             </td>
-                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail')); ?>/images/icon-youtube.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
+                                                            <td valign="middle" style="padding-right: 10px"><a href="#"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/icon-youtube.jpg" alt="" width="15" height="15" style="border: none; display: block; width: 15px; height: 15px"></a>
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -112,4 +181,3 @@
         </tr>
     </tbody>
 </table>
-

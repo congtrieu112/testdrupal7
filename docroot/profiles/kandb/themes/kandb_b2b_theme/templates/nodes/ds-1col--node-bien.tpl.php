@@ -429,7 +429,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                   foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                     $caracteristique = taxonomy_term_load($item["tid"]);
                     $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                    if(!in_array($caracteristique->name, array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave'))) {
+                    if(!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) {
                       print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                       print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
                       print '</li>';
@@ -440,7 +440,7 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 <?php
                 $jardin = field_get_items('node', $node, 'field_caracteristique_jardin');
                 if (isset($jardin[0]['value']) && $jardin[0]['value']) :
-                  if ($icons = get_taxonomy_by_vocabulary_name('Jardin', $vocabulary_name)):
+                  if ($icons = get_taxonomy_by_vocabulary_name('Jardin Privatif', $vocabulary_name)):
                     $class_icon = isset($icons[0]->field_icon_name[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_icon_name[LANGUAGE_NONE][0]['value'] : '';
                     print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                     print '<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip "  title="' . $icons[0]->description . '"></span>' : '') . '</span>';

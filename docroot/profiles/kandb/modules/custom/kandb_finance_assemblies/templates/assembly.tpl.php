@@ -41,7 +41,7 @@ print theme('finance_header_block');
                           $file_name = $file['description'];
                         }
                         else {
-                          $file_name = preg_replace("/['.pdf', '_']/", ' ', $file['filename']);
+                          $file_name = str_replace(array('.pdf', '_'), ' ', $file['filename']);
                         }
                       ?>
                       <?php if($file_path != '') : ?>
