@@ -1034,3 +1034,9 @@ function kandb_update_7204() {
     module_disable(array('eu_cookie_compliance'), FALSE);
   }
 }
+
+function kandb_update_7205(&$sandbox) {
+  if (!module_exists('kandb_tagcommander')) {
+    module_enable(array('kandb_tagcommander'), TRUE);
+  }
+}

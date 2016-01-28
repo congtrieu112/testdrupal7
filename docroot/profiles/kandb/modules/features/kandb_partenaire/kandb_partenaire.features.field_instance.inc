@@ -220,6 +220,80 @@ function kandb_partenaire_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-partenaire-field_partenaire_lots_b2b'
+  $field_instances['node-partenaire-field_partenaire_lots_b2b'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 11,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_lots_b2b',
+    'label' => 'Export des Lots kbatrimoine.com',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-partenaire-field_partenaire_lots_b2c'
+  $field_instances['node-partenaire-field_partenaire_lots_b2c'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_lots_b2c',
+    'label' => 'Export des Lots kaufmanbroad.fr',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 8,
+    ),
+  );
+
   // Exported field_instance: 'node-partenaire-field_partenaire_plan'
   $field_instances['node-partenaire-field_partenaire_plan'] = array(
     'bundle' => 'partenaire',
@@ -296,7 +370,7 @@ function kandb_partenaire_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'weight' => 10,
     ),
   );
 
@@ -345,6 +419,8 @@ function kandb_partenaire_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Contenu export');
   t('Envoi des programmes Avant-premières');
+  t('Export des Lots kaufmanbroad.fr');
+  t('Export des Lots kbatrimoine.com');
   t('Export des Plan');
   t('ID du partenaire');
   t('Images en Grande Perspective');

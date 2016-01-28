@@ -95,6 +95,9 @@ function kandb_get_partenaire_lot_plan() {
 function kandb_create_partenaire_lot_file($nodes) {
   if ($nodes) {
     foreach ($nodes as $node) {
+      $is_export_lot_b2b = isset($node->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value']) ? (bool) $node->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value'] : FALSE;
+      $is_export_lot_b2c = isset($node->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value']) ? (bool) $node->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value'] : FALSE;
+      $domain_type = NULL;
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
       $uri = $uri_partenaire . $id_partenaire;
@@ -110,12 +113,16 @@ function kandb_create_partenaire_lot_file($nodes) {
       }
       $export_type = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
       $uri_lots = $uri . '/LOT.TXT';
-      if ($export_type == 3) {
+      if ($export_type == 3 && ($is_export_lot_b2b || $is_export_lot_b2c)) {
+        if (!$is_export_lot_b2c) {
+          $domain_type = ID_B2B;
+        }
+        elseif (!$is_export_lot_b2b) {
+          $domain_type = ID_B2C;
+        }
         if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
-            $programme = node_load($item['target_id']);
-            $domain_type = $programme->domains;
-            $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[3]);
+            $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type);
             if ($bien_nids) {
               $biens = node_load_multiple($bien_nids);
               kandb_export_lots_txt($biens, $uri_lots);
