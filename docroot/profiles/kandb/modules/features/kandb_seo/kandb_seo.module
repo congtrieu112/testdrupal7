@@ -186,7 +186,7 @@ function kandb_seo_html_head_alter(&$head_elements) {
       if($postal_code && $ville_tid = current($postal_code)->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']){
         $ville = taxonomy_term_load_multiple(array($ville_tid));
       }
-      $departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+      $departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location), $vocabularies['departement']->vid);
     }
 
 
