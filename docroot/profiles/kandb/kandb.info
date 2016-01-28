@@ -182,7 +182,7 @@ dependencies[] = kandb_taxonomy_comite
 dependencies[] = kandb_region_kb
 dependencies[] = kandb_conseiller_regional
 dependencies[] = kandb_habitat
-dependencies[] = kandb_eu_cookie_compliance
+;dependencies[] = kandb_eu_cookie_compliance
 dependencies[] = kandb_views_habitat_carousel
 
 ; Blocks
