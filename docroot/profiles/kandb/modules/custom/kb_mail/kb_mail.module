@@ -209,9 +209,9 @@ function kandb_webform_submit(&$form, &$form_state) {
         }
       }
       //Send mail to user
-      kandb_webform_send_mail('user_confirmation_avant_premiere_contact_us', $subject, $variables['rdv_email'], $variables);
+      kandb_webform_send_mail('user_confirmation_avant_premiere_contact_us',$subject, $variables['rdv_email'], $variables);
       //Send mail to call center
-      kandb_webform_send_mail('avant_premiere_contact_us', $subject, 'call_center', $variables);
+      kandb_webform_send_mail('avant_premiere_contact_us', "Message " . $subject, 'call_center', $variables);
     }
   }
 }
