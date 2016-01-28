@@ -24,8 +24,8 @@ function kandb_bien_field_group_info() {
     'weight' => '12',
     'children' => array(
       0 => 'field_bien_habiteo_id',
-      1 => 'field_tva',
-      2 => 'field_bien_habiteo_visite',
+      1 => 'field_bien_habiteo_visite',
+      2 => 'field_tva',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -102,7 +102,9 @@ function kandb_bien_field_group_info() {
       7 => 'field_prix_tva_20',
       8 => 'field_superficie',
       9 => 'field_type',
-      10 => 'title',
+      10 => 'field_image_principale_2',
+      11 => 'field_image_principale_3',
+      12 => 'title',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

@@ -118,6 +118,7 @@ function kandb_theme_form_alter(&$form, &$form_state, $form_id) {
     if(isset($_GET['annonce'])){
       $form['submitted']['row1']['vous_souhaitez_postuler_a_un_post_de']['#access'] = false;
     }
+    $form['#suffix'] = '<div class="legalNote">Les données collectées vous concernant sont destinées au Groupe Kaufman & Broad, responsable du traitement, qui les utilise à des fins d\'information commerciale. Conformément à l\'article 34 de la loi Informatique et Libertés vous disposez d\'un droit d\'accès, de modification, de rectification et de suppression des données qui vous concernent. Pour l\'exercer, adressez-vous à Kaufman & Broad, Département Internet, 127 avenue Charles de Gaulle, 92207 Neuilly-sur-Seine Cedex.</div>';
   }
 }
 
@@ -339,9 +340,9 @@ function kandb_theme_preprocess_node(&$vars) {
       }
       $vars['trimstre'] = $trimstre_id . t('ème trimestre');
     }
-
+    
     $vars['annee'] = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
-
+    
     if(isset($_domain['domain_id'])) {
       if($_domain['domain_id'] == DOMAIN_B2B) {
         $vars['flat_available'] = isset($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
@@ -575,8 +576,15 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
+    $node = &$vars['node'];
+    
+    $department = taxonomy_term_load($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
+    $vars['num_department'] = isset($department->field_numero_departement) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+    
+    $ville = taxonomy_term_load($node->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
+    $vars['ville_name'] = $ville->name;
+    
     $vars['promotions'] = get_nids_promotions_by_programme($vars['nid']);
-
 
     if(isset($vars['field_image_principale'])){
       $image = $vars['field_image_principale'][LANGUAGE_NONE][0]['uri'];
@@ -586,9 +594,83 @@ function kandb_theme_preprocess_node(&$vars) {
     }
 
     if(!empty($vars['field_photo_conseiller'])){
-      $image = $vars['field_photo_conseiller'][0]['uri'];
-      $vars['field_photo_conseiller'][0]['contact_selection'] = image_style_url('contact_selection', $image);
+      $image = $vars['field_photo_conseiller'][LANGUAGE_NONE][0]['uri'];
+      $vars['field_photo_conseiller'][LANGUAGE_NONE][0]['contact_selection'] = image_style_url('contact_selection', $image);
     }
+    
+    // Programme selection
+    $trimstre_id = isset($node->field_trimestre[LANGUAGE_NONE][0]['value']) ? $node->field_trimestre[LANGUAGE_NONE][0]['value'] : '';
+    $vars['trimstre'] = '';
+    if ($trimstre_id) {
+      if ($trimstre_id == 1) {
+        $vars['trimstre'] = t('1er trimestre');
+      }
+      $vars['trimstre'] = $trimstre_id . t('ème trimestre');
+    }
+
+    $vars['annee'] = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
+
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $vars['flat_available'] = isset($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+      }
+    }
+    
+    $price_tva_min = 0; $price_tva_max = 0;
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $price_tva_min = isset($node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_minb[LANGUAGE_NONE][0]['value']) : '';
+        $price_tva_max = isset($node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_maxb[LANGUAGE_NONE][0]['value']) : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $price_tva_min = isset($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_min[LANGUAGE_NONE][0]['value']) : '';
+        $price_tva_max = isset($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_program_low_tva_price_max[LANGUAGE_NONE][0]['value']) : '';
+      }
+    }
+    
+    $vars['de_a_price_tva'] = '';
+    if ($price_tva_min && $price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif (!$price_tva_min && $price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_max . '€' . ' ' . 'à' . ' ' . $price_tva_max . '€';
+    }
+    elseif ($price_tva_min && !$price_tva_max) {
+      $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
+    }
+    if(isset($node->field_tva[LANGUAGE_NONE][0]['tid'])){        
+      $tva = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
+      $vars['temp'] = $tva;
+      $vars['tva'] = isset($tva->name) ? $tva->name : '';
+    }
+    $vars['affichage_double_grille'] = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : 0;
+
+    $price_min = 0; $price_max = 0;
+    if(isset($_domain['domain_id'])) {
+      if($_domain['domain_id'] == DOMAIN_B2B) {
+        $price_min = isset($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min_b[LANGUAGE_NONE][0]['value']) : '';
+        $price_max = isset($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max_b[LANGUAGE_NONE][0]['value']) : '';
+      } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
+        $price_min = isset($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_min[LANGUAGE_NONE][0]['value']) : '';
+        $price_max = isset($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) ? numberFormatGlobalSpace($node->field_programme_price_max[LANGUAGE_NONE][0]['value']) : '';
+      }
+    }
+
+    $vars['de_a_price'] = '';
+    if ($price_min && $price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif (!$price_min && $price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_max . '€' . ' ' . 'à' . ' ' . $price_max . '€';
+    }
+    elseif ($price_min && !$price_max) {
+      $vars['de_a_price'] = 'De' . ' ' . $price_min . '€' . ' ' . 'à' . ' ' . $price_min . '€';
+    }
+
+    $vars['en_quelques_mots'] = isset($node->field_en_quelques_mots[LANGUAGE_NONE][0]['value']) ? $node->field_en_quelques_mots[LANGUAGE_NONE][0]['value'] : '';
+    $vars['programme_mtn_legale'] = isset($node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value']) ? $node->field_programme_mtn_legale[LANGUAGE_NONE][0]['value'] : '';    
+    
   }
 
   $vars['livraison_date'] = isset($node->field_programme_livraison_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_livraison_date[LANGUAGE_NONE][0]['value'] : '';

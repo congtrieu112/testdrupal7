@@ -1,10 +1,10 @@
 <?php
 
-function import_bien_pdf_for_particular_programme ($programme_id = '') {
-  if ($programme_id == '') {
+function import_bien_pdf_for_particular_programme ($programme_id = '', $nid = 0) {
+  if ($programme_id == '' || $nid == 0) {
     return;
   }
-  kb_import_bien_pdf_loging('Start import bien PDF for programme ' . $programme_id);
+  kb_import_bien_pdf_loging('Start import bien/programme PDF for programme ' . $programme_id);
   $uri = 'public://kbmedia/doc/' . $programme_id;
   $prepare_file = file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
   drupal_chmod($uri);
@@ -14,6 +14,9 @@ function import_bien_pdf_for_particular_programme ($programme_id = '') {
     $getting_file_status = import_bien_pdf_for_particular_programme_get_and_store_file($programme_id);
     if ($getting_file_status) {
       kb_import_bien_pdf_loging('Finish get file via FTP');
+      kb_import_bien_pdf_loging('Start import PDF for programme: ' . $programme_id);
+      import_pdf_for_particular_programme($programme_id, $nid);
+      kb_import_bien_pdf_loging('Finish import PDF for programme');
       kb_import_bien_pdf_loging('Start import bien PDF');
       import_bien_pdf_for_particular_programme_import($programme_id);
     }
@@ -80,6 +83,56 @@ function import_bien_pdf_for_particular_programme_get_and_store_file ($programme
     $getting_file_status = FALSE;
   }
   return $getting_file_status;
+}
+
+function import_pdf_for_particular_programme($programme_id = '', $nid = 0) {
+  if ($programme_id == '' || $nid == 0) {
+    return ;
+  }
+  $has_file = FALSE;
+  $node = node_load($nid, NULL, TRUE);
+  $fileds_file = array(
+    'field_plaquette_commerciale' => 'PRG_PLAQUETTE_FR_' . $programme_id,
+    'field_plan_batiment' => 'PRG_PLAN_' . $programme_id,
+    'field_kit_fiscal' => 'PRG_KIT_FISCAL_' . $programme_id,
+    'field_contrat_reservation' => 'PRG_CONTRAT_' . $programme_id,
+    'field_etat_des_risques' => 'PRG_ETATDERISQUE_' . $programme_id,
+    'field_lettre_de_banque' => 'PRG_LETTRE_' . $programme_id,
+    'field_prestations_programme' => 'PRG_PRESTATIONS_' . $programme_id,
+    'field_mandat_gestion_locative' => 'PRG_MANDAT_' . $programme_id,
+    'field_plan_masse_sous_sol' => 'LOT_PLAN_MASSE_' . $programme_id,
+    'field_visuel_grande_taille' => 'PRG_VISUEL_' . $programme_id,
+    'field_bail_commercial' => 'PRG_BAIL_COMMERCIAL_' . $programme_id,
+    'field_bon_commande_mobilier' => 'PRG_COMMANDE_MOBILIER_' . $programme_id,
+  );
+  $path = drupal_realpath('public://kbmedia/doc/' . $programme_id);
+  if (is_dir($path)) {
+    if ($handle = opendir($path)) {
+      $files = glob($path . "/*.pdf");
+      foreach($files as $file) {
+        $file_name = strtoupper(substr($file, strrpos($file, '/') + 1, strrpos($file, '.') - strrpos($file, '/') - 1));
+        if (in_array($file_name, $fileds_file)) {
+          $field = array_search($file_name, $fileds_file);
+          if (isset($node->{$field})) {
+            $programme_file = file_save_data(file_get_contents($file), file_default_scheme() . '://' . basename($file));
+            if (isset($programme_file->fid)) {
+              $node->{$field}[LANGUAGE_NONE][0] = array(
+                'fid' => $programme_file->fid,
+                'display' => 1,
+                'description' => '',
+                'upload' => ''
+              );
+              $has_file = TRUE;
+            }
+          }
+        }
+      }
+      closedir($handle);
+    }
+  }
+  if ($has_file) {
+    node_save($node);
+  }
 }
 
 function import_bien_pdf_for_particular_programme_import($programme_id = '') {

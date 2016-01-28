@@ -220,8 +220,8 @@ function kandb_partenaire_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-partenaire-field_partenaire_nouveau'
-  $field_instances['node-partenaire-field_partenaire_nouveau'] = array(
+  // Exported field_instance: 'node-partenaire-field_partenaire_lots_b2b'
+  $field_instances['node-partenaire-field_partenaire_lots_b2b'] = array(
     'bundle' => 'partenaire',
     'default_value' => NULL,
     'deleted' => 0,
@@ -232,7 +232,7 @@ function kandb_partenaire_field_default_field_instances() {
         'module' => 'list',
         'settings' => array(),
         'type' => 'list_default',
-        'weight' => 3,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -242,8 +242,8 @@ function kandb_partenaire_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_partenaire_nouveau',
-    'label' => 'Nouveau Flux',
+    'field_name' => 'field_partenaire_lots_b2b',
+    'label' => 'Export des Lots kbatrimoine.com',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -253,7 +253,44 @@ function kandb_partenaire_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_buttons',
-      'weight' => 3,
+      'weight' => 9,
+    ),
+  );
+
+  // Exported field_instance: 'node-partenaire-field_partenaire_lots_b2c'
+  $field_instances['node-partenaire-field_partenaire_lots_b2c'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 10,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_lots_b2c',
+    'label' => 'Export des Lots kaufmanbroad.fr',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_buttons',
+      'weight' => 8,
     ),
   );
 
@@ -333,7 +370,48 @@ function kandb_partenaire_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 8,
+      'weight' => 10,
+    ),
+  );
+
+  // Exported field_instance: 'node-partenaire-field_partenaire_type_flux'
+  $field_instances['node-partenaire-field_partenaire_type_flux'] = array(
+    'bundle' => 'partenaire',
+    'default_value' => array(
+      0 => array(
+        'value' => 2,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 9,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_partenaire_type_flux',
+    'label' => 'Type flux',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => 3,
     ),
   );
 
@@ -341,12 +419,14 @@ function kandb_partenaire_field_default_field_instances() {
   // Included for use with string extractors like potx.
   t('Contenu export');
   t('Envoi des programmes Avant-premières');
+  t('Export des Lots kaufmanbroad.fr');
+  t('Export des Lots kbatrimoine.com');
   t('Export des Plan');
   t('ID du partenaire');
   t('Images en Grande Perspective');
-  t('Nouveau Flux');
   t('Programmes selectionnés');
   t('Transfer actif');
+  t('Type flux');
 
   return $field_instances;
 }

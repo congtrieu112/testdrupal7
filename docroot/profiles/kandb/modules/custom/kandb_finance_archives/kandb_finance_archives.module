@@ -15,7 +15,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['corporate/finance/archives/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
@@ -23,7 +23,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['corporate/finance/archives/%/%'] = array(
       'title' => t('Documents à télécharger'),
       'page callback' => 'kandb_finance_archives_page',
@@ -31,7 +31,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['download-document-file/%'] = array(
       'title' => t('Télécharger le PDF'),
       'page callback' => 'kandb_finance_archives_download_file',
@@ -39,7 +39,7 @@
       'access arguments' => array('access content'),
       'type' => MENU_NORMAL_ITEM,
     );
-    
+
     $items['admin/content/ketb/finance/archives'] = array(
       'title' => '[Finance] Archives',
       'page callback' => 'drupal_get_form',
@@ -48,11 +48,11 @@
       'file' => 'kandb_finance_archives.admin.inc',
       'type' => MENU_LOCAL_TASK,
     );
-    
+
     return $items;
   }
 
- 
+
 
   /**
    * Implements hook_theme().
@@ -103,10 +103,11 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     $base_archive = base_path() . 'corporate/finance/archives/';
     foreach ($all_terms as $term) {
       $term = taxonomy_term_load($term->tid);
-      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
-        continue ;
-      }
-      elseif ($language_id == 1) {
+//      if ($term->name == 'Assemblée générale' || $term->name == 'Assemblée Générale Extraordinaire') {
+//        continue ;
+//      }
+//      elseif ($language_id == 1) {
+      if ($language_id == 1) {
         if (isset ($term->field_name_in_english[LANGUAGE_NONE][0]['value'])) {
           $term->name = $term->field_name_in_english[LANGUAGE_NONE][0]['value'];
         }
@@ -137,16 +138,25 @@ function kandb_finance_archives_page($tid = 0, $lang = 'fr') {
     }
   }
   $content_archives['tab_content'] = get_document_by_type($tid, $language_id, TRUE);
+  $hidetab = TRUE;
+  if (!$content_archives['tab_content'] && $tid != 0){
+    drupal_goto($base_archive . $lang);
+  } elseif(!$content_archives['tab_content'] && $tid == 0){
+    $hidetab = FALSE;
+  }
   return theme('archive', array(
-    'content_archives' => $content_archives, 
-    'page_title' => $page_title, 
+    'content_archives' => $content_archives,
+    'page_title' => $page_title,
     'pager' => theme('pager'),
+    'hidetab' => $hidetab,
     'display_mode' => $display_mode,
   ));
 }
 
-function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
+function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE, $skip_year = 3) {
   $content = array();
+  $current_year = date('Y', time());
+  $end_time = strtotime($current_year - $skip_year . '-12-31 23:59:59');
   if ($paging) {
     $db_query = db_select('node', 'n')->extend('PagerDefault');
     $db_query->limit(50);
@@ -159,19 +169,19 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
   $db_query->condition('n.type', 'document');
   $db_query->condition('n.status', 1);
   $db_query->condition('n.title', '', '<>');
-  
+
   $db_query->leftJoin('field_data_field_document_file', 'df', 'df.entity_id=n.nid');
   $db_query->condition('df.entity_type', 'node');
   $db_query->condition('df.bundle', 'document');
   $db_query->isNotNull('df.field_document_file_fid');
-  
+
   $db_query->leftJoin('field_data_field_document_type', 'dt', 'dt.entity_id=n.nid');
   $db_query->condition('dt.entity_type', 'node');
   $db_query->condition('dt.bundle', 'document');
   $db_query->condition('dt.field_document_type_tid', $tid);
-  
+
   $db_query->leftJoin('field_data_field_langue', 'dl', 'dl.entity_id=n.nid');
-  
+
   if ($language_id == 1) {
     $db_query->condition('dl.entity_type', 'node');
     $db_query->condition('dl.bundle', 'document');
@@ -187,12 +197,12 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
     $db_or->isNull('dl.field_langue_value');
     $db_query->condition($db_or);
   }
-  
+
   $db_query->leftJoin('field_data_field_document_date', 'dd', 'dd.entity_id=n.nid');
   $db_query->condition('dd.entity_type', 'node');
   $db_query->condition('dd.bundle', 'document');
   $db_query->addField('dd', 'field_document_date_value');
-  
+  $db_query->where('UNIX_TIMESTAMP(dd.field_document_date_value) < :val_end', array('val_end' => $end_time));
   $db_query->distinct();
   $db_query->orderBy('dd.field_document_date_value', 'DESC');
   $results = $db_query->execute()->fetchAll();
@@ -214,29 +224,16 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE) {
 function kandb_finance_archives_download_file ($fid = 0) {
   $file = file_load($fid);
   if ($file && file_exists($file->uri)) {
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header('Content-type: application/octet-stream');
-    header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="' . $file->filename . '"');
-    header("Content-Length: " . filesize($file->uri));
-    $fp = @fopen($file->uri, "rb");
-    if ($fp) {
-      while (!feof($fp)) {
-        echo fread($fp, 8192);
-        flush();
-        if (connection_status() != 0) {
-          @fclose($file->uri);
-          die();
-        }
-      }
-      @fclose($file->uri);
-    }
-  }
-  else {
+    $content_disposition = 'attachment; filename="' . basename($file->uri) . '"';
+    $content_type = file_get_mimetype(basename($file->uri));
+    $headers = array
+      (
+      'Content-type' => $content_type,
+      'Content-Disposition' => $content_disposition,
+      'Content-Transfer-Encoding' => 'binary',
+    );
+    file_transfer($file->uri, $headers);
+  } else {
     drupal_set_message(t('File does not exist.'));
   }
-  return '';
 }

@@ -51,8 +51,7 @@ function kandb_group_rh_admin_form($form, $form_state) {
     if (isset($cta['url']) && $cta['url'] && isset($cta['title']) && $cta['title']) {
       $url = $cta['url'];
       $title = $cta['title'];
-    }
-    else {
+    } else {
       $url = $default_menu_links[$i];
       $title = $default_menu_titles[$i];
     }
@@ -94,15 +93,19 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#size' => 60,
     '#maxlength' => 128,
   );
+  $desciption_1_group_hr_recruitment_section = variable_get('desciption_1_group_hr_recruitment_section');
   $form['fieldset_recruitment_section']['desciption_1_group_hr_recruitment_section'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
     '#title' => t('Description 1'),
-    '#default_value' => variable_get('desciption_1_group_hr_recruitment_section'),
+    '#format' => 'full_html',
+    '#default_value' => isset($desciption_1_group_hr_recruitment_section['value']) ? $desciption_1_group_hr_recruitment_section['value'] : '',
   );
+  $desciption_2_group_hr_recruitment_section = variable_get('desciption_2_group_hr_recruitment_section');
   $form['fieldset_recruitment_section']['desciption_2_group_hr_recruitment_section'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Description 2'),
-    '#default_value' => variable_get('desciption_2_group_hr_recruitment_section'),
+    '#default_value' => isset($desciption_2_group_hr_recruitment_section['value']) ? $desciption_2_group_hr_recruitment_section['value'] : '',
   );
   // Agenda.
   $form['fieldset_agenda_section']['title_group_hr_agenda_section'] = array(
@@ -131,10 +134,12 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#size' => 60,
     '#maxlength' => 128,
   );
+  $description_group_hr_agenda_section_1 = variable_get('description_group_hr_agenda_section_1');
   $form['fieldset_agenda_section']['description_group_hr_agenda_section_1'] = array(
-    '#type' => 'textarea',
     '#title' => t('Description 1'),
-    '#default_value' => variable_get('description_group_hr_agenda_section_1'),
+    '#type' => 'text_format',
+    '#format' => 'full_html',
+    '#default_value' => isset($description_group_hr_agenda_section_1['value']) ? $description_group_hr_agenda_section_1['value'] : '',
   );
 
   $form['fieldset_agenda_section']['image_group_hr_agenda_section_2'] = array(
@@ -156,10 +161,12 @@ function kandb_group_rh_admin_form($form, $form_state) {
     '#size' => 60,
     '#maxlength' => 128,
   );
+  $description_group_hr_agenda_section_2 = variable_get('description_group_hr_agenda_section_2');
   $form['fieldset_agenda_section']['description_group_hr_agenda_section_2'] = array(
-    '#type' => 'textarea',
     '#title' => t('Description 2'),
-    '#default_value' => variable_get('description_group_hr_agenda_section_2'),
+    '#type' => 'text_format',
+    '#format' => 'full_html',
+    '#default_value' => isset($description_group_hr_agenda_section_2['value']) ? $description_group_hr_agenda_section_2['value'] : '',
   );
 
   $form['fieldset_offers_section']['title_group_hr_offres_section'] = array(
@@ -278,7 +285,7 @@ function kandb_group_rh_your_career_admin_form($form, &$form_state) {
     $form['fieldset_your_career']['your_career_item_' . $i]['your_career_item_description_' . $i] = array(
       '#type' => 'text_format',
       '#title' => t('Description'),
-      '#format' => 'simple',
+      '#format' => 'full_html',
       '#default_value' => $description,
     );
     $form['fieldset_your_career']['your_career_item_' . $i]['your_career_item_image_' . $i] = array(
@@ -311,16 +318,18 @@ function kandb_group_hr(&$form, &$form_state) {
     group_page_managed_file_upload($fid_form, $fid_variable, $module_name, $type);
   }
 }
+
 /*
  * Validate for CTA link.
  */
-function kandb_group_rh_admin_validate_form(&$form, &$form_state){
+
+function kandb_group_rh_admin_validate_form(&$form, &$form_state) {
   $val = $form_state['values'];
   if (isset($val['links_fieldset']['cta'])) {
     foreach ($val['links_fieldset']['cta'] as $key => $item) {
       if (isset($item['title'])) {
         if (preg_match('/[\/~`\!@#\$%\^&\*\(\)_\-\+=\{\}\[\]\|;:"\<\>,\.\?\\\]/', $item['title'])) {
-          form_set_error('links_fieldset][cta]['.$key.'][title', t('Please check the title again, only alphanumeric is acceptable'));
+          form_set_error('links_fieldset][cta][' . $key . '][title', t('Please check the title again, only alphanumeric is acceptable'));
         }
       }
     }
@@ -358,15 +367,17 @@ function kandb_group_rh_apply_offers_admin_form($form, &$form_state) {
     '#title' => t('Title'),
     '#default_value' => variable_get('rh_postuler_title_paragraph'),
   );
+  $rh_postuler_text_paragraph = variable_get('rh_postuler_text_paragraph');
   $form['fieldset_postuler']['rh_paragraph']['rh_postuler_text_paragraph'] = array(
-    '#type' => 'textarea',
+    '#type' => 'text_format',
+    '#format' => 'full_html',
     '#title' => t('Text'),
-    '#default_value' => variable_get('rh_postuler_text_paragraph'),
+    '#default_value' => isset($rh_postuler_text_paragraph['value']) ? $rh_postuler_text_paragraph['value'] : '',
   );
   $form['fieldset_postuler']['rh_paragraph']['rh_postuler_button_paragraph'] = array(
     '#type' => 'textfield',
     '#title' => t('Button label'),
-    '#default_value' => variable_get('rh_postuler_button_paragraph'),
+    '#default_value' => variable_get('rh_postuler_button_paragraph') ,
   );
 
   $form['fieldset_last_offer'] = array(

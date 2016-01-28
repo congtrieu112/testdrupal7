@@ -27,7 +27,7 @@ function kandb_finance_assemblies_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
-  
+
   $items['admin/content/ketb/finance/assemblies'] = array(
     'title' => '[Finance] Assemblies',
     'page callback' => 'drupal_get_form',
@@ -64,10 +64,10 @@ function kandb_finance_assemblies_page($lang = 'fr') {
   }
   $page_title = t('Assemblées Générales');
   if ($language_id == 1) {
-    $page_title = variable_get('page_title_archives_en', $page_title);
+    $page_title = variable_get('page_title_assemblies_en', $page_title);
   }
   else {
-    $page_title = variable_get('page_title_archives_fr', $page_title);
+    $page_title = variable_get('page_title_assemblies_fr', $page_title);
   }
   drupal_set_title(t($page_title));
   $document_voca = taxonomy_vocabulary_machine_name_load('type_de_document');
@@ -147,7 +147,7 @@ function finance_assemblies_get_nodes($tids = array(), $language_id = 0, $docume
   $db_query->condition('df.entity_type', 'node');
   $db_query->condition('df.bundle', 'document');
   $db_query->isNotNull('df.field_document_file_fid');
-  
+
   $db_query->leftJoin('field_data_field_document_id', 'di', 'di.entity_id=n.nid');
   $db_query->condition('di.entity_type', 'node');
   $db_query->condition('di.bundle', 'document');

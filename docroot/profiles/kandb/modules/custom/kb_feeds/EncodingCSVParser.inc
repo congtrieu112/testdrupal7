@@ -75,7 +75,10 @@ class EncodingCSVParser extends ParserCSV {
     for ($lineIterator->rewind($this->startByte); $lineIterator->valid(); $lineIterator->next()) {
       $line = trim($lineIterator->current(), "\r\n");
       if($this->id != 'document_import_uk') {
-        $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+        $encoding = mb_detect_encoding($line, "UTF-8,UTF-16");
+        if($encoding != 'UTF-8') {
+          $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+        }
       }
       
       if (empty($line)) {
