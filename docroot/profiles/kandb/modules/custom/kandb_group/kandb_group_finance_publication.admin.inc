@@ -53,6 +53,11 @@ function kandb_group_finance_publication_admin_form($form, $form_state) {
     '#title' => t('Document Title'),
     '#default_value' => variable_get('finance_publication_document_title_' . $current_lang),    
   );
+  $form['finance_publication_calendrier']['finance_publication_document_text_infor_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Text Infor'),
+    '#default_value' => variable_get('finance_publication_document_text_infor_' . $current_lang),
+  );
 
   for ($i = 1; $i <= 20; $i++) {
     $form['finance_publication_calendrier'][$i] = array(

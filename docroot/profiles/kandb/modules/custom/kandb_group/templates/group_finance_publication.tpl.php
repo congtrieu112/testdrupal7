@@ -9,6 +9,7 @@ $current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 
 
 $title_calendrier = variable_get('finance_publication_calendrier_title_' . $current_lang);
 $title_document = variable_get('finance_publication_document_title_' . $current_lang);
+$text_infor = variable_get('finance_publication_document_text_infor_' . $current_lang);
 
 print theme('finance_header_block');
 ?>
@@ -56,7 +57,7 @@ print theme('finance_header_block');
                   </ul>
               </ul>
           </div>
-          <p class="text-infor"><?php print t('Cet agenda peut être soumis à des modifications'); ?></p>
+          <p class="text-infor"><?php print (!empty($text_infor)) ? $text_infor : t('Cet agenda peut être soumis à des modifications'); ?></p>
       </div>
   </section>
   <!-- [content legroupeFinancePublications] end-->

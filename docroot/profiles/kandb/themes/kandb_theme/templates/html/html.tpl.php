@@ -70,6 +70,21 @@
   </script>
 </head>
 <body class="<?php print $classes; ?>" <?php print $attributes;?>>
+  <div data-popincookies aria-hidden="true" class="popinCookies">
+    <div class="wrapper">
+      <div class="popinCookies__text">
+        <p><?php print t("En poursuivant votre navigation sur ce site, vous acceptez I'utilisation de Cookies pour vous proposer des publicités adaptées à vos centres d'intérêts, pour réaliser des statistiques de navigation, et pour faciliter le partage d'information sur les réseaux sociaux.  "); ?>
+          <a href="#"><?php print t("Pour en savoir plus et paramétrer les cookies."); ?></a>
+        </p>
+      </div>
+      <div class="popinCookies__buttons">
+        <span role="button" data-popincookies-accept class="popinCookies__buttons__agree btn-primary btn-rounded"><?php print t('Ok'); ?></span>
+        <span type="button" data-popincookies-close class="popinCookies__buttons__close display-status display-status--suppr">
+          <span class="show-for-sr"><?php print t('Fermer'); ?></span>
+        </span>
+      </div>
+    </div>
+  </div>  
   <?php print $page_top; ?>
   <?php print $page; ?>
   <?php print $page_bottom; ?>
