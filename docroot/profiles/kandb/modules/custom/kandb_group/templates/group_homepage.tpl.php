@@ -59,9 +59,11 @@ endif;
                           <?php
                           if(in_array('Administrateur Général', $user->roles)):
                           ?>
-                          <p>
-                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
-                          </p>
+                          <div class="tabs">
+                            <ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;">
+                              <li><a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>" class="test" style="margin:0px;"><?php print t('Edit');?></a> </li>
+                            </ul>
+                          </div>
                           <?php
                           endif;
                           ?>
@@ -93,9 +95,11 @@ endif;
                           <?php
                           if(in_array('Administrateur Général', $user->roles)):
                           ?>
-                          <p>
-                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
-                          </p>
+                          <div class="tabs">
+                            <ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;">
+                              <li><a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>" class="test" style="margin:0px;"><?php print t('Edit');?></a> </li>
+                            </ul>
+                          </div>
                           <?php
                           endif;
                           ?>
@@ -126,9 +130,11 @@ endif;
                           <?php
                           if(in_array('Administrateur Général', $user->roles)):
                           ?>
-                          <p>
-                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
-                          </p>
+                          <div class="tabs">
+                            <ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;">
+                              <li><a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>" class="test" style="margin:0px;"><?php print t('Edit');?></a> </li>
+                            </ul>
+                          </div>
                           <?php
                           endif;
                           ?>
@@ -159,9 +165,11 @@ endif;
                           <?php
                           if(in_array('Administrateur Général', $user->roles)):
                           ?>
-                          <p>
-                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
-                          </p>
+                          <div class="tabs">
+                            <ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;">
+                              <li><a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>" class="test" style="margin:0px;"><?php print t('Edit');?></a> </li>
+                            </ul>
+                          </div>
                           <?php
                           endif;
                           ?>
@@ -192,9 +200,11 @@ endif;
                           <?php
                           if(in_array('Administrateur Général', $user->roles)):
                           ?>
-                          <p>
-                            <a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>"><?php print t('Edit');?></a>
-                          </p>
+                          <div class="tabs">
+                            <ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;">
+                              <li><a href="<?php print url('admin/content/ketb/group/home').'?destination=corporate'?>" class="test" style="margin:0px;"><?php print t('Edit');?></a> </li>
+                            </ul>
+                          </div>
                           <?php
                           endif;
                           ?>
