@@ -54,7 +54,7 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
   if (is_file($file_path)) {
     $content = file_get_contents($file_path);
     if ($content) {
-      header('Content-Type: text/txt; charset=utf-8');
+      header('Content-Type: text/plain; charset=utf-8');
       print $content;
     }
     drupal_exit();
@@ -115,16 +115,7 @@ function kandb_create_partenaire_lot_file($nodes) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
             $programme = node_load($item['target_id']);
             $domain_type = $programme->domains;
-            if (isset($domain_type[2]) && isset($domain_type[3])) {
-              $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], null);
-            } else {
-              if (isset($domain_type[2])) {
-                $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[2]);
-              }
-              if (isset($domain_type[3])) {
-                $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[3]);
-              }
-            }
+            $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[3]);
             if ($bien_nids) {
               $biens = node_load_multiple($bien_nids);
               kandb_export_lots_txt($biens, $uri_lots);

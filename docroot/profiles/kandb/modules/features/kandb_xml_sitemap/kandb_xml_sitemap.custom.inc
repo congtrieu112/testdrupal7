@@ -131,7 +131,25 @@ function kandb_xml_sitemap_xmlsitemap_index_links($limit) {
     'changefreq' => '86400',
     'language' => LANGUAGE_NONE
   );
-  $current_paths = array_merge(kandb_xml_sitemap_get_current_links(), array('villes', 'departements', 'regions'));
+  $default_paths = array(
+    'villes',
+    'departements',
+    'regions',
+    'corporate/activites/habitat',
+    'corporate/activites/tertiaire',
+    'corporate/activites/nos-agences',
+    'corporate/activites/nos-services',
+    'corporate/activites/nos-showroom',
+  );
+  if ($vocabulary = taxonomy_vocabulary_machine_name_load('type_de_habitat')) {
+    $tree = taxonomy_get_tree($vocabulary->vid);
+    if ($tree) { 
+      foreach ($tree as $term) {
+        $default_paths[] = 'corporate/activites/habitat/' . $term->tid;
+      }
+    }
+  }
+  $current_paths = array_merge(kandb_xml_sitemap_get_current_links(), $default_paths);
   $del_paths = array();
   $add_paths = array();
   $db_query = db_select('xmlsitemap', 'x');
@@ -212,8 +230,9 @@ function kandb_xml_sitemap_current_links_list($location) {
   $conf['pathauto_ignore_words'] = '';
   while($object_list = $results_list->fetchAssoc()){
     $sanitize_name = pathauto_cleanstring($object_list['name']);
+    $numero_departement = $location != 'regions' ? '-' . $object_list['field_numero_departement_value'] : '';
     $vars []= $location . '/programmes-immobiliers-neufs-' . $sanitize_name;
-    $vars []= $location . '/logements-immobiliers-neufs-' . $sanitize_name;
+    $vars []= $location . '/logements-immobiliers-neufs-' . $sanitize_name . $numero_departement;
   }
   $conf['pathauto_ignore_words'] = $pathauto_ignore_words;
   return $vars;

@@ -225,9 +225,10 @@ function kandb_finance_archives_download_file ($fid = 0) {
   $file = file_load($fid);
   if ($file && file_exists($file->uri)) {
     $content_disposition = 'attachment; filename="' . basename($file->uri) . '"';
+    $content_type = file_get_mimetype(basename($file->uri));
     $headers = array
       (
-      'Content-type' => 'application/octet-stream',
+      'Content-type' => $content_type,
       'Content-Disposition' => $content_disposition,
       'Content-Transfer-Encoding' => 'binary',
     );
