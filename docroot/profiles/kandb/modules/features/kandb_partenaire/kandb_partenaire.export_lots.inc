@@ -122,8 +122,6 @@ function kandb_create_partenaire_lot_file($nodes) {
         }
         if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
-//            $programme = node_load($item['target_id']);
-//            $domain_type = $programme->domains;
             $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type);
             if ($bien_nids) {
               $biens = node_load_multiple($bien_nids);
