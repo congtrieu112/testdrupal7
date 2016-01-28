@@ -50,8 +50,8 @@
                                             <td valign="top" style="padding: 0 13px;">
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #003e5e; line-height: 30px;">
                                                     <?php
-                                                      if (isset($mail_vars['programme_loc_type'])) :
-                                                        print $mail_vars['programme_loc_ville'] . ' ' . $mail_vars['programme_loc_department'];
+                                                      if (isset($mail_vars['programme_loc_type']) && !$mail_vars['bien_lot_id'] ) :
+                                                        print $mail_vars['programme_loc_ville'] . ' ' . $mail_vars['programme_loc_department']. "<br />";
                                                       endif;
                                                    ?>
                                                 </p>
