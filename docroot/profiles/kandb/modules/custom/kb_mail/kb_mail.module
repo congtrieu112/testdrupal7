@@ -40,14 +40,50 @@ function kb_mail_theme($existing, $type, $theme, $path) {
         'mail_vars' => NULL
         ),
     ),
+    'etre_rappele_callback_request_1' => array(
+      'template' => 'templates/etre-rappele-callback-request-1',
+      'variables' => array(
+        'mail_vars' => NULL
+        ),
+    ),
     'rendez_vous_book_appointment' => array(
       'template' => 'templates/rendez-vous-book-appointment',
       'variables' => array(
         'mail_vars' => NULL
       ),
     ),
+    'article_user_confirmation_book_appointment' => array(
+      'template' => 'templates/rendez-vous-book-appointment-article-user',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
+    'article_center_confirmation_book_appointment' => array(
+      'template' => 'templates/rendez-vous-book-appointment-article-center',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
+    'dossier_user_confirmation_book_appointment' => array(
+      'template' => 'templates/rendez-vous-book-appointment-dossier-user',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
+    'dossier_center_confirmation_book_appointment' => array(
+      'template' => 'templates/rendez-vous-book-appointment-dossier-center',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
     'user_confirmation_book_appointment' => array(
       'template' => 'templates/user-confirmation',
+      'variables' => array(
+        'mail_vars' => NULL
+      ),
+    ),
+    'user_confirmation_book_appointment_1' => array(
+      'template' => 'templates/user-confirmation-1',
       'variables' => array(
         'mail_vars' => NULL
       ),
@@ -147,50 +183,78 @@ function kandb_webform_submit(&$form, &$form_state) {
   if ($webform_name == '_tre_rappel_' || $webform_name == 'prendre_rendez_vous' || $webform_name == 'avant_contactez_nous') {
     $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien, $avant_premiere);
     $has_prefix = FALSE;
+    $variables['title_page'] = $values['submitted']['article_dossier_title'];
     if ($webform_name == '_tre_rappel_') {
-//      $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
       $subject = t('Se Faire rappeler ');
-      $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
-      foreach ($sub_vars as $var) {
-        if ($variables[$var]) {
-          if ($has_prefix) {
-            $subject .= ' / ';
+      if ($values['submitted']['content_type'] == 'article' || $values['submitted']['content_type'] == 'dossier') {
+        $subject .= ': ' . $variables['title_page'];
+        //etre_rappele_callback_request_1 template mail for conseil and  article page
+        kandb_webform_send_mail('etre_rappele_callback_request_1', $subject, 'call_center', $variables);
+      }else{
+        $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
+        foreach ($sub_vars as $var) {
+          if ($variables[$var]) {
+            if ($has_prefix) {
+              $subject .= ' / ';
+            }
+            $subject .= $variables[$var];
+            $has_prefix = TRUE;
           }
-          $subject .= $variables[$var];
-          $has_prefix = TRUE;
         }
+        kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
       }
-      kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
+
     }
     elseif ($webform_name == 'prendre_rendez_vous') {
-      $has_prefix = FALSE;
-      $subject = t('Prise de RDV');
-      $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department');
-      foreach ($sub_vars as $var) {
-        if ($variables[$var]) {
-          if ($has_prefix) {
-            $subject .= ' / ';
-          }
-          else {
-            $subject .= ' - ';
-          }
-          $subject .= $variables[$var];
-          $has_prefix = TRUE;
+
+       if ($values['submitted']['content_type']== 'article' || $values['submitted']['content_type'] == 'dossier') {
+        $subject1 = t('Kaufman & Broad : Me faire rappeler ');
+        $subject2 = t('Se Faire rappeler ');
+        $subject2 .= ': ' . $variables['title_page'];
+        if ($values['submitted']['content_type']== 'article') {
+          //Send to user
+          kandb_webform_send_mail('article_user_confirmation_book_appointment', $subject1, $variables['rdv_email'], $variables);
+          //Send To Confirm
+          kandb_webform_send_mail('article_center_confirmation_book_appointment', $subject2, 'call_center', $variables);
         }
-      }
-      //Send to user
-      kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $variables['rdv_email'], $variables);
-      //Send to call center
-      if ($variables['programme_idkp']) {
-          if ($has_prefix) {
-            $subject .= ' / ';
+        if ($values['submitted']['content_type'] == 'dossier') {
+          //Send to user
+          kandb_webform_send_mail('dossier_user_confirmation_book_appointment', $subject1, $variables['rdv_email'], $variables);
+          //Send To Confirm
+          $subject = t('Se Faire rappeler ');
+          $subject .= ': ' . $variables['title_page'];
+          kandb_webform_send_mail('dossier_center_confirmation_book_appointment', $subject2, 'call_center', $variables);
+        }
+      }else{
+        $has_prefix = FALSE;
+        $subject = t('Prise de RDV');
+        $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department');
+        foreach ($sub_vars as $var) {
+          if ($variables[$var]) {
+            if ($has_prefix) {
+              $subject .= ' / ';
+            }
+            else {
+              $subject .= ' - ';
+            }
+            $subject .= $variables[$var];
+            $has_prefix = TRUE;
           }
-          else {
-            $subject .= ' - ';
-          }
-          $subject .= $variables['programme_idkp'];
+        }
+        //Send to user
+        kandb_webform_send_mail('user_confirmation_book_appointment', $subject, $variables['rdv_email'], $variables);
+        //Send to call center
+        if ($variables['programme_idkp']) {
+            if ($has_prefix) {
+              $subject .= ' / ';
+            }
+            else {
+              $subject .= ' - ';
+            }
+            $subject .= $variables['programme_idkp'];
+        }
+        kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
       }
-      kandb_webform_send_mail('rendez_vous_book_appointment', $subject, 'call_center', $variables);
     }
     else {
       $has_prefix = FALSE;
@@ -319,6 +383,9 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
       $variables['rdv_message'] = isset($values['submitted']['rdv_message']) ? $values['submitted']['rdv_message'] : '';
       $variables['rdv_connu'] = isset($values['submitted']['rdv_connu']) ? $values['submitted']['rdv_connu'] : '';
       $variables['rdv_newsletter'] = isset($values['submitted']['rdv_newsletter'][1]) ? (bool) $values['submitted']['rdv_newsletter'][1] : FALSE;
+      $variables['title'] = isset($values['submitted']['article_dossier_title']) ? $values['submitted']['article_dossier_title'] : '';
+      $variables['vid_node'] = isset($values['submitted']['vid_node']) ? $values['submitted']['vid_node'] : '';
+      $variables['node_type'] = isset($values['submitted']['node_type']) ? $values['submitted']['node_type'] : '';
     }
     elseif($webform_name == 'avant_contactez_nous') {
       $variables['rdv_nom'] = isset($values['submitted']['row_1']['ap_nom']) ? $values['submitted']['row_1']['ap_nom'] : '';
