@@ -354,7 +354,8 @@ function kandb_group_theme($existing, $type, $theme, $path) {
  * Implement of hook_form_alter().
  */
 function kandb_group_form_alter(&$form, $form_state, $form_id) {
-  $current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 'fr';
+  $args = arg();
+  $current_lang = $args[count($args) - 1] == 'en' ? 'en' : 'fr';
   $email_input = variable_get('finance_publication_email_input_'.$current_lang);
   if(empty($email_input)) {
     $email_input = t('Votre adresse d’email');
