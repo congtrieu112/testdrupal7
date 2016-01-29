@@ -154,7 +154,7 @@
             <ul class="tags-list">
               <?php if(isset($field_nouveau[LANGUAGE_NONE][0]) && $field_nouveau[LANGUAGE_NONE][0]['value'] == 1) : ?>
                 <li>
-                  <div class="tag tag--important">Nouveauté</div>
+                  <div class="tag tag--important"><?php print t('Nouveauté'); ?></div>
                 </li>
               <?php endif; ?>
               <?php if(!empty($promotions)) : ?>
@@ -227,7 +227,7 @@
                       <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
                   </span>
                   <?php if ($tva) : ?>
-                    <span class="tva tva--high"><?php print $tva; ?></span>
+                    <span class="tva"><?php print $tva; ?></span>
                   <?php endif; ?>
               </li>
               <?php endif; ?>
