@@ -1022,3 +1022,10 @@ function kandb_update_7203() {
     module_enable(array('imce'), TRUE);
   }
 }
+
+/**
+ * Set variable for page 404
+ */
+function kandb_update_7204() {
+  variable_set('site_404', 'page-404');
+}
