@@ -415,7 +415,7 @@ function kandb_partenaire_create_archive_file($node) {
 
   if (file_exists($path)) {
     foreach (glob($path . "/*.*") as $filename) {
-      if (is_file($filename)) {
+      if (is_file($filename) && strpos('document_lot_plan.zip', $filename) !== FALSE) {
         unlink($filename);
       }
     }
