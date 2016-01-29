@@ -354,11 +354,17 @@ function kandb_group_theme($existing, $type, $theme, $path) {
  * Implement of hook_form_alter().
  */
 function kandb_group_form_alter(&$form, $form_state, $form_id) {
+  $current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 'fr';
+  $email_input = variable_get('finance_publication_email_input_'.$current_lang);
+  if(empty($email_input)) {
+    $email_input = t('Votre adresse d’email');
+  }
+  
   $inscription_form = webform_features_machine_name_load('inscription');
   $inscription_form_id = isset($inscription_form->nid) ? 'webform_client_form_' . $inscription_form->nid : '';
   if ($form_id == $inscription_form_id) {
     $form['submitted']['inscription_email']['#theme_wrappers'] = array();
-    $form['submitted']['inscription_email']['#attributes']['placeholder'] = t('Votre adresse d’email');
+    $form['submitted']['inscription_email']['#attributes']['placeholder'] = $email_input;
     $form['submitted']['inscription_point_dinteret']['#theme_wrappers'] = array();
     $form['submitted']['inscription_point_dinteret']['#default_value'] = drupal_get_title();
     $form['actions']['submit']['#attributes']['class'] = array('webform-submit', 'button-submit', 'js-btn-submit');
