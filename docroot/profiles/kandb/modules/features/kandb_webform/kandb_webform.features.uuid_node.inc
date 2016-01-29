@@ -21,7 +21,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '6bd5a499-9f6c-4998-b286-05c70f93cad4',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '1b75b2a1-bd2a-4750-8250-9a94a9ff4df1',
@@ -238,7 +238,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => 'admin',
   'picture' => 0,
   'data' => 'b:0;',
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 1,
@@ -251,7 +251,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '0caafda0-11bf-482b-aae0-3b96fead1433',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '4b8068ca-34e9-421f-b484-f08ed1dd7717',
@@ -629,7 +629,7 @@ function kandb_webform_uuid_features_default_content() {
         ),
         'required' => 1,
         'weight' => 16,
-        'machine_name' => 'prendre_rendez_vous__nom_prog',
+        'machine_name' => 'avant_contactez_nous__ap_title',
         'page_num' => 1,
       ),
       38 => array(
@@ -696,7 +696,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => 'admin',
   'picture' => 0,
   'data' => 'b:0;',
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 1,
@@ -709,7 +709,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '3d1abf60-824c-427a-9062-83eb09b44733',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '64c71631-71de-4f97-9058-b5fefcaf2611',
@@ -816,7 +816,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => 'admin',
   'picture' => 0,
   'data' => 'b:0;',
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -829,7 +829,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => 'b2218787-1244-499d-8562-5fbb818bea04',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => '9a3cd655-8f47-49a4-8e60-b237aa91af32',
@@ -1325,6 +1325,65 @@ function kandb_webform_uuid_features_default_content() {
         'machine_name' => 'prendre_rendez_vous__prenom',
         'page_num' => 1,
       ),
+      46 => array(
+        'nid' => 4,
+        'cid' => 46,
+        'pid' => 0,
+        'form_key' => 'ap_connu',
+        'name' => 'Comment nous avez-vous connu ?',
+        'type' => 'select',
+        'value' => '',
+        'extra' => array(
+          'items' => '1|Prospectus
+2|Courrier
+3|Relations
+4|Presse
+5|Radio
+6|TV
+7|Moteurs de recherche
+8|Sites Internet
+9|Réseaux sociaux
+10|Panneaux
+11|Bureau de vente
+12|E-mailing',
+          'multiple' => 0,
+          'title_display' => 'before',
+          'private' => 0,
+          'wrapper_classes' => '',
+          'css_classes' => '',
+          'aslist' => 1,
+          'empty_option' => '',
+          'optrand' => 0,
+          'other_option' => NULL,
+          'other_text' => 'Other...',
+          'description' => '',
+          'custom_keys' => FALSE,
+          'options_source' => '',
+          'analysis' => TRUE,
+        ),
+        'required' => 0,
+        'weight' => 26,
+        'machine_name' => 'avant_contactez_nous__ap_connu',
+        'page_num' => 1,
+      ),
+      45 => array(
+        'nid' => 4,
+        'cid' => 45,
+        'pid' => 0,
+        'form_key' => 'ap_title',
+        'name' => 'Title avant premiere',
+        'type' => 'hidden',
+        'value' => '',
+        'extra' => array(
+          'hidden_type' => 'hidden',
+          'private' => 0,
+          'analysis' => FALSE,
+        ),
+        'required' => 0,
+        'weight' => 27,
+        'machine_name' => 'avant_contactez_nous__ap_title',
+        'page_num' => 1,
+      ),
       44 => array(
         'nid' => 4,
         'cid' => 44,
@@ -1357,7 +1416,7 @@ function kandb_webform_uuid_features_default_content() {
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 31,
+        'weight' => 29,
         'machine_name' => 'telechargement_documents__row_1',
         'page_num' => 1,
       ),
@@ -1375,7 +1434,7 @@ function kandb_webform_uuid_features_default_content() {
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 32,
+        'weight' => 30,
         'machine_name' => 'prendre_rendez_vous__rdv_prenom',
         'page_num' => 1,
       ),
@@ -1393,7 +1452,7 @@ function kandb_webform_uuid_features_default_content() {
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 33,
+        'weight' => 31,
         'machine_name' => 'prendre_rendez_vous__rdv_idkl',
         'page_num' => 1,
       ),
@@ -1413,7 +1472,7 @@ function kandb_webform_uuid_features_default_content() {
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 1,
@@ -1426,7 +1485,7 @@ function kandb_webform_uuid_features_default_content() {
   'vuuid' => '3611b72f-513f-4748-88de-f35c147508e6',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'c6106028-928d-4fb4-9b16-a1b5b8800074',
@@ -2222,7 +2281,7 @@ emailing|E-mailing',
   'name' => 'admin',
   'picture' => 0,
   'data' => 'b:0;',
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -2235,7 +2294,7 @@ emailing|E-mailing',
   'vuuid' => 'fe0b08db-f104-4e79-8b9b-b4fd92f4232f',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'eadba82f-d7b7-4990-ba66-4bdce5895ffe',
@@ -2527,7 +2586,7 @@ emailing|E-mailing',
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   $nodes[] = array(
   'uid' => 0,
@@ -2540,7 +2599,7 @@ emailing|E-mailing',
   'vuuid' => '35ff043b-8e3e-4f46-a9b0-ae6bd04dfbec',
   'type' => 'webform',
   'language' => 'en',
-  'created' => 1453297276,
+  'created' => 1453449976,
   'tnid' => 0,
   'translate' => 0,
   'uuid' => 'edd43469-b757-4395-8820-9134e007410d',
@@ -3183,7 +3242,7 @@ emailing|E-mailing',
   'name' => '',
   'picture' => 0,
   'data' => NULL,
-  'date' => '2016-01-20 13:41:16 +0000',
+  'date' => '2016-01-22 15:06:16 +0700',
 );
   return $nodes;
 }

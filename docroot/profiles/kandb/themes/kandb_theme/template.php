@@ -577,6 +577,10 @@ function kandb_theme_preprocess_node(&$vars) {
 
   if ($vars['view_mode'] == 'selection' && $vars['type'] == 'programme') {
     $node = &$vars['node'];
+    
+    $department = taxonomy_term_load($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']);
+    $vars['num_department'] = isset($department->field_numero_departement) ? $department->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
+    
     $ville = taxonomy_term_load($node->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);
     $vars['ville_name'] = $ville->name;
     
@@ -635,8 +639,11 @@ function kandb_theme_preprocess_node(&$vars) {
     elseif ($price_tva_min && !$price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
     }
-    $tva = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
-    $vars['tva'] = $tva->name;
+    if(isset($node->field_tva[LANGUAGE_NONE][0]['tid'])){        
+      $tva = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
+      $vars['temp'] = $tva;
+      $vars['tva'] = isset($tva->name) ? $tva->name : '';
+    }
     $vars['affichage_double_grille'] = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : 0;
 
     $price_min = 0; $price_max = 0;

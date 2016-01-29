@@ -23,6 +23,41 @@ function kandb_group_finance_publication_admin_form($form, $form_state) {
     '#collapsible' => TRUE,
     '#collapsed' => TRUE,
   );
+  
+  // START Finance publication form email.
+  $form['finance_publication_email'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Email Form Setting'),
+    '#collapsible' => TRUE,
+    '#collapsed' => TRUE,
+  );
+  
+  $form['finance_publication_email']['finance_publication_email_title_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email Title'),
+    '#default_value' => variable_get('finance_publication_email_title_' . $current_lang),
+  );
+  $form['finance_publication_email']['finance_publication_email_input_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Email Input'),
+    '#default_value' => variable_get('finance_publication_email_input_' . $current_lang),    
+  );
+  
+  $form['finance_publication_calendrier']['finance_publication_calendrier_title_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Calendrier Title'),
+    '#default_value' => variable_get('finance_publication_calendrier_title_' . $current_lang),    
+  );
+  $form['finance_publication_calendrier']['finance_publication_document_title_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Document Title'),
+    '#default_value' => variable_get('finance_publication_document_title_' . $current_lang),    
+  );
+  $form['finance_publication_calendrier']['finance_publication_document_text_infor_' . $current_lang] = array(
+    '#type' => 'textfield',
+    '#title' => t('Text Infor'),
+    '#default_value' => variable_get('finance_publication_document_text_infor_' . $current_lang),
+  );
 
   for ($i = 1; $i <= 20; $i++) {
     $form['finance_publication_calendrier'][$i] = array(

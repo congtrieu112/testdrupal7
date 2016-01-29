@@ -199,18 +199,27 @@ function kandb_activities_get_habitat_node($tid = array()) {
  * Implement hook_form_alter
  */
 function kandb_activities_form_alter(&$form, &$form_state, $form_id) {
-  if ($form_id == 'habitat_node_form') {
-    $form['title']['#required'] = FALSE;
-    $form['title']['#disabled'] = TRUE;
-    $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
-    $form['#validate'][] = 'kandb_activities_habitat_validate';
-  }
+  switch ($form_id):
+    case 'habitat_node_form';
+      $form['title']['#required'] = FALSE;
+      $form['title']['#disabled'] = TRUE;
+      $form['title']['#description'] = t('Title will be Code Potal + Ville by automatically after save');
+      $form['#validate'][] = 'kandb_activities_habitat_validate';
+      break;
+    // region_kb_node_form
+    case 'region_kb_node_form':
+      $form['#validate'][] = 'kandb_activities_region_node_validate';
+      $form['#validate'][] = 'kandb_activities_region_validate';
+      break;
+    case 'programme_node_form':
+      $form['#validate'][] = 'kandb_activities_programme_validate';
+      break;
+    case 'kandb_contact_admin':
+      $form['#validate'][] = 'kandb_activities_contact_admin_validate';
+      break;
+    default:
 
-  // region_kb_node_form
-  if ($form_id == 'region_kb_node_form') {
-    $form['#validate'][] = 'kandb_activities_region_node_validate';
-    $form['#validate'][] = 'kandb_activities_region_validate';
-  }
+  endswitch;
 }
 
 /**
@@ -393,12 +402,15 @@ function kandb_activities_region_validate(&$form, &$form_state) {
 function kandb_activities_habitat_validate(&$form, &$form_state) {
   $input = $form_state['input'];
   $vals = $form_state['values'];
+  $tid_rigion = isset ( $input['field_habitat_region'][LANGUAGE_NONE]) ?  $input['field_habitat_region'][LANGUAGE_NONE] : '';
+  $title_rigion = ($tid_rigion) ?  taxonomy_term_load($tid_rigion)->name : "";
+
   $code_postal = trim($input['field_habitat_code_postal'][LANGUAGE_NONE][0]['value']);
   if (strlen($code_postal) > 6 && !is_int($code_postal)) {
     form_set_error('field_habitat_code_postal', t('The code postal shoul be 4 or 5 character and must be numeric'));
   } else {
     $ville = taxonomy_term_load($vals['field_habitat_ville'][LANGUAGE_NONE][0]['tid']);
-    $form_state['values']['title'] = $code_postal . ' ' . $ville->name;
+    $form_state['values']['title'] = $code_postal . ' ' . $title_rigion;
   }
 }
 
@@ -424,4 +436,41 @@ function kandb_activities_image_field_widget_process($element, &$form_state, $fo
 
   // Return the altered element
   return $element;
+}
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_activities_programme_validate(&$form, &$form_state) {
+  $val = $form_state['values'];
+  $config_phone_regex = '/^((((\+)[0-9]{11}))|([0-9]{10}))$/';
+  $config_error_phone = t('!name must be in format +xxxxxxxxxxx or xxxxxxxxxx');
+  // field_espace_vente_tel
+  $field_espace_vente_tel = $val['field_espace_vente_tel'][LANGUAGE_NONE][0]['value'];
+  if ($field_espace_vente_tel != null && !preg_match($config_phone_regex, $field_espace_vente_tel)) {
+    form_set_error('field_espace_vente_tel', t($config_error_phone, array('!name' => $form['field_espace_vente_tel']['und']['#title'])));
+  }
+  //field_espace_vente_tel2
+  $field_espace_vente_tel2 = $val['field_espace_vente_tel2'][LANGUAGE_NONE][0]['value'];
+  if ($field_espace_vente_tel2 != null && !preg_match($config_phone_regex, $field_espace_vente_tel2)) {
+    form_set_error('field_espace_vente_tel2', t($config_error_phone, array('!name' => $form['field_espace_vente_tel2']['und']['#title'])));
+  }
+  //field_espace_vente_email
+  $field_espace_vente_email = $val['field_espace_vente_email'][LANGUAGE_NONE][0]['value'];
+  if ($field_espace_vente_email != null && !valid_email_address($field_espace_vente_email)) {
+    form_set_error('field_espace_vente_email', t('The e-mail address you specified is not valid.'));
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_activities_contact_admin_validate(&$form, &$form_state) {
+  $val = $form_state['values'];
+  $config_phone_regex = '/^((((\+)[0-9]{11}))|([0-9]{10}))$/';
+  $config_error_phone = t('!name must be in format +xxxxxxxxxxx or xxxxxxxxxx');
+  // field_espace_vente_tel
+  $kandb_contact_numéro_vert = $val['kandb_contact_numéro_vert'];
+  if ($kandb_contact_numéro_vert != null && !preg_match($config_phone_regex, $kandb_contact_numéro_vert)) {
+    form_set_error('kandb_contact_numéro_vert', t($config_error_phone, array('!name' => $form['kandb_contact_numéro_vert']['#title'])));
+  }
 }

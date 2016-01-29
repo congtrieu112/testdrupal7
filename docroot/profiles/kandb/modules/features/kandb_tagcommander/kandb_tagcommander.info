@@ -1,0 +1,14 @@
+name = K&B TagCommander
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = strongarm
+dependencies[] = tagcommander
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = tagcommander_account_login
+features[variable][] = tagcommander_account_password
+features[variable][] = tagcommander_containers
+features[variable][] = tagcommander_externals_variables
+features[variable][] = tagcommander_website_id

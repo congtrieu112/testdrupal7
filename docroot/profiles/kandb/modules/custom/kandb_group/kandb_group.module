@@ -553,6 +553,7 @@ function get_document_publication($document_type_tid, $numof_years, $current_lan
   $num_latest_year = 0;
   while ($num_latest_year < $numof_years AND $latest_years) {
     $query = db_select('node', 'n');
+    $query->distinct();
     $query->leftJoin('field_data_field_document_date', 'd', 'd.entity_id = n.nid');
     $query->condition('d.entity_type', 'node');
     $query->condition('d.bundle', 'document');

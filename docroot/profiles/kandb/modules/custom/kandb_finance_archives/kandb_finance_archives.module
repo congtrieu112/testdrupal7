@@ -224,29 +224,16 @@ function get_document_by_type($tid = 0, $language_id = 0, $paging = TRUE, $skip_
 function kandb_finance_archives_download_file ($fid = 0) {
   $file = file_load($fid);
   if ($file && file_exists($file->uri)) {
-    header("Pragma: public");
-    header("Expires: 0");
-    header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-    header("Cache-Control: public");
-    header('Content-type: application/octet-stream');
-    header("Content-Transfer-Encoding: Binary");
-    header('Content-Disposition: attachment; filename="' . $file->filename . '"');
-    header("Content-Length: " . filesize($file->uri));
-    $fp = @fopen($file->uri, "rb");
-    if ($fp) {
-      while (!feof($fp)) {
-        echo fread($fp, 8192);
-        flush();
-        if (connection_status() != 0) {
-          @fclose($file->uri);
-          die();
-        }
-      }
-      @fclose($file->uri);
-    }
-  }
-  else {
+    $content_disposition = 'attachment; filename="' . basename($file->uri) . '"';
+    $content_type = file_get_mimetype(basename($file->uri));
+    $headers = array
+      (
+      'Content-type' => $content_type,
+      'Content-Disposition' => $content_disposition,
+      'Content-Transfer-Encoding' => 'binary',
+    );
+    file_transfer($file->uri, $headers);
+  } else {
     drupal_set_message(t('File does not exist.'));
   }
-  return '';
 }

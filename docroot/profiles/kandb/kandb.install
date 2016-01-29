@@ -1022,3 +1022,21 @@ function kandb_update_7203() {
     module_enable(array('imce'), TRUE);
   }
 }
+
+/**
+ * Disable kandb_eu_cookie_compliance and eu_cookie_compliance modules
+ */
+function kandb_update_7204() {
+  if (module_exists('kandb_eu_cookie_compliance')) {
+    module_disable(array('kandb_eu_cookie_compliance'), FALSE);
+  }
+  if (module_exists('eu_cookie_compliance')) {
+    module_disable(array('eu_cookie_compliance'), FALSE);
+  }
+}
+
+function kandb_update_7205(&$sandbox) {
+  if (!module_exists('kandb_tagcommander')) {
+    module_enable(array('kandb_tagcommander'), TRUE);
+  }
+}

@@ -182,7 +182,7 @@
         <div class="squaredImageItem__details">
           <div class="heading heading--bordered">
             <h3 class="heading__title"><?php print $title; ?></h3>
-            <p class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($node->field_programme_loc_department[LANGUAGE_NONE][0]['tid'])) print t('/ ')?> <?php print $node->field_programme_loc_department[LANGUAGE_NONE][0]['tid']; ?></p>
+            <p class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($num_department)) print t('/ ')?> <?php print $num_department; ?></p>
           </div>
           <div class="text heading--small">
             <strong><?php print t('Livraison'); ?></strong>
@@ -196,7 +196,7 @@
           <?php if ($de_a_price_tva || $de_a_price) : ?>
           <ul class="prices">              
               
-              <?php if(empty($tva) && !$affichage_double_grille): ?>
+              <?php if(empty($tva) && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
@@ -204,40 +204,30 @@
               </li>
               <?php endif; ?>
               
-              <?php if($tva && !$affichage_double_grille): ?>
+              <?php if($tva && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
                   </span>
               </li>
               <li>
-                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
-                    <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
-                    <?php endif; ?>
+                  <span class="tva tva--high">TVA 20%</span>                  
               </li>
               <?php endif; ?>
               
-              <?php if($tva && $affichage_double_grille): ?>
-              <li>
-                  <span class="text">
-                      <?php if ($de_a_price) print $de_a_price; ?>
-                  </span>
-              </li>
+              <?php if($tva && $affichage_double_grille == 1): ?>
               <li>
                   <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
                     <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
+                      <span class="tva tva--high">TVA 20%</span>
                     <?php endif; ?>
               </li>
               <li>
                   <span class="text">
                       <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
                   </span>
-              </li>
-              <li>
                   <?php if ($tva) : ?>
-                  <span class="tva tva--high"><?php print $tva; ?></span>
+                    <span class="tva tva--high"><?php print $tva; ?></span>
                   <?php endif; ?>
               </li>
               <?php endif; ?>
@@ -251,7 +241,7 @@
             <li><a href="<?php print file_create_url($field_plaquette_commerciale['und'][0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
           <?php endif; ?>
           <li>
-            <button data-dropdown="sharing-<?php print $id; ?>" aria-controls="sharing-<?php print $id; ?>" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
+            <button data-dropdown="sharing-<?php print $id; ?>" aria-controls="sharing-<?php print $id; ?>" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only"><span><?php print t('Partager'); ?><span class="icon icon-expand"></span></span></button>
             <div class="sharing f-dropdown" id="sharing-<?php print $id; ?>" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
               <ul class="sharing__items">
                 <li class="sharing__items__item"><a href="mailto:" title="partage par email" class="icon icon-email"></a></li>
