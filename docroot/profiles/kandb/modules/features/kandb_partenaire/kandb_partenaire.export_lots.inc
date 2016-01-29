@@ -249,18 +249,15 @@ function get_list_programme_bien_by_domain($type) {
   if ($tid) {
     $listPartenaire_query = db_select('node', 'n')->distinct();
     $listPartenaire_query->leftjoin('field_data_field_id_programme', 'ip', 'ip.entity_id=n.nid');
-    $listPartenaire_query->leftJoin('domain_access', 'd', 'd.nid=n.nid');
     $listPartenaire_query
       ->fields('ip', array('entity_id'))
       ->condition('status', 1);
 
     if ($type == 3) {
       $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 3 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
-      $listPartenaire_query->condition('d.gid', 3);
       $listPartenaire_query->addExpression($str, 'bien_id');
     } elseif ($type == 2) {
       $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 2 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
-      $listPartenaire_query->condition('d.gid', 2);
       $listPartenaire_query->addExpression($str, 'bien_id');
     }
 

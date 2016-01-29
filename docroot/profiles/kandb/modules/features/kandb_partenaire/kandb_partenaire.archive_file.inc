@@ -459,14 +459,10 @@ function get_files_in_bien_related($partenaire_export = NULL, $list_programme = 
   } elseif ($partenaire_export == 1 || $partenaire_export == 2) {
     $db_query->leftJoin('domain_access', 'dm', 'dm.nid=nb.nid');
     $db_query->condition('dm.realm', 'domain_id');
-    $db_query->leftJoin('domain_access', 'dmp', 'dmp.nid=np.nid');
-    $db_query->condition('dmp.realm', 'domain_id');
     if ($partenaire_export == 1) {
       $db_query->condition('dm.gid', 3);
-      $db_query->condition('dmp.gid', 3);
     } elseif ($partenaire_export == 2) {
       $db_query->condition('dm.gid', 2);
-      $db_query->condition('dmp.gid', 2);
     }
   }
   $all_pdf_files = $db_query->distinct()->execute()->fetchCol();
