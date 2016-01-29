@@ -254,6 +254,8 @@ function kandb_partenaire_update_archive_file($node) {
 }
 
 function kandb_create_b2c_b2b_archive_file($file = '') {
+  ini_set ('memory_limit', '1024M');
+  set_time_limit(0);
   $uri = 'public://partenaire/';
   $all_pdf_files = array();
   $files_info = array();
@@ -413,7 +415,7 @@ function kandb_partenaire_create_archive_file($node) {
 
   if (file_exists($path)) {
     foreach (glob($path . "/*.*") as $filename) {
-      if (is_file($filename)) {
+      if (is_file($filename) && strpos('document_lot_plan.zip', $filename) !== FALSE) {
         unlink($filename);
       }
     }
@@ -459,14 +461,10 @@ function get_files_in_bien_related($partenaire_export = NULL, $list_programme = 
   } elseif ($partenaire_export == 1 || $partenaire_export == 2) {
     $db_query->leftJoin('domain_access', 'dm', 'dm.nid=nb.nid');
     $db_query->condition('dm.realm', 'domain_id');
-    $db_query->leftJoin('domain_access', 'dmp', 'dmp.nid=np.nid');
-    $db_query->condition('dmp.realm', 'domain_id');
     if ($partenaire_export == 1) {
       $db_query->condition('dm.gid', 3);
-      $db_query->condition('dmp.gid', 3);
     } elseif ($partenaire_export == 2) {
       $db_query->condition('dm.gid', 2);
-      $db_query->condition('dmp.gid', 2);
     }
   }
   $all_pdf_files = $db_query->distinct()->execute()->fetchCol();
