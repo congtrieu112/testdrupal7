@@ -10,7 +10,7 @@
 function k_b_rh_annonce_webform_defaults() {
 $webforms = array();
   $webforms['candidature'] = array(
-  'title' => 'Candidature',
+  'title' => 'Candidature spontanée',
   'log' => '',
   'status' => 1,
   'comment' => 0,
