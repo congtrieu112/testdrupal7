@@ -67,6 +67,8 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
  * Get partenaire has reference type.
  */
 function kandb_get_partenaire_lot_plan() {
+  ini_set ('memory_limit', '1024M');
+  set_time_limit(0);
   // Export b2b and b2c biens lost.txt.
   kandb_export_common_b2b_b2c();
   $query = new EntityFieldQuery();

@@ -254,6 +254,8 @@ function kandb_partenaire_update_archive_file($node) {
 }
 
 function kandb_create_b2c_b2b_archive_file($file = '') {
+  ini_set ('memory_limit', '1024M');
+  set_time_limit(0);
   $uri = 'public://partenaire/';
   $all_pdf_files = array();
   $files_info = array();
