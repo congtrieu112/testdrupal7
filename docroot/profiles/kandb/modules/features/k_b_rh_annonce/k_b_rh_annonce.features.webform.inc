@@ -643,7 +643,7 @@ Zimbabwe|Zimbabwe',
       ),
       '_tre_rappel___rappeler_prenom' => array(
         'form_key' => 'lettre_motivation',
-        'name' => 'Joindre votre lettre de motivation * (pdf ou word, 1 Mo max.) :',
+        'name' => 'Joindre votre lettre de motivation (pdf ou word, 1 Mo max.) :',
         'type' => 'file',
         'value' => '',
         'extra' => array(
@@ -676,7 +676,7 @@ Zimbabwe|Zimbabwe',
       ),
       '_tre_rappel___rappeler_telephone' => array(
         'form_key' => 'curriculum_vitae',
-        'name' => 'Joindre votre CV* (pdf ou word, 1 Mo max.) :',
+        'name' => 'Joindre votre CV (pdf ou word, 1 Mo max.) :',
         'type' => 'file',
         'value' => '',
         'extra' => array(
