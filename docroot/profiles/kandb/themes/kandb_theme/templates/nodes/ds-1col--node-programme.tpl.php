@@ -287,7 +287,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                       <li><a href="#downloadDocument" data-scroll-to class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                     <?php endif; ?>
 
-                    <?php if ($habiteo_id && $bon_plan) : ?>
+                    <?php if ($habiteo_id) : ?>
                       <li><a href="#Vue3D" data-scroll-to class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
@@ -382,7 +382,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
   <?php print render($program_characteristic['content']); ?>
 <?php endif; ?>
 <!-- [3rd party: vue-generale] start-->
-<?php if ($habiteo_id && !$bon_plan): ?>
+<?php if ($habiteo_id): ?>
   <section class="section-padding show-for-medium-up" id="Vue3D">
       <div class="wrapper">
           <header class="heading heading--bordered">
