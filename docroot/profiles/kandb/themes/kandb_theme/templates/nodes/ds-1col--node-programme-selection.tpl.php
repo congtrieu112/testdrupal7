@@ -194,8 +194,8 @@
             <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
           </div>
           <?php if ($de_a_price_tva || $de_a_price) : ?>
-          <ul class="prices">              
-              
+          <ul class="prices">
+
               <?php if(empty($tva) && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
@@ -203,26 +203,7 @@
                   </span>
               </li>
               <?php endif; ?>
-              
-              <?php if($tva && $affichage_double_grille == 0): ?>
-              <li>
-                  <span class="text">
-                      <?php if ($de_a_price) print $de_a_price; ?>
-                  </span>
-              </li>
-              <li>
-                  <span class="tva tva--high">TVA 20%</span>                  
-              </li>
-              <?php endif; ?>
-              
-              <?php if($tva && $affichage_double_grille == 1): ?>
-              <li>
-                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
-                    <?php if ($tva) : ?>
-                      <span class="tva tva--high">TVA 20%</span>
-                    <?php endif; ?>
-              </li>
-              <li>
+               <li>
                   <span class="text">
                       <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
                   </span>
@@ -230,11 +211,27 @@
                     <span class="tva"><?php print $tva; ?></span>
                   <?php endif; ?>
               </li>
+              <?php if($tva && $affichage_double_grille == 0): ?>
+              <li>
+                  <span class="text">
+                      <?php if ($de_a_price) print $de_a_price; ?>
+                  </span>
+                  <span class="tva tva--high">TVA 20%</span>
+              </li>
               <?php endif; ?>
-              
+
+              <?php if($tva && $affichage_double_grille == 1): ?>
+              <li>
+                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
+                    <?php if ($tva) : ?>
+                      <span class="tva tva--high">TVA 20%</span>
+                    <?php endif; ?>
+              </li>
+              <?php endif; ?>
+
           </ul>
           <?php endif; ?>
-        </div>          
+        </div>
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>
