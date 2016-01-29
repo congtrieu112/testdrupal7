@@ -216,8 +216,6 @@
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
                   </span>
-              </li>
-              <li>
                   <span class="tva tva--high">TVA 20%</span>
               </li>
               <?php endif; ?>
