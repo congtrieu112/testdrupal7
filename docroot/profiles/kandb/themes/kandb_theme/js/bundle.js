@@ -38035,6 +38035,225 @@ if ( $(trigger).length ) {
 }
 
 },{}],14:[function(require,module,exports){
+/***************************
+  calendar: app-calendar.js
+****************************/
+
+'use strict';
+
+var trigger = '[data-calendar]',
+    events = '[data-events]';
+
+var defaults = {
+  maxDate: 31,
+  dayInNextMonth: 'day-in-next-month',
+  dayInPrevMonth: 'day-in-prev-month',
+  container: '<table class="calendar" cellspacing="0" cellpadding="0">',
+  dayNames: ['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'],
+  monthNames : ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
+};
+
+function AppCalendar(el, options) {
+
+  this.element = $(el);
+  this.settings = $.extend({}, defaults, options);
+
+  this.init();
+
+}
+
+AppCalendar.prototype = {
+
+  init: function() {
+
+    var that = this,
+        date = new Date(),
+        year = date.getFullYear(),
+        daysInFeb = that.getDaysInMonth(1, year);
+
+    that.totalDays = [31, daysInFeb, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
+    that.weekdaysName = that.getWeekdaysName();
+
+    for(var i = 0, len = that.settings.monthNames.length ; i < len; i++) {
+      that.calendar(i, year);
+    }
+
+    that.getEvents();
+
+    that.element.appSlick({
+      arrows: true,
+      dots: false,
+      prevArrow: '<button type="button" class="slick-prev"><span class="icon"></span></button>',
+      nextArrow: '<button type="button" class="slick-next"><span class="icon"></span></button>'
+    });
+
+  },
+  calendar: function(month, year) {
+
+    var that = this,
+        calendar = '',
+        wrapper = '<div class="dashboard__calendar__event">'  +
+        '<p class="dashboard__calendar__event__title"> Date de fin d\'option:</p>' +
+        '<div class="dashboard__calendar__event__list events-list"></div></div>',
+        currentMonth = that.formatDate(null, month + 1, year),
+        currentDay = '', currentDate = '',
+        date = new Date(), settings = that.settings,
+        startDate = new Date(year, month, 1),
+        weekDay = startDate.getDay();
+
+    calendar += settings.container + '<caption><span class="month">';
+    calendar += settings.monthNames[month] + '</span></caption>';
+    calendar += that.weekdaysName + '<tbody><tr>';
+
+    for(var day = 1; day <= 42; day++) {
+
+      if(day <= weekDay) {
+
+        calendar += '<td class="' + settings.dayInPrevMonth + '">&nbsp;</td>';
+
+      } else if(day > that.totalDays[month] + weekDay) {
+
+        calendar += '<td class="' + settings.dayInNextMonth + '">&nbsp;</td>';
+
+      } else {
+
+        currentDay = day - weekDay;
+        currentDate = that.formatDate(currentDay, month + 1, year);
+        var className = currentDay === date.getDate() && month === date.getMonth() ?
+        ' class="today" ' : ' ';
+
+        calendar += '<td' + className + 'id="' + currentDate + '">' + currentDay +
+        '</td>';
+
+      }
+
+      if(day % 7 === 0) {
+        calendar += '</tr>';
+        calendar += (day + 1 <= 42) ? '<tr>' : '';
+      }
+
+    }
+
+    calendar += '</tbody></table>';
+
+    that.element.append('<div class="inner" id="' + currentMonth + '">' +
+    calendar +  '' + wrapper + '</div>');
+
+  },
+  getEvents: function() {
+
+    var that = this,
+        settings = that.settings,
+        url = 'assets/data/data.json',
+        eventsList = '',
+        template = '<div class="dashboard__calendar__event__item">' +
+        '<dt><p class="date"><span class="day">{{day}}</span>' +
+        '<span class="month">{{month}}</span></p></dt><dd><ul>' +
+        '{{eventsList}}</ul></dd></div>';
+
+    $.ajax({
+      url: url,
+      type: 'GET',
+      dataType: 'json',
+    }).done(function(data){
+
+      $.each(data, function(index, events){
+
+        var date = index.split('-'),
+            evtTemplate = template,
+            eventsDate = $('#' + index),
+            currentMonth = date[1] + '-' + date[2],
+            datepicker = $('.events-list', '#' + currentMonth);
+
+        evtTemplate = evtTemplate.replace('{{day}}', date[0])
+                      .replace('{{month}}', settings.monthNames[date[1] - 1]);
+
+        $.each(events, function(index, evt){
+
+          var titles = evt.titles.map(function(title){
+            return '<a href="#" title="' + title + '">' + title + '</a>';
+          });
+
+          eventsList += '<li><p class="dashboard__calendar__event__item--title">' +
+          titles.join('') + '</p><p class="dashboard__calendar__event__item--description">' +  evt.desc + '</p></li>';
+
+        });
+
+        evtTemplate = evtTemplate.replace('{{eventsList}}', eventsList);
+        eventsList = '';
+
+        datepicker.length && datepicker.append(evtTemplate);
+        eventsDate.length && eventsDate.append('<sup>' + events.length +'</sup>');
+
+      });
+
+
+    }).fail(function() {
+
+      console.log('A error happen when get events from server');
+
+    });
+
+
+  },
+  getWeekdaysName: function() {
+
+    var that = this,
+        title = that.settings.dayNames.map(function(val){
+          return '<th>' + val + '</th>';
+        });
+
+    return '<thead><tr>' + title.join('') + '</tr></thead>';
+  },
+  getDaysInMonth: function(month, year) {
+    return 32 - new Date(year, month, 32).getDate();
+  },
+  formatDate: function(day, month, year) {
+
+    var dateString = '',
+        dayValue = !day ? '' : day < 10 ? '0' + day : day,
+        monthValue = month < 10 ? '0' + month : month;
+
+    dateString = !day ? monthValue + '-' + year :
+    dayValue + '-' + monthValue + '-' + year;
+
+    return dateString;
+  }
+
+};
+
+$.fn.appCalendar = function(options) {
+
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function(){
+
+    var item = $(this),
+        instance = item.data('appCalendar');
+
+    if(!instance) {
+
+      item.data('appCalendar', new AppCalendar(this, options));
+
+    } else {
+
+      typeof(options) === 'string' && instance[options].apply(instance, args);
+
+    }
+
+  });
+
+};
+
+$(trigger).appCalendar();
+
+App.updaters.appCalendar = function() {
+
+  $(trigger).appCalendar();
+
+};
+
+},{}],15:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
 /* ====================== */
@@ -38105,11 +38324,9 @@ $(document).on('ajaxComplete', function(e, xhr, settings){
   console.log("ajaxComplete");
 
   // reinit all App methods
-  //App.launchUpdaters(e, xhr);
   App.launchUpdaters();
 });
-
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /* ====================== */
 /* mapContact : app-contact-map.js */
 /* ====================== */
@@ -38368,7 +38585,7 @@ $.fn.appContactMap = function(opt) {
 
 $(trigger).appContactMap();
 
-},{"./app-top-bar.js":34}],16:[function(require,module,exports){
+},{"./app-top-bar.js":36}],17:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -38573,7 +38790,7 @@ App.updaters.appCookies = function() {
   $(trigger).appCookies();
 };
 
-},{}],17:[function(require,module,exports){
+},{}],18:[function(require,module,exports){
 /* ========================== */
 /* dropdown : app-dropdown.js */
 /* ========================== */
@@ -38727,35 +38944,32 @@ AppDropdown.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-$(function() {
+$.fn.appDropdown = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appDropdown = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppDropdown');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppDropdown', new AppDropdown( this, opt) );
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-          instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppDropdown');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppDropdown', new AppDropdown( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+        instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
-  $(trigger).appDropdown();
-
-});
+$(trigger).appDropdown();
 
 
 // auto refresh after ajax response
 App.updaters.appDropdown = function() {
   $(trigger).appDropdown();
 };
-},{}],18:[function(require,module,exports){
+
+},{}],19:[function(require,module,exports){
 /* =================== */
 /* editorial : app-editorial.js */
 /* =================== */
@@ -38790,7 +39004,7 @@ if ( $editorial.length && Modernizr.touch ) {
 
 
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /* ====================== */
 /* footer : app-footer.js */
 /* ====================== */
@@ -38805,7 +39019,7 @@ App.footerHeight = function() {
 };
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /* =================== */
 /* forms : app-form.js */
 /* =================== */
@@ -38863,7 +39077,7 @@ App.form = function() {
   };
 
   $('form').find('.form-file').each(function(){
-    var $this = $(this),
+    var $this = $(this).removeClass('form-file'),
         thisName = $this.attr('name'),
         fakeInput = '<input type="text" readonly data-fake-file id="fake-'+ thisName +'" placeholder="Choisissez un fichier">';
 
@@ -38897,7 +39111,7 @@ if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
   });
 }
 */
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
 /* ================== */
@@ -39079,7 +39293,7 @@ $(function() {
     App.gmaps = new Gmaps(opts);
   };
 });
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /* ====================================== */
 /* iframes : app-iframes.js */
 /* ====================================== */
@@ -39105,7 +39319,7 @@ App.appIframes( trigger );
 App.updaters.appIframes = function() {
   App.appIframes( trigger );
 };
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
 /* ========================== */
@@ -39227,14 +39441,14 @@ $(function() {
   }
 
 });
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /* ============================= */
 /* off canvas : app-offcanvas.js */
 /* ============================= */
 
 'use strict';
 
-var trigger               = '.menu-btn, .site-overlay',
+var trigger               = '.menu-btn, .site-overlay, .pushy a',
     $menuBtn              = $('.menu-btn'),
     $html                 = $('html'),
     $topbarSearchForm     = $('.js-topbarSearch'),
@@ -39341,7 +39555,7 @@ $topbarSearchForm.find('form').on('submit', function(e){
   }
 });
 
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* ====================== */
 /* partager popins: app-partager.js */
 /* ====================== */
@@ -39399,7 +39613,7 @@ $.fn.appPartager = function(opt) {
 
 $(trigger).appPartager();
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ============================ */
 /* popinCookies : app-popinCookies.js */
 /* ============================ */
@@ -39498,7 +39712,7 @@ $.fn.appPopinCookies = function(opt) {
 };
 
 $(trigger).appPopinCookies();
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -39602,7 +39816,7 @@ App.reveal();
 App.updaters.reveal = function() {
   App.revealBind();
 };
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39630,7 +39844,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],29:[function(require,module,exports){
+},{}],30:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39680,7 +39894,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],30:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39781,7 +39995,7 @@ $(trigger).appSeeMore();
 App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
 };
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -39831,7 +40045,7 @@ App.appComboSelect(trigger);
 App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-showText.js */
 /* ======================== */
@@ -39947,7 +40161,7 @@ App.updaters.appShowMoreText = function() {
   $(trigger).appShowMoreText();
 };
 
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -40148,7 +40362,176 @@ App.updaters.appSlick = function() {
   $(trigger).appSlick();
 };
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
+/* ====================== */
+/* expand more info table row: app-table-outils.js */
+/* ====================== */
+
+"use strict";
+var trigger = '[data-expand-row-info]',
+    triggerCheckbox = '[data-table-checkbox]',
+    triggerSelectedCheckbox = '[data-check-selected-rows]',
+    indicator = '[data-expand-indicator]',
+    expandable = '[data-expandable-area]',
+    defaults = {};
+
+
+var toggleInfo = function(ev) {
+  var $target = $(ev.target); 
+  if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
+
+  var $row = $(ev.currentTarget),
+      $indicator = $row.find(indicator),
+      $nextRow = $row.next(),
+      $expandable = $nextRow.find(expandable);
+
+  if ($expandable.is(':visible')) {
+    $expandable.velocity('slideUp', {display: 'none'});
+    $indicator.velocity({rotateX: '0deg'});
+  } else {
+    $expandable.velocity('slideDown');
+    $indicator.velocity({rotateX: '180deg'});
+  }
+};
+
+function AppTableOutils(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppTableOutils.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', toggleInfo)
+            .on('click', toggleInfo);
+    }
+};
+
+/* ====================== */
+/* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
+/* ====================== */
+var toggleCheckbox = function(ev) {
+  var $target = $(ev.currentTarget),
+      $tbody = $target.closest('tbody');
+
+  if ($tbody) {
+      var isChecked = !!$target.is(':checked'),
+          $checkBoxes = $tbody.find('.' + $target.attr('class'));
+      //$checkBoxes.attr('checked', isChecked);
+      $checkBoxes.each(function(index, obj) {
+        if (!obj.disabled) {
+          obj.checked = isChecked;
+        }
+      });
+  }
+  else {
+      console.error('Input checkbox is not wrapped within a tbody');
+  }
+};
+
+function AppTableCheckbox(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppTableCheckbox.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('change', toggleCheckbox)
+            .on('change', toggleCheckbox);
+    }
+
+};
+
+
+/* ====================== */
+/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
+/* ====================== */
+var checkRows = function(ev) {
+  var $tbody = $(ev.currentTarget).closest('tbody'),
+      $checkboxes = $tbody.find('[type=checkbox]').filter(':checked');
+
+  if ($checkboxes.length === 0) {
+    ev.preventDefault();
+    ev.stopPropagation();
+  }
+};
+
+function AppCheckSelectedRows(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppCheckSelectedRows.prototype = {
+    init: function() {
+        this.bindEvents();
+        return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click', checkRows)
+            .on('click', checkRows);
+    }
+
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+function jqueryFn(jq, ClassObj, args, opt) {
+    //var args = Array.prototype.slice.call(arguments, 1);
+
+    return jq.each(function() {
+        var item = $(this), instance = item.data(ClassObj.name);
+        if (!instance) {
+            // create plugin instance and save it in data
+            item.data(ClassObj.name, new ClassObj(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+
+}
+
+
+$.fn.appTableOutils = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppTableOutils, opt, args);
+};
+
+$.fn.appTableCheckbox = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppTableCheckbox, opt, args);
+};
+
+$.fn.appCheckSelectedRows = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppCheckSelectedRows, opt, args);
+};
+
+$(trigger).appTableOutils();
+$(triggerCheckbox).appTableCheckbox();
+$(triggerSelectedCheckbox).appCheckSelectedRows();
+
+
+},{}],36:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -40163,7 +40546,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],35:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -40800,7 +41183,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],36:[function(require,module,exports){
+},{"jquery":5}],38:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -40897,6 +41280,8 @@ var appSeeMore          = require("./app-seeMore.js");
 var appEditorial        = require("./app-editorial.js");
 var appShowText         = require("./app-showText.js");
 var appPartager         = require("./app-partager.js");
+var appTableOutils      = require("./app-table-outils.js");
+var appCalendar         = require("./app-calendar.js");
 var appPopinCookies     = require("./app-popinCookies.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
@@ -40913,4 +41298,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-common.js":14,"./app-contact-map.js":15,"./app-cookies.js":16,"./app-dropdown.js":17,"./app-editorial.js":18,"./app-footer.js":19,"./app-forms.js":20,"./app-gmaps.js":21,"./app-iframes.js":22,"./app-link2map.js":23,"./app-offcanvas.js":24,"./app-partager.js":25,"./app-popinCookies.js":26,"./app-reveal.js":27,"./app-scroll-to.js":28,"./app-searchFormular.js":29,"./app-seeMore.js":30,"./app-select.js":31,"./app-showText.js":32,"./app-slick.js":33,"./app-top-bar.js":34,"./combo-select.js":35,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[36]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFormular.js":30,"./app-seeMore.js":31,"./app-select.js":32,"./app-showText.js":33,"./app-slick.js":34,"./app-table-outils.js":35,"./app-top-bar.js":36,"./combo-select.js":37,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[38]);

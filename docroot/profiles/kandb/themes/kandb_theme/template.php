@@ -107,6 +107,10 @@ function kandb_theme_process_page(&$variables) {
             </div>';
     }
   }
+  $header = drupal_get_http_header('status');   
+  if ($header == '404 Not Found') {     
+    $variables['theme_hook_suggestions'][] = 'page__404';
+  }
 }
 
 /**
@@ -150,6 +154,19 @@ function kandb_theme_menu_local_tasks(&$variables) {
       }
       $output .= "</ul>";
     }
+  } elseif (preg_match('/corporate\/.*/i', $_GET['q'])) {
+    $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
+    $item = menu_get_item('admin/content/ketb/group/home');
+    $item['title'] = t('Edit');
+    $item['localized_options'] = array(
+      'query' => array('destination' => $_GET['q'])
+    );
+    $tab = array(
+      '#theme' => 'menu_local_task',
+      '#link' => $item,
+    );
+    $output .= render($tab);
+    $output .= '</ul>';
   }
   return $output;
 }
