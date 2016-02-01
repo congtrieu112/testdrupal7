@@ -354,9 +354,9 @@ function kandb_seo_block_list_by_type_of_bien($location, $location_detail){
   // Get info for the url
   $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('bien' => $location_detail));
   while($object = $results->fetchAssoc()) {
-    if(!isset($vars['results'][$object['type_name']])) $vars['results'][$object['type_name']] = array();
-    if(!in_array($object['nb_piece_name'], $vars['results'][$object['type_name']])) $vars['results'][$object['type_name']][] = $object['nb_piece_name'];
-    $vars['sanitized_strings'][$object['type_name']] = pathauto_cleanstring($object['type_name']);
+    if(!isset($vars['results'][$object['name']])) $vars['results'][$object['name']] = array();
+    if(!in_array($object['nb_piece_name'], $vars['results'][$object['name']])) $vars['results'][$object['name']][] = $object['nb_piece_name'];
+    $vars['sanitized_strings'][$object['name']] = pathauto_cleanstring($object['name']);
     $vars['sanitized_strings'][$object['nb_piece_name']] = pathauto_cleanstring($object['nb_piece_name']);
   }
   ksort($vars['results']);
@@ -751,10 +751,15 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   $query->join('field_data_field_programme_loc_department', NULL, 'field_data_field_programme_loc_department.entity_id = ' . $table . '.entity_id');
   $query->join('field_data_field_numero_departement', NULL, 'field_data_field_programme_loc_department.field_programme_loc_department_tid = field_data_field_numero_departement.entity_id');
 
+  // If asked for a bien
+  if($options['bien']) {
+    $query->groupBy('type.tid, nb_piece.tid');
+
   // If not asked only the first letter get name
-  if(!$options['only_first_letter']) {
+  }elseif(!$options['only_first_letter']) {
     $query->fields('ttd', array('name'));
     $query->groupBy('ttd.tid');
+
   // Otherwise get only the first letters
   }else{
     $query->addExpression('SUBSTRING(ttd.name, 1, 1)', 'first_letter');
