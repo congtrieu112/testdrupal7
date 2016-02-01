@@ -107,6 +107,10 @@ function kandb_theme_process_page(&$variables) {
             </div>';
     }
   }
+  $header = drupal_get_http_header('status');   
+  if ($header == '404 Not Found') {     
+    $variables['theme_hook_suggestions'][] = 'page__404';
+  }
 }
 
 /**

@@ -1,20 +1,41 @@
 <?php
 
 /**
- * Implements hook_menu().
- */
+* Implementation of hook_menu()
+* @return array
+*/
 function kandb_validate_menu() {
+
   $items = array();
 
-  $items['admin/config/cookie'] = array(
+  // 404--page
+  $items['page-404'] = array(
+    'title' => '404 page not found',
+    'page callback' => 'kandb_page_404',
+    'access arguments' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/content/ketb/cookie'] = array(
     'title' => 'Config Cookie',
     'description' => 'Configurate Cookie',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('config_cookie'),
-    'access arguments' => array('administer site configuration'),
-  ); 
+    'access arguments' => array('administer K&B content'),
+  );
   
   return $items;
+}
+
+/**
+ * Implements hook_theme().
+ */
+function kandb_validate_theme($existing, $type, $theme, $path) {
+  return array(
+    'page_404' => array(
+      'template' => 'templates/page_404',
+      'variables' => array(),
+    ),
+  );
 }
 
 /**
@@ -485,6 +506,7 @@ function kandb_validate_node_update($node){
     create_file_archire_for_habitat(node_load($node->nid, NULL, TRUE));
   }
 }
+
 /**
  * Cookie config
  * @return type
@@ -510,4 +532,23 @@ function config_cookie() {
     );
     
     return system_settings_form($form);
+}
+
+/**
+ * Get node homepage
+ * @return type
+ */
+function kandb_page_404() {
+  $node = NULL;
+  $db_query = db_select('node', 'n');
+  $db_query->fields('n', array('nid'));
+  $db_query->condition('n.status', 1);
+  $db_query->condition('n.type', 'homepage');
+  $db_query->orderBy('n.nid', 'DESC');
+  $nid = $db_query->execute()->fetchField();
+  if ($nid) {
+    $node = node_load($nid);
+  }
+  
+  return theme('page_404', array('node' => $node));
 }
