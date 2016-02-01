@@ -501,6 +501,7 @@ function config_cookie() {
       '#type' => 'textfield',
       '#title' => t('Link Police'),
       '#default_value' => variable_get('kb_cookie_link', ''),
+      '#required' => TRUE,
     );
     $form['kb_cookie_descriptions'] = array(
       '#type' => 'textarea',
