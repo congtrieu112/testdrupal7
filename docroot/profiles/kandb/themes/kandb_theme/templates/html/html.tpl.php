@@ -73,8 +73,8 @@
   <div data-popincookies aria-hidden="true" class="popinCookies">
     <div class="wrapper">
       <div class="popinCookies__text">
-        <p><?php print t("En poursuivant votre navigation sur ce site, vous acceptez I'utilisation de Cookies pour vous proposer des publicités adaptées à vos centres d'intérêts, pour réaliser des statistiques de navigation, et pour faciliter le partage d'information sur les réseaux sociaux.  "); ?>
-          <a href="#"><?php print t("Pour en savoir plus et paramétrer les cookies."); ?></a>
+        <p><?php print !empty(variable_get('kb_cookie_descriptions')) ? variable_get('kb_cookie_descriptions') : ''; ?>
+          <a href="<?php print !empty(variable_get('kb_cookie_link')) ? variable_get('kb_cookie_link') : '#'?>"><?php print !empty(variable_get('kb_cookie_title')) ? variable_get('kb_cookie_title') : ''; ?></a>
         </p>
       </div>
       <div class="popinCookies__buttons">
