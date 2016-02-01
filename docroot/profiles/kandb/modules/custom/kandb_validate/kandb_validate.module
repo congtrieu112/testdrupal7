@@ -1,6 +1,23 @@
 <?php
 
 /**
+ * Implements hook_menu().
+ */
+function kandb_validate_menu() {
+  $items = array();
+
+  $items['admin/config/cookie'] = array(
+    'title' => 'Config Cookie',
+    'description' => 'Configurate Cookie',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('config_cookie'),
+    'access arguments' => array('administer site configuration'),
+  ); 
+  
+  return $items;
+}
+
+/**
  * Implement hook_form_Form_ID_alter().
  */
 function kandb_validate_form_avant_premiere_node_form_alter(&$form, &$form_state) {
@@ -467,4 +484,29 @@ function kandb_validate_node_update($node){
   if ($node->type == 'homepage') {
     create_file_archire_for_habitat(node_load($node->nid, NULL, TRUE));
   }
+}
+/**
+ * Cookie config
+ * @return type
+ */
+function config_cookie() {
+    $form = array();
+    
+    $form['kb_cookie_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title Police'),
+      '#default_value' => variable_get('kb_cookie_title', ''),
+    );
+    $form['kb_cookie_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Link Police'),
+      '#default_value' => variable_get('kb_cookie_link', ''),
+    );
+    $form['kb_cookie_descriptions'] = array(
+      '#type' => 'textarea',
+      '#title' => t('Descriptions'),
+      '#default_value' => variable_get('kb_cookie_descriptions', ""),
+    );
+    
+    return system_settings_form($form);
 }
