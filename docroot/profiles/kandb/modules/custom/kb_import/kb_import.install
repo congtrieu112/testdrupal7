@@ -4,8 +4,6 @@ function kb_import_enable() {
   variable_set('feeds_process_limit', 1000);
   $daily_import_status = daily_import_status_default();
   set_daily_import_status($daily_import_status);
-  $migration_status = migration_status_default();
-  set_migration_status($migration_status);
 }
 
 function kb_import_disable() {
@@ -26,7 +24,6 @@ function kb_import_update_7100(&$sandbox) {
 function kb_import_update_7101(&$sandbox) {
   variable_set('feeds_process_limit', 1000);
   set_daily_import_status(daily_import_status_default());
-  set_migration_status(migration_status_default());
 }
 
 /**
@@ -34,4 +31,11 @@ function kb_import_update_7101(&$sandbox) {
  */
 function kb_import_update_7102(&$sandbox) {
   variable_set('feeds_process_limit', 100);
+}
+
+/**
+ * Delete kb_migration_status variable
+ */
+function kb_import_update_7103(&$sandbox) {
+  variable_del('kb_migration_status');
 }
