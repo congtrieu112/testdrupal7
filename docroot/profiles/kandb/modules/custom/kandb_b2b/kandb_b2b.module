@@ -117,3 +117,10 @@ function kandb_b2b_date_format_types() {
     'date_format_dd_mm_yyyy' => t('DD.MM.YYYY'),
   );
 }
+
+/**
+ * Implements of hook_user_login().
+ */
+function kandb_b2b_user_login(&$edit, $account) {
+  $edit['redirect'] = 'dash-board';
+}
