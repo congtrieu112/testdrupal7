@@ -125,7 +125,7 @@
                                                                         </p>
                                                                         <p style="margin: 0;"><?php print $mail_vars['programme_espace_vente_tel']; ?></p>
                                                                         <p style="margin: 0;">Bureau de vente :</p>
-                                                                        <p style="margin: 0;"><?php print $mail_vars['programme_espace_vente_adresse']; ?></p><p style="margin: 0;"><span style="text-transform: uppercase;"><?php print $mail_vars['programme_espace_vente_ville']; ?></span></p>
+                                                                        <p style="margin: 0;"><?php print $mail_vars['programme_espace_vente_adresse']; ?></p>
                                                                         <p style="margin: 0;">Horaires d'ouverture :</p><p style="margin: 0;"><?php print $mail_vars['programme_espace_vente_horaire']; ?></p>
                                                                         <p style="margin: 0;">Rappel de votre message :</p><p style="margin: 0;"> <?php print $mail_vars['rdv_message']; ?></p>
                                                                     </td>
