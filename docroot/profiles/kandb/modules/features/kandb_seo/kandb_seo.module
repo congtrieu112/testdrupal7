@@ -281,13 +281,16 @@ function kandb_seo_block_letters($location, $letter = NULL) {
   $vars = array();
 
   // Get the list of the available cities
-  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('only_first_letter' => FALSE));
+  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('only_first_letter' => FALSE, 'sort_first_letter' => TRUE));
 
   // Process the result
   $vars['location'] = array();
   $temp =  array();
   while($object = $results->fetchAssoc()){
     $min_letter = strtolower($object['name'][0]);
+    if($object['name'] == 'Île-de-France') {
+      $min_letter = 'i';
+    }
     $vars['location'][$min_letter] = $location . '/' . $min_letter;
     $temp[$min_letter][]  = $object['name'];
   }
@@ -304,8 +307,12 @@ function kandb_seo_block_letters($location, $letter = NULL) {
 function kandb_seo_block_list($location, $first_letter = false) {
   $vars = array();
 
-  // Get the list of the available cities
+  // Get the list of the available cities.
+  // If we are in the villes section with no first letter we order by city usage else order first letter
   $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('first_letter' => $first_letter));
+  if(!$first_letter) {
+    $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('first_letter' => FALSE, 'sort_first_letter' => TRUE));
+  }
 
   // Get sanitize name
   global $conf;
@@ -318,7 +325,11 @@ function kandb_seo_block_list($location, $first_letter = false) {
   // Process the result
   $vars['results'] = array();
   while($object = $results->fetchAssoc()){
-    $letter = substr($object['name'], 0, 1);
+    $letter = $object['name'][0];
+    if($object['name'] == 'Île-de-France') {
+      $letter = 'I';
+    }
+
     $vars['results'][$letter][] = array(
       'name' => ucwords(strtolower($object['name']), '- '),
       'sanitize_name' => pathauto_cleanstring($object['name']),
@@ -713,6 +724,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
     array(
       'only_first_letter' => FALSE,
       'first_letter' => FALSE,
+      'sort_first_letter' => FALSE,
       'bien' => FALSE,
     ),
     $options
@@ -794,7 +806,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
 
   // If we are in the villes section with no first letter
   // We order by city usage
-  if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter']) {
+  if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter'] && !$options['sort_first_letter']) {
     $query->addExpression('COUNT(ttd.tid)', 'number_of_use');
     $query->orderBy('number_of_use');
     // Otherwise, we order by city name
