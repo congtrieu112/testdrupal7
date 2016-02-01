@@ -141,10 +141,8 @@ class DocCommuniqueCSVParser extends ParserCSV{
 
       // Make really sure we've got lines without trailing newlines.
       $line = trim($lineIterator->current(), "\r\n");
-      $encoding = mb_detect_encoding($line, "UTF-8,UTF-16");
-      if($encoding != 'UTF-8') {
-        $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
-      }
+      $line = mb_convert_encoding($line, "UTF-8", "UTF-16");
+      
       // Skip empty lines.
       if (empty($line)) {
         continue;
@@ -296,7 +294,7 @@ class DocCommuniqueCSVParser extends ParserCSV{
                 if(!file_exists($txt_path)) {
                     $is_log = TRUE;
                     $field = '';
-                } 
+                }
                 else {
                   $txt_data = file_get_contents($txt_path);
                   $encoding = mb_detect_encoding($txt_data, "UTF-8,ISO-8859-15,UTF-16");
