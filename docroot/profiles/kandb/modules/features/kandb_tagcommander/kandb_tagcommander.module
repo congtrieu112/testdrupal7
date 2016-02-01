@@ -1,0 +1,420 @@
+<?php
+/**
+ * @file
+ * Code for the K&B TagCommander feature.
+ */
+
+include_once 'kandb_tagcommander.features.inc';
+
+/**
+ * Return the array of all custom tagcommander variables
+ *
+ * @return array
+ */
+function _get_tag_commander_custom_variables() {
+  return
+    /* Variable machine name => UI Name */
+    array(
+      /* Environment */
+      'env_template' => 'Environnement => Nom du template',
+      'env_language' => 'Environnement => Langue pays',
+      'env_country' => 'Environnement => Pays',
+      'env_site' => 'Environnement => Nom du site',
+      'env_channel' => 'Environnement => Channel',
+      'env_work' => 'Environnement => Environnement de travail',
+
+      /* User */
+      'user_agent' => 'User => User agent',
+      'user_id' => 'User => ID visiteur',
+      'user_logged' => 'User => Visiteur loggué ou non',
+      'user_surname' => 'User => Prénom',
+      'user_lastname' => 'User => Nom',
+      'user_postalcode' => 'User => Code postal',
+      'user_type' => 'User => Type',
+      'user_category' => 'User => Category',
+      'user_city' => 'User => City',
+      'user_address' => 'User => Adresse',
+      'user_email' => 'User => Email',
+      'user_newsletter' => 'User => Newsletter',
+
+      /* Tree structure */
+      'page_cat1' => 'Tree structure => Catégorie principale',
+      'page_cat2' => 'Tree structure => Deuxième niveau d\'arborescence',
+      'page_cat3' => 'Tree structure => Troisème niveau d\'arborescence',
+      'page_name' => 'Tree structure => Nom de page',
+      'error_type' => 'Tree structure => Erreur de page',
+
+      /* Conversion */
+      'conversion_type' => 'Conversion => Type de conversion',
+      'conversion_id' => 'Conversion => ID de dossier',
+      'type_bloc' => 'Conversion => Type de block',
+      'agence_associe' => 'Conversion => Agence',
+
+      /* Search */
+      'programme_list' => 'Search => Programme list',
+      'search_request' => 'Search => Requete cherchée',
+      'search_results_number' => 'Search => Nombre de résultats totals',
+      'search_results_affichage' => 'Search => Nombre de résultats affichés',
+      'availability' => 'Search => Livraison immédiate',
+      'price_range' => 'Search => Fourchette de prix recherchée',
+      'number_room' => 'Search => Nombre de pièce recherchée',
+      'surface' => 'Search => Surface recherchée',
+      'option' => 'Search => Options recherchées',
+      'pinel_law' => 'Search => Loi pinel',
+      'accessibility' => 'Search => Pack Silver',
+
+      /* Programme */
+      'programme_id' => 'Programme => ID du programme',
+      'programme_region' => 'Programme => Région du programme',
+      'programme_departement' => 'Programme => Département du programme',
+      'programme_city' => 'Programme => Ville du programme',
+      'programme_type' => 'Programme => Type de programme',
+      'programme_name' => 'Programme => Nom du programme',
+      'url_page' => 'Programme => URL page programme',
+
+      /* Bien */
+      'property_type' => 'Bien => Type de bien',
+      'property_name' => 'Bien => Nom du bien',
+
+      /* AT */
+      'site_niveau_1' => 'AT => Site de niveau 1',
+      'site_niveau_2' => 'AT => Site de niveau 2',
+      'xt_page' => 'AT => Nom de la page',
+    );
+}
+
+/**
+ * Return TRUE if the custom variables exists, FALSE otherwise
+ *
+ * @param string $name
+ * @return bool
+ */
+function _isset_custom_tagcommander_variable($name = ''){
+  $vars = _get_tag_commander_custom_variables();
+  return isset($vars[$name]);
+}
+
+function kandb_tagcommander_preprocess_page(&$variables) {
+  drupal_add_js(drupal_get_path('module', 'kandb_tagcommander') .'/js/kandb_tagcommander.js', array('type' => 'file', 'scope' => 'footer', 'weight' => -100));
+}
+
+/**
+ * Implementation of hook_tagcommander_variables
+ */
+function kandb_tagcommander_tagcommander_variables(){
+  $variables = array();
+  foreach(_get_tag_commander_custom_variables() as $key => $ui_name) {
+    $variables[$key] = t($ui_name);
+  }
+  return $variables;
+}
+
+/**
+ * Implementation of hook_preprocess_variable_value()
+ */
+function kandb_tagcommander_preprocess_variable_value($value, $variable){
+  if(!_isset_custom_tagcommander_variable($variable)) return;
+
+  // Work with user and url
+  global $user, $base_url;
+
+  // Load user fields
+  if($user->uid) $user_profile = user_load($user->uid);
+
+  // Decompose url
+  $url = parse_url(request_uri());
+  $explode_url = explode('/', $url['path']);
+  if($explode_url[0] == '') array_shift($explode_url);
+
+  $return = '';
+  switch($variable) {
+
+    /* Environnement */
+    case 'env_template':
+      if(drupal_is_front_page()){
+        $return = 'home';
+      }elseif($explode_url[0] == 'recherche') {
+        $return = 'resultats';
+      }else{
+        $object = menu_get_object();
+        if(is_object($object) && isset($object->type)){
+          if ($object->type == 'programme') {
+            $return = 'programme';
+          }elseif($object->type == 'webform') {
+            $return = 'formulaire_step1';
+          }elseif($object->type == 'programme') {
+            $return = 'formulaire/confirmation'; // TODO : Refaire le tag commander après un appel ajax de webform
+          }
+        }
+      }
+      break;
+    case 'env_language':
+      $return = 'fr';
+      if(($temp = strlen(request_uri()) - strlen('/en')) >= 0 && strpos(request_uri(), '/en', $temp) !== FALSE){
+        $return = 'en';
+      }
+      break;
+    case 'env_country':
+      $return = 'France';
+      break;
+    case 'env_site':
+      $return = variable_get('sitename');
+      break;
+    case 'env_channel':
+      $return = ''; // See kandb_tagcommander.js
+      break;
+    case 'env_work':
+      if(strpos($base_url, 'stage.') !== FALSE){
+        $return = 'integ';
+      }elseif(strpos($base_url, 'prod.') !== FALSE){
+        $return = 'prepd';
+      }elseif(strpos($base_url, 'www.') !== FALSE){
+        $return = 'prod';
+      }else{
+        $return = 'other';
+      }
+      break;
+
+    /* User */
+    case 'user_id':
+      $return = $user->uid;
+      break;
+    case 'user_logged':
+      $return = ($user->uid ? TRUE: FALSE);
+      break;
+    case 'user_surname':
+      if(isset($user_profile) && !empty($user_profile->field_prenom['und'][0]['value'])) $return = $user_profile->field_prenom['und'][0]['value'];
+      break;
+    case 'user_lastname':
+      if(isset($user_profile) && !empty($user_profile->field_user_nom['und'][0]['value'])) $return = $user_profile->field_user_nom['und'][0]['value'];
+      break;
+    case 'user_postalcode':
+      if(isset($user_profile) && !empty($user_profile->field_user_code_postal['und'][0]['value'])) $return = $user_profile->field_user_code_postal['und'][0]['value'];
+      break;
+    case 'user_type':
+      break;
+    case 'user_category':
+      break;
+    case 'user_city':
+      if(isset($user_profile) && !empty($user_profile->field_user_ville['und'][0]['value'])) $return = $user_profile->field_user_ville['und'][0]['value'];
+      break;
+    case 'user_address':
+      if(isset($user_profile) && !empty($user_profile->field_user_adresse['und'][0]['value'])) $return = $user_profile->field_user_adresse['und'][0]['value'];
+      break;
+    case 'user_email':
+      if($user->uid) $return = $user->mail;
+      break;
+    case 'user_newsletter':
+      $return = 0;
+      break;
+
+    /* Tree structure */
+    case 'page_cat1':
+      $return = isset($explode_url[0]) ? $explode_url[0] : '';
+      break;
+    case 'page_cat2':
+      $return = isset($explode_url[1]) ? $explode_url[1] : '';
+      break;
+    case 'page_cat3':
+      $return = isset($explode_url[2]) ? $explode_url[2] : '';
+      break;
+    case 'page_name':
+      $return = drupal_get_title();
+      break;
+    case 'error_type':
+      $status = drupal_get_http_header("status");
+      if($status == '404 Not Found'){
+        $return = 404;
+      }elseif($status == '403 Not Found'){
+        $return = 403;
+      }
+      break;
+
+    /* Conversion */
+    case 'conversion_type':
+      $object = menu_get_object();
+      if(is_object($object) && isset($object->type) && $object->type == 'webform' && isset($object->webform['machine_name'])) {
+        if ($object->webform['machine_name'] == '_tre_rappel_') {
+          $return = 'Rappel';
+        }elseif ($object->webform['machine_name'] == 'prendre_rendez_vous') {
+          $return = 'RDV';
+        }elseif ($object->webform['machine_name'] == 'telechargement_documents') {
+          $return = 'Documentation';
+        }
+      }
+      break;
+    case 'conversion_id': // TODO : What does is this ?
+      $return = '';
+      break;
+    case 'type_bloc':
+      // See kandb_tagcommander.js for GET type_block
+      if(isset($_GET['type_block']) && $_GET['type_block'] != '') $return = $_GET['type_block'];
+      break;
+    case 'agence_associe': // TODO : Cannot do because the adress is one big block
+      $return = '';
+      break;
+
+    /* Environnement */
+    case 'programme_list':
+      $return = ''; // TODO : Need more precision
+      break;
+    case 'search_request':
+      $return = ((arg(0) == URL_SEARCH_B2C || arg(0) == URL_SEARCH_B2B) && isset($_GET['place']) ? $_GET['place'] : '');
+      break;
+    case 'search_results_number':
+      $return = ''; // See kandb_tagcommander.js
+      break;
+    case 'search_results_affichage':
+      $return = ''; // See kandb_tagcommander.js
+      break;
+    case 'availability':
+      $return = ''; // TODO : Missing the checkbox
+      break;
+    case 'price_range':
+      $return = (isset($_GET['prix_min']) ? $_GET['prix_min'] : 'ni') . '-' . (isset($_GET['prix_min']) ? $_GET['prix_max'] : 'ni');
+      if($return == '-') $return = '';
+      break;
+    case 'number_room':
+      if(isset($_GET['field_nb_pieces'])){
+        $taxo = taxonomy_term_load_multiple($_GET['field_nb_pieces']);
+        $return = array();
+        foreach($taxo as $id => $term) {
+          $return[] = ($term->name == t('studio') ? '1' : substr($term->name,0,1));
+        }
+        $return = implode($return, '|');
+      }
+      break;
+    case 'surface':
+      $return = (isset($_GET['field_superficie']) ? $_GET['field_superficie'] : '');
+      break;
+    case 'option':
+      if(isset($_GET['field_caracteristique'])){
+        $taxo = taxonomy_term_load_multiple($_GET['field_caracteristique']);
+        $return = array();
+        foreach($taxo as $id => $term) {
+          $return[] = $term->name;
+        }
+        $return = implode($return, ',');
+      }
+      break;
+    case 'pinel_law': // TODO : Missing the checkbox
+      $return = '';
+      break;
+    case 'accessibility': // TODO : Missing the checkbox
+      $return = '';
+      break;
+
+    /* Programme */
+    case 'programme_id':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme' && isset($object->field_id_programme['und'][0]['value'])) $return = $object->field_id_programme['und'][0]['value']; // ID Kaufman
+      break;
+    case 'programme_region':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme'){
+        if(isset($object->field_programme_loc_region['und']['0']->taxonomy_term->name)) {
+          $return = $object->field_programme_loc_region['und']['0']->taxonomy_term->name;
+        }
+      }
+      break;
+    case 'programme_departement':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme'){
+        if(isset($object->field_programme_loc_department['und']['0']->taxonomy_term->name)) {
+          $return = $object->field_programme_loc_department['und']['0']->taxonomy_term->name;
+        }
+      }
+      break;
+    case 'programme_city':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme'){
+        if(isset($object->field_programme_loc_ville['und']['0']->taxonomy_term->name)) {
+          $return = $object->field_programme_loc_ville['und']['0']->taxonomy_term->name;
+        }
+      }
+      break;
+    case 'programme_type':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme') $return = $object->type; // TODO : Need Precision
+      break;
+    case 'programme_name':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme') $return = $object->title;
+      break;
+    case 'url_page':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'programme') $return = $base_url . request_uri();
+      break;
+
+    /* Bien */
+    case 'property_type':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'bien'){
+        if(isset($object->field_type['und']['0']->taxonomy_term->name)) {
+          $return = $object->field_type['und']['0']->taxonomy_term->name;
+        }elseif(isset($object->field_type['und']['0']['tid'])){
+          $return = taxonomy_term_load($object->field_type['und']['0']['tid'])->name;
+        }
+      }
+      break;
+    case 'property_name':
+      $object = menu_get_object();
+      if(is_object($object) && $object->type == 'bien'){
+        $return = $object->title;
+      }
+      break;
+
+    /* Environnement */
+    case 'site_niveau_1':
+      if(strpos($base_url, 'www.') !== FALSE){
+        $return = 567577;
+      }else{
+        $return = 567578;
+      }
+      break;
+    case 'site_niveau_2':
+      /*
+        1	Accueil
+        2	Nos offres
+        3	Nos services // TODO : does not exist
+        4	Nos conseils
+        5	Vos outils
+        6	Corporate
+        7	Mon espace
+        8	Moteur interne
+        9	Annexes // TODO : What is this ?
+        10	Pages d'objectifs // TODO : What is this ?
+        11	Clics transversaux // TODO : What is this ?
+      */
+      if(drupal_is_front_page()){
+        $return = 1; // Accueil
+      }elseif($explode_url[0] == 'notre-offre'){
+        $return = 2; // Nos offres
+      }elseif($explode_url[0] == 'nos-services'){ // TODO : does not exist
+        $return = 3; // Nos services
+      }elseif($explode_url[0] == 'nos-conseils'){
+        $return = 4; // Nos conseils
+      }elseif($explode_url[0] == 'nos-outils'){
+        $return = 5; // Nos outils
+      }elseif($explode_url[0] == 'corporate'){
+        $return = 6; // Corporate
+      }elseif($explode_url[0] == 'mon-espace'){
+        $return = 7; // Mon espace
+      }elseif($explode_url[0] == 'recherche'){
+        $return = 8; // Moteur interne
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 9; // Nos offres
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 10; // Nos offres
+      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
+        $return = 11; // Nos offres
+      }
+      break;
+    case 'xt_page':
+      $return = implode('::', $explode_url);
+      break;
+  }
+
+  return $return;
+
+}

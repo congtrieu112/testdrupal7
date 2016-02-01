@@ -67,6 +67,8 @@ function kandb_partenaire_lots_prepare_download_file($vuuid = '') {
  * Get partenaire has reference type.
  */
 function kandb_get_partenaire_lot_plan() {
+  ini_set ('memory_limit', '1024M');
+  set_time_limit(0);
   // Export b2b and b2c biens lost.txt.
   kandb_export_common_b2b_b2c();
   $query = new EntityFieldQuery();
@@ -95,6 +97,9 @@ function kandb_get_partenaire_lot_plan() {
 function kandb_create_partenaire_lot_file($nodes) {
   if ($nodes) {
     foreach ($nodes as $node) {
+      $is_export_lot_b2b = isset($node->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value']) ? (bool) $node->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value'] : FALSE;
+      $is_export_lot_b2c = isset($node->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value']) ? (bool) $node->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value'] : FALSE;
+      $domain_type = NULL;
       $uri_partenaire = 'public://partenaire/';
       $id_partenaire = $node->field_id_partenaire[LANGUAGE_NONE][0]['value'];
       $uri = $uri_partenaire . $id_partenaire;
@@ -110,12 +115,16 @@ function kandb_create_partenaire_lot_file($nodes) {
       }
       $export_type = $node->field_partenaire_export[LANGUAGE_NONE][0]['value'];
       $uri_lots = $uri . '/LOT.TXT';
-      if ($export_type == 3) {
+      if ($export_type == 3 && ($is_export_lot_b2b || $is_export_lot_b2c)) {
+        if (!$is_export_lot_b2c) {
+          $domain_type = ID_B2B;
+        }
+        elseif (!$is_export_lot_b2b) {
+          $domain_type = ID_B2C;
+        }
         if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
           foreach ($node->field_partenaire_programmes[LANGUAGE_NONE] as $item) {
-            $programme = node_load($item['target_id']);
-            $domain_type = $programme->domains;
-            $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type[3]);
+            $bien_nids = kandb_get_biens_by_programme_id_type($item['target_id'], $domain_type);
             if ($bien_nids) {
               $biens = node_load_multiple($bien_nids);
               kandb_export_lots_txt($biens, $uri_lots);
@@ -242,18 +251,15 @@ function get_list_programme_bien_by_domain($type) {
   if ($tid) {
     $listPartenaire_query = db_select('node', 'n')->distinct();
     $listPartenaire_query->leftjoin('field_data_field_id_programme', 'ip', 'ip.entity_id=n.nid');
-    $listPartenaire_query->leftJoin('domain_access', 'd', 'd.nid=n.nid');
     $listPartenaire_query
       ->fields('ip', array('entity_id'))
       ->condition('status', 1);
 
     if ($type == 3) {
       $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 3 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
-      $listPartenaire_query->condition('d.gid', 3);
       $listPartenaire_query->addExpression($str, 'bien_id');
     } elseif ($type == 2) {
       $str = '(select group_concat(p.entity_id) from node n1 left join field_data_field_programme p on p.entity_id=n1.nid left join domain_access d1 on n1.nid=d1.nid left join field_data_field_bien_statut bs on bs.entity_id=p.entity_id where n1.status=1 and d1.gid = 2 and bs.field_bien_statut_tid = ' . $tid . ' and p.field_programme_target_id = ip.entity_id)';
-      $listPartenaire_query->condition('d.gid', 2);
       $listPartenaire_query->addExpression($str, 'bien_id');
     }
 

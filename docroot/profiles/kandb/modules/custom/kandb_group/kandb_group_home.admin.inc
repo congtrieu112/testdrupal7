@@ -84,6 +84,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     '#title' => 'Image for block Ressources Humaines in Group home page',
     '#default_value' => variable_get('image_group_home_block_ressources_humaines'),
     '#upload_location' => 'public://',
+    '#required' => TRUE,
   );
   $form['fieldset_group_block_ressources_humaines']['title_group_home_block_ressources_humaines'] = array(
     '#type' => 'textfield',
@@ -139,6 +140,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     '#title' => 'Image for block activites in Group home page',
     '#default_value' => variable_get('image_group_home_block_activites'),
     '#upload_location' => 'public://',
+    '#required' => TRUE,
   );
   $form['fieldset_group_block_activites']['title_group_home_block_activites'] = array(
     '#type' => 'textfield',
@@ -194,6 +196,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     '#title' => 'Image for block actualites in Group home page',
     '#default_value' => variable_get('image_group_home_block_actualites'),
     '#upload_location' => 'public://',
+    '#required' => TRUE,
   );
   $form['fieldset_group_block_actualites']['title_group_home_block_actualites'] = array(
     '#type' => 'textfield',
@@ -249,6 +252,7 @@ function kandb_group_home_admin_form($form, $form_state) {
     '#title' => 'Image for block Developpement Durable in Group home page',
     '#default_value' => variable_get('image_group_home_block_developpement_durable'),
     '#upload_location' => 'public://',
+    '#required' => TRUE,
   );
   $form['fieldset_group_block_developpement_durable']['title_group_home_block_developpement_durable'] = array(
     '#type' => 'textfield',
