@@ -1040,3 +1040,10 @@ function kandb_update_7205(&$sandbox) {
     module_enable(array('kandb_tagcommander'), TRUE);
   }
 }
+
+/**
+ * Set variable for page 404
+ */
+function kandb_update_7206() {
+  variable_set('site_404', 'page-404');
+}

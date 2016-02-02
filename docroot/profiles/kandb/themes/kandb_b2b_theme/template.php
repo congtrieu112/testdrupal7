@@ -3,9 +3,11 @@
 /**
  * @file Template for B2B.
  */
-
 function kandb_b2b_theme_preprocess_page(&$variables) {
-  global $theme;
+  global $theme, $user;
+  if ($user->uid && $theme == 'kandb_b2b_theme' && drupal_is_front_page()) {
+    drupal_goto('dash-board');
+  }
 }
 
 /**
@@ -34,7 +36,7 @@ function kandb_theme_preprocess_user_login(&$vars) {
   $vars['form']['name']['#description'] = '';
   $vars['form']['name']['#attributes']['required'] = 'required';
   $vars['form']['name']['#attributes']['placeholder'] = t('Votre identifiant');
-  
+
   // Password textfield.
   $vars['form']['pass']['#theme_wrappers'] = NULL;
   $vars['form']['pass']['#description'] = '';
@@ -43,7 +45,7 @@ function kandb_theme_preprocess_user_login(&$vars) {
 
   // Remember me checkbox.
   $vars['form']['remember_me']['#theme_wrappers'] = NULL;
-  
+
   // Submit button.
   $vars['form']['actions']['#theme_wrappers'] = NULL;
   $vars['form']['actions']['submit']['#value'] = t('Me connecter');

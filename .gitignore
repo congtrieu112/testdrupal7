@@ -2,6 +2,7 @@
 docroot/files
 docroot/sites/*/files
 docroot/sites/*/private
+docroot/sites/*/files-private
 
 /nbproject/private/
 # Ignore file settings.php
