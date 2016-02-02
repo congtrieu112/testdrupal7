@@ -51,10 +51,10 @@
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #003e5e; line-height: 30px;">
                                                   <?php print $mail_vars['avant_premiere_ville']; ?> <?php print $mail_vars['avant_premiere_department']; ?> <br/>    
                                                   <?php print $mail_vars['avant_premiere_title'];  ?>
-                                                      
                                                 </p>
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['programme_title']; ?></p>
                                                 <p style="margin: 0; padding-top: 55px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,<?php print $mail_vars['rdv_prenom']; ?> <?php print $mail_vars['rdv_nom']; ?> </p>
+                                                <p style="margin: 0; padding-top: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Nous avons bien reçu votre message et vous remercions de votre intérêt. Votre demande de rendez-vous a été transmise au conseiller commercial en charge du programme :</p>
                                             </td>
                                         </tr>
                                         <tr>
@@ -65,13 +65,6 @@
                                                             <td valign="top" style="padding: 30px;">
                                                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; border-bottom: 1px solid #a9bec8;">
                                                                     <tbody>
-                                                                        <tr>
-                                                                            <td valign="top" style="padding: 0 10px;">
-                                                                                <p style="margin: 0; padding-bottom: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #199edd; line-height: 12px;">
-                                                                                  Nous avons bien reçu votre message et vous remercions de votre intérêt. Votre demande de rendez-vous a été transmise au conseiller commercial en charge du programme :                                                                                
-                                                                                </p>
-                                                                            </td>
-                                                                        </tr>
                                                                         <tr>
                                                                             <td valign="top" style="width: 50%; margin: 0; padding: 0 0 25px 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
 
