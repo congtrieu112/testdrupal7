@@ -158,10 +158,8 @@ function kandb_theme_menu_local_tasks(&$variables) {
     $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
     switch ($_GET['q']):
       case (preg_match('/corporate\/finance\/presentation\/.*/i', $_GET['q'])) == 1:
-
         $item = menu_get_item('admin/content/ketb/finance/presentation');
         break;
-
       case (preg_match('/corporate\/finance\/publication/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/finance/publication');
         break;
@@ -174,7 +172,6 @@ function kandb_theme_menu_local_tasks(&$variables) {
       case (preg_match('/corporate\/finance\/archives/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/finance/archives');
         break;
-
       case (preg_match('/corporate\/ressources-humaines\/recrutement/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/rh');
         break;
@@ -187,7 +184,6 @@ function kandb_theme_menu_local_tasks(&$variables) {
       case (preg_match('/corporate\/ressources-humaines\/postuler/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/apply-offers');
         break;
-
       case (preg_match('/corporate\/activites\/habitat/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/active/habitat');
         break;
@@ -197,11 +193,9 @@ function kandb_theme_menu_local_tasks(&$variables) {
       case (preg_match('/corporate\/activites\/nos-agences/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/active/agences');
         break;
-
       case (preg_match('/corporate\/actualites$/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/actualites');
         break;
-
       case (preg_match('/corporate\/actualites\/nos-valeurs/', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/nos-valeurs');
         break;
@@ -211,11 +205,10 @@ function kandb_theme_menu_local_tasks(&$variables) {
       case (preg_match('/corporate\/developpement-durable\/.*/i', $_GET['q'])) == 1:
          $item = menu_get_item('admin/content/ketb/group/development/manage');
         break;
-
       default;
         $item = menu_get_item('admin/content/ketb/group/home');
     endswitch;
-    
+
     $item['title'] = t('Edit');
     $item['localized_options'] = array(
       'query' => array('destination' => $_GET['q'])
