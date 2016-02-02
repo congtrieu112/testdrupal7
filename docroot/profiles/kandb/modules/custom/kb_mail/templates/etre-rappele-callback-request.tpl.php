@@ -57,7 +57,7 @@
                                                 </p>
                                                 <p style="margin: 0; font-family: Helvetica, Arial, sans-serif; font-size: 30px; color: #199edd; line-height: 30px;"><?php print $mail_vars['programme_title']; ?></p>
                                                 <p style="margin: 0; padding-top: 55px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,</p>
-                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur
+                                                <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur:
                                                 </p>
                                             </td>
                                         </tr>
@@ -99,30 +99,40 @@
                                                                     <tbody>
                                                                         <tr>
                                                                             <td valign="top" style="padding: 0 10px;">
-                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Le programme qui l'intéress :
+                                                                                <p style="margin: 0; padding: 20px 0; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">
+                                                                                  <?php if (!empty($mail_vars['tre_rappel_title'])): ?>
+                                                                                    La page d’origine
+                                                                                  <?php else: ?>
+                                                                                    Le programme qui l'intéress :
+                                                                                  <?php endif; ?>
 
                                                                                 </p>
                                                                             </td>
                                                                         </tr>
                                                                         <tr>
                                                                             <td valign="top" style="margin: 0; padding: 0 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                                                              <?php if (!empty($mail_vars['tre_rappel_title'])): ?>
+                                                                                <p style="margin: 0;"><?php print $mail_vars['tre_rappel_title']; ?></p>
+                                                                              <?php else: ?>
                                                                                 <p style="margin: 0;">
 
-                                                                                    <?php print isset($mail_vars['programme_title']) ? $mail_vars['programme_title'] : ""; ?><br>
-                                                                                    <?php if ($mail_vars['programme_loc_ville'] && $mail_vars['programme_loc_department']) : ?>
-                                                                                      <?php print $mail_vars['programme_loc_ville']; ?> -  <?php print $mail_vars['programme_loc_department']; ?>
-                                                                                    <?php endif; ?>
+                                                                                  <?php print isset($mail_vars['programme_title']) ? $mail_vars['programme_title'] : ""; ?><br>
+                                                                                  <?php if ($mail_vars['programme_loc_ville'] && $mail_vars['programme_loc_department']) : ?>
+                                                                                    <?php print $mail_vars['programme_loc_ville']; ?> -  <?php print $mail_vars['programme_loc_department']; ?>
+                                                                                  <?php endif; ?>
                                                                                 </p>
 
-                                                                                <p style="margin: 0;">IDKP&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['programme_idkp'])) : print $mail_vars['programme_idkp']; endif; ?></span>
+                                                                                <p style="margin: 0;">IDKP&nbsp;: <span style="text-transform: uppercase;"><?php if (isset($mail_vars['programme_idkp'])) : print $mail_vars['programme_idkp'];
+                                                                                endif; ?></span>
                                                                                 </p>
 
-                                                                                <?php if ($mail_vars['bien_lot_id']) : ?>
+                                                                                  <?php if ($mail_vars['bien_lot_id']) : ?>
                                                                                   <p style="margin: 0;">
 
-                                                                                      <?php print $mail_vars['bien_type'];  ?> <?php print $mail_vars['bien_nb_pieces'] ?> <?php print $mail_vars['bien_superficie'];  ?> Lot <?php print $mail_vars['bien_lot_id'];  ?>
+                                                                                  <?php print $mail_vars['bien_type']; ?> <?php print $mail_vars['bien_nb_pieces'] ?> <?php print $mail_vars['bien_superficie']; ?> Lot <?php print $mail_vars['bien_lot_id']; ?>
                                                                                   </p>
                                                                                 <?php endif; ?>
+                                                                              <?php endif; ?>
 
 
                                                                             </td>
