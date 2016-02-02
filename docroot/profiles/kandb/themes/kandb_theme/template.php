@@ -157,7 +157,7 @@ function kandb_theme_menu_local_tasks(&$variables) {
   } elseif (preg_match('/corporate\/.*/i', $_GET['q'])) {
     $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
     switch ($_GET['q']):
-      case (preg_match('/corporate\/finance\/presentation\/.*/i', $_GET['q'])) == 1:
+      case (preg_match('/corporate\/finance\/presentation/', $_GET['q'])) == 1:
         $item = menu_get_item('admin/content/ketb/finance/presentation');
         break;
       case (preg_match('/corporate\/finance\/publication/', $_GET['q'])) == 1:
