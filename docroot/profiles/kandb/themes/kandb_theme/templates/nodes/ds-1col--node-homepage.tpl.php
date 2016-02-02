@@ -89,7 +89,7 @@ $number_pdf = count($node->field_hp_block_document['und']);
             if ($filePath) :
               if (file_exists($filePath)) :
                 ?>
-                <div class="heading__document"><a href="<?php print $linkfile; ?>" title="<?php print t('TÃ©lÃ©charger le pdf'); ?>" class="btn-white"><?php print t('TÃ©lÃ©charger le pdf'); ?><span class="icon icon-download left"></span></a></div>
+                <div class="heading__document"><a href="<?php print $linkfile; ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
                 <?php
               endif;
             endif;
@@ -97,7 +97,7 @@ $number_pdf = count($node->field_hp_block_document['und']);
           ?>
         <?php elseif ($number_pdf > 0):
           ?>
-          <div class="heading__document"><a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print t('TÃ©lÃ©charger le pdf'); ?>" class="btn-white"><?php print t('TÃ©lÃ©charger le pdf'); ?><span class="icon icon-download left"></span></a></div>
+          <div class="heading__document"><a href="<?php print url('download-document-file/' . $node->field_hp_block_document['und'][0]['fid']) ?>" title="<?php print t('Télécharger le pdf'); ?>" class="btn-white"><?php print t('Télécharger le pdf'); ?><span class="icon icon-download left"></span></a></div>
         <?php endif; ?>
         <h2 class="heading__title"><?php print render($content['field_hp_block_ref_titre']); ?></h2>
         <p class="heading__title heading__title--sub"><?php print render($content['field_hp_block_ref_stitre'][0]['#markup']); ?></p>
