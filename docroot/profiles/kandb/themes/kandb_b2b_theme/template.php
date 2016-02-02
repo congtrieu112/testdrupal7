@@ -3,9 +3,11 @@
 /**
  * @file Template for B2B.
  */
-
 function kandb_b2b_theme_preprocess_page(&$variables) {
-  global $theme;
+  global $theme, $user;
+  if ($user->uid && $theme == 'kandb_b2b_theme' && drupal_is_front_page()) {
+    drupal_goto('dash-board');
+  }
 }
 
 /**
