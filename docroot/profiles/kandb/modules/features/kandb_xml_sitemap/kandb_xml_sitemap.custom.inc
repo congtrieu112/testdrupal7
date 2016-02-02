@@ -196,10 +196,10 @@ function kandb_xml_sitemap_get_current_links() {
     $current_url_meta = kandb_seo_metatags_and_callbacks($url);
     if(isset($current_url_meta['callbacks'])) {
       foreach ($current_url_meta['callbacks'] as $callback => $args) {
-        if ($callback == 'kandb_seo_block_lieu') {
+        if ($callback == 'kandb_seo_block_letters' || $callback == 'kandb_seo_block_lieu') {
           continue;
         }
-        elseif ($callback == 'kandb_seo_block_letters' || $callback == 'kandb_seo_block_list') {
+        elseif ($callback == 'kandb_seo_block_list') {
           $callback = str_replace("kandb_seo_block","kandb_xml_sitemap_current_links", $callback);
         }
         $var = call_user_func_array($callback, $args);
