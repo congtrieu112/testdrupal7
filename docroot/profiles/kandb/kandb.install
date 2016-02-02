@@ -1047,3 +1047,12 @@ function kandb_update_7205(&$sandbox) {
 function kandb_update_7206() {
   variable_set('site_404', 'page-404');
 }
+
+/**
+ * Enable kandb_plan_du_site module
+ */
+function kandb_update_7207() {
+  if (!module_exists('kandb_plan_du_site')) {
+    module_enable(array('kandb_plan_du_site'), TRUE);
+  }
+}
