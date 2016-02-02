@@ -41,7 +41,7 @@ function kandb_standard_page_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'full_html' => 0,
+          'full_html' => 'full_html',
           'plain_text' => 0,
           'simple' => 'simple',
         ),

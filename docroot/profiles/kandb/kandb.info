@@ -186,6 +186,7 @@ dependencies[] = kandb_habitat
 ;dependencies[] = kandb_eu_cookie_compliance
 dependencies[] = kandb_views_habitat_carousel
 dependencies[] = kandb_tagcommander
+dependencies[] = kandb_plan_du_site
 
 ; Blocks
 dependencies[] = kandb_recherche
