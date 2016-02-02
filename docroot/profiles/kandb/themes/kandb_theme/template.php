@@ -118,6 +118,7 @@ function kandb_theme_form_alter(&$form, &$form_state, $form_id) {
     if(isset($_GET['annonce'])){
       $form['submitted']['row1']['vous_souhaitez_postuler_a_un_post_de']['#access'] = false;
     }
+    $form['#suffix'] = '<div class="legalNote">Les données collectées vous concernant sont destinées au Groupe Kaufman & Broad, responsable du traitement, qui les utilise à des fins d\'information commerciale. Conformément à l\'article 34 de la loi Informatique et Libertés vous disposez d\'un droit d\'accès, de modification, de rectification et de suppression des données qui vous concernent. Pour l\'exercer, adressez-vous à Kaufman & Broad, Département Internet, 127 avenue Charles de Gaulle, 92207 Neuilly-sur-Seine Cedex.</div>';
   }
 }
 
@@ -593,8 +594,8 @@ function kandb_theme_preprocess_node(&$vars) {
     }
 
     if(!empty($vars['field_photo_conseiller'])){
-      $image = $vars['field_photo_conseiller'][0]['uri'];
-      $vars['field_photo_conseiller'][0]['contact_selection'] = image_style_url('contact_selection', $image);
+      $image = $vars['field_photo_conseiller'][LANGUAGE_NONE][0]['uri'];
+      $vars['field_photo_conseiller'][LANGUAGE_NONE][0]['contact_selection'] = image_style_url('contact_selection', $image);
     }
     
     // Programme selection
@@ -638,8 +639,11 @@ function kandb_theme_preprocess_node(&$vars) {
     elseif ($price_tva_min && !$price_tva_max) {
       $vars['de_a_price_tva'] = 'De' . ' ' . $price_tva_min . '€' . ' ' . 'à' . ' ' . $price_tva_min . '€';
     }
-    $tva = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
-    $vars['tva'] = $tva->name;
+    if(isset($node->field_tva[LANGUAGE_NONE][0]['tid'])){        
+      $tva = taxonomy_term_load($node->field_tva[LANGUAGE_NONE][0]['tid']);
+      $vars['temp'] = $tva;
+      $vars['tva'] = isset($tva->name) ? $tva->name : '';
+    }
     $vars['affichage_double_grille'] = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : 0;
 
     $price_min = 0; $price_max = 0;

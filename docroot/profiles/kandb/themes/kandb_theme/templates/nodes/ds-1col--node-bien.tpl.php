@@ -116,15 +116,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
         <h1 class="heading heading--bordered">
-            <div class="heading__title">
-                <?php print (!empty($bien_type)) ? $bien_type->name : ''  ?>
-                <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?>
-                <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
-                <?php print t('Lot') . ' ' . $bien_id ?>
-            </div>
-            <div class="heading__title heading__title--sub">
-                <?php print $ville ?> <?php print $arrondissement ?> <br> <?php print (!empty($programme)) ? $programme->title : ''; ?>
-            </div>
+          <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
+          <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
+          <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
+          <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
+          <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
         </h1>
         <ul class="tags-list">
             <?php
@@ -159,17 +155,10 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
     </div>
 
     <?php
-    $image_principale = '';
-    // Check image bien.
-    if (isset($node->field_image_principale[LANGUAGE_NONE][0]) &&
-      $node->field_image_principale[LANGUAGE_NONE][0]) {
-      $image_principale = $node->field_image_principale[LANGUAGE_NONE][0]['uri'];
-    } else { // Not fould image bien.
-      // Check image programme.
-      if (isset($programme->field_image_principale[LANGUAGE_NONE][0]['uri']) &&
-        $programme->field_image_principale[LANGUAGE_NONE][0]['uri']) {
-        $image_principale = $programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
-      } else { // Not fould image programme
+    $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
+    if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
         if (isset($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
           !empty($programme->field_programme_gamme[LANGUAGE_NONE][0]['value']) &&
@@ -180,9 +169,10 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
             $image_principale = $file_load->uri;
           }
         }
-      }
+
     }
-    if ($image_principale):
+
+    if ($image_principale || $image_principale_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -190,19 +180,49 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
       <div class="programHeader__figure">
           <!-- [carousel] start-->
           <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" class="slick-slider__item-1">
-              <article class="programHeaderFigureItem">
+              <?php if($image_principale): ?>
+                <article class="programHeaderFigureItem">
+                    <figure>
+                        <!-- images need to have 2 formats see data-exchange attribute:
+                        - small: 640 x 316 (heavy compression)
+                        - medium: 1024 x 506
+                        - large: 1380 x 670
+                        -->
+                        <!-- [Responsive img] start-->
+                        <img alt="<?php print $node->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
+                        <noscript><img src="<?php print $image_medium ?>" alt="<?php print $node->title; ?>"/></noscript>
+                        <!-- [Responsive img] end-->
+                    </figure>
+                </article>
+              <?php endif;?>
+              <?php if($image_principale_2): ?>
+                <article class="programHeaderFigureItem">
                   <figure>
-                      <!-- images need to have 2 formats see data-exchange attribute:
-                      - small: 640 x 316 (heavy compression)
-                      - medium: 1024 x 506
-                      - large: 1380 x 670
-                      -->
-                      <!-- [Responsive img] start-->
-                      <img alt="<?php print $node->title; ?>" data-interchange="[<?php print $image_small ?>, (small)], [<?php print $image_medium ?>, (medium)], [<?php print $image_large ?>, (large)]"/>
-                      <noscript><img src="<?php print $image_medium ?>" alt="<?php print $node->title; ?>"/></noscript>
-                      <!-- [Responsive img] end-->
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
                   </figure>
-              </article>
+                </article>
+               <?php endif;?>
+              <?php if($image_principale_3): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_3); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_3); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_3); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_3); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
           </div>
           <!-- [carousel] end-->
 
@@ -214,13 +234,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 <!-- tablet+desktop heading-->
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
-                        <div class="heading__title">
-                            <?php print (!empty($bien_type)) ? $bien_type->name : ''  ?>
-                            <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?>
-                            <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
-                            <?php print t('Lot') . ' ' . $bien_id ?>
-                        </div>
-                        <div class="heading__title heading__title--sub"> <?php print $ville ?> <?php print $arrondissement ?> <br> <?php print (!empty($programme)) ? $programme->title : ''; ?></div>
+                      <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
+                      <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
+                      <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
+                      <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
+                      <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
                     </h1>
                     <ul class="tags-list">
                         <?php
@@ -299,7 +317,6 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                 if (isset($node->field_caracteristique_parking[LANGUAGE_NONE][0])) {
                   $fee_parking = $node->field_caracteristique_parking[LANGUAGE_NONE][0]["value"];
                   $msg_parking = '';
-                  //var_dump($fee_parking);exit;
                   if ($fee_parking > 0) {
                     $msg_parking = str_replace('#num#', numberFormatGlobalSpace($fee_parking, 0, ",", " "), $label_parking_fee);
                   } elseif ($fee_parking == 0) {
@@ -330,9 +347,11 @@ if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
                         $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                        print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
-                        print '</li>';
+                        if(!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) {
+                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                          print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
+                          print '</li>';
+                        }
                       endforeach;
                     endif;
                     ?>

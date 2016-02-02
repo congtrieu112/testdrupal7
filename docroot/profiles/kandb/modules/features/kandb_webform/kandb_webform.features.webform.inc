@@ -750,6 +750,59 @@ $webforms = array();
         'machine_name' => 'prendre_rendez_vous__prenom',
         'page_num' => 1,
       ),
+      'avant_contactez_nous__ap_connu' => array(
+        'form_key' => 'ap_connu',
+        'name' => 'Comment nous avez-vous connu ?',
+        'type' => 'select',
+        'value' => '',
+        'extra' => array(
+          'items' => '1|Prospectus
+2|Courrier
+3|Relations
+4|Presse
+5|Radio
+6|TV
+7|Moteurs de recherche
+8|Sites Internet
+9|Réseaux sociaux
+10|Panneaux
+11|Bureau de vente
+12|E-mailing',
+          'multiple' => 0,
+          'title_display' => 'before',
+          'private' => 0,
+          'wrapper_classes' => '',
+          'css_classes' => '',
+          'aslist' => 1,
+          'empty_option' => '',
+          'optrand' => 0,
+          'other_option' => NULL,
+          'other_text' => 'Other...',
+          'description' => '',
+          'custom_keys' => FALSE,
+          'options_source' => '',
+          'analysis' => TRUE,
+        ),
+        'required' => 0,
+        'weight' => 26,
+        'machine_name' => 'avant_contactez_nous__ap_connu',
+        'page_num' => 1,
+      ),
+      'avant_contactez_nous__ap_title' => array(
+        'form_key' => 'ap_title',
+        'name' => 'Title avant premiere',
+        'type' => 'hidden',
+        'value' => '',
+        'extra' => array(
+          'hidden_type' => 'hidden',
+          'private' => 0,
+          'analysis' => FALSE,
+        ),
+        'required' => 0,
+        'weight' => 27,
+        'machine_name' => 'avant_contactez_nous__ap_title',
+        'page_num' => 1,
+      ),
       '_tre_rappel___rappeler_telephone' => array(
         'form_key' => 'ap_type_contact',
         'name' => 'Type de contact',
@@ -776,7 +829,7 @@ $webforms = array();
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 31,
+        'weight' => 29,
         'machine_name' => 'telechargement_documents__row_1',
         'page_num' => 1,
       ),
@@ -791,7 +844,7 @@ $webforms = array();
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 32,
+        'weight' => 30,
         'machine_name' => 'prendre_rendez_vous__rdv_prenom',
         'page_num' => 1,
       ),
@@ -806,7 +859,7 @@ $webforms = array();
           'analysis' => FALSE,
         ),
         'required' => 0,
-        'weight' => 33,
+        'weight' => 31,
         'machine_name' => 'prendre_rendez_vous__rdv_idkl',
         'page_num' => 1,
       ),
@@ -1966,7 +2019,7 @@ $webforms = array();
         'machine_name' => '_tre_rappel___rappeler_telephone',
         'page_num' => 1,
       ),
-      'prendre_rendez_vous__nom_prog' => array(
+      'avant_contactez_nous__ap_title' => array(
         'form_key' => 'ma_email',
         'name' => 'E-mail',
         'type' => 'email',
@@ -1988,7 +2041,7 @@ $webforms = array();
         ),
         'required' => 1,
         'weight' => 16,
-        'machine_name' => 'prendre_rendez_vous__nom_prog',
+        'machine_name' => 'avant_contactez_nous__ap_title',
         'page_num' => 1,
         'parent_machine_name' => '_tre_rappel___rappeler_telephone',
       ),

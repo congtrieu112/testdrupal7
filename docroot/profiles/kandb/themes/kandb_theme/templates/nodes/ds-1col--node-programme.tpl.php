@@ -210,7 +210,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                           if ($carac_term) :
                             if ($carac_term->name == "Etages") :
                                 $flag_etages = TRUE;
-                                break;
+                                continue;
                             endif;
                             if ($carac_term->name == "Chauffage"):
                               $flag_chauffage = FALSE;

@@ -196,7 +196,7 @@
           <?php if ($de_a_price_tva || $de_a_price) : ?>
           <ul class="prices">              
               
-              <?php if(empty($tva) && !$affichage_double_grille): ?>
+              <?php if(empty($tva) && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
@@ -204,40 +204,30 @@
               </li>
               <?php endif; ?>
               
-              <?php if($tva && !$affichage_double_grille): ?>
+              <?php if($tva && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
                   </span>
               </li>
               <li>
-                  <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
-                    <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
-                    <?php endif; ?>
+                  <span class="tva tva--high">TVA 20%</span>                  
               </li>
               <?php endif; ?>
               
-              <?php if($tva && $affichage_double_grille): ?>
-              <li>
-                  <span class="text">
-                      <?php if ($de_a_price) print $de_a_price; ?>
-                  </span>
-              </li>
+              <?php if($tva && $affichage_double_grille == 1): ?>
               <li>
                   <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
                     <?php if ($tva) : ?>
-                  <span class="tva tva--high">TVA 20%</span>
+                      <span class="tva tva--high">TVA 20%</span>
                     <?php endif; ?>
               </li>
               <li>
                   <span class="text">
                       <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
                   </span>
-              </li>
-              <li>
                   <?php if ($tva) : ?>
-                  <span class="tva tva--high"><?php print $tva; ?></span>
+                    <span class="tva tva--high"><?php print $tva; ?></span>
                   <?php endif; ?>
               </li>
               <?php endif; ?>
@@ -248,11 +238,11 @@
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>
-            <li><a href="<?php print url($field_plaquette_commerciale[0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
+            <li><a href="<?php print file_create_url($field_plaquette_commerciale['und'][0]['uri']); ?>" class="btn-rounded btn-primary btn-big-mobile">Télécharger la plaquette</a></li>
           <?php endif; ?>
           <li>
-            <button data-dropdown="sharing-0" aria-controls="sharing-0" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only">Partager<span class="icon icon-expand"></span></button>
-            <div class="sharing f-dropdown" id="sharing-0" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
+            <button data-dropdown="sharing-<?php print $id; ?>" aria-controls="sharing-<?php print $id; ?>" aria-expanded="false" class="btn-primary btn-rounded hide-for-small-only"><span><?php print t('Partager'); ?><span class="icon icon-expand"></span></span></button>
+            <div class="sharing f-dropdown" id="sharing-<?php print $id; ?>" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1">
               <ul class="sharing__items">
                 <li class="sharing__items__item"><a href="mailto:" title="partage par email" class="icon icon-email"></a></li>
               </ul>
@@ -261,11 +251,12 @@
         </ul>
       </div>
       <?php if(!empty($field_nom_conseiller)): ?>
+
         <ul class="bg-lightGrey contact">
           <li class="contact__item">
-            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)
-            --><img alt="Contact Programme " src="<?php print $field_photo_conseiller[0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
-            <p class="text">Votre conseillère <strong><?php print $field_nom_conseiller[0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[0]['value']; ?></a>
+            <!-- 1 format needed:- 60 x 60 (HEAVY compression!!!)-->
+            <img alt="<?php print t('Contact Programme'); ?> " src="<?php print $field_photo_conseiller[LANGUAGE_NONE][0]['contact_selection']; ?>" class="contact__item__img hide-for-small-only">
+            <p class="text"><?php print t('Votre conseillère'); ?> <strong><?php print $field_nom_conseiller[LANGUAGE_NONE][0]['value']; ?></strong></p><a href="tel://<?php print $field_espace_vente_tel[LANGUAGE_NONE][0]['value']; ?>" class="btn-phone"><?php print $field_espace_vente_tel[LANGUAGE_NONE][0]['value']; ?></a>
           </li>
 
           <?php
@@ -274,7 +265,7 @@
               $i = 0;
               foreach($url as $title_url => $link) {
                 ?>
-                  <li class="contact__item"><a href="<?php print $link; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-<?php print ($i ? 'tel' : 'email'); ?>"></span><?php print $title_url; ?></span></a></li>
+                  <li class="contact__item"><a href="<?php print $link; ?>" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="btn-icon btn-white"><span class="button__content"><span class="icon icon-<?php print ($i ? 'email' : 'tel'); ?>"></span><?php print $title_url; ?></span></a></li>
                 <?php
                 $i++;
               }

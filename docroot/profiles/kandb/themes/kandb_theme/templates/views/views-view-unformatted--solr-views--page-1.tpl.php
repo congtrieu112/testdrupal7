@@ -108,8 +108,8 @@ $current_promotion_indice = 1;
                 - medium: 180 x 180
                 -->
                 <!-- [Responsive img] start-->
-                <img alt="Photo programme" data-interchange="[<?php print $row_result['search_small']; ?>, (small)], [<?php print $row_result['search_medium']; ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print $row_result['search_medium']; ?>">
-                <noscript><img src="<?php print $row_result['search_medium']; ?>" alt="Photo programme undefined"/></noscript>
+                <img alt="Photo programme" data-interchange="[<?php print (!empty($row_result['search_small']) ? $row_result['search_small'] : ''); ?>, (small)], [<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>">
+                <noscript><img src="<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>" alt="Photo programme undefined"/></noscript>
                 <!-- [Responsive img] end--></a>
               <div class="searchResultsItem__infos__details">
                 <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php

@@ -54,6 +54,7 @@ function kandb_recherche_page(){
   $block_form = $block_form['content'];
 
   $result = NULL;
+  $isThereAResult = FALSE;
   $vocabularies = taxonomy_vocabulary_get_names();
 
   // Result
@@ -65,7 +66,7 @@ function kandb_recherche_page(){
     $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
     $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
     $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
-    $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+    $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location), $vocabularies['departement']->vid);
     $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
     $programme = kandb_recherche_programme_by_field(array('title' => $location));
 
@@ -77,6 +78,7 @@ function kandb_recherche_page(){
       }else{
         $result = views_embed_view('solr_views', 'page_1');
       }
+      $isThereAResult = TRUE;
 
     // Otherwise we propose some new result
     }else{
@@ -85,7 +87,7 @@ function kandb_recherche_page(){
       $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid, TRUE);
       $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location), TRUE);
       $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid, TRUE);
-      $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+      $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location), $vocabularies['departement']->vid, TRUE);
       $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid, TRUE);
       $programme = kandb_recherche_programme_by_field(array('title' => $location), TRUE);
 
@@ -131,20 +133,35 @@ function kandb_recherche_page(){
           );
         }
 
+        // Postal code
+        $return['postal_code'] = array();
+        $postal_code_array = array();
+        foreach($postal_code as $id => $programme){
+          $postal_code_array[] = $programme->field_programme_loc_cp['und'][0]['value'];
+        }
+        if(!empty($postal_code_array)) {
+          $postal_code_array = array_unique($postal_code_array);
+          sort($postal_code_array);
+          foreach ($postal_code_array as $postal_text) {
+            $return['postal_code'][] = array(
+              'link' => kandb_recherche_get_action_url() . '?place=' . $postal_text,
+              'name' => $postal_text,
+            );
+          }
+        }
+
         $result = theme('result_beginning_with', array(
           'ville' => $return['ville'],
           'departement' => $return['departement'],
           'region' => $return['region'],
           'programme' => $return['programme'],
+          'postal_code' => $return['postal_code'],
         ));
-
-      // Otherwise list all departement
       }
     }
   }
 
   // If not result
-  $isThereAResult = TRUE;
   if ($result == NULL) {
     $tree = kandb_seo_get_list_of_cities_by_programme_in('departements');
     $departement = array();
@@ -619,12 +636,7 @@ function kandb_recherche_get_action_url(){
  * @return array $terms
  *   Returns an array of terms that match the search
  */
-function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = false) {
-  // Static storage
-  static $taxonomy_term_storage = array();
-  $taxonomy_term_storage_key = $term_name.'_'.$vid.'_'.($begin_with ? 'true' : 'false');
-  if(isset($taxonomy_term_storage[$taxonomy_term_storage_key])) return $taxonomy_term_storage[$taxonomy_term_storage_key];
-
+function kandb_recherche_taxonomy_term($term_name, $vid, $begin_with = false) {
   // Query
   $query = new EntityFieldQuery;
   $query->entityCondition('entity_type', 'taxonomy_term');
@@ -634,7 +646,7 @@ function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = fa
   $query->propertyCondition('name', $term_name, 'LIKE');
 
   // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+  $query->propertyCondition('vid', $vid);
 
   // Return result
   $result = $query->execute();
@@ -642,10 +654,23 @@ function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = fa
   // Load terms
   $terms = array();
   if(isset($result['taxonomy_term'])) {
-    $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+    // Check if there is available Programme with this term
+    $localisation = taxonomy_vocabulary_load($vid);
+    $localisation_field = 'field_programme_loc_' . ($localisation->machine_name == 'departement' ? 'department' : $localisation->machine_name);
+    $programme_localisation = kandb_recherche_programme_by_field(array($localisation_field => array_keys($result['taxonomy_term'])), $begin_with);
+    if (!empty($programme_localisation)) {
+      foreach ($programme_localisation as $programme) {
+        if (isset($programme->$localisation_field) && !empty($programme->$localisation_field)) {
+          $field = $programme->$localisation_field;
+          $terms[] = $field['und'][0]['tid'];
+        }
+      }
+    }
+    if(!empty($terms)) {
+      $terms = taxonomy_term_load_multiple(array_unique($terms));
+    }
   }
 
-  $taxonomy_term_storage[$taxonomy_term_storage_key] = $terms;
   return $terms;
 }
 
@@ -664,16 +689,7 @@ function kandb_recherche_taxonomy_term($term_name, $vid = NULL, $begin_with = fa
  * @return array $terms
  *   Returns an array of terms that match the search
  */
-function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL, $begin_with = false) {
-  // Static storage
-  static $taxonomy_term_by_field_value = array();
-  $taxonomy_term_by_field_value_key = '';
-  foreach($field_values as $key => $value){
-    $taxonomy_term_by_field_value_key .= $key.'_'.$value.'_';
-  }
-  $taxonomy_term_by_field_value_key .= $vid.'_'.($begin_with ? 'true' : 'false');
-  if(isset($taxonomy_term_by_field_value[$taxonomy_term_by_field_value_key])) return $taxonomy_term_by_field_value[$taxonomy_term_by_field_value_key];
-
+function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid, $begin_with = false) {
   // Query
   $query = new EntityFieldQuery;
   $query->entityCondition('entity_type', 'taxonomy_term');
@@ -684,7 +700,7 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
   }
 
   // Vocabulary
-  if($vid != NULL) $query->propertyCondition('vid', $vid);
+  $query->propertyCondition('vid', $vid);
 
   // Return result
   $result = $query->execute();
@@ -692,10 +708,23 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
   // Load terms
   $terms = array();
   if(isset($result['taxonomy_term'])) {
-    $terms = taxonomy_term_load_multiple(array_keys($result['taxonomy_term']));
+    // Check if there is available Programme with this term
+    $localisation = taxonomy_vocabulary_load($vid);
+    $localisation_field = 'field_programme_loc_' . ($localisation->machine_name == 'departement' ? 'department' : $localisation->machine_name);
+    $programme_localisation = kandb_recherche_programme_by_field(array($localisation_field => array_keys($result['taxonomy_term'])), $begin_with);
+    if (!empty($programme_localisation)) {
+      foreach ($programme_localisation as $programme) {
+        if (isset($programme->$localisation_field) && !empty($programme->$localisation_field)) {
+          $field = $programme->$localisation_field;
+          $terms[] = $field['und'][0]['tid'];
+        }
+      }
+    }
+    if(!empty($terms)) {
+      $terms = taxonomy_term_load_multiple(array_unique($terms));
+    }
   }
 
-  $taxonomy_term_by_field_value[$taxonomy_term_by_field_value_key] = $terms;
   return $terms;
 }
 
@@ -714,15 +743,6 @@ function kandb_recherche_taxonomy_term_by_field_value($field_values, $vid = NULL
  *   Returns an array of programme that match the search
  */
 function kandb_recherche_programme_by_field($field_values, $begin_with = false, $available = true) {
-  // Static storage
-  static $programme_by_field = array();
-  $programme_by_field_key = '';
-  foreach($field_values as $field => $value){
-    $programme_by_field_key .= $field . '_' . $value . '_';
-  }
-  $programme_by_field_key .= ($begin_with ? 'true' : 'false').'_'.($available ? 'true' : 'false');
-  if(isset($programme_by_field[$programme_by_field_key])) return $programme_by_field[$programme_by_field_key];
-
   // Query
   $query = new EntityFieldQuery;
   $query->entityCondition('entity_type', 'node');
@@ -739,7 +759,11 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
     if($field == 'title'){
       $query->propertyCondition('title', $value . ($begin_with ? '%' : ''), 'LIKE');
     }else{
-      $query->fieldCondition($field, 'value', $value . ($begin_with ? '%' : ''), 'LIKE');
+      if(is_array($value)) {
+        $query->fieldCondition($field, 'tid', $value, 'IN');
+      }else{
+        $query->fieldCondition($field, 'value', $value . ($begin_with ? '%' : ''), 'LIKE');
+      }
     }
   }
 
@@ -748,11 +772,30 @@ function kandb_recherche_programme_by_field($field_values, $begin_with = false, 
 
   // Load terms
   $entities = array();
-  if(!empty($result)) {
-    $entities = entity_load('node', array_keys($result['node']));
+  if(!empty($result['node'])) {
+    // Check if there is available Biens for these Programmes
+    $query = new EntityFieldQuery;
+    $query->entityCondition('entity_type', 'node');
+    $query->entityCondition('bundle', 'bien');
+    $query->fieldCondition('field_bien_statut', 'tid', Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE));
+    $query->fieldCondition('field_programme', 'target_id', array_keys($result['node']), 'IN');
+    $query->propertyCondition('status', 1);
+
+    // Return result
+    $result = $query->execute();
+    if(!empty($result['node'])){
+      $biens = entity_load('node', array_keys($result['node']));
+      foreach($biens as $bien) {
+        if (isset($bien->field_programme) && !empty($bien->field_programme)) {
+          $entities[] = $bien->field_programme['und'][0]['target_id'];
+        }
+      }
+      if(!empty($entities)) {
+        $entities = entity_load('node', array_unique($entities));
+      }
+    }
   }
 
-  $programme_by_field[$programme_by_field_key] = $entities;
   return $entities;
 }
 
@@ -765,14 +808,13 @@ function kandb_recherche_form_alter(&$form, &$form_state, $form_id) {
 
   $vocabularies = taxonomy_vocabulary_get_names();
 
-  // Localisation
   // Check if the search localisation exists in our BDD
   $location = trim($_GET['place']);
   $ville = kandb_recherche_taxonomy_term($location, $vocabularies['ville']->vid);
   $arrondissement = kandb_recherche_arrondissement($location);
   $postal_code = kandb_recherche_programme_by_field(array('field_programme_loc_cp' => $location));
   $departement = kandb_recherche_taxonomy_term($location, $vocabularies['departement']->vid);
-  $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location,));
+  $code_departement = kandb_recherche_taxonomy_term_by_field_value(array('field_numero_departement' => $location), $vocabularies['departement']->vid);
   $region = kandb_recherche_taxonomy_term($location, $vocabularies['region']->vid);
   $programme = kandb_recherche_programme_by_field(array('title' => $location));
 
@@ -963,7 +1005,7 @@ function kandb_recherche_get_images_from_ids($ids, $image_fields = array(), $ima
   $return = array();
   foreach($entities as $id_entity => &$entity){
     foreach($image_fields as $field){
-      if (isset($entity->$field)){
+      if (isset($entity->$field) && !empty($entity->field)){
         $return[$entity->nid][$field] = $entity->{$field}[LANGUAGE_NONE][0]['uri'];
         foreach($image_styles as $image_style){
           $return[$entity->nid][$image_style] = image_style_url($image_style, $entity->{$field}[LANGUAGE_NONE][0]['uri']);

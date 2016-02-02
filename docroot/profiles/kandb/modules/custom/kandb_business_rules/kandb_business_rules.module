@@ -509,7 +509,7 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
     //     we'll hidden checkboxed in option caracteristiques
     if(isset($form['field_caracteristique'][LANGUAGE_NONE]['#options'])) {
       $caracteristiques = $form['field_caracteristique'][LANGUAGE_NONE]['#options'];
-      $os = array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave');
+      $os = array('Jardin', 'Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif');
       foreach($caracteristiques as $id => $value) {
         if(in_array($value, $os)) {
           unset($caracteristiques[$id]);
@@ -519,16 +519,9 @@ function kandb_business_rules_form_alter(&$form, &$form_state, $form_id) {
     }
 
     $form['field_tva']['#disabled'] = TRUE;
-    $form['#submit'][] = 'recalculate_bien_action';
   }
   if($form_id == 'programme_node_form' && arg(2) == 'edit') {
     $form['field_id_programme']['#disabled'] = TRUE;
-  }
-  if($form_id == 'partenaire_node_form') {
-    $form['field_partenaire_programmes']['#access'] = FALSE;
-    if(isset($form['field_partenaire_export'][LANGUAGE_NONE]['#default_value']) && $form['field_partenaire_export'][LANGUAGE_NONE]['#default_value'] == 3) {
-      $form['field_partenaire_programmes']['#access'] = TRUE;
-    }
   }
 }
 

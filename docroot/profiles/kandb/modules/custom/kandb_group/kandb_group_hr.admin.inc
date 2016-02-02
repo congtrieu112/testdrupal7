@@ -372,12 +372,12 @@ function kandb_group_rh_apply_offers_admin_form($form, &$form_state) {
     '#type' => 'text_format',
     '#format' => 'full_html',
     '#title' => t('Text'),
-    '#default_value' => variable_get('rh_postuler_text_paragraph'),
+    '#default_value' => isset($rh_postuler_text_paragraph['value']) ? $rh_postuler_text_paragraph['value'] : '',
   );
   $form['fieldset_postuler']['rh_paragraph']['rh_postuler_button_paragraph'] = array(
     '#type' => 'textfield',
     '#title' => t('Button label'),
-    '#default_value' => isset($rh_postuler_text_paragraph['value']) ? $rh_postuler_text_paragraph['value'] : '',
+    '#default_value' => variable_get('rh_postuler_button_paragraph') ,
   );
 
   $form['fieldset_last_offer'] = array(
