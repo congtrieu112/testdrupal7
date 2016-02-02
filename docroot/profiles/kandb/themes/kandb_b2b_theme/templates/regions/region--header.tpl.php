@@ -30,6 +30,8 @@
 <?php
 global $base_url;
 $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Patrimoine.svg';
+$uid = isset($user->uid) ? $user->uid : 0;
+$username = isset($user->name) ? $user->name : '';
 ?>
 
 <!-- [siteHeader] start-->
@@ -44,15 +46,15 @@ $logo_svg = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Patrim
         </ul>
       </div>
 
-      <?php if ($main_menu || $uid) : ?>
+      <?php if (($main_menu || $user) && ($uid>0)) : ?>
       <div aria-label="Menu principal" class="header__menu">
         <ul class="main-menu">
           <?php foreach ($main_menu as $item) : ?>
             <li class="main-menu__item"><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink')))); ?></li>
           <?php endforeach; ?>
-          <li class="main-menu__item"><a data-dropdown="loggedActions" aria-expanded="false" type="button" class="icons"><span class="icon icon-logged-user"></span><span><?php print t('Félix Faure'); ?></span><span class="icon icon-logout"></span></a></li>
+          <li class="main-menu__item"><a data-dropdown="loggedActions" aria-expanded="false" type="button" class="icons"><span class="icon icon-logged-user"></span><span><?php print $username; ?></span><span class="icon icon-logout"></span></a></li>
         </ul>
-        <?php if(isset($uid) && $uid) : ?>
+        <?php if($user) : ?>
         <ul id="loggedActions" data-dropdown-content role="menu" aria-hidden="true" tabindex="-1" class="logged-actions f-dropdown">
           <li><a href="/user/<?php print $uid; ?>"><?php print t('Mes informations'); ?></a></li>
           <li><a href="/user/logout"><?php print t('Me déconnecter'); ?></a></li>

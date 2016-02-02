@@ -60,11 +60,21 @@ function kandb_b2b_theme_preprocess_region(&$vars) {
   // Header
   if ($vars['region'] == 'header' && $user->uid) {
     // Main menu
-    $vars['main_menu'] = false;
-    $menu_main_links_source = variable_get('menu_main_links_source', false);
-    if ($menu_main_links_source) {
-      $vars['main_menu'] = menu_navigation_links($menu_main_links_source);
-      $vars['uid'] = $user->uid;
-    }
+    $vars['main_menu'] = menu_navigation_links('menu-b2b-main-menu');
+    $vars['user'] = $user;
   }
+
+  // Footer
+  if ($vars['region'] == 'footer') {
+    $vars['logo_svg'] = kandb_theme_get_path('assets', 'kandb_theme') . '/images/logo-Kaufman-Broad.svg';
+    $vars['menu_footer'] = menu_navigation_links('menu-b2b-footer-menu');
+  }
+}
+
+/**
+ * Implements hook_preprocess_html()
+ * @param type $vars
+ */
+function kandb_b2b_theme_preprocess_html(&$vars) {
+  $vars['classes_array'][] = 'homepage b2b';
 }
