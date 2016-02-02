@@ -107,8 +107,8 @@ function kandb_theme_process_page(&$variables) {
             </div>';
     }
   }
-  $header = drupal_get_http_header('status');   
-  if ($header == '404 Not Found') {     
+  $header = drupal_get_http_header('status');
+  if ($header == '404 Not Found') {
     $variables['theme_hook_suggestions'][] = 'page__404';
   }
 }
@@ -156,7 +156,66 @@ function kandb_theme_menu_local_tasks(&$variables) {
     }
   } elseif (preg_match('/corporate\/.*/i', $_GET['q'])) {
     $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
-    $item = menu_get_item('admin/content/ketb/group/home');
+    switch ($_GET['q']):
+      case (preg_match('/corporate\/finance\/presentation\/.*/i', $_GET['q'])) == 1:
+
+        $item = menu_get_item('admin/content/ketb/finance/presentation');
+        break;
+
+      case (preg_match('/corporate\/finance\/publication/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/finance/publication');
+        break;
+      case (preg_match('/corporate\/finance\/assemblee-generale/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/finance/assemblies');
+        break;
+      case (preg_match('/corporate\/finance\/gouvernance/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/finance/gouvernance');
+        break;
+      case (preg_match('/corporate\/finance\/archives/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/finance/archives');
+        break;
+
+      case (preg_match('/corporate\/ressources-humaines\/recrutement/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/rh');
+        break;
+      case (preg_match('/corporate\/ressources-humaines\/nos-metiers/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/explore-our-businesses');
+        break;
+      case (preg_match('/corporate\/ressources-humaines\/votre-carriere/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/your-career');
+        break;
+      case (preg_match('/corporate\/ressources-humaines\/postuler/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/apply-offers');
+        break;
+
+      case (preg_match('/corporate\/activites\/habitat/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/active/habitat');
+        break;
+      case (preg_match('/corporate\/activites\/tertiaire/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/active/tertiaire');
+        break;
+      case (preg_match('/corporate\/activites\/nos-agences/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/active/agences');
+        break;
+
+      case (preg_match('/corporate\/actualites$/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/actualites');
+        break;
+
+      case (preg_match('/corporate\/actualites\/nos-valeurs/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/nos-valeurs');
+        break;
+      case (preg_match('/corporate\/actualites\/notre-histoire/', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/notre-histoire');
+        break;
+      case (preg_match('/corporate\/developpement-durable\/.*/i', $_GET['q'])) == 1:
+         $item = menu_get_item('admin/content/ketb/group/development/manage');
+        break;
+
+      default;
+        $item = menu_get_item('admin/content/ketb/group/home');
+    endswitch;
+    
     $item['title'] = t('Edit');
     $item['localized_options'] = array(
       'query' => array('destination' => $_GET['q'])
