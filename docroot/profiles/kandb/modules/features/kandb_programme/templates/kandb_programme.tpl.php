@@ -27,6 +27,9 @@ ksort($logement_block['total_bien']);
                           $type_de_bien = $type_de_bien . 's';
                        endif;
                    endif;
+                   if(strtolower($type_de_bien) == 'local'):
+                       $type_de_bien = $type_de_bien . "-" . $arr_type[2];
+                   endif;
                  $nb_pieces_tid = isset($arr_type[2]) ? $arr_type[2] : '';
                 endif;
             endif;
