@@ -21,35 +21,6 @@
           </nav>
         </dd>
       </dl>
-
-      <?php
-        if(arg(0) == 'regions') :
-      ?>
-      <div class="noResults__category__list">
-        <ul>
-          <ul class="small-block-grid-2 medium-block-grid-3">
-            <?php if($collections) : ?>
-              <?php foreach ($collections as $letter => $collection) : ?>
-              <li>
-                <dl>
-                  <dt><?php print $letter; ?></dt>
-                  <dd>
-                    <ul>
-                      <?php foreach ($collection as $ville_name) : ?>
-                      <li><a href="/recherche?place=<?php print ucwords(strtolower($ville_name)); ?>" title="<?php print ucwords(strtolower($ville_name)); ?>"><?php print ucwords(strtolower($ville_name)); ?></a></li>
-                      <?php endforeach; ?>
-                    </ul>
-                  </dd>
-                </dl>
-              </li>
-              <?php endforeach; ?>
-            <?php endif; ?>
-          </ul>
-        </ul>
-      </div>
-      <?php
-        endif;
-      ?>
     </div>
   </div>
 </section>

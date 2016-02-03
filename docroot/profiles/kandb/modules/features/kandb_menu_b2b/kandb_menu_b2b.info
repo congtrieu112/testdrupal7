@@ -1,0 +1,10 @@
+name = K&B Menu B2B
+description = Create main menu, footer menu for page b2b
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = features
+dependencies[] = menu
+features[features_api][] = api:2
+features[menu_custom][] = menu-b2b-footer-menu
+features[menu_custom][] = menu-b2b-main-menu

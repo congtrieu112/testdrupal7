@@ -2239,10 +2239,9 @@ function delete_file_from_realpath($path) {
                   }
                 }
               }
-            } else {
-              if($filectime < strtotime('1 month ago')) {
-                unlink($realpath . '/' . $file_name);
-              }
+            }
+            if($filectime < strtotime('1 month ago')) {
+              unlink($realpath . '/' . $file_name);
             }
           }
         }
