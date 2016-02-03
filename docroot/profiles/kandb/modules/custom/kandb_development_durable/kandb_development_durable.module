@@ -51,7 +51,7 @@ function kandb_development_durable_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['admin/content/ketb/group/development/manage'] = array(
+  $items['admin/content/ketb/corporate/developpement-durable'] = array(
     'title' => '[Development] - Manage',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_development_manage_form'),

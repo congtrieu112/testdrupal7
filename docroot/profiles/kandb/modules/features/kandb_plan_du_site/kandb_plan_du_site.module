@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Plan du site feature.
+ */
+
+include_once 'kandb_plan_du_site.features.inc';

@@ -40,7 +40,7 @@
       'type' => MENU_NORMAL_ITEM,
     );
 
-    $items['admin/content/ketb/finance/archives'] = array(
+    $items['admin/content/ketb/corporate/finance/archives'] = array(
       'title' => '[Finance] Archives',
       'page callback' => 'drupal_get_form',
       'page arguments' => array('kandb_finance_archives_admin_form'),

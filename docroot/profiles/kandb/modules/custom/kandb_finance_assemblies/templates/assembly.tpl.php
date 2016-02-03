@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/finance/assemblee-generale', $_GET['q']);
+print $tabs;
 if (!isset($assembly_content) || empty($assembly_content)) {
   return;
 }

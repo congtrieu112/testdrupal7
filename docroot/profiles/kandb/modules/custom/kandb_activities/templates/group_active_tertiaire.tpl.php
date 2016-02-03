@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
 print theme('group_activities_header');
 ?>
 <section class="section-padding activities">
@@ -68,7 +70,7 @@ print theme('group_activities_header');
           $bureau_kpi_component_image = variable_get('bloc_bureau_kpi_component_image_' . $i);
           $bureau_kpi_component_image = $bureau_kpi_component_image ? file_load($bureau_kpi_component_image) : '';
           $bureau_kpi_component_image = (isset($bureau_kpi_component_image->uri) AND $bureau_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $bureau_kpi_component_image->uri) : '';
-          if ($bureau_component_title AND $bureau_kpi_component_sub_title AND $bureau_kpi_component_image) :
+          if ($bureau_component_title OR $bureau_kpi_component_sub_title OR $bureau_kpi_component_image) :
             $bureau_kpi_component_arr[] = array(
               'bureau_kpi_component_title' => $bureau_component_title,
               'bureau_kpi_component_sub_title' => $bureau_kpi_component_sub_title,
@@ -163,7 +165,7 @@ print theme('group_activities_header');
           $logistique_kpi_component_image = variable_get('bloc_logistique_kpi_component_image_' . $i);
           $logistique_kpi_component_image = $logistique_kpi_component_image ? file_load($logistique_kpi_component_image) : '';
           $logistique_kpi_component_image = (isset($logistique_kpi_component_image->uri) AND $logistique_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $logistique_kpi_component_image->uri) : '';
-          if ($logistique_component_title AND $logistique_kpi_component_sub_title AND $logistique_kpi_component_image) :
+          if ($logistique_component_title OR $logistique_kpi_component_sub_title OR $logistique_kpi_component_image) :
             $logistique_kpi_component_arr[] = array(
               'logistique_kpi_component_title' => $logistique_component_title,
               'logistique_kpi_component_sub_title' => $logistique_kpi_component_sub_title,
@@ -281,7 +283,7 @@ print theme('group_activities_header');
           $hotell_kpi_component_image = variable_get('bloc_hotell_kpi_component_image_' . $i);
           $hotell_kpi_component_image = $hotell_kpi_component_image ? file_load($hotell_kpi_component_image) : '';
           $hotell_kpi_component_image = (isset($hotell_kpi_component_image->uri) AND $hotell_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $hotell_kpi_component_image->uri) : '';
-          if ($hotell_component_title AND $hotell_kpi_component_sub_title AND $hotell_kpi_component_image) :
+          if ($hotell_component_title OR $hotell_kpi_component_sub_title OR $hotell_kpi_component_image) :
             $hotell_kpi_component_arr[] = array(
               'hotell_kpi_component_title' => $hotell_component_title,
               'hotell_kpi_component_sub_title' => $hotell_kpi_component_sub_title,
@@ -374,7 +376,7 @@ print theme('group_activities_header');
           $commercer_kpi_component_image = variable_get('bloc_commercer_kpi_component_image_' . $i);
           $commercer_kpi_component_image = $commercer_kpi_component_image ? file_load($commercer_kpi_component_image) : '';
           $commercer_kpi_component_image = (isset($commercer_kpi_component_image->uri) AND $commercer_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $commercer_kpi_component_image->uri) : '';
-          if ($commercer_component_title AND $commercer_kpi_component_sub_title AND $commercer_kpi_component_image) :
+          if ($commercer_component_title OR $commercer_kpi_component_sub_title OR $commercer_kpi_component_image) :
             $commercer_kpi_component_arr[] = array(
               'commercer_kpi_component_title' => $commercer_component_title,
               'commercer_kpi_component_sub_title' => $commercer_kpi_component_sub_title,

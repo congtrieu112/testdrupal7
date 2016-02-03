@@ -150,7 +150,14 @@ function kandb_contact_buttons($only_links = false) {
     '_tre_rappel_',
     'prendre_rendez_vous',
   );
-
+  
+  $link = '';
+  if(!empty($_GET['q'])){
+    $array_node = explode('/', $_GET['q']);
+    if($array_node[0] == 'node' && !empty($array_node[1]) && is_numeric($array_node[1])) {
+      $link = '?nid='.$array_node[1];
+    }
+  }
   foreach ($webform_machine_names as $name) {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
@@ -158,7 +165,7 @@ function kandb_contact_buttons($only_links = false) {
       $links[] = theme_link(
           array(
             'text' => '<span>' . $webform->title . '</span>',
-            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid).$link,
             'options' => array(
               'attributes' => array(
                 'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
@@ -322,7 +329,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
   $webform_avant_contactez_nous = webform_features_machine_name_load('avant_contactez_nous');
   $webform_id_avant_contactez_nous = isset($webform_avant_contactez_nous->nid) ? 'webform_client_form_' . $webform_avant_contactez_nous->nid : '';
 
-// Get webform telechargement_documents.
+  // Get webform telechargement_documents.
   $webform_telechargement_documents = webform_features_machine_name_load('telechargement_documents');
   $webform_id_telechargement_documents = isset($webform_telechargement_documents->nid) ? 'webform_client_form_' . $webform_telechargement_documents->nid : '';
 

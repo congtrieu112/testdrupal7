@@ -49,7 +49,7 @@ function kandb_activities_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['admin/content/ketb/group/active/habitat'] = array(
+  $items['admin/content/ketb/corporate/activites/habitat'] = array(
     'title' => '[Activities] - Habitat',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_habitat_form'),
@@ -57,7 +57,7 @@ function kandb_activities_menu() {
     'access arguments' => array('administer K&B group page'),
     'type' => MENU_LOCAL_TASK,
   );
-  $items['admin/content/ketb/group/active/tertiaire'] = array(
+  $items['admin/content/ketb/corporate/activites/tertiaire'] = array(
     'title' => '[Activities] - Tertiaire',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_tertiaire_form'),
@@ -72,7 +72,7 @@ function kandb_activities_menu() {
     'type' => MENU_CALLBACK,
     'access arguments' => array('access content'),
   );
-  $items['admin/content/ketb/group/active/agences'] = array(
+  $items['admin/content/ketb/corporate/activites/nos-agences'] = array(
     'title' => '[Activities] - Nos - agences - service - showroom',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_active_agences_form'),

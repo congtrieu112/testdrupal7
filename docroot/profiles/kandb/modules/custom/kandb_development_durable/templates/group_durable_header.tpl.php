@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/developpement-durable', $_GET['q']);
+print $tabs;
 $arg = arg();
 $current_path = implode('/', $arg);
 $group_header = module_invoke('bean', 'block_view', 'development-durable-header');

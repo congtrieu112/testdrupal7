@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/finance/gouvernance', $_GET['q']);
+print $tabs;
 print theme('finance_header_block');
 
 $module_title = variable_get('finance_gouvernance_module_title_' . $lang);
@@ -58,7 +60,7 @@ $module_title = variable_get('finance_gouvernance_module_title_' . $lang);
                                     <li class="bordered"><a href="<?php print $path; ?>" tabindex="0" aria-selected="<?php print $selected; ?>"><?php print $name; ?></a></li>
                                 <?php
                                 endif;
-                            endforeach; 
+                            endforeach;
                            ?>
                       </ul>
                     <?php endif; ?>

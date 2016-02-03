@@ -12,8 +12,16 @@ function kandb_validate_menu() {
   $items['page-404'] = array(
     'title' => '404 page not found',
     'page callback' => 'kandb_page_404',
-    'access arguments' => TRUE,
+    'access arguments' => FALSE,
+    'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
+  );
+  $items['admin/content/ketb/404'] = array(
+    'title' => 'Config Page 404',
+    'description' => 'Configurate Page 404',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('config_404_page'),
+    'access arguments' => array('administer K&B content'),
   );
   $items['admin/content/ketb/cookie'] = array(
     'title' => 'Config Cookie',
@@ -22,7 +30,7 @@ function kandb_validate_menu() {
     'page arguments' => array('config_cookie'),
     'access arguments' => array('administer K&B content'),
   );
-  
+
   return $items;
 }
 
@@ -97,15 +105,19 @@ function kandb_validate_get_dates_from_range($start, $end) {
 function kandb_validate_get_ville_has_reference($view_name, $result) {
   $type_options_existed = array();
   if ($view_name == 'avant_premiere_check') {
+    $now = time();
+    $now = strtotime(date('Y-m-d', $now));
     $type_options_query = db_select('field_data_field_avant_premiere_ville', 'a');
     $type_options_query->innerJoin('node', 'b', 'b.nid = a.entity_id');
     $type_options_query->leftJoin('taxonomy_term_data', 'c', 'c.tid = a.field_avant_premiere_ville_tid');
     $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'd', 'd.entity_id = a.entity_id');
-    $type_options_query->condition('d.field_avant_premiere_grande_ouve_value', 0, '=');
+    $type_options_query->leftJoin('field_data_field_avant_premiere_date_debut', 'e', 'e.entity_id = a.entity_id');
+    $type_options_query->leftJoin('field_data_field_avant_premiere_grande_ouve', 'f', 'f.entity_id = a.entity_id');
     $type_options_query->condition('b.status', 1, '=');
+    $type_options_query->condition('f.field_avant_premiere_grande_ouve_value', 0, '=');
+    $type_options_query->where('UNIX_TIMESTAMP(e.field_avant_premiere_date_debut_value) >= :val_start', array('val_start' => $now));
     $type_options_query->fields('a', array('field_avant_premiere_ville_tid'))
       ->distinct();
-
     $type_options_query->fields('c', array('name'));
     $type_options_query->orderBy('c.name', 'ASC');
     $type_options_existed += $type_options_query->execute()->fetchAllKeyed();
@@ -513,7 +525,7 @@ function kandb_validate_node_update($node){
  */
 function config_cookie() {
     $form = array();
-    
+
     $form['kb_cookie_title'] = array(
       '#type' => 'textfield',
       '#title' => t('Title Police'),
@@ -530,8 +542,51 @@ function config_cookie() {
       '#title' => t('Descriptions'),
       '#default_value' => variable_get('kb_cookie_descriptions', ""),
     );
-    
+
     return system_settings_form($form);
+}
+
+/**
+ * Page 404 config
+ * @return type
+ */
+function config_404_page() {
+    $form = array();
+
+    $form['kb_404_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title'),
+      '#default_value' => variable_get('kb_404_title', ''),
+    );
+    $form['kb_404_description'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Description'),
+      '#default_value' => variable_get('kb_404_description', ''),
+    );
+    $form['kb_404_title_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Title For Link'),
+      '#default_value' => variable_get('kb_404_title_link', ''),
+    );
+    $form['kb_404_text_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Text Link'),
+      '#default_value' => variable_get('kb_404_text_link', ''),
+    );
+    $form['kb_404_link'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Link Visit'),
+      '#default_value' => variable_get('kb_404_link', ''),
+      '#required' => TRUE,
+    );
+    $form['kb_404_image'] = array(
+    '#type' => 'managed_file',
+    '#title' => t('Image Page 404'),
+    '#default_value' => variable_get('kb_404_image', ''),
+    '#upload_location' => 'public://',
+  );
+
+  return system_settings_form($form);
 }
 
 /**
@@ -549,6 +604,6 @@ function kandb_page_404() {
   if ($nid) {
     $node = node_load($nid);
   }
-  
+
   return theme('page_404', array('node' => $node));
 }

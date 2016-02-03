@@ -24,7 +24,7 @@ for ($i = 1; $i <= KANDB_GROUP_KPI_ITEMS_NUM; $i++) :
   $kpi_component_image = $kpi_component_image ? file_load($kpi_component_image) : '';
   $kpi_component_image = (isset($kpi_component_image->uri) AND $kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $kpi_component_image->uri) : '';
 
-  if ($kpi_component_title AND $kpi_component_sub_title AND $kpi_component_image) :
+  if ($kpi_component_title OR $kpi_component_sub_title OR $kpi_component_image) :
     $kpi_component_arr[] = array(
       'kpi_component_title' => $kpi_component_title,
       'kpi_component_sub_title' => $kpi_component_sub_title,
@@ -50,7 +50,7 @@ for ($i = 1; $i <= KANDB_GROUP_NOTEBOOKS_KPI_ITEMS_NUM; $i++) :
   $notebooks_kpi_component_image = $notebooks_kpi_component_image ? file_load($notebooks_kpi_component_image) : '';
   $notebooks_kpi_component_image = (isset($notebooks_kpi_component_image->uri) AND $notebooks_kpi_component_image->uri) ? image_style_url('kpi_component_580_x_296', $notebooks_kpi_component_image->uri) : '';
 
-  if ($notebooks_kpi_component_title AND $notebooks_kpi_component_sub_title AND $notebooks_kpi_component_image) :
+  if ($notebooks_kpi_component_title OR $notebooks_kpi_component_sub_title OR $notebooks_kpi_component_image) :
     $notebooks_kpi_component_arr[] = array(
       'notebooks_kpi_component_title' => $notebooks_kpi_component_title,
       'notebooks_kpi_component_sub_title' => $notebooks_kpi_component_sub_title,
@@ -63,8 +63,9 @@ if (count($notebooks_kpi_component_arr) % 2 != 0) :
   $last_notebooks_kpi_component_arr = end($notebooks_kpi_component_arr);
   array_pop($notebooks_kpi_component_arr);
 endif;
+$tabs = kandb_group_button_tabs_header('corporate/finance/presentation', $_GET['q']);
+print $tabs;
 ?>
-
 <?php
 print theme('finance_header_block');
 ?>
@@ -114,7 +115,7 @@ print theme('finance_header_block');
         <?php if ($kpi_module_title) : ?>
           <header class="heading heading--bordered">
               <h1 class="heading__title"><?php print $kpi_module_title; ?></h1>
-          </header>  
+          </header>
         <?php endif; ?>
         <?php if ($kpi_component_arr) : ?>
           <div class="graphicPresentation__list">

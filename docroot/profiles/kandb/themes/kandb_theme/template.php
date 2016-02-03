@@ -107,8 +107,8 @@ function kandb_theme_process_page(&$variables) {
             </div>';
     }
   }
-  $header = drupal_get_http_header('status');   
-  if ($header == '404 Not Found') {     
+  $header = drupal_get_http_header('status');
+  if ($header == '404 Not Found') {
     $variables['theme_hook_suggestions'][] = 'page__404';
   }
 }
@@ -154,19 +154,6 @@ function kandb_theme_menu_local_tasks(&$variables) {
       }
       $output .= "</ul>";
     }
-  } elseif (preg_match('/corporate\/.*/i', $_GET['q'])) {
-    $output .= '<ul class="programCharacteristics__nav" style="margin:5px 0px; text-align:left;position:relative;" >';
-    $item = menu_get_item('admin/content/ketb/group/home');
-    $item['title'] = t('Edit');
-    $item['localized_options'] = array(
-      'query' => array('destination' => $_GET['q'])
-    );
-    $tab = array(
-      '#theme' => 'menu_local_task',
-      '#link' => $item,
-    );
-    $output .= render($tab);
-    $output .= '</ul>';
   }
   return $output;
 }
@@ -505,16 +492,6 @@ function kandb_theme_preprocess_node(&$vars) {
       'field_fiche_renseignement',
       'field_plan_batiment',
       'field_kit_fiscal',
-      'field_contrat_reservation',
-      'field_etat_des_risques',
-      'field_lettre_de_banque',
-      'field_prestations_programme',
-      'field_mandat_gestion_locative',
-      'field_plan_masse_sous_sol',
-      'visuel_grande_taille',
-      'field_bail_commercial',
-      'bon_commande_mobilier',
-      'autre_documents'
     );
 
     $vars['status_document'] = FALSE;
@@ -798,25 +775,80 @@ function get_tax_status_du_logement_by_name($term_name, $search_by_name = TRUE) 
  * @param type $id_programme
  * @param type $id_piece
  */
-function get_biens_follow_piece_program($id_programme, $id_piece = 0) {
+function get_biens_follow_piece_program($id_programme, $gid, $id_piece = 0, $id_bien = 0) {
   $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
-  $query = new EntityFieldQuery();
-  $query->entityCondition('entity_type', 'node')
-    ->entityCondition('bundle', CONTENT_TYPE_BIEN)
-    ->fieldCondition('field_bien_statut', 'tid', $status_disponible, '=')
-    ->fieldCondition('field_programme', 'target_id', $id_programme, '=')
-  ;
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_bien_statut', 'bs', 'bs.entity_id = n.nid');
+  $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');
+  $query->leftJoin('field_data_field_superficie', 's', 's.entity_id = n.nid');
+  $query->leftJoin('field_data_field_id_bien', 'ib', 'ib.entity_id = n.nid');
+  $query->leftJoin('field_data_field_nb_pieces', 'np', 'np.entity_id = n.nid');
+  $query->leftJoin('domain_access', 'da', 'da.nid = p.entity_id');
+  $query
+    ->fields('n', array('nid'))
+    ->condition('field_bien_statut_tid', $status_disponible, '=')
+    ->condition('field_programme_target_id', $id_programme, '=')
+    ->condition('gid', $gid,'=')
+    ->orderBy('field_superficie_value');
+
+  if (!empty($id_bien)) {
+    $query->condition('field_id_bien_value', $id_bien, '!=');
+  }
 
   if (!empty($id_piece)) {
-    $query->fieldCondition('field_nb_pieces', 'tid', $id_piece, '=');
+    $query->condition('field_nb_pieces_tid', $id_piece, '=');
   }
-  $results = $query->execute();
-  if (!empty($results)) {
-    return $results["node"];
+
+  $result = $query->execute();
+  if($result) {
+    return $result->fetchAllAssoc('nid');
   }
 
   return array();
 }
+
+/**
+ * @todo to get list bien have price max-min follow piece && programme
+ * @param type $id_programme
+ * @param type $id_piece
+ * @return type
+ */
+function get_biens_price_max_min_follow_piece_program($id_programme, $gid, $id_piece = 0, $id_bien = 0, $order_by = 'ASC') {
+  $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+
+  $status_disponible = get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE);
+  $query = db_select('node', 'n');
+  $query->leftJoin('field_data_field_bien_statut', 'bs', 'bs.entity_id = n.nid');
+  $query->leftJoin('field_data_field_programme', 'p', 'p.entity_id = n.nid');
+  $query->leftJoin('field_data_field_prix_tva_20', 's', 's.entity_id = n.nid');
+  $query->leftJoin('field_data_field_id_bien', 'ib', 'ib.entity_id = n.nid');
+  $query->leftJoin('field_data_field_nb_pieces', 'np', 'np.entity_id = n.nid');
+  $query->leftJoin('domain_access', 'da', 'da.nid = p.entity_id');
+  $query
+    ->fields('n', array('nid'))
+    ->condition('field_bien_statut_tid', $status_disponible, '=')
+    ->condition('field_programme_target_id', $id_programme, '=')
+    ->condition('gid', $gid,'=')
+    ->orderBy('field_prix_tva_20_value', $order_by)
+    ->range(0,1);
+
+  if (!empty($id_bien)) {
+    $query->condition('field_id_bien_value', $id_bien, '!=');
+  }
+
+  if (!empty($id_piece)) {
+    $query->condition('field_nb_pieces_tid', $id_piece, '=');
+  }
+
+  $result = $query->execute();
+  if($result) {
+    return $result->fetchAllAssoc('nid');
+  }
+
+  return array();
+}
+
+
 
 /**
  * Returns HTML for a form element label and required marker.

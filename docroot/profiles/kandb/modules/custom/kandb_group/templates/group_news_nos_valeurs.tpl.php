@@ -4,7 +4,10 @@
  * Your career template.
  */
 ?>
-
+<?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
+?>
 <?php print theme('group_news_header'); ?>
 <?php
 $module_title = variable_get('news_values_module_title');

@@ -117,12 +117,12 @@ ksort($logement_block['total_bien']);
                                               $low_tva_price = isset($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value']) ? round($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'], 0) : 0;
 
                                               $arr_caracteris = array();
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] > 0 ? 'Balcon' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_box[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_box[LANGUAGE_NONE][0]['value'] >= 0 ? 'Box' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] >= 0 ? 'Cave' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] > 0 ? 'Jardin' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
+                                              $arr_caracteris[] = isset($biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
 
                                               $caracteristiques = isset($biens->field_caracteristique[LANGUAGE_NONE]) ? $biens->field_caracteristique[LANGUAGE_NONE] : '';
                                               if ($caracteristiques && count($caracteristiques) > 0) {

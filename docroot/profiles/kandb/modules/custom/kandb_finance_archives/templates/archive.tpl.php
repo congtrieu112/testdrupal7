@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/finance/archives', $_GET['q']);
+print $tabs;
 if (!isset($content_archives) || empty($content_archives)) {
   return;
 }
