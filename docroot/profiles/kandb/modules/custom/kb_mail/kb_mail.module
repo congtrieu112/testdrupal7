@@ -152,26 +152,14 @@ function kandb_webform_submit(&$form, &$form_state) {
     $has_prefix = FALSE;
     if ($webform_name == '_tre_rappel_') {
       $subject = t('Se Faire rappeler ');
-      if (isset($form['#node_id']) && is_numeric($form['#node_id'])&& $webform_name == '_tre_rappel_'){
+      if (isset($form['#node_id']) && is_numeric($form['#node_id']) && $webform_name == '_tre_rappel_') {
         $node = node_load($form['#node_id']);
         if ($node->type == 'dossier' || $node->type == 'article') {
           $subject .= $node->title;
           $variables['tre_rappel_title'] = $node->title;
         }
-        else {
-          $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
-          foreach ($sub_vars as $var) {
-            if ($variables[$var]) {
-              if ($has_prefix) {
-                $subject .= ' / ';
-              }
-              $subject .= $variables[$var];
-              $has_prefix = TRUE;
-            }
-          }
-        }
       }
-      else {
+      if (!isset($variables['tre_rappel_title'])) {
         $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
         foreach ($sub_vars as $var) {
           if ($variables[$var]) {
@@ -183,7 +171,6 @@ function kandb_webform_submit(&$form, &$form_state) {
           }
         }
       }
-
       kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
     }
     elseif ($webform_name == 'prendre_rendez_vous') {
