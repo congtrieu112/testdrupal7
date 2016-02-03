@@ -1,0 +1,14 @@
+name = Plan du site
+description = Add "Plan du site" content
+core = 7.x
+package = Kaufman & Broad
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = features
+dependencies[] = kandb_standard_page
+dependencies[] = strongarm
+dependencies[] = uuid_features
+__drupal_alter_by_ref[][node][standard_page] = standard_page
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[uuid_node][] = 88976515-6705-459e-adc0-22169e94c020

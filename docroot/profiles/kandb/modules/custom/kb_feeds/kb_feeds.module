@@ -1671,7 +1671,6 @@ function import_bien_pdf_batch_operation_process_per_dir($data, &$context) {
  * @todo Batch finished
  */
 function import_bien_pdf_batch_operation_finished($success, $results, $operations) {
-  kb_migration_logging ('migration : finish import_bien_pdf');
   if ($success) {
     // Here we could do something meaningful with the results.
     // We just display the number of nodes we processed...
@@ -1682,18 +1681,6 @@ function import_bien_pdf_batch_operation_finished($success, $results, $operation
     // $operations contains the operations that remained unprocessed.
     $error_operation = reset($operations);
     drupal_set_message(t('An error occurred while processing @operation with arguments : @args', array('@operation' => $error_operation[0], '@args' => print_r($error_operation[0], TRUE))));
-  }
-  $kb_migration_status = get_migration_status();
-  if (isset($kb_migration_status['start_migration']) && $kb_migration_status['start_migration'] == 1) {
-    if ($success) {
-      $kb_migration_status['import_bien_pdf_status'] = 1;
-    }
-    else {
-      $kb_migration_status['import_bien_pdf_status'] = -1;
-    }
-    set_migration_status($kb_migration_status);
-    sleep(15);
-    rules_invoke_event('migration_importer_finish', 'import_bien_pdf');
   }
 }
 
@@ -2252,10 +2239,9 @@ function delete_file_from_realpath($path) {
                   }
                 }
               }
-            } else {
-              if($filectime < strtotime('1 month ago')) {
-                unlink($realpath . '/' . $file_name);
-              }
+            }
+            if($filectime < strtotime('1 month ago')) {
+              unlink($realpath . '/' . $file_name);
             }
           }
         }

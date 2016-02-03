@@ -313,7 +313,6 @@ function kandb_webform_build_variable_mail($webform_name = '', $values = array()
     $variables['programme_nom_conseiller'] = isset($programme->field_nom_conseiller[LANGUAGE_NONE][0]['value']) ? $programme->field_nom_conseiller[LANGUAGE_NONE][0]['value'] : '';
     $variables['programme_espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel[LANGUAGE_NONE][0]['value'] : '';
     $variables['programme_espace_vente_adresse'] = isset($programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value'] : '';
-    $variables['programme_espace_vente_ville'] = isset($programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_ville[LANGUAGE_NONE][0]['value'] : '';
     $variables['programme_espace_vente_horaire'] = isset($programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value'] : '';
     if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid'])) {
       $ville = taxonomy_term_load($programme->field_programme_loc_ville[LANGUAGE_NONE][0]['tid']);

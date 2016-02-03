@@ -154,7 +154,7 @@
             <ul class="tags-list">
               <?php if(isset($field_nouveau[LANGUAGE_NONE][0]) && $field_nouveau[LANGUAGE_NONE][0]['value'] == 1) : ?>
                 <li>
-                  <div class="tag tag--important">Nouveauté</div>
+                  <div class="tag tag--important"><?php print t('Nouveauté'); ?></div>
                 </li>
               <?php endif; ?>
               <?php if(!empty($promotions)) : ?>
@@ -194,8 +194,8 @@
             <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
           </div>
           <?php if ($de_a_price_tva || $de_a_price) : ?>
-          <ul class="prices">              
-              
+          <ul class="prices">
+
               <?php if(empty($tva) && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
@@ -203,18 +203,23 @@
                   </span>
               </li>
               <?php endif; ?>
-              
+               <li>
+                  <span class="text">
+                      <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
+                  </span>
+                  <?php if ($tva) : ?>
+                    <span class="tva"><?php print $tva; ?></span>
+                  <?php endif; ?>
+              </li>
               <?php if($tva && $affichage_double_grille == 0): ?>
               <li>
                   <span class="text">
                       <?php if ($de_a_price) print $de_a_price; ?>
                   </span>
-              </li>
-              <li>
-                  <span class="tva tva--high">TVA 20%</span>                  
+                  <span class="tva tva--high">TVA 20%</span>
               </li>
               <?php endif; ?>
-              
+
               <?php if($tva && $affichage_double_grille == 1): ?>
               <li>
                   <span class="text"><?php if ($de_a_price) print $de_a_price; ?></span>
@@ -222,19 +227,11 @@
                       <span class="tva tva--high">TVA 20%</span>
                     <?php endif; ?>
               </li>
-              <li>
-                  <span class="text">
-                      <?php if ($de_a_price_tva) print $de_a_price_tva; ?>
-                  </span>
-                  <?php if ($tva) : ?>
-                    <span class="tva tva--high"><?php print $tva; ?></span>
-                  <?php endif; ?>
-              </li>
               <?php endif; ?>
-              
+
           </ul>
           <?php endif; ?>
-        </div>          
+        </div>
         <ul class="squaredImageItem__actions">
           <li><?php print l('Découvrir le programme', 'node/' . $node->nid, array('attributes' => array('class' => array('btn-rounded', 'btn-secondary', 'btn-big-mobile')))); ?></li>
           <?php if(!empty($field_plaquette_commerciale)) : ?>

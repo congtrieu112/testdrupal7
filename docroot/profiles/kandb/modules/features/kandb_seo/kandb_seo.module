@@ -281,13 +281,15 @@ function kandb_seo_block_letters($location, $letter = NULL) {
   $vars = array();
 
   // Get the list of the available cities
-  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('only_first_letter' => FALSE));
+  $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('only_first_letter' => FALSE, 'sort_first_letter' => TRUE));
 
   // Process the result
   $vars['location'] = array();
   $temp =  array();
   while($object = $results->fetchAssoc()){
-    $min_letter = strtolower($object['name'][0]);
+    $min_letter = convert_utf8_accents_tostring($object['name']);
+    $min_letter = strtolower($min_letter[0]);
+    
     $vars['location'][$min_letter] = $location . '/' . $min_letter;
     $temp[$min_letter][]  = $object['name'];
   }
@@ -304,8 +306,12 @@ function kandb_seo_block_letters($location, $letter = NULL) {
 function kandb_seo_block_list($location, $first_letter = false) {
   $vars = array();
 
-  // Get the list of the available cities
+  // Get the list of the available cities.
+  // If we are in the villes section with no first letter we order by city usage else order first letter
   $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('first_letter' => $first_letter));
+  if(!$first_letter) {
+    $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('first_letter' => FALSE, 'sort_first_letter' => TRUE));
+  }
 
   // Get sanitize name
   global $conf;
@@ -318,7 +324,9 @@ function kandb_seo_block_list($location, $first_letter = false) {
   // Process the result
   $vars['results'] = array();
   while($object = $results->fetchAssoc()){
-    $letter = substr($object['name'], 0, 1);
+    $letter = convert_utf8_accents_tostring($object['name']);
+    $letter = strtolower($letter[0]);
+
     $vars['results'][$letter][] = array(
       'name' => ucwords(strtolower($object['name']), '- '),
       'sanitize_name' => pathauto_cleanstring($object['name']),
@@ -354,9 +362,9 @@ function kandb_seo_block_list_by_type_of_bien($location, $location_detail){
   // Get info for the url
   $results = kandb_seo_get_list_of_cities_by_programme_in($location, array('bien' => $location_detail));
   while($object = $results->fetchAssoc()) {
-    if(!isset($vars['results'][$object['type_name']])) $vars['results'][$object['type_name']] = array();
-    if(!in_array($object['nb_piece_name'], $vars['results'][$object['type_name']])) $vars['results'][$object['type_name']][] = $object['nb_piece_name'];
-    $vars['sanitized_strings'][$object['type_name']] = pathauto_cleanstring($object['type_name']);
+    if(!isset($vars['results'][$object['name']])) $vars['results'][$object['name']] = array();
+    if(!in_array($object['nb_piece_name'], $vars['results'][$object['name']])) $vars['results'][$object['name']][] = $object['nb_piece_name'];
+    $vars['sanitized_strings'][$object['name']] = pathauto_cleanstring($object['name']);
     $vars['sanitized_strings'][$object['nb_piece_name']] = pathauto_cleanstring($object['nb_piece_name']);
   }
   ksort($vars['results']);
@@ -713,6 +721,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
     array(
       'only_first_letter' => FALSE,
       'first_letter' => FALSE,
+      'sort_first_letter' => FALSE,
       'bien' => FALSE,
     ),
     $options
@@ -751,10 +760,15 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   $query->join('field_data_field_programme_loc_department', NULL, 'field_data_field_programme_loc_department.entity_id = ' . $table . '.entity_id');
   $query->join('field_data_field_numero_departement', NULL, 'field_data_field_programme_loc_department.field_programme_loc_department_tid = field_data_field_numero_departement.entity_id');
 
+  // If asked for a bien
+  if($options['bien']) {
+    $query->groupBy('type.tid, nb_piece.tid');
+
   // If not asked only the first letter get name
-  if(!$options['only_first_letter']) {
+  }elseif(!$options['only_first_letter']) {
     $query->fields('ttd', array('name'));
     $query->groupBy('ttd.tid');
+
   // Otherwise get only the first letters
   }else{
     $query->addExpression('SUBSTRING(ttd.name, 1, 1)', 'first_letter');
@@ -794,7 +808,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
 
   // If we are in the villes section with no first letter
   // We order by city usage
-  if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter']) {
+  if ($location == 'villes' && !$options['first_letter'] && !$options['only_first_letter'] && !$options['sort_first_letter']) {
     $query->addExpression('COUNT(ttd.tid)', 'number_of_use');
     $query->orderBy('number_of_use');
     // Otherwise, we order by city name
@@ -807,4 +821,20 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
 
   // Execute
   return $query->execute();
+}
+
+/**
+ * Convert utf8 accents to string
+ */
+function convert_utf8_accents_tostring($str) {
+  $_arr = array('Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+    'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+    'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+    'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+    'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y',
+    'G' => 'G', 'I' => 'I', 'S' => 'S', 'g' => 'g', 'i' => 'i', 's' => 's', 'ü' => 'u',
+    'a' => 'a', 'A' => 'A', '?' => 's', '?' => 'S', '?' => 't', '?' => 'T'
+  );
+
+  return strtr($str, $_arr);
 }

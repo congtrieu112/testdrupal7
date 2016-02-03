@@ -133,7 +133,7 @@ function kandb_domains_domain_conf_default_variables() {
     'site_name' => 'KandB',
     'site_mail' => 'gregory.montigny@digitaslbi.fr',
     'site_slogan' => '',
-    'site_frontpage' => 'homepage',
+    'site_frontpage' => 'b2b-homepage',
     'anonymous' => 'Anonymous',
     'admin_theme' => 'adminimal',
     'date_default_timezone' => 'Europe/Paris',
