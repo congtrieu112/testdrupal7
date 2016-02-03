@@ -29,20 +29,21 @@ if (isset($group_header['content']) && $group_header['content']) {
           if (url($current_path) == url($url)):
             $class = 'active';
           endif;
-
-          $arr_url = explode('/',$url);
-          if (isset($arr_url[2]) && $arr_url[2] == 'nos-agences') :
-            if (in_array($arg[2], array('nos-services', 'nos-showroom'))) :
-              $class = 'active';
-            endif;
+          
+          // Checking the parent url is different to child url.
+          // Example: /nos-parent-link, /nos-child-link.
+          // Parent : corporate/activites/nos-agences.
+          // Child: corporate/activites/nos-services
+          if (preg_match('/nos/i', $_GET['q']) && preg_match('/nos/i', $url)) :
+            $class = 'active';
           endif;
           
-          if (isset($arr_url[2]) && $arr_url[2] == 'habitat') :
-            if (in_array($arg[2], array('habitat'))) :
-              $class = 'active';
-            endif;
+          // Check the child url has the pattern same parent url.
+          // Example: /parent-link, /parent-link/123
+          $pattern = str_replace('/', '\/', $url);          
+          if (preg_match('/'. $pattern . '/i', $_GET['q'])) :            
+            $class = 'active';
           endif;
-          
           
           ?>
           <li class="pageHeaderNav__list__item <?php print $class; ?>">
