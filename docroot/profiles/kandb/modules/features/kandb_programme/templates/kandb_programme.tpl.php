@@ -56,7 +56,7 @@ ksort($logement_block['total_bien']);
                   </figure>
                 <?php endif; ?>
                 <div class="programParcelItem__content">
-                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print $type_de_bien; ?><?php if($nb_pieces) : print t(' de ') . $nb_pieces; endif;?><?php print ' ' . $label; ?></h3>
+                    <h3 class="programParcelItem__heading"><?php print $total; ?>&nbsp;<?php print $logement_block['type_de_bien'][$type]; ?><?php if($nb_pieces) : print t(' de ') . $nb_pieces; endif;?><?php print ' ' . $label; ?></h3>
                     <div class="programParcelItem__prices">
                         <?php if (isset($logement_block['price_min_tva_un_20_bien'][$type]) && isset($logement_block['tva_bien'][$type]) && $affichage) : ?>
                           <p>
@@ -88,7 +88,7 @@ ksort($logement_block['total_bien']);
                     <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                         <aside class="programParcelPopin">
                             <div class="heading heading--bordered">
-                                <p class="heading__title"><?php print $type_de_bien; ?>&nbsp;<?php print ($nb_pieces ? $nb_pieces . " " : ''); ?><?php print t('disponibles');?></p>
+                                <p class="heading__title"><?php print $logement_block['type_de_bien'][$type]; ?>&nbsp;<?php print ($nb_pieces ? $nb_pieces . " " : ''); ?><?php print t('disponibles');?></p>
                                 <p class="heading__title heading__title--sub"><?php print t('dans ce programme'); ?></p>
                             </div>
                             <div class="moreAvailable">
