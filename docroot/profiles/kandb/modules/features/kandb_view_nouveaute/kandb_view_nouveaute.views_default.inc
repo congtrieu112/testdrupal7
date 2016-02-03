@@ -138,7 +138,7 @@ function kandb_view_nouveaute_views_default_views() {
     144435657 => 0,
     42676763 => 0,
   );
-  $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 30 day';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 60 day';
   $handler->display->display_options['filters']['field_programme_online_date_value']['default_to_date'] = 'now';
 
   /* Display: Block Nouveaute */
@@ -192,7 +192,7 @@ function kandb_view_nouveaute_views_default_views() {
     144435657 => 0,
     42676763 => 0,
   );
-  $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 30 day';
+  $handler->display->display_options['filters']['field_programme_online_date_value']['default_date'] = 'now - 60 day';
   $handler->display->display_options['filters']['field_programme_online_date_value']['default_to_date'] = 'now';
   /* Filter criterion: Domain Access: Available on current domain */
   $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
