@@ -19,8 +19,11 @@ function kandb_partenaire_node_insert($node) {
   ) {
     return;
   }
-  if ($node->type == 'partenaire' && $node->is_new == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3 && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
-    kandb_partenaire_create_archive_file($node);
+  if ($node->type == 'partenaire' && $node->is_new == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
+    update_partenaire_specific_programme_document(array($node));
+    if (isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
+      kandb_partenaire_create_archive_file($node);
+    }
   }
 //  elseif ($node->type == 'bien' && $node->status == 1 && isset ($node->field_bien_plan[LANGUAGE_NONE][0]['fid']) && isset ($node->field_programme[LANGUAGE_NONE][0]['target_id'])) {
 //    kandb_partenaire_update_archive_file($node);
@@ -36,7 +39,7 @@ function kandb_partenaire_node_update($node) {
   if (isset($node->flag_habiteo) && $node->flag_habiteo) {
     return;
   }
-  if ($node->type == 'partenaire' && $node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3 && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
+  if ($node->type == 'partenaire' && $node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
     $programme = array();
     $old_programme = array();
     if (isset($node->field_partenaire_programmes[LANGUAGE_NONE])) {
@@ -50,7 +53,10 @@ function kandb_partenaire_node_update($node) {
       }
     }
     if (!empty(array_diff($old_programme, $programme)) || !empty(array_diff($programme, $old_programme))) {
-      kandb_partenaire_create_archive_file($node);
+      if (isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1) {
+        kandb_partenaire_create_archive_file($node);
+      }
+      update_partenaire_specific_programme_document(array($node));
     }
   }
 //  elseif ($node->type == 'programme' && ($node->status != $node->original->status || !empty(array_diff($node->domains, $node->original->domains)) || !empty(array_diff($node->original->domains, $node->domains)))) {
@@ -110,7 +116,15 @@ function kandb_partenaire_menu() {
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM,
     'page callback' => 'kandb_partenaire_prepare_download_file',
-    'page arguments' => array(1),
+    'page arguments' => array(1, 'document_lot_plan.zip'),
+  );
+  
+  $items['partenaires/%/document.zip'] = array(
+    'title' => 'Download document programme',
+    'access callback' => TRUE,
+    'type' => MENU_NORMAL_ITEM,
+    'page callback' => 'kandb_partenaire_prepare_download_file',
+    'page arguments' => array(1, 'document.zip'),
   );
 
   $items['partenaires/%/PROGRAMME.TXT'] = array(
@@ -151,7 +165,7 @@ function kandb_partenaire_cronapi($op, $job = NULL) {
   return $items;
 }
 
-function kandb_partenaire_prepare_download_file($vuuid = '') {
+function kandb_partenaire_prepare_download_file($vuuid = '', $file_name = '') {
   if ($vuuid == '') {
     return;
   }
@@ -166,26 +180,32 @@ function kandb_partenaire_prepare_download_file($vuuid = '') {
   $pid = $db_query->execute()->fetchField();
   if ($pid) {
     $node = node_load($pid);
+    $partenaire_plan = TRUE;
+    if ($file_name == 'document_lot_plan.zip') {
+      if (!isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) || $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] != 1) {
+        $partenaire_plan = FALSE;
+      }
+    }
     $file_exist = TRUE;
-    if ($node->status == 1 && isset($node->field_partenaire_plan[LANGUAGE_NONE][0]['value']) && $node->field_partenaire_plan[LANGUAGE_NONE][0]['value'] == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
+    if ($partenaire_plan && $node->status == 1 && isset($node->field_partenaire_export[LANGUAGE_NONE][0]['value'])) {
       if ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 3) {
-        $file_path .= $vuuid . '/document_lot_plan.zip';
+        $file_path .= $vuuid . '/' . $file_name;
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . $vuuid . '/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . $vuuid . '/' . $file_name);
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 1) {
-        $file_path .= 'b2c/document_lot_plan.zip';
+        $file_path .= 'b2c/' . $file_name;
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2c/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . 'b2c/' . $file_name);
         } else {
           $file_exist = FALSE;
         }
       } elseif ($node->field_partenaire_export[LANGUAGE_NONE][0]['value'] == 2) {
-        $file_path .= 'b2b/document_lot_plan.zip';
+        $file_path .= 'b2b/' . $file_name;
         if (is_file($file_path)) {
-          drupal_goto($partenaire_directory . 'b2b/document_lot_plan.zip');
+          drupal_goto($partenaire_directory . 'b2b/' . $file_name);
         } else {
           $file_exist = FALSE;
         }
@@ -321,7 +341,7 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
       foreach (glob($path . "/*.*") as $filename) {
         if (is_file($filename)) {
           $tmp_filename = str_replace($path . '/', '', $filename);
-          if ($tmp_filename == 'document_lot_plan.zip') {
+          if ($tmp_filename == 'document_lot_plan.zip' || $tmp_filename == 'document.zip') {
             unlink($filename);
           }
         }
@@ -332,7 +352,7 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
       foreach (glob($path . "/*.*") as $filename) {
         if (is_file($filename)) {
           $tmp_filename = str_replace($path . '/', '', $filename);
-          if ($tmp_filename == 'document_lot_plan.zip') {
+          if ($tmp_filename == 'document_lot_plan.zip' || $tmp_filename == 'document.zip') {
             unlink($filename);
           }
         }
@@ -352,7 +372,12 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     kandb_get_partenaire_lot_plan();
     //PROGRAMME.TXT
     kandb_update_b2c_b2b_partenaire_programme_txt_files();
-
+    //Programme document (document.zip)
+    $b2b_programme = kandb_update_b2c_b2b_partenaire_get_programme(2);
+    kandb_build_programme_document($b2b_programme, $ori_path . '/b2b', 'b2b');
+    $b2c_programme = kandb_update_b2c_b2b_partenaire_get_programme(3);
+    kandb_build_programme_document($b2c_programme, $ori_path . '/b2c', 'b2c');
+    update_partenaire_specific_programme_document();
   }
 }
 
@@ -431,6 +456,82 @@ function kandb_partenaire_create_archive_file($node) {
   }
   $files_info = kandb_partenaire_get_file_info($all_pdf_files);
   kandb_partenaire_create_file_zip($path . '/document_lot_plan.zip', $files_info);
+}
+
+function kandb_build_programme_document($list_programme = array(), $path = '', $domain = 'b2b') {
+  if(empty($list_programme) || $path == '') {
+    return ;
+  }
+  if ($domain == 'b2b') {
+    $files_file = array(
+      'field_plaquette_commerciale' => 'prg_plaquette_fr_',
+      'field_fiche_renseignement' => 'PRG_FICHE_',
+      'field_plan_batiment' => 'PRG_PLAN_',
+      'field_kit_fiscal' => 'PRG_KIT_FISCAL_',
+      'field_contrat_reservation' => 'PRG_CONTRAT_',
+      'field_etat_des_risques' => 'PRG_ETATDERISQUE_',
+      'field_lettre_de_banque' => 'PRG_LETTRE_',
+      'field_prestations_programme' => 'prg_prestations_',
+      'field_mandat_gestion_locative' => 'PRG_MANDAT_',
+      'field_plan_masse_sous_sol' => 'LOT_PLAN_MASSE_',
+      'field_visuel_grande_taille' => 'PRG_VISUEL_',
+      'field_bail_commercial' => 'PRG_BAIL_COMMERCIAL_',
+      'field_bon_commande_mobilier' => 'PRG_COMMANDE_MOBILIER_',
+      'field_autre_documents' => '',
+    );
+  }
+  else{
+    $files_file = array(
+      'field_plaquette_commerciale' => 'prg_plaquette_fr_',
+      'field_fiche_renseignement' => 'PRG_FICHE_',
+      'field_plan_batiment' => 'PRG_PLAN_',
+      'field_kit_fiscal' => 'PRG_KIT_FISCAL_',
+    );
+  }
+  $zip = new ZipArchive();
+  if ($zip->open($path . '/document.zip', ZipArchive::CREATE) == TRUE) {
+    $reset_sleep = 0;
+    foreach ($list_programme as $nid) {
+      $node_programme = node_load($nid);
+      $id_programme = isset($node_programme->field_id_programme[LANGUAGE_NONE][0]['value']) ? $node_programme->field_id_programme[LANGUAGE_NONE][0]['value'] : '';
+      foreach ($files_file as $field => $pre_file_name) {
+        if (isset($node_programme->{$field}[LANGUAGE_NONE][0]['fid'])) {
+          $file_uri = $node_programme->{$field}[LANGUAGE_NONE][0]['uri'];
+          $file_path = drupal_realpath($file_uri);
+          if (is_file($file_path)) {
+            $file_type = substr($node_programme->{$field}[LANGUAGE_NONE][0]['filename'], strrpos($node_programme->{$field}[LANGUAGE_NONE][0]['filename'], '.'));
+            $file_name = $pre_file_name == '' ? $node_programme->{$field}[LANGUAGE_NONE][0]['filename'] : $pre_file_name . $id_programme . $file_type;
+            $zip->addFile($file_path, $file_name);
+          }
+        }
+      }
+      if (isset($node_programme->field_image_principale[LANGUAGE_NONE][0]['fid'])) {
+        $image_uri = $node_programme->field_image_principale[LANGUAGE_NONE][0]['uri'];
+        $image_path = drupal_realpath($image_uri);
+        if (is_file($image_path)) {
+          $image_type = substr($node_programme->field_image_principale[LANGUAGE_NONE][0]['filename'], strrpos($node_programme->field_image_principale[LANGUAGE_NONE][0]['filename'], '.'));
+          $zip->addFile($image_path, 'PRG_PERS_PHOT_' . $id_programme . '_1' . $image_type);
+          $style = image_style_load('small_principale');
+          if ($style) {
+            $derivative_uri = image_style_path('small_principale', $image_uri);
+            $small_image = drupal_realpath($derivative_uri);
+            if (file_exists($small_image)) {
+              $zip->addFile($small_image, 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
+            }
+            elseif (image_style_create_derivative($style, $image_uri, $derivative_uri)) {
+              $zip->addFile($small_image, 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
+            }
+          }
+        }
+      }
+      $reset_sleep++;
+      if ($reset_sleep == 50) {
+        $reset_sleep = 0;
+        sleep(5);
+      }
+    }
+  }
+  $zip->close();
 }
 
 function get_files_in_bien_related($partenaire_export = NULL, $list_programme = array()) {
@@ -804,16 +905,57 @@ function update_partenaire_specific_lot_plan(){
   }
 }
 
-function get_partenaire_specific(){
+function update_partenaire_specific_programme_document($partenaires = array()){
+  if (empty($partenaires)) {
+    $partenaires = get_partenaire_specific(FALSE);
+  }
+  foreach ($partenaires as $partenaire) {
+    $domain = '';
+    $vuuid = isset($partenaire->field_id_partenaire[LANGUAGE_NONE][0]['value']) ? $partenaire->field_id_partenaire[LANGUAGE_NONE][0]['value'] : '';
+    if ($vuuid != '' && $partenaire->status == 1) {
+      if (isset($partenaire->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value']) && $partenaire->field_partenaire_lots_b2b[LANGUAGE_NONE][0]['value'] == 1) {
+        $domain = 'b2b';
+      }
+      elseif (isset($partenaire->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value']) && $partenaire->field_partenaire_lots_b2c[LANGUAGE_NONE][0]['value'] == 1) {
+        $domain = 'b2c';
+      }
+      else {
+        continue;
+      }
+      $uri = 'public://partenaire/' . $vuuid;
+      file_prepare_directory($uri, FILE_CREATE_DIRECTORY);
+      drupal_chmod($uri, 0755);
+      $path = drupal_realpath($uri);
+      if (file_exists($path)) {
+        foreach (glob($path . "/*.*") as $filename) {
+          if (is_file($filename) && strpos('document.zip', $filename) !== FALSE) {
+            unlink($filename);
+          }
+        }
+      }
+      $list_programme = array();
+      if (isset($partenaire->field_partenaire_programmes[LANGUAGE_NONE])) {
+        foreach ($partenaire->field_partenaire_programmes[LANGUAGE_NONE] as $target) {
+          $list_programme[] = $target['target_id'];
+        }
+      }
+      kandb_build_programme_document($list_programme, $path, $domain);
+    }
+  }
+}
+
+function get_partenaire_specific($is_lot_plant = TRUE){
   $partenaire = array();
   $db_query = db_select('node', 'n');
   $db_query->fields('n', array('nid'));
   $db_query->condition('n.status', 1);
   $db_query->condition('n.type', 'partenaire');
-  $db_query->leftJoin('field_data_field_partenaire_plan', 'pl', 'pl.entity_id=n.nid');
-  $db_query->condition('pl.entity_type', 'node');
-  $db_query->condition('pl.bundle', 'partenaire');
-  $db_query->condition('pl.field_partenaire_plan_value', 1);
+  if ($is_lot_plant) {
+    $db_query->leftJoin('field_data_field_partenaire_plan', 'pl', 'pl.entity_id=n.nid');
+    $db_query->condition('pl.entity_type', 'node');
+    $db_query->condition('pl.bundle', 'partenaire');
+    $db_query->condition('pl.field_partenaire_plan_value', 1);
+  }
   $db_query->leftJoin('field_data_field_partenaire_export', 'pe', 'pe.entity_id=n.nid');
   $db_query->condition('pe.entity_type', 'node');
   $db_query->condition('pe.bundle', 'partenaire');

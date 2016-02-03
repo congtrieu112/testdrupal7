@@ -466,5 +466,21 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: small_principale.
+  $styles['small_principale'] = array(
+    'label' => 'Small principale',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 80,
+          'height' => '',
+          'upscale' => 1,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   return $styles;
 }
