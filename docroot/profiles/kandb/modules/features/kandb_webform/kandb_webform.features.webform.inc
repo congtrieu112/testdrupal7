@@ -765,7 +765,7 @@ $webforms = array();
         'machine_name' => 'prendre_rendez_vous__prenom',
         'page_num' => 1,
       ),
-      'prendre_rendez_vous__article_dossier_title' => array(
+      'avant_contactez_nous__ap_connu' => array(
         'form_key' => 'ap_connu',
         'name' => 'Comment nous avez-vous connu ?',
         'type' => 'select',
@@ -800,7 +800,7 @@ $webforms = array();
         ),
         'required' => 0,
         'weight' => 26,
-        'machine_name' => 'prendre_rendez_vous__article_dossier_title',
+        'machine_name' => 'avant_contactez_nous__ap_connu',
         'page_num' => 1,
       ),
       'avant_contactez_nous__ap_title' => array(
