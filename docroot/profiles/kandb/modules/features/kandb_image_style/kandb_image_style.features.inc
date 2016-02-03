@@ -134,7 +134,7 @@ function kandb_image_style_image_default_styles() {
   $styles['contact_selection'] = array(
     'label' => 'Contact Selection (60x60)',
     'effects' => array(
-      9 => array(
+      2 => array(
         'name' => 'image_scale_and_crop',
         'data' => array(
           'width' => 60,
@@ -142,10 +142,10 @@ function kandb_image_style_image_default_styles() {
         ),
         'weight' => 1,
       ),
-      10 => array(
+      3 => array(
         'name' => 'image_style_quality',
         'data' => array(
-          'quality' => 10,
+          'quality' => 60,
         ),
         'weight' => 2,
       ),
