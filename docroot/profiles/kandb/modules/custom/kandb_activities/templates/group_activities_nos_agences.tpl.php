@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/activites/nos-agences',$_GET['q']);
+print $tabs;
 print theme('group_activities_header');
 $arg = arg();
 $title = '';

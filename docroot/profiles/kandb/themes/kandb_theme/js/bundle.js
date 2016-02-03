@@ -38585,7 +38585,7 @@ $.fn.appContactMap = function(opt) {
 
 $(trigger).appContactMap();
 
-},{"./app-top-bar.js":36}],17:[function(require,module,exports){
+},{"./app-top-bar.js":37}],17:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -38865,13 +38865,12 @@ AppDropdown.prototype = {
     var closed  = ( this.item.attr('aria-expanded') === "false" ) ? true : false;
 
     if ( closed ) {
-      if ( this.mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length) ) {
+      if ( this.mode === "search" && (Foundation.utils.is_medium_up() || $('.homepage').length > 0) ) {
         this
           .closeAll('all')
           .open();
         return this;
       }
-
       this.open();
     } else {
       this.close();
@@ -38929,7 +38928,7 @@ AppDropdown.prototype = {
           ariaControls = $el.attr('aria-controls'),
           ariaExpanded = $el.attr('aria-expanded');
 
-      if ( ariaExpanded === "true" ) {
+      if ( ariaExpanded === "true" && $el.closest('.searchItems').length <= 0 ) {
         $el.trigger( 'click.dropdown-toggle' );
       }
     }
@@ -39739,6 +39738,7 @@ App.reveal = function() {
 
 App.revealBind = function() {
   var $siteWrapper = $('.main-wrapper');
+  var currentPos;
 
   // you can also target data-reveal="XXX" using data-reveal-target="XXX" if you don't whant to use ID
   $(document).on('click', '[data-reveal-trigger]', function(){
@@ -39751,20 +39751,20 @@ App.revealBind = function() {
     var $modal = $(this),
         iframes = $modal.find('iframe[data-src]');
 
-    // init iframes into popin
-    App.appIframes( iframes );
-
     // prevent page scrolling on mobile
-    var offsetY = window.pageYOffset;
     if ( Modernizr.touch ) {
+      currentPos = document.body.scrollTop;
       $('body, html').addClass('no-scroll');
       $siteWrapper.css({
         'position': 'fixed',
-        'top': '-' +offsetY + 'px'
+        'top': '-' + (currentPos-App.topBarHeight()) + 'px'
       });
     } else {
       $('body').addClass('no-scroll');
     }
+
+    // init iframes into popin
+    App.appIframes( iframes );
   });
 
   // event on popin opened
@@ -39785,11 +39785,12 @@ App.revealBind = function() {
 
     if ( Modernizr.touch ) {
       $('body, html').removeClass('no-scroll');
-      var scrollPosition = Math.abs( $siteWrapper.position().top );
       $siteWrapper.css({
         'position': 'static'
       });
-      $(window).scrollTop(scrollPosition);
+      if (currentPos) {
+        $(window).scrollTop(currentPos);
+      }
 
     } else {
       $('body').removeClass('no-scroll');
@@ -39845,6 +39846,122 @@ $(trigger).on('click.scroll-to', function() {
 
 
 },{}],30:[function(require,module,exports){
+/* ========================== */
+/* searchFilter : app-searchFilter.js */
+/* ========================== */
+
+"use strict";
+
+/* ============== */
+/* MODULE TRIGGER */
+/* ============== */
+
+var trigger = '[data-app-searchfilter]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppSearchFilter( el, opts ) {
+  this.settings = $.extend({}, defaults, opts);
+  this.el = $(el);
+  this.list = $( '[data-app-searchfilter-items="'+ this.el.attr('data-app-searchfilter') +'"]' );
+
+  this.init();
+}
+
+/* ============== */
+/* MODULE METHODS */
+/* ============== */
+
+AppSearchFilter.prototype = {
+  init: function() {
+    var that = this;
+
+    this.el.on('keyup', function(){
+      that.filter($(this).val());
+    });
+
+    return this;
+  },
+
+  filter: function(value){
+    var $items = this.list.find('li'),
+        $item;
+
+    if (value === "") {
+      $items.show();
+      return;
+    }
+
+    for (var i=0, len=$items.length; i<=len; i++) {
+      $item = $($items[i]);
+      if (this.accentsTidy($item.text()).search(new RegExp(this.accentsTidy(value), "i")) >= 0) {
+        $item.show();
+      } else {
+        $item.hide();
+      }
+    }
+  },
+
+  accentsTidy: function(string){
+    string = string.toLowerCase();
+    var non_asciis = {
+          'a': '[àáâãäå]',
+          'ae': 'æ',
+          'c': 'ç',
+          'e': '[èéêë]',
+          'i': '[ìíîï]',
+          'n': 'ñ',
+          'o': '[òóôõö]',
+          'oe': 'œ',
+          'u': '[ùúûűü]',
+          'y': '[ýÿ]'
+        };
+    for (var i=0, len=non_asciis.length; i<len; i++) {
+      string = string.replace(new RegExp(non_asciis[i], 'g'), i);
+    }
+    return string;
+  }
+};
+
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appSearchFilter = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppSearchFilter');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppSearchFilter', new AppSearchFilter( this, opt) );
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+        instance[opt].apply(instance, args);
+      }
+    }
+  });
+};
+
+$(trigger).appSearchFilter();
+
+
+// auto refresh after ajax response
+App.updaters.appSearchFilter = function() {
+  $(trigger).appSearchFilter();
+};
+
+},{}],31:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -39894,7 +40011,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],31:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -39995,7 +40112,7 @@ $(trigger).appSeeMore();
 App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
 };
-},{}],32:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -40045,7 +40162,7 @@ App.appComboSelect(trigger);
 App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
-},{}],33:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-showText.js */
 /* ======================== */
@@ -40161,7 +40278,7 @@ App.updaters.appShowMoreText = function() {
   $(trigger).appShowMoreText();
 };
 
-},{}],34:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -40362,7 +40479,7 @@ App.updaters.appSlick = function() {
   $(trigger).appSlick();
 };
 
-},{}],35:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /* ====================== */
 /* expand more info table row: app-table-outils.js */
 /* ====================== */
@@ -40531,7 +40648,7 @@ $(triggerCheckbox).appTableCheckbox();
 $(triggerSelectedCheckbox).appCheckSelectedRows();
 
 
-},{}],36:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -40546,7 +40663,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -41183,7 +41300,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],38:[function(require,module,exports){
+},{"jquery":5}],39:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -41283,6 +41400,7 @@ var appPartager         = require("./app-partager.js");
 var appTableOutils      = require("./app-table-outils.js");
 var appCalendar         = require("./app-calendar.js");
 var appPopinCookies     = require("./app-popinCookies.js");
+var appSearchFilter     = require("./app-searchFilter.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -41298,4 +41416,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFormular.js":30,"./app-seeMore.js":31,"./app-select.js":32,"./app-showText.js":33,"./app-slick.js":34,"./app-table-outils.js":35,"./app-top-bar.js":36,"./combo-select.js":37,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[38]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFilter.js":30,"./app-searchFormular.js":31,"./app-seeMore.js":32,"./app-select.js":33,"./app-showText.js":34,"./app-slick.js":35,"./app-table-outils.js":36,"./app-top-bar.js":37,"./combo-select.js":38,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[39]);

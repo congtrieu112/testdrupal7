@@ -4,7 +4,10 @@
  * Explore our business template.
  */
 ?>
-
+<?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
+?>
 <?php print theme('group_rh_header'); ?>
 <?php
 $module_title = variable_get('explore_our_businesses_module_title');
@@ -17,7 +20,7 @@ $button_link = variable_get('explore_our_businesses_button_link');
         <?php if ($module_title): ?>
           <header class="heading heading--bordered">
               <h1 class="heading__title"><?php print $module_title; ?></h1>
-          </header>  
+          </header>
         <?php endif; ?>
         <div class="metier__list">
             <?php for ($i = 0; $i <= KANDB_GROUP_OUR_BUSINESS_ITEMS_NUM; $i++) : ?>

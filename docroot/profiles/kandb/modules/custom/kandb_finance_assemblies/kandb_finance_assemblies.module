@@ -28,7 +28,7 @@ function kandb_finance_assemblies_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['admin/content/ketb/finance/assemblies'] = array(
+  $items['admin/content/ketb/corporate/finance/assemblee-generale'] = array(
     'title' => '[Finance] Assemblies',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_finance_assemblies_admin_form'),

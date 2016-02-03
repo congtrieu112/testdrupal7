@@ -121,6 +121,9 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
   if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
     $form['#avant_premiere_id'] = arg(1);
   }
+  if(isset($_GET['nid']) && is_numeric($_GET['nid'])) {
+    $form['#node_id'] = $_GET['nid'];
+  }
   if(in_array($form_id, $all_forms)) {
     array_unshift($form['#submit'], 'kandb_webform_submit');
   }
