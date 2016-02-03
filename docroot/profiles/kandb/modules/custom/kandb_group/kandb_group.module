@@ -62,8 +62,7 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
-
-  $items['admin/content/ketb/finance/presentation'] = array(
+  $items['admin/content/ketb/corporate/finance/presentation'] = array(
     'title' => '[Finance] Presentation',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_presentation_admin_form'),
@@ -72,7 +71,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/content/ketb/finance/gouvernance'] = array(
+  $items['admin/content/ketb/corporate/finance/gouvernance'] = array(
     'title' => '[Finance] Gouvernance',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_gouvernance_admin_form'),
@@ -124,7 +123,7 @@ function kandb_group_menu() {
     'access arguments' => array('access content'),
   );
 
-  $items['admin/content/ketb/finance/publication'] = array(
+  $items['admin/content/ketb/corporate/finance/publication'] = array(
     'title' => '[Finance] Publication',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_finance_publication_admin_form'),
@@ -160,7 +159,7 @@ function kandb_group_menu() {
 
   // HR page.
 
-  $items['admin/content/ketb/group/rh'] = array(
+  $items['admin/content/ketb/corporate/ressources-humaines/recrutement'] = array(
     'title' => '[RH] - Recrutement',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_admin_form'),
@@ -347,6 +346,10 @@ function kandb_group_theme($existing, $type, $theme, $path) {
       'template' => 'templates/group_news_notre_histoire',
       'variables' => array(),
     ),
+    'group_button_tabs_header' => array(
+      'template' => 'templates/group_button_tabs_header',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -360,7 +363,7 @@ function kandb_group_form_alter(&$form, $form_state, $form_id) {
   if(empty($email_input)) {
     $email_input = t('Votre adresse d’email');
   }
-  
+
   $inscription_form = webform_features_machine_name_load('inscription');
   $inscription_form_id = isset($inscription_form->nid) ? 'webform_client_form_' . $inscription_form->nid : '';
   if ($form_id == $inscription_form_id) {
@@ -819,4 +822,8 @@ function kandb_group_actualites_nos_valeurs_page() {
 
 function kandb_group_actualites_notre_histoire_page() {
   return theme('group_news_notre_histoire');
+}
+
+function kandb_group_button_tabs_header($path = '', $destination = ''){
+  return theme('group_button_tabs_header', array('path'=> $path,'destination'=> $destination));
 }

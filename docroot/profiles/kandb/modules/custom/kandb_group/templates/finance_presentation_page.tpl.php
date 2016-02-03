@@ -63,8 +63,9 @@ if (count($notebooks_kpi_component_arr) % 2 != 0) :
   $last_notebooks_kpi_component_arr = end($notebooks_kpi_component_arr);
   array_pop($notebooks_kpi_component_arr);
 endif;
+$tabs = kandb_group_button_tabs_header('corporate/finance/publication', $_GET['q']);
+print $tabs;
 ?>
-
 <?php
 print theme('finance_header_block');
 ?>
@@ -114,7 +115,7 @@ print theme('finance_header_block');
         <?php if ($kpi_module_title) : ?>
           <header class="heading heading--bordered">
               <h1 class="heading__title"><?php print $kpi_module_title; ?></h1>
-          </header>  
+          </header>
         <?php endif; ?>
         <?php if ($kpi_component_arr) : ?>
           <div class="graphicPresentation__list">

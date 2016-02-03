@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
 print theme('group_rh_header');
 $recruitment_section_image_uri = $date_1_value = $date_2_value = '';
 $recruitment_section_image_id = variable_get('image_group_hr_recruitment_section');
