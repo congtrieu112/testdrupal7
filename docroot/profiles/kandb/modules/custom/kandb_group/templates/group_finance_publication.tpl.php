@@ -10,7 +10,8 @@ $current_lang = isset($current_lang) && $current_lang == 'en' ? $current_lang : 
 $title_calendrier = variable_get('finance_publication_calendrier_title_' . $current_lang);
 $title_document = variable_get('finance_publication_document_title_' . $current_lang);
 $text_infor = variable_get('finance_publication_document_text_infor_' . $current_lang);
-
+$tabs = kandb_group_button_tabs_header('corporate/finance/publication', $_GET['q']);
+print $tabs;
 print theme('finance_header_block');
 ?>
 
