@@ -36,6 +36,14 @@ if (isset($group_header['content']) && $group_header['content']) {
               $class = 'active';
             endif;
           endif;
+          
+          if (isset($arr_url[2]) && $arr_url[2] == 'habitat') :
+            if (in_array($arg[2], array('habitat'))) :
+              $class = 'active';
+            endif;
+          endif;
+          
+          
           ?>
           <li class="pageHeaderNav__list__item <?php print $class; ?>">
               <a href="<?php print url($url); ?>"><?php print $title; ?></a>
