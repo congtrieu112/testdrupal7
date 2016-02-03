@@ -88,7 +88,7 @@ ksort($logement_block['total_bien']);
                     <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
                         <aside class="programParcelPopin">
                             <div class="heading heading--bordered">
-                                <p class="heading__title"><?php print $type_de_bien; ?>&nbsp;<?php print $nb_pieces;?><?php print t(' disponibles');?></p>
+                                <p class="heading__title"><?php print $type_de_bien; ?>&nbsp;<?php print ($nb_pieces != NULL ? $nb_pieces . " " : ''); ?><?php print t('disponibles');?></p>
                                 <p class="heading__title heading__title--sub"><?php print t('dans ce programme'); ?></p>
                             </div>
                             <div class="moreAvailable">
