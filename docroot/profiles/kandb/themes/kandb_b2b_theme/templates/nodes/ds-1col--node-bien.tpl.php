@@ -612,12 +612,35 @@ $gid = $_domain['domain_id'];
 $list_bien_more = array();
 if ($piece_id) {
   $nb_pieces = taxonomy_term_load($piece_id);
-  $list_bien_more = get_biens_follow_piece_program($programme->nid, $piece_id);
+  $field_id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : 0;
+  // Get list bien exclude current bien with surface (sort asc)
+  $list_bien_more = get_biens_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien);
+  // Get bien with price min
+  $list_bien_more_price_min = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'ASC');
+  // Get bien with price max
+  $list_bien_more_price_max = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'DESC');
 
-  if (isset($list_bien_more[$node->nid])) :
-    unset($list_bien_more[$node->nid]);
-  endif;
+  // List bien more (First: Cheapest, Second: Expensive, Remain: Bien from the smallest to the larger Bien (surface)
+  if(count($list_bien_more) > 2) {
+    $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
+    $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
+    if($bien_id_price_max) {
+      unset($list_bien_more[$bien_id_price_max]);
+    }
 
+    if($bien_id_price_min) {
+      unset($list_bien_more[$bien_id_price_min]);
+    }
+
+    if($list_bien_more_price_min && $list_bien_more_price_max) {
+      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max, $list_bien_more);
+    }
+  } elseif(count($list_bien_more) == 2) {
+    if($list_bien_more_price_min && $list_bien_more_price_max) {
+      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max);
+    }
+  }
+  
   foreach ($list_bien_more as $item) {
     $bien_datas = node_load($item->nid);
     if (!in_array($gid, $bien_datas->domains)) {
