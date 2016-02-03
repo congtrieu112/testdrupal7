@@ -505,16 +505,6 @@ function kandb_theme_preprocess_node(&$vars) {
       'field_fiche_renseignement',
       'field_plan_batiment',
       'field_kit_fiscal',
-      'field_contrat_reservation',
-      'field_etat_des_risques',
-      'field_lettre_de_banque',
-      'field_prestations_programme',
-      'field_mandat_gestion_locative',
-      'field_plan_masse_sous_sol',
-      'visuel_grande_taille',
-      'field_bail_commercial',
-      'bon_commande_mobilier',
-      'autre_documents'
     );
 
     $vars['status_document'] = FALSE;
