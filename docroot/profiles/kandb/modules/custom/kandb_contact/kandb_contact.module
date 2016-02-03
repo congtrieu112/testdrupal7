@@ -143,14 +143,19 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
 
 function kandb_contact_buttons($only_links = false) {
   global $base_url, $node;
-
   $links = array();
   $url = array();
   $webform_machine_names = array(
     '_tre_rappel_',
     'prendre_rendez_vous',
   );
-
+  $link = '';
+  if(!empty($_GET['q'])){
+    $array_node = explode('/', $_GET['q']);
+    if($array_node[0] == 'node' && !empty($array_node[1]) && is_numeric($array_node[1])) {
+      $link = '?nid='.$array_node[1];
+    }
+  }
   foreach ($webform_machine_names as $name) {
     $webform = webform_features_machine_name_load($name);
     if ($webform) {
@@ -158,7 +163,7 @@ function kandb_contact_buttons($only_links = false) {
       $links[] = theme_link(
           array(
             'text' => '<span>' . $webform->title . '</span>',
-            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid),
+            'path' => $base_url . '/' . drupal_get_path_alias('node/' . $webform->nid).$link,
             'options' => array(
               'attributes' => array(
                 'class' => array(($name == '_tre_rappel_' ? 'btn-primary btn-rounded' : 'btn-secondary btn-rounded')),
