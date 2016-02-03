@@ -85,6 +85,9 @@ function kb_mail_form_alter(&$form, &$form_state, $form_id) {
   if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
     $form['#avant_premiere_id'] = arg(1);
   }
+  if(isset($_GET['nid']) && is_numeric($_GET['nid'])) {
+    $form['#node_id'] = $_GET['nid'];
+  }
   if(in_array($form_id, $all_forms)) {
     array_unshift($form['#submit'], 'kandb_webform_submit');
   }
@@ -148,16 +151,24 @@ function kandb_webform_submit(&$form, &$form_state) {
     $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien, $avant_premiere);
     $has_prefix = FALSE;
     if ($webform_name == '_tre_rappel_') {
-//      $subject = t('Se Faire rappeler @programme_title / @programme_loc_ville / @programme_loc_department / @programme_idkp', array('@programme_title' => $variables['programme_title'], '@programme_loc_ville' => $variables['programme_loc_ville'], '@programme_loc_department' => $variables['programme_loc_department'], '@programme_idkp' => $variables['programme_idkp']));
       $subject = t('Se Faire rappeler ');
-      $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
-      foreach ($sub_vars as $var) {
-        if ($variables[$var]) {
-          if ($has_prefix) {
-            $subject .= ' / ';
+      if (isset($form['#node_id']) && is_numeric($form['#node_id']) && $webform_name == '_tre_rappel_') {
+        $node = node_load($form['#node_id']);
+        if ($node->type == 'dossier' || $node->type == 'article') {
+          $subject .= $node->title;
+          $variables['tre_rappel_title'] = $node->title;
+        }
+      }
+      if (!isset($variables['tre_rappel_title'])) {
+        $sub_vars = array('programme_title', 'programme_loc_ville', 'programme_loc_department', 'programme_idkp');
+        foreach ($sub_vars as $var) {
+          if ($variables[$var]) {
+            if ($has_prefix) {
+              $subject .= ' / ';
+            }
+            $subject .= $variables[$var];
+            $has_prefix = TRUE;
           }
-          $subject .= $variables[$var];
-          $has_prefix = TRUE;
         }
       }
       kandb_webform_send_mail('etre_rappele_callback_request', $subject, 'call_center', $variables);
