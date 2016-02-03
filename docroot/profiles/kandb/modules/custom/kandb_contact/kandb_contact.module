@@ -386,11 +386,14 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
             //$id_programme = (isset($node->field_programme[LANGUAGE_NONE][0])) ? $node->field_programme[LANGUAGE_NONE][0]["target_id"] : 0;
             $id_bien = (isset($node->field_id_bien[LANGUAGE_NONE][0])) ? $node->field_id_bien[LANGUAGE_NONE][0]["value"] : 0;
             break;
+          case 'article' :
+          case 'dossier' :
+            $title_page = $node->title;
+            break;
 
           default:
             break;
         }
-
         if (!empty($programme)) {
           $program_title = $programme->title;
           if (isset($programme->field_programme_loc_ville[LANGUAGE_NONE][0])) {
@@ -429,7 +432,20 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
               $form['submitted']['dept_prog']["#default_value"] = (!empty($program_department)) ? $program_department : '';
               $form['submitted']['dept_prog']["#value"] = (!empty($program_department)) ? $program_department : '';
               $form['submitted']['dept_prog']['#type'] = 'hidden';
+
+              $form['submitted']['vid_node']["#default_value"] = (!empty($node->vid)) ? $node->vid : '';
+              $form['submitted']['vid_node']["#value"] = (!empty($node->vid)) ? $node->vid : '';
+              $form['submitted']['vid_node']['#type'] = 'hidden';
             }
+
+            $form['submitted']['article_dossier_title']["#default_value"] = (!empty($title_page)) ? $title_page : '';
+            $form['submitted']['article_dossier_title']["#value"] = (!empty($title_page)) ? $title_page : '';
+            $form['submitted']['article_dossier_title']['#type'] = 'hidden';
+
+            $form['submitted']['content_type']["#default_value"] = (!empty($node->type)) ? $node->type : '';
+            $form['submitted']['content_type']["#value"] = (!empty($node->type)) ? $node->type : '';
+            $form['submitted']['content_type']['#type'] = 'hidden';
+
             break;
           case $webform_id_telechargement_documents:
             $parram = drupal_get_query_parameters();
