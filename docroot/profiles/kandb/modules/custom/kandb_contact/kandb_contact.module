@@ -143,12 +143,14 @@ function kandb_contact_theme($existing, $type, $theme, $path) {
 
 function kandb_contact_buttons($only_links = false) {
   global $base_url, $node;
+
   $links = array();
   $url = array();
   $webform_machine_names = array(
     '_tre_rappel_',
     'prendre_rendez_vous',
   );
+  
   $link = '';
   if(!empty($_GET['q'])){
     $array_node = explode('/', $_GET['q']);

@@ -151,7 +151,6 @@ function kandb_webform_submit(&$form, &$form_state) {
     $variables = kandb_webform_build_variable_mail($webform_name, $values, $node, $bien, $avant_premiere);
     $has_prefix = FALSE;
     if ($webform_name == '_tre_rappel_') {
-      global $base_url;
       $subject = t('Se Faire rappeler ');
       if (isset($form['#node_id']) && is_numeric($form['#node_id'])&& $webform_name == '_tre_rappel_'){
         $node = node_load($form['#node_id']);
