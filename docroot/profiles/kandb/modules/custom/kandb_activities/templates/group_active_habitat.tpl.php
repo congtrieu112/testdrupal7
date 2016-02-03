@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header('corporate/activites/habitat', $_GET['q']);
+print $tabs;
 print theme('group_activities_header');
 $description = variable_get('desciption_group_habitat_section', t('Sed posuere consectetur est at lobortis. Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur'));
 ?>

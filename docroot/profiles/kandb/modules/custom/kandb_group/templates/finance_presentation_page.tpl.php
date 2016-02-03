@@ -63,7 +63,7 @@ if (count($notebooks_kpi_component_arr) % 2 != 0) :
   $last_notebooks_kpi_component_arr = end($notebooks_kpi_component_arr);
   array_pop($notebooks_kpi_component_arr);
 endif;
-$tabs = kandb_group_button_tabs_header('corporate/finance/publication', $_GET['q']);
+$tabs = kandb_group_button_tabs_header('corporate/finance/presentation', $_GET['q']);
 print $tabs;
 ?>
 <?php

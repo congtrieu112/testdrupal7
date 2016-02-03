@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
 print theme('group_rh_header');
 global $base_url;
 $webform = webform_features_machine_name_load('candidature');

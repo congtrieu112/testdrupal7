@@ -1,4 +1,6 @@
 <?php
+$tabs = kandb_group_button_tabs_header($_GET['q']);
+print $tabs;
 print theme('group_activities_header');
 ?>
 <section class="section-padding activities">

@@ -168,7 +168,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/content/ketb/group/apply-offers'] = array(
+  $items['admin/content/ketb/corporate/ressources-humaines/postuler'] = array(
     'title' => '[RH] - Apply',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_apply_offers_admin_form'),
@@ -177,7 +177,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/content/ketb/group/your-career'] = array(
+  $items['admin/content/ketb/corporate/ressources-humaines/votre-carriere'] = array(
     'title' => '[RH] - Your Career',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_your_career_admin_form'),
@@ -186,7 +186,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/content/ketb/group/explore-our-businesses'] = array(
+  $items['admin/content/ketb/corporate/ressources-humaines/nos-metiers'] = array(
     'title' => '[RH] - Explore Our Businesses',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_rh_explore_our_businesses_admin_form'),
@@ -228,7 +228,7 @@ function kandb_group_menu() {
   );
 
   // Actualités page.
-  $items['admin/content/ketb/group/actualites'] = array(
+  $items['admin/content/ketb/corporate/actualites'] = array(
     'title' => '[Group] - Actualités',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_new_admin_form'),
@@ -261,7 +261,7 @@ function kandb_group_menu() {
     'type' => MENU_NORMAL_ITEM,
   );
 
-  $items['admin/content/ketb/group/nos-valeurs'] = array(
+  $items['admin/content/ketb/corporate/actualites/nos-valeurs'] = array(
     'title' => '[Actualités] - Nos Valeurs',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_nos_valeurs_admin_form'),
@@ -270,7 +270,7 @@ function kandb_group_menu() {
     'type' => MENU_LOCAL_TASK,
   );
 
-  $items['admin/content/ketb/group/notre-histoire'] = array(
+  $items['admin/content/ketb/corporate/actualites/notre-histoire'] = array(
     'title' => '[Actualités] - Notre histoire',
     'page callback' => 'drupal_get_form',
     'page arguments' => array('kandb_group_notre_histoire_admin_form'),
