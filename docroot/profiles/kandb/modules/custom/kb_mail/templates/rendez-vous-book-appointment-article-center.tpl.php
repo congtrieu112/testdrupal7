@@ -78,7 +78,7 @@
                                                           <p style="margin: 0;">Adresse&nbsp;: <?php print $mail_vars['rdv_adresse1']; ?> <br /> <?php print $mail_vars['rdv_adresse2']; ?></p>
                                                         </td>
                                                         <td valign="top" style="margin: 0; padding-bottom: 25px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                                                          <p style="margin: 0;">Ville&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rdv_ville']; ?></span>
+                                                          <p style="margin: 0;">Ville&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rdv_ville']; ?> - <?php print $mail_vars['rdv_lieudit']; ?></span>
                                                           </p>
                                                           <p style="margin: 0;">Code Postal&nbsp;: <span><?php print $mail_vars['rdv_code_postal']; ?></span>
                                                           </p>
