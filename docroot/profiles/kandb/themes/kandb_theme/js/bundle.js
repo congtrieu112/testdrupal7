@@ -38356,6 +38356,7 @@ var trigger            = '[data-contact-map]',
     sectionActive      = 'data-contact-map-active',
     sectionTrigger     = 'data-contact-map-section',
     sectionTriggerAttr = '[' + sectionTrigger + ']',//Id representing the map region selected
+    accordionActive    = '.active',
     sections,
     hasMapListeners,
     that;
@@ -38398,6 +38399,7 @@ var mapOffsetTop = function() {
 };
 
 var activateSection = function(id) {
+
     var el = id && that.item.find(composeId(id)),
         className = el.attr('class');
 
@@ -38436,8 +38438,6 @@ var activateRegion = function() {
     var id = $(this).attr('data-contact-map-section'),
         lastSection = that.settings.currentSection;
 
-    //console.log('height', $(this.parentNode).height());
-    //console.log('outer height', $(this.parentNode).outerHeight(true));
     that.settings.currentSection = id;
 
     scrollToMapTop(this, lastSection);
@@ -38544,8 +38544,11 @@ AppContactMap.prototype = {
         this.topBarHeight = App.topBarHeight();
         sections = '[id^=' + this.settings.mapSectionPrefix + ']';
         this.bindEvents();
-        activateSection(this.item.attr(sectionActive));
-
+        // retriving the first list item
+        var firstRegionId = $(accordionActive + sectionTriggerAttr).first();
+        if (firstRegionId) {
+          activateSection(firstRegionId.data(sectionTrigger.replace('data-', '')));
+        }
         return this;
     },
 
@@ -38585,7 +38588,7 @@ $.fn.appContactMap = function(opt) {
 
 $(trigger).appContactMap();
 
-},{"./app-top-bar.js":37}],17:[function(require,module,exports){
+},{"./app-top-bar.js":38}],17:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -40481,6 +40484,120 @@ App.updaters.appSlick = function() {
 
 },{}],36:[function(require,module,exports){
 /* ====================== */
+/* stickContactInfo : app-stick-contact-info.js */
+/* ====================== */
+'use strict';
+
+require("./app-top-bar.js");
+
+var trigger   = '[data-stick-info]',
+    container = '[data-sticky-info-container]',
+    contentAttr = 'data-stick-info-content',
+    content   = '[' + contentAttr + ']',
+    attached  = false;
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+/* ============================= */
+/* MODULE PRIVATE FUNCTIONS      */
+/* ============================= */
+
+var attachContent = function() {
+  var $container      = $(container),
+      $containerChild = $(container + ' > :first-child'); 
+
+  $(content).clone().removeAttr(contentAttr).appendTo(container);
+  
+  var $containerLastChild = $(container + ' > :last-child');
+
+  $containerChild.velocity('fadeOut', {duration: 200});
+  $container.velocity({height: 90}, {duration: 200});
+  $containerLastChild.velocity('fadeIn', {delay: 200, duration: 200, display: 'flex'});
+  attached = true;
+};
+
+var detachContent = function() {
+  var $container          = $(container),
+      $containerChild     = $(container + ' > :first-child'),
+      $containerLastChild = $(container + ' > :last-child'); 
+
+  $containerLastChild.velocity('fadeOut', {
+    duration: 200,
+    complete: function() {
+      $containerLastChild.detach();
+    }
+  });
+  $container.velocity({height: this.initialTopBarHeight}, {delay: 200, duration: 200});
+  $containerChild.velocity('fadeIn', {delay: 200, duration: 200, display: 'flex'});
+  attached = false;
+};
+
+var checkAboveViewport = function() {
+  this.initialTopBarHeight = this.initialTopBarHeight || App.topBarHeight();
+  this.itemOffsetTop = this.itemOffsetTop || this.item.offset().top;
+  this.itemOffsetBottom = this.itemOffsetBottom || this.itemOffsetTop + this.item.height();
+
+  if (window.scrollY > this.itemOffsetBottom && !attached) {
+    attachContent.call(this);
+  } else if (window.scrollY < this.itemOffsetBottom && attached) {
+    detachContent.call(this);
+  }
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+
+function AppStickInfo(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.item = $(el);
+    this.init();
+}
+
+AppStickInfo.prototype = {
+    init: function() {
+      // Set a min-height for the container, this prevents doing any jump when teh original 
+      // content has been hidden and the new content has to be shown
+      $(container).css('min-height', App.topBarHeight());
+      this.bindEvents();
+      return this;
+    },
+
+    bindEvents: function () {
+      $(window).scroll(Foundation.utils.throttle(checkAboveViewport.bind(this), 300));
+      return this;
+    }
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appStickInfo = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+        var item = $(this), instance = item.data('AppStickInfo');
+        if(!instance) {
+            // create plugin instance and save it in data
+            item.data('AppStickInfo', new AppStickInfo(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+};
+
+$(trigger).appStickInfo();
+
+},{"./app-top-bar.js":38}],37:[function(require,module,exports){
+/* ====================== */
 /* expand more info table row: app-table-outils.js */
 /* ====================== */
 
@@ -40648,7 +40765,7 @@ $(triggerCheckbox).appTableCheckbox();
 $(triggerSelectedCheckbox).appCheckSelectedRows();
 
 
-},{}],37:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -40663,7 +40780,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],38:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -41300,7 +41417,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],39:[function(require,module,exports){
+},{"jquery":5}],40:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -41400,6 +41517,7 @@ var appPartager         = require("./app-partager.js");
 var appTableOutils      = require("./app-table-outils.js");
 var appCalendar         = require("./app-calendar.js");
 var appPopinCookies     = require("./app-popinCookies.js");
+var appStickInfo        = require("./app-stick-info.js");
 var appSearchFilter     = require("./app-searchFilter.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
@@ -41416,4 +41534,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFilter.js":30,"./app-searchFormular.js":31,"./app-seeMore.js":32,"./app-select.js":33,"./app-showText.js":34,"./app-slick.js":35,"./app-table-outils.js":36,"./app-top-bar.js":37,"./combo-select.js":38,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[39]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFilter.js":30,"./app-searchFormular.js":31,"./app-seeMore.js":32,"./app-select.js":33,"./app-showText.js":34,"./app-slick.js":35,"./app-stick-info.js":36,"./app-table-outils.js":37,"./app-top-bar.js":38,"./combo-select.js":39,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[40]);
