@@ -107,7 +107,7 @@
                         </tr>
                         <tr>
                           <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                              <p style="margin: 0; padding-top: 20px;">
+                              <p style="margin: 0; padding-top: 10px;">
                                 Nous reviendrons vers vous dans les meilleurs délais.<br />
                                 Nous vous remercions de la confiance accordée à notre site et espérons vous revoir prochainement sur <a href="<?php print url('node/'. $mail_vars['vid_node']) ; ?>"><?php print url('node/'. $mail_vars['vid_node'] , array('absolute' => TRUE)) ; ?></a>
                               </p>
@@ -115,7 +115,6 @@
                               Cordialement.<br />
                               &nbsp;L'équipe internet Kaufman &amp; Board
                             </p>
-                            <p style="margin: 0; padding: 15px 0 40px; font-size: 10px;">* Prix donné à lilre indicatif</p>
                           </td>
                         </tr>
                         <tr>

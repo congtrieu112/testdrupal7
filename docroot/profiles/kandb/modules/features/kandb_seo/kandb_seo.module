@@ -289,7 +289,7 @@ function kandb_seo_block_letters($location, $letter = NULL) {
   while($object = $results->fetchAssoc()){
     $min_letter = convert_utf8_accents_tostring($object['name']);
     $min_letter = strtolower($min_letter[0]);
-    
+
     $vars['location'][$min_letter] = $location . '/' . $min_letter;
     $temp[$min_letter][]  = $object['name'];
   }
@@ -763,6 +763,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   // If asked for a bien
   if($options['bien']) {
     $query->groupBy('type.tid, nb_piece.tid');
+    $query->orderBy('type.name, nb_piece.name');
 
   // If not asked only the first letter get name
   }elseif(!$options['only_first_letter']) {
@@ -782,9 +783,11 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   // and that the bien is disponible
   $query->join('field_data_field_programme', NULL, $table . '.entity_id = field_data_field_programme.field_programme_target_id');
   $query->join('field_data_field_bien_statut', NULL, 'field_data_field_programme.entity_id = field_data_field_bien_statut.entity_id AND field_bien_statut_tid = ' . $disponible_id);
+  $query->fields('field_data_field_bien_statut', array('entity_id'));
 
   // Filter by domain
-  $query->join('node_access', NULL,  $table . '.entity_id = node_access.nid AND gid = ' . $domain);
+  $query->join('node_access', 'na1',  $table . '.entity_id = na1.nid AND na1.gid = ' . $domain);
+  $query->join('node_access', 'na2',  'field_data_field_bien_statut.entity_id = na2.nid AND na2.gid = ' . $domain);
 
   // Get Bien info
   if ($options['bien']) {

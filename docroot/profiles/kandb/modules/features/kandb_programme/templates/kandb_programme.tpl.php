@@ -18,13 +18,12 @@ ksort($logement_block['total_bien']);
           $count = 1;
           foreach ($logement_block['total_bien'] as $type => $total) :
             $arr_type = explode("-", $type);
-            $type_de_bien = ''; $nb_pieces_tid = '';
+            $nb_pieces_tid = '';
             if(is_array($arr_type)) :
-                 $type_de_bien = isset($arr_type[1]) ? $arr_type[1] : '';
-                if ($type_de_bien) :
-                   if( strtolower($type_de_bien) == 'maison' || strtolower($type_de_bien) == 'appartement') :
+                if ($logement_block['type_de_bien'][$type]) :
+                   if( strtolower($logement_block['type_de_bien'][$type]) == 'maison' || strtolower($logement_block['type_de_bien'][$type]) == 'appartement') :
                        if($total > 1) :
-                          $type_de_bien = $type_de_bien . 's';
+                          $logement_block['type_de_bien'][$type] = $logement_block['type_de_bien'][$type] . 's';
                        endif;
                    endif;
                  $nb_pieces_tid = isset($arr_type[2]) ? $arr_type[2] : '';

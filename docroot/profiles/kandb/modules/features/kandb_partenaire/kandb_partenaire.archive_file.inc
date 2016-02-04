@@ -118,7 +118,7 @@ function kandb_partenaire_menu() {
     'page callback' => 'kandb_partenaire_prepare_download_file',
     'page arguments' => array(1, 'document_lot_plan.zip'),
   );
-  
+
   $items['partenaires/%/document.zip'] = array(
     'title' => 'Download document programme',
     'access callback' => TRUE,
@@ -368,7 +368,7 @@ function kandb_create_b2c_b2b_archive_file($file = '') {
     kandb_partenaire_create_file_zip($ori_path . '/b2b/document_lot_plan.zip', $files_info);
     //Update file for partenaire specific
     update_partenaire_specific_lot_plan();
-    
+
     kandb_get_partenaire_lot_plan();
     //PROGRAMME.TXT
     kandb_update_b2c_b2b_partenaire_programme_txt_files();
@@ -501,7 +501,8 @@ function kandb_build_programme_document($list_programme = array(), $path = '', $
           if (is_file($file_path)) {
             $file_type = substr($node_programme->{$field}[LANGUAGE_NONE][0]['filename'], strrpos($node_programme->{$field}[LANGUAGE_NONE][0]['filename'], '.'));
             $file_name = $pre_file_name == '' ? $node_programme->{$field}[LANGUAGE_NONE][0]['filename'] : $pre_file_name . $id_programme . $file_type;
-            $zip->addFile($file_path, $file_name);
+            $zip->addEmptyDir($id_programme);
+            $zip->addFile($file_path, $id_programme . '/' . $file_name);
           }
         }
       }
@@ -510,16 +511,19 @@ function kandb_build_programme_document($list_programme = array(), $path = '', $
         $image_path = drupal_realpath($image_uri);
         if (is_file($image_path)) {
           $image_type = substr($node_programme->field_image_principale[LANGUAGE_NONE][0]['filename'], strrpos($node_programme->field_image_principale[LANGUAGE_NONE][0]['filename'], '.'));
-          $zip->addFile($image_path, 'PRG_PERS_PHOT_' . $id_programme . '_1' . $image_type);
+          $zip->addEmptyDir($id_programme);
+          $zip->addFile($image_path, $id_programme . '/' . 'PRG_PERS_PHOT_' . $id_programme . '_1' . $image_type);
           $style = image_style_load('small_principale');
           if ($style) {
             $derivative_uri = image_style_path('small_principale', $image_uri);
             $small_image = drupal_realpath($derivative_uri);
             if (file_exists($small_image)) {
-              $zip->addFile($small_image, 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
+              $zip->addEmptyDir($id_programme);
+              $zip->addFile($small_image, $id_programme . '/' . 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
             }
             elseif (image_style_create_derivative($style, $image_uri, $derivative_uri)) {
-              $zip->addFile($small_image, 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
+              $zip->addEmptyDir($id_programme);
+              $zip->addFile($small_image, $id_programme . '/' . 'PRG_PERS_VIGN_' . $id_programme . '_1' . $image_type);
             }
           }
         }

@@ -78,7 +78,7 @@
                                                           <p style="margin: 0;">Adresse&nbsp;: <?php print $mail_vars['rdv_adresse1']; ?> <br /> <?php print $mail_vars['rdv_adresse2']; ?></p>
                                                         </td>
                                                         <td valign="top" style="margin: 0; padding-bottom: 25px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                                                          <p style="margin: 0;">Ville&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rdv_ville']; ?></span>
+                                                          <p style="margin: 0;">Ville&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rdv_ville']; ?> - <?php print $mail_vars['rdv_lieudit']; ?></span>
                                                           </p>
                                                           <p style="margin: 0;">Code Postal&nbsp;: <span><?php print $mail_vars['rdv_code_postal']; ?></span>
                                                           </p>
@@ -109,8 +109,6 @@
                                                           <?php if ($mail_vars['rdv_newsletter']) : ?>
                                                             <p style="margin: 0;">  je souhaite recevoir les offres de KB</p>
                                                           <?php endif; ?>
-                                                          <p style="margin: 0;">  La page d’origine :</p>
-                                                          <p style="margin: 0;">  <?php print $mail_vars['title']; ?></p>
                                                         </td>
                                                       </tr>
                                                     </tbody>
@@ -127,11 +125,13 @@
                         </tr>
                         <tr>
                           <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
-                            <p style="margin: 0; padding-top: 20px;">Nous avons indiqué à cet internaute que vous le contacterez dans les meilleurs délais.Nous comptons sur vous.</p>
-                            <p style="margin: 0; padding-top: 20px;">
+                              <p style="margin: 0;">  La page d’origine :</p>
+                              <p style="margin: 0;">  <?php print $mail_vars['title']; ?></p>
+                              <p style="margin: 0; padding-top: 20px;">Nous avons indiqué à cet internaute que vous le contacterez dans les meilleurs délais.Nous comptons sur vous.</p>
+                              <p style="margin: 0; padding-top: 20px;">
                               Cordialement.<br>
                               &nbsp;L'équipe internet Kaufman &amp; Board
-                            </p>
+                              </p>
                             <p style="margin: 0; padding: 15px 0 40px; font-size: 10px;">* Prix donné à lilre indicatif</p>
                           </td>
                         </tr>
