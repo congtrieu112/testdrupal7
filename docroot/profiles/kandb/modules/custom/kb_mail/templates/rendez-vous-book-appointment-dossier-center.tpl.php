@@ -109,8 +109,6 @@
                                                           <?php if ($mail_vars['rdv_newsletter']) : ?>
                                                             <p style="margin: 0;">  je souhaite recevoir les offres de KB</p>
                                                           <?php endif; ?>
-                                                          <p style="margin: 0;">  La page d’origine :</p>
-                                                          <p style="margin: 0;">  <?php print $mail_vars['title']; ?></p>
                                                         </td>
                                                       </tr>
                                                     </tbody>
@@ -127,6 +125,8 @@
                         </tr>
                         <tr>
                           <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                            <p style="margin: 0;">  La page d’origine :</p>
+                            <p style="margin: 0;">  <?php print $mail_vars['title']; ?></p>
                             <p style="margin: 0; padding-top: 20px;">Nous avons indiqué à cet internaute que vous le contacterez dans les meilleurs délais.Nous comptons sur vous.</p>
                             <p style="margin: 0; padding-top: 20px;">
                               Cordialement.<br>
