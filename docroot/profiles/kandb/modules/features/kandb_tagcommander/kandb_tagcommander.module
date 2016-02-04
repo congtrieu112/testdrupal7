@@ -158,7 +158,8 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       $return = 'France';
       break;
     case 'env_site':
-      $return = variable_get('sitename');
+      $domain = domain_get_domain();
+      $return = $domain['subdomain'];
       break;
     case 'env_channel':
       $return = ''; // See kandb_tagcommander.js
@@ -180,7 +181,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       $return = $user->uid;
       break;
     case 'user_logged':
-      $return = ($user->uid ? TRUE: FALSE);
+      $return = ($user->uid ? '1': '0');
       break;
     case 'user_surname':
       if(isset($user_profile) && !empty($user_profile->field_prenom['und'][0]['value'])) $return = $user_profile->field_prenom['und'][0]['value'];
@@ -205,7 +206,10 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       if($user->uid) $return = $user->mail;
       break;
     case 'user_newsletter':
-      $return = 0;
+      $return = 'no';
+      break;
+    case 'user_agent' :
+      $return = $_SERVER['HTTP_USER_AGENT'];
       break;
 
     /* Tree structure */
@@ -265,14 +269,13 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       $return = ''; // See kandb_tagcommander.js
       break;
     case 'search_results_affichage':
-      $return = ''; // See kandb_tagcommander.js
+      $return = '1'; // See kandb_tagcommander.js
       break;
     case 'availability':
       $return = ''; // TODO : Missing the checkbox
       break;
     case 'price_range':
-      $return = (isset($_GET['prix_min']) ? $_GET['prix_min'] : 'ni') . '-' . (isset($_GET['prix_min']) ? $_GET['prix_max'] : 'ni');
-      if($return == '-') $return = '';
+      $return = (isset($_GET['prix_min']) && !empty($_GET['prix_min']) ? $_GET['prix_min'] : 'ni') . '-' . (isset($_GET['prix_max']) && !empty($_GET['prix_max']) ? $_GET['prix_max'] : 'ni');
       break;
     case 'number_room':
       if(isset($_GET['field_nb_pieces'])){
@@ -300,8 +303,17 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
     case 'pinel_law': // TODO : Missing the checkbox
       $return = '';
       break;
-    case 'accessibility': // TODO : Missing the checkbox
-      $return = '';
+    case 'accessibility':
+      $return = 0;
+      if(isset($_GET['field_caracteristique']) && !empty($_GET['field_caracteristique'])) {
+        $terms = taxonomy_get_term_by_name('Pack silver');
+        foreach($terms as $term) {
+          if (in_array($term->tid, $_GET['field_caracteristique'])) {
+            $return = 1;
+            break;
+          }
+        }
+      }
       break;
 
     /* Programme */
