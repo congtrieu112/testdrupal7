@@ -593,9 +593,12 @@ Zimbabwe|Zimbabwe',
       '_tre_rappel___rappeler_nom' => array(
         'form_key' => 'telephone',
         'name' => 'Téléphone',
-        'type' => 'number',
+        'type' => 'textfield',
         'value' => '',
         'extra' => array(
+          'width' => '',
+          'maxlength' => '',
+          'placeholder' => '',
           'title_display' => 'before',
           'private' => 0,
           'wrapper_classes' => 'webform-component webform-component-textfield small-12 medium-6 columns',
