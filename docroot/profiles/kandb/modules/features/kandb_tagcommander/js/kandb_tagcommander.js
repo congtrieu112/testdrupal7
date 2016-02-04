@@ -4,7 +4,7 @@ jQuery(function($){
        tc_vars['env_channel'] = 'd';
     }else if(Modernizr.touch && Foundation.utils.is_medium_up()){
        tc_vars['env_channel'] = 't';
-    }else if( Modernizr.touch && Foundation.utils.is_small_only()){
+    }else if(Modernizr.touch && Foundation.utils.is_small_only()){
        tc_vars['env_channel'] = 'm';
     }
 
@@ -17,9 +17,11 @@ jQuery(function($){
        }else{
            number_result = '';
        }
+    }else{
+      number_result = number_result.split(' ');
+      number_result = number_result[0];
     }
     tc_vars['search_results_number'] = number_result;
-    tc_vars['search_results_affichage'] = number_result;
 
     /* Type block */
     function addTypeBloc(element, css_class){
