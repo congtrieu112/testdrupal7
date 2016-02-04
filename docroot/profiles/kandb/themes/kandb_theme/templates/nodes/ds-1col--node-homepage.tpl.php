@@ -31,15 +31,25 @@ $bien_total = get_total_bien_by_status_site();
             endif;
             ?>
         </h2>
-        <p class="heading__title heading__title--sub">
-            <?php
-            if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
-              print $content['field_hp_block_offer_stitre'][0]['#markup'];
-            else :
-              print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
-            endif;
-            ?>
-        </p>
+        <?php
+        if (isset($content['field_hp_block_offer_stitre'][0]['#markup'])) :
+        ?>
+          <p class="heading__title heading__title--sub">
+          <?php
+            print $content['field_hp_block_offer_stitre'][0]['#markup'];
+          ?>
+          </p>
+        <?php
+        elseif(!empty(variable_get('kandb_bloc_default_offre_subtitle_homepage', ''))) :
+        ?>
+          <p class="heading__title heading__title--sub">
+          <?php
+          print variable_get('kandb_bloc_default_offre_subtitle_homepage', '');
+          ?>
+          </p>
+        <?php
+        endif;
+        ?>
     </header>
     <?php print render($content['hp_block_offre']); ?>
 <!--    <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
