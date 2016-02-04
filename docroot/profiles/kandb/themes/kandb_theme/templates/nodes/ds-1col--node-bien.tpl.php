@@ -109,14 +109,6 @@ if (isset($bien_type->field_id_type_bien['und'][0]['value']) && $bien_type->fiel
 if (isset($nb_pieces->field_id_nombre_pieces['und'][0]['value'])) {
   $virtuelle_type = kandb_habiteo_get_type_room($nb_pieces->field_id_nombre_pieces['und'][0]['value']);
 }
-
-$heading_title = '';
-$bien_type_name = (isset($bien_type->name) && $bien_type) ? $bien_type->name : '';
-$nb_pieces_name = (isset($nb_pieces->name) && $nb_pieces) ? $nb_pieces->name : '';
-$heading_title = $bien_type_name . ' ' . $nb_pieces_name;
-if($nb_pieces_name == 'studio') {
-  $heading_title = ucfirst($nb_pieces_name);
-}
 ?>
 
 <!-- [bienHeader] start-->
@@ -124,7 +116,7 @@ if($nb_pieces_name == 'studio') {
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
         <h1 class="heading heading--bordered">
-          <div class="heading__title smaller"><?php print $heading_title; ?></div>
+          <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
           <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
           <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
           <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -242,7 +234,7 @@ if($nb_pieces_name == 'studio') {
                 <!-- tablet+desktop heading-->
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
-                      <div class="heading__title smaller"><?php print $heading_title; ?></div>
+                      <div class="heading__title smaller"><?php print (!empty($bien_type)) ? $bien_type->name : ''  ?> <?php print (!empty($nb_pieces)) ? $nb_pieces->name : ''  ?></div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -535,7 +527,7 @@ if ($piece_id) {
   if(count($list_bien_more) > 2) {
     $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
     $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
-
+    
     if($bien_id_price_max) {
       unset($list_bien_more[$bien_id_price_max]);
     }
@@ -566,7 +558,7 @@ if (!empty($list_bien_more)):
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">
-              <h2 class="heading__title"><?php print t('Les') . ' ' . $heading_title . ' ' . t('disponibles'); ?></h2>
+              <h2 class="heading__title"><?php print t('Les') . ' ' . t('Appartements') . ' ' . $nb_pieces->name . ' ' . t('disponibles'); ?></h2>
               <p class="heading__title heading__title--sub"><?php print variable_get('kandb_bien_default_title_more') ?></p>
           </header>
       </div>

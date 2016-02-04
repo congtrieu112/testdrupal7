@@ -366,26 +366,16 @@ function kandb_theme_preprocess_node(&$vars) {
       }
     }
 
-    //Example: 24 appartements disponibles du studio au 3 pièces
-    //         24 appartements disponibles de 2 à 3 pièces
-    //         24 appartements disponibles de 3 pièces
-    //         24 appartements disponibles studios
+
     $vars['de_a_pieces'] = '';
     if ($pieces_min && $pieces_max) {
-      if($pieces_min != $pieces_max) {
-        $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
-        if($pieces_min == 1) {
-          $vars['de_a_pieces'] = t('du') . ' studio ' . t('au') . ' ' . $pieces_max . ' ' . t('pièces');
-        }
-      } else {
-        $vars['de_a_pieces'] = ($pieces_max == 1)  ? 'studios' : 'de' . ' ' . $pieces_max . ' ' . t('pièces');
-      }
+      $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
     }
     elseif (!$pieces_min && $pieces_max) {
-      $vars['de_a_pieces'] = ($pieces_max == 1)  ? 'studios' : 'de' . ' ' . $pieces_max . ' ' . t('pièces');
+      $vars['de_a_pieces'] = $pieces_max . ' ' . t('pièces');
     }
     elseif ($pieces_min && !$pieces_max) {
-      $vars['de_a_pieces'] = ($pieces_min == 1)  ? 'studios' : 'de' . ' ' . $pieces_min . ' ' . t('pièces');
+      $vars['de_a_pieces'] = $pieces_min . ' ' . t('pièces');
     }
 
     $price_tva_min = 0; $price_tva_max = 0;
