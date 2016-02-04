@@ -45,44 +45,66 @@
                             <td valign="top" style="padding: 0 20px;">
                                 <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%;">
                                     <tbody>
-                                        <tr>
+                                      <tr>
                                             <td valign="top" style="padding: 0 13px;"><img src="<?php print file_create_url(drupal_get_path('module', 'kb_mail'));?>/images/title-border.jpg" alt="" width="100" height="15" style="border: none; display: block; width: 100px; height: 15px"></td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="top" style="padding: 0 13px;">
-                                                Bonjour<br/>
-                                                <br/>
-                                                Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur :
-                                                <br/>
-                                                <br/>
-                                                Ses coordonnées :<br/>
-                                                <br/>
-                                                Langue : FR<br/>
-                                                <br/>
-                                                Nom :  <?php print $mail_vars['rappeler_nom']; ?><br/>
-                                                <br/>
-                                                Prénom :  <?php print $mail_vars['rappeler_prenom']; ?><br/>
-                                                <br/>
-                                                Téléphone :  <?php print $mail_vars['rappeler_telephone']; ?><br/>
-                                                <br/>
-                                                Date et heure à laquelle il souhaite être contacté : <?php print $mail_vars['rappeler_horaire']; ?>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                 La page d’origine :<br/>
-                                                 <br/>
-                                                <?php print $mail_vars['title_page']; ?><br/>
-                                                <br/>
-                                                <br/>
-                                                <br/>
-                                                Cordialement,<br/>
-                                                <br/>
-                                                L'équipe internet Kaufman & Broad.
-                                            </td>
-                                        </tr>
+                                      </tr>
+                                      <tr>
+                                        <td valign="top" style="padding: 0 13px;">
+                                          <p style="margin: 0;padding-top: 15px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 12px;">Bonjour,</p>
+                                          <p style="margin: 0; padding-top: 18px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">Un visiteur du site "Kaufman & Broad" a souhaité être rappelé par un télé-acteur :</p>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td valign="top" style="padding-top: 27px;">
+                                          <table cellspacing="0" cellpadding="0" border="0" bgcolor="#f2f5f6" align="center" style="width: 100%; background-color: #f2f5f6;">
+                                            <tbody>
+                                              <tr>
+                                                <td valign="top" style="padding: 30px;">
+                                                  <table cellspacing="0" cellpadding="0" border="0" align="center" style="width: 100%; border-bottom: 1px solid #a9bec8;">
+                                                    <tbody>
+                                                      <tr>
+                                                        <td valign="top" style="padding: 0 10px;">
+                                                          <p style="margin: 0; padding-bottom: 20px; font-family: Helvetica, Arial, sans-serif; font-size: 20px; color: #199edd; line-height: 20px;">Ses coordonnées</p>
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td valign="top" style="width: 50%; margin: 0; padding: 0 0 25px 10px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                                          <p style="margin: 0;">Langue&nbsp;: <span style="text-transform: uppercase;">FR</span>
+                                                          </p>
+                                                          <p style="margin: 0;">Nom&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rappeler_nom']; ?></span>
+                                                          </p>
+                                                          <p style="margin: 0;">Prénom&nbsp;: <span style="text-transform: uppercase;"><?php print $mail_vars['rappeler_prenom']; ?></span>
+                                                          </p>
+                                                        </td>
+                                                        <td valign="top" style="margin: 0; padding-bottom: 25px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                                                          <p style="margin: 0;">Telephone&nbsp;: <span><?php print $mail_vars['rappeler_telephone']; ?></span>
+                                                          </p>
+                                                          <p style="margin: 0;">Date et heure à laquelle il souhaite être contacté&nbsp;: <span><?php print $mail_vars['rappeler_horaire']; ?></span>
+                                                          </p>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+
+                                                </td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </td>
+                                      </tr>
                                     </tbody>
                                 </table>
                             </td>
+                        </tr>
+                        <tr>
+                          <td valign="top" style="padding: 0 30px; font-family: Helvetica, Arial, sans-serif; font-size: 12px; color: #003e5e; line-height: 25px;">
+                              <br/>
+                              La page d’origine :<br/>
+                              <?php print $mail_vars['title_page']; ?><br/>
+                              Cordialement,<br/>
+                              <br/>
+                              L'équipe internet Kaufman & Broad.
+                          </td>
                         </tr>
                         <tr>
                             <td valign="middle" style="padding: 15px 30px 25px 30px; border-top: 1px solid #a9bec8;">
