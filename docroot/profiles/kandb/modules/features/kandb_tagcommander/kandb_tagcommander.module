@@ -324,24 +324,24 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
     case 'programme_region':
       $object = menu_get_object();
       if(is_object($object) && $object->type == 'programme'){
-        if(isset($object->field_programme_loc_region['und']['0']->taxonomy_term->name)) {
-          $return = $object->field_programme_loc_region['und']['0']->taxonomy_term->name;
+        if(isset($object->field_programme_loc_region['und']['0']['taxonomy_term']->name)) {
+          $return = $object->field_programme_loc_region['und']['0']['taxonomy_term']->name;
         }
       }
       break;
     case 'programme_departement':
       $object = menu_get_object();
       if(is_object($object) && $object->type == 'programme'){
-        if(isset($object->field_programme_loc_department['und']['0']->taxonomy_term->name)) {
-          $return = $object->field_programme_loc_department['und']['0']->taxonomy_term->name;
+        if(isset($object->field_programme_loc_department['und']['0']['taxonomy_term']->name)) {
+          $return = $object->field_programme_loc_department['und']['0']['taxonomy_term']->name;
         }
       }
       break;
     case 'programme_city':
       $object = menu_get_object();
       if(is_object($object) && $object->type == 'programme'){
-        if(isset($object->field_programme_loc_ville['und']['0']->taxonomy_term->name)) {
-          $return = $object->field_programme_loc_ville['und']['0']->taxonomy_term->name;
+        if(isset($object->field_programme_loc_ville['und']['0']['taxonomy_term']->name)) {
+          $return = $object->field_programme_loc_ville['und']['0']['taxonomy_term']->name;
         }
       }
       break;
