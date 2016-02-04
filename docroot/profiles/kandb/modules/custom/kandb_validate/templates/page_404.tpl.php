@@ -13,7 +13,7 @@ $node_view = node_view($node);
 <?php endif; ?>
     <div class="wrapper">
       <div class="heading heading--bordered heading--white">
-        <div class="heading__title"><?php print t('Oups !'); ?></div>
+        <div class="heading__title"><?php print !empty(variable_get('kb_404_top_title')) ? variable_get('kb_404_top_title') : ''; ?></div>
         <div class="heading__title heading__title--sub"><?php print !empty(variable_get('kb_404_title')) ? variable_get('kb_404_title') : ''; ?></div>
         <div class="heading__title"><?php print !empty(variable_get('kb_404_description')) ? variable_get('kb_404_description') : ''; ?></div>
       </div>
