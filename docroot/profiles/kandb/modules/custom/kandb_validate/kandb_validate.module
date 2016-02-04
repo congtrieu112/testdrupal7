@@ -553,6 +553,11 @@ function config_cookie() {
 function config_404_page() {
     $form = array();
 
+    $form['kb_404_top_title'] = array(
+      '#type' => 'textfield',
+      '#title' => t('Top Title'),
+      '#default_value' => variable_get('kb_404_top_title', ''),
+    );
     $form['kb_404_title'] = array(
       '#type' => 'textfield',
       '#title' => t('Title'),
