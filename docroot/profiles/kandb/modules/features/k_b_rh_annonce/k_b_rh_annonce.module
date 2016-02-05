@@ -5,3 +5,27 @@
  */
 
 include_once 'k_b_rh_annonce.features.inc';
+
+
+/**
+ * Implements hook_form_alter().
+ */
+function k_b_rh_annonce_form_alter(&$form, &$form_state, $form_id) {
+  if(isset($form['#node']) && $form['#node']->type == 'webform' && $form['#node']->webform['machine_name'] == 'candidature'){
+    $form['#validate'][] = 'k_b_rh_annonce_candidature_form_validate';
+  }
+}
+
+/**
+ * Form validate
+ *
+ * @param $form
+ * @param $form_state
+ */
+function k_b_rh_annonce_candidature_form_validate($form, &$form_state) {
+  if(isset($form_state['values']['submitted']['row6']['telephone']) && !empty($form_state['values']['submitted']['row6']['telephone'])){
+    if(!preg_match('#^(\+)?[0-9]*$#', $form_state['values']['submitted']['row6']['telephone'])){
+      form_set_error('submitted][row6][telephone', 'Le numéro de téléphone ne doit contenir que des chiffres. Il peut être précdédé par un +.');
+    }
+  }
+}
