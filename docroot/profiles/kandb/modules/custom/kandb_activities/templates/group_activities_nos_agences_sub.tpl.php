@@ -30,12 +30,18 @@ if ($region_contents && isset($region_contents['node'])) :
           $telephone = isset($arr_field_telephone[LANGUAGE_NONE][0]['value']) ? $arr_field_telephone[LANGUAGE_NONE][0]['value'] : '';
           if ($addr && ($email || $telephone)) :
             $html .= '<li>';
-            $html .= '<a href="javascript:void(0)" class="mail">' . $addr . '<span class="icon icon-marker"></span></a>';
+            $html .= '<div class="counselors__infor">';
+            $html .= '<a href="javascript:void(0)" class="mail"><span>' . $addr . '</span><span class="icon icon-marker"></span></a>';
+            $html .= '</div>';
             if ($email):
-              $html .= '<a href="mailto:' . $email . '" class="mail">' . $email . '<span class="icon icon-email"></span></a>';
+              $html .= '<div class="counselors__infor">';
+              $html .= '<a href="mailto:' . $email . '" class="mail"><span>' . $email . '</span><span class="icon icon-email"></span></a>';
+              $html .= '</div>';
             endif;
             if ($telephone) :
-              $html .= '<a href="tel:' . $telephone . '" class="phone">' . $telephone . '<span class="icon icon-tel"></span></a>';
+              $html .= '<div class="counselors__infor">';
+              $html .= '<a href="tel:' . $telephone . '" class="phone"><span>' . $telephone . '</span><span class="icon icon-tel"></span></a>';
+              $html .= '</div>';
             endif;
             $html .= '</li>';
           endif;
