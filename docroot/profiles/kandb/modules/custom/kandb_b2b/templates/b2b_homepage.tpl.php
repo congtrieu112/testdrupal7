@@ -7,13 +7,14 @@ $url = $title = '';
 $default_title = variable_get('kandb_b2b_homepage_title', '');
 $default_subtitle = variable_get('kandb_b2b_homepage_subtitle', '');
 $default_cta = variable_get('kandb_b2b_homepage_cta');
+$data_interchange = 'data-interchange="[' . $bg_image_small . ', (small)], [' . $bg_image_large . ', (medium)]"';
 if (isset($default_cta['url']) && $default_cta['url'] && isset($default_cta['title']) && $default_cta['title']) :
   $url = $default_cta['url'];
   $title = $default_cta['title'];
 endif;
 ?>
 <section data-equalizer data-equalizer-mq="medium-up" class="homepageB2B">
-    <div data-interchange="[<?php print $bg_image_small; ?>, (small)], [<?php print $bg_image_large; ?>, (medium)]" class="homepageB2B__heading">
+    <div <?php print (($bg_image_large && $bg_image_small) ? $data_interchange : ''); ?> class="homepageB2B__heading">
         <div data-equalizer-watch class="wrapper">
             <?php if ($program_ville || $default_title): ?>
               <div class="heading heading--bordered heading--white">
