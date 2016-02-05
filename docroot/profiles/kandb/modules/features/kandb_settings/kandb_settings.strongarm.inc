@@ -33,15 +33,21 @@ recherche';
     'article' => 0,
     'avant_premiere' => 0,
     'bien' => 0,
+    'conseiller_regional' => 0,
     'document' => 0,
     'dossier' => 0,
+    'finance_gouvernance' => 0,
+    'habitat' => 0,
     'homepage' => 0,
     'maison' => 0,
     'offre' => 0,
     'options' => 0,
+    'partenaire' => 0,
     'programme' => 0,
     'promotion' => 0,
     'prospect_b2b' => 0,
+    'rh_annonce' => 0,
+    'region_kb' => 0,
     'reservation' => 0,
     'selection' => 0,
     'standard_page' => 0,
@@ -73,20 +79,13 @@ recherche';
     '*/30 * * * *' => 'Every 30 minutes',
     '0 * * * *' => 'Every hour',
     '0 */6 * * *' => 'Every 6 hours',
-    '3 0 * * *' => 'Every day at 3AM',
-    '4 0 * * *' => 'Every day at 4AM',
-    '5 0 * * *' => 'Every day at 5AM',
+    '0 3 * * *' => 'Every day at 3AM',
+    '0 4 * * *' => 'Every day at 4AM',
+    '0 5 * * *' => 'Every day at 5AM',
     '4 0 * * 0' => 'Once a week',
     '4 0 1 * *' => 'Once a month',
   );
   $export['elysia_cron_default_rules'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'elysia_cron_disabled';
-  $strongarm->value = '1';
-  $export['elysia_cron_disabled'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

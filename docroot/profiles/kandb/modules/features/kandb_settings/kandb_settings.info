@@ -52,7 +52,6 @@ features[variable][] = cacheexclude_list
 features[variable][] = cacheexclude_node_types
 features[variable][] = elysia_cron_alert_interval
 features[variable][] = elysia_cron_default_rules
-features[variable][] = elysia_cron_disabled
 features[variable][] = elysia_cron_last_context
 features[variable][] = elysia_cron_last_run
 features[variable][] = elysia_cron_stuck_time
