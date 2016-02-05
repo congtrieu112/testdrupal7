@@ -376,6 +376,15 @@ function kandb_group_form_alter(&$form, $form_state, $form_id) {
   }
 }
 
+/**
+ * Implement hook_menu_get_item_alter().
+ */
+function kandb_group_menu_get_item_alter(&$router_item, $path, $original_map) {
+  if ($router_item['path'] != $path && preg_match('/^corporate/', $_GET['q'])) {
+    $router_item = menu_get_item('page-404');    
+  }
+}
+
 function render_group_homepage() {
   $data = array();
   $documents = kandb_group_get_document_node(LIMIT_DOCUMENT);
