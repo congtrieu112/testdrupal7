@@ -84,7 +84,7 @@ function kandb_settings_default_elysia_cron_rules() {
   $cron_rule->disabled = FALSE; /* Edit this to true to make a default cron_rule disabled initially */
   $cron_rule->api_version = 1;
   $cron_rule->name = 'import_habiteo_programme';
-  $cron_rule->disable = TRUE;
+  $cron_rule->disable = NULL;
   $cron_rule->rule = '0 5 * * *';
   $cron_rule->weight = -49;
   $cron_rule->context = NULL;
