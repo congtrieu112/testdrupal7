@@ -527,7 +527,7 @@ if ($piece_id) {
   if(count($list_bien_more) > 2) {
     $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
     $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
-    
+
     if($bien_id_price_max) {
       unset($list_bien_more[$bien_id_price_max]);
     }
@@ -635,8 +635,8 @@ if (!empty($list_bien_more)):
                                                     }
 
                                                     $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    //$arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
-                                                    //endedit
+                                                    $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
                                                       <?php foreach ($arr_caracteris as $caracteris) : ?>

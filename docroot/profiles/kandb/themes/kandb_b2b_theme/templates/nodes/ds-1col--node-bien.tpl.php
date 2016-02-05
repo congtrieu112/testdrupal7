@@ -640,7 +640,7 @@ if ($piece_id) {
       $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max);
     }
   }
-  
+
   foreach ($list_bien_more as $item) {
     $bien_datas = node_load($item->nid);
     if (!in_array($gid, $bien_datas->domains)) {
@@ -730,8 +730,8 @@ if (!empty($list_bien_more)):
                                                     }
 
                                                     $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    //$arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? t('Parking') : '';
-                                                    //endedit
+                                                    $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
+
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
                                                       <?php foreach ($arr_caracteris as $caracteris) : ?>
