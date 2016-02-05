@@ -407,8 +407,38 @@ function kandb_get_partenaire_related_to_programme($programme = NULL) {
 function kandb_partenaire_create_file_zip($real_path, $files_info = array()) {
   $zip = new ZipArchive();
   if ($zip->open($real_path, ZipArchive::CREATE) == TRUE) {
-    foreach ($files_info as $file) {
-      $zip->addFile(drupal_realpath($file['file_uri']), $file['file_name']);
+    foreach ($files_info as $fid => $file) {
+      $query = new EntityFieldQuery();
+      $query->entityCondition('entity_type', 'node')
+        ->entityCondition('bundle', 'bien')
+        ->fieldCondition('field_bien_plan', 'fid', $fid);
+      $query->range(0, 1);
+
+      $results = $query->execute();
+      $bien_nid = '';
+      if($results){
+        $bien_nid = array_shift($results["node"])->nid;
+      }
+
+      if($bien_nid) {
+        $listBien_query = db_select('node', 'n');
+        $listBien_query->join('field_data_field_programme', 'p', 'n.nid=p.field_programme_target_id');
+        $listBien_query->join('field_data_field_id_programme', 'ip', 'n.nid=ip.entity_id');
+        $listBien = $listBien_query
+          ->fields('ip', array('field_id_programme_value'))
+          ->condition('p.entity_id', $bien_nid, '=')
+          ->execute();
+
+        $program_id = '';
+        if($listBien->rowcount() > 0) {
+          $program_id = $listBien->fetchCol()[0];
+        }
+
+        if($program_id) {
+          $zip->addEmptyDir($program_id);
+          $zip->addFile(drupal_realpath($file['file_uri']), $program_id . '/' . $file['file_name']);
+        }
+      }
     }
     $zip->close();
   }
@@ -701,6 +731,10 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
     }
   }
 
+  if(!$sender_mail || count($biens) == 0 || !$programme_livraison) {
+    return '';
+  }
+
   $reponse = '';
   $doc = '';
   if(!file_exists($path)) {
@@ -721,7 +755,7 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
 
     $date = $doc->createElement('DATE');
     $date = $entete->appendChild($date);
-    $date_value = $doc->createTextNode(date("Y-m-d", time()));
+    $date_value = $doc->createTextNode(date("Y-m-d h:i:s", time()));
     $date_value = $date->appendChild($date_value);
   } elseif(file_exists($path)) {
     $doc = new DOMDocument();
@@ -743,8 +777,8 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
   createElementXML($doc, $programme, 'ADRESSE_MAIL', $sender_mail);
   createElementXML($doc, $programme, 'ADRESSE_WEB', $programme_address_web);
   createElementXML($doc, $programme, 'PERSPECTIVE', $bien_perspective);
+  createElementXML($doc, $programme, 'NB_LOTS', count($biens));
   createElementXML($doc, $programme, 'DATE_LIVRAISON', $programme_livraison);
-  createElementXML($doc, $programme, 'DATE_VENTE', '');
   createElementXML($doc, $programme, 'OBJECTIF', 'mixte');
   createElementXML($doc, $programme, 'DESCRIPTIF_COURT', '');
   createElementXML($doc, $programme, 'DESCRIPTIF_LONG', $programme_en_quelques_mots);
@@ -752,24 +786,39 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
   createElementXML($doc, $programme, 'DESCRIPTIF_LONG_EN', '');
 
   foreach($biens as $bien) {
-    $lot = $doc->createElement('LOT');
-    $lot = $programme->appendChild($lot);
-
     $bien_numero_lot = isset($bien->field_numero_lot[LANGUAGE_NONE][0]['value']) ? $bien->field_numero_lot[LANGUAGE_NONE][0]['value'] : '';
     $term_bien_type =  isset($bien->field_type[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_type[LANGUAGE_NONE][0]['tid']) : '';
     $bien_type = ($term_bien_type && isset($term_bien_type->name)) ? $term_bien_type->name : '';
+    if(!$bien_type) {
+      continue;
+    }
+
+    $lot = $doc->createElement('LOT');
+    $lot = $programme->appendChild($lot);
 
     $term_bien_orientation =  isset($bien->field_orientation[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_orientation[LANGUAGE_NONE][0]['tid']) : '';
-    $bien_orientation = ($term_bien_orientation && isset($term_bien_orientation->name)) ? $term_bien_orientation->name : '';
+    $bien_orientation = '';
+    if($term_bien_orientation) {
+      $bien_orientation = isset($term_bien_orientation->field_id_orientation[LANGUAGE_NONE][0]['value']) ? $term_bien_orientation->field_id_orientation[LANGUAGE_NONE][0]['value'] : '';
+    }
 
     $term_bien_nb_pieces =  isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) : '';
-    $bien_nb_pieces = ($term_bien_nb_pieces && isset($term_bien_nb_pieces->name)) ? $term_bien_nb_pieces->name : '';
+    $bien_nb_pieces = ($term_bien_nb_pieces && isset($term_bien_nb_pieces->name)) ? preg_replace("/[^0-9]/", "", $term_bien_nb_pieces->name) : 0;
+    if(isset($term_bien_nb_pieces->name) && $term_bien_nb_pieces->name == 'studio') {
+      $bien_nb_pieces = 1;
+    }
 
     $term_bien_etage =  isset($bien->field_etage[LANGUAGE_NONE][0]['tid']) ? taxonomy_term_load($bien->field_etage[LANGUAGE_NONE][0]['tid']) : '';
     $bien_etage = ($term_bien_etage && isset($term_bien_etage->name)) ? $term_bien_etage->name : '';
+    if($bien_etage == 'Plain pied' || $bien_etage == 'Rez de chaussée' || $bien_etage == 'Rez de jardin') {
+      $bien_etage = 0;
+    } elseif(is_numeric(substr($bien_etage, 0 , 1))) {
+      $bien_etage = substr($bien_etage, 0 , 1);
+    } else {
+      $bien_etage = '';
+    }
 
     $bien_tva = isset($bien->field_tva[LANGUAGE_NONE][0]['tid']) ? 'N' : 'O';
-
     $bien_plan_vente_fid = isset($bien->field_bien_plan[LANGUAGE_NONE][0]['fid']) ? $bien->field_bien_plan[LANGUAGE_NONE][0]['fid'] : '';
     $bien_plan_vente = '';
     if($bien_plan_vente_fid) {
@@ -783,15 +832,15 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
 
     $bien_caracteristique_terrasse = isset($bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] : '';
     $bien_caracteristique_balcon = isset($bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] : '';
-    $bien_caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : '';
-    if($bien_caracteristique_parking && $bien_caracteristique_parking > 0) {
+    $bien_caracteristique_parking = isset($bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] : 1;
+    if($bien_caracteristique_parking == 0) {
       $bien_caracteristique_parking = 1;
     } else {
       $bien_caracteristique_parking = 0;
     }
 
-    $bien_caracteristique_cave = isset($bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] : '';
-    if($bien_caracteristique_cave && $bien_caracteristique_cave > 0) {
+    $bien_caracteristique_cave = isset($bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? $bien->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] : 1;
+    if($bien_caracteristique_cave == 0) {
       $bien_caracteristique_cave = 1;
     } else {
       $bien_caracteristique_cave = 0;
@@ -807,20 +856,17 @@ function createFileXML($programmes, $biens, $partenaire_title, $path) {
     createElementXML($doc, $lot, 'NB_PIECES', $bien_nb_pieces);
     createElementXML($doc, $lot, 'ETAGE', $bien_etage);
     createElementXML($doc, $lot, 'DATE_LIVRAISON', $programme_livraison);
-    createElementXML($doc, $lot, 'DATE_VENTE', '');
-    createElementXML($doc, $lot, 'PRIX_ACCESSION', '');
     createElementXML($doc, $lot, 'MONTANT_MOBILIER', 0);
     createElementXML($doc, $lot, 'MONTANT_TRAVAUX', 0);
     createElementXML($doc, $lot, 'MONTANT_TERRAIN', 0);
     createElementXML($doc, $lot, 'LOYER', 0);
     createElementXML($doc, $lot, 'TVA_REDUITE', $bien_tva);
     createElementXML($doc, $lot, 'TYPE_FISCALITE', '');
-    createElementXML($doc, $lot, 'OPTION', '');
+    createElementXML($doc, $lot, 'OPTION', 0);
     createElementXML($doc, $lot, 'PLAN_VENTE', $bien_plan_vente);
     createElementXML($doc, $lot, 'SURFACE_TERRASSE', $bien_caracteristique_terrasse);
     createElementXML($doc, $lot, 'SURFACE_BALCON', $bien_caracteristique_balcon);
     createElementXML($doc, $lot, 'PARKINGS', $bien_caracteristique_parking);
-    createElementXML($doc, $lot, 'GARAGES', '');
     createElementXML($doc, $lot, 'CAVE', $bien_caracteristique_cave);
     createElementXML($doc, $lot, 'NUM_TRANCHE', 1);
   }
