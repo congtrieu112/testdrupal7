@@ -380,16 +380,20 @@ function get_total_bien_by_status_site() {
   $query = db_select('node', 'n');
   //$query->join('domain_access', 'da', 'n.nid = da.nid');
   $query->join('field_data_field_bien_statut', 'bt', 'n.nid = bt.entity_id');
+  $query->leftJoin('field_data_field_programme', 'p', 'n.nid = p.entity_id');
+  $query->leftJoin('node', 'n2', 'n2.nid = p.field_programme_target_id');
+  $query->leftJoin('field_data_field_programme_statut', 'ps', 'n2.nid = ps.entity_id');
   $query->addExpression('COUNT(n.nid)', 'total');
   $query->addTag('node_access_domain');
   $query->condition('n.status', 1, '=')
-    //->condition('da.gid', $domain_id, '=')
+    ->condition('ps.field_programme_statut_value', 1, '=')
     ->condition('bt.field_bien_statut_tid', $bien_status_id, '=');
-
   $result = $query->execute()->fetchCol();
+  
   if ($result) {
     return $result[0];
   }
+
   return 0;
 }
 
