@@ -25,7 +25,11 @@ function kandb_view_rh_dernieres_offres_emploi_views_default_views() {
   $handler->display->display_options['title'] = 'Nos dernières offres d\'emploi';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['cache']['type'] = 'time_per_domain';
+  $handler->display->display_options['cache']['results_lifespan'] = '300';
+  $handler->display->display_options['cache']['results_lifespan_custom'] = '0';
+  $handler->display->display_options['cache']['output_lifespan'] = '300';
+  $handler->display->display_options['cache']['output_lifespan_custom'] = '0';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
@@ -73,7 +77,7 @@ function kandb_view_rh_dernieres_offres_emploi_views_default_views() {
   $handler->display->display_options['fields']['field_annonce_fonction']['id'] = 'field_annonce_fonction';
   $handler->display->display_options['fields']['field_annonce_fonction']['table'] = 'field_data_field_annonce_fonction';
   $handler->display->display_options['fields']['field_annonce_fonction']['field'] = 'field_annonce_fonction';
-  /* Field: Content: Profile requis */
+  /* Field: Content: Profil requis */
   $handler->display->display_options['fields']['field_annonce_profile']['id'] = 'field_annonce_profile';
   $handler->display->display_options['fields']['field_annonce_profile']['table'] = 'field_data_field_annonce_profile';
   $handler->display->display_options['fields']['field_annonce_profile']['field'] = 'field_annonce_profile';
@@ -139,7 +143,7 @@ function kandb_view_rh_dernieres_offres_emploi_views_default_views() {
     t('Description'),
     t('Expérience exigée'),
     t('Fonction'),
-    t('Profile requis'),
+    t('Profil requis'),
     t('Service'),
     t('Type de contrat'),
     t('Ville'),
