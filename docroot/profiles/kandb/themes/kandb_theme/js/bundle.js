@@ -37871,7 +37871,10 @@ if ( $(trigger).length ) {
 /* ================== */
 
 /*
-
+ajax response event
+$(document).on('ajaxResponse', function(el, $trigger){
+  console.log(el, $trigger);
+});
 */
 
 'use strict';
@@ -37898,8 +37901,14 @@ var defaults = {};
 
 function AppAjax( el, opt ) {
   this.settings = $.extend({}, defaults, opt);
+
   this.item = $(el);
-  this.mode = (typeof this.item.data('app-ajax') !== 'undefined') ? this.item.data('app-ajax') : false;
+
+  if (this.item.is('form')) {
+    this.mode = "submitForm";
+  } else {
+    this.mode = (typeof this.item.attr('data-app-ajax') !== 'undefined') ? this.item.attr('data-app-ajax') : false;
+  }
 
   this.init();
 }
@@ -37918,7 +37927,12 @@ AppAjax.prototype = {
       case 'cookies':
         this.initCookies();
         break;
-
+      case 'self':
+        this.initSelf();
+        break;
+      case 'submitForm':
+        this.initSubmitForm();
+        break;
       default:
         this.initLink();
         break;
@@ -37927,23 +37941,57 @@ AppAjax.prototype = {
     return this;
   },
 
+  setActive: function($el){
+    var target = $el.attr('data-app-ajax');
+
+    $('[data-app-ajax="'+ target +'"]').removeClass('active');
+    setTimeout(function(){
+      $el.addClass('active');
+    }, 1);
+
+    return this;
+  },
+
   initLink: function() {
     var that = this;
 
-    $(document).on('click.ajaxLink', trigger, function(e) {
+    this.item.on('click.ajaxLink', function(e) {
+      var $this = $(this);
+
+      if ($this.hasClass('close-reveal-modal')) {
+        that.ajaxCall( that.item, $('[data-app-ajax-response="'+ that.mode +'"]') );
+        return;
+      }
       e.preventDefault();
       e.stopPropagation();
-      that.ajaxCall( this.item, $('[data-app-ajax-response="'+ that.mode +'"]') );
+      if (!$this.is('.active')) {
+        that.ajaxCall( that.item, $('[data-app-ajax-response="'+ that.mode +'"]') );
+        that.setActive( $(this) );
+      }
+    });
+
+    return this;
+  },
+
+  initSubmitForm: function() {
+    var that = this;
+
+    this.item.on('submit.ajaxLink', function(e) {
+      e.preventDefault();
+      var target = that.item.attr('data-app-ajax');
+      that.ajaxCall( that.item, $('[data-app-ajax-response="'+ target +'"]'), that.item.serialize() );
     });
 
     return this;
   },
 
   initCookies: function() {
-    var that = this;
+    this.ajaxCall( this.item, this.item, this.cookiesData() );
+    return this;
+  },
 
-    that.ajaxCall( this.item, this.item, this.cookiesData() );
-
+  initSelf: function() {
+    this.ajaxCall( this.item, this.item );
     return this;
   },
 
@@ -37955,13 +38003,14 @@ AppAjax.prototype = {
     $target.addClass('ajax-wait').html('<div></div>');
 
     var triggerSend = function() {
-      $(document).trigger('ajaxResponse');
+      $target.removeClass('ajax-wait');
+      $(document).trigger('ajaxResponse', [$target]);
     };
 
     var caller  = new App.AjaxController.Controller({
           module: that.mode,
-          parent: $target,
-          callback: ["write", triggerSend ]
+          parent: $target[0],
+          callback: ["write", triggerSend]
         });
 
     if ( App.debug ) {
@@ -37986,8 +38035,10 @@ AppAjax.prototype = {
 
     if ( this.item.is('[href]') ) {
       url = this.item.attr('href');
+    } else if (this.item.is('form')) {
+      url = this.item.attr('action');
     } else if ( this.item.is(dataUrl) ) {
-      url = this.item.data('app-ajax-url');
+      url = this.item.attr('data-app-ajax-url');
     }
 
     return url;
@@ -38011,28 +38062,30 @@ AppAjax.prototype = {
 /* MODULE DATA-API */
 /* =============== */
 
-if ( $(trigger).length ) {
+$.fn.appAjax = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
 
-  $.fn.appAjax = function(opt) {
-    var args = Array.prototype.slice.call(arguments, 1);
-
-    return this.each(function() {
-      var item = $(this), instance = item.data('AppAjax');
-      if(!instance) {
-        // create plugin instance and save it in data
-        item.data('AppAjax', new AppAjax(this, opt));
-      } else {
-        // if instance already created call method
-        if(typeof opt === 'string') {
-            instance[opt].apply(instance, args);
-        }
+  return this.each(function() {
+    var item = $(this), instance = item.data('AppAjax');
+    if(!instance) {
+      // create plugin instance and save it in data
+      item.data('AppAjax', new AppAjax(this, opt));
+    } else {
+      // if instance already created call method
+      if(typeof opt === 'string') {
+          instance[opt].apply(instance, args);
       }
-    });
-  };
+    }
+  });
+};
 
+$(trigger).appAjax();
+
+
+// auto refresh after ajax response
+App.updaters.appAjax = function() {
   $(trigger).appAjax();
-
-}
+};
 
 },{}],14:[function(require,module,exports){
 /***************************
@@ -38321,8 +38374,9 @@ $(document).on('replace', 'img', function (e, new_path, original_path) {
 
 // ajax callbacks
 $(document).on('ajaxComplete', function(e, xhr, settings){
-  console.log("ajaxComplete");
-
+  if ( App.debug ) {
+    console.log( 'Ajax Complete' );
+  }
   // reinit all App methods
   App.launchUpdaters();
 });
@@ -38610,7 +38664,8 @@ var trigger     = '[data-cookie]',
 
 var defaults = {
   cookieName: 'K&B-save',
-  limit: 21,
+  limit: 20,
+  limitLow: 4,
   cookieSettings: {
     expires: 30,
     path: ''
@@ -38699,15 +38754,20 @@ AppCookies.prototype = {
   },
 
   addValue: function() {
-    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) );
+    var previousValue = JSON.parse( $.fn.Cookies( this.settings.cookieName ) ),
+        limit = this.settings.limit;
 
     // if empty set first value
     if ( !_.isArray( previousValue[this.name] ) ) {
       previousValue[this.name] = [this.value];
     }
 
+    if (this.name === 'recherches') {
+      limit = this.settings.limitLow;
+    }
+
     // if not empty, add value
-    if ( _.isArray( previousValue[this.name] ) && this.checkLimit( previousValue[this.name] ) ) {
+    if ( _.isArray( previousValue[this.name] ) && this.checkLimit( previousValue[this.name], limit ) ) {
       if ( $.inArray(this.value, previousValue[this.name]) === -1 ) {
         previousValue[this.name].unshift(this.value);
       }
@@ -38729,13 +38789,15 @@ AppCookies.prototype = {
     }
   },
 
-  checkLimit: function(array) {
-    if ( array.length > this.settings.limit ) {
+  checkLimit: function(array, limit) {
+    var length = array.length + 1;
+    if ( length > limit ) {
       if (window.confirm(App.settings.selections.errorMessage)) {
         window.location = App.settings.selections.errorRedirect;
       }
+      return false;
     }
-    return array.length <= this.settings.limit;
+    return true;
   },
 
   removeSelection: function() {
@@ -40537,13 +40599,21 @@ var detachContent = function() {
 };
 
 var checkAboveViewport = function() {
-  this.initialTopBarHeight = this.initialTopBarHeight || App.topBarHeight();
-  this.itemOffsetTop = this.itemOffsetTop || this.item.offset().top;
-  this.itemOffsetBottom = this.itemOffsetBottom || this.itemOffsetTop + this.item.height();
+  if (Foundation.utils.is_medium_up()) {
+    this.initialTopBarHeight = this.initialTopBarHeight || App.topBarHeight();
+    this.itemOffsetTop = this.itemOffsetTop || this.item.offset().top;
+    this.itemOffsetBottom = this.itemOffsetBottom || this.itemOffsetTop + this.item.height();
 
-  if (window.scrollY > this.itemOffsetBottom && !attached) {
-    attachContent.call(this);
-  } else if (window.scrollY < this.itemOffsetBottom && attached) {
+    if (window.scrollY > this.itemOffsetBottom && !attached) {
+      attachContent.call(this);
+    } else if (window.scrollY < this.itemOffsetBottom && attached) {
+      detachContent.call(this);
+    }
+  }
+};
+
+var checkWindowWidth = function() {
+  if (!Foundation.utils.is_medium_up() && attached) {
     detachContent.call(this);
   }
 };
@@ -40569,6 +40639,7 @@ AppStickInfo.prototype = {
 
     bindEvents: function () {
       $(window).scroll(Foundation.utils.throttle(checkAboveViewport.bind(this), 300));
+      $(window).resize(Foundation.utils.throttle(checkWindowWidth.bind(this), 300));
       return this;
     }
 };
@@ -40605,16 +40676,17 @@ $(trigger).appStickInfo();
 var trigger = '[data-expand-row-info]',
     triggerCheckbox = '[data-table-checkbox]',
     triggerSelectedCheckbox = '[data-check-selected-rows]',
+    triggerCheckboxRow = '[data-checkbox-rows]',
     indicator = '[data-expand-indicator]',
     expandable = '[data-expandable-area]',
     defaults = {};
 
 
 var toggleInfo = function(ev) {
-  var $target = $(ev.target); 
+  var $target = $(ev.target);
   if ($target.hasClass('label-checkbox') || $target.hasClass('input-checkbox') ) { return; }
 
-  var $row = $(ev.currentTarget),
+  var $row = $(ev.currentTarget).closest('tr'),
       $indicator = $row.find(indicator),
       $nextRow = $row.next(),
       $expandable = $nextRow.find(expandable);
@@ -40642,14 +40714,41 @@ AppTableOutils.prototype = {
 
     bindEvents: function() {
         this.$el
-            .off('click', toggleInfo)
-            .on('click', toggleInfo);
+            .off('click.outilsTable')
+            .on('click.outilsTable', toggleInfo);
     }
 };
 
 /* ====================== */
 /* Check / uncheck all checkboxes in the same tbody: app-table-outils.js */
 /* ====================== */
+function updateUrl(items) {
+  var param = $.param({ items: items });
+
+  $(triggerSelectedCheckbox).each(function(){
+    var $this = $(this),
+        url = $this.data('url');
+
+    if (url.indexOf('?') === -1) {
+      $this.attr('href', url + '?' + param);
+    } else {
+      $this.attr('href', url + '&' + param);
+    }
+  });
+}
+
+var getParam = function(ev) {
+  var $tbody = $(ev.currentTarget).closest('tbody'),
+      $checkboxes = $tbody.find(triggerCheckboxRow).filter(':checked'),
+      items = [];
+
+  $checkboxes.each(function(){
+    items.push( $(this).val() );
+  });
+
+  updateUrl(items);
+};
+
 var toggleCheckbox = function(ev) {
   var $target = $(ev.currentTarget),
       $tbody = $target.closest('tbody');
@@ -40683,8 +40782,11 @@ AppTableCheckbox.prototype = {
 
     bindEvents: function() {
         this.$el
-            .off('change', toggleCheckbox)
-            .on('change', toggleCheckbox);
+            .off('change.outilsTable')
+            .on('change.outilsTable', function(e){
+              toggleCheckbox(e);
+              getParam(e);
+            });
     }
 
 };
@@ -40700,6 +40802,7 @@ var checkRows = function(ev) {
   if ($checkboxes.length === 0) {
     ev.preventDefault();
     ev.stopPropagation();
+    return;
   }
 };
 
@@ -40711,17 +40814,42 @@ function AppCheckSelectedRows(el, opts) {
 
 AppCheckSelectedRows.prototype = {
     init: function() {
+      this.$el.data('url', this.$el.attr('href'));
+      this.bindEvents();
+      return this;
+    },
+
+    bindEvents: function() {
+        this.$el
+            .off('click.outilsTable')
+            .on('click.outilsTable', checkRows);
+    }
+};
+
+
+/* ====================== */
+/* Check if rows were selected through the checked checkbox in the same tbody: app-table-outils.js */
+/* ====================== */
+function AppUpdateUrl(el, opts) {
+    this.settings = $.extend({}, defaults, opts);
+    this.$el = $(el);
+    this.init();
+}
+
+AppUpdateUrl.prototype = {
+    init: function() {
         this.bindEvents();
         return this;
     },
 
     bindEvents: function() {
         this.$el
-            .off('click', checkRows)
-            .on('click', checkRows);
+            .off('change.outilsTable')
+            .on('change.outilsTable', getParam);
     }
-
 };
+
+
 
 /* =============== */
 /* MODULE DATA-API */
@@ -40760,11 +40888,30 @@ $.fn.appCheckSelectedRows = function(opt) {
   jqueryFn(this, AppCheckSelectedRows, opt, args);
 };
 
+$.fn.appUpdateUrl = function(opt) {
+  var args = Array.prototype.slice.call(arguments, 1);
+  jqueryFn(this, AppUpdateUrl, opt, args);
+};
+
+// collapsable content
 $(trigger).appTableOutils();
+
+// all/none checkbox
 $(triggerCheckbox).appTableCheckbox();
+
+// enable/disable button popin
 $(triggerSelectedCheckbox).appCheckSelectedRows();
 
+// update button url
+$(triggerCheckboxRow).appUpdateUrl();
 
+// auto refresh after ajax response
+App.updaters.appOutilsGestion = function() {
+  $(trigger).appTableOutils();
+  $(triggerCheckbox).appTableCheckbox();
+  $(triggerSelectedCheckbox).appCheckSelectedRows();
+  $(triggerCheckboxRow).appUpdateUrl();
+};
 },{}],38:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
