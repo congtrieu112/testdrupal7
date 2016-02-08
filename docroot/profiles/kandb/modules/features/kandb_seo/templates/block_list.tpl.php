@@ -1,25 +1,24 @@
-<section>
-  <article>
-    <div class="typeLogements wrapper">
-      <div class="typeLogements__heading"></div>
-      <?php if(!empty($results)) : ?>
-        <?php foreach ($results as $letter => $objects) : ?>
-        <div class="typeLogements__list bg-white" style="padding: 2px; margin: 2px">
-            <dl>
-                <dt id="list-<?php print strtolower($letter); ?>"><?php print strtoupper($letter); ?></dt>
+<?php if(!empty($results)) : ?>
+  <div class="noResults__category__list">
+    <ul class="small-block-grid-2 medium-block-grid-3">
+      <?php foreach ($results as $letter => $objects) : ?>
+        <li id="list-<?php print strtolower($letter); ?>">
+          <dl>
+            <dt><?php print strtolower($letter); ?></dt>
+            <dd>
               <?php foreach($objects as $object) : ?>
-              <dt><?php print $object['name']; ?></dt>
-              <dd>
+                <div class="heading heading--small">
+                  <div class="heading__title"><?php print $object['name']; ?></div>
+                </div>
                 <ul>
                   <li><a href="/<?php print $location; ?>/programmes-immobiliers-neufs-<?php print $object['sanitize_name']; ?>" title="Programmes neufs à <?php print $object['name']; ?>">Programmes neufs <?php print $object['name']; ?></a></li>
                   <li><a href="/<?php print $location; ?>/logements-immobiliers-neufs-<?php print $object['sanitize_name']; ?><?php print (!empty($object['numero_departement']) ? '-' . $object['numero_departement'] : ''); ?>" title="Logements neufs à <?php print $object['name']; ?>">Logements neufs <?php print $object['name']; ?></a></li>
                 </ul>
-              </dd>
               <?php endforeach; ?>
-            </dl>
-          </div>
-        <?php endforeach; ?>
-      <?php endif; ?>
-    </div>
-  </article>
-</section>
+            </dd>
+          </dl>
+        </li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+<?php endif; ?>
