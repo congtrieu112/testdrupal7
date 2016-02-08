@@ -1077,3 +1077,13 @@ function kandb_update_7209() {
     module_disable(array('dblog'), TRUE);
   }
 }
+
+/**
+ * Enable password policy module
+ */
+function kandb_update_7210() {
+  if (!module_exists('password_policy')) {
+    module_enable(array('password_policy'), TRUE);
+    variable_set('password_policy_admin', 0);
+  }
+}
