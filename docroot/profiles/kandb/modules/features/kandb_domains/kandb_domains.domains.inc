@@ -131,7 +131,7 @@ function kandb_domains_domain_conf_default_variables() {
   $domain_variables = array();
   $domain_variables['kandb_b2b'] = array(
     'site_name' => 'KandB',
-    'site_mail' => 'gregory.montigny@digitaslbi.fr',
+    'site_mail' => 'noreply@kaufmanbroad.fr',
     'site_slogan' => '',
     'site_frontpage' => 'b2b-homepage',
     'anonymous' => 'Anonymous',
@@ -375,7 +375,7 @@ function kandb_domains_domain_conf_default_variables() {
   );
   $domain_variables['kandb_b2c'] = array(
     'site_name' => 'Site-Install',
-    'site_mail' => 'gregory.montigny@digitaslbi.fr',
+    'site_mail' => 'noreply@kaufmanbroad.fr',
     'site_slogan' => '',
     'site_frontpage' => 'node/1',
     'anonymous' => 'Anonymous',
