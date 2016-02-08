@@ -820,7 +820,7 @@ function kandb_seo_get_list_of_cities_by_programme_in($location, $options = arra
   }
 
   // Limit to 51 for the list without first letter
-  if(!$options['first_letter'] && !$options['only_first_letter']) $query->range(0, 51);
+  // if(!$options['first_letter'] && !$options['only_first_letter']) $query->range(0, 51);
 
   // Execute
   return $query->execute();
