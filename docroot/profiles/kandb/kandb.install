@@ -1065,3 +1065,15 @@ function kandb_update_7208() {
     module_enable(array('kandb_menu_b2b'), TRUE);
   }
 }
+
+/**
+ * Enable syslog and disable dblog module
+ */
+function kandb_update_7209() {
+  if (!module_exists('syslog')) {
+    module_enable(array('syslog'), TRUE);
+  }
+  if (module_exists('dblog')) {
+    module_disable(array('dblog'), TRUE);
+  }
+}
