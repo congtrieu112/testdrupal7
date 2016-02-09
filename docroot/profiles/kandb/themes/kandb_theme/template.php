@@ -284,6 +284,25 @@ function kandb_theme_preprocess_node(&$vars) {
     }
   }
 
+  if ($vars['view_mode'] == 'full' && $vars['type'] == 'bien') {
+    if(isset($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE]) && !empty($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE])) {
+      $terms_array = $vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE];
+      $terms_ids = array();
+      foreach($terms_array as $term){
+        $terms_ids[] = $term['tid'];
+      }
+      if($terms = taxonomy_term_load_multiple($terms_ids)){
+        $vars['program_characteristic_on_bien'] = array();
+        foreach($terms as $term) {
+          if(isset($term->field_show_on_bien_page) && $term->field_show_on_bien_page[LANGUAGE_NONE][0]['value'] == 1) {
+            $vars['program_characteristic_on_bien'][] = $term;
+          }
+        }
+      }
+
+    }
+  }
+
   // Implement redirect bien detail if status is Indisponible;
   if ($vars['type'] == 'bien' && isset($arg[1]) && $arg[1] == $vars['nid']) {
     if (empty($user->uid)) {
