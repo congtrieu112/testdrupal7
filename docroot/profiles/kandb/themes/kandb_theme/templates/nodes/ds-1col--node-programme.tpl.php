@@ -55,16 +55,28 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
         </ul>
     </div>
 
+    <?php if (isset($node->field_image_principale) && !empty($node->field_image_principale)) : ?>
     <div class="programHeader__figure">
-        <!-- images need to have 2 formats see data-exchange attribute:
-        - small: 640 x 316 (heavy compression)
-        - medium: 1024 x 506
-        - large: 1380 x 670
-        -->
-        <!-- [Responsive img] start--><img alt="Photo du programme" data-interchange="[<?php print $image_principale_small; ?>, (small)], [<?php print $image_principale_medium; ?>, (medium)], [<?php print $image_principale_large; ?>, (large)]"/>
-        <noscript><img src="<?php print $image_principale_medium; ?>" alt="Photo du programme"/></noscript>
-        <!-- [Responsive img] end-->
+      <!-- [carousel] start-->
+      <div data-slick="{&quot;slidesToShow&quot;: 1, &quot;slidesToScroll&quot;: 1}" class="slick-slider__item-1">
+        <?php foreach ($node->field_image_principale[LANGUAGE_NONE] as $id => $image) : ?>
+          <article class="programHeaderFigureItem">
+            <figure>
+              <!-- images need to have 3 formats see data-exchange attribute:
+              - small: 640 x 313 (heavy compression)
+              - medium: 1024 x 485
+              - large: 1380 x 600
+              -->
+              <!-- [Responsive img] start--><img alt="<?php print $image['alt']; ?>" title="<?php print $image['title']; ?>" data-interchange="[<?php print $image['small']; ?>, (small)], [<?php print $image['medium']; ?>, (medium)], [<?php print $image['large']; ?>, (large)]"/>
+              <noscript><img src="<?php print $image['medium']; ?>" alt="<?php print $image['alt']; ?>" title="<?php print $image['title']; ?>"/></noscript>
+              <!-- [Responsive img] end-->
+            </figure>
+          </article>
+        <?php endforeach; ?>
+      </div>
+      <!-- [Responsive img] end-->
     </div>
+    <?php endif; ?>
     <div class="wrapper">
         <!-- [programHeader__content] start -->
         <div class="programHeader__content">
