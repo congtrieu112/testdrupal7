@@ -337,16 +337,17 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['promotions'] = get_nids_promotions_by_programme($node->nid);
 
     // Information for header programme page
-    $vars['title'] = $node->title;
-    $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri']) ? $node->field_image_principale[LANGUAGE_NONE][0]['uri'] : '';
-    $vars['image_principale_small'] = '';
-    $vars['image_principale_large'] = '';
-    $vars['image_principale_medium'] = '';
 
-    if ($image_principale) {
-      $vars['image_principale_small'] = image_style_url('program_image_principale_small', $image_principale);
-      $vars['image_principale_medium'] = image_style_url('program_image_principale_medium', $image_principale);
-      $vars['image_principale_large'] = image_style_url('program_image_principale_large', $image_principale);
+    $vars['title'] = $node->title;
+
+    if (isset($node->field_image_principale) && !empty($node->field_image_principale)) {
+      foreach($node->field_image_principale[LANGUAGE_NONE] as $id => &$image){
+        if(!empty($image['uri'])){
+          $image['small'] = image_style_url("bien_small__640_x_316", $image['uri']);
+          $image['medium'] = image_style_url("bien_medium__1024x506", $image['uri']);
+          $image['large'] = image_style_url("bien_large__1380_x_600", $image['uri']);
+        }
+      }
     }
 
     $vars['nouveau'] = isset($node->field_nouveau[LANGUAGE_NONE][0]['value']) ? $node->field_nouveau[LANGUAGE_NONE][0]['value'] : 0;
