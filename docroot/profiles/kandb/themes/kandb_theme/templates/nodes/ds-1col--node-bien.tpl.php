@@ -350,6 +350,16 @@ if($nb_pieces_name == 'studio') {
             <div data-equalizer-watch class="programHeader__content__details">
                 <ul class="characteristicList">
                     <?php
+                    if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) {
+                      foreach($program_characteristic_on_bien as $term) {
+                        $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                        print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
+                        print '</li>';
+                      }
+                    }
+                    ?>
+                    <?php
                     $vocabulary_name = 'caracteristiques';
                     if (isset($node->field_caracteristique[LANGUAGE_NONE][0])):
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):

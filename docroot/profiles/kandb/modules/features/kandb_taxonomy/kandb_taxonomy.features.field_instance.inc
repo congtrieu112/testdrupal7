@@ -298,7 +298,45 @@ function kandb_taxonomy_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 1,
+      'weight' => 3,
+    ),
+  );
+
+  // Exported field_instance:
+  // 'taxonomy_term-caracteristiques_programme-field_show_on_bien_page'
+  $field_instances['taxonomy_term-caracteristiques_programme-field_show_on_bien_page'] = array(
+    'bundle' => 'caracteristiques_programme',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 1,
+      ),
+    ),
+    'entity_type' => 'taxonomy_term',
+    'field_name' => 'field_show_on_bien_page',
+    'label' => 'Afficher sur les pages biens',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => 2,
     ),
   );
 
@@ -1540,6 +1578,7 @@ function kandb_taxonomy_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Afficher sur les pages biens');
   t('Code departement');
   t('Display mode');
   t('Facteur');
