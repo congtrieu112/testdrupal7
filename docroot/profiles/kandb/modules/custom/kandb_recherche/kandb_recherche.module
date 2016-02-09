@@ -1121,6 +1121,12 @@ function kandb_recherche_entity_property_info_alter(&$info) {
     'sanitized' => TRUE,
     'getter callback' => 'kandb_recherche_get_number_room_sorting_info',
   );
+  $properties['programme_image'] = array(
+    'type' => 'text',
+    'label' => t('Programme Image'),
+    'sanitized' => TRUE,
+    'getter callback' => 'kandb_recherche_get_programme_image',
+  );
 }
 
 /**
@@ -1237,6 +1243,23 @@ function kandb_recherche_get_number_room_sorting_info($data, array $options, $na
     }
   }
   return $number;
+}
+
+/**
+ * Custom getter callback for the main image of a programme
+ *
+ * @param $data
+ * @param array $options
+ * @param $name
+ * @param $type
+ * @param $info
+ * @return null|string
+ */
+function kandb_recherche_get_programme_image($data, array $options, $name, $type, $info) {
+  if(isset($data->field_image_principale['und'][0]['uri']) && !empty($data->field_image_principale['und'][0]['uri'])) {
+    return $data->field_image_principale['und'][0]['uri'];
+  }
+  return NULL;
 }
 
 /**

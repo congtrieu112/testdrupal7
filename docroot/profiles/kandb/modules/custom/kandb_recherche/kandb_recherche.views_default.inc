@@ -814,6 +814,14 @@ function kandb_recherche_views_default_views() {
   $handler->display->display_options['fields']['field_programme_ville_text']['label'] = '';
   $handler->display->display_options['fields']['field_programme_ville_text']['element_label_colon'] = FALSE;
   $handler->display->display_options['fields']['field_programme_ville_text']['link_to_entity'] = 0;
+  /* Field: Programme: Programme Image (indexed) */
+  $handler->display->display_options['fields']['field_programme_programme_image']['id'] = 'field_programme_programme_image';
+  $handler->display->display_options['fields']['field_programme_programme_image']['table'] = 'search_api_index_acquia_solr_index';
+  $handler->display->display_options['fields']['field_programme_programme_image']['field'] = 'field_programme_programme_image';
+  $handler->display->display_options['fields']['field_programme_programme_image']['label'] = '';
+  $handler->display->display_options['fields']['field_programme_programme_image']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_programme_programme_image']['element_default_classes'] = FALSE;
+  $handler->display->display_options['fields']['field_programme_programme_image']['link_to_entity'] = 0;
   /* Sort criterion: Programme: Number of the department (indexed) */
   $handler->display->display_options['sorts']['field_programme_departement_number']['id'] = 'field_programme_departement_number';
   $handler->display->display_options['sorts']['field_programme_departement_number']['table'] = 'search_api_index_acquia_solr_index';

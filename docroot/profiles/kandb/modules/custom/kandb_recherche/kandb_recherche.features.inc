@@ -18,7 +18,7 @@ function kandb_recherche_default_search_api_index() {
   $items = array();
   $items['acquia_solr_index'] = entity_import('search_api_index', '{
     "name" : "Acquia Solr Index",
-    "machine_name" : "acquia_solr_index",
+    "machine_name" : "acquia_solr_index",+
     "description" : null,
     "server" : "acquia_solr",
     "item_type" : "node",
@@ -52,6 +52,7 @@ function kandb_recherche_default_search_api_index() {
         "field_programme:field_tva" : { "type" : "integer", "entity_type" : "taxonomy_term" },
         "field_programme:kandb_recherche_domain_access" : { "type" : "list\\u003Cinteger\\u003E" },
         "field_programme:nid" : { "type" : "integer" },
+        "field_programme:programme_image" : { "type" : "string" },
         "field_programme:status" : { "type" : "integer" },
         "field_programme:title" : { "type" : "text" },
         "field_programme:title_sort" : { "type" : "string" },
