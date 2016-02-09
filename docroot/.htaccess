@@ -1,42 +1,6 @@
 #
 # Apache/PHP/Drupal settings:
 #
-#Order deny,allow
-#deny from all
-
-#Digitas internal
-#allow from 10.226.
-#allow from 10.224.
-
-#Digitas team
-#Allow from 88.182.96.107
-#Allow from 88.161.115.109
-#Allow from 78.193.247.63
-#Allow from 81.200.189.8
-
-#Kaufman
-#Allow from 217.167.236.137
-#Allow from 46.218.77.35
-#Allow from 46.218.77.36
-
-#Facebook
-#allow from env=fb_bot
-
-#Sutrix
-#allow from 113.161.76.29
-#allow from 210.245.110.120
-#allow from 115.78.237.241
-#allow from 103.19.166.128/28
-
-#GTmetrix
- #allow from 204.187.14.
-
-#Woorank
-#allow from 52.1.130.94
-#allow from 52.4.171.200
-#allow from 52.4.114.110
-#allow from 52.0.14.146
-#allow from 52.4.146.95
 
 # Protect files and directories from prying eyes.
 <FilesMatch "\.(engine|inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)(~|\.sw[op]|\.bak|\.orig|\.save)?$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|^#.*#$|\.php(~|\.sw[op]|\.bak|\.orig\.save)$">
@@ -98,16 +62,1076 @@ DirectoryIndex index.php index.html index.htm
   # Redirect old url to new url
   RewriteCond %{HTTP_HOST}  ^www.videos.ketb.com$
   RewriteRule (.*) http://www.kaufmanbroad.fr? [R=301,L]
-
+  # UK
   RewriteCond %{HTTP_HOST}  !^www.uk.ketb.com$
   RewriteRule  .?  -  [S=3]
   RewriteRule UK/france-property-development/about-kaufman-broad.htm http://www.ketb.co.uk/french-property-developer/about-us/french-real-estate-company.aspx [R=301,L]
   RewriteRule uk/france-property/home-design.htm http://www.ketb.co.uk/apartment-house-for-sale/apartments-showroom/concept.aspx [R=301,L]
   RewriteRule uk/france_home http://www.kaufmanbroad.fr [R=301,L]
 
+  # contact/se-faire-rappeler.aspx
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_puteaux((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150?? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_paris19((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_nantes_newr((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_Meaux((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_frejus((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_emergence((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))prev=minisite_larochelle((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-rochelle/cour-des-arts-17000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51141((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51111((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51091((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51081((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51061((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51051((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51021((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51011((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=51001((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=50991((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=50801((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33761((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33751((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33721((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33681((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33651((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33581((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500? [R=301,L]
+
+  # contact/PrendreRendezVous.aspx
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59151((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-provin/le-domaine-de-seve-59185? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59141((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-iii-59242? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59112((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59111((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54391((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hendaye/hegoaldea-64700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54362((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-pinpirina-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54361((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-enara-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54341((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/erreka-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54331((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/eden-lodge-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54271((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/marinadour-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53991((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/villas-doe-33700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53871((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/opus-verde-33140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53841((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cenon/le-metropolitain-33150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53831((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-teste-de-buch/le-domaine-des-testerins-33260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53811((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pompignac/le-parc-de-citon-33330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53801((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/au-fil-des-saisons-33700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53791((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-begles/tereo-33130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53771((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/essencia-33120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53741((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-selve/lairial-des-merisiers-33650? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53711((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53681((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/les-alizes-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53651((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/fleur-deau-33140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53641((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/villa-arte-33120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53612((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/cote-bassin-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51141((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51111((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51091((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51081((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51061((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51051((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51021((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51011((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51001((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=50991((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=50801((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41981((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-chevrier/les-terrasses-du-verger-74520? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41961((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/central-plazza-74100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41951((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/les-balcons-de-geneve-74100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=38221((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rennes/le-panoramik-35000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35051((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35041((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-hermes-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35021((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/magna-carta-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35011((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-carnon/le-palmaiso-34130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35001((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/coeur-clemenceau-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34981((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-palavas-les-flots/lodyssee-grecque-34250? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34971((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lattes/le-mas-de-loppidum-34970? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34961((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/le-patio-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34951((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-georges-dorques/le-clos-orcas-34680? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34931((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/natura-park-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34911((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34891((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/terra-nostra-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33761((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33751((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33721((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33681((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33651((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33581((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26111((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-isere? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26101((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brou-sur-chantereine/letincelle-77177? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26091((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-plaisir/residence-paul-verlaine-78370? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26081((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-fargeau-ponthierry/les-pastelles-77310? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26061((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/cote-versailles-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26051((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/360-view-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26041((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-acheres/eclosion-78260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26031((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-pin/le-domaine-du-chateau-77181? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26022((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-plessis-pate/le-domaine-du-pre-91220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26011((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-melun/sentier-nature-77000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26001((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mennecy/domaine-natura-91540? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25991((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-eaubonne/larboressence-95600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25981((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-pierre-du-perray/les-rives-du-lac-91280? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25971((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-argenteuil/lallee-des-impressionnistes-95100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25942((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-ii-95240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25941((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-i-95240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25911((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bretigny-sur-orge/le-jardin-des-muses-91220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25891((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-brice-sous-foret/le-naturl-95140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25881((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-osny/le-clos-des-aulnes-95520? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25871((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sarcelles/le-trendy-95200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25864((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-ii-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25863((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-i-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25861((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25831((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-buc/le-clos-bosquet-78530? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25821((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vigneux-sur-seine/les-jardins-de-malte-91270? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25811((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-ii-77100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25801((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25791((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25781((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sartrouville/opus-78500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25771((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/le-carre-dauvours-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25761((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/laustral-44200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25741((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubergenville/les-jardins-des-arts-78410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25731((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mareil-marly/les-jardins-du-louvre-78750? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25701((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-velizy-villacoublay/harmonia-78140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25681((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-jouy-le-moutier/linitial-95280? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25671((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-ouen-laumone/rive-gauche-95310? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25662((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25621((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villepinte/ville-et-sens-93420? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25611((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-thorigny-sur-marne/quai-des-arts-77400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25601((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fontenay-le-fleury/le-bel-canto-78330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25581((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/city-parc-93290? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25511((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fleury-merogis/obois-91700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25471((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-viry-chatillon/cote-sud-91170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25421((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-juvisy-sur-orge/les-terrasses-de-lobservatoire-91260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25353((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boussy-saint-antoine/carre-nature-91800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25341((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=24551((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-poissy/les-terrasses-darcy-78300? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19301((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/neo-sud-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19281((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/golfe-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19241((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vienne/villa-maxime-38200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19211((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-alfortville/virtuoz-94140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19201((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-cannet/49-carnot-06110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19191((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meyzieu/couleur-cedres-69330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19181((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/rive-sud-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19171((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/parc-seina-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19161((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubagne/terracotta-13400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19151((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-baou-06640? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19141((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-pre-vert-06640? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19131((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-ecully/villa-eugenie-69130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19121((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/villa-nais-13011? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19111((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-champagne-au-mont-dor/coeur-champagne-69410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19091((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/fusionl-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19081((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/sequenciel-93290? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19071((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-drancy/place-des-arts-93700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18981((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/carre-morgiou-13009? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18971((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vaulx-en-velin/cap-village-69120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18961((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubervilliers/new-factory-93300? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18951((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18941((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villejuif/90sud-94800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18911((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-charbonnieres-les-bains/le-domaine-victoria-69260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18901((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pelissanne/le-domaine-de-gaia-13330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18891((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18871((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sainte-maxime/park-horizon-83120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18861((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montfermeil/coeur-village-93370? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18841((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lyon/le-dome-69001? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18811((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-istres/meridia-13118? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18771((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/les-jardins-de-lacademie-69100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18751((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/effervescence-13010? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18741((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-raphael/angle-marine-83700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18641((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/lumina-13100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18631((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/solea-13100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18601((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/le-capitole-92800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18591((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hyeres/les-palmes-dor-83400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18582((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18571((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/jardin-des-sens-13013? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18561((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/cap-morgiou-13009? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18521((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18471((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/city-hall-69100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18412((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-ii-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18411((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18381((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boulogne-billancourt/cap-city-92100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18221((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/les-lices-83990? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18151((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nice/monte-verde-06000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18071((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bagneux/lavant-scene-i-92220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=17901((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/exclusive-resort-83990? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=15342((?:&|$).*)
+  RewriteRule contact/PrendreRendezVous.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vallauris/residence-lodyssee-ii-06220? [R=301,L]
+
+  # Demande Documentation
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59151((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-provin/le-domaine-de-seve-59185? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59141((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-iii-59242? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59112((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=59111((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54391((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hendaye/hegoaldea-64700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54362((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-pinpirina-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54361((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-enara-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54341((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/erreka-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54331((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/eden-lodge-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=54271((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/marinadour-64100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53991((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/villas-doe-33700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53871((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/opus-verde-33140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53841((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cenon/le-metropolitain-33150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53831((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-teste-de-buch/le-domaine-des-testerins-33260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53811((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pompignac/le-parc-de-citon-33330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53801((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/au-fil-des-saisons-33700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53791((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-begles/tereo-33130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53771((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/essencia-33120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53741((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-selve/lairial-des-merisiers-33650? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53711((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53681((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/les-alizes-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53651((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/fleur-deau-33140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53641((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/villa-arte-33120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=53612((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/cote-bassin-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51141((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51111((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51091((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51081((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51061((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51051((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51021((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51011((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=51001((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=50991((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=50801((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41981((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-chevrier/les-terrasses-du-verger-74520? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41961((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/central-plazza-74100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=41951((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/les-balcons-de-geneve-74100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=38221((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rennes/le-panoramik-35000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35051((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35041((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-hermes-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35021((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/magna-carta-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35011((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-carnon/le-palmaiso-34130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=35001((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/coeur-clemenceau-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34981((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-palavas-les-flots/lodyssee-grecque-34250? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34971((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lattes/le-mas-de-loppidum-34970? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34961((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/le-patio-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34951((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-georges-dorques/le-clos-orcas-34680? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34931((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/natura-park-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34911((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=34891((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/terra-nostra-34000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33761((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33751((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33721((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33681((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33651((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33581((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26111((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-isere? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26101((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brou-sur-chantereine/letincelle-77177? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26091((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-plaisir/residence-paul-verlaine-78370? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26081((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-fargeau-ponthierry/les-pastelles-77310? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26061((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/cote-versailles-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26051((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/360-view-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26041((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-acheres/eclosion-78260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26031((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-pin/le-domaine-du-chateau-77181? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26022((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-plessis-pate/le-domaine-du-pre-91220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26011((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-melun/sentier-nature-77000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=26001((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mennecy/domaine-natura-91540? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25991((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-eaubonne/larboressence-95600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25981((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-pierre-du-perray/les-rives-du-lac-91280? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25971((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-argenteuil/lallee-des-impressionnistes-95100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25942((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-ii-95240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25941((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-i-95240? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25911((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bretigny-sur-orge/le-jardin-des-muses-91220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25891((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-brice-sous-foret/le-naturl-95140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25881((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-osny/le-clos-des-aulnes-95520? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25871((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sarcelles/le-trendy-95200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25864((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-ii-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25863((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-i-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25861((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-77170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25831((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-buc/le-clos-bosquet-78530? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25821((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vigneux-sur-seine/les-jardins-de-malte-91270? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25811((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-ii-77100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25801((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25791((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25781((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sartrouville/opus-78500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25771((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/le-carre-dauvours-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25761((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/laustral-44200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25741((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubergenville/les-jardins-des-arts-78410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25731((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mareil-marly/les-jardins-du-louvre-78750? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25701((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-velizy-villacoublay/harmonia-78140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25681((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-jouy-le-moutier/linitial-95280? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25671((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-ouen-laumone/rive-gauche-95310? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25662((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25621((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villepinte/ville-et-sens-93420? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25611((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-thorigny-sur-marne/quai-des-arts-77400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25601((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fontenay-le-fleury/le-bel-canto-78330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25581((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/city-parc-93290? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25511((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fleury-merogis/obois-91700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25471((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-viry-chatillon/cote-sud-91170? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25421((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-juvisy-sur-orge/les-terrasses-de-lobservatoire-91260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25353((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boussy-saint-antoine/carre-nature-91800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=25341((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=24551((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-poissy/les-terrasses-darcy-78300? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19301((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/neo-sud-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19281((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/golfe-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19241((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vienne/villa-maxime-38200? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19211((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-alfortville/virtuoz-94140? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19201((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-cannet/49-carnot-06110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19191((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meyzieu/couleur-cedres-69330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19181((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/rive-sud-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19171((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/parc-seina-83500? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19161((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubagne/terracotta-13400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19151((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-baou-06640? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19141((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-pre-vert-06640? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19131((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-ecully/villa-eugenie-69130? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19121((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/villa-nais-13011? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19111((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-champagne-au-mont-dor/coeur-champagne-69410? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19091((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/fusionl-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19081((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/sequenciel-93290? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=19071((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-drancy/place-des-arts-93700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18981((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/carre-morgiou-13009? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18971((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vaulx-en-velin/cap-village-69120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18961((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubervilliers/new-factory-93300? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18951((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18941((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villejuif/90sud-94800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18911((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-charbonnieres-les-bains/le-domaine-victoria-69260? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18901((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pelissanne/le-domaine-de-gaia-13330? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18891((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18871((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sainte-maxime/park-horizon-83120? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18861((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montfermeil/coeur-village-93370? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18841((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lyon/le-dome-69001? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18811((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-istres/meridia-13118? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18771((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/les-jardins-de-lacademie-69100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18751((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/effervescence-13010? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18741((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-raphael/angle-marine-83700? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18641((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/lumina-13100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18631((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/solea-13100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18601((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/le-capitole-92800? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18591((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hyeres/les-palmes-dor-83400? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18582((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18571((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/jardin-des-sens-13013? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18561((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/cap-morgiou-13009? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18521((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18471((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/city-hall-69100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18412((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-ii-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18411((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-93110? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18381((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boulogne-billancourt/cap-city-92100? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18221((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/les-lices-83990? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18151((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nice/monte-verde-06000? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=18071((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bagneux/lavant-scene-i-92220? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=17901((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/exclusive-resort-83990? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=15342((?:&|$).*)
+  RewriteRule contact/demande-documentation.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vallauris/residence-lodyssee-ii-06220? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/maisons-appartements-avec-terrasses-jardins.aspx http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/seine-et-marne.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule vente-immobilier-neuf/recrutement-kaufman/liste-offres-emploi.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))prov=footer&service=notre+Service+Immobilier+d'entreprise&email=Infos-immobilier_entreprise%40ketb.com((?:&|$).*)
+  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-services? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/seine-et-marne.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/var---cote-d-azur.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/rhone-alpes.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-rhone-alpes? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))KETBIDKRK=19((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence-alpes-cote-d-azur.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/languedoc-roussillon.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-languedoc-roussillon? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-ile-de-france? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-aquitaine? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/midi-pyrenees.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-midi-pyrenees? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
+  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))TypeOnglet=1((?:&|$).*)
+  RewriteRule immobilier-neuf/achat-appartement-neuf/saint-herblain/programme-les-quatre-saisons.* http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-loire-atlantique-44? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))prov=(.*)((?:&|$).*)
+  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-agences? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))email=infos-SAV%40ketb\.com&prov=footer&service=le\+Service\+Client((?:&|$).*)
+  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-services? [R=301,L]
+
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))aspxerrorpath=/immobilier-ne%20uf/nouveaux-programmes-immobiliers.aspx((?:&|$).*)
+  RewriteRule constructeur-immobilier/page404.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))aspxerrorpath=/fr/Informations-financieres/assemblee-generale-septembre-2013.aspx((?:&|$).*)
+  RewriteRule constructeur-immobilier/page404.aspx http://www.kaufmanbroad.fr/corporate/finance/assemblee-generale/fr? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))aspxerrorpath=/Evenement/Index.aspx((?:&|$).*)
+  RewriteRule constructeur-immobilier/page404.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere? [R=301,L]
+
+  # All redirection sans parametres
   RewriteCond %{HTTP_HOST}  !^(www\.)?ketb.com$
-  RewriteRule  .?  -  [S=1346]
-  RewriteRule vente-immobilier-neuf/recrutement-kaufman/liste-offres-emploi.aspx?PageNo=0 http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers [R=301,L]
+  RewriteRule .?  -  [S=938]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman/liste-offres-emploi.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers [R=301,L]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman/candidature-spontannee.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/postuler [R=301,L]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers [R=301,L]
@@ -117,12 +1141,8 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule uk/faq.aspx http://www.ketb.co.uk/french-property-developer/faq-help.aspx [R=301,L]
   RewriteRule uk/contact.aspx http://www.ketb.co.uk/french-property-developer/contact-to-buy-property/contact-list.aspx [R=301,L]
   RewriteRule toulouse/ http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-toulouse-31 [R=301,L]
-  RewriteRule terrain/ http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule sm2i/index.html http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule silver/.* http://www.kaufmanbroad.fr/nos-conseils/pourquoi-acheter-neuf [R=301,L]
-  RewriteRule scellier-boursorama/.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule resolutions2013-logement-neuf/bretagnepdl.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-bretagne [R=301,L]
-  RewriteRule promoteur-immobilier/realisations-kaufman-and-broad.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule promoteur-immobilier/promoteur-constructeur-immobilier.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-valeurs [R=301,L]
   RewriteRule promoteur-immobilier/engagement-qualite/K-comme-qualite.aspx http://www.kaufmanbroad.fr/corporate/activites/habitat [R=301,L]
   RewriteRule promoteur-immobilier/developpement-durable/projets.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
@@ -134,7 +1154,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule promoteur-constructeur/valeurs-strategie.aspx http://www.kaufmanbroad.fr/corporate/finance/presentation/fr [R=301,L]
   RewriteRule promoteur-constructeur/histoire-kaufman-and-broad.aspx http://www.kaufmanbroad.fr/corporate/finance/presentation/fr [R=301,L]
   RewriteRule promoteur-constructeur/direction-kaufman-and-broad.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
-  RewriteRule promoteur-constructeur/construction-appartements-maisons.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule promoteur-constructeur/chiffres-cles.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule promo/var-01.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-var-85 [R=301,L]
   RewriteRule promo/ http://www.kaufmanbroad.fr/notre-offre/nouveaute [R=301,L]
@@ -148,7 +1167,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule programme-immobilier-neuf/roubaix/50eme-avenue.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-nord-pas-de-calais [R=301,L]
   RewriteRule programme-immobilier-neuf/poissy/les-terrasses-d-arcy.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-poissy/les-terrasses-darcy-78300 [R=301,L]
   RewriteRule programme-immobilier-neuf/plan-de-relance-du-logement/loi-pinel.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule programme-immobilier-neuf/paris/bo-paris.aspx?prov=misterbell_paris19 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
+  RewriteRule programme-immobilier-neuf/paris/bo-paris.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
   RewriteRule programme-immobilier-neuf/paris/bo-paris.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
   RewriteRule programme-immobilier-neuf/montfermeil/coeur-village.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montfermeil/coeur-village-93370 [R=301,L]
   RewriteRule programme-immobilier-neuf/meyreuil/appartements-neufs-meyreuil.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-bouches-du-rhone-13 [R=301,L]
@@ -159,13 +1178,11 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule programme-immobilier-neuf/groslay/les-villas-josephine.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410 [R=301,L]
   RewriteRule programme-immobilier-neuf/grasse/aroma-park.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule programme-immobilier-neuf/franconville/esprit-ville.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130 [R=301,L]
-  RewriteRule programme-immobilier-neuf/bayonne/bureaux-a-vendre.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule programme-immobilier-neuf/argenteuil/l-allee-des-impressionnistes.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-argenteuil/lallee-des-impressionnistes-95100 [R=301,L]
   RewriteRule printemps-de-la-maison-neuve-en-idf/ http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-ile-de-france [R=301,L]
   RewriteRule paris17/images/emergence.pdf http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
   RewriteRule paris17/ http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
   RewriteRule paris17 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
-  RewriteRule page404.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule offres-qualite/var-01.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-var-85 [R=301,L]
   RewriteRule offres-exceptionnelles/94-01.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-val-de-marne-94 [R=301,L]
   RewriteRule offres-exceptionnelles/93-01.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93 [R=301,L]
@@ -182,26 +1199,14 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule notre-offre-immobiliere/inscription-espace-perso.aspx http://www.kaufmanbroad.fr/mon-espace [R=301,L]
   RewriteRule nos-offres/resultats.* http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule nos-offres/maison-modele-detail.aspx http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
-  RewriteRule newsletter/vivre-.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/tendance-.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule newsletter/pratique-47-profiter-d-une-tva-reduite-a-5-5-dans-le-neuf.aspx http://www.kaufmanbroad.fr/tva-55-ou-7 [R=301,L]
   RewriteRule newsletter/pratique-31-investissez-en-duflot.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule newsletter/pratique-18-pensez-au-pret-action-logement-ou-1-logement.aspx http://www.kaufmanbroad.fr/1-logement [R=301,L]
-  RewriteRule newsletter/pratique-.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/inscription.aspx?idkf=00000000-0000-0000-0000-000000000000 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/inscription.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule newsletter/actualite-9-dispositif-scellier-n-attendez-plus.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule newsletter/actualite-41-le-nouveau-dispositif-pinel-d-investissement-locatif.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule newsletter/actualite-35-dispositif-duflot-objectif-stabilisation.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule newsletter/actualite-21-le-dispositif-duflot.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule newsletter/actualite-1-scellier-investissement.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule newsletter/actualite-17-dispositif-scellier-n-attendez-plus-pour-en-profiter.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule newsletter/actualite-.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/4 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/3 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/2 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/1 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule newsletter/<%=UrlFidelisationNewsletter%20%> http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule minisite/viry-chatillon/ http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-essonne [R=301,L]
   RewriteRule minisite/villepreux/index.asp http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-yvelines [R=301,L]
   RewriteRule minisite/villepreux/images/villepreux.pdf http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-yvelines [R=301,L]
@@ -290,7 +1295,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule ketbmedia/FR/com/KBSA_CPResultatsY2010_VF.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule ketbmedia/FR/com/KBSA_CP_2015RésultatQ1_VdefClean(post%20AG).pdf http://www.kaufmanbroad.fr/corporate/finance/publication/fr [R=301,L]
   RewriteRule ketbmedia/FR/com/KBSA%20CP%202015%20Résultat%20S1_V19.pdf http://www.kaufmanbroad.fr/corporate/finance/publication/fr [R=301,L]
-  RewriteRule ketbmedia/FR/com/CqueRFS_S1_2013_VF.pdf http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule ketbmedia/FR/com/Cqué%20RFS_S1_2015_VF.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule ketbmedia/FR/com/CP_PREMIERE_PIERRE_MONTREUIL.pdf http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93 [R=301,L]
   RewriteRule ketbmedia/FR/com/CP_PREMIERE_PIERRE_BRETIGNY%20SUR%20ORGE_VF.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
@@ -439,7 +1443,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule ketbmedia/fr/biblio/2015-12-01-Reglement-du-parrainage-Kaufman.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule ketbmedia/fr/biblio/16PgMapic2013Def.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule ketbmedia/doc/Tract-Nantes-12102014.pdf http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-nantes-44 [R=301,L]
-  RewriteRule ketbmedia/doc/tauxbonifie.pdf http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule ketbmedia/doc/saintefoy.pdf http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-lyon-69 [R=301,L]
   RewriteRule ketbmedia/doc/Rapport-developpement-durable.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule ketbmedia/doc/RapportDeveloppementDurable.pdf http://www.kaufmanbroad.fr/corporate [R=301,L]
@@ -481,7 +1484,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule ketbmedia/doc/41191/PRG_Plaquette_FR_41191.pdf http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/opus-verde-33140 [R=301,L]
   RewriteRule ketbmedia/doc/38071/PRG_PRESTATIONS_38071.pdf http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule ketbmedia/doc/35051/LOT_PLAN_406.pdf http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000 [R=301,L]
-  RewriteRule ketbmedia/doc/34881/PRG_GRANDE_PERS_34881.JPG http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule ketbmedia/doc/34691/LOT_PLAN_C4.pdf http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule ketbmedia/doc/34661/prg_plaquette_fr_34661.pdf http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule ketbmedia/doc/34591/PRG_Plaquette_FR_34591.pdf http://www.kaufmanbroad.fr/notre-offre [R=301,L]
@@ -547,7 +1549,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule investir-loi-duflot http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule Informations-financieres/communique-detail.* http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule immobilier-neuf/vente-apparts-maisons-villas.* http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
-  RewriteRule immobilier-neuf/residence-secondaire.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/local-commercial.* http://www.kaufmanbroad.fr/corporate/activites/tertiaire [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-terrain-batir/var---cote-d-azur/var.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-var-83 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-terrain-batir/var---cote-d-azur/alpes-maritimes/nice.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-nice-6 [R=301,L]
@@ -586,7 +1587,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/provence/bouches-du-rhone.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-bouches-du-rhone-13 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/provence.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/poitou-charentes/charente-maritime/la-rochelle.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-rochelle [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/poitou-charentes/charente-maritime.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/poitou-charentes.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-poitou-charentes [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/nord-pas-de-calais/nord.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-nord-59 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/nord-pas-de-calais.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-nord-pas-de-calais [R=301,L]
@@ -598,7 +1598,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/yvelines.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-yvelines-78 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/val-d-oise.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-val-doise-95 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/seine-saint-denis.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/seine-et-marne.aspx?PageNo=0 http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/seine-et-marne.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/hauts-de-seine.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-hauts-de-seine-92 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-ile-de-france [R=301,L]
@@ -612,33 +1611,25 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/aquitaine.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-aquitaine [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/var---cote-d-azur/var.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-var-83 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/var---cote-d-azur/alpes-maritimes/nice.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-nice-6 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/var---cote-d-azur.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/var---cote-d-azur.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/rhone-alpes/rhone-alpes/VILLEURBANNE.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-villeurbanne-69 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/rhone-alpes/rhone-alpes/lyon.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-lyon-69 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/rhone-alpes.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-rhone-alpes [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/rhone-alpes.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-rhone-alpes [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence-alpes-cote-d-azur.aspx?KETBIDKRK=19 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence/bouches-du-rhone/marseille.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-marseille-13 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/provence.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/poitou-charentes/charente-maritime/la-rochelle.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-rochelle [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/poitou-charentes.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-poitou-charentes [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/nord-pas-de-calais/nord.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-nord-59 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/nord-pas-de-calais.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-nord-pas-de-calais [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/midi-pyrenees/haute-garonne/toulouse.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-toulouse-31 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/midi-pyrenees.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-midi-pyrenees [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/midi-pyrenees.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-midi-pyrenees [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/languedoc-roussillon/herault/montpellier.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-montpellier-34 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/languedoc-roussillon.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-languedoc-roussillon [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/languedoc-roussillon.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-languedoc-roussillon [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/yvelines.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-yvelines-78 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/seine-saint-denis.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/seine-et-marne.aspx?PageNo=0 http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/seine-et-marne.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/paris.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-paris-75 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france/hauts-de-seine.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-hauts-de-seine-92 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-ile-de-france [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/ile-de-france.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-ile-de-france [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/haute-normandie/seine-maritime/rouen.aspx http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/haute-normandie.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-haute-normandie [R=301,L]
@@ -649,20 +1640,16 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine/landes.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-landes-40 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine/gironde/bordeaux.aspx http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-bordeaux-33 [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine/gironde.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-gironde-33 [R=301,L]
-  RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine.aspx?PageNo=0 http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-aquitaine [R=301,L]
   RewriteRule immobilier-neuf/programmes-immobiliers/appartement-maison/aquitaine.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-aquitaine [R=301,L]
   RewriteRule immobilier-neuf/programme-neuf.aspx http://www.kaufmanbroad.fr/notre-offre/nouveaute [R=301,L]
   RewriteRule immobilier-neuf/programme-immobilier.aspx http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule immobilier-neuf/nouveaux-programmes-immobiliers.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere [R=301,L]
-  RewriteRule immobilier-neuf/maisons-appartements-avec-terrasses-jardins.aspx?PageNo=0 http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
   RewriteRule immobilier-neuf/maisons-appartements-avec-terrasses-jardins.aspx http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
   RewriteRule immobilier-neuf/maison-neuve/saint-germain-laxis/le-bois-de-l-aunaie-3.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/maison-neuve/mormant/les-jardins-briards--maisons-.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77 [R=301,L]
   RewriteRule immobilier-neuf/maison-contemporaine.* http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
   RewriteRule immobilier-neuf/maison-appartement-neuf/brest/les-jardins-saint-joseph.aspx http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-bretagne [R=301,L]
   RewriteRule immobilier-neuf/local-commercial.* http://www.kaufmanbroad.fr/corporate/activites/tertiaire [R=301,L]
-  RewriteRule immobilier-neuf/immobilier-prestige.aspx http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule immobilier-neuf/appartement-neuf/selestat/cote-parc.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule immobilier-neuf/appartement-neuf/saint-nazaire/mosaique.* http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-pays-de-la-loire [R=301,L]
   RewriteRule immobilier-neuf/appartement-neuf/nimes/le-nemausa.* http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-languedoc-roussillon [R=301,L]
   RewriteRule immobilier-neuf/appartement-neuf/menton/l-hermitage-park.* http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur [R=301,L]
@@ -702,7 +1689,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/wambrechies/programme-green-village-ii.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/wambrechies/programme-green-village.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-59242 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/viry-chatillon/programme-cote-sud.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-viry-chatillon/cote-sud-91170 [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/viry/programme-plein-ouest.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/villeurbanne/programme-plazza-29.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-rhone-alpes [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/villeurbanne/programme-les-jardins-de-l-academie.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/les-jardins-de-lacademie-69100 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/villeurbanne/programme-harmony-55.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-rhone-alpes [R=301,L]
@@ -745,15 +1731,11 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-mandrier-sur-mer/programme-l-aigue-marine.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-var [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-malo/programme-le-parthenon.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-ille-et-vilaine [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-jean/programme-le-clos-du-paladin.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240 [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/saint-herblain/programme-les-quatre-saisons.*?TypeOnglet=1 http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-loire-atlantique-44 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-georges-d-orques/programme-le-clos-orcas.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-georges-dorques/le-clos-orcas-34680 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-fargeau-ponthierry/programme-les-pastelles.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-fargeau-ponthierry/les-pastelles-77310 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/sainte-maxime/programme-park-horizon.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sainte-maxime/park-horizon-83120 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-egreve/programme-les-allees-du-parc.* http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-isere-38 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-brice-sous-foret/programme-le-natur-l.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-brice-sous-foret/le-naturl-95140 [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/rouen/programme-square-voltaire.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/rouen/programme-les-jardins-d-emma.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/rouen/programme-le-clos-leanor.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/rosny-sous-bois/programme-fusion-l.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/fusionl-93110 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/rosny-sous-bois/programme-43eme-avenue-ii.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-ii-93110 [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/rosny-sous-bois/programme-43eme-avenue.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-93110 [R=301,L]
@@ -911,382 +1893,27 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule fr/media/visite3d/MONTSEGUR/montsegur_1024.htm http://www.kaufmanbroad.fr/corporate/activites/habitat/maisons [R=301,L]
   RewriteRule fr/Informations-financieres/assemblee-.* http://www.kaufmanbroad.fr/corporate/finance/assemblee-generale/fr [R=301,L]
   RewriteRule fr/immobilier-entreprise/revivalis.aspx http://www.kaufmanbroad.fr/corporate/activites/tertiaire [R=301,L]
-  RewriteRule FR/html/4700.shtml http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule fr/fidelisation/.* http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule fr/editions-limitees/default.aspx http://www.kaufmanbroad.fr/notre-offre/nouveaute [R=301,L]
-  RewriteRule fr/constructeur-immobilier/.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule fr/constructeur_immobilier/.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule fr/com/declarations_.* http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule fr/com/declaration.pdf http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule FR/asp/index.asp http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule evenement-les-exclusives-a-toulouse/ http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-toulouse-31 [R=301,L]
   RewriteRule evenement-issy-les-moulineaux/ http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-hauts-de-seine-92 [R=301,L]
-  RewriteRule Evenement/se-faire-rappeler.aspx?prov=Event_BO-PARIS&nom=BO-PARIS&ville=PARIS http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
+  RewriteRule Evenement/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019? [R=301,L]
   RewriteRule Evenement/Index.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere [R=301,L]
   RewriteRule epinaysurseine/.* http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93 [R=301,L]
   RewriteRule duflot/.* http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule dispositif-duflot/.* http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_puteaux http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_paris19 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_nantes_newr http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_Meaux http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_frejus-blue_horizon http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?PROV=minisite_emergence http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?prev=minisite_larochelle http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-rochelle/cour-des-arts-17000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51111 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51061 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51021 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=51001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=50991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=50801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33761 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33751 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33721 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33651 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?idkp=33581 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500 [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx?IDKP=-20&Pub=0&prov=duflot-ptz http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx/?PROV=Newsletter-scellier http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule contact/se-faire-rappeler.aspx/?PROV=Actualite-Nov2012 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=59151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-provin/le-domaine-de-seve-59185 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=59141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-iii-59242 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=59112 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=59111 http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54391 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hendaye/hegoaldea-64700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54362 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-pinpirina-64100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54361 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-enara-64100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54341 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/erreka-64100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54331 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/eden-lodge-64100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=54271 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/marinadour-64100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/villas-doe-33700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/opus-verde-33140 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53841 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cenon/le-metropolitain-33150 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53831 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-teste-de-buch/le-domaine-des-testerins-33260 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pompignac/le-parc-de-citon-33330 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/au-fil-des-saisons-33700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53791 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-begles/tereo-33130 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/essencia-33120 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-selve/lairial-des-merisiers-33650 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53711 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/les-alizes-33000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53651 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/fleur-deau-33140 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53641 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/villa-arte-33120 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=53612 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/cote-bassin-33000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51111 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51061 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51021 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=51001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=50991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=50801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=41981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-chevrier/les-terrasses-du-verger-74520 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=41961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/central-plazza-74100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=41951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/les-balcons-de-geneve-74100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=38221 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rennes/le-panoramik-35000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=35051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=35041 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-hermes-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=35021 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/magna-carta-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=35011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-carnon/le-palmaiso-34130 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=35001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/coeur-clemenceau-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-palavas-les-flots/lodyssee-grecque-34250 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lattes/le-mas-de-loppidum-34970 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/le-patio-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-georges-dorques/le-clos-orcas-34680 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34931 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/natura-park-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=34891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/terra-nostra-34000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33761 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33751 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33721 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33651 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=33581 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26111 http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-isere [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26101 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brou-sur-chantereine/letincelle-77177 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-plaisir/residence-paul-verlaine-78370 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-fargeau-ponthierry/les-pastelles-77310 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26061 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/cote-versailles-44000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/360-view-44000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26041 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-acheres/eclosion-78260 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26031 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-pin/le-domaine-du-chateau-77181 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26022 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-plessis-pate/le-domaine-du-pre-91220 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-melun/sentier-nature-77000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=26001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mennecy/domaine-natura-91540 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-eaubonne/larboressence-95600 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-pierre-du-perray/les-rives-du-lac-91280 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-argenteuil/lallee-des-impressionnistes-95100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25942 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-ii-95240 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25941 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-i-95240 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bretigny-sur-orge/le-jardin-des-muses-91220 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-brice-sous-foret/le-naturl-95140 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25881 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-osny/le-clos-des-aulnes-95520 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sarcelles/le-trendy-95200 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25864 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-ii-77170 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25863 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-i-77170 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25861 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-77170 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25831 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-buc/le-clos-bosquet-78530 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25821 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vigneux-sur-seine/les-jardins-de-malte-91270 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-ii-77100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25791 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25781 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sartrouville/opus-78500 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/le-carre-dauvours-44000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25761 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/laustral-44200 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubergenville/les-jardins-des-arts-78410 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25731 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mareil-marly/les-jardins-du-louvre-78750 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25701 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-velizy-villacoublay/harmonia-78140 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-jouy-le-moutier/linitial-95280 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25671 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-ouen-laumone/rive-gauche-95310 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25662 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25621 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villepinte/ville-et-sens-93420 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25611 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-thorigny-sur-marne/quai-des-arts-77400 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25601 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fontenay-le-fleury/le-bel-canto-78330 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25581 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/city-parc-93290 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25571 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25511 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fleury-merogis/obois-91700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25471 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-viry-chatillon/cote-sud-91170 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25421 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-juvisy-sur-orge/les-terrasses-de-lobservatoire-91260 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25353 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boussy-saint-antoine/carre-nature-91800 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=25341 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=24551 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-poissy/les-terrasses-darcy-78300 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19301 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/neo-sud-83500 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19281 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/golfe-horizon-83600 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19241 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vienne/villa-maxime-38200 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19211 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-alfortville/virtuoz-94140 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19201 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-cannet/49-carnot-06110 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19191 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meyzieu/couleur-cedres-69330 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19181 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/rive-sud-83500 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19171 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/parc-seina-83500 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19161 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubagne/terracotta-13400 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-baou-06640 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-pre-vert-06640 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19131 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-ecully/villa-eugenie-69130 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19121 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/villa-nais-13011 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19111 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-champagne-au-mont-dor/coeur-champagne-69410 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/fusionl-93110 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/sequenciel-93290 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=19071 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-drancy/place-des-arts-93700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/carre-morgiou-13009 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vaulx-en-velin/cap-village-69120 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubervilliers/new-factory-93300 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18941 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villejuif/90sud-94800 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-charbonnieres-les-bains/le-domaine-victoria-69260 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18901 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pelissanne/le-domaine-de-gaia-13330 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sainte-maxime/park-horizon-83120 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18861 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montfermeil/coeur-village-93370 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18841 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lyon/le-dome-69001 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-istres/meridia-13118 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/les-jardins-de-lacademie-69100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18751 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/effervescence-13010 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-raphael/angle-marine-83700 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18641 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/lumina-13100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18631 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/solea-13100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18601 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/le-capitole-92800 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18591 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hyeres/les-palmes-dor-83400 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18582 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18571 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/jardin-des-sens-13013 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18561 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/cap-morgiou-13009 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18521 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18471 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/city-hall-69100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18412 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-ii-93110 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18411 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-93110 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18381 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boulogne-billancourt/cap-city-92100 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18221 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/les-lices-83990 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nice/monte-verde-06000 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=18071 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bagneux/lavant-scene-i-92220 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=17901 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/exclusive-resort-83990 [R=301,L]
-  RewriteRule contact/PrendreRendezVous.aspx?IDKP=15342 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vallauris/residence-lodyssee-ii-06220 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=59151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-provin/le-domaine-de-seve-59185 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=59141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-iii-59242 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=59112 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=59111 http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54391 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hendaye/hegoaldea-64700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54362 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-pinpirina-64100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54361 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-enara-64100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54341 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/erreka-64100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54331 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/eden-lodge-64100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=54271 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/marinadour-64100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/villas-doe-33700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/opus-verde-33140 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53841 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cenon/le-metropolitain-33150 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53831 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-teste-de-buch/le-domaine-des-testerins-33260 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pompignac/le-parc-de-citon-33330 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-merignac/au-fil-des-saisons-33700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53791 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-begles/tereo-33130 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/essencia-33120 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-selve/lairial-des-merisiers-33650 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53711 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/les-alizes-33000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53651 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villenave-dornon/fleur-deau-33140 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53641 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-arcachon/villa-arte-33120 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=53612 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/cote-bassin-33000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mondonville/coeur-de-ville-31700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51111 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-beauzelle/le-cassiopee-31700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jean/le-clos-du-paladin-31240 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lunion/villa-eleis-31240 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51061 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-quint-fonsegrives/quintessence-31130 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pibrac/le-clos-des-ducs-31820 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51021 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/oxygen-31700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=51001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/la-canopee-maisons-31700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=50991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-castanet-tolosan/les-portes-du-lauragais-31320 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=50801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-gratentour/terre-tolosane-maisons-31150 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=41981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-chevrier/les-terrasses-du-verger-74520 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=41961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/central-plazza-74100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=41951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-annemasse/les-balcons-de-geneve-74100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=38221 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rennes/le-panoramik-35000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=35051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=35041 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-hermes-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=35021 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/magna-carta-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=35011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-carnon/le-palmaiso-34130 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=35001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/coeur-clemenceau-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-palavas-les-flots/lodyssee-grecque-34250 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lattes/le-mas-de-loppidum-34970 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/le-patio-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-georges-dorques/le-clos-orcas-34680 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34931 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/natura-park-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=34891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/terra-nostra-34000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33761 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/les-capitouls-31000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33751 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-blagnac/agathis-31700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33721 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/larmstrong-31000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/lintimiste-31000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33651 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=33581 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26111 http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-isere [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26101 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brou-sur-chantereine/letincelle-77177 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-plaisir/residence-paul-verlaine-78370 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-fargeau-ponthierry/les-pastelles-77310 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26061 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/cote-versailles-44000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26051 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/360-view-44000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26041 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-acheres/eclosion-78260 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26031 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-pin/le-domaine-du-chateau-77181 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26022 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-plessis-pate/le-domaine-du-pre-91220 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26011 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-melun/sentier-nature-77000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=26001 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mennecy/domaine-natura-91540 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25991 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-eaubonne/larboressence-95600 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-pierre-du-perray/les-rives-du-lac-91280 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-argenteuil/lallee-des-impressionnistes-95100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25942 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-ii-95240 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25941 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-cormeilles-en-parisis/nature-alley-i-95240 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bretigny-sur-orge/le-jardin-des-muses-91220 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-brice-sous-foret/le-naturl-95140 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25881 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-osny/le-clos-des-aulnes-95520 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sarcelles/le-trendy-95200 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25864 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-ii-77170 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25863 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-i-77170 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25861 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-brie-comte-robert/art-et-nature-77170 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25831 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-buc/le-clos-bosquet-78530 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25821 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vigneux-sur-seine/les-jardins-de-malte-91270 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-ii-77100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25801 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meaux/greenwood-i-77100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25791 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25781 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sartrouville/opus-78500 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/le-carre-dauvours-44000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25761 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/laustral-44200 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubergenville/les-jardins-des-arts-78410 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25731 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-mareil-marly/les-jardins-du-louvre-78750 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25701 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-velizy-villacoublay/harmonia-78140 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25681 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-jouy-le-moutier/linitial-95280 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25671 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-ouen-laumone/rive-gauche-95310 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25662 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/new-r-ii-44000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25621 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villepinte/ville-et-sens-93420 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25611 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-thorigny-sur-marne/quai-des-arts-77400 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25601 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fontenay-le-fleury/le-bel-canto-78330 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25581 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/city-parc-93290 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25511 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-fleury-merogis/obois-91700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25471 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-viry-chatillon/cote-sud-91170 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25421 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-juvisy-sur-orge/les-terrasses-de-lobservatoire-91260 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25353 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boussy-saint-antoine/carre-nature-91800 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=25341 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=24551 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-poissy/les-terrasses-darcy-78300 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19301 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/neo-sud-83500 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19281 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/golfe-horizon-83600 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19241 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vienne/villa-maxime-38200 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19211 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-alfortville/virtuoz-94140 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19201 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-le-cannet/49-carnot-06110 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19191 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-meyzieu/couleur-cedres-69330 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19181 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/rive-sud-83500 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19171 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-la-seyne-sur-mer/parc-seina-83500 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19161 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubagne/terracotta-13400 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-baou-06640 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19141 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-jeannet/hameau-pre-vert-06640 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19131 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-ecully/villa-eugenie-69130 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19121 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/villa-nais-13011 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19111 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-champagne-au-mont-dor/coeur-champagne-69410 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19091 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/fusionl-93110 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19081 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-tremblay-en-france/sequenciel-93290 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=19071 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-drancy/place-des-arts-93700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18981 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/carre-morgiou-13009 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18971 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vaulx-en-velin/cap-village-69120 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18961 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aubervilliers/new-factory-93300 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18951 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/bo-paris-75019 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18941 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villejuif/90sud-94800 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18911 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-charbonnieres-les-bains/le-domaine-victoria-69260 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18901 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-pelissanne/le-domaine-de-gaia-13330 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18891 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18871 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-sainte-maxime/park-horizon-83120 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18861 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montfermeil/coeur-village-93370 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18841 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-lyon/le-dome-69001 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18811 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-istres/meridia-13118 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18771 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/les-jardins-de-lacademie-69100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18751 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/effervescence-13010 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18741 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-raphael/angle-marine-83700 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18641 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/lumina-13100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18631 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/solea-13100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18601 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/le-capitole-92800 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18591 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hyeres/les-palmes-dor-83400 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18582 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18571 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/jardin-des-sens-13013 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18561 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-marseille/cap-morgiou-13009 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18521 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-puteaux/lintemporel-92150 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18471 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-villeurbanne/city-hall-69100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18412 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-ii-93110 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18411 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-rosny-sous-bois/43eme-avenue-93110 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18381 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-boulogne-billancourt/cap-city-92100 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18221 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/les-lices-83990 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18151 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nice/monte-verde-06000 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=18071 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bagneux/lavant-scene-i-92220 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=17901 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-saint-tropez/exclusive-resort-83990 [R=301,L]
-  RewriteRule contact/demande-documentation.aspx?IDKP=15342 http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-vallauris/residence-lodyssee-ii-06220 [R=301,L]
   RewriteRule constructeur-immobilier-neuf/politique-de-confidentialite.aspx http://www.kaufmanbroad.fr/politique-de-confidentialite [R=301,L]
   RewriteRule constructeur-immobilier-neuf/mentions-legales.aspx http://www.kaufmanbroad.fr/mentions-legales [R=301,L]
   RewriteRule constructeur-immobilier-neuf/conditions-generales-d-utilisation.aspx http://www.kaufmanbroad.fr/conditions-generales-dutilisation-et-de-services [R=301,L]
   RewriteRule constructeur-immobilier/recrutement/presentation.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers [R=301,L]
   RewriteRule constructeur-immobilier/plan-de-site.aspx http://www.kaufmanbroad.fr/plan-du-site [R=301,L]
-  RewriteRule constructeur-immobilier/page404.aspx?aspxerrorpath=/scellier-boursorama/normandie-01.aspx http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/page404.aspx?aspxerrorpath=/immobilier-ne%20uf/nouveaux-programmes-immobiliers.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere [R=301,L]
-  RewriteRule constructeur-immobilier/page404.aspx?aspxerrorpath=/fr/Informations-financieres/assemblee-generale-septembre-2013.aspx http://www.kaufmanbroad.fr/corporate/finance/assemblee-generale/fr [R=301,L]
-  RewriteRule constructeur-immobilier/page404.aspx?aspxerrorpath=/Evenement/Index.aspx http://www.kaufmanbroad.fr/notre-offre/avant-premiere [R=301,L]
-  RewriteRule constructeur-immobilier/page404.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule constructeur-immobilier/informations-financieres-kaufman-and-broad/communiques-de-presse.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule constructeur-immobilier/informations-financieres-kaufman-and-broad/carnet-actionnaire.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
   RewriteRule constructeur-immobilier/informations-financieres-kaufman-and-broad/assemblee-generale.aspx http://www.kaufmanbroad.fr/corporate/finance/assemblee-generale/fr [R=301,L]
   RewriteRule constructeur-immobilier/informations-financieres-kaufman-and-broad/actualites-calendrier.aspx http://www.kaufmanbroad.fr/corporate [R=301,L]
-  RewriteRule constructeur-immobilier/glossaire.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule constructeur-immobilier/faq.aspx http://www.kaufmanbroad.fr/faq-immobilier [R=301,L]
   RewriteRule constructeur-immobilier/contact/liste.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-agences [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?prov=.* http://www.kaufmanbroad.fr/corporate/activites/nos-agences [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?ID_PROCH=1665 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?ID_PROCH=1613 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?ID_PROCH=1541 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?ID_PROCH=1483 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?ID_PROCH=1427 http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?email=infos-SAV%40ketb.com&prov=footer&service=le+Service+Client http://www.kaufmanbroad.fr/corporate/activites/nos-agences [R=301,L]
   RewriteRule carros/images/carros.pdf http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-alpes-maritimes [R=301,L]
   RewriteRule carros/ http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-alpes-maritimes [R=301,L]
-  RewriteRule application-iphone.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule appartements-neufs/wambrechies/programme-immobilier-green-village-iii/.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-iii-59242 [R=301,L]
   RewriteRule appartements-neufs/wambrechies/programme-immobilier-green-village-ii/.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-ii-59242 [R=301,L]
   RewriteRule appartements-neufs/wambrechies/programme-immobilier-green-village/.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-wambrechies/green-village-59242 [R=301,L]
@@ -1426,33 +2053,23 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule appartements-neufs/aix-en-provence/programme-immobilier-lumina/.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-aix-en-provence/lumina-13100 [R=301,L]
   RewriteRule appartements-neufs/acheres/programme-immobilier-eclosion/.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-acheres/eclosion-78260 [R=301,L]
   RewriteRule appartement-neuf-marseille-4/ http://www.kaufmanbroad.fr/villes/logements-immobiliers-neufs-marseille-13 [R=301,L]
-  RewriteRule achat-maison-appartement/vefa.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/tva-a-7.aspx http://www.kaufmanbroad.fr/tva-55-ou-7 [R=301,L]
   RewriteRule achat-maison-appartement/tva-a-5-5.aspx http://www.kaufmanbroad.fr/tva-55-ou-7 [R=301,L]
   RewriteRule achat-maison-appartement/showroom-immobilier.* http://www.kaufmanbroad.fr/corporate/activites/nos-showroom [R=301,L]
   RewriteRule achat-maison-appartement/remise-des-cles.aspx http://www.kaufmanbroad.fr/faq-immobilier [R=301,L]
   RewriteRule achat-maison-appartement/pret-a-taux-0.aspx http://www.kaufmanbroad.fr/pret-taux-0 [R=301,L]
-  RewriteRule achat-maison-appartement/pass-foncier-accedant.aspx http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule achat-maison-appartement/offre-parrainage.aspx http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule achat-maison-appartement/loi-tepa.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/logement-neuf-france.aspx http://www.kaufmanbroad.fr/notre-offre [R=301,L]
   RewriteRule achat-maison-appartement/investissement-locatif/loi-scellier.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule achat-maison-appartement/investissement-locatif/location-meublee-lmp-lmnp.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/investissement-locatif/dispositif-pinel.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule achat-maison-appartement/investissement-locatif/dispositif-duflot.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule achat-maison-appartement/investissement-locatif/defiscalisation.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule achat-maison-appartement/investissement-foncier/placement.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/garanties-du-neuf.aspx http://www.kaufmanbroad.fr/nos-conseils/pourquoi-acheter-neuf [R=301,L]
   RewriteRule achat-maison-appartement/frais-de-notaire.aspx http://www.kaufmanbroad.fr/frais-de-notaire-reduits [R=301,L]
-  RewriteRule achat-maison-appartement/financement-personnalisation.aspx http://www.kaufmanbroad.fr [R=301,L]
-  RewriteRule achat-maison-appartement/financement-immobilier/solutions.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/financement-avantages-fiscaux.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
-  RewriteRule achat-maison-appartement/demenagement.aspx http://www.kaufmanbroad.fr [R=301,L]
   RewriteRule achat-maison-appartement/avantages-achat-immobilier-neuf.aspx http://www.kaufmanbroad.fr/nos-conseils/pourquoi-acheter-neuf [R=301,L]
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx?prov=footer&service=notre+Service+Immobilier+d'entreprise&email=Infos-immobilier_entreprise%40ketb.com http://www.kaufmanbroad.fr/corporate/activites/nos-services [R=301,L]
   RewriteRule achat-maison-appartement/investissement-locatif/dispositif-pinel.aspx http://www.kaufmanbroad.fr/le-dispositif-pinel [R=301,L]
   RewriteRule partenaires/(.*) http://www.kaufmanbroad.fr/partenaires/$1 [R=301,L]
-  RewriteRule (.*) http://www.kaufmanbroad.fr? [R=301,L]
+  # RewriteRule (.*) http://www.kaufmanbroad.fr? [R=301,L]
 
   RewriteCond %{HTTP_HOST} ^(.*)kaufmanbroad.fr$
   RewriteCond %{HTTP_HOST} !^(www|dev|stage|prod).kaufmanbroad.fr$
