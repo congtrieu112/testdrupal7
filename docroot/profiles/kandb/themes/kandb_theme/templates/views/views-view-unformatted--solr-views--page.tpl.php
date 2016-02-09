@@ -82,16 +82,23 @@ $number_one = true;
       <?php if ($row_result['field_programme_nid'] != $current_id_programme): ?>
         <?php $current_id_programme = $row_result['field_programme_nid']; ?>
         <li id="panel<?php print $id; ?>"><a href="#panel<?php print $id; ?>" data-app-accordion-link="" role="tab" class="results-accordion__trigger media <? if($number_one) { $number_one = false; print 'active'; } ?>" >
-            <div class="media__img">
-              <!-- images need to have 2 formats:
-              - small: 180 x 180 (HEAVY compression!!!)
-              - medium: 180 x 180
-              -->
-              <!-- [Responsive img] start-->
-              <img alt="Photo programme undefined" data-interchange="[<?php print (!empty($row_result['search_small']) ? $row_result['search_small'] : ''); ?>, (small)], [<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>">
-              <noscript><img src="<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>" alt="Photo programme undefined"/></noscript>
-              <!-- [Responsive img] end-->
-            </div>
+            <?php if(isset($row_result['field_programme_programme_image']) && !empty($row_result['field_programme_programme_image'])): ?>
+              <?php
+                $image = $row_result['field_programme_programme_image'];
+                $image_small = image_style_url("search_small", $image);
+                $image_medium = image_style_url("search_medium", $image);
+              ?>
+              <div class="media__img">
+                <!-- images need to have 2 formats:
+                - small: 180 x 180 (HEAVY compression!!!)
+                - medium: 180 x 180
+                -->
+                <!-- [Responsive img] start-->
+                <img alt="Photo programme undefined" data-interchange="[<?php print (!empty($image_small) ? $image_small : ''); ?>, (small)], [<?php print (!empty($image_medium) ? $image_medium : ''); ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print (!empty($image_medium) ?$image_medium : ''); ?>">
+                <noscript><img src="<?php print (!empty($image_medium) ? $image_medium : ''); ?>" alt="Photo programme undefined"/></noscript>
+                <!-- [Responsive img] end-->
+              </div>
+            <?php endif; ?>
             <div data-gmaps-marker="{&quot;lat&quot;:<?php print $row_result['field_programme_field_programme_loc_lat']; ?>,&quot;lng&quot;:<?php print $row_result['field_programme_field_programme_loc_long']; ?>,&quot;infoWindow&quot;:{&quot;content&quot;:&quot;<?php print ucfirst(strtolower($row_result['field_programme_ville_text'])); ?> / <?php print $row_result['field_programme_departement_number']; ?>, <?php print $row_result['field_programme_title']; ?>&quot;}}" class="media__content heading"><span class="heading__title"><?php print ucfirst(strtolower($row_result['field_programme_ville_text'])); ?> / <?php print $row_result['field_programme_departement_number']; ?></span><span class="heading__title heading__title--sub"><?php print $row_result['field_programme_title']; ?></span>
               <p class="text"><?php
                 $output = '';

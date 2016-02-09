@@ -103,14 +103,21 @@ $current_promotion_indice = 1;
               <?php endif; ?>
             </div>
             <div class="searchResultsItem__infos"><a href="<?php print $row_result['field_programme_url']; ?>" title="Aller à la page programme" class="searchResultsItem__infos__img">
-                <!-- images need to have 2 formats:
-                - small: 180 x 180 (HEAVY compression!!!)
-                - medium: 180 x 180
-                -->
-                <!-- [Responsive img] start-->
-                <img alt="Photo programme" data-interchange="[<?php print $row_result['search_small']; ?>, (small)], [<?php print $row_result['search_medium']; ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print $row_result['search_medium']; ?>">
-                <noscript><img src="<?php print (!empty($row_result['search_medium']) ? $row_result['search_medium'] : ''); ?>" alt="Photo programme undefined"/></noscript>
-                <!-- [Responsive img] end--></a>
+                <?php if(isset($row_result['field_programme_programme_image']) && !empty($row_result['field_programme_programme_image'])): ?>
+                  <?php
+                  $image = $row_result['field_programme_programme_image'];
+                  $image_small = image_style_url("search_small", $image);
+                  $image_medium = image_style_url("search_medium", $image);
+                  ?>
+                    <!-- images need to have 2 formats:
+                    - small: 180 x 180 (HEAVY compression!!!)
+                    - medium: 180 x 180
+                    -->
+                    <!-- [Responsive img] start-->
+                    <img alt="Photo programme undefined" data-interchange="[<?php print (!empty($image_small) ? $image_small : ''); ?>, (small)], [<?php print (!empty($image_medium) ? $image_medium : ''); ?>, (medium)]" data-uuid="interchange-igw8ubhi9" src="<?php print (!empty($image_medium) ?$image_medium : ''); ?>">
+                    <noscript><img src="<?php print (!empty($image_medium) ? $image_medium : ''); ?>" alt="Photo programme undefined"/></noscript>
+                    <!-- [Responsive img] end-->
+                <?php endif; ?></a>
               <div class="searchResultsItem__infos__details">
                 <p class="intro"><?php print $number_of_bien_by_programme[$row_result['field_programme_nid']]; ?> <?php
                   $output = '';
