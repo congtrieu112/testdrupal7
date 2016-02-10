@@ -123,6 +123,9 @@ if($nb_pieces_name == 'studio') {
 <header class="programHeader bienHeader">
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
+        <!-- [back link] start -->
+        <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+        <!-- [back link] start-->
         <h1 class="heading heading--bordered">
           <div class="heading__title smaller"><?php print $heading_title; ?></div>
           <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
@@ -241,6 +244,9 @@ if($nb_pieces_name == 'studio') {
             <div data-equalizer-watch class="toolbox">
                 <!-- tablet+desktop heading-->
                 <div class="show-for-medium-up">
+                    <!-- [back link] start -->
+                    <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+                    <!-- [back link] start-->
                     <h1 class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
