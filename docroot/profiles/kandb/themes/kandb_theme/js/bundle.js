@@ -37997,10 +37997,11 @@ AppAjax.prototype = {
 
   ajaxCall: function( $el, $target, data ) {
     var that = this,
-        dataAjax = typeof data !== 'undefined' ? data : "";
+        dataAjax = typeof data !== 'undefined' ? data : "",
+        loader = $target.closest('table').length ? '<tr><td colspan="100%"><div></div></td></tr>' : '<div></div>';
 
     // add spinner (will be replace by response)
-    $target.addClass('ajax-wait').html('<div></div>');
+    $target.addClass('ajax-wait').html(loader);
 
     var triggerSend = function() {
       $target.removeClass('ajax-wait');
@@ -38088,6 +38089,74 @@ App.updaters.appAjax = function() {
 };
 
 },{}],14:[function(require,module,exports){
+/* ====================== */
+/* back link: app-backLink.js */
+/* ====================== */
+
+"use strict";
+var trigger = '[data-back]',
+    defaults = {
+      referrerStart: false // check if the page start with...
+    };
+
+
+function AppBackLink(el, opts) {
+    this.$el = $(el);
+    this.settings = $.extend({}, defaults, opts, this.$el.data('back'));
+
+    this.init();
+}
+
+AppBackLink.prototype = {
+    init: function() {
+      if (this.settings.referrerStart) {
+        this.referrerStartBtn();
+      }
+    },
+
+    referrerStartBtn: function(){
+      var referrerArray = document.referrer.split('/'),
+          page = referrerArray[referrerArray.length-1],
+          regex = new RegExp("^"+this.settings.referrerStart+"", "i");
+
+      if ( regex.test(page) ) {
+        this.$el.removeClass('hidden');
+        this.targetReferrer();
+        return;
+      }
+
+      this.$el.addClass('hidden');
+    },
+
+    targetReferrer: function(){
+      this.$el.attr('href', document.referrer);
+    }
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appBackLink = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+        var item = $(this), instance = item.data('AppBackLink');
+        if(!instance) {
+            // create plugin instance and save it in data
+            item.data('AppBackLink', new AppBackLink(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+};
+
+$(trigger).appBackLink();
+
+},{}],15:[function(require,module,exports){
 /***************************
   calendar: app-calendar.js
 ****************************/
@@ -38306,7 +38375,7 @@ App.updaters.appCalendar = function() {
 
 };
 
-},{}],15:[function(require,module,exports){
+},{}],16:[function(require,module,exports){
 /* ====================== */
 /* common : app-common.js */
 /* ====================== */
@@ -38380,7 +38449,7 @@ $(document).on('ajaxComplete', function(e, xhr, settings){
   // reinit all App methods
   App.launchUpdaters();
 });
-},{}],16:[function(require,module,exports){
+},{}],17:[function(require,module,exports){
 /* ====================== */
 /* mapContact : app-contact-map.js */
 /* ====================== */
@@ -38642,7 +38711,7 @@ $.fn.appContactMap = function(opt) {
 
 $(trigger).appContactMap();
 
-},{"./app-top-bar.js":38}],17:[function(require,module,exports){
+},{"./app-top-bar.js":40}],18:[function(require,module,exports){
 /* ======================== */
 /* cookies : app-cookies.js */
 /* ======================== */
@@ -38855,7 +38924,7 @@ App.updaters.appCookies = function() {
   $(trigger).appCookies();
 };
 
-},{}],18:[function(require,module,exports){
+},{}],19:[function(require,module,exports){
 /* ========================== */
 /* dropdown : app-dropdown.js */
 /* ========================== */
@@ -39033,7 +39102,7 @@ App.updaters.appDropdown = function() {
   $(trigger).appDropdown();
 };
 
-},{}],19:[function(require,module,exports){
+},{}],20:[function(require,module,exports){
 /* =================== */
 /* editorial : app-editorial.js */
 /* =================== */
@@ -39068,7 +39137,7 @@ if ( $editorial.length && Modernizr.touch ) {
 
 
 
-},{}],20:[function(require,module,exports){
+},{}],21:[function(require,module,exports){
 /* ====================== */
 /* footer : app-footer.js */
 /* ====================== */
@@ -39083,7 +39152,7 @@ App.footerHeight = function() {
 };
 
 
-},{}],21:[function(require,module,exports){
+},{}],22:[function(require,module,exports){
 /* =================== */
 /* forms : app-form.js */
 /* =================== */
@@ -39175,7 +39244,7 @@ if ( Modernizr.touch && Foundation.utils.is_small_only() ) {
   });
 }
 */
-},{}],22:[function(require,module,exports){
+},{}],23:[function(require,module,exports){
 /* ================== */
 /* gmap : app-gmap.js */
 /* ================== */
@@ -39357,7 +39426,7 @@ $(function() {
     App.gmaps = new Gmaps(opts);
   };
 });
-},{}],23:[function(require,module,exports){
+},{}],24:[function(require,module,exports){
 /* ====================================== */
 /* iframes : app-iframes.js */
 /* ====================================== */
@@ -39383,7 +39452,7 @@ App.appIframes( trigger );
 App.updaters.appIframes = function() {
   App.appIframes( trigger );
 };
-},{}],24:[function(require,module,exports){
+},{}],25:[function(require,module,exports){
 /* ========================== */
 /* link2map : app-link2map.js */
 /* ========================== */
@@ -39505,7 +39574,7 @@ $(function() {
   }
 
 });
-},{}],25:[function(require,module,exports){
+},{}],26:[function(require,module,exports){
 /* ============================= */
 /* off canvas : app-offcanvas.js */
 /* ============================= */
@@ -39619,7 +39688,7 @@ $topbarSearchForm.find('form').on('submit', function(e){
   }
 });
 
-},{}],26:[function(require,module,exports){
+},{}],27:[function(require,module,exports){
 /* ====================== */
 /* partager popins: app-partager.js */
 /* ====================== */
@@ -39677,7 +39746,7 @@ $.fn.appPartager = function(opt) {
 
 $(trigger).appPartager();
 
-},{}],27:[function(require,module,exports){
+},{}],28:[function(require,module,exports){
 /* ============================ */
 /* popinCookies : app-popinCookies.js */
 /* ============================ */
@@ -39776,7 +39845,105 @@ $.fn.appPopinCookies = function(opt) {
 };
 
 $(trigger).appPopinCookies();
-},{}],28:[function(require,module,exports){
+},{}],29:[function(require,module,exports){
+/* ====================== */
+/* radioInputInline : app-radio-input-inline.js */
+/* ====================== */
+'use strict';
+
+var trigger   = '[data-radio-input-inline]';
+
+/* =============== */
+/* MODULE DEFAULTS */
+/* =============== */
+
+var defaults = {};
+
+/* ============================= */
+/* MODULE PRIVATE FUNCTIONS      */
+/* ============================= */
+var toggleInput = function(ev) {
+  var $radio = $(ev.currentTarget);
+
+  // disabling all inputs
+  this.radioContainers
+    .children('[name=' + ev.currentTarget.name + ']')
+    .nextAll('input')
+    .prop('disabled', true);
+
+  if ($radio.is(":checked")) {
+    $radio.nextAll().prop('disabled', false);
+  } 
+};
+
+/* ================= */
+/* MODULE DEFINITION */
+/* ================= */
+function AppRadioInputInline(el, opts) {
+  this.settings = $.extend({}, defaults, opts);
+  this.item = $(el);
+  this.radioContainers = $(this.item.find('.form-radio-input-inline'));
+  this.radios = $(this.radioContainers.children('[type=radio]'));
+  this.names = [];
+  this.init();
+}
+
+AppRadioInputInline.prototype = {
+    init: function() {
+      // fetch all the names
+      this.radios.each(function(index, radio) {
+        if ($.inArray(radio.name, this.names) < 0) {
+          this.names.push(radio.name);
+        }
+      }.bind(this));
+      // disabling input fields if they are not checked
+      var uncheckedRadios = this.radioContainers.children('[type=radio]:not(:checked)');
+      if (uncheckedRadios.length > 0) {
+        $.each(uncheckedRadios, function(index, ur) {
+          $(ur).nextAll('input').prop('disabled', true);
+        });
+      }
+      this.bindEvents();
+      return this;
+    },
+
+    bindEvents: function () {
+      $.each(this.names, function(index, name) {
+        $('[name=' + name + ']').change(toggleInput.bind(this));
+      }.bind(this));
+      return this;
+    }
+};
+
+/* =============== */
+/* MODULE DATA-API */
+/* =============== */
+
+$.fn.appRadioInputInline = function(opt) {
+    var args = Array.prototype.slice.call(arguments, 1);
+
+    return this.each(function() {
+        var item = $(this), instance = item.data('AppRadioInputInline');
+        if(!instance) {
+            // create plugin instance and save it in data
+            item.data('AppRadioInputInline', new AppRadioInputInline(this, opt));
+        } else {
+            // if instance already created call method
+            if(typeof opt === 'string') {
+                instance[opt].apply(instance, args);
+            }
+        }
+    });
+};
+
+$(trigger).appRadioInputInline();
+
+// auto refresh after ajax response
+App.updaters.appDropdown = function() {
+  $(trigger).appRadioInputInline();
+};
+
+},{}],30:[function(require,module,exports){
 /* ====================== */
 /* reveal : app-reveal.js */
 /* ====================== */
@@ -39882,7 +40049,7 @@ App.reveal();
 App.updaters.reveal = function() {
   App.revealBind();
 };
-},{}],29:[function(require,module,exports){
+},{}],31:[function(require,module,exports){
 /* ============================= */
 /* scroll to block : app-scroll-to.js */
 /* ============================= */
@@ -39910,7 +40077,7 @@ $(trigger).on('click.scroll-to', function() {
 });
 
 
-},{}],30:[function(require,module,exports){
+},{}],32:[function(require,module,exports){
 /* ========================== */
 /* searchFilter : app-searchFilter.js */
 /* ========================== */
@@ -40026,7 +40193,7 @@ App.updaters.appSearchFilter = function() {
   $(trigger).appSearchFilter();
 };
 
-},{}],31:[function(require,module,exports){
+},{}],33:[function(require,module,exports){
 /* ====================================== */
 /* searchFormular : app-searchFormular.js */
 /* ====================================== */
@@ -40076,7 +40243,7 @@ var searchInit = function() {
 };
 
 searchInit();
-},{}],32:[function(require,module,exports){
+},{}],34:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-deeMore.js */
 /* ======================== */
@@ -40177,7 +40344,7 @@ $(trigger).appSeeMore();
 App.updaters.appSeeMore = function() {
   $(trigger).appSeeMore();
 };
-},{}],33:[function(require,module,exports){
+},{}],35:[function(require,module,exports){
 /* ====================== */
 /* select : app-select.js */
 /* ====================== */
@@ -40227,7 +40394,7 @@ App.appComboSelect(trigger);
 App.updaters.appComboSelect = function(xhr, $xhr) {
   App.appComboSelect();
 };
-},{}],34:[function(require,module,exports){
+},{}],36:[function(require,module,exports){
 /* ======================== */
 /* seeMore : app-showText.js */
 /* ======================== */
@@ -40343,7 +40510,7 @@ App.updaters.appShowMoreText = function() {
   $(trigger).appShowMoreText();
 };
 
-},{}],35:[function(require,module,exports){
+},{}],37:[function(require,module,exports){
 /* ======================= */
 /* AppSlick : app-slick.js */
 /* ======================= */
@@ -40544,7 +40711,7 @@ App.updaters.appSlick = function() {
   $(trigger).appSlick();
 };
 
-},{}],36:[function(require,module,exports){
+},{}],38:[function(require,module,exports){
 /* ====================== */
 /* stickContactInfo : app-stick-contact-info.js */
 /* ====================== */
@@ -40667,7 +40834,7 @@ $.fn.appStickInfo = function(opt) {
 
 $(trigger).appStickInfo();
 
-},{"./app-top-bar.js":38}],37:[function(require,module,exports){
+},{"./app-top-bar.js":40}],39:[function(require,module,exports){
 /* ====================== */
 /* expand more info table row: app-table-outils.js */
 /* ====================== */
@@ -40912,7 +41079,7 @@ App.updaters.appOutilsGestion = function() {
   $(triggerSelectedCheckbox).appCheckSelectedRows();
   $(triggerCheckboxRow).appUpdateUrl();
 };
-},{}],38:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 /* ====================== */
 /* topBar : app-top-bar.js */
 /* ====================== */
@@ -40927,7 +41094,7 @@ App.topBarHeight = function() {
 };
 
 
-},{}],39:[function(require,module,exports){
+},{}],41:[function(require,module,exports){
 /*jshint asi:true, expr:true */
 /**
  * Plugin Name: Combo Select
@@ -41564,7 +41731,7 @@ App.topBarHeight = function() {
 
   $.fn[ pluginName ].instances = [];
 }));
-},{"jquery":5}],40:[function(require,module,exports){
+},{"jquery":5}],42:[function(require,module,exports){
 (function (global){
 /* ================== */
 /* main : app-main.js */
@@ -41666,6 +41833,8 @@ var appCalendar         = require("./app-calendar.js");
 var appPopinCookies     = require("./app-popinCookies.js");
 var appStickInfo        = require("./app-stick-info.js");
 var appSearchFilter     = require("./app-searchFilter.js");
+var appRadioInputInline = require("./app-radio-input-inline.js");
+var appBackLink         = require("./app-backLink.js");
 
 if ( typeof google !== 'undefined' && typeof google.maps !== 'undefined' ) {
   var gmaps               = require("gmaps");
@@ -41681,4 +41850,4 @@ App.updaters.foundation = function() {
 //var appDocs             = require("./app-docs.js");
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
-},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-calendar.js":14,"./app-common.js":15,"./app-contact-map.js":16,"./app-cookies.js":17,"./app-dropdown.js":18,"./app-editorial.js":19,"./app-footer.js":20,"./app-forms.js":21,"./app-gmaps.js":22,"./app-iframes.js":23,"./app-link2map.js":24,"./app-offcanvas.js":25,"./app-partager.js":26,"./app-popinCookies.js":27,"./app-reveal.js":28,"./app-scroll-to.js":29,"./app-searchFilter.js":30,"./app-searchFormular.js":31,"./app-seeMore.js":32,"./app-select.js":33,"./app-showText.js":34,"./app-slick.js":35,"./app-stick-info.js":36,"./app-table-outils.js":37,"./app-top-bar.js":38,"./combo-select.js":39,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[40]);
+},{"../../node_modules/foundation-sites/js/vendor/fastclick.js":3,"./../../bower_components/pushy/js/pushy.js":1,"./app-accordion.js":10,"./app-ajax-controller.js":11,"./app-ajax-form.js":12,"./app-ajax.js":13,"./app-backLink.js":14,"./app-calendar.js":15,"./app-common.js":16,"./app-contact-map.js":17,"./app-cookies.js":18,"./app-dropdown.js":19,"./app-editorial.js":20,"./app-footer.js":21,"./app-forms.js":22,"./app-gmaps.js":23,"./app-iframes.js":24,"./app-link2map.js":25,"./app-offcanvas.js":26,"./app-partager.js":27,"./app-popinCookies.js":28,"./app-radio-input-inline.js":29,"./app-reveal.js":30,"./app-scroll-to.js":31,"./app-searchFilter.js":32,"./app-searchFormular.js":33,"./app-seeMore.js":34,"./app-select.js":35,"./app-showText.js":36,"./app-slick.js":37,"./app-stick-info.js":38,"./app-table-outils.js":39,"./app-top-bar.js":40,"./combo-select.js":41,"foundation":2,"gmaps":4,"jquery":5,"js-cookie":6,"lodash":7,"slick-carousel":8,"velocity-animate":9}]},{},[42]);
