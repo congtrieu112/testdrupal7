@@ -18,7 +18,7 @@ function kandb_recherche_default_search_api_index() {
   $items = array();
   $items['acquia_solr_index'] = entity_import('search_api_index', '{
     "name" : "Acquia Solr Index",
-    "machine_name" : "acquia_solr_index",+
+    "machine_name" : "acquia_solr_index",
     "description" : null,
     "server" : "acquia_solr",
     "item_type" : "node",
