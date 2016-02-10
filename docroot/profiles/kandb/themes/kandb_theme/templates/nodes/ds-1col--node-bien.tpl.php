@@ -124,7 +124,7 @@ if($nb_pieces_name == 'studio') {
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
         <!-- [back link] start -->
-        <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;B2C-searchResults&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+        <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
         <!-- [back link] start-->
         <h1 class="heading heading--bordered">
           <div class="heading__title smaller"><?php print $heading_title; ?></div>
@@ -245,7 +245,7 @@ if($nb_pieces_name == 'studio') {
                 <!-- tablet+desktop heading-->
                 <div class="show-for-medium-up">
                     <!-- [back link] start -->
-                    <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;B2C-searchResults&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+                    <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
                     <!-- [back link] start-->
                     <h1 class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>

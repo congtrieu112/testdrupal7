@@ -6,7 +6,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
     <!-- mobile heading-->
     <div class="wrapper show-for-small-only">
         <!-- [back link] start -->
-        <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;B2C-searchResults&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+        <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
         <!-- [back link] start-->
         <h1 class="heading heading--bordered">
             <?php if ($program_loc_ville) : ?>
@@ -86,7 +86,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
             <div class="toolbox">
                 <!-- tablet+desktop heading-->
                 <!-- [back link] start -->
-                <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;B2C-searchResults&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
+                <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
                 <!-- [back link] start-->
                 <div class="show-for-medium-up">
                     <h1 class="heading heading--bordered">
