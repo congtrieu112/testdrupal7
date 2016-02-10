@@ -17,14 +17,14 @@ include_once 'kandb_recherche.features.inc';
  */
 function kandb_recherche_menu() {
   $menu[URL_SEARCH_B2C] = array(
-    'title' => 'Page de recherche B2C',
+    'title' => 'Recherche',
     'page callback' => 'kandb_recherche_page',
     'access arguments' => array('access content'),
     'type' => MENU_NORMAL_ITEM,
   );
 
   $menu[URL_SEARCH_B2B] = array(
-    'title' => 'Page de recherche B2B',
+    'title' => 'Recherche',
     'page callback' => 'kandb_recherche_pro_page',
     'access arguments' => array('access B2B search'),
     'type' => MENU_NORMAL_ITEM,

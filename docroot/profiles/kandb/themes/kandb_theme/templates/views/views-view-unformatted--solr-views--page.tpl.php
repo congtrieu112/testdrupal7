@@ -81,7 +81,7 @@ $number_one = true;
       ?>
       <?php if ($row_result['field_programme_nid'] != $current_id_programme): ?>
         <?php $current_id_programme = $row_result['field_programme_nid']; ?>
-        <li id="panel<?php print $id; ?>"><a href="#panel<?php print $id; ?>" data-app-accordion-link="" role="tab" class="results-accordion__trigger media <? if($number_one) { $number_one = false; print 'active'; } ?>" >
+        <li id="panel<?php print $id; ?>" data-tracking='{"product_programme_list_id":"<?php print $row_result['field_programme_nid']; ?>","product_programme_list_type":"<?php print implode('|', array_keys($type_of_bien_by_programme[$row_result['field_programme_nid']])); ?>","product_programme_name":"<?php print $row_result['field_programme_title']; ?>"}' ><a href="#panel<?php print $id; ?>" data-app-accordion-link="" role="tab" class="results-accordion__trigger media <? if($number_one) { $number_one = false; print 'active'; } ?>" >
             <?php if(isset($row_result['field_programme_programme_image']) && !empty($row_result['field_programme_programme_image'])): ?>
               <?php
                 $image = $row_result['field_programme_programme_image'];

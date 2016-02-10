@@ -75,7 +75,7 @@ $current_promotion_indice = 1;
     <?php foreach ($rows as $id => $row): ?>
       <?php $row_result = $view->style_plugin->rendered_fields[$id]; ?>
       <?php if ($row_result['field_programme_nid'] != $current_id_programme): ?>
-        <li class="results__item">
+        <li class="results__item" data-tracking='{"product_programme_list_id":"<?php print $row_result['field_programme_nid']; ?>","product_programme_list_type":"<?php print implode('|', array_keys($type_of_bien_by_programme[$row_result['field_programme_nid']])); ?>","product_programme_name":"<?php print $row_result['field_programme_title']; ?>"}'>
           <!-- [searchResultsItem programmes] start-->
             <article data-gmaps-marker="{&quot;lat&quot;:<?php print $row_result['field_programme_field_programme_loc_lat']; ?>,&quot;lng&quot;:<?php print $row_result['field_programme_field_programme_loc_long']; ?>,&quot;infoWindow&quot;:{&quot;content&quot;:&quot;<?php print ucfirst(strtolower($row_result['field_programme_ville_text'])); ?> / <?php print $row_result['field_programme_departement_number']; ?>, <?php print $row_result['field_programme_title']; ?>&quot;}}" class="searchResultsItem searchResultsItem--programmes">
             <div class="heading heading--small">
