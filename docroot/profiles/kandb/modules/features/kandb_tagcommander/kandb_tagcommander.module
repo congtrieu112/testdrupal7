@@ -297,7 +297,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         foreach($taxo as $id => $term) {
           $return[] = $term->name;
         }
-        $return = implode($return, ',');
+        $return = implode($return, '|');
       }
       break;
     case 'pinel_law': // TODO : Missing the checkbox
@@ -354,8 +354,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       if(is_object($object) && $object->type == 'programme') $return = $object->title;
       break;
     case 'url_page':
-      $object = menu_get_object();
-      if(is_object($object) && $object->type == 'programme') $return = $base_url . request_uri();
+      $return = request_uri();
       break;
 
     /* Bien */
