@@ -35,7 +35,19 @@ if (isset($content['field_offre_view1'])):
 <?php
 if (isset($content['field_offre_view2'])):
   $result = isset($content['field_offre_view2'][0]['#view']->result) ? $content['field_offre_view2'][0]['#view']->result : '';
-  $terms = kandb_validate_get_ville_has_reference($content['field_offre_view2'][0]['#view_name'], $result);
+  $terms = array();
+  foreach($result as $res){
+    // field_field_programme_loc_ville
+    if(isset($res->field_field_avant_premiere_ville[0]['raw']) && !empty($res->field_field_avant_premiere_ville[0]['raw'])){
+      $terms[$res->field_field_avant_premiere_ville[0]['raw']['taxonomy_term']->name] = $res->field_field_avant_premiere_ville[0]['raw']['taxonomy_term']->tid;
+    }
+    if(isset($res->field_field_programme_loc_ville[0]['raw']) && !empty($res->field_field_programme_loc_ville[0]['raw'])){
+      $terms[$res->field_field_programme_loc_ville[0]['raw']['taxonomy_term']->name] = $res->field_field_programme_loc_ville[0]['raw']['taxonomy_term']->tid;
+    }
+  }
+  ksort($terms);
+
+
   if ($result):
     ?>
     <!-- [Prochainement] start-->
@@ -48,9 +60,9 @@ if (isset($content['field_offre_view2'])):
                     <option value="">-</option>
                     <?php
                     if ($terms):
-                      foreach ($terms as $key => $term) :
+                      foreach ($terms as $name => $id) :
                         ?>
-                        <option value="<?php print $key; ?>"><?php print $term; ?></option>
+                        <option value="<?php print $id; ?>"><?php print $name; ?></option>
                         <?php
                       endforeach;
                     endif;

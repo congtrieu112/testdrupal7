@@ -6,7 +6,7 @@ if ($region_contents && isset($region_contents['node'])) :
     if ($region_nid) :
       $n_region = node_load($region_nid);
       if ($n_region):
-        $region_kb_id = $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value'];
+        $region_kb_id = $n_region->field_region_kb_id[LANGUAGE_NONE][0]['value']+1;
         $html = '';
         for ($i = 1; $i <= 5; $i++) :
           if ($arg == 'nos-services') :
