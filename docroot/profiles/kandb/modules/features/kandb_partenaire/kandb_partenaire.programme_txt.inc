@@ -58,7 +58,7 @@ function kandb_update_b2c_b2b_partenaire_programme_txt_files() {
       sleep(5);
     }
     file_save_data($b2c_data, $uri_b2c . '/' . $file_name, FILE_EXISTS_REPLACE);
-    
+
     foreach ($b2c_programme_ids_arr as $k => $v) {
       $b2c_data = kandb_update_b2c_b2b_partenaire_build_programme_data($v);
       if ($b2c_data && $k == count($b2c_programme_ids_arr) - 1) {
@@ -126,17 +126,33 @@ function kandb_update_b2c_b2b_partenaire_get_programme($domain_id = NULL, $progr
   if (!is_numeric($domain_id) && empty($programmes_id)) {
     return $nids;
   }
+
+  // Get available node programme
   $db_query = db_select('node', 'n');
   $db_query->fields('n', array('nid'));
   $db_query->condition('n.status', 1);
   $db_query->condition('n.type', 'programme');
-  $db_query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
+
+  // Filter the programme by only those who possess available bien
+  $db_query->leftJoin('field_data_field_programme', 'fpti', 'n.nid = fpti.field_programme_target_id');
+  $db_query->leftJoin('node', 'n2', 'n2.nid = fpti.entity_id');
+  $db_query->leftJoin('field_data_field_bien_statut', 'fdfbs', 'fdfbs.entity_id = n2.nid');
+  $db_query->condition('n2.status', 1);
+  $db_query->condition('fdfbs.field_bien_statut_tid', Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE));
+
+  // Filter by programme id
   if (!empty($programmes_id)) {
     $db_query->condition('n.nid', $programmes_id, 'IN');
   }
-  elseif(is_numeric($domain_id)) {
+  // Filter by domain id
+  if(is_numeric($domain_id)) {
+    $db_query->leftJoin('domain_access', 'dm', 'dm.nid=n.nid');
     $db_query->condition('dm.gid', $domain_id);
     $db_query->condition('dm.realm', 'domain_id');
+
+    $db_query->leftJoin('domain_access', 'dm2', 'dm2.nid=n2.nid');
+    $db_query->condition('dm2.gid', $domain_id);
+    $db_query->condition('dm2.realm', 'domain_id');
   }
   $nids = $db_query->distinct()->execute()->fetchCol();
   return $nids;
