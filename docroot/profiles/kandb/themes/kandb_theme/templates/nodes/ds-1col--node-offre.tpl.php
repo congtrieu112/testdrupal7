@@ -37,8 +37,12 @@ if (isset($content['field_offre_view2'])):
   $result = isset($content['field_offre_view2'][0]['#view']->result) ? $content['field_offre_view2'][0]['#view']->result : '';
   $terms = array();
   foreach($result as $res){
+    // field_field_programme_loc_ville
     if(isset($res->field_field_avant_premiere_ville[0]['raw']) && !empty($res->field_field_avant_premiere_ville[0]['raw'])){
       $terms[$res->field_field_avant_premiere_ville[0]['raw']['taxonomy_term']->name] = $res->field_field_avant_premiere_ville[0]['raw']['taxonomy_term']->tid;
+    }
+    if(isset($res->field_field_programme_loc_ville[0]['raw']) && !empty($res->field_field_programme_loc_ville[0]['raw'])){
+      $terms[$res->field_field_programme_loc_ville[0]['raw']['taxonomy_term']->name] = $res->field_field_programme_loc_ville[0]['raw']['taxonomy_term']->tid;
     }
   }
   ksort($terms);
