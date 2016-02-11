@@ -136,7 +136,7 @@ endif;
                         </header>
                         <p><?php print truncate_utf8($item->field_annonce_description[LANGUAGE_NONE][0]['value'], '200', TRUE, TRUE); ?></p>
                         <p class="text-bold"><?php print t('Expérience exigée'); ?> :<span><?php print isset($tax_exp->name) ? $tax_exp->name : ''; ?></span></p>
-                    </div><a href="<?php print url('node/' . $item->nid); ?>" class="btn-rounded btn-primary"><?php print t('Voir l’offre'); ?><span class="icon icon-arrow"></span></a>
+                    </div>
                 </article>
               <?php endforeach; ?>
 
