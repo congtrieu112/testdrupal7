@@ -549,9 +549,6 @@ function theme_recherche_check_box($variables) {
   $count = 1;
   foreach ($options as $option) {
     $element[$option]['#class'] = 'class="bordered"';
-    if ($count == $totalOptions) {
-      $element[$option]['#class'] = '';
-    }
     if (isset($_GET[$element['#name']])) {
       foreach($_GET[$element['#name']] as $id){
         if(isset($element[$id])){
