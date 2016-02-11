@@ -134,8 +134,8 @@ function kandb_update_b2c_b2b_partenaire_get_programme($domain_id = NULL, $progr
   $db_query->condition('n.type', 'programme');
 
   // Filter the programme by only those who possess available bien
-  $db_query->leftJoin('field_programme_target_id', 'fpti', 'n.nid = field_data_field_programme.field_programme_target_id ');
-  $db_query->leftJoin('node', 'n2', 'n2.nid = field_data_field_programme.entity_id');
+  $db_query->leftJoin('field_data_field_programme', 'fpti', 'n.nid = fpti.field_programme_target_id');
+  $db_query->leftJoin('node', 'n2', 'n2.nid = fpti.entity_id');
   $db_query->leftJoin('field_data_field_bien_statut', 'fdfbs', 'fdfbs.entity_id = n2.nid');
   $db_query->condition('n2.status', 1);
   $db_query->condition('fdfbs.field_bien_statut_tid', Kandb_Business_Rules::get_tax_status_du_logement_by_name(TAXONOMY_STATUS_LOGEMENT_DISPONIBLE));
