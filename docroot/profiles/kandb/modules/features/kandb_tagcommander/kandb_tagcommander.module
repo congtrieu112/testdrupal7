@@ -320,39 +320,42 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
     /* Programme */
     case 'programme_id':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme' && isset($object->field_id_programme['und'][0]['value'])) $return = $object->field_id_programme['und'][0]['value']; // ID Kaufman
       break;
     case 'programme_region':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme'){
+        if(!isset($object->field_programme_loc_region['und']['0']['taxonomy_term']) && isset($object->field_programme_loc_region['und'][0]['tid'])) $object->field_programme_loc_region['und']['0']['taxonomy_term'] = taxonomy_term_load($object->field_programme_loc_region['und'][0]['tid']);
         if(isset($object->field_programme_loc_region['und']['0']['taxonomy_term']->name)) {
           $return = $object->field_programme_loc_region['und']['0']['taxonomy_term']->name;
         }
       }
       break;
     case 'programme_departement':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme'){
+        if(!isset($object->field_programme_loc_department['und']['0']['taxonomy_term']) && isset($object->field_programme_loc_department['und'][0]['tid'])) $object->field_programme_loc_department['und']['0']['taxonomy_term'] = taxonomy_term_load($object->field_programme_loc_department['und'][0]['tid']);
         if(isset($object->field_programme_loc_department['und']['0']['taxonomy_term']->name)) {
           $return = $object->field_programme_loc_department['und']['0']['taxonomy_term']->name;
         }
       }
       break;
     case 'programme_city':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme'){
+        if(!isset($object->field_programme_loc_ville['und']['0']['taxonomy_term']) && isset($object->field_programme_loc_ville['und'][0]['tid'])) $object->field_programme_loc_ville['und']['0']['taxonomy_term'] = taxonomy_term_load($object->field_programme_loc_ville['und'][0]['tid']);
         if(isset($object->field_programme_loc_ville['und']['0']['taxonomy_term']->name)) {
           $return = $object->field_programme_loc_ville['und']['0']['taxonomy_term']->name;
         }
       }
       break;
     case 'programme_type':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme') $return = $object->type; // TODO : Need Precision
       break;
     case 'programme_name':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'programme') $return = $object->title;
       break;
     case 'url_page':
@@ -361,7 +364,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
     /* Bien */
     case 'property_type':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'bien'){
         if(isset($object->field_type['und']['0']->taxonomy_term->name)) {
           $return = $object->field_type['und']['0']->taxonomy_term->name;
@@ -371,7 +374,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       }
       break;
     case 'property_name':
-      $object = menu_get_object();
+      $object = kandb_tagcommander_get_current_object();
       if(is_object($object) && $object->type == 'bien'){
         $return = $object->title;
       }
@@ -430,4 +433,16 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
   return $return;
 
+}
+
+/**
+ * Implements hook_access().
+ */
+function kandb_tagcommander_get_current_object(){
+  if(isset($_GET['nid'])) {
+    $object = node_load((int)$_GET['nid']);
+  }else{
+    $object = menu_get_object();
+  }
+  return $object;
 }
