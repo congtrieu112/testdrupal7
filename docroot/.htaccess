@@ -86,6 +86,9 @@ DirectoryIndex index.php index.html index.htm
   RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_frejus((?:&|$).*)
   RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_frejus-blue_horizon((?:&|$).*)
+  RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
   RewriteCond %{QUERY_STRING} (.*(?:^|&))PROV=minisite_emergence((?:&|$).*)
   RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-paris/emergence-75017? [R=301,L]
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
@@ -140,7 +143,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33651((?:&|$).*)
   RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bordeaux/villa-serenis-33000? [R=301,L]
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
-  RewriteCond %{QUERY_STRING} (.*(?:^|&))IDKP=33581((?:&|$).*)
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))idkp=33581((?:&|$).*)
   RewriteRule contact/se-faire-rappeler.aspx http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-toulouse/le-cottage-31500? [R=301,L]
 
   # contact/PrendreRendezVous.aspx
@@ -1076,10 +1079,6 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule vente-immobilier-neuf/recrutement-kaufman/liste-offres-emploi.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers? [R=301,L]
 
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
-  RewriteCond %{QUERY_STRING} (.*(?:^|&))prov=footer&service=notre+Service+Immobilier+d'entreprise&email=Infos-immobilier_entreprise%40ketb.com((?:&|$).*)
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-services? [R=301,L]
-
-  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
   RewriteCond %{QUERY_STRING} (.*(?:^|&))PageNo=0((?:&|$).*)
   RewriteRule immobilier-neuf/programmes-immobiliers/investir-appartement-maison/ile-de-france/seine-et-marne.aspx http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-et-marne-77? [R=301,L]
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
@@ -1113,11 +1112,11 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/saint-herblain/programme-les-quatre-saisons.* http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-loire-atlantique-44? [R=301,L]
 
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
-  RewriteCond %{QUERY_STRING} (.*(?:^|&))prov=(.*)((?:&|$).*)
-  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-agences? [R=301,L]
-  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
-  RewriteCond %{QUERY_STRING} (.*(?:^|&))email=infos-SAV%40ketb\.com&prov=footer&service=le\+Service\+Client((?:&|$).*)
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))email=Infos-immo(.*)((?:&|$).*)
   RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-services? [R=301,L]
+  RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
+  RewriteCond %{QUERY_STRING} (.*(?:^|&))email=infos-inves(.*)((?:&|$).*)
+  RewriteRule constructeur-immobilier/contact/formulaire.aspx http://www.kaufmanbroad.fr/corporate/activites/nos-agences? [R=301,L]
 
   RewriteCond %{HTTP_HOST} ^(www\.)?ketb.com$
   RewriteCond %{QUERY_STRING} (.*(?:^|&))aspxerrorpath=/immobilier-ne%20uf/nouveaux-programmes-immobiliers.aspx((?:&|$).*)
@@ -1131,7 +1130,7 @@ DirectoryIndex index.php index.html index.htm
 
   # All redirection sans parametres
   RewriteCond %{HTTP_HOST}  !^(www\.)?ketb.com$
-  RewriteRule .?  -  [S=939]
+  RewriteRule .?  -  [S=941]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman/liste-offres-emploi.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers? [R=301,L]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman/candidature-spontannee.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/postuler? [R=301,L]
   RewriteRule vente-immobilier-neuf/recrutement-kaufman.aspx http://www.kaufmanbroad.fr/corporate/ressources-humaines/nos-metiers? [R=301,L]
@@ -1293,7 +1292,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule ketbmedia/FR/Evenement/PRG_PLAQUETTE_F47A834A-D957-4389-8FAC-5B2BB9B47E7A.pdf http://www.kaufmanbroad.fr/notre-offre/avant-premiere? [R=301,L]
   RewriteRule ketbmedia/FR/com/KBSA-CP-2015-Resultat-T3-VDEF.pdf http://www.kaufmanbroad.fr/corporate/finance/publication/fr? [R=301,L]
   RewriteRule ketbmedia/FR/com/KBSA_CPResultatsY2010_VF.pdf http://www.kaufmanbroad.fr/corporate? [R=301,L]
-  RewriteRule "ketbmedia/FR/com/KBSA_CP_2015RésultatQ1_VdefClean(post AG)".pdf http://www.kaufmanbroad.fr/corporate/finance/publication/fr? [R=301,L,NE]
+  RewriteRule ketbmedia/FR/com/KBSA_CP_2015RésultatQ1_VdefClean.* http://www.kaufmanbroad.fr/corporate/finance/publication/fr? [R=301,L,NE]
   RewriteRule "ketbmedia/FR/com/KBSA CP 2015 Résultat S1_V19.pdf" http://www.kaufmanbroad.fr/corporate/finance/publication/fr? [R=301,L]
   RewriteRule "ketbmedia/FR/com/Cqué RFS_S1_2015_VF.pdf" http://www.kaufmanbroad.fr/corporate? [R=301,L]
   RewriteRule ketbmedia/FR/com/CP_PREMIERE_PIERRE_MONTREUIL.pdf http://www.kaufmanbroad.fr/departements/logements-immobiliers-neufs-seine-saint-denis-93? [R=301,L]
@@ -1767,9 +1766,9 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/nantes/programme-360-view.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-nantes/360-view-44000? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-villa-vittoria.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-vittoria-34000? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-villa-hermes.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-hermes-34000? [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-villa-circe.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000? [R=301,L]
+  RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-villa-circ.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/villa-circe-34000? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-terra-nostra.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/terra-nostra-34000? [R=301,L]
-  RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-ovaly-square---commerce.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault? [R=301,L]
+  RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-ovaly-square---commerce.* http:a//www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-herault? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-natura-park.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/natura-park-34000? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-magna-carta.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/magna-carta-34000? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/montpellier/programme-le-patio.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-montpellier/le-patio-34000? [R=301,L]
@@ -1822,6 +1821,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/hendaye/programme-hegoaldea.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-hendaye/hegoaldea-64700? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/groslay/programme-les-villas-josephine.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-groslay/les-villas-josephine-95410? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/grasse/programme-villa-neroli.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-grasse/villa-neroli-06130? [R=301,L]
+  RewriteRule immobilier-neuf/achat-appartement-neuf/grasse/programme-aroma-park.* http://www.kaufmanbroad.fr/regions/logements-immobiliers-neufs-provence-alpes-cote-dazur? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/frejus/programme-golfe-horizon.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/golfe-horizon-83600? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/frejus/programme-blue-horizon.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-frejus/blue-horizon-83600? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/franconville/programme-esprit-ville.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-franconville/esprit-ville-95130? [R=301,L]
@@ -1861,6 +1861,7 @@ DirectoryIndex index.php index.html index.htm
   RewriteRule immobilier-neuf/achat-appartement-neuf/begles/programme-tereo.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-begles/tereo-33130? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-residence-pinpirina.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-pinpirina-64100? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-residence-estrella.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-pyrenees-atlantiques? [R=301,L]
+  RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-résidence-estrella.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-pyrenees-atlantiques? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-residence-enara.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/residence-enara-64100? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-orejo.* http://www.kaufmanbroad.fr/departements/programmes-immobiliers-neufs-pyrenees-atlantiques? [R=301,L]
   RewriteRule immobilier-neuf/achat-appartement-neuf/bayonne/programme-marinadour.* http://www.kaufmanbroad.fr/villes/programmes-immobiliers-neufs-bayonne/marinadour-64100? [R=301,L]
