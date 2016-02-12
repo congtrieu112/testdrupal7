@@ -141,6 +141,13 @@ $promotions = get_nids_promotions_by_avant($node->nid);
                         <?php endif; ?>
                     </ul>
                 </div>
+              <?php if (isset($field_avant_premiere_pdf[0]) && !empty($field_avant_premiere_pdf[0])) : ?>
+                  <!-- [Avant-premiere download button] start-->
+                  <div class="btn-wrapper btn-wrapper--left">
+                    <a href="<?php print file_create_url($field_avant_premiere_pdf[0]['uri']); ?>" class="btn-primary btn-rounded"><span>Découvrir les offres de lancement</span></a>
+                  </div>
+                  <!-- [Avant-premiere download button] end-->
+              <?php endif; ?>
             </div>
             <div class="programHeader__content__details">
                 <?php if ($en_quelques_mots): ?>

@@ -65,22 +65,22 @@ function kandb_avant_premiere_strongarm() {
           'weight' => '0',
         ),
         'locations' => array(
-          'weight' => '14',
+          'weight' => '15',
         ),
         'metatags' => array(
-          'weight' => '11',
+          'weight' => '12',
         ),
         'title' => array(
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '13',
+          'weight' => '14',
         ),
         'redirect' => array(
-          'weight' => '12',
+          'weight' => '13',
         ),
         'xmlsitemap' => array(
-          'weight' => '15',
+          'weight' => '16',
         ),
       ),
       'display' => array(
