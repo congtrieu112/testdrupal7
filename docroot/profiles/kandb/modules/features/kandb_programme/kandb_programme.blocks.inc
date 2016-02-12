@@ -212,7 +212,7 @@ function _get_logement_block_content() {
 
             $arr_price_max = ''; $arr_price_min = '';
             foreach($variables as $key => $values) {
-              $logement_block['total_bien'][$key] = count($values);
+              $logement_block['total_bien'][$key] = ceil(count($values) * $stock / 100);
               $logement_block['tva_bien'][$key] = $tva;
 
               $bien_id_max = array_search(max($values), $values);
@@ -555,7 +555,7 @@ function countListBienGroupByTypeBien($tid, $key, $gid) {
   $listBien_query->join('field_data_field_type', 'type', 'type.entity_id=bien.entity_id');
   $listBien_query->join('taxonomy_term_data', 'taxo', 'taxo.tid = type.field_type_tid');
   $listBien_query->leftJoin('field_data_field_programme_stock', 'stock', 'stock.entity_id = program.field_programme_target_id');
-  //$listBien_query->join('domain_access', 'da', 'da.nid = program.entity_id');
+  $listBien_query->join('domain_access', 'da', 'da.nid = program.entity_id');
   $listBien_query->addExpression('count("field_programme_target_id")', 'total');
   $listBien_query->addExpression('GROUP_CONCAT(program.entity_id)', 'bien_id');
   $listBien_query->addExpression("case when name='studio' then 0 else 1 end", 'special_name');
@@ -569,7 +569,7 @@ function countListBienGroupByTypeBien($tid, $key, $gid) {
     ->fields('stock', array('field_programme_stock_value'))
     ->condition('field_bien_statut_tid', $tid, '=')
     ->condition('field_programme_target_id', $key, '=')
-    //->condition('gid', $gid, '=')
+    ->condition('gid', $gid, '=')
     ->orderBy('special_name', 'ASC')
     ->orderBy('name', 'ASC')
     ->execute();

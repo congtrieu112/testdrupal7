@@ -127,8 +127,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                       <?php if ($trimstre) print $trimstre; ?>
                       <?php if ($annee) print $annee; ?>
                       <br/>
-                      <?php if ($flat_available) print $flat_available; ?>
-                      <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
+                      <?php if ($flat_available) print $flat_available; ?><?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
                   </p>
                 <?php endif; ?>
 
