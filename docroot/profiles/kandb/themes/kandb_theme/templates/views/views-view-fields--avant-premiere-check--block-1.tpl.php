@@ -56,7 +56,7 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
         <div class="squaredImageItem__img"><a href="<?php print url('node/' . $row->nid); ?>" title="<?php print $row->node_title; ?>"><img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print $row->field_field_avant_premiere_image_princ[0]['raw']['alt']; ?>"/></a>
             <ul class="squaredImageItem__img__tags">
                 <?php if ($row->field_promotion_avant_premiere_node_title && $available && $status_promotion && $_SESSION['avant_promotion_uncheck'] < 3): ?>
-                    <li>  
+                    <li>
                         <?php if (isset($row->field_field_promotion_mention_legale[0]['rendered']['#markup']) && $row->field_field_promotion_mention_legale[0]['rendered']['#markup']) : ?>
                             <button data-reveal-trigger="avant_premiere_<?php print $row->field_promotion_avant_premiere_node_nid; ?>" class="tag tag--important"><?php print $row->field_promotion_avant_premiere_node_title; ?></button>
                             <!-- [popin] start-->
@@ -112,6 +112,9 @@ if (isset($view->promotion_duplicate) && count($view->promotion_duplicate)) {
                         <span class="icon icon-love"></span>
                     </a>
                 </div>
+            </div>
+            <div class="squaredImageItem__btn">
+              <a href="<?php print url('node/' . $row->nid); ?>" class="btn-rounded btn-primary" tabindex="0">Découvrir<span class="icon icon-arrow"></span></a>
             </div>
         </div>
     </article>
