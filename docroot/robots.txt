@@ -11,6 +11,9 @@ Disallow: */corporate/finance/archives/*/en?page=*
 Disallow: */corporate/finance/archives/*/fr?page=*
 Disallow: */corporate/finance/archives/fr?page=*
 Disallow: */corporate/finance/archives/fr?page=*
+Disallow: */prendre-rendez-vous?*
+Disallow: */etre-rappele?*
+Disallow: */candidature-spontanee?annonce=*
 
 # Directories
 Disallow: /includes/
@@ -20,7 +23,3 @@ Disallow: /profiles/
 Disallow: /scripts/
 Disallow: /themes/
 Disallow: /user/password/
-
-
-
-
