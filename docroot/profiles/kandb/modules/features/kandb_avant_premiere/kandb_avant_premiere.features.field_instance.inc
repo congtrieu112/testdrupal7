@@ -440,6 +440,54 @@ function kandb_avant_premiere_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-avant_premiere-field_avant_premiere_pdf'
+  $field_instances['node-avant_premiere-field_avant_premiere_pdf'] = array(
+    'bundle' => 'avant_premiere',
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'file',
+        'settings' => array(),
+        'type' => 'file_default',
+        'weight' => 9,
+      ),
+      'selection' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_avant_premiere_pdf',
+    'label' => 'Document PDF',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 0,
+      'file_directory' => '',
+      'file_extensions' => 'pdf',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => 11,
+    ),
+  );
+
   // Exported field_instance: 'node-avant_premiere-field_avant_premiere_ville'
   $field_instances['node-avant_premiere-field_avant_premiere_ville'] = array(
     'bundle' => 'avant_premiere',
@@ -486,6 +534,7 @@ function kandb_avant_premiere_field_default_field_instances() {
   t('Date début lancement');
   t('Date fin lancement');
   t('Description');
+  t('Document PDF');
   t('Département');
   t('En quelques mots B2C');
   t('Grande ouverture');
