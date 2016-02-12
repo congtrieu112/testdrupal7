@@ -145,8 +145,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                       <?php if ($trimstre) print $trimstre; ?>
                       <?php if ($annee) print $annee; ?>
                       <br/>
-                      <?php if ($flat_available) print $flat_available; ?>
-                      <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
+                      <?php if ($flat_available) print $flat_available; ?><?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
                   </p>
                 <?php endif; ?>
 
@@ -256,7 +255,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                           endif;
                           $class_icon = isset($icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icons[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                           print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                          print $node->field_caracteristique_etages['und'][0]['value'] . '&nbsp<span class="text">' . $icons[0]->name . ' ' . (($icons[0]->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $icons[0]->description . '"></span>' : '') . '</span>';
+                          print '<span class="text">' . $node->field_caracteristique_etages['und'][0]['value'] . ' '. $icons[0]->name . '</span>';
                           print '</li>';
                         endif;
                       endif;

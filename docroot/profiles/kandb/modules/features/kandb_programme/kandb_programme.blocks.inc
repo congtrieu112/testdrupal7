@@ -196,7 +196,7 @@ function _get_logement_block_content() {
                 $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
                 $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
                 $logement_block['programme_bien_images'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
-                $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;               
+                $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
               } elseif($program_list_biens->name == 'Maison') {
                 $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
                 $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
@@ -206,13 +206,13 @@ function _get_logement_block_content() {
                 $variables['99-' . $program_list_biens->name][$bien->title]['price'] = $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
                 $variables['99-' . $program_list_biens->name][$bien->title]['superficie'] = $bien->field_superficie[LANGUAGE_NONE][0]['value'];
                 $logement_block['type_de_bien']['99-' .   $program_list_biens->name] = $program_list_biens->name;
-                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;               
+                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;
               }
             }
 
             $arr_price_max = ''; $arr_price_min = '';
-            foreach($variables as $key => $values) {     
-              $logement_block['total_bien'][$key] = count($values);
+            foreach($variables as $key => $values) {
+              $logement_block['total_bien'][$key] = ceil(count($values) * $stock / 100);
               $logement_block['tva_bien'][$key] = $tva;
 
               $bien_id_max = array_search(max($values), $values);
@@ -555,7 +555,7 @@ function countListBienGroupByTypeBien($tid, $key, $gid) {
   $listBien_query->join('field_data_field_type', 'type', 'type.entity_id=bien.entity_id');
   $listBien_query->join('taxonomy_term_data', 'taxo', 'taxo.tid = type.field_type_tid');
   $listBien_query->leftJoin('field_data_field_programme_stock', 'stock', 'stock.entity_id = program.field_programme_target_id');
-  //$listBien_query->join('domain_access', 'da', 'da.nid = program.entity_id');
+  $listBien_query->join('domain_access', 'da', 'da.nid = program.entity_id');
   $listBien_query->addExpression('count("field_programme_target_id")', 'total');
   $listBien_query->addExpression('GROUP_CONCAT(program.entity_id)', 'bien_id');
   $listBien_query->addExpression("case when name='studio' then 0 else 1 end", 'special_name');
@@ -569,7 +569,7 @@ function countListBienGroupByTypeBien($tid, $key, $gid) {
     ->fields('stock', array('field_programme_stock_value'))
     ->condition('field_bien_statut_tid', $tid, '=')
     ->condition('field_programme_target_id', $key, '=')
-    //->condition('gid', $gid, '=')
+    ->condition('gid', $gid, '=')
     ->orderBy('special_name', 'ASC')
     ->orderBy('name', 'ASC')
     ->execute();

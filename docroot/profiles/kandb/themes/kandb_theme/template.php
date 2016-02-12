@@ -368,10 +368,11 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['annee'] = isset($node->field_annee[LANGUAGE_NONE][0]['value']) ? $node->field_annee[LANGUAGE_NONE][0]['value'] : '';
 
     if(isset($_domain['domain_id'])) {
+      $stock= $programme->field_programme_stock['und'][0]['value'];
       if($_domain['domain_id'] == DOMAIN_B2B) {
-        $vars['flat_available'] = isset($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+        $vars['flat_available'] = isset($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value']) ? ceil($node->field_programme_flat_available_b[LANGUAGE_NONE][0]['value'] * $stock / 100) . t(' appartements disponibles') : '';
       } elseif ($_domain['domain_id'] == DOMAIN_B2C) {
-        $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? $node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] . t(' appartements disponibles') : '';
+        $vars['flat_available'] = isset($node->field_programme_flat_available[LANGUAGE_NONE][0]['value']) ? ceil($node->field_programme_flat_available[LANGUAGE_NONE][0]['value'] * $stock / 100) . t(' appartements disponibles') : '';
       }
     }
 
