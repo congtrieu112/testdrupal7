@@ -283,9 +283,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <?php endif; ?>
 
                 <?php if ($programme_mtn_legale) : ?>
-                  <p class="intro">
-                      <em><?php print t('Mentions Legales:'); ?>&nbsp;</em><?php print $programme_mtn_legale; ?>
-                  </p>
+                  <p class="legalMentions"><em><?php print t('Mentions Legales:'); ?>&nbsp;:</em> <?php print $programme_mtn_legale; ?></p>
                 <?php endif; ?>
 
                 <ul class="toolsList show-for-medium-up">
