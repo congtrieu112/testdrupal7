@@ -1,3 +1,4 @@
+<?php global $base_url; $path_to_theme = $base_url . '/' . drupal_get_path('theme', 'kandb_theme');?>
 <!DOCTYPE html>
 <html>
 <!--
@@ -7,20 +8,10 @@ Tous droits réservés.
 -->
 
 <head>
-<title>Frais de notaire et frais de garantie</title>
-<style>
-.tab1 { border: solid #355B95 1px; }
-.put1{ font-family: Arial; font-size: 10pt; border-width: 1px; border-style: solid; border-color: #7F9DB9; }
-.td0 { font-family: Arial; font-size: 11pt; color: #FFFFFF; background-color: #355B95; font-weight: bold; }
-.td1 { font-family: Arial; font-size: 10pt; color: #000044; background-color: #E0E2F9; }
-.td1r{ font-family: Arial; font-size: 11pt; color: #C00000; font-weight: bold; }
-.td3 { font-family: Arial; font-size: 10pt; color: #000044; background-color: #FFFFFF; }
-.tdg { background-color: #E0E2F9; }
-.titre1 { font-family: Arial; font-size: 11pt; font-weight: bold; color: #000080; }
-#divreal a.Note1 { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:none; }
-#divreal a.Note1:visited { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:none; }
-#divreal a.Note1:hover { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:underline; background-color:#FFFFFF; }
-</style>
+  <title>Frais de notaire et frais de garantie</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="<?php print $path_to_theme; ?>/css/app-alto.css">
+  <script src="<?php print $path_to_theme; ?>/js/modernizr.js"></script>
 </head>
 
 
