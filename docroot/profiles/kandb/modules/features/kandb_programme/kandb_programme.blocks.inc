@@ -196,7 +196,7 @@ function _get_logement_block_content() {
                 $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
                 $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
                 $logement_block['programme_bien_images'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
-                $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;               
+                $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
               } elseif($program_list_biens->name == 'Maison') {
                 $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
                 $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
@@ -206,12 +206,12 @@ function _get_logement_block_content() {
                 $variables['99-' . $program_list_biens->name][$bien->title]['price'] = $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
                 $variables['99-' . $program_list_biens->name][$bien->title]['superficie'] = $bien->field_superficie[LANGUAGE_NONE][0]['value'];
                 $logement_block['type_de_bien']['99-' .   $program_list_biens->name] = $program_list_biens->name;
-                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;               
+                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;
               }
             }
 
             $arr_price_max = ''; $arr_price_min = '';
-            foreach($variables as $key => $values) {     
+            foreach($variables as $key => $values) {
               $logement_block['total_bien'][$key] = count($values);
               $logement_block['tva_bien'][$key] = $tva;
 
