@@ -356,27 +356,32 @@ if($nb_pieces_name == 'studio') {
             <div data-equalizer-watch class="programHeader__content__details">
                 <ul class="characteristicList">
                     <?php
-                    if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) {
-                      foreach($program_characteristic_on_bien as $term) {
+                    $array_flags = array();
+                    if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
+                      foreach($program_characteristic_on_bien as $term) :
+                        $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
-                      }
-                    }
+                      endforeach;
+                    endif;
                     ?>
                     <?php
                     $vocabulary_name = 'caracteristiques';
                     if (isset($node->field_caracteristique[LANGUAGE_NONE][0])):
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
-                        $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                        if($caracteristique->name == 'Etage') $caracteristique->name = taxonomy_term_load($field_etage['und'][0]['tid'])->name;
-                        if(!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) {
-                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                          print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
-                          print '</li>';
-                        }
+                        if (!in_array($caracteristique->name, $array_flags)):
+                          $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
+                          if ($caracteristique->name == 'Etage')
+                            $caracteristique->name = taxonomy_term_load($field_etage['und'][0]['tid'])->name;
+                          if (!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) :
+                            print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                            print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
+                            print '</li>';
+                          endif;
+                        endif;
                       endforeach;
                     endif;
                     ?>
