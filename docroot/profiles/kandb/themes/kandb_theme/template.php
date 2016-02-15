@@ -702,6 +702,21 @@ function kandb_theme_preprocess_node(&$vars) {
   $vars['actabilite_date'] = isset($node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value'] : '';
 
   $vars['programme_loc_region_kb'] = isset($node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id'] : '';
+  if($vars['type'] == 'bien') {
+    $node = &$vars['node'];
+    if (!empty($node->field_type) && isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
+      $name_taxonomy = taxonomy_term_load($node->field_type[LANGUAGE_NONE][0]['tid']);
+      if (!empty($name_taxonomy) && $name_taxonomy->name == 'Maison') {
+        if (!empty($node->field_bien_type_maison) && isset($node->field_bien_type_maison['und'][0]['target_id'])) {
+          $field_bien_type_maison = $node->field_bien_type_maison['und'][0]['target_id'];
+          $node_maison = node_load($field_bien_type_maison);
+          if (!empty($node_maison)) {
+            $vars['title_maison'] = $node_maison->title;
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
