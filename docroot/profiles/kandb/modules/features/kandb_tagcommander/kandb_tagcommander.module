@@ -135,14 +135,18 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         $return = 'home';
       }elseif($explode_url[0] == 'recherche') {
         $return = 'resultats';
-      }else{
+      }elseif($explode_url[0] == 'mon-espace') {
+        $return = 'mes_selections';
+      }else {
         $object = menu_get_object();
-        if(is_object($object) && isset($object->type)){
+        if (is_object($object) && isset($object->type)) {
           if ($object->type == 'programme') {
             $return = 'programme';
-          }elseif($object->type == 'webform') {
+          }
+          elseif ($object->type == 'webform') {
             $return = 'formulaire_step1';
-          }elseif($object->type == 'programme') {
+          }
+          elseif ($object->type == 'programme') {
             $return = 'formulaire/confirmation'; // TODO : Refaire le tag commander après un appel ajax de webform
           }
         }
@@ -404,7 +408,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       */
       if(drupal_is_front_page()){
         $return = 1; // Accueil
-      }elseif($explode_url[0] == 'notre-offre'){
+      }elseif($explode_url[0] == 'notre-offre' || (isset(menu_get_object()->type) && in_array(menu_get_object()->type, array('programme', 'bien')))){
         $return = 2; // Nos offres
       }elseif($explode_url[0] == 'nos-services'){ // TODO : does not exist
         $return = 3; // Nos services
@@ -418,16 +422,18 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         $return = 7; // Mon espace
       }elseif($explode_url[0] == 'recherche'){
         $return = 8; // Moteur interne
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 9; // Nos offres
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 10; // Nos offres
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 11; // Nos offres
+      }elseif(FALSE){ // TODO : What is this ?
+        $return = 9; // Annexes
+      }elseif(isset(menu_get_object()->type) && menu_get_object()->type == 'webform'){ // TODO : What is this ?
+        $return = 10; // Page d'objectif
       }
       break;
     case 'xt_page':
-      $return = implode('::', $explode_url);
+      if(drupal_is_front_page()){
+        $return = 'home_page';
+      }else {
+        $return = implode('::', $explode_url);
+      }
       break;
   }
 
