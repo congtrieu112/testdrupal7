@@ -150,7 +150,7 @@ function kandb_contact_buttons($only_links = false) {
     '_tre_rappel_',
     'prendre_rendez_vous',
   );
-  
+
   $link = '';
   if(!empty($_GET['q'])){
     $array_node = explode('/', $_GET['q']);
@@ -465,6 +465,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
                 jQuery(".close-reveal-modal").trigger("click");
               }', 'inline'
             );
+            $form['submitted']['parram']["#value"] = $parram;
             $form['#submit'][] = 'telechargement_documents_download_header';
             break;
           default:
@@ -730,7 +731,7 @@ function kandb_contact_get_telechargement_documents_url() {
 }
 
 function telechargement_documents_download_header($form, $form_state) {
-  $parram = drupal_get_query_parameters();
+  $parram = $form['submitted']['parram']["#value"];
   if ($parram['contenttype'] == 'bien') {
     $field = 'field_id_bien';
   }
@@ -746,6 +747,7 @@ function telechargement_documents_download_header($form, $form_state) {
   }
   $node = node_load($nid);
   $real_path = drupal_realpath('public://');
+  $document_uri = '';
   if ($parram['contenttype'] == 'bien') {
     if (isset($parram['type']) && $parram['type'] == 'txt') {
       $programme = node_load($node->field_programme[LANGUAGE_NONE][0]['target_id']);
@@ -753,13 +755,14 @@ function telechargement_documents_download_header($form, $form_state) {
         $plaquette_commerciale = file_create_url($programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['uri']);
         $fileName = $programme->field_plaquette_commerciale[LANGUAGE_NONE][0]['filename'];
         $filePath = $real_path . '/' . $fileName;
-        ;
+        $document_uri = 'public://' . $fileName;
       }
     }
     else {
       //get link zip file
       $fileName = $node->field_bien_plan['und'][0]['filename'];
       $filePath = $real_path . '/' . $fileName;
+      $document_uri = 'public://' . $fileName;
     }
   }
   else {
@@ -768,12 +771,20 @@ function telechargement_documents_download_header($form, $form_state) {
       $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
       if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
         $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
+        $document_uri = 'public://Programme/archive/' . $nid . '/' . $fileName;
       }
     }
-    else {
+    elseif($parram['download'] == 'prestations_txt') {
+      //download txt
+      $fileName = $node->field_fiche_renseignement['und'][0]['filename'];
+      $filePath = $real_path . '/' . $node->field_fiche_renseignement['und'][0]['filename'];
+      $document_uri = 'public://' . $node->field_fiche_renseignement['und'][0]['filename'];
+    }
+    elseif($parram['download'] == 'plaquette_txt') {
       //download txt
       $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
-      $filePath = $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
+      $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
+      $document_uri = 'public://' . $node->field_plaquette_commerciale['und'][0]['filename'];
     }
   }
   if ($filePath) {
@@ -781,11 +792,8 @@ function telechargement_documents_download_header($form, $form_state) {
       ctools_include('ajax');
       ctools_add_js('ajax-responder');
       $commands[] = array('command' => 'closePopin');
-      $programme_nid = $node->nid;
-      $filezipName = 'Programme_' . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
-      $document_uri = "public://Programme/archive/" . $programme_nid . "/" . $filezipName;
       if (file_exists($document_uri)) {
-        $document_uri = base64_encode("public://Programme/archive/" . $programme_nid . "/" . $filezipName);
+        $document_uri = base64_encode($document_uri);
         $commands[] = ctools_ajax_command_redirect('document_download/' . $document_uri);
       }
       print ajax_render($commands);

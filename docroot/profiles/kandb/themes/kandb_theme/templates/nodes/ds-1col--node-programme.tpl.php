@@ -471,7 +471,9 @@ if (!empty($list_document)):
                       <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
                             <?php if ($item["title"] == 'Plaquette commerciale') :?>
-                                <a href="<?php print $url.'?download=txt'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                                <a href="<?php print $url.'?download=plaquette_txt'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
+                            <?php elseif($item["title"] == 'Prestations') : ?>
+                                <a href="<?php print $url.'?download=prestations_txt'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
                             <?php else : ?>
                                 <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
                             <?php endif; ?>
