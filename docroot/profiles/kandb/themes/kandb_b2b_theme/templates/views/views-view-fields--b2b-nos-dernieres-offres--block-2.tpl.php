@@ -22,10 +22,10 @@
  *
  * @ingroup views_templates
  */
-$style = isset($row->field_field_image_principale[0]['rendered']['#image_style']) ? $row->field_field_image_principale[0]['rendered']['#image_style'] : '';
-$ville_name = isset($row->field_field_programme_loc_ville[0]['rendered']['#title']) ? $row->field_field_programme_loc_ville[0]['rendered']['#title'] : '';
-$departement_tax = isset($row->field_field_programme_loc_department[0]['rendered']['#options']['entity']) ? $row->field_field_programme_loc_department[0]['rendered']['#options']['entity'] : '';
-$departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement [LANGUAGE_NONE][0]['value'] : '';
+$style = isset($row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style']) ? $row->field_field_avant_premiere_image_princ[0]['rendered']['#image_style'] : '';
+$ville_name = isset($row->field_field_avant_premiere_ville[0]['rendered']['#markup']) ? $row->field_field_avant_premiere_ville[0]['rendered']['#markup'] : '';
+$departement_tax = isset($row->field_field_avant_premiere_department[0]['raw']['taxonomy_term']) ? $row->field_field_avant_premiere_department[0]['raw']['taxonomy_term'] : '';
+$departement_code = isset($departement_tax->field_numero_departement[LANGUAGE_NONE][0]['value']) ? $departement_tax->field_numero_departement[LANGUAGE_NONE][0]['value'] : '';
 ?>
 
 <div class="slick-slider__item">
@@ -33,9 +33,9 @@ $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_N
     <article data-selection-item="data-selection-item" class="squaredImageItem false">
         <div class="squaredImageItem__img">
             <a href="<?php print url('node/' . $row->nid); ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>" title="<?php print isset($row->node_title) ? $row->node_title : ''; ?>">
-                <img src="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['uri']); ?>" alt="<?php print image_style_url($style, $row->field_field_image_principale[0]['raw']['alt']); ?>"/>
+                <img src="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['uri']); ?>" alt="<?php print image_style_url($style, $row->field_field_avant_premiere_image_princ[0]['raw']['alt']); ?>"/>
             </a>
-            <?php if ($promotion = get_nids_promotions_by_programme($row->nid)): ?>
+            <?php if ($promotion = get_nids_promotions_by_avant($row->nid)): ?>
               <ul class="squaredImageItem__img__tags">
                   <?php
                   foreach ($promotion as $value) :
@@ -70,7 +70,6 @@ $departement_code = isset($departement_tax->field_numero_departement [LANGUAGE_N
                     <h3 class="heading__title"><?php print $ville_name . ' / ' . $departement_code; ?></h3>
                     <p class="heading__title heading__title--sub"><?php print $row->node_title; ?></p></a>
             </div>
-            <p class="squaredImageItem__room"><?php print kandb_dashboard_get_room_by_programme_id($row->nid); ?></p>
         </div>
     </article>
     <!-- [squaredImageItem] end-->

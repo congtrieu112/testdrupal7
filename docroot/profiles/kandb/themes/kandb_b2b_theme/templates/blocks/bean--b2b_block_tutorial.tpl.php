@@ -30,40 +30,30 @@ global $base_url;
 $header_image = '';
 $header_image_small = '';
 if (isset($content["field_block_b2b_header_image"]["#items"][0]['uri'])) {
-  $url = file_create_url($content["field_block_b2b_header_image"]["#items"][0]['uri']);
-  $url = parse_url($url);
-  $header_image = $base_url . $url['path'];
+  $header_image = image_style_url('hp_search_block', $content["field_block_b2b_header_image"]["#items"][0]['uri']);
 }
-if (isset($content["field_block_b2b_header_img_small "]["#items"][0]['uri'])) {
-  $url = file_create_url($content["field_block_b2b_header_img_small"]["#items"][0]['uri']);
-  $url = parse_url($url);
-  $header_image_small = $base_url . $url['path'];
+if (isset($content["field_block_b2b_header_img_small"]["#items"][0]['uri'])) {
+  $header_image_small = image_style_url('homepageb2b_backgound_small', $content["field_block_b2b_header_img_small"]["#items"][0]['uri']);
 }
 ?>
-<!-- [header Advice] start-->
-<!-- images need to have 2 different formats:
-- small: 640 x 400 (High compression)
-- large: 1380 x 400
--->
-<section data-interchange="[<?php print $header_image_small ?>, (small)], [<?php print $header_image ?>, (medium)]"
-         class="narrow-header <?php print $classes; ?>" <?php print $attributes; ?>>
-    <div class="wrapper" <?php print $content_attributes; ?>>
-        <div class="heading heading--bordered heading--white">
-            <div class="heading__title"><?php print $title ?></div>
+
+<div data-interchange="[<?php print $header_image_small ?>, (small)], [<?php print $header_image ?>, (medium)]" class="homepageB2B__heading">
+    <div class="wrapper">
+        <div class="heading heading--bordered heading--white heading--small">
+            <h1 class="heading__title"><?php print $title ?></h1>
             <div class="heading__title heading__title--sub"><?php print (isset($content['field_block_b2b_header_stitre']['#items'][0]['value'])) ? $content['field_block_b2b_header_stitre']['#items'][0]['value'] : ''  ?></div>
-        </div>
-        <a class="btn-primary btn-rounded" href="https://www.youtube.com/watch?v=<?php print $content['field_block_b2b_header_video']['#items'][0]['video_id']; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-1" class="fileItem__img"><span class="icon icon-play"></span>
-            <?php print t('Discover how to manage your K & B space'); ?>
-        </a>
-    </div>
-</section>
-<!-- [header Advice] end-->
-<!-- [popin] start-->
-<div id="videofileItem-1" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full">
-    <div class="reveal-modal__wrapper"><a aria-label="Fermer" class="close-reveal-modal icon icon-close"></a>
-        <div class="flex-video youtube">
-            <iframe width="1280" height="720" src="" data-src="//www.youtube.com/embed/<?php print $content['field_block_b2b_header_video']['#items'][0]['video_id']; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true"></iframe>
+            <?php if (isset($content['field_block_b2b_header_cta'][0]['#markup'])): ?>
+              <button data-reveal-id="videoIntro" class="btn-primary btn-rounded btn-icon"><span class="button__content"><span class="icon icon-play"></span><?php print $content['field_block_b2b_header_cta'][0]['#markup']; ?></span></button>
+              <!-- [popin] start-->
+              <div id="videoIntro" data-reveal="data-reveal" aria-hidden="true" role="dialog" class="reveal-modal full scroll">
+                  <div class="reveal-modal__wrapper"><span aria-label="Fermer" role="button" class="close-reveal-modal icon icon-close"></span>
+                      <div class="flex-video youtube">
+                          <iframe width="1280" height="720" src="" data-src="//www.youtube.com/embed/<?php print $content['field_block_b2b_header_video']['#items'][0]['video_id']; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true"></iframe>
+                      </div>
+                  </div>
+              </div>
+              <!-- [popin] end-->
+            <?php endif; ?>
         </div>
     </div>
 </div>
-<!-- [popin] end-->

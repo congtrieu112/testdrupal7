@@ -13,7 +13,7 @@ function kandb_tmp_b2b_uuid_features_default_beans() {
   $beans[] = array(
     'label' => 'dash-board',
     'description' => NULL,
-    'title' => 'Dash board B2B',
+    'title' => 'Trouvez les meilleurs investissements pour vos clients.',
     'type' => 'b2b_block_tutorial',
     'data' => array(
       'view_mode' => 'default',
@@ -70,9 +70,11 @@ function kandb_tmp_b2b_uuid_features_default_beans() {
     'field_block_b2b_header_stitre' => array(
       'und' => array(
         0 => array(
-          'value' => 'Sous Titre',
+          'value' => 'Déclarez vos prospects.<br> 
+Optionnez et réservez vos biens.',
           'format' => 'plain_text',
-          'safe_value' => '<p>Sous Titre</p>
+          'safe_value' => '<p>Déclarez vos prospects.&lt;br&gt;<br />
+Optionnez et réservez vos biens.</p>
 ',
         ),
       ),
@@ -82,6 +84,15 @@ function kandb_tmp_b2b_uuid_features_default_beans() {
         0 => array(
           'input' => 'https://www.youtube.com/watch?v=GCW-upiPLqw',
           'video_id' => 'GCW-upiPLqw',
+        ),
+      ),
+    ),
+    'field_block_b2b_header_cta' => array(
+      'und' => array(
+        0 => array(
+          'value' => 'Découvrir comment gérer votre espave K&B',
+          'format' => NULL,
+          'safe_value' => 'Découvrir comment gérer votre espave K&amp;B',
         ),
       ),
     ),
