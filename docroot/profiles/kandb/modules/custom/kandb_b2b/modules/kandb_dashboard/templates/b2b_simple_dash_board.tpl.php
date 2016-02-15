@@ -9,20 +9,18 @@ if (isset($dash_board_header['content']) AND $dash_board_header['content']) :
   print render($dash_board_header['content']);
 endif;
 ?>
-
-<!-- [offers] start-->
-<section class="section-padding">
-    <div class="wrapper">
-        <h2 class="heading__title">Les programmes les plus proches</h2>
-        <?php
-        $latest_offers = views_embed_view('b2b_nos_dernieres_offres', 'block');
-        print $latest_offers;
-        ?>
-        <div class="btn-wrapper btn-wrapper--center"><a href="#" class="btn-rounded btn-primary">Voir toutes nos offres<span class="icon icon-arrow"></span></a>
-        </div>
-    </div>
+<!-- [dashboardHeading] start-->
+<!-- images need to have 2 different pictures see data-exchange attribute:
+- small: 640 x 580
+- large: 1380 x 580
+-->
+<section class="homepageB2B dashboard-b2b">
+    <?php
+    $latest_offers = views_embed_view('b2b_nos_dernieres_offres', 'block');
+    print $latest_offers;
+    ?>
 </section>
-<!-- [offers] end-->
+<!-- [dashboardHeading] end-->
 
 <?php
 $special_offers = views_embed_view('b2b_nos_dernieres_offres', 'block-1');
