@@ -42,6 +42,9 @@ function kandb_render_page_dashboard() {
   }
 }
 
+/**
+ * Get number room by programme B2B.
+ */
 function kandb_dashboard_get_room_by_programme_id($programme_id) {
   if ($programme_id) {
     global $_domain;

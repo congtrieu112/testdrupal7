@@ -26,9 +26,6 @@ $latest_offers = views_embed_view('b2b_nos_dernieres_offres', 'block');
   <!-- [offers] end-->
 <?php endif; ?>
 
-
-
-
 <?php
 $special_offers = views_embed_view('b2b_nos_dernieres_offres', 'block_2');
 if ($special_offers):
@@ -45,5 +42,4 @@ if ($special_offers):
       </div>
   </section>
   <!-- [nouvates] end-->
-
 <?php endif; ?>

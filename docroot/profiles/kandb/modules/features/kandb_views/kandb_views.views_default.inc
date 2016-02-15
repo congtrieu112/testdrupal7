@@ -35,7 +35,10 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '9';
   $handler->display->display_options['style_plugin'] = 'default';
+  $handler->display->display_options['style_options']['default_row_class'] = FALSE;
+  $handler->display->display_options['style_options']['row_class_special'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['default_field_elements'] = FALSE;
   /* Relationship: Entity Reference: Referenced Entity */
   $handler->display->display_options['relationships']['field_promotion_programme_target_id']['id'] = 'field_promotion_programme_target_id';
   $handler->display->display_options['relationships']['field_promotion_programme_target_id']['table'] = 'field_data_field_promotion_programme';
@@ -59,11 +62,6 @@ function kandb_views_views_default_views() {
     'image_style' => '',
     'image_link' => '',
   );
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -104,9 +102,10 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['field_image_principale']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image_principale']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image_principale']['settings'] = array(
-    'image_style' => '',
+    'image_style' => 'programme_teaser_3',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_image_principale']['delta_offset'] = '0';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -166,6 +165,52 @@ function kandb_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'programme' => 'programme',
+  );
+  /* Filter criterion: Content: Statut du programme (field_programme_statut) */
+  $handler->display->display_options['filters']['field_programme_statut_value']['id'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['table'] = 'field_data_field_programme_statut';
+  $handler->display->display_options['filters']['field_programme_statut_value']['field'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['value'] = '1';
+  /* Filter criterion: Content: Nouveauté (field_nouveau) */
+  $handler->display->display_options['filters']['field_nouveau_value']['id'] = 'field_nouveau_value';
+  $handler->display->display_options['filters']['field_nouveau_value']['table'] = 'field_data_field_nouveau';
+  $handler->display->display_options['filters']['field_nouveau_value']['field'] = 'field_nouveau_value';
+  $handler->display->display_options['filters']['field_nouveau_value']['value'] = array(
+    1 => '1',
+  );
 
   /* Display: Les offres spéciales  */
   $handler = $view->new_display('block', 'Les offres spéciales ', 'block_1');
@@ -179,9 +224,10 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['fields']['field_image_principale']['element_default_classes'] = FALSE;
   $handler->display->display_options['fields']['field_image_principale']['click_sort_column'] = 'fid';
   $handler->display->display_options['fields']['field_image_principale']['settings'] = array(
-    'image_style' => '',
+    'image_style' => 'programme_teaser_3',
     'image_link' => '',
   );
+  $handler->display->display_options['fields']['field_image_principale']['delta_offset'] = '0';
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
   $handler->display->display_options['fields']['title']['table'] = 'node';
@@ -240,6 +286,131 @@ function kandb_views_views_default_views() {
     'multiple_from' => '',
     'multiple_to' => '',
   );
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'programme' => 'programme',
+  );
+  /* Filter criterion: Content: Statut du programme (field_programme_statut) */
+  $handler->display->display_options['filters']['field_programme_statut_value']['id'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['table'] = 'field_data_field_programme_statut';
+  $handler->display->display_options['filters']['field_programme_statut_value']['field'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
+  /* Filter criterion: Content: Nouveauté (field_nouveau) */
+  $handler->display->display_options['filters']['field_nouveau_value']['id'] = 'field_nouveau_value';
+  $handler->display->display_options['filters']['field_nouveau_value']['table'] = 'field_data_field_nouveau';
+  $handler->display->display_options['filters']['field_nouveau_value']['field'] = 'field_nouveau_value';
+  $handler->display->display_options['filters']['field_nouveau_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Content: Promoted to front page */
+  $handler->display->display_options['filters']['promote']['id'] = 'promote';
+  $handler->display->display_options['filters']['promote']['table'] = 'node';
+  $handler->display->display_options['filters']['promote']['field'] = 'promote';
+  $handler->display->display_options['filters']['promote']['value'] = '1';
+
+  /* Display: Nouveautés et avant premières */
+  $handler = $view->new_display('block', 'Nouveautés et avant premières', 'block_2');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Nouveautés et avant premières';
+  $handler->display->display_options['display_description'] = 'avant_premiere_date_fin >= now()';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
+  /* Field: Content: Image Principale */
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['id'] = 'field_avant_premiere_image_princ';
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['table'] = 'field_data_field_avant_premiere_image_princ';
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['field'] = 'field_avant_premiere_image_princ';
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['label'] = '';
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['click_sort_column'] = 'fid';
+  $handler->display->display_options['fields']['field_avant_premiere_image_princ']['settings'] = array(
+    'image_style' => 'programme_teaser_3',
+    'image_link' => '',
+  );
+  /* Field: Content: Ville */
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['id'] = 'field_avant_premiere_ville';
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['table'] = 'field_data_field_avant_premiere_ville';
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['field'] = 'field_avant_premiere_ville';
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['label'] = '';
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_avant_premiere_ville']['type'] = 'taxonomy_term_reference_plain';
+  /* Field: Content: Département */
+  $handler->display->display_options['fields']['field_avant_premiere_department']['id'] = 'field_avant_premiere_department';
+  $handler->display->display_options['fields']['field_avant_premiere_department']['table'] = 'field_data_field_avant_premiere_department';
+  $handler->display->display_options['fields']['field_avant_premiere_department']['field'] = 'field_avant_premiere_department';
+  $handler->display->display_options['fields']['field_avant_premiere_department']['label'] = '';
+  $handler->display->display_options['fields']['field_avant_premiere_department']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_avant_premiere_department']['type'] = 'taxonomy_term_reference_plain';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'avant_premiere' => 'avant_premiere',
+  );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
+  /* Filter criterion: Content: Grande ouverture (field_avant_premiere_grande_ouve) */
+  $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['id'] = 'field_avant_premiere_grande_ouve_value';
+  $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['table'] = 'field_data_field_avant_premiere_grande_ouve';
+  $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['field'] = 'field_avant_premiere_grande_ouve_value';
+  $handler->display->display_options['filters']['field_avant_premiere_grande_ouve_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Content: Date fin lancement (field_avant_premiere_date_fin) */
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['id'] = 'field_avant_premiere_date_fin_value';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['table'] = 'field_data_field_avant_premiere_date_fin';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['field'] = 'field_avant_premiere_date_fin_value';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['operator'] = '>=';
+  $handler->display->display_options['filters']['field_avant_premiere_date_fin_value']['default_date'] = 'now';
   $translatables['b2b_nos_dernieres_offres'] = array(
     t('Master'),
     t('Les dernières offers'),
@@ -252,6 +423,8 @@ function kandb_views_views_default_views() {
     t('Content entity referenced from field_promotion_programme'),
     t('Les dernières offres'),
     t('Les offres spéciales '),
+    t('Nouveautés et avant premières'),
+    t('avant_premiere_date_fin >= now()'),
   );
   $export['b2b_nos_dernieres_offres'] = $view;
 
