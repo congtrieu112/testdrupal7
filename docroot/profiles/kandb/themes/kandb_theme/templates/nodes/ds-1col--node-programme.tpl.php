@@ -89,7 +89,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
                 <!-- [back link] start-->
                 <div class="show-for-medium-up">
-                    <h1 class="heading heading--bordered">
+                    <div class="heading heading--bordered">
                         <?php if ($program_loc_ville) : ?>
                           <div class="heading__title">
                               <?php print $program_loc_ville; ?>
@@ -105,7 +105,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                         <?php if ($title) : ?>
                           <div class="heading__title heading__title--sub"><?php print $title; ?></div>
                         <?php endif; ?>
-                    </h1>
+                    </div>
                     <?php print $address; ?>
                     <ul class="tags-list">
                         <?php if ($nouveau) : ?>

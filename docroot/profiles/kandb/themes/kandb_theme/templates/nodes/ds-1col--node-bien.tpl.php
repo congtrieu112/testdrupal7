@@ -247,13 +247,13 @@ if($nb_pieces_name == 'studio') {
                     <!-- [back link] start -->
                     <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
                     <!-- [back link] start-->
-                    <h1 class="heading heading--bordered">
+                    <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
                       <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
-                    </h1>
+                    </div>
                     <ul class="tags-list">
                         <?php
                         $domain_id = 3;
