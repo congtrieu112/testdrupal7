@@ -449,7 +449,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Solarium',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 10,
     'uuid' => '12814810-d7ec-4aeb-b8ab-a7b5b68773a4',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -461,6 +461,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'NORD-EST/EST',
@@ -831,7 +832,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'RT2012',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 16,
     'uuid' => '1fef5d14-23b5-4fa0-939a-9157229011b4',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -843,6 +844,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Esplanade',
@@ -899,7 +901,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Etages',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 2,
     'uuid' => '2268174c-7b8b-467c-bade-d6d8811b03ca',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -911,6 +913,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Limousin',
@@ -1306,7 +1309,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Salle de sports',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 18,
     'uuid' => '2af0167b-c83c-4603-9a75-51dc48cd76db',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -1318,6 +1321,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Senart (A5)',
@@ -1490,7 +1494,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Digicode & Interphone',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 13,
     'uuid' => '2fa02c23-b10b-493d-9c77-0665c4c17741',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -1502,6 +1506,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Ardennes',
@@ -2127,7 +2132,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Climatisation',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 12,
     'uuid' => '44835a21-8819-4cc1-b340-9e18a093e8ed',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -2139,6 +2144,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Lorraine',
@@ -2506,7 +2512,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Digicode & Vidéophone',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 14,
     'uuid' => '500649de-89fc-4dd0-bf6e-7236fbb9ce36',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -2518,6 +2524,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'NORD/OUEST/SUD-EST',
@@ -3141,10 +3148,11 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'BBC',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 17,
     'uuid' => '63532d24-d9e5-4aa0-bbbc-3d828f1cecc2',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'tr',
@@ -3243,7 +3251,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Piscine',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 9,
     'uuid' => '6570a97d-21b8-4964-96fd-149a8c5748c5',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -3255,6 +3263,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Séfima',
@@ -3597,6 +3606,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'SUD-OUEST/EST/NORD',
@@ -3677,7 +3687,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Vigik',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 19,
     'uuid' => '751aa427-a36c-4dba-a2fb-2ca8ea6bc999',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -3689,6 +3699,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Charente Maritime',
@@ -4132,7 +4143,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Chauffage',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 11,
     'uuid' => '894facd5-86d9-49fc-b497-1ebfbb20e5f9',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -4144,6 +4155,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Bati Service',
@@ -4348,7 +4360,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Parkings',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 8,
     'uuid' => '9145d5c1-f37d-4f29-a02a-0ea53995f267',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -4360,6 +4372,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Square',
@@ -5037,7 +5050,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Conciergerie',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 1,
     'uuid' => 'af1e18f7-4a88-463f-930a-d7c45d4a6a34',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -5049,6 +5062,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Seine et Marne',
@@ -5154,7 +5168,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Idéal Résidence Secondaire',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 4,
     'uuid' => 'b1b86290-d5ca-4201-896a-de3b5e95b07a',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -5166,6 +5180,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'NORD',
@@ -5420,7 +5435,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Jardin paysager',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 5,
     'uuid' => 'bc20cf15-e074-44ad-a408-c95c09c82234',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -5432,6 +5447,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Duplex',
@@ -5502,7 +5518,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Domotique',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 15,
     'uuid' => 'be7c13c9-1332-4949-bcea-13638577d6f3',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -5514,6 +5530,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'NORD-OUEST/SUD-OUEST/SUD-EST',
@@ -6032,7 +6049,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Pack silver',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 7,
     'uuid' => 'cf282100-b22e-4713-ac40-d864806d4895',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -6044,6 +6061,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Ter, Première',
@@ -6915,7 +6933,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Gardien',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 3,
     'uuid' => 'e8b49f7a-3738-41b5-a548-294da4589e5b',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -6927,6 +6945,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'EST/OUEST/NORD/SUD',
@@ -7504,7 +7523,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
     'name' => 'Local Vélo',
     'description' => '',
     'format' => 'plain_text',
-    'weight' => 0,
+    'weight' => 6,
     'uuid' => 'fc659986-8639-4600-97a6-90e44001ce9a',
     'vocabulary_machine_name' => 'caracteristiques_programme',
     'field_picto_css_class' => array(
@@ -7516,6 +7535,7 @@ function kandb_taxonomy_uuid_features_default_terms() {
         ),
       ),
     ),
+    'field_show_on_bien_page' => array(),
   );
   $terms[] = array(
     'name' => 'Pas de Calais',
