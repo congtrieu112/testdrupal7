@@ -41,3 +41,41 @@ function kandb_render_page_dashboard() {
     return theme('b2b_simple_dash_board');
   }
 }
+
+function kandb_dashboard_get_room_by_programme_id($programme_id) {
+  if ($programme_id) {
+    global $_domain;
+    $pieces_min = 0;
+    $pieces_max = 0;
+    $node = node_load($programme_id);
+    if ($node) {
+      if (isset($_domain['domain_id'])) {
+        if ($_domain['domain_id'] == DOMAIN_B2B) {
+          $pieces_min = isset($node->field_programme_room_min_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_min_b[LANGUAGE_NONE][0]['value'] : '';
+          $pieces_max = isset($node->field_programme_room_max_b[LANGUAGE_NONE][0]['value']) ? $node->field_programme_room_max_b[LANGUAGE_NONE][0]['value'] : '';
+        }
+      }
+
+      //Example: 24 appartements disponibles du studio au 3 pièces.
+      //         24 appartements disponibles de 2 à 3 pièces.
+      //         24 appartements disponibles de 3 pièces.
+      //         24 appartements disponibles studios.
+      $vars['de_a_pieces'] = '';
+      if ($pieces_min && $pieces_max) {
+        if ($pieces_min != $pieces_max) {
+          $vars['de_a_pieces'] = t('de') . ' ' . $pieces_min . ' ' . t('à') . ' ' . $pieces_max . ' ' . t('pièces');
+          if ($pieces_min == 1) {
+            $vars['de_a_pieces'] = t('du') . ' studio ' . t('au') . ' ' . $pieces_max . ' ' . t('pièces');
+          }
+        } else {
+          $vars['de_a_pieces'] = ($pieces_max == 1) ? 'studios' : 'de' . ' ' . $pieces_max . ' ' . t('pièces');
+        }
+      } elseif (!$pieces_min && $pieces_max) {
+        $vars['de_a_pieces'] = ($pieces_max == 1) ? 'studios' : 'de' . ' ' . $pieces_max . ' ' . t('pièces');
+      } elseif ($pieces_min && !$pieces_max) {
+        $vars['de_a_pieces'] = ($pieces_min == 1) ? 'studios' : 'de' . ' ' . $pieces_min . ' ' . t('pièces');
+      }
+      return $vars['de_a_pieces'];
+    }
+  }
+}
