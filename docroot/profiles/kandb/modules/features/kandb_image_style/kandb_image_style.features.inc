@@ -272,6 +272,36 @@ function kandb_image_style_image_default_styles() {
     ),
   );
 
+  // Exported image style: header_large.
+  $styles['header_large'] = array(
+    'label' => 'Header large',
+    'effects' => array(
+      2 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 1380,
+          'height' => 400,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
+  // Exported image style: header_small.
+  $styles['header_small'] = array(
+    'label' => 'Header small',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale_and_crop',
+        'data' => array(
+          'width' => 640,
+          'height' => 400,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   // Exported image style: homepageb2b_backgound_large.
   $styles['homepageb2b_backgound_large'] = array(
     'label' => 'HomepageB2B Backgound Large (1380x712)',
