@@ -138,14 +138,16 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                         <?php endif; ?>
                     </ul>
                 </div>
-                <?php if ($trimstre && $annee && $flat_available && $de_a_pieces) : ?>
+                <?php if (($trimstre && $annee) || $flat_available || $de_a_pieces) : ?>
                   <p class="toolbox__intro">
+                    <?php if($trimstre || $annee) : ?>
                       <strong><?php print t('Livraison'); ?></strong>
                       <?php print t('à partir du'); ?>
                       <?php if ($trimstre) print $trimstre; ?>
                       <?php if ($annee) print $annee; ?>
                       <br/>
-                      <?php if ($flat_available) print $flat_available; ?><?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
+                    <?php endif; ?>
+                    <?php if ($flat_available) print $flat_available; ?><?php if($flat_available && $de_a_pieces) {print ','; }?><?php if ($de_a_pieces) print ' ' . $de_a_pieces; ?>
                   </p>
                 <?php endif; ?>
 
