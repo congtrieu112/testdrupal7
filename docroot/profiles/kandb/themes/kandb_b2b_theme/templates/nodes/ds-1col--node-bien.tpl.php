@@ -275,6 +275,12 @@ if($nb_pieces_name == 'studio') {
               <h1 class="heading heading--bordered">
                 <div class="heading__title">
                   <?php print $heading_title; ?>
+                  <?php
+                  if(isset($title_maison)) {
+                    print $title_maison;
+                  }
+                  ?>
+
                   <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
                   <?php print t('Lot') . ' ' . $bien_id ?>
                 </div>

@@ -143,7 +143,7 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     ),
   );
   $terms[] = array(
-    'name' => 'Comité de Nomination et de Rémunération',
+    'name' => 'Comité de Rémunération et de Nomination',
     'description' => '',
     'format' => 'plain_text',
     'weight' => 2,
@@ -168,9 +168,9 @@ function kandb_taxonomy_comite_uuid_features_default_terms() {
     'field_comite_title_fr' => array(
       'und' => array(
         0 => array(
-          'value' => 'Comité de Nomination et de Rémunération',
+          'value' => 'Comité de Rémunération et de Nomination',
           'format' => NULL,
-          'safe_value' => 'Comité de Nomination et de Rémunération',
+          'safe_value' => 'Comité de Rémunération et de Nomination',
         ),
       ),
     ),

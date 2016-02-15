@@ -594,6 +594,12 @@ function kandb_views_views_default_views() {
   /* Display: Block bottom carrousel in programme Page */
   $handler = $view->new_display('block', 'Block bottom carrousel in programme Page', 'block_1');
   $handler->display->display_options['display_description'] = 'Having the carrousel nottom of programm page  on the program page the carousel display the other program from the same "region" ';
+  $handler->display->display_options['defaults']['sorts'] = FALSE;
+  /* Sort criterion: Content: Updated date */
+  $handler->display->display_options['sorts']['changed']['id'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['table'] = 'node';
+  $handler->display->display_options['sorts']['changed']['field'] = 'changed';
+  $handler->display->display_options['sorts']['changed']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
   /* Contextual filter: Content: Has taxonomy term ID */
   $handler->display->display_options['arguments']['tid']['id'] = 'tid';
@@ -614,6 +620,34 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['arguments']['nid']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['nid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['nid']['not'] = TRUE;
+  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 1;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'programme' => 'programme',
+  );
+  /* Filter criterion: Content: Statut du programme (field_programme_statut) */
+  $handler->display->display_options['filters']['field_programme_statut_value']['id'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['table'] = 'field_data_field_programme_statut';
+  $handler->display->display_options['filters']['field_programme_statut_value']['field'] = 'field_programme_statut_value';
+  $handler->display->display_options['filters']['field_programme_statut_value']['value'] = array(
+    1 => '1',
+  );
+  /* Filter criterion: Domain Access: Available on current domain */
+  $handler->display->display_options['filters']['current_all']['id'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
+  $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
+  $handler->display->display_options['filters']['current_all']['value'] = '1';
   $translatables['nos_dernieres_offres'] = array(
     t('Master'),
     t('Nos dernières offres'),

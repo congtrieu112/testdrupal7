@@ -702,6 +702,21 @@ function kandb_theme_preprocess_node(&$vars) {
   $vars['actabilite_date'] = isset($node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value'] : '';
 
   $vars['programme_loc_region_kb'] = isset($node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id'] : '';
+  if($vars['type'] == 'bien') {
+    $node = &$vars['node'];
+    if (!empty($node->field_type) && isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
+      $name_taxonomy = taxonomy_term_load($node->field_type[LANGUAGE_NONE][0]['tid']);
+      if (!empty($name_taxonomy) && $name_taxonomy->name == 'Maison') {
+        if (!empty($node->field_bien_type_maison) && isset($node->field_bien_type_maison['und'][0]['target_id'])) {
+          $field_bien_type_maison = $node->field_bien_type_maison['und'][0]['target_id'];
+          $node_maison = node_load($field_bien_type_maison);
+          if (!empty($node_maison)) {
+            $vars['title_maison'] = $node_maison->title;
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -1147,4 +1162,144 @@ function kandb_theme_pager($variables) {
       'attributes' => array('class' => array('pager')),
     ));
   }
+}
+
+/**
+ * Returns HTML for the "previous page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - interval: The number of pages to move backward when the link is clicked.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_previous($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $interval = $variables['interval'];
+  $parameters = $variables['parameters'];
+  global $pager_page_array;
+  $output = '';
+
+  // If we are anywhere but the first page
+  if ($pager_page_array[$element] > 0) {
+    $page_new = pager_load_array($pager_page_array[$element] - $interval, $element, $pager_page_array);
+
+    // If the previous page is the first page, mark the link as such.
+    $vars = array('text' => $text, 'element' => $element, 'parameters' => $parameters);
+    if(isset($interval) && $interval == 1) $vars['attributes'] = array('rel' => 'prev');
+    if ($page_new[$element] == 0) {
+      $output = theme('pager_first', $vars);
+    }
+    // The previous page is not the first page.
+    else {
+      $vars['page_new'] = $page_new;
+      $output = theme('pager_link', $vars);
+    }
+  }
+  return $output;
+}
+
+/**
+ * Returns HTML for the "next page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - interval: The number of pages to move forward when the link is clicked.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_next($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $interval = $variables['interval'];
+  $parameters = $variables['parameters'];
+  global $pager_page_array, $pager_total;
+  $output = '';
+
+  // If we are anywhere but the last page
+  if ($pager_page_array[$element] < ($pager_total[$element] - 1)) {
+    $page_new = pager_load_array($pager_page_array[$element] + $interval, $element, $pager_page_array);
+    // If the next page is the last page, mark the link as such.
+    $vars = array('text' => $text, 'element' => $element, 'parameters' => $parameters);
+    if(isset($interval) && $interval == 1) $vars['attributes'] = array('rel' => 'next');
+    if ($page_new[$element] == ($pager_total[$element] - 1)) {
+      $output = theme('pager_last', $vars);
+    }
+    // The next page is not the last page.
+    else {
+      $vars['page_new'] = $page_new;
+      $output = theme('pager_link', $vars);
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the "first page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_first($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $parameters = $variables['parameters'];
+  $attributes = $variables['attributes'];
+  global $pager_page_array;
+  $output = '';
+
+  // If we are anywhere but the first page
+  if ($pager_page_array[$element] > 0) {
+    $output = theme('pager_link', array('text' => $text, 'page_new' => pager_load_array(0, $element, $pager_page_array), 'element' => $element, 'parameters' => $parameters, 'attributes' => $attributes));
+  }
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the "last page" link in query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_last($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $parameters = $variables['parameters'];
+  $attributes = $variables['attributes'];
+  global $pager_page_array, $pager_total;
+  $output = '';
+
+  // If we are anywhere but the last page
+  if ($pager_page_array[$element] < ($pager_total[$element] - 1)) {
+    $output = theme('pager_link', array('text' => $text, 'page_new' => pager_load_array($pager_total[$element] - 1, $element, $pager_page_array), 'element' => $element, 'parameters' => $parameters, 'attributes' => $attributes));
+  }
+
+  return $output;
 }
