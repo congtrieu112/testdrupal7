@@ -11,6 +11,63 @@ function kandb_bean_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
+  // 'bean-b2b_block_tutorial-field_block_b2b_header_cta'
+  $field_instances['bean-b2b_block_tutorial-field_block_b2b_header_cta'] = array(
+    'bundle' => 'b2b_block_tutorial',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 4,
+      ),
+    ),
+    'entity_type' => 'bean',
+    'field_name' => 'field_block_b2b_header_cta',
+    'label' => 'CTA',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 35,
+    ),
+  );
+
+  // Exported field_instance:
   // 'bean-b2b_block_tutorial-field_block_b2b_header_image'
   $field_instances['bean-b2b_block_tutorial-field_block_b2b_header_image'] = array(
     'bundle' => 'b2b_block_tutorial',
@@ -337,6 +394,7 @@ function kandb_bean_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('CTA');
   t('Image');
   t('Small image');
   t('Sous Titre');
