@@ -275,6 +275,21 @@ if($nb_pieces_name == 'studio') {
               <h1 class="heading heading--bordered">
                 <div class="heading__title">
                   <?php print $heading_title; ?>
+                  <?php
+                  if(!empty($node->field_type) && isset($node->field_type[LANGUAGE_NONE][0]['tid'])){
+                    $name_taxonomy = taxonomy_term_load($node->field_type[LANGUAGE_NONE][0]['tid']);
+                    if(!empty($name_taxonomy) && $name_taxonomy->name == 'Maison') {
+                      if(!empty($node->field_bien_type_maison) && isset($node->field_bien_type_maison['und'][0]['target_id'])) {
+                        $field_bien_type_maison = $node->field_bien_type_maison['und'][0]['target_id'];
+                        $node_maison = node_load($field_bien_type_maison);
+                        if(!empty($node_maison)) {
+                          print $node_maison->title;
+                        }
+                      }
+                    }
+                  }
+                  ?>
+
                   <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
                   <?php print t('Lot') . ' ' . $bien_id ?>
                 </div>
