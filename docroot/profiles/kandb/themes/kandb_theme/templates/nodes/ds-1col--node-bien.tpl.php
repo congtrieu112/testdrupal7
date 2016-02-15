@@ -356,13 +356,10 @@ if($nb_pieces_name == 'studio') {
             <div data-equalizer-watch class="programHeader__content__details">
                 <ul class="characteristicList">
                     <?php
-                    $array_flag = array("Chauffage", "Domotique", "Parkings");
                     $array_flags = array();
                     if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
                       foreach($program_characteristic_on_bien as $term) :
-                        if(in_array($term->name, $array_flag)) :
-                          $array_flags[] = $term->name;
-                        endif;
+                        $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
