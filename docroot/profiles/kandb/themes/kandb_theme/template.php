@@ -330,7 +330,7 @@ function kandb_theme_preprocess_node(&$vars) {
 
   $current_nb_pieces = NULL;
   $list_bien_more = array();
-  if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+  if ($vars['type'] == 'bien' && arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
     $node_bien = node_load(arg(1));
     $current_nb_pieces = isset($node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : NULL;
     $node = NULL;
