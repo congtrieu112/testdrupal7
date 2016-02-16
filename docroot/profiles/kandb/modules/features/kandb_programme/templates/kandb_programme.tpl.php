@@ -1,6 +1,5 @@
 <?php
 $title = isset($logement_block['title']) ? $logement_block['title'] : '';
-
 $tva_name = isset($node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name) ? $node->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->name : '';
 $affichage = isset($node->field_affichage_double_grille[LANGUAGE_NONE][0]['value']) ? $node->field_affichage_double_grille[LANGUAGE_NONE][0]['value'] : '';
 ksort($logement_block['total_bien']);
@@ -123,6 +122,23 @@ ksort($logement_block['total_bien']);
                                             $result = array_keys($result['node']);
                                             $biens = node_load($result[0]);
                                             if ($biens) :
+                                              $maison = '';
+                                              $tid_maison = 0;
+                                              $node_maison = NULL;
+                                              $terms_maison = taxonomy_get_term_by_name('Maison');
+                                              if ($terms_maison) {
+                                                foreach ($terms_maison as $id => $term_maison) {
+                                                  if ($term_maison->vocabulary_machine_name == 'type_de_bien') {
+                                                    $tid_maison = $id;
+                                                  }
+                                                }
+                                              }
+                                              if (isset($biens->field_type[LANGUAGE_NONE][0]['tid']) && isset($biens->field_bien_type_maison[LANGUAGE_NONE][0]['target_id']) && $biens->field_type[LANGUAGE_NONE][0]['tid'] == $tid_maison) {
+                                                $node_maison = node_load($biens->field_bien_type_maison[LANGUAGE_NONE][0]['target_id']);
+                                              }
+                                              if (isset($node_maison->title)) {
+                                                $maison = $node_maison->title;
+                                              }
                                               $bien_id = isset($biens->field_id_bien[LANGUAGE_NONE][0]['value']) ? $biens->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
                                               if ($bien_id) :
                                                 $bien_id = explode('-', $bien_id);
@@ -185,6 +201,11 @@ ksort($logement_block['total_bien']);
                                                                               <?php endif; ?>
                                                                             <?php endforeach; ?>
                                                                         </ul>
+                                                                    </li>
+                                                                  <?php endif; ?>
+                                                                  <?php if ($maison) : ?>
+                                                                    <li class="item-maison">
+                                                                        <?php print $maison; ?>
                                                                     </li>
                                                                   <?php endif; ?>
                                                                   <?php if ($etage) : ?><li class="item-exhibit"><?php print $etage; ?></li><?php endif; ?>
