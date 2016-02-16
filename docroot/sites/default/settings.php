@@ -580,6 +580,7 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
 // Increase memory limit when cli
 if (drupal_is_cli() || preg_match('/batch/i', $_GET['q'])){
   ini_set('memory_limit', '1024M');
+  set_time_limit( 0 );
 }
 // Increase memory limit for admin
 if ( (strpos($_GET['q'], 'admin') === 0) ||
