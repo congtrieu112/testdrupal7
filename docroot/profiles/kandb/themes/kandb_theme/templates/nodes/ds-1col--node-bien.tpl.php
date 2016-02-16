@@ -168,6 +168,7 @@ if($nb_pieces_name == 'studio') {
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$programme->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
@@ -183,7 +184,7 @@ if($nb_pieces_name == 'studio') {
 
     }
 
-    if ($image_principale || $image_principale_2 || $image_principale_3):
+    if ($image_principale || $image_principale_2 || $image_principale_2_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -220,6 +221,20 @@ if($nb_pieces_name == 'studio') {
                   </figure>
                 </article>
                <?php endif;?>
+              <?php if($image_principale_2_2): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
               <?php if($image_principale_3): ?>
                 <article class="programHeaderFigureItem">
                   <figure>
@@ -247,13 +262,13 @@ if($nb_pieces_name == 'studio') {
                     <!-- [back link] start -->
                     <!-- the document.referrer page must start with the 'referrerStart' value ('recherche' for example from recherche page)--><a href="#" data-back="{&quot;referrerStart&quot;:&quot;recherche&quot;}" class="btn-white hidden">Retour<span class="icon icon-arrow left"></span></a>
                     <!-- [back link] start-->
-                    <div class="heading heading--bordered">
+                    <h1 class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
                       <div class="heading__title heading__title--sub"><?php print (!empty($programme)) ? $programme->title : ''; ?></div>
-                    </div>
+                    </h1>
                     <ul class="tags-list">
                         <?php
                         $domain_id = 3;
@@ -356,32 +371,27 @@ if($nb_pieces_name == 'studio') {
             <div data-equalizer-watch class="programHeader__content__details">
                 <ul class="characteristicList">
                     <?php
-                    $array_flags = array();
-                    if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
-                      foreach($program_characteristic_on_bien as $term) :
-                        $array_flags[] = $term->name;
+                    if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) {
+                      foreach($program_characteristic_on_bien as $term) {
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
-                      endforeach;
-                    endif;
+                      }
+                    }
                     ?>
                     <?php
                     $vocabulary_name = 'caracteristiques';
                     if (isset($node->field_caracteristique[LANGUAGE_NONE][0])):
                       foreach ($node->field_caracteristique[LANGUAGE_NONE] as $item):
                         $caracteristique = taxonomy_term_load($item["tid"]);
-                        if (!in_array($caracteristique->name, $array_flags)):
-                          $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
-                          if ($caracteristique->name == 'Etage')
-                            $caracteristique->name = taxonomy_term_load($field_etage['und'][0]['tid'])->name;
-                          if (!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) :
-                            print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
-                            print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
-                            print '</li>';
-                          endif;
-                        endif;
+                        $class_icon = isset($caracteristique->field_icon_name[LANGUAGE_NONE][0]) ? $caracteristique->field_icon_name[LANGUAGE_NONE][0]["value"] : '';
+                        if($caracteristique->name == 'Etage') $caracteristique->name = taxonomy_term_load($field_etage['und'][0]['tid'])->name;
+                        if(!in_array($caracteristique->name, array('Balcon', 'Terrasse', 'Parking', 'Box', 'Cave', 'Jardin Privatif'))) {
+                          print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
+                          print '<span class="text">' . $caracteristique->name . ' ' . (($caracteristique->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $caracteristique->description . '"></span>' : '') . '</span>';
+                          print '</li>';
+                        }
                       endforeach;
                     endif;
                     ?>
