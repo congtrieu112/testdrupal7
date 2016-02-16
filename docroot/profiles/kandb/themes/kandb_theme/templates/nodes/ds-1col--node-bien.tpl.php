@@ -541,44 +541,153 @@ if ($habiteo_id && $virtuelle):
 global $_domain;
 $gid = $_domain['domain_id'];
 
+$current_nb_pieces = NULL;
 $list_bien_more = array();
-if ($piece_id) {
-  $nb_pieces = taxonomy_term_load($piece_id);
-  $field_id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : 0;
-  // Get list bien exclude current bien with surface (sort asc)
-  $list_bien_more = get_biens_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien);
-
-  // Get bien with price min
-  $list_bien_more_price_min = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'ASC');
-  // Get bien with price max
-  $list_bien_more_price_max = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'DESC');
-
-  // List bien more (First: Cheapest, Second: Expensive, Remain: Bien from the smallest to the larger Bien (surface)
-  if(count($list_bien_more) > 2) {
-    $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
-    $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
-
-    if($bien_id_price_max) {
-      unset($list_bien_more[$bien_id_price_max]);
+if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+  $node_bien = node_load(arg(1));
+  $current_nb_pieces = isset($node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : NULL;
+  $node = NULL;
+  if (isset($node_bien->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+      $node = node_load($node_bien->field_programme[LANGUAGE_NONE][0]['target_id']);
+      $key = $node_bien->field_programme[LANGUAGE_NONE][0]['target_id'];
     }
+    if ($node && isset($node->type) && $node->type == 'programme') {
+      $logement_block['title'] = $node->title;
+      $tid = 0;
+      $terms = taxonomy_get_term_by_name('Disponible / Libre');
+      if ($terms) {
+        foreach ($terms as $id => $term) {
+          $tid = $id;
+        }
+      }
 
-    if($bien_id_price_min) {
-      unset($list_bien_more[$bien_id_price_min]);
+    $node_program = $node;
+    $tva = 0; $stock = 0;
+    if($node_program) {
+      $tva = isset($node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value']) ? $node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value'] : '';
+      $stock = isset($node_program->field_programme_stock[LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_stock[LANGUAGE_NONE][0]['value'] : '';
     }
+    if ($tid) {
+      $programme_promotion = getListPromotionProgramme($key);
+      if (isset($programme_promotion['node'])) {
+        $logement_block['programme_promotion'] = TRUE;
+      }
 
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max, $list_bien_more);
-    }
-  } elseif(count($list_bien_more) == 2) {
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max);
-    }
-  }
+      $listBien = countListBienGroupByTypeBien($tid, $key, $gid);
+      $arr_price_remain =  '';
+      if ($listBien->rowCount() > 0) {
+        $listBien = $listBien->fetchAll();
+        foreach ($listBien as $program_list_biens) {
 
-  foreach ($list_bien_more as $item) {
-    $bien_datas = node_load($item->nid);
-    if (!in_array($gid, $bien_datas->domains)) {
-      unset($list_bien_more[$item->nid]);
+          $bien_id = explode(",", $program_list_biens->bien_id);          
+          $biens = node_load_multiple($bien_id);
+          $variables = array();
+          foreach($biens as $bien) {
+            $nb_pieces_tid = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : '';
+            if($nb_pieces_tid) {
+              $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
+              if($nb_pieces_node) {
+                $nb_pieces_weight = $nb_pieces_node->weight;
+                $nb_pieces_name = $nb_pieces_node->name;
+              }
+            }
+
+            // Images des types de Lots.
+            $img_num_piece = '';
+
+            if (preg_match_all('/(studio|2|3|4|5)/i', $nb_pieces_name, $matches)) {
+
+              if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
+                $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
+                $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
+                if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
+                  $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
+                } else {
+                  $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
+                  $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
+                  $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+                }
+              }
+            }
+
+            if($program_list_biens->name == 'Appartement') {
+              $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+              $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+              $logement_block['programme_bien_images'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+              $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
+              $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['node'] = $bien;
+            } elseif($program_list_biens->name == 'Maison') {
+              $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+              $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+              $logement_block['programme_bien_images']['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+              $logement_block['type_de_bien']['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
+              $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['node'] = $bien;
+            } else {
+              $variables['99-' . $program_list_biens->name][$bien->title]['price'] = $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
+              $variables['99-' . $program_list_biens->name][$bien->title]['superficie'] = $bien->field_superficie[LANGUAGE_NONE][0]['value'];
+              $logement_block['type_de_bien']['99-' .   $program_list_biens->name] = $program_list_biens->name;
+              //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;
+              $variables['99-' . $program_list_biens->name][$bien->title]['node'] = $bien;
+            }
+          }
+
+          $arr_price_max = ''; $arr_price_min = '';
+          foreach($variables as $key => $values) {
+            $logement_block['total_bien'][$key] = ceil(count($values) * $stock / 100);
+            $logement_block['tva_bien'][$key] = $tva;
+
+            $bien_id_max = array_search(max($values), $values);
+            $bien_id_min = array_search(min($values), $values);
+
+            $max = max($values);
+            $arr_price_max[$key][$bien_id_max] = $max;
+            if(isset($arr_price_max[$key][$bien_id_max]['superficie'])) {
+              unset($arr_price_max[$key][$bien_id_max]['superficie']);
+            }
+
+            $min = min($values);
+            $arr_price_min[$key][$bien_id_min] = $min;
+            if(isset($arr_price_min[$key][$bien_id_min]['superficie'])) {
+              unset($arr_price_min[$key][$bien_id_min]['superficie']);
+            }
+
+            $logement_block['price_min_tva20_bien'][$key] = $min['price'];
+            $logement_block['price_min_tva_un_20_bien'][$key] = $min['price'] / 1.2 * ($tva + 1);
+
+            $total_bien_stock = ceil(count($values) * $stock / 100);
+            if($max == $min || ($max != $min && count($values) <= 2)) {
+              
+              if(isset($values[$bien_id_max]['superficie'])) {
+                unset($values[$bien_id_max]['superficie']);
+              }
+              if(isset($values[$bien_id_min]['superficie'])) {
+                unset($values[$bien_id_min]['superficie']);
+              }
+
+              $arr_price_remain[$key] = array_slice($values, 0, $total_bien_stock);
+            } else {
+              unset($values[$bien_id_max]);
+              unset($values[$bien_id_min]);
+              foreach ($values as $k => $v) {
+                $arr_price_superficie[$k]['price'] = $v['price'];
+                $arr_price_superficie[$k]['node'] = $v['node'];
+              }
+              arsort($arr_price_superficie);
+              $arr_merge = array_merge($arr_price_min[$key], $arr_price_max[$key], $arr_price_superficie);
+              $arr_price_remain[$key] = array_slice($arr_merge, 0, $total_bien_stock);
+            }
+          }
+
+          $logement_block['popin_program'] = $arr_price_remain;
+        }
+        foreach($logement_block['popin_program'] as $v) {
+          foreach ($v as $sv) {
+            if ($sv['node']->nid != $node_bien->nid && isset($sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid']) && $sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid'] == $current_nb_pieces) {
+              $list_bien_more[] = $sv['node'];
+            } 
+          }
+        }
+      }
     }
   }
 }
