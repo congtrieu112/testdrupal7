@@ -16,6 +16,8 @@ $array_info['espace_vente_tel'] = isset($programme->field_espace_vente_tel[LANGU
 $array_info['espace_vente_tel2'] = isset($programme->field_espace_vente_tel2[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_tel2[LANGUAGE_NONE][0]['value'] : '';
 $array_info['espace_vente_adresse'] = isset($programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_adresse[LANGUAGE_NONE][0]['value'] : '';
 $array_info['espace_vente_horaire'] = isset($programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_horaire[LANGUAGE_NONE][0]['value'] : '';
+$array_info['long'] = isset($programme->field_espace_vente_longitude[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_longitude[LANGUAGE_NONE][0]['value'] : '';
+$array_info['latitude'] = isset($programme->field_espace_vente_latitude[LANGUAGE_NONE][0]['value']) ? $programme->field_espace_vente_latitude[LANGUAGE_NONE][0]['value'] : '';
 $photo = file_load($photo_id);
 if ($wrapper = file_stream_wrapper_get_instance_by_uri($photo->uri)) :
   $array_info['photo_uri'] = $wrapper->getExternalUrl();
@@ -64,7 +66,20 @@ endif;
                 <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_adresse']); ?></p>
                 <p class="contactUs__description__text"><?php print nl2br($array_info['espace_vente_horaire']); ?></p>
             </div>
-<!--              <div class="contactUs__location"><a href="partials/formRendezVous.html" class="btn-icon btn-white btn-rounded"><span class="button__content"><span class="icon icon-marker"></span>Voir sur la carte</span></a></div>-->
+            <?php
+            if(!empty($array_info['long']) && !empty($array_info['latitude'])):
+            ?>
+              <div class="contactUs__location">
+                <a target="_blank" href="http://maps.google.com?q=<?php print $array_info['latitude'];?>,<?php print $array_info['long'];?>" class="btn-icon btn-white btn-rounded">
+                  <span class="button__content">
+                    <span class="icon icon-marker"></span>
+                    <?php print t('Voir sur la carte');?>
+                  </span>
+                </a>
+              </div>
+            <?php
+            endif;
+            ?>
         </div>
     </div>
 </aside>
