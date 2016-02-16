@@ -452,3 +452,12 @@ function kandb_tagcommander_get_current_object(){
   }
   return $object;
 }
+
+function kandb_tagcommander_sanitize_for_event($string){
+  $string = strtr($string, '_', ' ');
+  $string = preg_replace("#[[:punct:]]#", "", $string);
+  $string = strtr(utf8_decode($string), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ -'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY__');
+  $string = strtolower($string);
+  $string = trim($string, " \t\n\r\0\x0B_");
+  return $string;
+}

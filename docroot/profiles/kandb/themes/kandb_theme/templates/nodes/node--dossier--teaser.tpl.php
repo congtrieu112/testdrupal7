@@ -10,7 +10,8 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
         <?php print render($title_prefix); ?>
         <?php if ($video_id): ?>
-            <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img"><span class="icon icon-play"></span>
+            <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img">
+                <span class="icon icon-play" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::player_video::video_<?php print kandb_tagcommander_sanitize_for_event($node->title); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'A'});" ></span>
                 <!-- images need to have 2 formats:
                 - small: 560 x 365 (HEAVY compression!!!)
                 - large: 560 x 365
@@ -47,7 +48,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
         <h4 class="fileItem__infos__heading"><?php print $node->title; ?></h4>
         <p><?php print $content['field_dossier_sous_titre'][0]['#markup']; ?></p>
         <div class="btn-wrapper text-center">
-            <a href="<?php print url('node/' . $node->nid); ?>" class="btn-primary btn-rounded"><?php print t('Lire le dossier'); ?>
+            <a href="<?php print url('node/' . $node->nid); ?>" class="btn-primary btn-rounded" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::dossiers::dossier_<?php print kandb_tagcommander_sanitize_for_event($node->title); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'N'});" ><?php print t('Lire le dossier'); ?>
                 <span class="icon icon-arrow"></span>
             </a>
         </div>

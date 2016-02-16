@@ -117,6 +117,10 @@ $heading_title = $bien_type_name . ' ' . $nb_pieces_name;
 if($nb_pieces_name == 'studio') {
   $heading_title = ucfirst($nb_pieces_name);
 }
+$tag_commander = kandb_tagcommander_sanitize_for_event($bien_type_name . ' ' . $nb_pieces_name . ' ' );
+$programme_ville = taxonomy_term_load($field_programme[0]['entity']->field_programme_loc_ville['und'][0]['tid']);
+$programme_ville = !empty($programme_ville) ? ' ' . $programme_ville->name : '';
+$tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programme[0]['entity']->title . $programme_ville);
 ?>
 
 <!-- [bienHeader] start-->
@@ -346,10 +350,10 @@ if($nb_pieces_name == 'studio') {
                 ?>
                 <div class="sharing hide-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});" ></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
@@ -447,7 +451,7 @@ if($nb_pieces_name == 'studio') {
                     <?php
                         $url = kandb_contact_get_telechargement_documents_url();
                     ?>
-                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'ajout_selections::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});" ><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
 
                     <?php if (!empty($plaquette_commerciale)): ?>
                       <li>
@@ -480,10 +484,10 @@ if($nb_pieces_name == 'studio') {
                 <!-- [contactUs mini] end-->
                 <div class="sharing show-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>

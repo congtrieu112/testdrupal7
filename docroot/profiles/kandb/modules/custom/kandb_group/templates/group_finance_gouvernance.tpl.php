@@ -57,7 +57,7 @@ $module_title = variable_get('finance_gouvernance_module_title_' . $lang);
                                     }
                                     $path = url('corporate/finance/gouvernance/' . $value->tid . '/' . $lang);
                                     ?>
-                                    <li class="bordered"><a href="<?php print $path; ?>" tabindex="0" aria-selected="<?php print $selected; ?>"><?php print $name; ?></a></li>
+                                    <li class="bordered"><a href="<?php print $path; ?>" tabindex="0" aria-selected="<?php print $selected; ?>" ><?php print $name; ?></a></li>
                                 <?php
                                 endif;
                             endforeach;
@@ -86,7 +86,7 @@ $module_title = variable_get('finance_gouvernance_module_title_' . $lang);
                               <p data-showmoretext-content="data-showmoretext-content" class="more-info">
                                   <?php print nl2br($item->field_gouvernance_presentation[LANGUAGE_NONE][0]['value']); ?>
                               </p>
-                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="<?php print t('Lire moins'); ?>" class="hidden"><?php print t('Lire plus'); ?><span class="icon icon-arrow down"></span></a></div>
+                              <div aria-hidden="true" class="financeGouvernance__cta"><a href="#" data-showmoretext-trigger="<?php print t('Lire moins'); ?>" class="hidden" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::assemblee::<?php print kandb_tagcommander_sanitize_for_event($item->title); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});" ><?php print t('Lire plus'); ?><span class="icon icon-arrow down"></span></a></div>
                           </div>
                       </div>
                   </article>
