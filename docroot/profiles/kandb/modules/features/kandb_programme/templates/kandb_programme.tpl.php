@@ -122,6 +122,7 @@ ksort($logement_block['total_bien']);
                                             $result = $query->execute();
                                             $result = array_keys($result['node']);
                                             $biens = node_load($result[0]);
+                                            $maison = isset($maisons[$biens->title]) ? $maisons[$biens->title] : '';
                                             if ($biens) :
                                               $bien_id = isset($biens->field_id_bien[LANGUAGE_NONE][0]['value']) ? $biens->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
                                               if ($bien_id) :
@@ -185,6 +186,11 @@ ksort($logement_block['total_bien']);
                                                                               <?php endif; ?>
                                                                             <?php endforeach; ?>
                                                                         </ul>
+                                                                    </li>
+                                                                  <?php endif; ?>
+                                                                  <?php if ($maison) : ?>
+                                                                    <li class="item-maison">
+                                                                        <?php print $maison; ?>
                                                                     </li>
                                                                   <?php endif; ?>
                                                                   <?php if ($etage) : ?><li class="item-exhibit"><?php print $etage; ?></li><?php endif; ?>
