@@ -127,14 +127,14 @@ $current_promotion_indice = 1;
                       if($type == t('Appartement')) {
                         $count = count($number_of_piece_by_programme[$row_result['field_programme_nid']]);
                         if($count == 1){
-                          $output .= 'de ' . $number_of_piece_by_programme[$row_result['field_programme_nid']][0] . ' ';
+                          $output .= 'du ' . $number_of_piece_by_programme[$row_result['field_programme_nid']][0] . ' ';
                         }elseif($count > 1){
                           $first = $number_of_piece_by_programme[$row_result['field_programme_nid']][0];
                           if(is_numeric(substr($first, 0, 1))){
                             $first = substr($first, 0, 1);
                           }
                           $last = $number_of_piece_by_programme[$row_result['field_programme_nid']][$count-1];
-                          $output .= 'de '. $first . ' à ' . $last . ' ';
+                          $output .= 'du '. $first . ' à ' . $last . ' ';
                         }
                       }
                       $output .= 'disponible' . (($number >1) ? 's' : '') . ', ';
