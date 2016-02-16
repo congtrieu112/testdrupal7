@@ -467,7 +467,7 @@ function createFileArchireForProgramme($node) {
     ));
     $paramsB2C = getFilenameUriFromFiles($node, array(
       'field_plaquette_commerciale',
-      'field_fiche_renseignement',
+      'field_prestations_programme',
       'field_plan_batiment',
       'field_kit_fiscal',
     ));
