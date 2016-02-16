@@ -470,7 +470,7 @@ if (!empty($list_document)):
                   <ul class="row">
                       <?php foreach ($list_document as $item): ?>
                         <li class="programDocumentDownload__items__item">
-                            <?php if ($item["title"] == 'Plaquette commerciale') :?>
+                            <?php if ($item["title"] == t('Plaquette commerciale')) :?>
                                 <a href="<?php print $url.'?download=plaquette_txt'; ?>" data-reveal-ajax="true" data-reveal-id="popinLeadForm">
                                 <?php elseif($item["title"] == 'Prestations') :
                                   if(!empty($node->field_fiche_renseignement['und']) && $node->field_fiche_renseignement['und'][0]['filename']):
@@ -482,7 +482,16 @@ if (!empty($list_document)):
                                 ?>
                                 <a href="<?php print url('document_download/'.$document_uri); ?>">
                                 <?php endif;?>
-                            <?php else : ?>
+                            <?php elseif ($item["title"] == t('Prestations du programme')) : ?>
+                            <?php
+                              $fileName = $node->field_prestations_programme['und'][0]['filename'];
+                              $real_path = drupal_realpath('public://');
+                              $filePath = $real_path . '/' . $node->field_prestations_programme['und'][0]['filename'];
+                              $document_uri = 'public://' . $node->field_prestations_programme['und'][0]['filename'];
+                              $document_uri = base64_encode($document_uri);
+                            ?>
+                                <a href="<?php print url('document_download/' . $document_uri); ?>" <?php if (!$item["document"]) print $nocontent; ?> >
+                            <?php else: ?>
                                 <a href="<?php print file_create_url($item["document"]) ?>" <?php if (!$item["document"]) print $nocontent; ?> >
                             <?php endif; ?>
                                 <span class="icon <?php print $item["icon"] ?>"></span>
