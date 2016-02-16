@@ -168,7 +168,7 @@ if($nb_pieces_name == 'studio') {
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
-    $image_principale_2_2 = isset($programme->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$programme->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale[LANGUAGE_NONE][1]['uri'])?$programme->field_image_principale[LANGUAGE_NONE][1]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
