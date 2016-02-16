@@ -37,9 +37,21 @@ global $base_url;
                 <aside class="aside"><span class="sharing-label">suivez-nous sur</span>
                      <div class="sharing">
                         <ul class="sharing__items">
-                            <?php if ($facebook) : ?><li class="sharing__items__item"><a href="<?php print $facebook; ?>" title="partage sur Facebook" class="icon icon-facebook"></a></li><?php endif; ?>
-                            <?php if ($twitter) : ?><li class="sharing__items__item"><a href="<?php print $twitter; ?>#" title="partage sur Twitter" class="icon icon-twitter"></a></li><?php endif; ?>
-                            <?php if ($youtube) : ?><li class="sharing__items__item"><a href="<?php print $youtube; ?>" title="partage sur Youtube" class="icon icon-youtube"></a></li><?php endif; ?>
+                            <?php if ($facebook) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $facebook; ?>" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::facebook','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($twitter) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $twitter; ?>#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::twitter','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($youtube) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $youtube; ?>" title="partage sur Youtube" class="icon icon-youtube" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::youtube','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </aside>

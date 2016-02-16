@@ -10,7 +10,8 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <div id="node-<?php print $node->nid; ?>" class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
         <?php print render($title_prefix); ?>
         <?php if ($video_id): ?>
-            <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img"><span class="icon icon-play"></span>
+            <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print t('Lire la vidéo'); ?>" data-reveal-id="videofileItem-<?php print $node->nid; ?>" class="fileItem__img">
+                <span class="icon icon-play" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::dossiers::video_acheter_neuf','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'N'});"></span>
                 <!-- images need to have 2 formats:
                 - small: 560 x 365 (HEAVY compression!!!)
                 - large: 560 x 365
