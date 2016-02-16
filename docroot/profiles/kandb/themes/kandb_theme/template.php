@@ -255,7 +255,7 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
-    
+
     $programme = NULL;
     if ($vars['type'] == 'programme') {
       $programme = $vars['node'];
@@ -322,7 +322,7 @@ function kandb_theme_preprocess_node(&$vars) {
       }
     }
   }
-  
+
   // Get list Biens for Bien page
   global $_domain;
   $gid = $_domain['domain_id'];
@@ -366,7 +366,7 @@ function kandb_theme_preprocess_node(&$vars) {
           $listBien = $listBien->fetchAll();
           foreach ($listBien as $program_list_biens) {
 
-            $bien_id = explode(",", $program_list_biens->bien_id);          
+            $bien_id = explode(",", $program_list_biens->bien_id);
             $biens = node_load_multiple($bien_id);
             $variables = array();
             foreach($biens as $bien) {
@@ -472,7 +472,7 @@ function kandb_theme_preprocess_node(&$vars) {
               if ($sv['node']->nid != $node_bien->nid && isset($sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid']) && $sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid'] == $current_nb_pieces) {
                 $list_bien_more[] = $sv['node'];
                 $vars['list_bien_more'] = $list_bien_more;
-              } 
+              }
             }
           }
         }
@@ -645,6 +645,12 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['file_fiche_renseignement'] = '';
     if (isset($content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'])) {
       $vars['file_fiche_renseignement'] = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
+    }
+
+    //get link file fiche Prestations du programme
+    $vars['file_prestations_programme'] = '';
+    if (isset($content['field_prestations_programme']['#object']->field_prestations_programme['und'][0]['uri'])) {
+      $vars['file_prestations_programme'] = $content['field_prestations_programme']['#object']->field_prestations_programme['und'][0]['uri'];
     }
 
     //get link file Kit fiscal

@@ -426,10 +426,10 @@ if (!empty($file_plaquette_commerciale)) {
     'icon' => 'icon-flyer'
   );
 }
-if (!empty($file_fiche_renseignement)) {
+if (!empty($file_prestations_programme)) {
   $list_document[] = array(
-    'document' => $file_fiche_renseignement,
-    'title' => t('Prestations'),
+    'document' => $file_prestations_programme,
+    'title' => t('Prestations du programme'),
     'icon' => 'icon-file'
   );
 }
