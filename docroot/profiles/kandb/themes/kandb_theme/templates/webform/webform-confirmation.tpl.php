@@ -35,7 +35,7 @@ switch ($webfrom_machine) {
 <?php if ($page_name): ?>
   <script>
     jQuery(document).ready(function () {
-        alert('<?php print $page_name; ?>');
+        console.log('<?php print $page_name; ?>'); // For debug page_name.
         tc_events_1(this, 'PAGE', {'page_level': '', 'page_name': '<?php print $page_name ?>'});
     });
   </script>
