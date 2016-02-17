@@ -368,10 +368,21 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                 <ul class="characteristicList">
                     <?php
                     $array_flags = array();
+                    $node_programme = $node->field_programme[LANGUAGE_NONE][0]['entity'];
                     if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
                       foreach($program_characteristic_on_bien as $term) :
                         $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        if ($term->name == "Chauffage") :
+                          if (isset( $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) &&  $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid'] ) :
+                            $chauffage = taxonomy_term_load($node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                            if($chauffage) :
+                              $icon_class_chauffage = get_taxonomy_by_vocabulary_name($term->name,'caracteristiques_programme');
+                              $term->name = $chauffage->name;
+                              $class_icon = isset($icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : "";
+                            endif;
+                          endif;
+                        endif;
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
