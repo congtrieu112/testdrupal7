@@ -50,7 +50,7 @@ print theme('finance_header_block');
                         <li class="downloadDocs__item">
                           <div class="downloadDocs__item__info">
                             <h4 class="downloadDocs__item__heading"><?php print $file_name; ?></h4>
-                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print $file_name; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                              <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print $file_name; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::assemblee::<?php print kandb_tagcommander_sanitize_for_event($file_name); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});"><span class="icon icon-download-pdf"></span></a></div>
                           </div>
                         </li>
                       <?php endif; ?>

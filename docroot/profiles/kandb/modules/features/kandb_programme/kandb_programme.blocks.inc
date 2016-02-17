@@ -142,7 +142,7 @@ function _get_logement_block_content() {
           $tid = $id;
         }
       }
-      
+
       $tid_maison = 0;
       $terms_maison = taxonomy_get_term_by_name('Maison');
       if ($terms_maison) {
@@ -152,7 +152,7 @@ function _get_logement_block_content() {
           }
         }
       }
-      
+
       $node_program = node_load($key);
       $tva = 0; $stock = 0;
       if($node_program) {
@@ -265,10 +265,11 @@ function _get_logement_block_content() {
               } else {
                 unset($values[$bien_id_max]);
                 unset($values[$bien_id_min]);
+                $arr_price_superficie = '';
                 foreach ($values as $k => $v) {
                   $arr_price_superficie[$k] = $v['superficie'];
                 }
-                arsort($arr_price_superficie);
+                asort($arr_price_superficie);
                 $arr_merge = array_merge($arr_price_min[$key], $arr_price_max[$key], $arr_price_superficie);
                 $arr_price_remain[$key] = array_slice($arr_merge, 0, $total_bien_stock);
               }

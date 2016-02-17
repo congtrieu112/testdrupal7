@@ -513,7 +513,7 @@ function kandb_build_programme_document($list_programme = array(), $path = '', $
   else{
     $files_file = array(
       'field_plaquette_commerciale' => 'prg_plaquette_fr_',
-      'field_fiche_renseignement' => 'PRG_FICHE_',
+      'field_prestations_programme' => 'prg_prestations_',
       'field_plan_batiment' => 'PRG_PLAN_',
       'field_kit_fiscal' => 'PRG_KIT_FISCAL_',
     );

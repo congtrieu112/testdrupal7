@@ -1,5 +1,6 @@
 <?php
 $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
+$tag_commander = kandb_tagcommander_sanitize_for_event($node->title . '_' . $field_programme_loc_ville[0]['taxonomy_term']->name);
 ?>
 <!-- [programHeader] start-->
 <header class="programHeader">
@@ -205,14 +206,14 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                 ?>
                 <div class="sharing">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="<?php print t('Imprimer la page'); ?>" class="icon icon-print"  onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_programmes::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                         <?php if ($email = variable_get('kb_partage_email')) : ?>
                           <li class="sharing__items__item">
-                              <a href="mailto:<?php print $email; ?>?subject=<?php print $subject;  ?>&body=<?php print url('node/' . $node->nid , array('absolute' => TRUE)); ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email"></a>
+                              <a href="mailto:<?php print $email; ?>?subject=<?php print $subject;  ?>&body=<?php print url('node/' . $node->nid , array('absolute' => TRUE)); ?>" title="<?php print t('partage par email'); ?>" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_programmes::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a>
                           </li>
                         <?php endif; ?>
-                        <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a target="_blank" href="http://twitter.com/share?url=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Twitter'); ?>" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a target="_blank" href="http://www.facebook.com/sharer/sharer.php?u=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Facebook'); ?>" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_programmes::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a target="_blank" href="http://twitter.com/share?url=<?php print $GLOBALS['base_url'] . url('node/' . $node->nid) ?>" title="<?php print t('partage sur Twitter'); ?>" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_programmes::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
@@ -289,23 +290,23 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
 
                 <ul class="toolsList show-for-medium-up">
                     <?php if ($flag) : ?>
-                      <li><a href="#logements-disponibles" data-scroll-to class="btn-white"><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
+                      <li><a href="#logements-disponibles" data-scroll-to class="btn-white" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::ancres::logements_disponibles::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});" ><span class="icon icon-planing "></span><span class="text">Logements disponibles</span></a></li>
                     <?php endif; ?>
 
-                    <li><a href="#quartier" data-scroll-to class="btn-white"><span class="icon icon-on-map"></span><span class="text">Quartier</span></a></li>
+                    <li><a href="#quartier" data-scroll-to class="btn-white"><span class="icon icon-on-map" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::ancres::quartier::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});" ></span><span class="text">Quartier</span></a></li>
 
                     <?php if ($status_slider) : ?>
-                      <li><a href="#prestations" data-scroll-to class="btn-white"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
+                      <li><a href="#prestations" data-scroll-to class="btn-white" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::ancres::prestations::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><span class="icon icon-prestation"></span><span class="text">Prestations</span></a></li>
                     <?php endif; ?>
 
-                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t('Ajouter à mes sélections'); ?></span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"  onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'ajout_selections::fiches_programmes::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});" ><span class="icon icon-love"></span><span class="text"><?php print t('Ajouter à mes sélections'); ?></span></a></li>
 
                     <?php if ($status_document) : ?>
-                      <li><a href="#downloadDocument" data-scroll-to class="btn-white"><span class="icon icon-download"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
+                      <li><a href="#downloadDocument" data-scroll-to class="btn-white"><span class="icon icon-download"  onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::ancres::documents_telechargeables::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"></span><span class="text"><?php print t('Documents téléchargeables'); ?></span></a></li>
                     <?php endif; ?>
 
                     <?php if ($habiteo_id && !$bon_plan) : ?>
-                      <li><a href="#Vue3D" data-scroll-to class="btn-white"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
+                      <li><a href="#Vue3D" data-scroll-to class="btn-white" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::ancres::vue_3d::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><span class="icon icon-cube"></span><span class="text"><?php print t('Vue 3D'); ?></span></a></li>
                     <?php endif; ?>
                 </ul>
             </div>
@@ -345,7 +346,7 @@ $bon_plan = $node->field_programme_habiteo_bon_plan[LANGUAGE_NONE][0]['value'];
                     'id' => 'mymap',
                     'latitude' => $lat, // center the map.
                     'longitude' => $lon, // on the marker.
-                    'zoom' => 10,
+                    'zoom' => 1000,
                     'width' => '100%',
                     'height' => '490px',
                     'type' => 'Map',
