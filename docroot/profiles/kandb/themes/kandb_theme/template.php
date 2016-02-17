@@ -14,7 +14,10 @@ define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
  */
 
 function kandb_theme_preprocess_html(&$variables) {
-  $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  $header = drupal_get_http_header('status');
+  if ($header == '404 Not Found' ||  $variables['is_front'] ){
+    $variables['classes_array'][] = 'homepage';
+  }
   // Change template on AJAX request
   if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'html__ajax';
