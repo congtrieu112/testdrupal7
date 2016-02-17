@@ -343,16 +343,16 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
     /* Tree structure */
     case 'page_cat1':
-      $return = $page_cat1; //isset($explode_url[0]) ? $explode_url[0] : '';
+      $return = $page_cat1;
       break;
     case 'page_cat2':
-      $return = $page_cat2; //isset($explode_url[1]) ? $explode_url[1] : '';
+      $return = $page_cat2;
       break;
     case 'page_cat3':
-      $return = $page_cat3; //isset($explode_url[2]) ? $explode_url[2] : '';
+      $return = $page_cat3;
       break;
     case 'page_name':
-      $return = $page_name; //drupal_get_title();
+      $return = $page_name; 
       break;
     case 'error_type':
       $status = drupal_get_http_header("status");
