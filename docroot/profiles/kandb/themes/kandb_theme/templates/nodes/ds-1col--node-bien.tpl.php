@@ -253,6 +253,13 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                     <!-- [back link] start-->
                     <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
+                      <div class="heading__title smaller">
+                        <?php
+                        if(isset($title_maison)) {
+                          print $title_maison;
+                        }
+                        ?>
+                      </div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
