@@ -89,7 +89,7 @@ endif;
                 </div>
             </div>
             <div class="squaredImageItem__btn">
-               <a href="<?php print url('node/' . $row->nid); ?>" class="btn-rounded btn-primary" tabindex="0">Découvrir<span class="icon icon-arrow"></span></a>
+               <a href="<?php print url('node/' . $row->nid); ?>" class="btn-rounded btn-primary" tabindex="0"><?php print t('Découvrir'); ?><span class="icon icon-arrow"></span></a>
             </div>
         </div>
     </article>
