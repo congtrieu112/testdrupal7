@@ -53,6 +53,17 @@ function kandb_b2b_menu() {
     'access arguments' => array('administer K&B B2B content'),
   );
 
+
+  $items['admin/content/kandb-b2b/register'] = array(
+    'title' => 'Register Page',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_b2b_register_page_settings'),
+    'file' => 'kandb_b2b.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B B2B content'),
+  );
+
   return $items;
 }
 
@@ -93,6 +104,10 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
       'template' => 'templates/b2b_homepage',
       'variables' => array(),
     ),
+    'b2b_register_header' => array(
+      'template' => 'templates/b2b_register_header',
+      'variables' => array(),
+    ),
   );
 }
 
@@ -123,4 +138,24 @@ function kandb_b2b_date_format_types() {
  */
 function kandb_b2b_user_login(&$edit, $account) {
   $edit['redirect'] = 'dash-board';
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function kandb_form_user_register_form_alter(&$form, &$form_state) {
+  global $user, $theme;
+  if ($theme == 'kandb_b2b_theme') {
+    $form['account']['name']['#required'] = FALSE;
+    array_unshift($form['#validate'], 'kandb_user_register_validate_username');
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_user_register_validate_username(&$form, &$form_state) {
+  if ($form_state['values']['mail']) {
+    $form_state['values']['name'] = $form_state['values']['mail'];
+  }
 }
