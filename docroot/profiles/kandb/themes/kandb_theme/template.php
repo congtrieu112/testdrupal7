@@ -292,12 +292,19 @@ function kandb_theme_preprocess_node(&$vars) {
       foreach($terms_array as $term){
         $terms_ids[] = $term['tid'];
       }
+      $vars['program_characteristic_on_bien'] = array();
+      $name_program_characteristic_on_bien = array();
       if($terms = taxonomy_term_load_multiple($terms_ids)){
-        $vars['program_characteristic_on_bien'] = array();
         foreach($terms as $term) {
           if(isset($term->field_show_on_bien_page) && $term->field_show_on_bien_page[LANGUAGE_NONE][0]['value'] == 1) {
             $vars['program_characteristic_on_bien'][] = $term;
+            $name_program_characteristic_on_bien[] = $term->name;
           }
+        }
+      }
+      if(!in_array('Chauffage', $name_program_characteristic_on_bien)){
+        if(isset($vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) && $chauffage = $vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']){
+          $vars['program_characteristic_on_bien'][]->name = "Chauffage";
         }
       }
 
