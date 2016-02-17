@@ -168,6 +168,7 @@ if($nb_pieces_name == 'studio') {
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale[LANGUAGE_NONE][1]['uri'])?$programme->field_image_principale[LANGUAGE_NONE][1]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
@@ -183,7 +184,7 @@ if($nb_pieces_name == 'studio') {
 
     }
 
-    if ($image_principale || $image_principale_2 || $image_principale_3):
+    if ($image_principale || $image_principale_2 || $image_principale_2_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -216,6 +217,20 @@ if($nb_pieces_name == 'studio') {
                     -->
                     <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2); ?>, (large)]"/>
                     <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
+              <?php if($image_principale_2_2): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
                     <!-- [Responsive img] end-->
                   </figure>
                 </article>
@@ -537,54 +552,7 @@ if ($habiteo_id && $virtuelle):
 <!-- [3rd party: visite-virtuelle] start-->
 
 <!-- [More Available] start-->
-<?php
-global $_domain;
-$gid = $_domain['domain_id'];
-
-$list_bien_more = array();
-if ($piece_id) {
-  $nb_pieces = taxonomy_term_load($piece_id);
-  $field_id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : 0;
-  // Get list bien exclude current bien with surface (sort asc)
-  $list_bien_more = get_biens_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien);
-
-  // Get bien with price min
-  $list_bien_more_price_min = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'ASC');
-  // Get bien with price max
-  $list_bien_more_price_max = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'DESC');
-
-  // List bien more (First: Cheapest, Second: Expensive, Remain: Bien from the smallest to the larger Bien (surface)
-  if(count($list_bien_more) > 2) {
-    $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
-    $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
-
-    if($bien_id_price_max) {
-      unset($list_bien_more[$bien_id_price_max]);
-    }
-
-    if($bien_id_price_min) {
-      unset($list_bien_more[$bien_id_price_min]);
-    }
-
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max, $list_bien_more);
-    }
-  } elseif(count($list_bien_more) == 2) {
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max);
-    }
-  }
-
-  foreach ($list_bien_more as $item) {
-    $bien_datas = node_load($item->nid);
-    if (!in_array($gid, $bien_datas->domains)) {
-      unset($list_bien_more[$item->nid]);
-    }
-  }
-}
-
-if (!empty($list_bien_more)):
-  ?>
+<?php if (!empty($list_bien_more)): ?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">

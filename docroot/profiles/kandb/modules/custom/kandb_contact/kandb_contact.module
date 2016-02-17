@@ -1,5 +1,14 @@
 <?php
 
+/*
+ * Define Tag Commander page_name.
+ */
+define('TC_PAGE_NAME_RAPPELEZ', 'rappelez_moi::rappelez_moi_confirmation');
+define('TC_PAGE_NAME_PRENDRE', 'prendre_rdv::prendre_rdv_confirmation');
+define('TC_PAGE_NAME_DOWNLOAD_ALL', 'telechargement_documents::tout_telecharger');
+define('TC_PAGE_NAME_DOWNLOAD_PLAQUETTE', 'telechargement_documents::plaquette');
+
+
 /**
  * Implementation of hook_menu()
  * @return array
@@ -466,6 +475,7 @@ function kandb_contact_form_alter(&$form, $form_state, $form_id) {
               }', 'inline'
             );
             $form['submitted']['parram']["#value"] = $parram;
+            drupal_add_js(drupal_get_path('module', 'kandb_contact') .'/js/custom_tc.js', 'file');
             $form['#submit'][] = 'telechargement_documents_download_header';
             break;
           default:
@@ -766,12 +776,14 @@ function telechargement_documents_download_header($form, $form_state) {
     }
   }
   else {
+    $tc_key = '';
     if (isset($parram['download']) && $parram['download'] == 'zip') {
       $addMore = '_';
       $fileName = 'Programme' . $addMore . preg_replace('@[^a-z0-9-]+@', '-', strtolower($node->title)) . '.zip';
       if (file_exists($real_path . '/Programme/archive/' . $nid . '/')) {
         $filePath = $real_path . '/Programme/archive/' . $nid . '/' . $fileName;
         $document_uri = 'public://Programme/archive/' . $nid . '/' . $fileName;
+        $tc_key = TC_PAGE_NAME_DOWNLOAD_ALL;
       }
     }
     elseif($parram['download'] == 'prestations_txt') {
@@ -785,6 +797,7 @@ function telechargement_documents_download_header($form, $form_state) {
       $fileName = $node->field_plaquette_commerciale['und'][0]['filename'];
       $filePath = $real_path . '/' . $node->field_plaquette_commerciale['und'][0]['filename'];
       $document_uri = 'public://' . $node->field_plaquette_commerciale['und'][0]['filename'];
+      $tc_key = TC_PAGE_NAME_DOWNLOAD_PLAQUETTE;
     }
   }
   if ($filePath) {
@@ -794,6 +807,11 @@ function telechargement_documents_download_header($form, $form_state) {
       $commands[] = array('command' => 'closePopin');
       if (file_exists($document_uri)) {
         $document_uri = base64_encode($document_uri);
+        $commands[] = array(
+                          'command' => 'tag_document_download',
+                          'page_level'  => '',
+                          'page_name'  => $tc_key,
+                      );
         $commands[] = ctools_ajax_command_redirect('document_download/' . $document_uri);
       }
       print ajax_render($commands);

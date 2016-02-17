@@ -128,7 +128,7 @@ function getListPromotionBiens($key) {
 function _get_logement_block_content() {
   global $_domain;
   $gid = $_domain['domain_id'];
-
+  $maisons = array();
   $content = '';
   if (arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
     $node = node_load(arg(1));
@@ -142,7 +142,17 @@ function _get_logement_block_content() {
           $tid = $id;
         }
       }
-
+      
+      $tid_maison = 0;
+      $terms_maison = taxonomy_get_term_by_name('Maison');
+      if ($terms_maison) {
+        foreach ($terms_maison as $id => $term_maison) {
+          if ($term_maison->vocabulary_machine_name == 'type_de_bien') {
+            $tid_maison = $id;
+          }
+        }
+      }
+      
       $node_program = node_load($key);
       $tva = 0; $stock = 0;
       if($node_program) {
@@ -165,6 +175,15 @@ function _get_logement_block_content() {
             $biens = node_load_multiple($bien_id);
             $variables = array();
             foreach($biens as $bien) {
+              $maison = '';
+              $node_maison = NULL;
+              if (isset($bien->field_type[LANGUAGE_NONE][0]['tid']) && isset($bien->field_bien_type_maison[LANGUAGE_NONE][0]['target_id']) && $bien->field_type[LANGUAGE_NONE][0]['tid'] == $tid_maison) {
+                $node_maison = node_load($bien->field_bien_type_maison[LANGUAGE_NONE][0]['target_id']);
+              }
+              if (isset($node_maison->title)) {
+                $maison = $node_maison->title;
+              }
+              $maisons[$bien->title] = $maison;
               $nb_pieces_tid = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : '';
               if($nb_pieces_tid) {
                 $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
@@ -262,7 +281,7 @@ function _get_logement_block_content() {
     }
   }
 
-  return theme('kandb_programme', array('logement_block' => $logement_block, 'node' => $node));
+  return theme('kandb_programme', array('logement_block' => $logement_block, 'node' => $node, 'maisons' => $maisons));
 }
 
 function document_block_form($form, &$form_submit) {
@@ -448,7 +467,7 @@ function createFileArchireForProgramme($node) {
     ));
     $paramsB2C = getFilenameUriFromFiles($node, array(
       'field_plaquette_commerciale',
-      'field_fiche_renseignement',
+      'field_prestations_programme',
       'field_plan_batiment',
       'field_kit_fiscal',
     ));
