@@ -105,6 +105,9 @@ if ($flag) :
                 </div>
             </div>
         </div>
+        <div class="squaredImageItem__btn">
+          <a href="<?php print url('node/' . $row->nid); ?>" class="btn-rounded btn-primary" tabindex="0">Découvrir<span class="icon icon-arrow"></span></a>
+        </div>
     </article>
     <!-- [squaredImageItem] end-->
 </li>
