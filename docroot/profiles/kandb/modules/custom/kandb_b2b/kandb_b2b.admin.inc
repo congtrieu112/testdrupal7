@@ -170,5 +170,21 @@ function kandb_b2b_register_page_settings($form, $form_state) {
     '#description' => ('The sub title on Form'),
     '#default_value' => variable_get('kandb_b2b_register_form_subtitle', t('Pour demander l\'ouverture d\'un compte')),
   );
+
+  $form['kandb_b2b_register_confirmation_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Title'),
+    '#description' => ('The title on Form'),
+    '#default_value' => variable_get('kandb_b2b_register_confirmation_title', t('Votre inscription a bien été prise en compte.')),
+  );
+
+  $default_description = variable_get('kandb_b2b_register_confirmation_description');
+  $form['kandb_b2b_register_confirmation_description'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Confirmation Description'),
+    '#format' => 'full_html',
+    '#default_value' => isset($default_description['value']) ? $default_description['value'] : t('Merci de votre intérêt. Un conseiller va prendre contact avec vous très rapidement.'),
+  );
+
   return system_settings_form($form);
 }
