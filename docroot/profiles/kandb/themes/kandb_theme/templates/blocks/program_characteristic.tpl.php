@@ -61,17 +61,17 @@ $logo_image_path = isset($logo_image->uri) ? file_create_url($logo_image->uri) :
       <div class="programCharacteristics">
           <ul role="tablist" data-slick-nav="data-slick-nav" class="show-for-medium-up programCharacteristics__nav">
               <?php if ($slide0 && $programme_variables['slider_exterieur_titre']) : ?>
-                <li><a href="#slide0" data-slick-links="data-slick-links" role="tab" aria-controls="slide0" class="active" aria-selected="true"><?php print t('Extérieur'); ?></a></li>
+                <li><a href="#slide0" data-slick-links="data-slick-links" role="tab" aria-controls="slide0" class="active" aria-selected="true" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::exterieur','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><?php print t('Extérieur'); ?></a></li>
               <?php endif; ?>
               <?php if ($slide1 && $programme_variables['slider_interieur_titre']) : ?>
-                <li><a href="#slide1" data-slick-links="data-slick-links" role="tab" aria-controls="slide1" aria-selected="false"><?php print t('Intérieur'); ?></a></li>
+                <li><a href="#slide1" data-slick-links="data-slick-links" role="tab" aria-controls="slide1" aria-selected="false" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::interieur','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><?php print t('Intérieur'); ?></a></li>
               <?php endif; ?>
               <?php if ($slide2 && $programme_variables['slider_securite_titre']) : ?>
-                <li><a href="#slide2" data-slick-links="data-slick-links" role="tab" aria-controls="slide2" aria-selected="false"><?php print t('Sécurité'); ?></a></li>
+                <li><a href="#slide2" data-slick-links="data-slick-links" role="tab" aria-controls="slide2" aria-selected="false" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::services','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><?php print t('Sécurité'); ?></a></li>
               <?php endif; ?>
               <?php if ($slide3 && $programme_variables['slider_rt2012_titre']) : ?>
                 <?php if ($echelle_value != 'Void' && $echelle_value && $tab_title): ?>
-                  <li><a href="#slide3" data-slick-links="data-slick-links" role="tab" aria-controls="slide03" aria-selected="false"><?php print $tab_title; ?></a></li>
+                  <li><a href="#slide3" data-slick-links="data-slick-links" role="tab" aria-controls="slide03" aria-selected="false" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'pages_programmes::rt_2012','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});"><?php print $tab_title; ?></a></li>
                 <?php endif; ?>
               <?php endif; ?>
           </ul>

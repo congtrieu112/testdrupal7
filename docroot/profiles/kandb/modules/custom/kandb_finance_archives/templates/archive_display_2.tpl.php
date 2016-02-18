@@ -3,7 +3,7 @@ $tab_id = 0;
 $exist_download_function = function_exists('kandb_finance_archives_download_file');
 $status_class = 'active';
 $nodes = array();
-foreach($content_archives['tab_content'] as $year =>  $val){ 
+foreach($content_archives['tab_content'] as $year =>  $val){
   $nodes = array_merge($nodes, $val);
 }
 ?>
@@ -42,7 +42,7 @@ foreach($content_archives['tab_content'] as $year =>  $val){
                       <li class="downloadDocs__item">
                         <div class="downloadDocs__item__info">
                           <h4 class="downloadDocs__item__heading"><?php print $file_name; ?></h4>
-                            <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print $file_name; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                            <div class="downloadDocs__item__link"><a href="<?php print $file_path; ?>" title="<?php print $file_name; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::archives::<?php print kandb_tagcommander_sanitize_for_event($filename); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});"><span class="icon icon-download-pdf"></span></a></div>
                         </div>
                       </li>
                     <?php endif; ?>

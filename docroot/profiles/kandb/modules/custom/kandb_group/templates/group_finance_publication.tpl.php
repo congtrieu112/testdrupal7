@@ -120,6 +120,14 @@ print theme('finance_header_block');
                           <div data-app-accordion-content="data-app-accordion-content" class="communiquesDocs">
                               <?php foreach ($documents as $key => $doc_nid): ?>
                                 <?php if (is_numeric($doc_nid) AND $document = node_load($doc_nid)) : ?>
+                                  <?php
+                                  $document_type = '';
+                                    if(isset($document->field_document_type['und'][0]['tid']) && !empty($document->field_document_type['und'][0]['tid'])){
+                                      if($document_type = taxonomy_term_load($document->field_document_type['und'][0]['tid'])){
+                                        $document_type = kandb_tagcommander_sanitize_for_event($document_type->name);
+                                      }
+                                    }
+                                  ?>
                                   <?php if ($document): ?>
                                     <?php
                                        $title = $document->title;
@@ -140,7 +148,7 @@ print theme('finance_header_block');
                                                   ?>
                                                   <li>
                                                       <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
-                                                      <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                                                      <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::publications::<?php print $document_type; ?>::<?php print kandb_tagcommander_sanitize_for_event($filename); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});"><span class="icon icon-download-pdf"></span></a></div>
                                                   </li>
                                                 <?php endforeach; ?>
                                             </ul>
