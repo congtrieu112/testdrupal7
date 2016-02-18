@@ -1,0 +1,177 @@
+<?php
+/**
+ * @file
+ * Code for the K&B Geolocation feature.
+ */
+
+include_once 'kandb_geolocation.features.inc';
+
+DEFINE('AJAX_GEOLOC_URL', 'ajax/geolocation');
+
+DEFINE('GEOLOC_RADIUS', '50000'); //in m
+DEFINE('GEOLOC_RATIO_LAT_RADIUS_METER', 110574); // 1 radius = 110.574km
+DEFINE('GEOLOC_RATIO_LONG_RADIUS_METER', 111320); // 1 radius = 111.320km * cos(lat)
+
+
+/**
+ * Implements hook_menu().
+ */
+function kandb_geolocation_menu() {
+  $items = array();
+  $items[AJAX_GEOLOC_URL] = array(
+    'page callback' => 'kandb_geolocation_ajax_callback',
+    'access arguments' => array('access content'),
+    'type' => MENU_CALLBACK,
+  );
+  return $items;
+}
+
+/**
+ * @param $vars
+ */
+function kandb_geolocation_preprocess_html(&$vars) {
+  global $base_url;
+  $vars['attributes_array']['data-geoloc'] = $base_url . '/' . AJAX_GEOLOC_URL;
+}
+
+/**
+ * @param $datas
+ * array(
+ *   0 => #id#,#args#
+ *   1 => #id#,#args#
+ * )
+ * #args# looks like arg1:value1;arg2:value2
+ * @return bool|void
+ */
+function kandb_geolocation_ajax_callback(){
+  $localisation = kandb_geolocation_get_lat_long();
+  $datas = $_GET['targetId'];
+  $return = NULL;
+  $args = array();
+  if(!empty($datas) && is_array($datas) && $localisation){
+    foreach($datas as $data){
+      $data = explode(',', $data);
+      if(!empty($data)) {
+        $id = $data[0];
+        $args_received = $data[1];
+        if(!empty($args_received) && !empty($id)) {
+          $args_received = explode(';', $args_received);
+          foreach($args_received as $arg_received){
+            $arg = explode(':', $arg_received);
+            if(!empty($arg[0])) $args[$arg[0]] = $arg[1];
+          }
+          if(isset($args['module'])){
+            switch($args['module']) {
+              case 'views':
+                if(!isset($args['display']) && empty($args['display'])) return NULL;
+                // Get the view
+                $view = views_get_view($id);
+                $view->set_display($args['display']);
+
+                // Change filter
+                $lat_filter = $view->get_item($args['display'], 'filter', 'field_field_programme_loc_lat_value');
+                $lat_delta = (GEOLOC_RADIUS / GEOLOC_RATIO_LAT_RADIUS_METER);
+                $lat_minus = $localisation['lat'] - $lat_delta;
+                $lat_maxus = $localisation['lat'] + $lat_delta;
+                if($lat_minus <= $lat_maxus) {
+                  $lat_filter['value']['min'] = (string)$lat_minus;
+                  $lat_filter['value']['max'] = (string)$lat_maxus;
+                }else{
+                  $lat_filter['value']['min'] = (string)$lat_maxus;
+                  $lat_filter['value']['max'] = (string)$lat_minus;
+                }
+                $view->set_item($args['display'], 'filter', 'field_field_programme_loc_lat_value', $lat_filter);
+
+                $long_filter = $view->get_item($args['display'], 'filter', 'field_field_programme_loc_long_value');
+                $long_delta = (GEOLOC_RADIUS / GEOLOC_RATIO_LONG_RADIUS_METER * cos($localisation['lat']));
+                $long_minus = $localisation['long'] - $long_delta;
+                $long_maxus = $localisation['long'] + $long_delta;
+                if($long_minus <= $long_maxus) {
+                  $long_filter['value']['min'] = (string)$long_minus;
+                  $long_filter['value']['max'] = (string)$long_maxus;
+                }else{
+                  $long_filter['value']['min'] = (string)$long_maxus;
+                  $long_filter['value']['max'] = (string)$long_minus;
+                }
+                $view->set_item($args['display'], 'filter', 'field_field_programme_loc_long_value', $long_filter);
+
+                // Render
+                $view->pre_execute();
+                $view->pre_execute();
+                $view->execute();
+
+                // Do not render id there is not result
+                if(!empty($view->result)) {
+                  $return = $view->render();
+                }else{
+                  $return = NULL;
+                }
+                break;
+              default:
+                $return = NULL;
+                break;
+            }
+          }
+        }
+      }
+    }
+  }
+  print $return;
+  _drupal_shutdown_function();
+}
+
+function kandb_geolocation_get_lat_long(){
+  if(!isset($_SESSION['smart_ip']['location'])) return FALSE;
+  if(empty($_SESSION['smart_ip']['location']['latitude'])) return FALSE;
+  if(empty($_SESSION['smart_ip']['location']['longitude'])) return FALSE;
+  return array(
+    'lat' => $_SESSION['smart_ip']['location']['latitude'],
+    'long' => $_SESSION['smart_ip']['location']['longitude'],
+  );
+}
+
+function multiexplode ($delimiters,$string) {
+  $ary = explode($delimiters[0],$string);
+  array_shift($delimiters);
+  if($delimiters != NULL) {
+    foreach($ary as $key => $val) {
+      $ary[$key] = multiexplode($delimiters, $val);
+    }
+  }
+  return  $ary;
+}
+
+/**
+ * Temporary code
+ */
+function kandb_geolocation_update_field_lat_long(){
+  $fields = array(
+    'field_programme_loc_lat' => 'field_field_programme_loc_lat',
+    'field_programme_loc_long' => 'field_field_programme_loc_long',
+  );
+
+  foreach($fields as $origin => $dest) {
+    $result = db_query('SELECT * FROM {field_data_' . $origin . '}');
+
+    $records = $result->fetchAll();
+    foreach ($records as $record) {
+      db_insert('field_data_' . $dest)// Table name no longer needs {}
+      ->fields(array(
+        'entity_type' => $record->entity_type,
+        'bundle' => $record->bundle,
+        'deleted' => $record->deleted,
+        'entity_id' => $record->entity_id,
+        'revision_id' => $record->revision_id,
+        'language' => $record->language,
+        'delta' => $record->delta,
+        $dest . '_value' => ($record->{$origin . '_value'} == '' || empty($record->{$origin . '_value'} ) ? NULL : $record->{$origin . '_value'})
+      ))
+        ->execute();
+    }
+  }
+}
+
+function kandb_geolocation_views_pre_execute(&$view) {
+  $coucou = ($view->build_info['query']);
+  $bou = 'lol';
+}

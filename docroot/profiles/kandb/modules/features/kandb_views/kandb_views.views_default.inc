@@ -270,11 +270,7 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['title'] = 'Nos dernières offres';
   $handler->display->display_options['use_more_always'] = FALSE;
   $handler->display->display_options['access']['type'] = 'perm';
-  $handler->display->display_options['cache']['type'] = 'time_per_domain';
-  $handler->display->display_options['cache']['results_lifespan'] = '300';
-  $handler->display->display_options['cache']['results_lifespan_custom'] = '0';
-  $handler->display->display_options['cache']['output_lifespan'] = '-1';
-  $handler->display->display_options['cache']['output_lifespan_custom'] = '0';
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'some';
@@ -409,11 +405,20 @@ function kandb_views_views_default_views() {
   $handler->display->display_options['filters']['current_all']['table'] = 'domain_access';
   $handler->display->display_options['filters']['current_all']['field'] = 'current_all';
   $handler->display->display_options['filters']['current_all']['value'] = '1';
-  /* Filter criterion: Content: Promoted to front page */
-  $handler->display->display_options['filters']['promote']['id'] = 'promote';
-  $handler->display->display_options['filters']['promote']['table'] = 'node';
-  $handler->display->display_options['filters']['promote']['field'] = 'promote';
-  $handler->display->display_options['filters']['promote']['value'] = '1';
+  /* Filter criterion: Content: Latitude 2 (Temporary) (field_field_programme_loc_lat) */
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['id'] = 'field_field_programme_loc_lat_value';
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['table'] = 'field_data_field_field_programme_loc_lat';
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['field'] = 'field_field_programme_loc_lat_value';
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['value']['min'] = '-90';
+  $handler->display->display_options['filters']['field_field_programme_loc_lat_value']['value']['max'] = '90';
+  /* Filter criterion: Content: Longitude 2 (Temporary) (field_field_programme_loc_long) */
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['id'] = 'field_field_programme_loc_long_value';
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['table'] = 'field_data_field_field_programme_loc_long';
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['field'] = 'field_field_programme_loc_long_value';
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['operator'] = 'between';
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['value']['min'] = '-180';
+  $handler->display->display_options['filters']['field_field_programme_loc_long_value']['value']['max'] = '180';
 
   /* Display: Block Carrousel in homepage */
   $handler = $view->new_display('block', 'Block Carrousel in homepage', 'block');

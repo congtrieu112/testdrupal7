@@ -466,6 +466,44 @@ function kandb_programme_field_default_field_bases() {
     'type' => 'file',
   );
 
+  // Exported field_base: 'field_field_programme_loc_lat'
+  $field_bases['field_field_programme_loc_lat'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_field_programme_loc_lat',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+      'precision' => 10,
+      'scale' => 3,
+    ),
+    'translatable' => 0,
+    'type' => 'number_decimal',
+  );
+
+  // Exported field_base: 'field_field_programme_loc_long'
+  $field_bases['field_field_programme_loc_long'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_field_programme_loc_long',
+    'indexes' => array(),
+    'locked' => 0,
+    'module' => 'number',
+    'settings' => array(
+      'decimal_separator' => '.',
+      'precision' => 10,
+      'scale' => 4,
+    ),
+    'translatable' => 0,
+    'type' => 'number_decimal',
+  );
+
   // Exported field_base: 'field_id_programme'
   $field_bases['field_id_programme'] = array(
     'active' => 1,
