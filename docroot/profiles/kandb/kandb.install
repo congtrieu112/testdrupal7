@@ -1087,3 +1087,14 @@ function kandb_update_7210() {
     variable_set('password_policy_admin', 0);
   }
 }
+
+/**
+ * Enable KandbB geolocation module
+ */
+function kandb_update_7215() {
+  if (!module_exists('kandb_geolocation')) {
+    module_enable(array('kandb_geolocation'), TRUE);
+    include_once(drupal_get_path('module', 'kandb_geolocation') . '/kandb_geolocation.module');
+    kandb_geolocation_update_field_lat_long();
+  }
+}

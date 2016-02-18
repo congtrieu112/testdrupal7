@@ -17,19 +17,13 @@ if($adresse_ip && $param_dossier && $param_id) {
 <section class="wrapper section-padding ourAdvices">
   <!-- [Advice introduction] start-->
   <header class="heading heading--bordered">
-    <h2 class="heading__title"><?php print !empty($title) ? $title : t('110.1 - calculer votre capacité d’achat (PINEL simulator)'); ?></h2>
+    <h1 class="heading__title"><?php print !empty($title) ? $title : t('110.1 - calculer votre capacité d’achat (PINEL simulator)'); ?></h1>
     <?php if($subtitle) : ?>
     <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
     <?php endif; ?>
   </header>
   <?php if ($iframe_url) : ?>
-  <div class="swapItem">
-    <div class="swapItem__1">
-      <div class="wrapper--medium-up">
-          <iframe width="100%" height="1235" src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="yes"></iframe>
-      </div>
-    </div>
-  </div>
+    <iframe width="100%" height="1235" src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="yes"></iframe>
   <?php endif; ?>
 </section>
 <!-- [content Advice] end-->

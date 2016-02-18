@@ -122,6 +122,7 @@ ksort($logement_block['total_bien']);
                                             $result = $query->execute();
                                             $result = array_keys($result['node']);
                                             $biens = node_load($result[0]);
+                                            $maison = isset($maisons[$biens->title]) ? $maisons[$biens->title] : '';
                                             if ($biens) :
                                               $bien_id = isset($biens->field_id_bien[LANGUAGE_NONE][0]['value']) ? $biens->field_id_bien[LANGUAGE_NONE][0]['value'] : '';
                                               if ($bien_id) :
@@ -132,24 +133,7 @@ ksort($logement_block['total_bien']);
                                               $price_tva_20 = isset($biens->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? round($biens->field_prix_tva_20[LANGUAGE_NONE][0]['value'], 0) : 0;
                                               $low_tva_price = isset($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value']) ? round($biens->field_bien_low_tva_price[LANGUAGE_NONE][0]['value'], 0) : 0;
 
-                                              $arr_caracteris = array();
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] > 0 ? 'Balcon' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_box[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_box[LANGUAGE_NONE][0]['value'] >= 0 ? 'Box' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] >= 0 ? 'Cave' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] > 0 ? 'Jardin' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
-                                              $arr_caracteris[] = isset($biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
-
-                                              $caracteristiques = isset($biens->field_caracteristique[LANGUAGE_NONE]) ? $biens->field_caracteristique[LANGUAGE_NONE] : '';
-                                              if ($caracteristiques && count($caracteristiques) > 0) {
-                                                foreach ($caracteristiques as $caracteristique) {
-                                                  $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
-                                                  if ($term_caracteristique) {
-                                                    $arr_caracteris[] = $term_caracteristique->name;
-                                                  }
-                                                }
-                                              }
-
+                                              $arr_caracteris = get_list_bien_caracteris($biens);
                                               // $arr_caracteris[] = isset($biens->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
                                               // $arr_caracteris[] = isset($biens->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
 
@@ -185,6 +169,11 @@ ksort($logement_block['total_bien']);
                                                                               <?php endif; ?>
                                                                             <?php endforeach; ?>
                                                                         </ul>
+                                                                    </li>
+                                                                  <?php endif; ?>
+                                                                  <?php if ($maison) : ?>
+                                                                    <li class="item-maison">
+                                                                        <?php print $maison; ?>
                                                                     </li>
                                                                   <?php endif; ?>
                                                                   <?php if ($etage) : ?><li class="item-exhibit"><?php print $etage; ?></li><?php endif; ?>

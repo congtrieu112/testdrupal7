@@ -32,7 +32,7 @@
                                       ?>
                                       <li>
                                           <div class="communiquesDocs__list__title"><span><?php print !empty($filename)? $filename:''; ?></span></div>
-                                          <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                                          <div class="communiquesDocs__list__link"><a href="<?php print '/download-document-file/' . $file['fid']; ?>" title="<?php print !empty($filename)? $filename:''; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::archives::<?php print kandb_tagcommander_sanitize_for_event($filename); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});"><span class="icon icon-download-pdf"></span></a></div>
                                       </li>
                                     <?php endforeach; ?>
                                 </ul>

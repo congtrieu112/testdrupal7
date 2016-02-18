@@ -61,8 +61,8 @@ $number_one = true;
     </h2>
     <div id="resultType" aria-hidden="true" class="form-dropdown__content form-dropdown__content--last hidden">
       <ul class="ul-unstyled undo-padding">
-        <li class="bordered"><a href="<?php print $link_search_programme; ?>" tabindex="0" >Programmes</a></li>
-        <li class="bordered"><a href="<?php print $link_search_bien; ?>" tabindex="0" >Biens</a></li>
+        <li class="bordered"><a href="<?php print $link_search_programme; ?>" tabindex="0" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'option_tri::afficher_programmes','XTCLICK_EVENT':'C','XTCLICK_S2':'8','XTCLICK_TYPE':'A'});" >Programmes</a></li>
+        <li class="bordered"><a href="<?php print $link_search_bien; ?>" tabindex="0" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'option_tri::afficher_biens','XTCLICK_EVENT':'C','XTCLICK_S2':'8','XTCLICK_TYPE':'A'});" >Biens</a></li>
       </ul>
     </div>
   </div>
@@ -108,14 +108,14 @@ $number_one = true;
                     if($type == t('Appartement')) {
                       $count = count($number_of_piece_by_programme[$row_result['field_programme_nid']]);
                       if($count == 1){
-                        $output .= 'de ' . $number_of_piece_by_programme[$row_result['field_programme_nid']][0] . ' ';
+                        $output .= 'du ' . $number_of_piece_by_programme[$row_result['field_programme_nid']][0] . ' ';
                       }elseif($count > 1){
                         $first = $number_of_piece_by_programme[$row_result['field_programme_nid']][0];
                         if(is_numeric(substr($first, 0, 1))){
                           $first = substr($first, 0, 1);
                         }
                         $last = $number_of_piece_by_programme[$row_result['field_programme_nid']][$count-1];
-                        $output .= 'de '. $first . ' à ' . $last . ' ';
+                        $output .= 'du '. $first . ' à ' . $last . ' ';
                       }
                     }
                     $output .= 'disponible' . (($number >1) ? 's' : '') . ', ';

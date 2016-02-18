@@ -14,7 +14,10 @@ define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
  */
 
 function kandb_theme_preprocess_html(&$variables) {
-  $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  $header = drupal_get_http_header('status');
+  if ($header == '404 Not Found' ||  $variables['is_front'] ){
+    $variables['classes_array'][] = 'homepage';
+  }
   // Change template on AJAX request
   if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'html__ajax';
@@ -255,6 +258,7 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && ($vars['type'] == 'bien' || $vars['type'] == 'programme')) {
+
     $programme = NULL;
     if ($vars['type'] == 'programme') {
       $programme = $vars['node'];
@@ -285,21 +289,29 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && $vars['type'] == 'bien') {
+    $name_program_characteristic_on_bien = array();
     if(isset($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE]) && !empty($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE])) {
       $terms_array = $vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE];
       $terms_ids = array();
       foreach($terms_array as $term){
         $terms_ids[] = $term['tid'];
       }
+      $vars['program_characteristic_on_bien'] = array();
       if($terms = taxonomy_term_load_multiple($terms_ids)){
-        $vars['program_characteristic_on_bien'] = array();
         foreach($terms as $term) {
           if(isset($term->field_show_on_bien_page) && $term->field_show_on_bien_page[LANGUAGE_NONE][0]['value'] == 1) {
             $vars['program_characteristic_on_bien'][] = $term;
+            $name_program_characteristic_on_bien[] = $term->name;
           }
         }
       }
 
+
+    }
+    if(!in_array('Chauffage', $name_program_characteristic_on_bien)){
+      if(isset($vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) && $chauffage = $vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']){
+        $vars['program_characteristic_on_bien'][]->name = "Chauffage";
+      }
     }
   }
 
@@ -316,6 +328,163 @@ function kandb_theme_preprocess_node(&$vars) {
           }
           else {
             drupal_goto(URL_SEARCH_B2C);
+          }
+        }
+      }
+    }
+  }
+
+  // Get list Biens for Bien page
+  global $_domain;
+  $gid = $_domain['domain_id'];
+  $vars['gid'] = $gid;
+
+  $current_nb_pieces = NULL;
+  $list_bien_more = array();
+  if ($vars['type'] == 'bien' && arg(0) == 'node' && is_numeric(arg(1)) && arg(2) == NULL) {
+    $node_bien = node_load(arg(1));
+    $current_nb_pieces = isset($node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $node_bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : NULL;
+    $node = NULL;
+    if (isset($node_bien->field_programme[LANGUAGE_NONE][0]['target_id'])) {
+        $node = node_load($node_bien->field_programme[LANGUAGE_NONE][0]['target_id']);
+        $key = $node_bien->field_programme[LANGUAGE_NONE][0]['target_id'];
+      }
+      if ($node && isset($node->type) && $node->type == 'programme') {
+        $logement_block['title'] = $node->title;
+        $tid = 0;
+        $terms = taxonomy_get_term_by_name('Disponible / Libre');
+        if ($terms) {
+          foreach ($terms as $id => $term) {
+            $tid = $id;
+          }
+        }
+
+      $node_program = $node;
+      $tva = 0; $stock = 0;
+      if($node_program) {
+        $tva = isset($node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value']) ? $node_program->field_tva[LANGUAGE_NONE][0]['taxonomy_term']->field_facteur[LANGUAGE_NONE][0]['value'] : '';
+        $stock = isset($node_program->field_programme_stock[LANGUAGE_NONE][0]['value']) ? $node_program->field_programme_stock[LANGUAGE_NONE][0]['value'] : '';
+      }
+      if ($tid) {
+        $programme_promotion = getListPromotionProgramme($key);
+        if (isset($programme_promotion['node'])) {
+          $logement_block['programme_promotion'] = TRUE;
+        }
+
+        $listBien = countListBienGroupByTypeBien($tid, $key, $gid);
+        $arr_price_remain =  '';
+        if ($listBien->rowCount() > 0) {
+          $listBien = $listBien->fetchAll();
+          foreach ($listBien as $program_list_biens) {
+
+            $bien_id = explode(",", $program_list_biens->bien_id);
+            $biens = node_load_multiple($bien_id);
+            $variables = array();
+            foreach($biens as $bien) {
+              $nb_pieces_tid = isset($bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']) ? $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid'] : '';
+              if($nb_pieces_tid) {
+                $nb_pieces_node = taxonomy_term_load($nb_pieces_tid);
+                if($nb_pieces_node) {
+                  $nb_pieces_weight = $nb_pieces_node->weight;
+                  $nb_pieces_name = $nb_pieces_node->name;
+                }
+              }
+
+              // Images des types de Lots.
+              $img_num_piece = '';
+
+              if (preg_match_all('/(studio|2|3|4|5)/i', $nb_pieces_name, $matches)) {
+
+                if (isset($matches[0][0]) AND $num_piece = $matches[0][0]) {
+                  $img_num_piece_field = is_numeric($num_piece) ? 'field_image_' . $matches[0][0] . '_piece' : 'field_image_' . $matches[0][0];
+                  $img_num_piece = field_get_items('node', $node, $img_num_piece_field);
+                  if (($img_num_piece AND isset($img_num_piece[0]['uri']))) {
+                    $img_num_piece = image_style_url('program_image_num_piece', $img_num_piece[0]['uri']);
+                  } else {
+                    $image_default_number_piece = variable_get('image_default_number_piece_' . $num_piece);
+                    $image_default_number_piece = $image_default_number_piece ? file_load($image_default_number_piece) : '';
+                    $img_num_piece = isset($image_default_number_piece->uri) ? image_style_url('program_image_num_piece', $image_default_number_piece->uri) : '';
+                  }
+                }
+              }
+
+              if($program_list_biens->name == 'Appartement') {
+                $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+                $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+                $logement_block['programme_bien_images'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+                $logement_block['type_de_bien'][$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
+                $variables[$nb_pieces_weight . '-' . $program_list_biens->name . '-' . $bien->field_nb_pieces[LANGUAGE_NONE][0]['tid']][$bien->title]['node'] = $bien;
+              } elseif($program_list_biens->name == 'Maison') {
+                $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['price'] = isset($bien->field_prix_tva_20[LANGUAGE_NONE][0]['value']) ? $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'] : '';
+                $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['superficie'] = isset($bien->field_superficie[LANGUAGE_NONE][0]['value']) ? $bien->field_superficie[LANGUAGE_NONE][0]['value'] : '';
+                $logement_block['programme_bien_images']['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']] = $img_num_piece;
+                $logement_block['type_de_bien']['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']] = $program_list_biens->name;
+                $variables['99-' . $program_list_biens->name . '-' . $bien->field_nb_chambres[LANGUAGE_NONE][0]['tid']][$bien->title]['node'] = $bien;
+              } else {
+                $variables['99-' . $program_list_biens->name][$bien->title]['price'] = $bien->field_prix_tva_20[LANGUAGE_NONE][0]['value'];
+                $variables['99-' . $program_list_biens->name][$bien->title]['superficie'] = $bien->field_superficie[LANGUAGE_NONE][0]['value'];
+                $logement_block['type_de_bien']['99-' .   $program_list_biens->name] = $program_list_biens->name;
+                //$logement_block['programme_bien_images']['99-' . $program_list_biens->name] = $img_num_piece;
+                $variables['99-' . $program_list_biens->name][$bien->title]['node'] = $bien;
+              }
+            }
+
+            $arr_price_max = ''; $arr_price_min = '';
+            foreach($variables as $key => $values) {
+              $logement_block['total_bien'][$key] = ceil(count($values) * $stock / 100);
+              $logement_block['tva_bien'][$key] = $tva;
+
+              $bien_id_max = array_search(max($values), $values);
+              $bien_id_min = array_search(min($values), $values);
+
+              $max = max($values);
+              $arr_price_max[$key][$bien_id_max] = $max;
+              if(isset($arr_price_max[$key][$bien_id_max]['superficie'])) {
+                unset($arr_price_max[$key][$bien_id_max]['superficie']);
+              }
+
+              $min = min($values);
+              $arr_price_min[$key][$bien_id_min] = $min;
+              if(isset($arr_price_min[$key][$bien_id_min]['superficie'])) {
+                unset($arr_price_min[$key][$bien_id_min]['superficie']);
+              }
+
+              $logement_block['price_min_tva20_bien'][$key] = $min['price'];
+              $logement_block['price_min_tva_un_20_bien'][$key] = $min['price'] / 1.2 * ($tva + 1);
+
+              $total_bien_stock = ceil(count($values) * $stock / 100);
+              if($max == $min || ($max != $min && count($values) <= 2)) {
+
+                if(isset($values[$bien_id_max]['superficie'])) {
+                  unset($values[$bien_id_max]['superficie']);
+                }
+                if(isset($values[$bien_id_min]['superficie'])) {
+                  unset($values[$bien_id_min]['superficie']);
+                }
+
+                $arr_price_remain[$key] = array_slice($values, 0, $total_bien_stock);
+              } else {
+                unset($values[$bien_id_max]);
+                unset($values[$bien_id_min]);
+                foreach ($values as $k => $v) {
+                  $arr_price_superficie[$k]['price'] = $v['price'];
+                  $arr_price_superficie[$k]['node'] = $v['node'];
+                }
+                arsort($arr_price_superficie);
+                $arr_merge = array_merge($arr_price_min[$key], $arr_price_max[$key], $arr_price_superficie);
+                $arr_price_remain[$key] = array_slice($arr_merge, 0, $total_bien_stock);
+              }
+            }
+
+            $logement_block['popin_program'] = $arr_price_remain;
+          }
+          foreach($logement_block['popin_program'] as $v) {
+            foreach ($v as $sv) {
+              if ($sv['node']->nid != $node_bien->nid && isset($sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid']) && $sv['node']->field_nb_pieces[LANGUAGE_NONE][0]['tid'] == $current_nb_pieces) {
+                $list_bien_more[] = $sv['node'];
+                $vars['list_bien_more'] = $list_bien_more;
+              }
+            }
           }
         }
       }
@@ -487,6 +656,12 @@ function kandb_theme_preprocess_node(&$vars) {
     $vars['file_fiche_renseignement'] = '';
     if (isset($content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'])) {
       $vars['file_fiche_renseignement'] = $content['field_fiche_renseignement']['#object']->field_fiche_renseignement['und'][0]['uri'];
+    }
+
+    //get link file fiche Prestations du programme
+    $vars['file_prestations_programme'] = '';
+    if (isset($content['field_prestations_programme']['#object']->field_prestations_programme['und'][0]['uri'])) {
+      $vars['file_prestations_programme'] = $content['field_prestations_programme']['#object']->field_prestations_programme['und'][0]['uri'];
     }
 
     //get link file Kit fiscal
@@ -702,6 +877,21 @@ function kandb_theme_preprocess_node(&$vars) {
   $vars['actabilite_date'] = isset($node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value']) ? $node->field_programme_actabilite_date[LANGUAGE_NONE][0]['value'] : '';
 
   $vars['programme_loc_region_kb'] = isset($node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id']) ? $node->field_programme_loc_region_kb[LANGUAGE_NONE][0]['target_id'] : '';
+  if($vars['type'] == 'bien') {
+    $node = &$vars['node'];
+    if (!empty($node->field_type) && isset($node->field_type[LANGUAGE_NONE][0]['tid'])) {
+      $name_taxonomy = taxonomy_term_load($node->field_type[LANGUAGE_NONE][0]['tid']);
+      if (!empty($name_taxonomy) && $name_taxonomy->name == 'Maison') {
+        if (!empty($node->field_bien_type_maison) && isset($node->field_bien_type_maison['und'][0]['target_id'])) {
+          $field_bien_type_maison = $node->field_bien_type_maison['und'][0]['target_id'];
+          $node_maison = node_load($field_bien_type_maison);
+          if (!empty($node_maison)) {
+            $vars['title_maison'] = $node_maison->title;
+          }
+        }
+      }
+    }
+  }
 }
 
 /**
@@ -1147,4 +1337,175 @@ function kandb_theme_pager($variables) {
       'attributes' => array('class' => array('pager')),
     ));
   }
+}
+
+/**
+ * Returns HTML for the "previous page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - interval: The number of pages to move backward when the link is clicked.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_previous($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $interval = $variables['interval'];
+  $parameters = $variables['parameters'];
+  global $pager_page_array;
+  $output = '';
+
+  // If we are anywhere but the first page
+  if ($pager_page_array[$element] > 0) {
+    $page_new = pager_load_array($pager_page_array[$element] - $interval, $element, $pager_page_array);
+
+    // If the previous page is the first page, mark the link as such.
+    $vars = array('text' => $text, 'element' => $element, 'parameters' => $parameters);
+    if(isset($interval) && $interval == 1) $vars['attributes'] = array('rel' => 'prev');
+    if ($page_new[$element] == 0) {
+      $output = theme('pager_first', $vars);
+    }
+    // The previous page is not the first page.
+    else {
+      $vars['page_new'] = $page_new;
+      $output = theme('pager_link', $vars);
+    }
+  }
+  return $output;
+}
+
+/**
+ * Returns HTML for the "next page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - interval: The number of pages to move forward when the link is clicked.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_next($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $interval = $variables['interval'];
+  $parameters = $variables['parameters'];
+  global $pager_page_array, $pager_total;
+  $output = '';
+
+  // If we are anywhere but the last page
+  if ($pager_page_array[$element] < ($pager_total[$element] - 1)) {
+    $page_new = pager_load_array($pager_page_array[$element] + $interval, $element, $pager_page_array);
+    // If the next page is the last page, mark the link as such.
+    $vars = array('text' => $text, 'element' => $element, 'parameters' => $parameters);
+    if(isset($interval) && $interval == 1) $vars['attributes'] = array('rel' => 'next');
+    if ($page_new[$element] == ($pager_total[$element] - 1)) {
+      $output = theme('pager_last', $vars);
+    }
+    // The next page is not the last page.
+    else {
+      $vars['page_new'] = $page_new;
+      $output = theme('pager_link', $vars);
+    }
+  }
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the "first page" link in a query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_first($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $parameters = $variables['parameters'];
+  $attributes = $variables['attributes'];
+  global $pager_page_array;
+  $output = '';
+
+  // If we are anywhere but the first page
+  if ($pager_page_array[$element] > 0) {
+    $output = theme('pager_link', array('text' => $text, 'page_new' => pager_load_array(0, $element, $pager_page_array), 'element' => $element, 'parameters' => $parameters, 'attributes' => $attributes));
+  }
+
+  return $output;
+}
+
+/**
+ * Returns HTML for the "last page" link in query pager.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - text: The name (or image) of the link.
+ *   - element: An optional integer to distinguish between multiple pagers on
+ *     one page.
+ *   - parameters: An associative array of query string parameters to append to
+ *     the pager links.
+ *
+ * @ingroup themeable
+ */
+function kandb_theme_pager_last($variables) {
+  $text = $variables['text'];
+  $element = $variables['element'];
+  $parameters = $variables['parameters'];
+  $attributes = $variables['attributes'];
+  global $pager_page_array, $pager_total;
+  $output = '';
+
+  // If we are anywhere but the last page
+  if ($pager_page_array[$element] < ($pager_total[$element] - 1)) {
+    $output = theme('pager_link', array('text' => $text, 'page_new' => pager_load_array($pager_total[$element] - 1, $element, $pager_page_array), 'element' => $element, 'parameters' => $parameters, 'attributes' => $attributes));
+  }
+
+  return $output;
+}
+
+/**
+ * Get list bien caracteris is checked
+ * @param stdClss() $bien_more
+ * @return array()
+ */
+function get_list_bien_caracteris($bien_more) {
+  $arr_caracteris = array();
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] > 0 ? 'Balcon' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value'] >= 0 ? 'Box' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] >= 0 ? 'Cave' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] > 0 ? 'Jardin' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
+
+  // Remove all value is emtpy in array
+  $arr_caracteris = array_filter($arr_caracteris);
+  $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
+  if ($caracteristiques && count($caracteristiques) > 0) {
+    foreach ($caracteristiques as $caracteristique) {
+      $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
+      if ($term_caracteristique) {
+        if(isset($term_caracteristique->name) && !in_array($term_caracteristique->name, $arr_caracteris)) {
+          $arr_caracteris[] = $term_caracteristique->name;
+        }
+      }
+    }
+  }
+
+  return $arr_caracteris;
 }

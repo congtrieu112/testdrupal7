@@ -115,8 +115,9 @@ $number_pdf = count($node->field_hp_block_document['und']);
     <?php print render($content['habitat_carousel']); ?>
     <?php if ($content['field_hp_block_cta_habitat']['#items'][0]['url'] && $content['field_hp_block_cta_habitat']['#items'][0]['title']): ?>
       <div class="btn-wrapper btn-wrapper--center">
-          <a href="<?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['url']) ? url($content['field_hp_block_cta_habitat']['#items'][0]['url']) : ''; ?>" class="btn-rounded btn-primary"><?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['title']) ? $content['field_hp_block_cta_habitat']['#items'][0]['title'] : ''; ?>
-              <span class="icon icon-arrow"></span>
+          <a href="<?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['url']) ? url($content['field_hp_block_cta_habitat']['#items'][0]['url']) : ''; ?>" class="btn-rounded btn-primary" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'carrousel_nos_references::voir_toutes_nos_offres','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'N'});">
+            <?php print isset($content['field_hp_block_cta_habitat']['#items'][0]['title']) ? $content['field_hp_block_cta_habitat']['#items'][0]['title'] : ''; ?>
+            <span class="icon icon-arrow"></span>
           </a>
       </div>
     <?php endif; ?>

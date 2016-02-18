@@ -24,9 +24,9 @@ $description = variable_get('desciption_group_habitat_section', t('Sed posuere c
                     <?php if (isset($data['type'])): ?>
                       <?php foreach ($data['type'] as $term): ?>
                         <?php if (isset($data['active']) && $term->tid == $data['active']): ?>
-                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>" class="active"><span><?php print $term->name; ?></span></a></li>
+                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>" class="active" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'activites::habitat::<?php print kandb_tagcommander_sanitize_for_event($term->name); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'N'});"><span><?php print $term->name; ?></span></a></li>
                         <?php else: ?>
-                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>"><span><?php print $term->name; ?></span></a></li>
+                          <li class="bordered"><a href="<?php print url('corporate/activites/habitat/' . $term->tid); ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'activites::habitat::<?php print kandb_tagcommander_sanitize_for_event($term->name); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'N'});"><span><?php print $term->name; ?></span></a></li>
                         <?php endif; ?>
                       <?php endforeach; ?>
                     <?php endif; ?>

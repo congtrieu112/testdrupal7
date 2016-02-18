@@ -126,6 +126,131 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
   $explode_url = explode('/', $url['path']);
   if($explode_url[0] == '') array_shift($explode_url);
 
+  $page_cat1 = $page_cat2 = $page_cat3 = $page_name = '';
+  if($explode_url) {
+    $page_cat1 = isset($explode_url[0]) ? $explode_url[0] : '';
+    $page_cat2 = isset($explode_url[1]) ? $explode_url[1] : '';
+    $page_cat3 = isset($explode_url[2]) ? $explode_url[2] : '';
+
+
+    $object = kandb_tagcommander_get_current_object();
+    if(($object->type == 'programme' || $object->type == 'bien') && ($page_cat1 != 'etre-rappele' && $page_cat1 != 'prendre-rendez-vous' && $page_cat1 != 'telechargement-documents')) {
+      $page_cat1 = $page_cat2 = $page_cat3 = '';
+      $page_name = 'page_' . $object->type;
+    }
+    elseif(!$page_cat2 && !$page_cat3) {
+      switch ($page_cat1) {
+        case 'homepage':
+          $page_cat1 = $page_cat2 = $page_cat3 = '';
+          $page_name = 'home_page';
+          break;
+        case 'notre-offre':
+          $page_cat1 = 'notre_offre';
+          $page_name = 'notre_offre';
+          break;
+        case 'etre-rappele':
+          $page_cat1 = 'rappelez_moi';
+          $page_name = 'rappelez_moi_formulaire';
+          break;
+        case 'prendre-rendez-vous':
+          $page_cat1 = 'prendre_rdv';
+          $page_name = 'prendre_rdv_formulaire';
+          break;
+        case 'telechargement-documents':
+          $page_cat1 = 'telechargement_documents';
+          if($_GET['download'] == 'zip') {
+            $page_cat2 = 'tout_telecharger';
+            $page_name = 'tout_telecharger_formulaire';
+          } else {
+            $page_cat2 = 'plaquette';
+            $page_name = 'telecharger_plaquette_formulaire';
+          }
+          break;
+        case 'candidature-spontanee':
+          $referer_path = str_replace($base_url . '/', '', urldecode($_SERVER["HTTP_REFERER"]));
+          if(strpos($referer_path, 'corporate/ressources-humaines/postuler') !== FALSE) {
+            $annonce = $_GET['annonce'];
+            $page_cat1 = 'ressources_humaines';
+            $page_cat2 = 'postuler';
+            $page_cat3 = 'candidature';
+            if($annonce) {
+              $page_name =  'formulaire_candiature_offre_emploi';
+            } else {
+              $page_name = 'formulaire_candiature_spontanee';
+            }
+          }
+          break;
+        default:
+          $page_name = str_replace('-', '_', $page_cat1);
+          $page_cat1 = '';
+          break;
+      }
+    }
+    else {
+      if($page_cat1 == 'content') {
+        $page_cat1 = $page_name = str_replace('-', '_', $page_cat2);
+        $page_cat2 = $page_cat3 = '';
+      }
+      if($page_cat1 == 'nos-outils') {
+        $page_name = str_replace('-', '_', $page_cat2);
+        $page_cat1 = $page_cat2 = $page_cat3 = '';
+      }
+      // Combine path $explode_url[0] with $explode_url[1]
+      $page_cat12 = $page_cat1 . '/' . $page_cat2;
+      switch ($page_cat12) {
+        case 'nos-conseils/pourquoi-acheter-neuf':
+          $page_cat1 = $page_name = 'pourquoi_acheter_neuf';
+          $page_cat2 = $page_cat3 = '';
+          break;
+        case 'nos-conseils/acheter-pour-la-premiere-fois-test':
+          $page_cat1 = $page_name = 'acheter_premiere_fois';
+          $page_cat2 = $page_cat3 = '';
+          break;
+        case 'nos-conseils/concretiser-votre-nouvelle-vie':
+          $page_cat1 = $page_name = 'acheter_avant_avoir_vendu';
+          $page_cat2 = $page_cat3 = '';
+          break;
+        case 'nos-conseils/les-benefices-de-linvestissement-dans-un-bien-immobilier-neuf':
+          $page_cat1 = $page_name = 'investir_dans_neuf';
+          $page_cat2 = $page_cat3 = '';
+          break;
+        case 'nos-conseils/preparer-votre-retraite':
+          $page_cat1 = $page_name = 'bien_vivre_retraite';
+          $page_cat2 = $page_cat3 = '';
+          break;
+      }
+
+      // Corporate page
+      if($page_cat1 == 'corporate') {
+        if($page_cat3 == 'nos-agences' || $page_cat3 == 'nos-showroom') {
+          $page_cat1 = isset($explode_url[1]) ? str_replace('-', '_', $explode_url[1]) : '';
+          $page_cat2 = 'nos-agences';
+          $page_name = isset($explode_url[2]) ? str_replace('-', '_', $explode_url[2]) : '';
+        }
+        elseif ($page_cat3 == 'postuler') {
+          $page_cat1 = isset($explode_url[1]) ? str_replace('-', '_', $explode_url[1]) : '';
+          $page_cat2 = 'postuler';
+          $page = isset($_GET['page']) ? $_GET['page'] + 1 : 1;
+          $page_name = 'postuler_' . $page;
+        }
+        else {
+          $page_cat1 = isset($explode_url[1]) ? str_replace('-', '_', $explode_url[1]) : '';
+          $page_cat2 = '';
+          $page_name = isset($explode_url[2]) ? str_replace('-', '_', $explode_url[2]) : 'actualites';
+          $tid = isset($explode_url[3]) ? str_replace('-', '_', $explode_url[3]) : '';
+          if($tid) {
+            $term = taxonomy_term_load($tid);
+            if($term) {
+              $page_name = isset($term->name) ? str_replace(' ', '_', strtolower($term->name)) : '';
+              $page_cat2 = isset($explode_url[2]) ? str_replace('-', '_', $explode_url[2]) : '';
+            }
+          }
+        }
+        $page_cat3 = '';
+      }
+    }
+  }
+
   $return = '';
   switch($variable) {
 
@@ -135,14 +260,18 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         $return = 'home';
       }elseif($explode_url[0] == 'recherche') {
         $return = 'resultats';
-      }else{
+      }elseif($explode_url[0] == 'mon-espace') {
+        $return = 'mes_selections';
+      }else {
         $object = menu_get_object();
-        if(is_object($object) && isset($object->type)){
+        if (is_object($object) && isset($object->type)) {
           if ($object->type == 'programme') {
             $return = 'programme';
-          }elseif($object->type == 'webform') {
+          }
+          elseif ($object->type == 'webform') {
             $return = 'formulaire_step1';
-          }elseif($object->type == 'programme') {
+          }
+          elseif ($object->type == 'programme') {
             $return = 'formulaire/confirmation'; // TODO : Refaire le tag commander après un appel ajax de webform
           }
         }
@@ -214,16 +343,16 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
 
     /* Tree structure */
     case 'page_cat1':
-      $return = isset($explode_url[0]) ? $explode_url[0] : '';
+      $return = $page_cat1;
       break;
     case 'page_cat2':
-      $return = isset($explode_url[1]) ? $explode_url[1] : '';
+      $return = $page_cat2;
       break;
     case 'page_cat3':
-      $return = isset($explode_url[2]) ? $explode_url[2] : '';
+      $return = $page_cat3;
       break;
     case 'page_name':
-      $return = drupal_get_title();
+      $return = $page_name; 
       break;
     case 'error_type':
       $status = drupal_get_http_header("status");
@@ -404,7 +533,7 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
       */
       if(drupal_is_front_page()){
         $return = 1; // Accueil
-      }elseif($explode_url[0] == 'notre-offre'){
+      }elseif($explode_url[0] == 'notre-offre' || (isset(menu_get_object()->type) && in_array(menu_get_object()->type, array('programme', 'bien')))){
         $return = 2; // Nos offres
       }elseif($explode_url[0] == 'nos-services'){ // TODO : does not exist
         $return = 3; // Nos services
@@ -418,16 +547,18 @@ function kandb_tagcommander_preprocess_variable_value($value, $variable){
         $return = 7; // Mon espace
       }elseif($explode_url[0] == 'recherche'){
         $return = 8; // Moteur interne
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 9; // Nos offres
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 10; // Nos offres
-      }elseif($explode_url[0] == 'nos-offres'){ // TODO : What is this ?
-        $return = 11; // Nos offres
+      }elseif(FALSE){ // TODO : What is this ?
+        $return = 9; // Annexes
+      }elseif(isset(menu_get_object()->type) && menu_get_object()->type == 'webform'){ // TODO : What is this ?
+        $return = 10; // Page d'objectif
       }
       break;
     case 'xt_page':
-      $return = implode('::', $explode_url);
+      if(drupal_is_front_page()){
+        $return = 'home_page';
+      }else {
+        $return = implode('::', $explode_url);
+      }
       break;
   }
 
@@ -445,4 +576,13 @@ function kandb_tagcommander_get_current_object(){
     $object = menu_get_object();
   }
   return $object;
+}
+
+function kandb_tagcommander_sanitize_for_event($string){
+  $string = strtr($string, '_', ' ');
+  $string = preg_replace("#[[:punct:]]#", "", $string);
+  $string = strtr(utf8_decode($string), utf8_decode('àáâãäçèéêëìíîïñòóôõöùúûüýÿÀÁÂÃÄÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝ -'), 'aaaaaceeeeiiiinooooouuuuyyAAAAACEEEEIIIINOOOOOUUUUY__');
+  $string = strtolower($string);
+  $string = trim($string, " \t\n\r\0\x0B_");
+  return $string;
 }

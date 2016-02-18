@@ -275,6 +275,12 @@ if($nb_pieces_name == 'studio') {
               <h1 class="heading heading--bordered">
                 <div class="heading__title">
                   <?php print $heading_title; ?>
+                  <?php
+                  if(isset($title_maison)) :
+                    print $title_maison;
+                  endif;
+                  ?>
+
                   <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
                   <?php print t('Lot') . ' ' . $bien_id ?>
                 </div>
@@ -717,27 +723,9 @@ if (!empty($list_bien_more)):
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
-                                                    $arr_caracteris = array();
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
-
-                                                    $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
-                                                    if ($caracteristiques && count($caracteristiques) > 0) {
-                                                      foreach ($caracteristiques as $caracteristique) {
-                                                        $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
-                                                        if ($term_caracteristique) {
-                                                          $arr_caracteris[] = $term_caracteristique->name;
-                                                        }
-                                                      }
-                                                    }
-
-                                                    $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
-
+                                                      $arr_caracteris = get_list_bien_b2b_caracteris($bien_more);
+                                                      $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+                                                      $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
                                                       <?php foreach ($arr_caracteris as $caracteris) : ?>
