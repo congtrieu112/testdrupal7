@@ -268,13 +268,11 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                     <!-- [back link] start-->
                     <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
-                      <div class="heading__title smaller">
-                        <?php
-                        if(isset($title_maison)) {
-                          print $title_maison;
-                        }
-                        ?>
-                      </div>
+                      <?php if(isset($title_maison)) : ?>
+                        <div class="heading__title smaller">
+                          <?php print $title_maison; ?>
+                        </div>
+                      <?php endif;?>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -636,27 +634,9 @@ if ($habiteo_id && $virtuelle):
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
-                                                    $arr_caracteris = array();
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
-
-                                                    $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
-                                                    if ($caracteristiques && count($caracteristiques) > 0) {
-                                                      foreach ($caracteristiques as $caracteristique) {
-                                                        $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
-                                                        if ($term_caracteristique) {
-                                                          $arr_caracteris[] = $term_caracteristique->name;
-                                                        }
-                                                      }
-                                                    }
-
-                                                    // $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    // $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
-
+                                                      $arr_caracteris = get_list_bien_caracteris($bien_more);
+                                                      $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+                                                      $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
                                                       <?php foreach ($arr_caracteris as $caracteris) : ?>

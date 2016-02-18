@@ -50,7 +50,7 @@ function kandb_contact_menu() {
     'page callback' => 'document_download',
     'page arguments' => array(1),
     'type' => MENU_NORMAL_ITEM,
-    'access arguments' => array('access download'),
+    'access arguments' => array('access content'),
   );
 
   return $items;

@@ -1,0 +1,12 @@
+<?php
+
+/**
+ * Add default value for configure email
+ */
+function kb_mail_update_7100(&$sandbox) {
+  variable_set('kb_call_center_sender_name', 'Kaufman and Broad');
+  variable_set('kb_call_center_sender_mail', 'noreply@kaufmanbroad.fr');
+  variable_set('kb_call_center_reply_name', 'Kaufman & Broad');
+  variable_set('kb_call_center_reply_mail', 'noreply@kaufmanbroad.fr');
+  variable_set('kb_call_center_mailing_list', "Webcallcenter@ketb.com\nwebmaster@ketb.com");
+}

@@ -189,6 +189,7 @@ dependencies[] = kandb_views_habitat_carousel
 dependencies[] = kandb_tagcommander
 dependencies[] = kandb_plan_du_site
 dependencies[] = kandb_menu_b2b
+dependencies[] = kandb_imce
 
 ; Blocks
 dependencies[] = kandb_recherche
