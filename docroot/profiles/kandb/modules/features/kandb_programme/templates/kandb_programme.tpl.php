@@ -141,16 +141,20 @@ ksort($logement_block['total_bien']);
                                               $arr_caracteris[] = isset($biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
                                               $arr_caracteris[] = isset($biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $biens->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
 
+                                              // Remove all value is emtpy in array
+                                              $arr_caracteris = array_filter($arr_caracteris);
                                               $caracteristiques = isset($biens->field_caracteristique[LANGUAGE_NONE]) ? $biens->field_caracteristique[LANGUAGE_NONE] : '';
                                               if ($caracteristiques && count($caracteristiques) > 0) {
                                                 foreach ($caracteristiques as $caracteristique) {
                                                   $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
                                                   if ($term_caracteristique) {
-                                                    $arr_caracteris[] = $term_caracteristique->name;
+                                                    // Add value to array when it not exists in array
+                                                    if(isset($term_caracteristique->name) && !in_array($term_caracteristique->name, $arr_caracteris)) {
+                                                      $arr_caracteris[] = $term_caracteristique->name;
+                                                    }
                                                   }
                                                 }
                                               }
-
                                               // $arr_caracteris[] = isset($biens->field_cave_description[LANGUAGE_NONE][0]['value']) ? $biens->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
                                               // $arr_caracteris[] = isset($biens->field_parking_description[LANGUAGE_NONE][0]['value']) ? $biens->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
 
