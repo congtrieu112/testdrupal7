@@ -53,6 +53,26 @@ function kandb_b2b_menu() {
     'access arguments' => array('administer K&B B2B content'),
   );
 
+
+  $items['admin/content/kandb-b2b/register'] = array(
+    'title' => 'Register Page',
+    'type' => MENU_LOCAL_TASK,
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('kandb_b2b_register_page_settings'),
+    'file' => 'kandb_b2b.admin.inc',
+    'access callback' => 'user_access',
+    'access arguments' => array('administer K&B B2B content'),
+  );
+
+  $items['user/register-confirmation'] = array(
+    'title' => 'Register Confirmation',
+    'page callback' => 'render_b2b_register_confirmation',
+    'file' => 'kandb_b2b.inc',
+    'access callback' => 'kandb_b2b_check_domain',
+    'type' => MENU_CALLBACK,
+  );
+
+
   return $items;
 }
 
@@ -93,6 +113,19 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
       'template' => 'templates/b2b_homepage',
       'variables' => array(),
     ),
+    'kandb_b2b_user_login_popin_form' => array(
+      'render element' => 'form',
+      'template' => 'templates/kandb_b2b_user_login_popin_form',
+    ),
+    'b2b_register_header' => array(
+      'template' => 'templates/b2b_register_header',
+      'variables' => array(),
+    ),
+    'b2b_register_confirmation' => array(
+      'template' => 'templates/b2b_register_confirmation',
+      'variables' => array(),
+
+    ),
   );
 }
 
@@ -123,4 +156,70 @@ function kandb_b2b_date_format_types() {
  */
 function kandb_b2b_user_login(&$edit, $account) {
   $edit['redirect'] = 'dash-board';
+}
+
+
+function kandb_b2b_form_user_login_alter(&$form, &$form_state) {
+  // Username textfield .
+  $form['name']['#theme_wrappers'] = NULL;
+  $form['name']['#description'] = '';
+  $form['name']['#attributes']['required'] = 'required';
+  $form['name']['#attributes']['placeholder'] = t('Votre identifiant');
+
+  // Password textfield.
+  $form['pass']['#theme_wrappers'] = NULL;
+  $form['pass']['#description'] = '';
+  $form['pass']['#attributes']['required'] = 'required';
+  $form['pass']['#attributes']['placeholder'] = t('Votre mot de passe');
+
+  // Remember me checkbox.
+  $form['remember_me']['#theme_wrappers'] = NULL;
+
+  // Submit button.
+  $form['actions']['#theme_wrappers'] = NULL;
+  $form['actions']['submit']['#value'] = t('Me connecter');
+  $form['actions']['submit']['#attributes']['class'] = array('btn-primary', 'btn-rounded');
+
+
+  if (isset($form_state['build_info']['args'][0]['position'])) {
+    $position = $form_state['build_info']['args'][0]['position'];
+    switch ($position) {
+      case 'popin':
+        $form['#theme'] = 'kandb_b2b_user_login_popin_form';
+        break;
+
+      default:
+        break;
+    }
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function kandb_form_user_register_form_alter(&$form, &$form_state) {
+  global $user, $theme;
+  if ($theme == 'kandb_b2b_theme') {
+    $form['account']['name']['#required'] = FALSE;
+    $form['field_user_nom'][LANGUAGE_NONE][0]['value']['#required'] = TRUE;
+    $form['field_prenom'][LANGUAGE_NONE][0]['value']['#required'] = TRUE;
+    $form['field_user_societe'][LANGUAGE_NONE][0]['value']['#required'] = TRUE;
+    $form['field_user_adresse'][LANGUAGE_NONE][0]['value']['#required'] = TRUE;
+    $form['#validate'][] = 'kandb_user_register_validate';
+    $form['#submit'][] = 'kandb_redirect_after_register';
+  }
+}
+
+/**
+ * Implement hook_form_validate().
+ */
+function kandb_user_register_validate(&$form, &$form_state) {
+// TODO for validate advance.
+}
+
+/**
+ * Implement action after register success.
+ */
+function kandb_redirect_after_register($form, &$form_state) {
+  $form_state['redirect'] = 'user/register-confirmation';
 }

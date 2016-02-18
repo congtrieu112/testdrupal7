@@ -24,32 +24,15 @@ function kandb_theme_theme() {
     ),
   );
 
+  $items['user_register_form'] = array(
+    'render element' => 'form',
+    'template' => 'templates/forms/user_register_form',
+    'preprocess functions' => array(
+      'kandb_theme_preprocess_user_register_form'
+    ),
+  );
+
   return $items;
-}
-
-/**
- * Implements of preprocess user login form.
- */
-function kandb_theme_preprocess_user_login(&$vars) {
-  // Username textfield .
-  $vars['form']['name']['#theme_wrappers'] = NULL;
-  $vars['form']['name']['#description'] = '';
-  $vars['form']['name']['#attributes']['required'] = 'required';
-  $vars['form']['name']['#attributes']['placeholder'] = t('Votre identifiant');
-
-  // Password textfield.
-  $vars['form']['pass']['#theme_wrappers'] = NULL;
-  $vars['form']['pass']['#description'] = '';
-  $vars['form']['pass']['#attributes']['required'] = 'required';
-  $vars['form']['pass']['#attributes']['placeholder'] = t('Votre mot de passe');
-
-  // Remember me checkbox.
-  $vars['form']['remember_me']['#theme_wrappers'] = NULL;
-
-  // Submit button.
-  $vars['form']['actions']['#theme_wrappers'] = NULL;
-  $vars['form']['actions']['submit']['#value'] = t('Me connecter');
-  $vars['form']['actions']['submit']['#attributes']['class'] = array('btn-primary', 'btn-rounded');
 }
 
 /**
@@ -77,6 +60,60 @@ function kandb_b2b_theme_preprocess_region(&$vars) {
  */
 function kandb_b2b_theme_preprocess_html(&$vars) {
   $vars['classes_array'][] = 'homepage b2b';
+}
+
+/**
+ * Implement hook_preprocess_user_register_form().
+ */
+function kandb_theme_preprocess_user_register_form(&$vars) {
+  $vars['form']['account']['name']['#theme_wrappers'] = NULL;
+  $vars['form']['account']['name']['#description'] = '';
+
+  $vars['form']['account']['mail']['#theme_wrappers'] = NULL;
+  $vars['form']['account']['mail']['#description'] = '';
+  $vars['form']['account']['mail']['#attributes']['required'] = 'required';
+
+  $vars['form']['group_profile']['field_user_nom'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_nom'][LANGUAGE_NONE]['#description'] = '';
+  $vars['form']['group_profile']['field_user_nom'][LANGUAGE_NONE][0]['value']['#attributes']['required'] = 'required';
+
+  $vars['form']['group_profile']['field_prenom'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_prenom'][LANGUAGE_NONE]['#description'] = '';
+  $vars['form']['group_profile']['field_prenom'][LANGUAGE_NONE][0]['value']['#attributes']['required'] = 'required';
+
+  $vars['form']['group_profile']['field_user_societe'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_societe'][LANGUAGE_NONE]['#description'] = '';
+  $vars['form']['group_profile']['field_user_societe'][LANGUAGE_NONE][0]['value']['#attributes']['required'] = 'required';
+
+  $vars['form']['group_profile']['field_user_adresse'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_adresse'][LANGUAGE_NONE]['#description'] = '';
+  $vars['form']['group_profile']['field_user_adresse'][LANGUAGE_NONE][0]['value']['#attributes']['required'] = 'required';
+
+  $vars['form']['group_profile']['field_user_code_postal'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_code_postal'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_telephone'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_telephone'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_portable'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_portable'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_message'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_message'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_pays'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_pays'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_ville'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_ville'][LANGUAGE_NONE]['#description'] = '';
+
+  $vars['form']['group_profile']['field_user_email'][LANGUAGE_NONE][0]['value']['#theme_wrappers'] = NULL;
+  $vars['form']['group_profile']['field_user_email'][LANGUAGE_NONE]['#description'] = '';
+
+
+  // Submit button.
+  $vars['form']['actions']['#theme_wrappers'] = NULL;
+  $vars['form']['actions']['submit']['#value'] = t('Envoyer');
 }
 
 /**

@@ -1089,6 +1089,15 @@ function kandb_update_7210() {
 }
 
 /**
+ * Enable Email Registration module
+ */
+function kandb_update_7211() {
+  if (!module_exists('email_registration')) {
+    module_enable(array('email_registration'), TRUE);
+  }
+}
+
+/**
  * Enable KandbB geolocation module
  */
 function kandb_update_7215() {

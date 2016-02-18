@@ -17,7 +17,7 @@
 <div class="homepageB2B__login--inlineGroup">
   <div class="homepageB2B__login--checkbox">
     <?php print drupal_render($form['remember_me']); ?>
-    <label for="rememberMe" class="label-checkbox">
+    <label for="<?php print $form['remember_me']['#id']; ?>" class="label-checkbox">
       <span><?php print t('Se souvenir de moi'); ?></span>
     </label>
   </div>

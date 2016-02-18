@@ -103,6 +103,7 @@ dependencies[] = acquia_purge
 dependencies[] = cacheexclude
 dependencies[] = date_popup
 dependencies[] = tagcommander
+dependencies[] = email_registration
 
 ; Custom
 dependencies[] = kb_feeds

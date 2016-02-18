@@ -13,7 +13,7 @@ function render_b2b_homepage() {
   $login_form = array();
   global $user;
   if (!$user->uid) {
-    $login_form = drupal_get_form("user_login");
+    $login_form = drupal_get_form("user_login", array('position' => 'content'));
   }
 
   // Selected program.
@@ -86,4 +86,11 @@ function render_b2b_homepage() {
     'program_address' => $program_address,
     'program_promotions' => $program_promotions,
   ));
+}
+
+/**
+ * Render Register confirmation page.
+ */
+function render_b2b_register_confirmation() {
+  return theme('b2b_register_confirmation');
 }

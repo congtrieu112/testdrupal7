@@ -61,6 +61,28 @@ $username = isset($user->name) ? $user->name : '';
         </ul>
         <?php endif; ?>
       </div>
+      <?php else: ?>
+        <div aria-label="Menu principal" class="header__menu">
+          <ul class="main-menu">
+            <li class="main-menu__item"><a href="#" class="btn-primary btn-rounded">Inscrivez-vous</a><a href="#" class="mobile">Inscrivez-vous</a></li>
+            <li class="main-menu__item">
+              <!-- [buttonDropdownPopin] start-->
+              <button data-dropdown="buttonDropdownPopin" aria-controls="buttonDropdownPopin" aria-expanded="false" type="button" class="btn-secondary btn-rounded">Connectez-vous
+              </button>
+              <div id="buttonDropdownPopin" data-dropdown-content="data-dropdown-content" role="menu" aria-hidden="true" tabindex="-1" aria-autoclose="false" class="f-dropdown login-form">
+                  <aside class="login">
+                    <h2 class="heading heading--small"><b class="heading__title">Déjà partenaire?</b></h2>
+                    <?php
+                      $login_form = drupal_get_form('user_login', array('position' => 'popin'));
+                      print drupal_render($login_form);
+                    ?>
+                  </aside>
+              </div>
+              <!-- [buttonDropdownPopin] end--><a href="partials/login.html" data-reveal-id="popinLeadForm" data-reveal-ajax="true" class="mobile">Connectez-vous</a>
+            </li>
+            <li class="main-menu__item"><a href="index.html" class="mobile">Accueil</a></li>
+          </ul>
+        </div>
       <?php endif; ?>
     </nav>
   </div>
