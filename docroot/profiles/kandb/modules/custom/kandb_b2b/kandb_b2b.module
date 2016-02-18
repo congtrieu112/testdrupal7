@@ -113,7 +113,6 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
       'template' => 'templates/b2b_homepage',
       'variables' => array(),
     ),
-
     'kandb_b2b_user_login_popin_form' => array(
       'render element' => 'form',
       'template' => 'templates/kandb_b2b_user_login_popin_form',
@@ -159,7 +158,7 @@ function kandb_b2b_user_login(&$edit, $account) {
   $edit['redirect'] = 'dash-board';
 }
 
-<<<<<<< HEAD
+
 function kandb_b2b_form_user_login_alter(&$form, &$form_state) {
   // Username textfield .
   $form['name']['#theme_wrappers'] = NULL;
@@ -193,7 +192,8 @@ function kandb_b2b_form_user_login_alter(&$form, &$form_state) {
         break;
     }
   }
-=======
+}
+
 /**
  * Implements hook_form_FORM_ID_alter().
  */
@@ -222,5 +222,4 @@ function kandb_user_register_validate(&$form, &$form_state) {
  */
 function kandb_redirect_after_register($form, &$form_state) {
   $form_state['redirect'] = 'user/register-confirmation';
->>>>>>> 3716d3d128120a928db41447f02e5ac4e5ab21a7
 }
