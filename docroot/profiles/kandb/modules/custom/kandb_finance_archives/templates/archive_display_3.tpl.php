@@ -28,7 +28,7 @@
                   $document_file = base_path() . 'download-document-file/' . $file['fid'];
                   ?>
                   <?php if ($document_file != '') : ?>
-                  <div class="downloadDocs__item__link"><a href="<?php print $document_file; ?>" title="<?php print $file['filename']; ?>"><span class="icon icon-download-pdf"></span></a></div>
+                  <div class="downloadDocs__item__link"><a href="<?php print $document_file; ?>" title="<?php print $file['filename']; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'finance::archives::<?php print kandb_tagcommander_sanitize_for_event($filename); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'5','XTCLICK_TYPE':'T'});"><span class="icon icon-download-pdf"></span></a></div>
                   <?php endif; ?>
                 <?php endforeach; ?>
               <?php endif; ?>

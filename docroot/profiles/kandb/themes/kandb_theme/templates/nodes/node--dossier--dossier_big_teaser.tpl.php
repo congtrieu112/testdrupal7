@@ -6,10 +6,10 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <?php print render($title_prefix); ?>
     <?php print render($title_suffix); ?>
     <?php if ($video_id): ?>
-      <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print $node->title; ?>" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white">
+      <a href="https://www.youtube.com/watch?v=<?php print $video_id; ?>" title="<?php print $node->title; ?>" data-reveal-id="videoConseilMain" data-interchange="[<?php print image_style_url('dossier_big_teaser_mobile', $content['field_dossier_image']['#items'][0]['uri']); ?>, (small)], [<?php print image_style_url('dossier_big_teaser', $content['field_dossier_image']['#items'][0]['uri']); ?>, (medium)]" class="homeDocs__main__link heading heading--white" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::player_video::video_<?php print kandb_tagcommander_sanitize_for_event($node->title); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'A'});" >
           <h3 class="heading__title"><?php print $node->title; ?></h3>
           <div class="btn-icon">
-              <span class="button__content" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::player_video::video_acheter_neuf','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'A'});">
+              <span class="button__content" >
                   <span class="icon icon-play"></span>
                   <?php print t('Lire la vidéo'); ?>
               </span>
@@ -34,7 +34,7 @@ $video_id = isset($node->field_dossier_video[LANGUAGE_NONE][0]['video_id']) ? $n
     <div class="homeDocs__main__desc">
         <p class="color-jet"><?php print nl2br($node->field_dossier_introduction[LANGUAGE_NONE][0]['value']); ?></p>
         <div class="btn-wrapper">
-            <a href="<?php print url('node/' . $node->nid); ?>" class="btn-secondary btn-rounded">
+            <a href="<?php print url('node/' . $node->nid); ?>" class="btn-secondary btn-rounded" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'nos_conseils::dossiers::dossier_<?php print kandb_tagcommander_sanitize_for_event($node->title); ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'1','XTCLICK_TYPE':'N'});" >
                 <?php print t('Lire le dossier'); ?>
                 <span class="icon icon-arrow"></span>
             </a>
