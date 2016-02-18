@@ -14,15 +14,6 @@ $iframe_url = $base_url . '/nos-outils/simulateur-mensualites-remboursement-calc
     <h1 class="heading__title"><?php print !empty($title) ? $title : t('Estimer les mensualités de remboursement'); ?></h1>
     <p class="heading__title heading__title--sub"><?php print $subtitle; ?></p>
   </header>
-  <div class="swapItem">
-    <div class="swapItem__1">
-    <div class="wrapper--medium-up">
-      <div class="iframe iframe--scrollMobile" style="min-height: 320px">
-          <iframe src="" data-src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="no" class="iframe__content"></iframe>
-      </div>
-    </div>
-    </div>
-  </div>
-  
+  <iframe width="100%" height="320" src="<?php print $iframe_url; ?>" frameborder="0" allowfullscreen="allowfullscreen" allowtransparency="true" scrolling="yes"></iframe>
 </section>
 <!-- [content Advice] end-->

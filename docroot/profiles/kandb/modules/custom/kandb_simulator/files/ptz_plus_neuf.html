@@ -6,245 +6,236 @@ sont d&eacute;pos&eacute;s par ALTO Informatique, 33 Av. du Maine, 75015 Paris.
 Tous droits r&eacute;serv&eacute;s.
 -->
 
-<HEAD>
 
-<!-- ********* Texte ci-dessous a inserer dans votre balise <HEAD> ********* -->
-
-<title>Pr&ecirc;t &agrave; taux z&eacute;ro Plus</title>
-
-<script language="JavaScript">
-
-//---------------------------------------------------------------------
-//---Auteur: ALTO Informatique - www.alto-informatique.com-------------
-//---1998 - 2016 - Tous droits deposes---------------------------------
-//---------------------------------------------------------------------
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function GetBaremePtz()
-{
-//---bareme 2016---------
-
-var b =
-  { PrixMax:
-    [[150000, 210000, 255000, 300000, 345000] // AB1B2C/NbPers
-    ,[135000, 189000, 230000, 270000, 311000]
-    ,[110000, 154000, 187000, 220000, 253000]
-    ,[100000, 140000, 170000, 200000, 230000]
-    ]
-   ,QuotiteMax:
-   [[40,40,40,40] // neuf,remis a neuf, ancien+trav
-   ,[10,10,10,10] // ancien HLM
-   ]
-   ,CoeffMenage: [1, 1.4, 1.7, 2, 2.3, 2.6, 2.9, 3.2]
-   ,TRgiMax: [37000, 30000, 27000, 24000] // AB1B2C
-   ,NbDivTotal:9
-   ,NbTranche:3
-   ,tmr:
-    [{RgiMax: [22000,19500,16500,14000], NbMoisP1: 180, NbMoisP2: 120, PCentAmortP2 :100}
-    ,{RgiMax: [25000,21500,18000,15000], NbMoisP1: 120, NbMoisP2: 144, PCentAmortP2 :100}
-    ,{RgiMax: [37000,30000,27000,24000], NbMoisP1:  60, NbMoisP2: 180, PCentAmortP2 :100}
-    ]
-    ,codif:
-    {
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- ********* Texte ci-dessous a inserer dans votre balise <HEAD> *********-->
+    <title>Widget Alto </title>
+    <style>
+      //- #AltoPtz { vertical-align:top; margin-top:25px; max-width:632px; }
+      //- #PtzTitre { margin-bottom:10px; }
+      //- #PtzInput { display:inline-table; margin-left:2px; margin-right:2px; margin-bottom:8px; width:330px }
+      //- #PtzResult { display:inline-table; margin-left:2px; margin-right:2px; width:280px }
+      //- #PtzInfoRFR { margin-left:2px; margin-right:2px; }
+      //- #PtzInfoRFR { font-family: Arial; font-size: 10pt; color: #000044; text-align:left; margin-top:10px; margin-bottom:10px; }
+      #AltoPtz .HideIfOnlyNeuf { display:none; /* none + supprimez egalement dans la liste de choix les choix autres que "Neuf" */ }
+      //- #AltoPtz table { border-collapse:separate; border-spacing:6px; }
+      //- #AltoPtz .tab1 { border: solid #355B95 1px; border-spacing:1px; }
+      //- #AltoPtz .put1{ font-family: Arial; font-size: 10pt; border-width: 1px; border-style: solid; border-color: #7F9DB9; }
+      //- #AltoPtz .td0 { font-family: Arial; font-size: 11pt; color: #FFFFFF; background-color: #355B95; font-weight: bold; padding:4px; }
+      //- #AltoPtz .td1 { font-family: Arial; font-size: 10pt; color: #000044; background-color: #E0E2F9; padding:2px 4px 1px 4px; }
+      //- #AltoPtz .td1f{ font-family: Arial; font-size: 10pt; color: #000044; background-color: #C0C0C0; padding:1px; }
+      //- #AltoPtz .td1t{ font-family: Arial; font-size: 10pt; color: #FFFFFF; background-color: #80B0D0; padding:2px 3px; }
+      //- #AltoPtz .td1p{ font-family: Arial; font-size: 10pt; color: #000000; background-color: #E0E2F9; }
+      //- #AltoPtz .td2 { font-family: Arial; font-size: 10pt; color: #FFFFFF; background-color: #355B95; padding:3px; }
+      //- #AltoPtz .tdg { background-color: #E0E2F9; padding:4px 0px; }
+      //- #AltoPtz .tdg table { border-spacing:3px; }
+      //- #AltoPtz .titre1 { font-family: Arial; font-size: 12pt; font-weight: bold; color: #000080; }
+      //- #AltoPtz .titre2 { font-family: Arial; font-size: 12pt; font-weight: bold; color: #000040; }
+      //- #AltoPtz .note0 { font-family: Arial; font-size: 8pt; }
+      //- #AltoPtz .note1 { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; }
+      //- #AltoPtz a.note1 { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:none; }
+      //- #AltoPtz a.note1:visited { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:none; }
+      //- #AltoPtz a.note1:hover { font-family: Arial; font-size: 8pt; font-style: italic; color: #909090; text-decoration:underline; background-color:#FFFFFF; }
+      
+    </style>
+    <link rel="stylesheet" href="/profiles/kandb/themes/kandb_theme/css/app-alto.css">
+    <script src="/profiles/kandb/themes/kandb_theme/js/modernizr.js"></script>
+    <script language="JavaScript">
+      //---------------------------------------------------------------------
+      //---Auteur: ALTO Informatique - www.alto-informatique.com-------------
+      //---1998 - 2016 - Tous droits deposes---------------------------------
+      //---------------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function GetBaremePtz()
+      {
+      //---bareme 2016---------
+      var b =
+      { PrixMax:
+      [[150000, 210000, 255000, 300000, 345000] // AB1B2C/NbPers
+      ,[135000, 189000, 230000, 270000, 311000]
+      ,[110000, 154000, 187000, 220000, 253000]
+      ,[100000, 140000, 170000, 200000, 230000]
+      ]
+      ,QuotiteMax:
+      [[40,40,40,40] // neuf,remis a neuf, ancien+trav
+      ,[10,10,10,10] // ancien HLM
+      ]
+      ,CoeffMenage: [1, 1.4, 1.7, 2, 2.3, 2.6, 2.9, 3.2]
+      ,TRgiMax: [37000, 30000, 27000, 24000] // AB1B2C
+      ,NbDivTotal:9
+      ,NbTranche:3
+      ,tmr:
+      [{RgiMax: [22000,19500,16500,14000], NbMoisP1: 180, NbMoisP2: 120, PCentAmortP2 :100}
+      ,{RgiMax: [25000,21500,18000,15000], NbMoisP1: 120, NbMoisP2: 144, PCentAmortP2 :100}
+      ,{RgiMax: [37000,30000,27000,24000], NbMoisP1:  60, NbMoisP2: 180, PCentAmortP2 :100}
+      ]
+      ,codif:
+      {
       ZONE_A  :1,
       ZONE_B1 :12,
       ZONE_B2 :22,
       ZONE_C  :3,
-
       TACHAT_NEUF        :1,
       TACHAT_REMIS_A_NEUF:3,
       TACHAT_ANCIEN_TRAV :20,
       TACHAT_ANCIEN_HLM  :21,
       TACHAT_AUTRE       :99,
-
       //---PrixMax[i][], QuotiteMax[][i], tmr[].RgiMax[i]----
       RGLPTZP_IZ_A  :0, // en zone A
       RGLPTZP_IZ_B1 :1, // en zone B1
       RGLPTZP_IZ_B2 :2, // en zone B2
       RGLPTZP_IZ_C  :3, // en zone C
-
       //---PrixMax[][i], CoeffMenage[i]---
       RGLPTZP_IP_1PERSO :0,
       RGLPTZP_IP_2PERSO :1,
       RGLPTZP_IP_3PERSO :2,
       RGLPTZP_IP_4PERSO :3,
       RGLPTZP_IP_5PLUS  :4,
-
       QUOTITE_I_NEUF_RN    :0,
       QUOTITE_I_ANCIEN_HLM :1
-    }
-  };
-
-return(b);
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function FormateAnMois(nMois)
-{
-var s="";
-var NbMois=(nMois%12);
-var NbAn  =Math.floor(nMois/12);
-
-if(NbAn>0)
-    { s+=""+NbAn+" an";
+      }
+      };
+      return(b);
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function FormateAnMois(nMois)
+      {
+      var s="";
+      var NbMois=(nMois%12);
+      var NbAn  =Math.floor(nMois/12);
+      if(NbAn>0)
+      { s+=""+NbAn+" an";
       if(NbAn>1) s+="s";
-    }
-if(NbMois>0)
-    { if(NbAn>0) s+=" et ";
+      }
+      if(NbMois>0)
+      { if(NbAn>0) s+=" et ";
       s+=""+NbMois+" mois";
-    }
-
-return(s);
-}
-
-
-function FormateVal(val, NbDeci, flag)
-{
-var s="";
-
-if(val!=null && !isNaN(val))
-    {
+      }
+      return(s);
+      }
+      function FormateVal(val, NbDeci, flag)
+      {
+      var s="";
+      if(val!=null && !isNaN(val))
+      {
       var l,i,tmp,signe;
-
       var separe=" ";
       if(flag!=null)
-          { if(flag & 0x0001) separe="&nbsp;"; else
-            if(flag & 0x0002) separe="."; else
-            if(flag & 0x0004) separe="";
-          }
-
+      { if(flag & 0x0001) separe="&nbsp;"; else
+      if(flag & 0x0002) separe="."; else
+      if(flag & 0x0004) separe="";
+      }
       if(NbDeci==2) { val=val*100.0; } else
       if(NbDeci>0) { for(i=0; i<NbDeci; i++) { val=val*10; } }
       else{ NbDeci=0; }
-
       val=Math.round(val);
-
       if(val<0) { val=-val; signe=1; } else{ signe=0; }
       s=val.toString();
-
       l=s.length;
       for(i=NbDeci+1-l; i>0; i--) s="0"+s;
-
       tmp=l-NbDeci;
       if(tmp>3 && separe.length>0)
-          { for(i=0; i<5; i++)
-                { if (tmp<4) break;
-                  tmp-=3;
-                  s=s.substring(0, tmp)+separe+s.substring(tmp, l);
-                  l+=separe.length;
-                }
-          }
+      { for(i=0; i<5; i++)
+      { if (tmp<4) break;
+      tmp-=3;
+      s=s.substring(0, tmp)+separe+s.substring(tmp, l);
+      l+=separe.length;
+      }
+      }
       if(NbDeci>0)
-          { l=s.length;
-            s=s.substring(0, l-NbDeci)+","+s.substring(l-NbDeci, l);
-          }
+      { l=s.length;
+      s=s.substring(0, l-NbDeci)+","+s.substring(l-NbDeci, l);
+      }
       if(signe) s="-"+s;
-    }
-
-return(s);
-}
-
-
-
-var _tn=0;
-var _ttn=0;
-
-function GetNum(champ, fmt, flag)
-{ _ttn=TestNum(champ,fmt, flag); return(_tn);
-}
-
-function TestNum(champ, fmt, flag)
-{
-var ret=0;
-var s=""+champ;
-var i1,i2,c;
-
-_tn=0;
-i1=0;
-i2=s.length;
-//for(; i1<i2; i1++) { c=s.charAt(i1); if(c!=' ' && c!='\t') { break; } }
-//for(; i2>i1; i2--) { c=s.charAt(i2-1); if(c!=' ' && c!='\t') { break; } }
-
-if(i1<i2)
-  {
-    var MaxEntier,MaxDeci,NegOK=0,NbEntier=0,NbDeci=0,iVirg=0,i,s2="";
-
-    if(fmt<0)
-        { NegOK=1;
-          fmt=-fmt;
-        }
-    MaxEntier=fmt/10;
-    MaxDeci  =fmt%10;
-
-    for(i=i1; i<i2; i++)
-        { c=s.charAt(i);
-          if(c==' ' && flag!=null && (flag & 0x0001))
-              { continue;
-              }
-          if(c>='0' && c<='9')
-              { if(iVirg) { NbDeci++; if(NbDeci>MaxDeci) { ret=-3; break; } }
-                else { NbEntier++; if(NbEntier>MaxEntier) { ret=-2; break; } }
-              }
-          else
-          if(c=='.' || c==',')
-              { if(iVirg) { ret=-1; break; }
-                iVirg=i+1;
-                c='.';
-              }
-          else
-          if(c=='-')
-              { if(!NegOK || i>i1) { ret=-4; break; }
-              }
-          else{ ret=-1;
-                break;
-              }
-          s2+=c;
-        }
-    if(!ret)
-        { _tn=(iVirg) ? parseFloat(s2) : parseInt(s2,10);
-          ret=1;
-        }
-  }
-return(ret);
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-var gIsChange1=0;
-
-function ffff_OC(r)
-{
-var f=document.ffff;
-
-//---grise/degrise zone PrixTravaux-----
-if(r=="TypeAchat" || r==0)
-    {
+      }
+      return(s);
+      }
+      var _tn=0;
+      var _ttn=0;
+      function GetNum(champ, fmt, flag)
+      { _ttn=TestNum(champ,fmt, flag); return(_tn);
+      }
+      function TestNum(champ, fmt, flag)
+      {
+      var ret=0;
+      var s=""+champ;
+      var i1,i2,c;
+      _tn=0;
+      i1=0;
+      i2=s.length;
+      //for(; i1<i2; i1++) { c=s.charAt(i1); if(c!=' ' && c!='\\t') { break; } }
+      //for(; i2>i1; i2--) { c=s.charAt(i2-1); if(c!=' ' && c!='\\t') { break; } }
+      if(i1<i2)
+      {
+      var MaxEntier,MaxDeci,NegOK=0,NbEntier=0,NbDeci=0,iVirg=0,i,s2="";
+      if(fmt<0)
+      { NegOK=1;
+      fmt=-fmt;
+      }
+      MaxEntier=fmt/10;
+      MaxDeci  =fmt%10;
+      for(i=i1; i<i2; i++)
+      { c=s.charAt(i);
+      if(c==' ' && flag!=null && (flag & 0x0001))
+      { continue;
+      }
+      if(c>='0' && c<='9')
+      { if(iVirg) { NbDeci++; if(NbDeci>MaxDeci) { ret=-3; break; } }
+      else { NbEntier++; if(NbEntier>MaxEntier) { ret=-2; break; } }
+      }
+      else
+      if(c=='.' || c==',')
+      { if(iVirg) { ret=-1; break; }
+      iVirg=i+1;
+      c='.';
+      }
+      else
+      if(c=='-')
+      { if(!NegOK || i>i1) { ret=-4; break; }
+      }
+      else{ ret=-1;
+      break;
+      }
+      s2+=c;
+      }
+      if(!ret)
+      { _tn=(iVirg) ? parseFloat(s2) : parseInt(s2,10);
+      ret=1;
+      }
+      }
+      return(ret);
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      var gIsChange1=0;
+      function ffff_OC(r)
+      {
+      var f=document.ffff;
+      //---grise/degrise zone PrixTravaux-----
+      if(r=="TypeAchat" || r==0)
+      {
       var TypeAchat=parseInt(f.TypeAchat.options[f.TypeAchat.selectedIndex].value);
-
       var codif=GetBaremePtz().codif;
-
       var c=f.PrixTravaux;
-
       if(c)
-          {
-            if(TypeAchat==codif.TACHAT_ANCIEN_TRAV)
-                {
-                  c.disabled=false;
-                  c.style.backgroundColor="#FFFFFF";
-                }
-            else{ c.value="";
-                  c.disabled=true;
-                  c.style.backgroundColor="#CCCCCC";
-                }
-          }
-
+      {
+      if(TypeAchat==codif.TACHAT_ANCIEN_TRAV)
+      {
+      c.disabled=false;
+      c.style.backgroundColor="#FFFFFF";
+      }
+      else{ c.value="";
+      c.disabled=true;
+      c.style.backgroundColor="#CCCCCC";
+      }
+      }
       ///var c=f.ZoneBR;
       ///
       ///if(c)
@@ -259,1007 +250,899 @@ if(r=="TypeAchat" || r==0)
       ///            c.style.backgroundColor="#CCCCCC";
       ///          }
       ///    }
-    }
-
-//---show/hide les baremes-----
-if(r=="IsShowBrm" || r=="NbPersonne")
-    {
+      }
+      //---show/hide les baremes-----
+      if(r=="IsShowBrm" || r=="NbPersonne")
+      {
       var v=(f.IsShowBrm.checked) ? 1:0;
-
       if(f.NbPersonne.value==0)
-          {
-            self.alert("Pr�cisez au pr�alable le nombre de personnes qui habiteront le logement.");
-            f.IsShowBrm.checked = 0;
-			v=0;
-          }
+      {
+      self.alert("Prï¿½cisez au prï¿½alable le nombre de personnes qui habiteront le logement.");
+      f.IsShowBrm.checked = 0;
+      v=0;
+      }
       else{ MajFicheBareme(parseInt(f.NbPersonne.value));
-          }
+      }
       document.getElementById("PtzIsShowBrm1").style.display=(v && f.NbPersonne.value>0) ? "" : "none";
-    }
-
-//---show/hide les regles------
-if(r=="IsShowRgl")
-    {
+      }
+      //---show/hide les regles------
+      if(r=="IsShowRgl")
+      {
       var v=(f.IsShowRgl.checked) ? 1:0;
       document.getElementById("PtzIsShowRgl1").style.display=(v) ? "" : "none";
-    }
-
-if(r)
-    { gIsChange1=1;
-    }
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function BeforeSubmit(f, IsAlert)
-{
-var s="";
-var t  =parseInt(f.TypeAchat.options[f.TypeAchat.selectedIndex].value);
-var z  =parseInt(f.ZoneABC.options[f.ZoneABC.selectedIndex].value);
-var pri=GetNum(f.PrixLogement.value,80);
-var rn2=GetNum(f.RevenuN1N2.value,80);
-var nbp=GetNum(f.NbPersonne.value,20);
-
-///var zbr =(f.ZoneBR.selectedIndex!=-1) ? parseInt(f.ZoneBR.options[f.ZoneBR.selectedIndex].value) : 0;
-var trav=GetNum(f.PrixTravaux.value,80);
-
-var codif=GetBaremePtz().codif;
-
-if(t!=codif.TACHAT_NEUF &&
-   t!=codif.TACHAT_REMIS_A_NEUF &&
-   t!=codif.TACHAT_ANCIEN_TRAV  &&
-   t!=codif.TACHAT_ANCIEN_HLM   &&
-   t!=codif.TACHAT_AUTRE)
-    { s="Indiquez le type d'acquisition !";
-    }
-else
-if(z!=codif.ZONE_A &&
-   z!=codif.ZONE_B1 &&
-   z!=codif.ZONE_B2 &&
-   z!=codif.ZONE_C)
-    { s="Indiquez la localisation du logement (zone A, B1, B2 ou C) !";
-    }
-else
-if(pri<=0)
-    { s="Indiquez le prix du logement !";
-    }
-else
-if(rn2<=0)
-    { s="Indiquez votre revenu fiscal de r�f�rence !";
-    }
-else
-if(nbp<=0)
-    { s="Indiquez le nombre de personnes qui habiteront le logement !"
-    }
-
-if(s=="" && t==codif.TACHAT_ANCIEN_TRAV)
-    {
+      }
+      if(r)
+      { gIsChange1=1;
+      }
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function BeforeSubmit(f, IsAlert)
+      {
+      var s="";
+      var t  =parseInt(f.TypeAchat.options[f.TypeAchat.selectedIndex].value);
+      var z  =parseInt(f.ZoneABC.options[f.ZoneABC.selectedIndex].value);
+      var pri=GetNum(f.PrixLogement.value,80);
+      var rn2=GetNum(f.RevenuN1N2.value,80);
+      var nbp=GetNum(f.NbPersonne.value,20);
+      ///var zbr =(f.ZoneBR.selectedIndex!=-1) ? parseInt(f.ZoneBR.options[f.ZoneBR.selectedIndex].value) : 0;
+      var trav=GetNum(f.PrixTravaux.value,80);
+      var codif=GetBaremePtz().codif;
+      if(t!=codif.TACHAT_NEUF &&
+      t!=codif.TACHAT_REMIS_A_NEUF &&
+      t!=codif.TACHAT_ANCIEN_TRAV  &&
+      t!=codif.TACHAT_ANCIEN_HLM   &&
+      t!=codif.TACHAT_AUTRE)
+      { s="Indiquez le type d'acquisition !";
+      }
+      else
+      if(z!=codif.ZONE_A &&
+      z!=codif.ZONE_B1 &&
+      z!=codif.ZONE_B2 &&
+      z!=codif.ZONE_C)
+      { s="Indiquez la localisation du logement (zone A, B1, B2 ou C) !";
+      }
+      else
+      if(pri<=0)
+      { s="Indiquez le prix du logement !";
+      }
+      else
+      if(rn2<=0)
+      { s="Indiquez votre revenu fiscal de rï¿½fï¿½rence !";
+      }
+      else
+      if(nbp<=0)
+      { s="Indiquez le nombre de personnes qui habiteront le logement !"
+      }
+      if(s=="" && t==codif.TACHAT_ANCIEN_TRAV)
+      {
       ///if(zbr!=1 && zbr!=2)
-      ///    { s="Indiquez si la commune d'acquisition est �ligible au PTZ pour l'achat d'ancien avec travaux !";
+      ///    { s="Indiquez si la commune d'acquisition est ï¿½ligible au PTZ pour l'achat d'ancien avec travaux !";
       ///    }
       ///else
       if(trav<=0)
-          { s="Indiquez le montant des travaux !";
-          }
-    }
-
-if(s=="" && !gIsChange1)
-    { s="R�sultats d�j� calcul�s !";
-    }
-
-if(s!="")
-    { self.alert(s);
-    }
-
-return((s!="") ? false : true);
-}
-
-
-function OnBtnZonier()
-{
-// brancher ici une popup sur la carte des zones A,B1,B2,C
-window.open("ptz_ab1b2c", "ptz_ab1b2c", "width=467px,height=526px");
-}
-
-
-function OnBtnSubmit(f)
-{
-if(BeforeSubmit(f,1)==true)
-    { ///f.submit();
+      { s="Indiquez le montant des travaux !";
+      }
+      }
+      if(s=="" && !gIsChange1)
+      { s="Rï¿½sultats dï¿½jï¿½ calculï¿½s !";
+      }
+      if(s!="")
+      { self.alert(s);
+      }
+      return((s!="") ? false : true);
+      }
+      function OnBtnZonier()
+      {
+      // brancher ici une popup sur la carte des zones A,B1,B2,C
+      window.open("ptz_ab1b2c", "ptz_ab1b2c", "width=467px,height=526px");
+      }
+      function OnBtnSubmit(f)
+      {
+      if(BeforeSubmit(f,1)==true)
+      { ///f.submit();
       BodyOnLoad(1);
       ///window.scrollTo(0,160);
-    }
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function GetResultPtzPlus(fdata)
-{
-var r=new Object();
-
-r.IsRevenuExcessif=0;
-r.IsPrixExcessif  =0;
-r.IsTravauxFaible =0;
-///r.IsNotZoneBR     =0;
-
-r.PretMax     =0;
-r.NbMoisTotal =0;
-r.NbMoisP1    =0;
-r.NbMoisP2    =0;
-r.PCentAmortP1=0;
-r.PCentAmortP2=0;
-r.EchDiff     =0;
-r.EchAmort    =0;
-
-//------------------------------------------
-
-var brm=GetBaremePtz();
-var codif=brm.codif;
-
-var IsAncien=-1;
-var iQuotite=-1;
-var iZone=-1;
-var NbPerso=-1;
-
-switch(fdata.TypeAchat)
-{
-  case codif.TACHAT_NEUF        : iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=0; break;
-  case codif.TACHAT_REMIS_A_NEUF: iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=0; break;
-  case codif.TACHAT_ANCIEN_TRAV : iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=1; break;
-  case codif.TACHAT_ANCIEN_HLM  : iQuotite=codif.QUOTITE_I_ANCIEN_HLM; IsAncien=1; break;
-}
-
-switch(fdata.ZoneABC)
-{ case codif.ZONE_A : iZone = codif.RGLPTZP_IZ_A ; break;
-  case codif.ZONE_B1: iZone = codif.RGLPTZP_IZ_B1; break;
-  case codif.ZONE_B2: iZone = codif.RGLPTZP_IZ_B2; break;
-  case codif.ZONE_C : iZone = codif.RGLPTZP_IZ_C ; break;
-}
-
-if(fdata.NbPersonne>0)
-    { NbPerso=(fdata.NbPersonne<8) ? fdata.NbPersonne : 8;
-    }
-
-//------------------------------------------
-
-if(fdata.TypeAchat==codif.TACHAT_ANCIEN_TRAV)
-    {
+      }
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function GetResultPtzPlus(fdata)
+      {
+      var r=new Object();
+      r.IsRevenuExcessif=0;
+      r.IsPrixExcessif  =0;
+      r.IsTravauxFaible =0;
+      ///r.IsNotZoneBR     =0;
+      r.PretMax     =0;
+      r.NbMoisTotal =0;
+      r.NbMoisP1    =0;
+      r.NbMoisP2    =0;
+      r.PCentAmortP1=0;
+      r.PCentAmortP2=0;
+      r.EchDiff     =0;
+      r.EchAmort    =0;
+      //------------------------------------------
+      var brm=GetBaremePtz();
+      var codif=brm.codif;
+      var IsAncien=-1;
+      var iQuotite=-1;
+      var iZone=-1;
+      var NbPerso=-1;
+      switch(fdata.TypeAchat)
+      {
+      case codif.TACHAT_NEUF        : iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=0; break;
+      case codif.TACHAT_REMIS_A_NEUF: iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=0; break;
+      case codif.TACHAT_ANCIEN_TRAV : iQuotite=codif.QUOTITE_I_NEUF_RN   ; IsAncien=1; break;
+      case codif.TACHAT_ANCIEN_HLM  : iQuotite=codif.QUOTITE_I_ANCIEN_HLM; IsAncien=1; break;
+      }
+      switch(fdata.ZoneABC)
+      { case codif.ZONE_A : iZone = codif.RGLPTZP_IZ_A ; break;
+      case codif.ZONE_B1: iZone = codif.RGLPTZP_IZ_B1; break;
+      case codif.ZONE_B2: iZone = codif.RGLPTZP_IZ_B2; break;
+      case codif.ZONE_C : iZone = codif.RGLPTZP_IZ_C ; break;
+      }
+      if(fdata.NbPersonne>0)
+      { NbPerso=(fdata.NbPersonne<8) ? fdata.NbPersonne : 8;
+      }
+      //------------------------------------------
+      if(fdata.TypeAchat==codif.TACHAT_ANCIEN_TRAV)
+      {
       /// // PTZ en Ancien+Trav seult en commune eligible
       /// if(fdata.ZoneBR!=1)
       ///    { r.IsNotZoneBR=1;
       ///    }
-
       // travaux doivent etre > 25%
       if(fdata.PrixLogement>0 &&
-         fdata.PrixTravaux<0.25*(fdata.PrixLogement+fdata.PrixTravaux))
-          {
-            r.IsTravauxFaible=1;
-          }
-    }
-
-//------------------------------------------
-
-if(///r.IsNotZoneBR==0 &&
-   r.IsTravauxFaible==0 &&
-   IsAncien!=-1 &&
-   iQuotite!=-1 &&
-   iZone!=-1 &&
-   NbPerso!=-1 &&
-   fdata.PrixLogement>0 &&
-   fdata.RevFiscRef>=0)
-    {
+      fdata.PrixTravaux<0.25*(fdata.PrixLogement+fdata.PrixTravaux))
+      {
+      r.IsTravauxFaible=1;
+      }
+      }
+      //------------------------------------------
+      if(///r.IsNotZoneBR==0 &&
+      r.IsTravauxFaible==0 &&
+      IsAncien!=-1 &&
+      iQuotite!=-1 &&
+      iZone!=-1 &&
+      NbPerso!=-1 &&
+      fdata.PrixLogement>0 &&
+      fdata.RevFiscRef>=0)
+      {
       var CoutHorsFN=fdata.PrixLogement;
-
       if(fdata.TypeAchat==codif.TACHAT_ANCIEN_TRAV)
-          { CoutHorsFN+=fdata.PrixTravaux;
-          }
-
+      { CoutHorsFN+=fdata.PrixTravaux;
+      }
       var PrixMax =brm.PrixMax[iZone][(NbPerso<5) ? (NbPerso-1) : 4];
       var quotite =brm.QuotiteMax[iQuotite][iZone];
-
       var tmp=(CoutHorsFN<PrixMax) ? CoutHorsFN : PrixMax;
       var PretMax= tmp * (quotite / 100);
-
       if(PretMax>CoutHorsFN/2)
-          {
-            PretMax=CoutHorsFN/2;
-          }
-
+      {
+      PretMax=CoutHorsFN/2;
+      }
       var cout10=Math.floor(CoutHorsFN/brm.NbDivTotal+0.5);
       var revenu=(cout10 > fdata.RevFiscRef) ? cout10 : fdata.RevFiscRef;
       var CoeffMenage=brm.CoeffMenage[NbPerso-1];
       var tranche=null;
-
       for(var iTranche=0; iTranche<brm.NbTranche; iTranche++)
-          {
-            var t=brm.tmr[iTranche];
-            var RgiMax=t.RgiMax[iZone]*CoeffMenage;
-            var ErrArrondi=0.005;
-
-            if(iTranche+1==brm.NbTranche)
-                {
-                  // FGAS : <=, malgre R31-10-3-1
-                  if(revenu <= RgiMax+ErrArrondi)
-                      {
-                        tranche=t;
-                        break;
-                      }
-
-                  if(fdata.RevFiscRef>RgiMax+ErrArrondi)
-                      { r.IsRevenuExcessif=1;
-                      }
-                  if(cout10>RgiMax+ErrArrondi)
-                      { r.IsPrixExcessif=1;
-                      }
-                }
-            else{ if(revenu <= RgiMax+ErrArrondi) // R31-10-11 : <=
-                      {
-                        tranche=t;
-                        break;
-                      }
-                }
-          }
-
+      {
+      var t=brm.tmr[iTranche];
+      var RgiMax=t.RgiMax[iZone]*CoeffMenage;
+      var ErrArrondi=0.005;
+      if(iTranche+1==brm.NbTranche)
+      {
+      // FGAS : <=, malgre R31-10-3-1
+      if(revenu <= RgiMax+ErrArrondi)
+      {
+      tranche=t;
+      break;
+      }
+      if(fdata.RevFiscRef>RgiMax+ErrArrondi)
+      { r.IsRevenuExcessif=1;
+      }
+      if(cout10>RgiMax+ErrArrondi)
+      { r.IsPrixExcessif=1;
+      }
+      }
+      else{ if(revenu <= RgiMax+ErrArrondi) // R31-10-11 : <=
+      {
+      tranche=t;
+      break;
+      }
+      }
+      }
       if(tranche!=null)
-          {
-            r.PretMax=Math.round(PretMax);
-
-            r.NbMoisP1     =tranche.NbMoisP1;
-            r.NbMoisP2     =tranche.NbMoisP2;
-            r.PCentAmortP2 =tranche.PCentAmortP2;
-            r.PCentAmortP1 =100-r.PCentAmortP2;
-
-            r.EchP1=(PretMax*(r.PCentAmortP1/100))/r.NbMoisP1;
-            r.EchP2=(r.NbMoisP2>0) ? (r.PretMax*(r.PCentAmortP2/100))/r.NbMoisP2 : 0;
-
-            r.EchP1=Math.round(r.EchP1*100)/100;
-            r.EchP2=Math.round(r.EchP2*100)/100;
-
-            r.NbMoisTotal=r.NbMoisP1+r.NbMoisP2;
-          }
-    }
-
-r.NbDivTotal=brm.NbDivTotal;
-
-return(r);
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function GetStrBrm(tbl, mode)
-{
-var s="";
-
-for(var i=0; i<tbl.length; i++)
-    {
+      {
+      r.PretMax=Math.round(PretMax);
+      r.NbMoisP1     =tranche.NbMoisP1;
+      r.NbMoisP2     =tranche.NbMoisP2;
+      r.PCentAmortP2 =tranche.PCentAmortP2;
+      r.PCentAmortP1 =100-r.PCentAmortP2;
+      r.EchP1=(PretMax*(r.PCentAmortP1/100))/r.NbMoisP1;
+      r.EchP2=(r.NbMoisP2>0) ? (r.PretMax*(r.PCentAmortP2/100))/r.NbMoisP2 : 0;
+      r.EchP1=Math.round(r.EchP1*100)/100;
+      r.EchP2=Math.round(r.EchP2*100)/100;
+      r.NbMoisTotal=r.NbMoisP1+r.NbMoisP2;
+      }
+      }
+      r.NbDivTotal=brm.NbDivTotal;
+      return(r);
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function GetStrBrm(tbl, mode)
+      {
+      var s="";
+      for(var i=0; i<tbl.length; i++)
+      {
       if(s.length) s+="<br/>";
-
       if(mode==2)
-          { s+=FormateAnMois(FormateVal(tbl[i], 0));///+"&nbspmois";
-          }
+      { s+=FormateAnMois(FormateVal(tbl[i], 0));///+"&nbspmois";
+      }
       else
       if(mode==1)
-          {
-            s+="&#8804; "+FormateVal(tbl[i], 0, 0x0001)+"&nbsp;&euro;";
-          }
+      {
+      s+="&#8804; "+FormateVal(tbl[i], 0, 0x0001)+"&nbsp;&euro;";
+      }
       else{ s+=FormateVal(tbl[i], 0, 0x0001)+"&nbsp;&euro;";
-          }
-    }
-
-return(s);
-}
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function GetStrBrmRembours(RembD1, RembD2, RembPC)
-{
-var sRet="";
-
-for(var i=0; i<RembD1.length; i++)
-    {
+      }
+      }
+      return(s);
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function GetStrBrmRembours(RembD1, RembD2, RembPC)
+      {
+      var sRet="";
+      for(var i=0; i<RembD1.length; i++)
+      {
       var s;
       var pcent=RembPC[i];
       var sAnMoisAmort1=FormateAnMois(RembD1[i]);
       var sAnMoisAmort2=FormateAnMois(RembD2[i]);
-
-
       if(pcent>0)
-          {
-            if(pcent==100)
-                { s="Diff&eacute;r&eacute; "+sAnMoisAmort1
-				   +" + amort. sur " + sAnMoisAmort2;
-                }
-            else{ s=""+(100-pcent)+"% du pr&ecirc;t sur "+sAnMloisAmort1
-                   +", solde  sur "+sAnMoisAmort2;
-                }
-          }
-      else{ s="Pr&ecirc;t amorti sur "+sAnMoisAmort1;
-          }
-
+      {
+      if(pcent==100)
+      { s="Différé "+sAnMoisAmort1
+      +" + amort. sur " + sAnMoisAmort2;
+      }
+      else{ s=""+(100-pcent)+"% du prêt sur "+sAnMloisAmort1
+      +", solde  sur "+sAnMoisAmort2;
+      }
+      }
+      else{ s="Prêt amorti sur "+sAnMoisAmort1;
+      }
       if(i>0) sRet+="<br/>";
       sRet+=s;
-    }
-
-return(sRet);
-}
-
-
-//-------------------------------------------------------------
-//-------------------------------------------------------------
-//-------------------------------------------------------------
-function MajFicheBareme(NbPersonne)
-{
-var brm=GetBaremePtz();
-var brm2=new Object();
-
-if(NbPersonne>8) NbPersonne=8;
-
-//---fill brm2----------------------------------
-
-brm2.TRgiMax        = new Array();
-brm2.TPretMax       = new Array();
-brm2.TModRemb       = new Array();
-
-
-for(var iZone=0; iZone<4; iZone++)
-    {
-      brm2.TRgiMax[iZone]=brm.TRgiMax[iZone]
-                         *brm.CoeffMenage[NbPersonne-1];
-    }
-
-for(var iQuotite=0; iQuotite<brm.QuotiteMax.length; iQuotite++)
-    {
-      brm2.TPretMax[iQuotite] = new Array();
-
-      var iNbPers=(NbPersonne<=5) ? (NbPersonne-1) : 4;
-
+      }
+      return(sRet);
+      }
+      //-------------------------------------------------------------
+      //-------------------------------------------------------------
+      //-------------------------------------------------------------
+      function MajFicheBareme(NbPersonne)
+      {
+      var brm=GetBaremePtz();
+      var brm2=new Object();
+      if(NbPersonne>8) NbPersonne=8;
+      //---fill brm2----------------------------------
+      brm2.TRgiMax        = new Array();
+      brm2.TPretMax       = new Array();
+      brm2.TModRemb       = new Array();
       for(var iZone=0; iZone<4; iZone++)
-          {
-            brm2.TPretMax[iQuotite][iZone]
-              = brm.PrixMax[iZone][iNbPers]
-              * (brm.QuotiteMax[iQuotite][iZone]/100);
-          }
-    }
-
-for(var iTranche=0; iTranche<brm.NbTranche; iTranche++)
-    {
+      {
+      brm2.TRgiMax[iZone]=brm.TRgiMax[iZone]
+      *brm.CoeffMenage[NbPersonne-1];
+      }
+      for(var iQuotite=0; iQuotite<brm.QuotiteMax.length; iQuotite++)
+      {
+      brm2.TPretMax[iQuotite] = new Array();
+      var iNbPers=(NbPersonne<=5) ? (NbPersonne-1) : 4;
+      for(var iZone=0; iZone<4; iZone++)
+      {
+      brm2.TPretMax[iQuotite][iZone]
+      = brm.PrixMax[iZone][iNbPers]
+      * (brm.QuotiteMax[iQuotite][iZone]/100);
+      }
+      }
+      for(var iTranche=0; iTranche<brm.NbTranche; iTranche++)
+      {
       var tranche =brm.tmr[iTranche];
       var tranche2=new Object();
-
       tranche2.RgiMax      = new Array();
       tranche2.NbMoisP1    = tranche.NbMoisP1;
       tranche2.NbMoisP2    = tranche.NbMoisP2;
       tranche2.PCentAmortP2= tranche.PCentAmortP2;
-
       for(var iZone=0; iZone<4; iZone++)
-          {
-            tranche2.RgiMax[iZone]=tranche.RgiMax[iZone]
-                                  *brm.CoeffMenage[NbPersonne-1];
-          }
-
+      {
+      tranche2.RgiMax[iZone]=tranche.RgiMax[iZone]
+      *brm.CoeffMenage[NbPersonne-1];
+      }
       brm2.TModRemb[iTranche] = tranche2;
-    }
-
-//-----------------------------------------
-
-var TExcluA=[],TExcluB1=[],TExcluB2=[],TExcluC=[];
-var TPretMaxA=[],TPretMaxB1=[],TPretMaxB2=[],TPretMaxC=[];
-var TRembRgiA=[],TRembRgiB1=[],TRembRgiB2=[],TRembRgiC=[];
-var TNbMoisTot=[];
-var TNbMoisP1=[];
-var TNbMoisP2=[];
-var TPCAmortP2=[];
-
-    {
+      }
+      //-----------------------------------------
+      var TExcluA=[],TExcluB1=[],TExcluB2=[],TExcluC=[];
+      var TPretMaxA=[],TPretMaxB1=[],TPretMaxB2=[],TPretMaxC=[];
+      var TRembRgiA=[],TRembRgiB1=[],TRembRgiB2=[],TRembRgiC=[];
+      var TNbMoisTot=[];
+      var TNbMoisP1=[];
+      var TNbMoisP2=[];
+      var TPCAmortP2=[];
+      {
       var tab=brm2.TRgiMax;
       TExcluA.push( tab[0]);
       TExcluA.push( tab[0]*brm.NbDivTotal);
-
       TExcluB1.push(tab[1]);
       TExcluB1.push(tab[1]*brm.NbDivTotal);
-
       TExcluB2.push(tab[2]);
       TExcluB2.push(tab[2]*brm.NbDivTotal);
-
       TExcluC.push( tab[3]);
       TExcluC.push( tab[3]*brm.NbDivTotal);
-    }
-
-for(var i=0; i<brm2.TPretMax.length; i++)
-    {
+      }
+      for(var i=0; i<brm2.TPretMax.length; i++)
+      {
       var tab = brm2.TPretMax[i];
       TPretMaxA.push( tab[0]);
       TPretMaxB1.push(tab[1]);
       TPretMaxB2.push(tab[2]);
       TPretMaxC.push( tab[3]);
-    }
-
-for(var i=0; i<brm2.TModRemb.length; i++)
-    {
+      }
+      for(var i=0; i<brm2.TModRemb.length; i++)
+      {
       var tab = brm2.TModRemb[i].RgiMax;
       var obj = brm2.TModRemb[i];
-
       TRembRgiA.push( tab[0]);
       TRembRgiB1.push(tab[1]);
       TRembRgiB2.push(tab[2]);
       TRembRgiC.push( tab[3]);
-
       TNbMoisTot.push(obj.NbMoisP1+obj.NbMoisP2);
       TNbMoisP1.push(obj.NbMoisP1);
       TNbMoisP2.push(obj.NbMoisP2);
       TPCAmortP2.push(obj.PCentAmortP2);
-    }
-
-//-----affiche les baremes-------------------------------------
-
-var cNbPers = document.ffff.NbPersonne;
-
-document.getElementById("PtzIdNbPersMenage" ).innerHTML=cNbPers.options[cNbPers.selectedIndex].text;
-
-document.getElementById("brm_sExcluA" ).innerHTML=GetStrBrm(TExcluA, 0);
-document.getElementById("brm_sExcluB1").innerHTML=GetStrBrm(TExcluB1, 0);
-document.getElementById("brm_sExcluB2").innerHTML=GetStrBrm(TExcluB2, 0);
-document.getElementById("brm_sExcluC" ).innerHTML=GetStrBrm(TExcluC, 0);
-
-document.getElementById("brm_sPretMaxA" ).innerHTML=GetStrBrm(TPretMaxA, 0);
-document.getElementById("brm_sPretMaxB1").innerHTML=GetStrBrm(TPretMaxB1, 0);
-document.getElementById("brm_sPretMaxB2").innerHTML=GetStrBrm(TPretMaxB2, 0);
-document.getElementById("brm_sPretMaxC" ).innerHTML=GetStrBrm(TPretMaxC, 0);
-
-document.getElementById("brm_sRembRgiA" ).innerHTML=GetStrBrm(TRembRgiA , 1);
-document.getElementById("brm_sRembRgiB1").innerHTML=GetStrBrm(TRembRgiB1, 1);
-document.getElementById("brm_sRembRgiB2").innerHTML=GetStrBrm(TRembRgiB2, 1);
-document.getElementById("brm_sRembRgiC" ).innerHTML=GetStrBrm(TRembRgiC , 1);
-document.getElementById("brm_sRembD1"   ).innerHTML=GetStrBrm(TNbMoisTot, 2);
-document.getElementById("brm_sRembD2"   ).innerHTML=GetStrBrmRembours(TNbMoisP1, TNbMoisP2, TPCAmortP2);
-}
-
-
-
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-//---------------------------------------------------------------
-function MainGetForm()
-{
-var fd=new Object();
-var f=document.ffff;
-
-fd.IsShowBrm  =(f.IsShowBrm.checked) ? 1:0;
-fd.IsShowRgl  =(f.IsShowRgl.checked) ? 1:0;
-
-fd.Is1erAchat   = parseInt(f.Is1erAchat.value); // [ajout dec2011]
-
-fd.ZoneABC      = parseInt(f.ZoneABC.options[f.ZoneABC.selectedIndex].value);
-fd.TypeAchat    = parseInt(f.TypeAchat.options[f.TypeAchat.selectedIndex].value);
-fd.NbPersonne   = GetNum(f.NbPersonne.value, 20);
-fd.RevFiscRef   = GetNum(f.RevenuN1N2.value, 80);
-fd.PrixLogement = GetNum(f.PrixLogement.value, 80);
-
-///fd.ZoneBR       = (f.ZoneBR.selectedIndex!=-1) ? parseInt(f.ZoneBR.options[f.ZoneBR.selectedIndex].value) : 0;
-fd.PrixTravaux  = GetNum(f.PrixTravaux.value, 80);
-
-///fd.Apport       = GetNum(f.Apport, 80);
-
-return(fd);
-}
-
-
-
-//-------------------------------------------------------------
-//-------------------------------------------------------------
-//-------------------------------------------------------------
-function BodyOnLoad(IsOnSubmit)
-{
-var fdata;
-var ORes=new Object();
-var f=document.ffff;
-gIsChange1=0;
-
-
-fdata =MainGetForm();
-
-if(fdata.NbPersonne &&
-   fdata.Is1erAchat==1 &&
-   fdata.TypeAchat!=99)
-    {
+      }
+      //-----affiche les baremes-------------------------------------
+      var cNbPers = document.ffff.NbPersonne;
+      document.getElementById("PtzIdNbPersMenage" ).innerHTML=cNbPers.options[cNbPers.selectedIndex].text;
+      document.getElementById("brm_sExcluA" ).innerHTML=GetStrBrm(TExcluA, 0);
+      document.getElementById("brm_sExcluB1").innerHTML=GetStrBrm(TExcluB1, 0);
+      document.getElementById("brm_sExcluB2").innerHTML=GetStrBrm(TExcluB2, 0);
+      document.getElementById("brm_sExcluC" ).innerHTML=GetStrBrm(TExcluC, 0);
+      document.getElementById("brm_sPretMaxA" ).innerHTML=GetStrBrm(TPretMaxA, 0);
+      document.getElementById("brm_sPretMaxB1").innerHTML=GetStrBrm(TPretMaxB1, 0);
+      document.getElementById("brm_sPretMaxB2").innerHTML=GetStrBrm(TPretMaxB2, 0);
+      document.getElementById("brm_sPretMaxC" ).innerHTML=GetStrBrm(TPretMaxC, 0);
+      document.getElementById("brm_sRembRgiA" ).innerHTML=GetStrBrm(TRembRgiA , 1);
+      document.getElementById("brm_sRembRgiB1").innerHTML=GetStrBrm(TRembRgiB1, 1);
+      document.getElementById("brm_sRembRgiB2").innerHTML=GetStrBrm(TRembRgiB2, 1);
+      document.getElementById("brm_sRembRgiC" ).innerHTML=GetStrBrm(TRembRgiC , 1);
+      document.getElementById("brm_sRembD1"   ).innerHTML=GetStrBrm(TNbMoisTot, 2);
+      document.getElementById("brm_sRembD2"   ).innerHTML=GetStrBrmRembours(TNbMoisP1, TNbMoisP2, TPCAmortP2);
+      }
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      //---------------------------------------------------------------
+      function MainGetForm()
+      {
+      var fd=new Object();
+      var f=document.ffff;
+      fd.IsShowBrm  =(f.IsShowBrm.checked) ? 1:0;
+      fd.IsShowRgl  =(f.IsShowRgl.checked) ? 1:0;
+      fd.Is1erAchat   = parseInt(f.Is1erAchat.value); // [ajout dec2011]
+      fd.ZoneABC      = parseInt(f.ZoneABC.options[f.ZoneABC.selectedIndex].value);
+      fd.TypeAchat    = parseInt(f.TypeAchat.options[f.TypeAchat.selectedIndex].value);
+      fd.NbPersonne   = GetNum(f.NbPersonne.value, 20);
+      fd.RevFiscRef   = GetNum(f.RevenuN1N2.value, 80);
+      fd.PrixLogement = GetNum(f.PrixLogement.value, 80);
+      ///fd.ZoneBR       = (f.ZoneBR.selectedIndex!=-1) ? parseInt(f.ZoneBR.options[f.ZoneBR.selectedIndex].value) : 0;
+      fd.PrixTravaux  = GetNum(f.PrixTravaux.value, 80);
+      ///fd.Apport       = GetNum(f.Apport, 80);
+      return(fd);
+      }
+      //-------------------------------------------------------------
+      //-------------------------------------------------------------
+      //-------------------------------------------------------------
+      function BodyOnLoad(IsOnSubmit)
+      {
+      var fdata;
+      var ORes=new Object();
+      var f=document.ffff;
+      gIsChange1=0;
+      fdata =MainGetForm();
+      if(fdata.NbPersonne &&
+      fdata.Is1erAchat==1 &&
+      fdata.TypeAchat!=99)
+      {
       ORes=GetResultPtzPlus(fdata);
-    }
-
-if(ORes.PretMax)
-    {
+      }
+      if(ORes.PretMax)
+      {
       ORes.S_NbMois         =""+FormateAnMois(ORes.NbMoisP1+ORes.NbMoisP2);
       ORes.S_DureePeriode1  =""+FormateAnMois(ORes.NbMoisP1);
       ORes.S_DureePeriode2  =""+FormateAnMois(ORes.NbMoisP2);
       ORes.S_Pcent1         =""+(100-ORes.PCentAmortP2)+"%";
-
       ORes.S_Pret           =FormateVal(ORes.PretMax   , 0)+" &euro;";
       ORes.S_EchPeriode1    =FormateVal(ORes.EchP1     , 2)+" &euro;";
       ORes.S_EchPeriode2    =FormateVal(ORes.EchP2     , 2)+" &euro;";
-    }
-else{ ORes.S_NbMois         ="";
+      }
+      else{ ORes.S_NbMois         ="";
       ORes.S_DureePeriode1  ="";
       ORes.S_DureePeriode2  ="";
       ORes.S_Pcent1         ="";
-
       ORes.S_Pret           ="";
       ORes.S_EchPeriode1    ="";
       ORes.S_EchPeriode2    ="";
-    }
-
-var MsgErr=null;
-
-if(fdata.Is1erAchat!=1)
-    {
-      MsgErr = "Le PTZ n'est pas possible si vous &ecirc;tes d&eacute;j&agrave; propri&eacute;taire "
-             + "de votre r&eacute;sidence principale.";
-    }
-else
-if(fdata.TypeAchat==99)
-    {
+      }
+      var MsgErr=null;
+      if(fdata.Is1erAchat!=1)
+      {
+      MsgErr = "Le PTZ n'est pas possible si vous êtes déjà propriétaire "
+      + "de votre résidence principale.";
+      }
+      else
+      if(fdata.TypeAchat==99)
+      {
       MsgErr = "Le PTZ n'est possible que s'il s'agit :"
-             + "<br>- d'un achat ou construction d'un logement neuf,"
-             + "<br>- d'un logement remis entierement &agrave; neuf,"
-             + "<br>- d'un achat de logement ancien avec travaux > 25%,"
-             + "<br>- d'un rachat de logement HLM par son locataire.";
-    }
-///else
-///if(ORes.IsNotZoneBR)
-///    { MsgErr = "Le PTZ est exclu si l'achat n'est pas situ&eacute; dans une "
-///                 + "commune &eacute;ligible au PTZ pour l'ancien avec travaux";
-///    }
-else
-if(ORes.IsTravauxFaible)
-    { MsgErr = "Le PTZ est exclu car le montant des travaux est inf&eacute;rieur "
-                 + "&agrave; 25% du co&ucirc;t total de l'op&eacute;ration";
-    }
-else
-if(ORes.IsRevenuExcessif)
-    { MsgErr = "Le PTZ est exclu car votre revenu fiscal de r&eacute;f&eacute;rence "
-             + "exc&egrave;de le plafond de revenu applicable.";
-    }
-else
-if(ORes.IsPrixExcessif)
-    {
-      MsgErr = "Le PTZ est exclu car le co&ucirc;t de l'op&eacute;ration exc&egrave;de "
-             + ORes.NbDivTotal +" fois le plafond de revenu applicable.";
-    }
-
-if(MsgErr!=null)
-    {
+      + "<br>- d'un achat ou construction d'un logement neuf,"
+      + "<br>- d'un logement remis entierement à neuf,"
+      + "<br>- d'un achat de logement ancien avec travaux > 25%,"
+      + "<br>- d'un rachat de logement HLM par son locataire.";
+      }
+      ///else
+      ///if(ORes.IsNotZoneBR)
+      ///    { MsgErr = "Le PTZ est exclu si l'achat n'est pas situé dans une "
+      ///                 + "commune éligible au PTZ pour l'ancien avec travaux";
+      ///    }
+      else
+      if(ORes.IsTravauxFaible)
+      { MsgErr = "Le PTZ est exclu car le montant des travaux est inférieur "
+      + "à 25% du coût total de l'opération";
+      }
+      else
+      if(ORes.IsRevenuExcessif)
+      { MsgErr = "Le PTZ est exclu car votre revenu fiscal de référence "
+      + "excêde le plafond de revenu applicable.";
+      }
+      else
+      if(ORes.IsPrixExcessif)
+      {
+      MsgErr = "Le PTZ est exclu car le coût de l'opération excêde "
+      + ORes.NbDivTotal +" fois le plafond de revenu applicable.";
+      }
+      if(MsgErr!=null)
+      {
       document.getElementById("PtzIfRevSup0" ).style.display="none";
       document.getElementById("PtzIfQuestion").style.display="none";
-
       document.getElementById("PtzIfRevSup1").innerHTML = MsgErr;
       document.getElementById("PtzIfRevSup1").style.display="";
-    }
-else{ document.getElementById("PtzIfRevSup1").style.display="none";
+      }
+      else{ document.getElementById("PtzIfRevSup1").style.display="none";
       document.getElementById("PtzIfRevSup0" ).style.display=(!ORes.PretMax) ? "none" : "";
       document.getElementById("PtzIfQuestion").style.display=(!ORes.PretMax) ? "" : "none";
-    }
-
-document.getElementById("PtzIsShowBrm1").style.display=(fdata.IsShowBrm==1) ? "":"none";
-document.getElementById("PtzIsShowRgl1").style.display=(fdata.IsShowRgl==1) ? "":"none";
-
-if(fdata.NbPersonne)
-    {
+      }
+      document.getElementById("PtzIsShowBrm1").style.display=(fdata.IsShowBrm==1) ? "":"none";
+      document.getElementById("PtzIsShowRgl1").style.display=(fdata.IsShowRgl==1) ? "":"none";
+      if(fdata.NbPersonne)
+      {
       MajFicheBareme(fdata.NbPersonne);
-    }
+      }
+      document.getElementById("result_S_Pret"         ).innerHTML=ORes.S_Pret         ;
+      document.getElementById("result_S_NbMois"       ).innerHTML=ORes.S_NbMois       ;
+      document.getElementById("result_S_DureePeriode1").innerHTML=ORes.S_DureePeriode1;
+      document.getElementById("result_S_DureePeriode2").innerHTML=ORes.S_DureePeriode2;
+      document.getElementById("result_S_EchPeriode1"  ).innerHTML=ORes.S_EchPeriode1  ;
+      document.getElementById("result_S_EchPeriode2"  ).innerHTML=ORes.S_EchPeriode2  ;
+      document.getElementById("result_S_EchTotal"     ).innerHTML=ORes.S_EchPeriode1  ;
+      document.getElementById("result_diff_partiel").innerHTML=
+      "Durée maximum du différé...:";
+      var sDisplay=(ORes.PCentAmortP2) ? "" : "none";
+      document.getElementById("IfTypeDiff1_dureeP1").style.display=sDisplay;
+      document.getElementById("IfTypeDiff1_dureeP2").style.display=sDisplay;
+      document.getElementById("IfTypeDiff1_echP1").style.display=sDisplay;
+      document.getElementById("IfTypeDiff1_echP2").style.display=sDisplay;
+      var sDisplay=(ORes.PCentAmortP2) ? "none" : "";
+      document.getElementById("IfTypeDiff0_ech").style.display=sDisplay;
+      if(IsOnSubmit!=1)
+      { ffff_OC(0);
+      }
+      }
+    </script>
+    <!-- ******** Fin de texte a inserer dans votre balise <HEAD> ********-->
+  </head>
 
-document.getElementById("result_S_Pret"         ).innerHTML=ORes.S_Pret         ;
-document.getElementById("result_S_NbMois"       ).innerHTML=ORes.S_NbMois       ;
-document.getElementById("result_S_DureePeriode1").innerHTML=ORes.S_DureePeriode1;
-document.getElementById("result_S_DureePeriode2").innerHTML=ORes.S_DureePeriode2;
-document.getElementById("result_S_EchPeriode1"  ).innerHTML=ORes.S_EchPeriode1  ;
-document.getElementById("result_S_EchPeriode2"  ).innerHTML=ORes.S_EchPeriode2  ;
-document.getElementById("result_S_EchTotal"     ).innerHTML=ORes.S_EchPeriode1  ;
-
-document.getElementById("result_diff_partiel").innerHTML=
-  "Dur&eacute;e maximum du diff&eacute;r&eacute;...:";
-
-var sDisplay=(ORes.PCentAmortP2) ? "" : "none";
-document.getElementById("IfTypeDiff1_dureeP1").style.display=sDisplay;
-document.getElementById("IfTypeDiff1_dureeP2").style.display=sDisplay;
-document.getElementById("IfTypeDiff1_echP1").style.display=sDisplay;
-document.getElementById("IfTypeDiff1_echP2").style.display=sDisplay;
-
-var sDisplay=(ORes.PCentAmortP2) ? "none" : "";
-document.getElementById("IfTypeDiff0_ech").style.display=sDisplay;
-
-if(IsOnSubmit!=1)
-    { ffff_OC(0);
-    }
-}
-
-
-</script>
-
-<!-- ******** Fin de texte a inserer dans votre balise <HEAD> ******** -->
-  <link rel="stylesheet" href="/profiles/kandb/themes/kandb_theme/css/app-alto.css">
-  <script src="/profiles/kandb/themes/kandb_theme/js/modernizr.js"></script>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-</HEAD>
-
-<!-- ******** affectez onLoad="BodyOnLoad(0)" dans votre <BODY>  ******** -->
-<body onload="BodyOnLoad(0)">
-
-<!-- ******** Texte ci-dessous a inserer dans votre balise <BODY> ******* -->
-
-<div id="AltoPtz" align="center">
-<form id="ffff" name="ffff" onsubmit="return false" method="POST">
-
-    <div id="PtzTitre">
-      <font class="titre1">Calculez votre pr&ecirc;t &agrave; taux z&eacute;ro</font>
-	  <font class="note0" color="#808081">
-      <br/>(financement de votre r&eacute;sidence principale - bar&egrave;me 2016)</font>
-    </div>
-
-    <div id="PtzInput">
-      <table class="tab1" style="text-align:left" border="0" cellspacing="1" cellpadding="4" width="100%">
-        <tr>
-          <td class="td0" align="center">
-          El&eacute;ments de calcul</td>
-        </tr>
-        <tr>
-          <td class="tdg" valign="top">
-          <table border="0" cellspacing="0" cellpadding="3" width="100%">
+<!-- ******** affectez onLoad="BodyOnLoad(0)" dans votre <BODY>  ********-->
+  <body onload="BodyOnLoad(0)">
+    <!-- ******** Texte ci-dessous a inserer dans votre balise <BODY> *******-->
+    <div id="AltoPtz" align="center">
+      <form id="ffff" name="ffff" onsubmit="return false" method="POST">
+        <div id="PtzTitre"><font class="titre1">Calculez votre prêt à taux zéro</font><font color="#808081" class="note0"><br>(financement de votre résidence principale - barême 2016)</font></div>
+        <div id="PtzInput">
+          <table style="text-align:left" border="0" cellspacing="1" cellpadding="4" width="100%" class="tab1">
             <tr>
-              <td class="td1" nowrap>D&eacute;j&agrave; propri&eacute;taire ?</td>
-              <td class="td1" nowrap>
-              <select class="put1" name="Is1erAchat" style="width:77px" onchange="ffff_OC('Is1erAchat')">
-                <option value="1" selected>Non</option>
-                <option value="0">Oui</option>
-              </select></td>
+              <td align="center" class="td0">Eléments de calcul</td>
             </tr>
             <tr>
-              <td class="td1" nowrap>Votre projet d'acquisition :</td>
-              <td class="td1" nowrap>
-              <select class="put1" name="TypeAchat" style="width:130px" onchange="ffff_OC('TypeAchat')">
-                <option value="1" selected>Neuf</option>
-				  <!-- supprimer les 3 choix ci-dessous pour traiter seulement le neuf et affecter Display:none sur la class HideIfonlyNeuf -->
-                <!--
-				<option value="20">Ancien + travaux</option>
-                <option value="21">Rachat HLM</option>
-                <option value="99">Autre</option>
-				-->
-              </select></td>
-            </tr>
-            <tr>
-              <td class="td1" nowrap>Votre lieu d'habitation :</td>
-              <td class="td1" nowrap>
-              <select class="put1" name="ZoneABC" style="width:77px" onchange="ffff_OC('ZoneABC')">
-                <option value="0" selected>&nbsp;</option>
-                <option value="1">Zone A</option>
-                <option value="12">Zone B1</option>
-                <option value="22">Zone B2</option>
-                <option value="3">Zone C</option>
-              </select>
-              <input class="put1" name="BtnZonier" type="button"
-              value="Carte" onclick="OnBtnZonier()"></td>
-            </tr>
-            <tr>
-              <td class="td1" nowrap>Co&ucirc;t du logement<br/>(hors frais de notaire) :</td>
-              <td class="td1" nowrap><input class="put1" name="PrixLogement" style="width:75px" maxlength="8"
-              onchange="ffff_OC('PrixLogement')"> &euro;</td>
-            </tr>
-            <tr class="HideIfOnlyNeuf">
-              <td class="td1" nowrap>Co&ucirc;t des travaux :</td>
-              <td class="td1" nowrap><input class="put1" name="PrixTravaux" style="width:75px" maxlength="8"
-              onchange="ffff_OC('PrixTravaux')"> &euro;</td>
-            </tr>
-            <tr>
-              <td class="td1" nowrap>Votre revenu fiscal de<br/>r&eacute;f&eacute;rence N-2 (*) :</td>
-              <td class="td1" nowrap><input class="put1" name="RevenuN1N2" style="width:75px" maxlength="8"
-              onchange="ffff_OC('RevenuN1N2')"> &euro;</td>
-            </tr>
-            <tr>
-              <td class="td1" nowrap>Nombre de personnes<br/>qui habiteront le logement :</td>
-              <td class="td1" nowrap>
-                <select class="put1" name="NbPersonne" style="width:100px"
-                onchange="ffff_OC('NbPersonne')">
-                <option value="0">&nbsp;</option>
-                <option value="1">1 personne</option>
-                <option value="2" selected>2 personnes</option>
-                <option value="3">3 personnes</option>
-                <option value="4">4 personnes</option>
-                <option value="5">5 personnes</option>
-                <option value="6">6 personnes</option>
-                <option value="7">7 personnes</option>
-                <option value="8">8 personnes</option>
-                </select>
+              <td valign="top" class="tdg">
+                <table border="0" cellspacing="0" cellpadding="3" width="100%">
+                  <tr>
+                    <td nowrap="" class="td1">Déjà propriétaire ?</td>
+                    <td nowrap="" class="td1">
+                      <select name="Is1erAchat" style="width:77px" onchange="ffff_OC('Is1erAchat')" class="put1">
+                        <option value="1" selected="">Non</option>
+                        <option value="0">Oui</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">Votre projet d'acquisition :</td>
+                    <td nowrap="" class="td1">
+                      <select name="TypeAchat" style="width:130px" onchange="ffff_OC('TypeAchat')" class="put1">
+                        <option value="1" selected="">Neuf</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">Votre lieu d'habitation :</td>
+                    <td nowrap="" class="td1">
+                      <select name="ZoneABC" style="width:77px" onchange="ffff_OC('ZoneABC')" class="put1">
+                        <option value="0" selected="">&nbsp;</option>
+                        <option value="1">Zone A</option>
+                        <option value="12">Zone B1</option>
+                        <option value="22">Zone B2</option>
+                        <option value="3">Zone C</option>
+                      </select>
+                      <input name="BtnZonier" type="button" value="Carte" onclick="OnBtnZonier()" class="put1">
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">Coût du logement<br>(hors frais de notaire) :</td>
+                    <td nowrap="" class="td1">
+                      <input name="PrixLogement" style="width:75px" maxlength="8" onchange="ffff_OC('PrixLogement')" class="put1"> &euro;
+                    </td>
+                  </tr>
+                  <tr class="HideIfOnlyNeuf">
+                    <td nowrap="" class="td1">Coût des travaux :</td>
+                    <td nowrap="" class="td1">
+                      <input name="PrixTravaux" style="width:75px" maxlength="8" onchange="ffff_OC('PrixTravaux')" class="put1"> &euro;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">Votre revenu fiscal de<br>référence N-2 (*) :</td>
+                    <td nowrap="" class="td1">
+                      <input name="RevenuN1N2" style="width:75px" maxlength="8" onchange="ffff_OC('RevenuN1N2')" class="put1"> &euro;
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">Nombre de personnes<br>qui habiteront le logement :</td>
+                    <td nowrap="" class="td1">
+                      <select name="NbPersonne" style="width:100px" onchange="ffff_OC('NbPersonne')" class="put1">
+                        <option value="0">&nbsp;</option>
+                        <option value="1">1 personne</option>
+                        <option value="2" selected="">2 personnes</option>
+                        <option value="3">3 personnes</option>
+                        <option value="4">4 personnes</option>
+                        <option value="5">5 personnes</option>
+                        <option value="6">6 personnes</option>
+                        <option value="7">7 personnes</option>
+                        <option value="8">8 personnes</option>
+                      </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" class="td1">
+                      <label for="IsShowRgl">
+                        <input id="IsShowRgl" type="checkbox" name="IsShowRgl" value="1" onclick="ffff_OC('IsShowRgl')">Afficher les rêgles
+                      </label><br>
+                      <label for="IsShowBrm">
+                        <input id="IsShowBrm" type="checkbox" name="IsShowBrm" value="1" onclick="ffff_OC('IsShowBrm')">Afficher les barêmes
+                      </label>
+                    </td>
+                    <td nowrap="" class="td1">
+                      <input name="BtnSubmit" type="button" style="width:100px;height:30px" value="Calculer !" onclick="OnBtnSubmit(ffff)" class="put1">
+                    </td>
+                  </tr>
+                </table>
               </td>
             </tr>
+          </table>
+        </div>
+        <div id="PtzResult">
+          <table style="text-align:left" border="0" cellspacing="1" cellpadding="4" width="100%" class="tab1">
             <tr>
-              <td class="td1" nowrap>
-              <label for="IsShowRgl">
-              <input type="checkbox" name="IsShowRgl" id="IsShowRgl" value="1" onclick="ffff_OC('IsShowRgl')">
-              Afficher les r&egrave;gles</label><br>
-              <label for="IsShowBrm">
-              <input type="checkbox" name="IsShowBrm" id="IsShowBrm" value="1" onclick="ffff_OC('IsShowBrm')">
-              Afficher les bar&egrave;mes</label>
+              <td align="center" class="td0">Votre Prêt à taux zéro</td>
+            </tr>
+            <tr>
+              <td valign="top" height="238px" class="td1">
+                <div id="PtzIfRevSup1" style="display:none;">
+                  Désolé, votre revenu fiscal de référence excêde le plafond
+                  réglementaire. Vous n'avez pas accês au prêt à taux zéro.
+                </div>
+                <div id="PtzIfQuestion" style="display:none;">
+                  Répondez au questionnaire ci-contre pour
+                  afficher ici les caractéristiques de votre prêt à taux zéro.
+                </div>
+                <div id="PtzIfRevSup0" style="display:none;">
+                  <table border="0" cellspacing="0" cellpadding="3" width="100%">
+                    <tr>
+                      <td nowrap="" colspan="2" class="td1t">Caractéristiques:</td>
+                    </tr>
+                    <tr>
+                      <td nowrap="" class="td1">Montant maximum du prêt....:</td>
+                      <td nowrap="" class="td1"><b>
+                          <div id="result_S_Pret"></div></b></td>
+                    </tr>
+                    <tr>
+                      <td nowrap="" class="td1">Durée totale maximum.........:</td>
+                      <td nowrap="" class="td1"><b>
+                          <div id="result_S_NbMois"></div></b></td>
+                    </tr>
+                    <tr id="IfTypeDiff1_dureeP1" style="display:none;">
+                      <td nowrap="" class="td1">
+                        <div id="result_diff_partiel"></div>
+                      </td>
+                      <td nowrap="" class="td1">
+                        <div id="result_S_DureePeriode1"></div>
+                      </td>
+                    </tr>
+                    <tr id="IfTypeDiff1_dureeP2" style="display:none;">
+                      <td nowrap="" class="td1">Durée d'amortissement........:</td>
+                      <td nowrap="" class="td1">
+                        <div id="result_S_DureePeriode2"></div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td nowrap="" colspan="2" class="td1t">Remboursements (hors assurance) :</td>
+                    </tr>
+                    <tr id="IfTypeDiff1_echP1" style="display:none;">
+                      <td nowrap="" class="td1">Mensualité durant le différé..:</td>
+                      <td nowrap="" class="td1">
+                        <div id="result_S_EchPeriode1"></div>
+                      </td>
+                    </tr>
+                    <tr id="IfTypeDiff1_echP2" style="display:none;">
+                      <td nowrap="" class="td1">Mensualité d'amortissement :</td>
+                      <td nowrap="" class="td1">
+                        <div id="result_S_EchPeriode2"></div>
+                      </td>
+                    </tr>
+                    <tr id="IfTypeDiff0_ech" style="display:none;">
+                      <td nowrap="" class="td1">Mensualité (hors assurance).:</td>
+                      <td nowrap="" class="td1">
+                        <div id="result_S_EchTotal"></div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
               </td>
-              <td class="td1" nowrap>
-              <input class="put1" name="BtnSubmit" type="button" style="width:100px;height:30px"
-              value="Calculer !" onclick="OnBtnSubmit(ffff)"></td>
             </tr>
           </table>
-          </td>
-        </tr>
-      </table>
-    </div>
-
-    <div id="PtzResult">
-      <table class="tab1" style="text-align:left" border="0" cellspacing="1" cellpadding="4" width="100%">
-        <tr>
-          <td class="td0" align="center">
-          Votre Pr&ecirc;t &agrave; taux z&eacute;ro</td>
-        </tr>
-        <tr>
-          <td class="td1" valign="top" height="238px">
-          <div id="PtzIfRevSup1" style="display:none;">
-          D&eacute;sol&eacute;, votre revenu fiscal de r&eacute;f&eacute;rence exc&egrave;de le plafond
-          r&eacute;glementaire. Vous n'avez pas acc&egrave;s au pr&ecirc;t &agrave; taux z&eacute;ro.
-          </div>
-          <div id="PtzIfQuestion" style="display:none;">
-          R&eacute;pondez au questionnaire ci-contre pour
-          afficher ici les caract&eacute;ristiques de votre pr&ecirc;t &agrave; taux z&eacute;ro.
-          </div>
-          <div id="PtzIfRevSup0" style="display:none;">
-          <table border="0" cellspacing="0" cellpadding="3" width="100%">
+        </div>
+        <div id="PtzInfoRFR">
+          (*) Saisir votre revenu fiscal de référence de l'avant derniêre année (N-2)
+          précédant la date prévisionnelle de l'offre de prêt. Si l'offre de prêt
+          intervient en 2016, il s'agit du revenu fiscal de référence de 2014.
+        </div>
+        <div id="PtzIsShowRgl1" style="display=none;">
+          <table style="text-align:left" border="0" cellspacing="1" cellpadding="4" class="tab1">
             <tr>
-              <td class="td1t" nowrap colspan="2">Caract&eacute;ristiques:</td>
+              <td align="center" class="td0">Réglementation du prêt à taux zéro en 2016</td>
             </tr>
             <tr>
-              <td class="td1" nowrap>Montant maximum du pr&ecirc;t....:</td>
-              <td class="td1" nowrap><b><div id="result_S_Pret"></div></b></td>
-            </tr>
-            <tr>
-              <td class="td1" nowrap>Dur&eacute;e totale maximum.........:</td>
-              <td class="td1" nowrap><b><div id="result_S_NbMois"></div></b></td>
-            </tr>
-
-            <tr id="IfTypeDiff1_dureeP1" style="display:none;">
-              <td class="td1" nowrap><div id="result_diff_partiel"></div></td>
-              <td class="td1" nowrap><div id="result_S_DureePeriode1"></div></td>
-            </tr>
-            <tr id="IfTypeDiff1_dureeP2" style="display:none;">
-              <td class="td1" nowrap>Dur&eacute;e d'amortissement........:</td>
-              <td class="td1" nowrap><div id="result_S_DureePeriode2"></div></td>
-            </tr>
-
-            <tr>
-              <td class="td1t" nowrap colspan="2">Remboursements (hors assurance) :</td>
-            </tr>
-            <tr id="IfTypeDiff1_echP1" style="display:none;">
-              <td class="td1" nowrap>Mensualit&eacute; durant le diff&eacute;r&eacute;..:</td>
-              <td class="td1" nowrap><div id="result_S_EchPeriode1"></div></td>
-            </tr>
-            <tr id="IfTypeDiff1_echP2" style="display:none;">
-              <td class="td1" nowrap>Mensualit&eacute; d'amortissement :</td>
-              <td class="td1" nowrap><div id="result_S_EchPeriode2"></div></td>
-            </tr>
-            <tr id="IfTypeDiff0_ech" style="display:none;">
-              <td class="td1" nowrap>Mensualit&eacute; (hors assurance).:</td>
-              <td class="td1" nowrap><div id="result_S_EchTotal"></div></td>
+              <td valign="top" class="tdg">
+                <table border="0" cellspacing="0" cellpadding="3" width="100%">
+                  <tr>
+                    <td nowrap="" colspan="2" class="td1t">Conditions générales :</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td class="td1">
+                      Le prêt à taux zéro est réservé à l'acquisition
+                      de votre résidence principale. Il est exclu si vous êtes déjà
+                      propriétaire de celle-ci ou si vous l'avez été dans les deux ans
+                      précédant l'émission de l'offre de prêt.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td class="td1">
+                      Les acquisitions éligibles sont :
+                      l'achat ou la construction d'un logement neuf ;
+                      l'achat d'un logement ancien suivi de travaux de remise à neuf ;
+                      l'achat d'un logement ancien suivi de travaux représentant au
+                      moins 25% du coût total ;
+                      l'achat d'un local non destiné à l'habitation suivi de travaux
+                      de transformation en logement ;
+                      l'achat d'un logement neuf par son locataire-accédant en PSLA ;
+                      le rachat d'un logement HLM par son locataire.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td style="padding-bottom:10px" class="td1">
+                      Le prêt peut financer le prix
+                      du logement et, en cas d'achat d'ancien éligible, le coût des travaux. Il
+                      ne peut pas financer les frais de notaire, de garantie ou bancaires.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td class="td1">
+                      Le prêt est exclu si votre revenu fiscal de référence
+                      excêde un certain plafond de revenu. Ce plafond dépend de la localisation
+                      du bien. Le prêt est également exclu si le coût d'acquisition hors frais
+                      excêde neuf fois ce plafond de revenu.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" colspan="3" class="td1t">Conditions relatives au montant et à la durée du prêt :</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">
+                      Le montant du prêt est plafonné.
+                      Ce plafond dépend de la localisation du bien (zones A, B1, B2 ou C),
+                      du caractêre neuf ou ancien du logement, et du nombre de personne dans
+                      le ménage.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">
+                      Le montant du prêt est également limité à 40%
+                      de la dépense finançable. Ce pourcentage est ramené à 10% s'il s'agit d'un
+                      rachat de logement HLM sans travaux ou avec travaux inférieurs à 25% de la
+                      dépense finançable.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">
+                      Le montant du prêt ne doit pas excéder le montant
+                      cumulé des autres prêts d'une durée supérieure ou égale à 24 mois concourant
+                      au financement de l'opération, soit <b>50%</b> du montant total des prêts.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">
+                      Le remboursement du prêt comprend une période de
+                      différé total (5, 10 ou 15 ans) suivie d'une période d'amortissement (15, 12
+                      ou 10 ans). La durée du différé dépend du niveau du revenu fiscal, réparti
+                      selon 3 tranches. Le montant plafond de chaque tranche est fonction de la
+                      localisation du bien (A, B1, B2, C) et du nombre de personnes dans le ménage.
+                      Pour déterminer la tranche applicable, le revenu fiscal est supposé être au
+                      moins égal à un neuviême du coût de l'opération. La durée du différé est
+                      également limitée à la durée des autres prêts.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td nowrap="" colspan="3" class="td1t">Les Zones A, B1, B2 et C :</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">Zone <b>A</b> : principalement l'agglomération
+                                parisienne, le genevois français, Lille, Lyon, les agglomérations de Marseille,
+                                Toulon et Montpellier, une partie de la C&ocirc;te d'Azur, Ajaccio, Bonifacio,
+                                Porto-Vecchio.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">Zone <b>B1</b> : agglomérations de plus de 250.000
+                                habitants, grande couronne parisienne, pourtour de la C&ocirc;te d'Azur, quelques
+                                agglomérations chêres, départements d'Outre-Mer, agglomérations littorales
+                                corses, Iles.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">Zone <b>B2</b> : autres agglomérations de plus de
+                                50.000 habitants, communes chêres en zones littorales ou frontaliêres, pourtour
+                                de l'Ile-de-France, reste de la Corse.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="td1p">-</td>
+                    <td colspan="2" class="td1">Zone <b>C</b> : communes de province non classées
+                                en zone A, B1 ou B2.
+                    </td>
+                  </tr>
+                </table>
+              </td>
             </tr>
           </table>
-          </div>
-          </td>
-        </tr>
-      </table>
+        </div>
+        <div id="PtzIsShowBrm1" style="display=none;"><font class="titre1">Barêmes pour un ménage composé de<span id="PtzIdNbPersMenage" style="color:#FE3423"></span></font><br>
+          <td align="center" colspan="2"><br><font class="titre1">Critêres d'exclusion</font></td><br>
+          <table width="100%" border="0" cellspacing="1" cellpadding="2" class="tab1">
+            <tr align="center">
+              <td nowrap="" width="34%" class="td2">Critêre</td>
+              <td nowrap="" class="td2">Zone A</td>
+              <td nowrap="" class="td2">Zone B1</td>
+              <td nowrap="" class="td2">Zone B2</td>
+              <td nowrap="" class="td2">Zone C</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap="" align="left" class="td1">Plafond de revenu<br>Montant maxi de l'acquisition<br></td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sExcluA"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sExcluB1"></div>
+              </td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sExcluB2"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sExcluC"></div>
+              </td>
+            </tr>
+          </table><br><font class="titre1">Montant maximum du prêt</font><br>
+          <table width="100%" border="0" cellspacing="1" cellpadding="2" class="tab1">
+            <tr align="center">
+              <td nowrap="" width="34%" class="td2">Type d'achat</td>
+              <td nowrap="" class="td2">Zone A</td>
+              <td nowrap="" class="td2">Zone B1</td>
+              <td nowrap="" class="td2">Zone B2</td>
+              <td nowrap="" class="td2">Zone C</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap="" align="left" class="td1">Neuf ou ancien + travaux &gt; 25%<br>Rachat logement HLM</td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sPretMaxA"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sPretMaxB1"></div>
+              </td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sPretMaxB2"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sPretMaxC"></div>
+              </td>
+            </tr>
+          </table><br><font class="titre1">Modalités de remboursement du prêt</font><br>
+          <table width="100%" border="0" cellspacing="1" cellpadding="2" class="tab1">
+            <tr align="center">
+              <td nowrap="" colspan="4" class="td2">Tranche de revenu fiscal</td>
+              <td nowrap="" rowspan="2" class="td2">Durée max.<br>du prêt</td>
+              <td nowrap="" rowspan="2" class="td2">modalités de remboursement<br>(le différé peut être raccourci)</td>
+            </tr>
+            <tr align="center">
+              <td nowrap="" class="td2">Zone A</td>
+              <td nowrap="" class="td2">Zone B1</td>
+              <td nowrap="" class="td2">Zone B2</td>
+              <td nowrap="" class="td2">Zone C</td>
+            </tr>
+            <tr valign="top">
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sRembRgiA"></div>
+              </td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sRembRgiB1"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sRembRgiB2"></div>
+              </td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sRembRgiC"></div>
+              </td>
+              <td nowrap="" align="right" class="td1">
+                <div id="brm_sRembD1"></div>
+              </td>
+              <td nowrap="" align="right" class="td1f">
+                <div id="brm_sRembD2"></div>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <div class="note1"><i>Auteur : <a target="_blank" href="http://www.alto-informatique.com" class="note1">Alto-Informatique.com</a> - Tous droits réservés</i></div>
+      </form>
     </div>
-
-    <div id="PtzInfoRFR">
-       (*) Saisir votre revenu fiscal de r&eacute;f&eacute;rence de l'avant derni&egrave;re ann&eacute;e (N-2)
-       pr&eacute;c&eacute;dant la date pr&eacute;visionnelle de l'offre de pr&ecirc;t. Si l'offre de pr&ecirc;t
-       intervient en 2016, il s'agit du revenu fiscal de r&eacute;f&eacute;rence de 2014.
-    </div>
-
-  <div id="PtzIsShowRgl1" style="display=none;">
-  <table style="text-align:left" class="tab1" border="0" cellspacing="1" cellpadding="4">
-    <tr>
-      <td class="td0" align="center">
-      R&eacute;glementation du pr&ecirc;t &agrave; taux z&eacute;ro en 2016</td>
-    </tr>
-    <tr>
-      <td class="tdg" valign="top">
-      <table border="0" cellspacing="0" cellpadding="3" width="100%">
-        <tr>
-          <td class="td1t" nowrap colspan="2">Conditions g&eacute;n&eacute;rales :</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1">Le pr&ecirc;t &agrave; taux z&eacute;ro est r&eacute;serv&eacute; &agrave; l'acquisition
-          de votre r&eacute;sidence principale. Il est exclu si vous &ecirc;tes d&eacute;j&agrave;
-          propri&eacute;taire de celle-ci ou si vous l'avez &eacute;t&eacute; dans les deux ans
-          pr&eacute;c&eacute;dant l'&eacute;mission de l'offre de pr&ecirc;t.</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1">Les acquisitions &eacute;ligibles sont :
-          l'achat ou la construction d'un logement neuf ;
-          l'achat d'un logement ancien suivi de travaux de remise &agrave; neuf ;
-          l'achat d'un logement ancien suivi de travaux repr&eacute;sentant au
-          moins 25% du co&ucirc;t total ;
-          l'achat d'un local non destin&eacute; &agrave; l'habitation suivi de travaux
-          de transformation en logement ;
-          l'achat d'un logement neuf par son locataire-acc&eacute;dant en PSLA ;
-          le rachat d'un logement HLM par son locataire.
-          </td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td style="padding-bottom:10px" class="td1">Le pr&ecirc;t peut financer le prix
-          du logement et, en cas d'achat d'ancien &eacute;ligible, le co&ucirc;t des travaux. Il
-          ne peut pas financer les frais de notaire, de garantie ou bancaires.</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1">Le pr&ecirc;t est exclu si votre revenu fiscal de r&eacute;f&eacute;rence
-          exc&egrave;de un certain plafond de revenu. Ce plafond d&eacute;pend de la localisation
-          du bien. Le pr&ecirc;t est &eacute;galement exclu si le co&ucirc;t d'acquisition hors frais
-          exc&egrave;de neuf fois ce plafond de revenu.</td>
-        </tr>
-        <tr>
-          <td class="td1t" nowrap colspan="3">
-          Conditions relatives au montant et &agrave; la dur&eacute;e du pr&ecirc;t :</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Le montant du pr&ecirc;t est plafonn&eacute;.
-          Ce plafond d&eacute;pend de la localisation du bien (zones A, B1, B2 ou C),
-          du caract&egrave;re neuf ou ancien du logement, et du nombre de personne dans
-          le m&eacute;nage.</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Le montant du pr&ecirc;t est &eacute;galement limit&eacute; &agrave; 40%
-          de la d&eacute;pense finan&ccedil;able. Ce pourcentage est ramen&eacute; &agrave; 10% s'il s'agit d'un
-          rachat de logement HLM sans travaux ou avec travaux inf&eacute;rieurs &agrave; 25% de la
-          d&eacute;pense finan&ccedil;able.
-          </td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Le montant du pr&ecirc;t ne doit pas exc&eacute;der le montant
-          cumul&eacute; des autres pr&ecirc;ts d'une dur&eacute;e sup&eacute;rieure ou &eacute;gale &agrave; 24 mois concourant
-          au financement de l'op&eacute;ration, soit <b>50%</b> du montant total des pr&ecirc;ts.
-        </td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Le remboursement du pr&ecirc;t comprend une p&eacute;riode de
-          diff&eacute;r&eacute; total (5, 10 ou 15 ans) suivie d'une p&eacute;riode d'amortissement (15, 12
-          ou 10 ans). La dur&eacute;e du diff&eacute;r&eacute; d&eacute;pend du niveau du revenu fiscal, r&eacute;parti
-          selon 3 tranches. Le montant plafond de chaque tranche est fonction de la
-          localisation du bien (A, B1, B2, C) et du nombre de personnes dans le m&eacute;nage.
-          Pour d&eacute;terminer la tranche applicable, le revenu fiscal est suppos&eacute; &ecirc;tre au
-          moins &eacute;gal &agrave; un neuvi&egrave;me du co&ucirc;t de l'op&eacute;ration. La dur&eacute;e du diff&eacute;r&eacute; est
-          &eacute;galement limit&eacute;e &agrave; la dur&eacute;e des autres pr&ecirc;ts.
-          </td>
-        </tr>
-        <tr>
-          <td class="td1t" nowrap colspan="3">
-          Les Zones A, B1, B2 et C :</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Zone <b>A</b> : principalement l'agglom&eacute;ration
-          parisienne, le genevois fran&ccedil;ais, Lille, Lyon, les agglom&eacute;rations de Marseille,
-          Toulon et Montpellier, une partie de la C&ocirc;te d'Azur, Ajaccio, Bonifacio,
-          Porto-Vecchio.</td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Zone <b>B1</b> : agglom&eacute;rations de plus de 250.000
-          habitants, grande couronne parisienne, pourtour de la C&ocirc;te d'Azur, quelques
-          agglom&eacute;rations ch&egrave;res, d&eacute;partements d'Outre-Mer, agglom&eacute;rations littorales
-          corses, Iles.
-          </td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Zone <b>B2</b> : autres agglom&eacute;rations de plus de
-          50.000 habitants, communes ch&egrave;res en zones littorales ou frontali&egrave;res, pourtour
-          de l'Ile-de-France, reste de la Corse.
-          </td>
-        </tr>
-        <tr>
-          <td class="td1p" valign="top">-</td>
-          <td class="td1" colspan="2">Zone <b>C</b> : communes de province non class&eacute;es
-          en zone A, B1 ou B2.
-          </td>
-        </tr>
-      </table>
-      </td>
-    </tr>
-  </table>
-  </div>
-
-  <div id="PtzIsShowBrm1" style="display=none;">
-  <font class="titre1">Bar&egrave;mes pour un m&eacute;nage compos&eacute; de
-  <span id="PtzIdNbPersMenage" style="color:#FE3423"></span></font>
-  <br/>
-    <td align="center" colspan="2"><br><font class="titre1">
-    Crit&egrave;res d'exclusion</font></td>
-  <br/>
-	<table class="tab1" width="100%" border="0" cellspacing="1" cellpadding="2">
-      <tr align="center">
-        <td class="td2" nowrap width="34%">Crit&egrave;re</td>
-        <td class="td2" nowrap>Zone A</td>
-        <td class="td2" nowrap>Zone B1</td>
-        <td class="td2" nowrap>Zone B2</td>
-        <td class="td2" nowrap>Zone C</td>
-      </tr>
-      <tr valign="top">
-        <td class="td1" nowrap align="left">Plafond de revenu<br/>
-        Montant maxi de l'acquisition<br/>
-        <td class="td1f" nowrap align="right"><div id="brm_sExcluA"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sExcluB1"></div></td>
-        <td class="td1f" nowrap align="right"><div id="brm_sExcluB2"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sExcluC"></div></td>
-      </tr>
-    </table>
-    <br/>
-    <font class="titre1">Montant maximum du pr&ecirc;t</font>
-	<br/>
-	<table class="tab1" width="100%" border="0" cellspacing="1" cellpadding="2">
-      <tr align="center">
-        <td class="td2" nowrap width="34%">Type d'achat</td>
-        <td class="td2" nowrap>Zone A</td>
-        <td class="td2" nowrap>Zone B1</td>
-        <td class="td2" nowrap>Zone B2</td>
-        <td class="td2" nowrap>Zone C</td>
-      </tr>
-      <tr valign="top">
-        <td class="td1" nowrap align="left">Neuf ou ancien + travaux &gt; 25%<br/>
-        Rachat logement HLM</td>
-        <td class="td1f" nowrap align="right"><div id="brm_sPretMaxA"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sPretMaxB1"></div></td>
-        <td class="td1f" nowrap align="right"><div id="brm_sPretMaxB2"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sPretMaxC"></div></td>
-      </tr>
-    </table>
-    <br/>
-	<font class="titre1">Modalit&eacute;s de remboursement du pr&ecirc;t</font>
-  <br/>
-    <table class="tab1" width="100%" border="0" cellspacing="1" cellpadding="2">
-      <tr align="center">
-        <td class="td2" nowrap colspan="4">Tranche de revenu fiscal</td>
-        <td class="td2" nowrap rowspan="2">Dur&eacute;e max.<br>du pr&ecirc;t</td>
-        <td class="td2" nowrap rowspan="2">modalit&eacute;s de remboursement<br>(le diff&eacute;r&eacute; peut &ecirc;tre raccourci)</td>
-      </tr>
-      <tr align="center">
-        <td class="td2" nowrap>Zone A</td>
-        <td class="td2" nowrap>Zone B1</td>
-        <td class="td2" nowrap>Zone B2</td>
-        <td class="td2" nowrap>Zone C</td>
-      </tr>
-      <tr valign="top">
-        <td class="td1"  nowrap align="right"><div id="brm_sRembRgiA"></div></td>
-        <td class="td1f" nowrap align="right"><div id="brm_sRembRgiB1"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sRembRgiB2"></div></td>
-        <td class="td1f" nowrap align="right"><div id="brm_sRembRgiC"></div></td>
-        <td class="td1"  nowrap align="right"><div id="brm_sRembD1"></div></td>
-        <td class="td1f" nowrap align="right"><div id="brm_sRembD2"></div></td>
-      </tr>
-    </table>
-  </div>
-<div class="note1"><i>Auteur : <a class="note1" target="_blank" href="http://www.alto-informatique.com">Alto-Informatique.com</a> - Tous droits r&eacute;serv&eacute;s</i></div>
-
-</form>
-</div>
-
-<!-- ******* Fin de texte a inserer dans votre balise <BODY> ******* -->
-
-</body>
+    <!-- ******* Fin de texte a inserer dans votre balise <BODY> *******-->
+  </body>
 </html>
-

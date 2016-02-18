@@ -50,10 +50,9 @@ var ROOT_MODULE = "<?php global $base_url; print  $base_url.'/'.drupal_get_path(
 
 </head>
 
-<body onload="LoadAltoCalcFin('IdAltoCalcFin', OCalcFinIni)" style="margin: 0 auto; padding:0;">
-
-<div id="IdAltoCalcFin"></div>
-
+<body onload="LoadAltoCalcFin('IdAltoCalcFin', OCalcFinIni)" style="margin:auto; padding:0;">
+  <div id="IdAltoCalcFin" style="margin: 0 auto;"></div>
+  <script type="text/javascript">window.NREUM||(NREUM={});NREUM.info={"beacon":"bam.nr-data.net","licenseKey":"fb35aab343","applicationID":"11939865","transactionName":"NlNbbUAADRVWUEBbVw8ZeFpGCAwIGEFRXFwERGZKWwwWClZHUUdKPltcV0EUAgpeR1FBZxNTVFtdFBEVUl5RXEw+VVhVUQcKCA==","queueTime":0,"applicationTime":62,"atts":"GhRYGwgaHhs=","errorBeacon":"bam.nr-data.net","agent":"js-agent.newrelic.com\\/nr-768.min.js"}</script>
 </body>
 
 </html>
