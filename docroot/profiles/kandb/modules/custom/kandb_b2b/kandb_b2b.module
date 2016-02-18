@@ -113,6 +113,10 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
       'template' => 'templates/b2b_homepage',
       'variables' => array(),
     ),
+    'kandb_b2b_user_login_popin_form' => array(
+      'render element' => 'form',
+      'template' => 'templates/kandb_b2b_user_login_popin_form',
+    ),
     'b2b_register_header' => array(
       'template' => 'templates/b2b_register_header',
       'variables' => array(),
@@ -120,6 +124,7 @@ function kandb_b2b_theme($existing, $type, $theme, $path) {
     'b2b_register_confirmation' => array(
       'template' => 'templates/b2b_register_confirmation',
       'variables' => array(),
+
     ),
   );
 }
@@ -151,6 +156,42 @@ function kandb_b2b_date_format_types() {
  */
 function kandb_b2b_user_login(&$edit, $account) {
   $edit['redirect'] = 'dash-board';
+}
+
+
+function kandb_b2b_form_user_login_alter(&$form, &$form_state) {
+  // Username textfield .
+  $form['name']['#theme_wrappers'] = NULL;
+  $form['name']['#description'] = '';
+  $form['name']['#attributes']['required'] = 'required';
+  $form['name']['#attributes']['placeholder'] = t('Votre identifiant');
+
+  // Password textfield.
+  $form['pass']['#theme_wrappers'] = NULL;
+  $form['pass']['#description'] = '';
+  $form['pass']['#attributes']['required'] = 'required';
+  $form['pass']['#attributes']['placeholder'] = t('Votre mot de passe');
+
+  // Remember me checkbox.
+  $form['remember_me']['#theme_wrappers'] = NULL;
+
+  // Submit button.
+  $form['actions']['#theme_wrappers'] = NULL;
+  $form['actions']['submit']['#value'] = t('Me connecter');
+  $form['actions']['submit']['#attributes']['class'] = array('btn-primary', 'btn-rounded');
+
+
+  if (isset($form_state['build_info']['args'][0]['position'])) {
+    $position = $form_state['build_info']['args'][0]['position'];
+    switch ($position) {
+      case 'popin':
+        $form['#theme'] = 'kandb_b2b_user_login_popin_form';
+        break;
+
+      default:
+        break;
+    }
+  }
 }
 
 /**
