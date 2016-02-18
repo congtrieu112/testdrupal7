@@ -39,7 +39,7 @@
     </div>
     <div class="webform-component webform-component-textfield small-6 medium-3 columns">
         <label for="registerPortable"><?php print t('Portable'); ?></label>
-        <input id="registerPortable" type="text" name="submitted[portable]" class="form-text">
+        <?php print drupal_render($form['group_profile']['field_user_portable']); ?>
     </div>
     <div class="webform-component webform-component-textfield small-12 medium-6 columns">
         <label for="registerAdresseMessagerie"><?php print t('Adresse de messagerie'); ?></label>

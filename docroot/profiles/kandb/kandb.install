@@ -1087,3 +1087,12 @@ function kandb_update_7210() {
     variable_set('password_policy_admin', 0);
   }
 }
+
+/**
+ * Enable Email Registration module
+ */
+function kandb_update_7211() {
+  if (!module_exists('email_registration')) {
+    module_enable(array('email_registration'), TRUE);
+  }
+}
