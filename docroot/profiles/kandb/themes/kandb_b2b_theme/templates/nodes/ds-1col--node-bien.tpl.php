@@ -276,9 +276,9 @@ if($nb_pieces_name == 'studio') {
                 <div class="heading__title">
                   <?php print $heading_title; ?>
                   <?php
-                  if(isset($title_maison)) {
+                  if(isset($title_maison)) :
                     print $title_maison;
-                  }
+                  endif;
                   ?>
 
                   <?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?>
