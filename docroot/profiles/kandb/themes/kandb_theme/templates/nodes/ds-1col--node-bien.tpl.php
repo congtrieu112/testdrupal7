@@ -117,6 +117,10 @@ $heading_title = $bien_type_name . ' ' . $nb_pieces_name;
 if($nb_pieces_name == 'studio') {
   $heading_title = ucfirst($nb_pieces_name);
 }
+$tag_commander = kandb_tagcommander_sanitize_for_event($bien_type_name . ' ' . $nb_pieces_name . ' ' );
+$programme_ville = taxonomy_term_load($field_programme[0]['entity']->field_programme_loc_ville['und'][0]['tid']);
+$programme_ville = !empty($programme_ville) ? ' ' . $programme_ville->name : '';
+$tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programme[0]['entity']->title . $programme_ville);
 ?>
 
 <!-- [bienHeader] start-->
@@ -168,6 +172,7 @@ if($nb_pieces_name == 'studio') {
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale[LANGUAGE_NONE][1]['uri'])?$programme->field_image_principale[LANGUAGE_NONE][1]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
@@ -183,7 +188,7 @@ if($nb_pieces_name == 'studio') {
 
     }
 
-    if ($image_principale || $image_principale_2 || $image_principale_3):
+    if ($image_principale || $image_principale_2 || $image_principale_2_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -220,6 +225,20 @@ if($nb_pieces_name == 'studio') {
                   </figure>
                 </article>
                <?php endif;?>
+              <?php if($image_principale_2_2): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
               <?php if($image_principale_3): ?>
                 <article class="programHeaderFigureItem">
                   <figure>
@@ -249,6 +268,13 @@ if($nb_pieces_name == 'studio') {
                     <!-- [back link] start-->
                     <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
+                      <div class="heading__title smaller">
+                        <?php
+                        if(isset($title_maison)) {
+                          print $title_maison;
+                        }
+                        ?>
+                      </div>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -346,10 +372,10 @@ if($nb_pieces_name == 'studio') {
                 ?>
                 <div class="sharing hide-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});" ></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
@@ -357,10 +383,21 @@ if($nb_pieces_name == 'studio') {
                 <ul class="characteristicList">
                     <?php
                     $array_flags = array();
+                    $node_programme = $node->field_programme[LANGUAGE_NONE][0]['entity'];
                     if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
                       foreach($program_characteristic_on_bien as $term) :
                         $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        if ($term->name == "Chauffage") :
+                          if (isset( $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) &&  $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid'] ) :
+                            $chauffage = taxonomy_term_load($node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                            if($chauffage) :
+                              $icon_class_chauffage = get_taxonomy_by_vocabulary_name($term->name,'caracteristiques_programme');
+                              $term->name = $chauffage->name;
+                              $class_icon = isset($icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : "";
+                            endif;
+                          endif;
+                        endif;
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
@@ -447,7 +484,7 @@ if($nb_pieces_name == 'studio') {
                     <?php
                         $url = kandb_contact_get_telechargement_documents_url();
                     ?>
-                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'ajout_selections::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});" ><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
 
                     <?php if (!empty($plaquette_commerciale)): ?>
                       <li>
@@ -480,10 +517,10 @@ if($nb_pieces_name == 'studio') {
                 <!-- [contactUs mini] end-->
                 <div class="sharing show-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
@@ -537,54 +574,7 @@ if ($habiteo_id && $virtuelle):
 <!-- [3rd party: visite-virtuelle] start-->
 
 <!-- [More Available] start-->
-<?php
-global $_domain;
-$gid = $_domain['domain_id'];
-
-$list_bien_more = array();
-if ($piece_id) {
-  $nb_pieces = taxonomy_term_load($piece_id);
-  $field_id_bien = isset($node->field_id_bien[LANGUAGE_NONE][0]['value']) ? $node->field_id_bien[LANGUAGE_NONE][0]['value'] : 0;
-  // Get list bien exclude current bien with surface (sort asc)
-  $list_bien_more = get_biens_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien);
-
-  // Get bien with price min
-  $list_bien_more_price_min = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'ASC');
-  // Get bien with price max
-  $list_bien_more_price_max = get_biens_price_max_min_follow_piece_program($programme->nid, $gid, $piece_id, $field_id_bien, 'DESC');
-
-  // List bien more (First: Cheapest, Second: Expensive, Remain: Bien from the smallest to the larger Bien (surface)
-  if(count($list_bien_more) > 2) {
-    $bien_id_price_max = (!empty($list_bien_more_price_max)) ? key($list_bien_more_price_max) : '';
-    $bien_id_price_min = (!empty($list_bien_more_price_min)) ? key($list_bien_more_price_min) : '';
-
-    if($bien_id_price_max) {
-      unset($list_bien_more[$bien_id_price_max]);
-    }
-
-    if($bien_id_price_min) {
-      unset($list_bien_more[$bien_id_price_min]);
-    }
-
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max, $list_bien_more);
-    }
-  } elseif(count($list_bien_more) == 2) {
-    if($list_bien_more_price_min && $list_bien_more_price_max) {
-      $list_bien_more = array_merge($list_bien_more_price_min, $list_bien_more_price_max);
-    }
-  }
-
-  foreach ($list_bien_more as $item) {
-    $bien_datas = node_load($item->nid);
-    if (!in_array($gid, $bien_datas->domains)) {
-      unset($list_bien_more[$item->nid]);
-    }
-  }
-}
-
-if (!empty($list_bien_more)):
-  ?>
+<?php if (!empty($list_bien_more)): ?>
   <section class="section-padding">
       <div class="wrapper">
           <header class="heading heading--bordered">

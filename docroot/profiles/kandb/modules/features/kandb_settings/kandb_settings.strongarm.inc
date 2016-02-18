@@ -22,7 +22,8 @@ function kandb_settings_strongarm() {
   $strongarm->api_version = 1;
   $strongarm->name = 'cacheexclude_list';
   $strongarm->value = 'mon-espace
-recherche';
+recherche
+candidature';
   $export['cacheexclude_list'] = $strongarm;
 
   $strongarm = new stdClass();

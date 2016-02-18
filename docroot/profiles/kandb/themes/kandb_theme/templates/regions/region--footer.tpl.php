@@ -32,14 +32,26 @@ global $base_url;
 <footer data-footer="" class="siteFooter">
     <div class="wrapper">
         <div class="siteFooter__head"><a href="<?php print $base_url; ?>" title="retour à l'accueil" class="logo"><img src="<?php print $logo_svg; ?>" alt="Kaufman&amp;Board"></a>
-            <div class="prescripteurs"><?php if ($link_prescripteur) : ?><a href="<?php print $link_prescripteur; ?>" class="btn-white">Espace prescripteur<span class="icon icon-arrow"></span></a><?php endif; ?></div>
+            <div class="prescripteurs"><?php if ($link_prescripteur) : ?><a href="<?php print $link_prescripteur; ?>" class="btn-white" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::site_btob::lien_site_btob','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'S'});" >Espace prescripteur<span class="icon icon-arrow"></span></a><?php endif; ?></div>
             <?php if ($icon_setting) : ?>
                 <aside class="aside"><span class="sharing-label">suivez-nous sur</span>
                      <div class="sharing">
                         <ul class="sharing__items">
-                            <?php if ($facebook) : ?><li class="sharing__items__item"><a href="<?php print $facebook; ?>" title="partage sur Facebook" class="icon icon-facebook"></a></li><?php endif; ?>
-                            <?php if ($twitter) : ?><li class="sharing__items__item"><a href="<?php print $twitter; ?>#" title="partage sur Twitter" class="icon icon-twitter"></a></li><?php endif; ?>
-                            <?php if ($youtube) : ?><li class="sharing__items__item"><a href="<?php print $youtube; ?>" title="partage sur Youtube" class="icon icon-youtube"></a></li><?php endif; ?>
+                            <?php if ($facebook) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $facebook; ?>" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::facebook','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($twitter) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $twitter; ?>#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::twitter','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
+                            <?php if ($youtube) : ?>
+                                <li class="sharing__items__item">
+                                    <a href="<?php print $youtube; ?>" title="partage sur Youtube" class="icon icon-youtube" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::reseaux_sociaux::youtube','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"></a>
+                                </li>
+                            <?php endif; ?>
                         </ul>
                     </div>
                 </aside>
@@ -53,7 +65,7 @@ global $base_url;
                     <?php if ($i % $split_number == 0) : ?>
                         <ul <?php print (!$i ? 'class="show-for-medium-up searchItems"' : '') ?>>
                     <?php endif; ?>
-                            <li><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink')))); ?></li>
+                            <li><?php print l($item['title'], $item['href'], array('attributes' => array('title' => $item['title'], 'class' => array('textLink'), 'onclick' => "javascript:return tc_events_1(this,'CLICK',{'LABEL':'footer::links::" . kandb_tagcommander_sanitize_for_event($item['title']) . "','XTCLICK_EVENT':'C','XTCLICK_S2':'11','XTCLICK_TYPE':'N'});"))); ?></li>
                     <?php if ($i % $split_number == $split_number-1 ) : ?>
                         </ul>
                     <?php endif; ?>
