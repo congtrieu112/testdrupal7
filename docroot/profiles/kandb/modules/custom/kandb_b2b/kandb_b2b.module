@@ -129,39 +129,37 @@ function kandb_b2b_user_login(&$edit, $account) {
   $edit['redirect'] = 'dash-board';
 }
 
-/**
- * User login popin.
- */
-function kandb_b2b_user_login_popin_form($from, &$form_state) {
-  $user_login_form = drupal_get_form("user_login");
-  kpr($user_login_form);
-
+function kandb_b2b_form_user_login_alter(&$form, &$form_state) {
   // Username textfield .
-  $form['name'] = $user_login_form['name'];
   $form['name']['#theme_wrappers'] = NULL;
   $form['name']['#description'] = '';
   $form['name']['#attributes']['required'] = 'required';
   $form['name']['#attributes']['placeholder'] = t('Votre identifiant');
 
   // Password textfield.
-  $form['pass'] = $user_login_form['pass'];
   $form['pass']['#theme_wrappers'] = NULL;
   $form['pass']['#description'] = '';
   $form['pass']['#attributes']['required'] = 'required';
   $form['pass']['#attributes']['placeholder'] = t('Votre mot de passe');
 
   // Remember me checkbox.
-  $form['remember_me'] = $user_login_form['remember_me'];
   $form['remember_me']['#theme_wrappers'] = NULL;
 
   // Submit button.
   $form['actions']['#theme_wrappers'] = NULL;
   $form['actions']['submit']['#value'] = t('Me connecter');
   $form['actions']['submit']['#attributes']['class'] = array('btn-primary', 'btn-rounded');
-  
-  $form['#validate'] = $user_login_form['#validate'];
-  $form['#submit'] = $user_login_form['#submit'];
-  $form['actions'] = $user_login_form['actions'];
-  $form['#theme'] = 'kandb_b2b_user_login_popin_form';
-  return $form;
+
+
+  if (isset($form_state['build_info']['args'][0]['position'])) {
+    $position = $form_state['build_info']['args'][0]['position'];
+    switch ($position) {
+      case 'popin':
+        $form['#theme'] = 'kandb_b2b_user_login_popin_form';
+        break;
+
+      default:
+        break;
+    }
+  }
 }

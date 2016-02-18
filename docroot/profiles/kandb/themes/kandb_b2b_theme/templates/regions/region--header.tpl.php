@@ -73,7 +73,7 @@ $username = isset($user->name) ? $user->name : '';
                   <aside class="login">
                     <h2 class="heading heading--small"><b class="heading__title">Déjà partenaire?</b></h2>
                     <?php
-                      $login_form = drupal_get_form("kandb_b2b_user_login_popin_form");
+                      $login_form = drupal_get_form('user_login', array('position' => 'popin'));
                       print drupal_render($login_form);
                     ?>
                   </aside>

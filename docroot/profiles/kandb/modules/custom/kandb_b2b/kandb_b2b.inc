@@ -13,7 +13,7 @@ function render_b2b_homepage() {
   $login_form = array();
   global $user;
   if (!$user->uid) {
-    $login_form = drupal_get_form("user_login");
+    $login_form = drupal_get_form("user_login", array('position' => 'content'));
   }
 
   // Selected program.
