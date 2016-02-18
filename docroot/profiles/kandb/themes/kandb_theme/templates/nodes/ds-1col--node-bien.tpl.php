@@ -117,6 +117,10 @@ $heading_title = $bien_type_name . ' ' . $nb_pieces_name;
 if($nb_pieces_name == 'studio') {
   $heading_title = ucfirst($nb_pieces_name);
 }
+$tag_commander = kandb_tagcommander_sanitize_for_event($bien_type_name . ' ' . $nb_pieces_name . ' ' );
+$programme_ville = taxonomy_term_load($field_programme[0]['entity']->field_programme_loc_ville['und'][0]['tid']);
+$programme_ville = !empty($programme_ville) ? ' ' . $programme_ville->name : '';
+$tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programme[0]['entity']->title . $programme_ville);
 ?>
 
 <!-- [bienHeader] start-->
@@ -264,6 +268,11 @@ if($nb_pieces_name == 'studio') {
                     <!-- [back link] start-->
                     <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
+                      <?php if(isset($title_maison)) : ?>
+                        <div class="heading__title smaller">
+                          <?php print $title_maison; ?>
+                        </div>
+                      <?php endif;?>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -361,10 +370,10 @@ if($nb_pieces_name == 'studio') {
                 ?>
                 <div class="sharing hide-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});" ></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
@@ -372,10 +381,21 @@ if($nb_pieces_name == 'studio') {
                 <ul class="characteristicList">
                     <?php
                     $array_flags = array();
+                    $node_programme = $node->field_programme[LANGUAGE_NONE][0]['entity'];
                     if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
                       foreach($program_characteristic_on_bien as $term) :
                         $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        if ($term->name == "Chauffage") :
+                          if (isset( $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) &&  $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid'] ) :
+                            $chauffage = taxonomy_term_load($node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                            if($chauffage) :
+                              $icon_class_chauffage = get_taxonomy_by_vocabulary_name($term->name,'caracteristiques_programme');
+                              $term->name = $chauffage->name;
+                              $class_icon = isset($icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : "";
+                            endif;
+                          endif;
+                        endif;
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
@@ -462,7 +482,7 @@ if($nb_pieces_name == 'studio') {
                     <?php
                         $url = kandb_contact_get_telechargement_documents_url();
                     ?>
-                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>"><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
+                    <li><a href="#" data-cookie="<?php print $node->type; ?>" class="btn-white" data-cookie-add="<?php print $node->nid; ?>" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'ajout_selections::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'N'});" ><span class="icon icon-love"></span><span class="text"><?php print t("Ajouter à mes sélections"); ?></span></a></li>
 
                     <?php if (!empty($plaquette_commerciale)): ?>
                       <li>
@@ -495,10 +515,10 @@ if($nb_pieces_name == 'studio') {
                 <!-- [contactUs mini] end-->
                 <div class="sharing show-for-small-only">
                     <ul class="sharing__items">
-                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook"></a></li>
-                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter"></a></li>
+                        <li class="sharing__items__item"><a href="javascript:window.print()" title="Imprimer la page" class="icon icon-print" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'impression::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage par email" class="icon icon-email" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'envoi_par_email::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Facebook" class="icon icon-facebook" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_facebook::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
+                        <li class="sharing__items__item"><a href="#" title="partage sur Twitter" class="icon icon-twitter" onclick="javascript:return tc_events_1(this,'CLICK',{'LABEL':'partage_twitter::fiches_biens::<?php print $tag_commander_programme; ?>::<?php print $tag_commander; ?>','XTCLICK_EVENT':'C','XTCLICK_S2':'2','XTCLICK_TYPE':'A'});"></a></li>
                     </ul>
                 </div>
             </div>
