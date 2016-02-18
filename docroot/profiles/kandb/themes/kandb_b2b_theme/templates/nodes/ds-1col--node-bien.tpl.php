@@ -723,7 +723,7 @@ if (!empty($list_bien_more)):
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
-                                                      $arr_caracteris = get_list_bien_caracteris($bien_more);
+                                                      $arr_caracteris = get_list_bien_b2b_caracteris($bien_more);
                                                       $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
                                                       $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
                                                     ?>

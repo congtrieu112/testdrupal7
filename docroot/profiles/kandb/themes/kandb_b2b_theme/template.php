@@ -78,3 +78,34 @@ function kandb_b2b_theme_preprocess_region(&$vars) {
 function kandb_b2b_theme_preprocess_html(&$vars) {
   $vars['classes_array'][] = 'homepage b2b';
 }
+
+/**
+ * Get list bien caracteris is checked
+ * @param stdClss() $bien_more
+ * @return array()
+ */
+function get_list_bien_b2b_caracteris($bien_more) {
+  $arr_caracteris = array();
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] > 0 ? 'Balcon' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value'] >= 0 ? 'Box' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] >= 0 ? 'Cave' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] > 0 ? 'Jardin' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
+
+  // Remove all value is emtpy in array
+  $arr_caracteris = array_filter($arr_caracteris);
+  $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
+  if ($caracteristiques && count($caracteristiques) > 0) {
+    foreach ($caracteristiques as $caracteristique) {
+      $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
+      if ($term_caracteristique) {
+        if(isset($term_caracteristique->name) && !in_array($term_caracteristique->name, $arr_caracteris)) {
+          $arr_caracteris[] = $term_caracteristique->name;
+        }
+      }
+    }
+  }
+
+  return $arr_caracteris;
+}
