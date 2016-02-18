@@ -95,7 +95,7 @@
           </div>
         <?php endif; ?>
         <div class="media__content">
-          <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $field_programme_loc_ville[0]['taxonomy_term']->name; ?> / <?php print $field_programme_loc_department[0]['taxonomy_term']->field_numero_departement[LANGUAGE_NONE][0]['value']; ?></span>
+          <div class="heading heading--small"><span class="heading__title"><?php print $title; ?></span><span class="heading__title heading__title--sub"><?php print $ville_name; ?> <?php if(isset($ville_name) && isset($num_department)) print t('/ ')?> <?php print $num_department; ?></span>
             <?php if(!empty($promotions) || isset($field_nouveau[LANGUAGE_NONE][0])) : ?>
               <ul class="tags-list">
                 <?php if(isset($field_nouveau[LANGUAGE_NONE][0]) && $field_nouveau[LANGUAGE_NONE][0]['value'] == 1) : ?>
@@ -124,7 +124,15 @@
             <?php endif; ?>
           </div>
           <div class="text heading--small">
-            <p class="heading__title"><?php print $field_programme_flat_available[0]['value']; ?> logements de <?php print $field_programme_room_min[0]['value'] ?> <?php print ($field_programme_room_min[0]['value'] != $field_programme_room_max[0]['value'] ? 'à ' .$field_programme_room_max[0]['value'] . ' ' : ''); ?>pièces</p>
+            <p class="heading__title">
+              <strong><?php print t('Livraison'); ?></strong>
+              <?php print t('à partir du'); ?>
+              <?php if ($trimstre) print $trimstre; ?>
+              <?php if ($annee) print $annee; ?>
+              <br/>
+              <?php if ($flat_available) print $flat_available; ?>
+              <?php if ($de_a_pieces) print ', ' . $de_a_pieces; ?>
+            </p>
           </div>
         </div>
       </div>

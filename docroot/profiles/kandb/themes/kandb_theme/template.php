@@ -14,7 +14,10 @@ define('IS_AJAX', (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SER
  */
 
 function kandb_theme_preprocess_html(&$variables) {
-  $variables['classes_array'][] = $variables['is_front'] ? 'homepage' : '';
+  $header = drupal_get_http_header('status');
+  if ($header == '404 Not Found' ||  $variables['is_front'] ){
+    $variables['classes_array'][] = 'homepage';
+  }
   // Change template on AJAX request
   if (IS_AJAX) {
     $variables['theme_hook_suggestions'][] = 'html__ajax';
@@ -286,21 +289,29 @@ function kandb_theme_preprocess_node(&$vars) {
   }
 
   if ($vars['view_mode'] == 'full' && $vars['type'] == 'bien') {
+    $name_program_characteristic_on_bien = array();
     if(isset($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE]) && !empty($vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE])) {
       $terms_array = $vars['field_programme'][0]['entity']->field_caracteristiques[LANGUAGE_NONE];
       $terms_ids = array();
       foreach($terms_array as $term){
         $terms_ids[] = $term['tid'];
       }
+      $vars['program_characteristic_on_bien'] = array();
       if($terms = taxonomy_term_load_multiple($terms_ids)){
-        $vars['program_characteristic_on_bien'] = array();
         foreach($terms as $term) {
           if(isset($term->field_show_on_bien_page) && $term->field_show_on_bien_page[LANGUAGE_NONE][0]['value'] == 1) {
             $vars['program_characteristic_on_bien'][] = $term;
+            $name_program_characteristic_on_bien[] = $term->name;
           }
         }
       }
 
+
+    }
+    if(!in_array('Chauffage', $name_program_characteristic_on_bien)){
+      if(isset($vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) && $chauffage = $vars['field_programme'][0]['entity']->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']){
+        $vars['program_characteristic_on_bien'][]->name = "Chauffage";
+      }
     }
   }
 
@@ -1466,4 +1477,35 @@ function kandb_theme_pager_last($variables) {
   }
 
   return $output;
+}
+
+/**
+ * Get list bien caracteris is checked
+ * @param stdClss() $bien_more
+ * @return array()
+ */
+function get_list_bien_caracteris($bien_more) {
+  $arr_caracteris = array();
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value'] > 0 ? 'Balcon' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value'] >= 0 ? 'Box' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value'] >= 0 ? 'Cave' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value'] > 0 ? 'Jardin' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value'] >= 0? 'Parking' : '';
+  $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) && $bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value'] > 0 ? 'Terrasse' : '';
+
+  // Remove all value is emtpy in array
+  $arr_caracteris = array_filter($arr_caracteris);
+  $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
+  if ($caracteristiques && count($caracteristiques) > 0) {
+    foreach ($caracteristiques as $caracteristique) {
+      $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
+      if ($term_caracteristique) {
+        if(isset($term_caracteristique->name) && !in_array($term_caracteristique->name, $arr_caracteris)) {
+          $arr_caracteris[] = $term_caracteristique->name;
+        }
+      }
+    }
+  }
+
+  return $arr_caracteris;
 }

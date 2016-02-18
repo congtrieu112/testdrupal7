@@ -172,6 +172,7 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale[LANGUAGE_NONE][1]['uri'])?$programme->field_image_principale[LANGUAGE_NONE][1]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
@@ -187,7 +188,7 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
 
     }
 
-    if ($image_principale || $image_principale_2 || $image_principale_3):
+    if ($image_principale || $image_principale_2 || $image_principale_2_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -224,6 +225,20 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                   </figure>
                 </article>
                <?php endif;?>
+              <?php if($image_principale_2_2): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
               <?php if($image_principale_3): ?>
                 <article class="programHeaderFigureItem">
                   <figure>
@@ -253,6 +268,11 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                     <!-- [back link] start-->
                     <div class="heading heading--bordered">
                       <div class="heading__title smaller"><?php print $heading_title; ?></div>
+                      <?php if(isset($title_maison)) : ?>
+                        <div class="heading__title smaller">
+                          <?php print $title_maison; ?>
+                        </div>
+                      <?php endif;?>
                       <div class="heading__title smaller"><?php print (isset($node->field_superficie[LANGUAGE_NONE][0]['value'])) ? $node->field_superficie[LANGUAGE_NONE][0]['value'] . ' m<sup>2</sup>' : ''  ?> </div>
                       <div class="toolbox__subtitle"><?php print t('Lot') . ' ' . $bien_id ?></div>
                       <div class="heading__title"><?php print $ville ?> <?php print $arrondissement ?></div>
@@ -361,10 +381,21 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                 <ul class="characteristicList">
                     <?php
                     $array_flags = array();
+                    $node_programme = $node->field_programme[LANGUAGE_NONE][0]['entity'];
                     if(isset($program_characteristic_on_bien) && !empty($program_characteristic_on_bien)) :
                       foreach($program_characteristic_on_bien as $term) :
                         $array_flags[] = $term->name;
                         $class_icon = isset($term->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $term->field_picto_css_class[LANGUAGE_NONE][0]['value'] : '';
+                        if ($term->name == "Chauffage") :
+                          if (isset( $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']) &&  $node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid'] ) :
+                            $chauffage = taxonomy_term_load($node_programme->field_caracteristique_chauffage[LANGUAGE_NONE][0]['tid']);
+                            if($chauffage) :
+                              $icon_class_chauffage = get_taxonomy_by_vocabulary_name($term->name,'caracteristiques_programme');
+                              $term->name = $chauffage->name;
+                              $class_icon = isset($icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value']) ? $icon_class_chauffage[0]->field_picto_css_class[LANGUAGE_NONE][0]['value'] : "";
+                            endif;
+                          endif;
+                        endif;
                         print '<li class="characteristicList__item"><span class="icon ' . $class_icon . '"></span>';
                         print '<span class="text">' . $term->name . ' ' . (($term->description) ? '<span data-tooltip aria-haspopup="true" class="infotip has-tip"  title="' . $term->description . '"></span>' : '') . '</span>';
                         print '</li>';
@@ -603,27 +634,9 @@ if ($habiteo_id && $virtuelle):
                                             <li class="item-ulities">
                                                 <ul>
                                                     <?php
-                                                    $arr_caracteris = array();
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_balcon[LANGUAGE_NONE][0]['value']) ? 'Balcon' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_box[LANGUAGE_NONE][0]['value']) ? 'Box' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_cave[LANGUAGE_NONE][0]['value']) ? 'Cave' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_jardin[LANGUAGE_NONE][0]['value']) ? 'Jardin' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_parking[LANGUAGE_NONE][0]['value']) ? 'Parking' : '';
-                                                    $arr_caracteris[] = isset($bien_more->field_caracteristique_terrasse[LANGUAGE_NONE][0]['value']) ? 'Terrasse' : '';
-
-                                                    $caracteristiques = isset($bien_more->field_caracteristique[LANGUAGE_NONE]) ? $bien_more->field_caracteristique[LANGUAGE_NONE] : '';
-                                                    if ($caracteristiques && count($caracteristiques) > 0) {
-                                                      foreach ($caracteristiques as $caracteristique) {
-                                                        $term_caracteristique = taxonomy_term_load($caracteristique['tid']);
-                                                        if ($term_caracteristique) {
-                                                          $arr_caracteris[] = $term_caracteristique->name;
-                                                        }
-                                                      }
-                                                    }
-
-                                                    // $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
-                                                    // $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
-
+                                                      $arr_caracteris = get_list_bien_caracteris($bien_more);
+                                                      $arr_caracteris[] = isset($bien_more->field_cave_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_cave_description[LANGUAGE_NONE][0]['value'] : '';
+                                                      $arr_caracteris[] = isset($bien_more->field_parking_description[LANGUAGE_NONE][0]['value']) ? $bien_more->field_parking_description[LANGUAGE_NONE][0]['value'] : '';
                                                     ?>
                                                     <?php if (count($arr_caracteris) > 0) : ?>
                                                       <?php foreach ($arr_caracteris as $caracteris) : ?>
