@@ -73,8 +73,8 @@ var OCalcFinIni =
    ,IsHideLabels            :false
    ,IsHideHelp              :false
    ,IsFieldsWithoutBorder   :false
-   ,BtnCalcul_UrlImageHaut  :'/profiles/kandb/themes/kandb_theme/js/calcul.png'
-   ,BtnCalcul_UrlImageBas   :'/profiles/kandb/themes/kandb_theme/js/calcul-hover.png'
+   ,BtnCalcul_UrlImageHaut  :'js/calcul.png'
+   ,BtnCalcul_UrlImageBas   :'js/calcul-hover.png'
    ,BtnAide_UrlImageHaut    :null
    ,BtnAide_UrlImageBas     :null
    ,TaillePoignees          :2
