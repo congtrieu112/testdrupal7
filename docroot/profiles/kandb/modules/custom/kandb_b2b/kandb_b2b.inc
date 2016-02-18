@@ -87,3 +87,10 @@ function render_b2b_homepage() {
     'program_promotions' => $program_promotions,
   ));
 }
+
+/**
+ * Render Register confirmation page.
+ */
+function render_b2b_register_confirmation() {
+  return theme('b2b_register_confirmation');
+}

@@ -35,7 +35,7 @@ function kandb_b2b_homepage_settings($form, $form_state) {
   $form = array();
   global $language;
 
-    $form['links_fieldset'] = array(
+  $form['links_fieldset'] = array(
     '#type' => 'fieldset',
     '#title' => t('CTA Links'),
     '#tree' => TRUE,
@@ -131,4 +131,60 @@ function _kandb_b2b_homepage_programme_autocomplete($string) {
   }
 
   drupal_json_output($matches);
+}
+
+/**
+ * Implement form setting for register page.
+ */
+function kandb_b2b_register_page_settings($form, $form_state) {
+
+  $form['kandb_b2b_register_page_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header Title'),
+    '#description' => ('The title on header'),
+    '#default_value' => variable_get('kandb_b2b_register_page_title', t('Devenez un prescripteur privilégié')),
+  );
+
+  $form['kandb_b2b_register_page_subtitle'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Header Sub Title'),
+    '#description' => ('The sub title on header'),
+    '#default_value' => variable_get('kandb_b2b_register_page_subtitle', t('Kaufman et Broad')),
+  );
+  $form['kandb_b2b_register_page_background_header'] = array(
+    '#type' => 'managed_file',
+    '#title' => 'Background header',
+    '#default_value' => variable_get('kandb_b2b_register_page_background_header'),
+    '#upload_location' => 'public://',
+  );
+
+  $form['kandb_b2b_register_form_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Form Title'),
+    '#description' => ('The title on Form'),
+    '#default_value' => variable_get('kandb_b2b_register_form_title', t('Remplissez vos informations')),
+  );
+  $form['kandb_b2b_register_form_subtitle'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Form Sub Title'),
+    '#description' => ('The sub title on Form'),
+    '#default_value' => variable_get('kandb_b2b_register_form_subtitle', t('Pour demander l\'ouverture d\'un compte')),
+  );
+
+  $form['kandb_b2b_register_confirmation_title'] = array(
+    '#type' => 'textfield',
+    '#title' => t('Confirmation Title'),
+    '#description' => ('The title on Form'),
+    '#default_value' => variable_get('kandb_b2b_register_confirmation_title', t('Votre inscription a bien été prise en compte.')),
+  );
+
+  $default_description = variable_get('kandb_b2b_register_confirmation_description');
+  $form['kandb_b2b_register_confirmation_description'] = array(
+    '#type' => 'text_format',
+    '#title' => t('Confirmation Description'),
+    '#format' => 'full_html',
+    '#default_value' => isset($default_description['value']) ? $default_description['value'] : t('Merci de votre intérêt. Un conseiller va prendre contact avec vous très rapidement.'),
+  );
+
+  return system_settings_form($form);
 }
