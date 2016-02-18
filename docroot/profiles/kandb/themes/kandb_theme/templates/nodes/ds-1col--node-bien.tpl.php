@@ -172,6 +172,7 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
     <?php
     $image_principale = isset($node->field_image_principale[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale[LANGUAGE_NONE][0]['uri']:'';
     $image_principale_2 = isset($node->field_image_principale_2[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_2[LANGUAGE_NONE][0]['uri']:'';
+    $image_principale_2_2 = isset($programme->field_image_principale[LANGUAGE_NONE][1]['uri'])?$programme->field_image_principale[LANGUAGE_NONE][1]['uri']:'';
     $image_principale_3 = isset($node->field_image_principale_3[LANGUAGE_NONE][0]['uri'])?$node->field_image_principale_3[LANGUAGE_NONE][0]['uri']:'';
     if(!$image_principale && !$image_principale_2 && !$image_principale_3){
         // Get default per image on each pieces and gammes.
@@ -187,7 +188,7 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
 
     }
 
-    if ($image_principale || $image_principale_2 || $image_principale_3):
+    if ($image_principale || $image_principale_2 || $image_principale_2_2 || $image_principale_3):
       $image_small = image_style_url("bien_small__640_x_316", $image_principale);
       $image_medium = image_style_url("bien_medium__1024x506", $image_principale);
       $image_large = image_style_url("bien_large__1380_x_600", $image_principale);
@@ -220,6 +221,20 @@ $tag_commander_programme = kandb_tagcommander_sanitize_for_event($field_programm
                     -->
                     <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2); ?>, (large)]"/>
                     <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
+                    <!-- [Responsive img] end-->
+                  </figure>
+                </article>
+               <?php endif;?>
+              <?php if($image_principale_2_2): ?>
+                <article class="programHeaderFigureItem">
+                  <figure>
+                    <!-- images need to have 2 formats see data-exchange attribute:
+                    - small: 640 x 316 (heavy compression)
+                    - medium: 1024 x 506
+                    - large: 1380 x 670
+                    -->
+                    <!-- [Responsive img] start--><img alt="<?php print $node->title; ?>" data-interchange="[<?php print image_style_url("bien_small__640_x_316", $image_principale_2_2); ?>, (small)], [<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>, (medium)], [<?php print image_style_url("bien_large__1380_x_600", $image_principale_2_2); ?>, (large)]"/>
+                    <noscript><img src="<?php print image_style_url("bien_medium__1024x506", $image_principale_2_2); ?>" alt="<?php print $node->title; ?>"/></noscript>
                     <!-- [Responsive img] end-->
                   </figure>
                 </article>
