@@ -279,38 +279,25 @@ function kandb_user_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
           'full_html' => 'full_html',
           'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
+          'simple' => 0,
         ),
         'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
             'full_html' => array(
               'weight' => -9,
             ),
             'plain_text' => array(
               'weight' => -8,
             ),
-            'raw_html' => array(
-              'weight' => -6,
-            ),
-            'userbase' => array(
-              'weight' => -7,
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => 1,
@@ -322,7 +309,7 @@ function kandb_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 49,
+      'weight' => 50,
     ),
   );
 
@@ -331,24 +318,14 @@ function kandb_user_field_default_field_instances() {
     'bundle' => 'user',
     'default_value' => NULL,
     'deleted' => 0,
-    'description' => 'B2B',
+    'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'above',
         'module' => 'text',
-        'settings' => array(
-          'quickedit' => array(
-            'editor' => 'plain_text',
-          ),
-        ),
+        'settings' => array(),
         'type' => 'text_default',
         'weight' => 9,
-      ),
-      'featured' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
       ),
     ),
     'entity_type' => 'user',
@@ -358,38 +335,25 @@ function kandb_user_field_default_field_instances() {
     'settings' => array(
       'better_formats' => array(
         'allowed_formats' => array(
-          'filtered_html' => 'filtered_html',
           'full_html' => 'full_html',
           'plain_text' => 'plain_text',
-          'raw_html' => 'raw_html',
-          'userbase' => 'userbase',
+          'simple' => 'simple',
         ),
         'allowed_formats_toggle' => 0,
         'default_order_toggle' => 0,
         'default_order_wrapper' => array(
           'formats' => array(
-            'filtered_html' => array(
-              'weight' => -10,
-            ),
             'full_html' => array(
-              'weight' => -9,
-            ),
-            'plain_text' => array(
               'weight' => -8,
             ),
-            'raw_html' => array(
-              'weight' => -6,
+            'plain_text' => array(
+              'weight' => -10,
             ),
-            'userbase' => array(
-              'weight' => -7,
+            'simple' => array(
+              'weight' => -9,
             ),
           ),
         ),
-      ),
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => 1,
@@ -398,10 +362,10 @@ function kandb_user_field_default_field_instances() {
       'active' => 1,
       'module' => 'text',
       'settings' => array(
-        'size' => 60,
+        'rows' => 5,
       ),
-      'type' => 'text_textfield',
-      'weight' => 51,
+      'type' => 'text_textarea',
+      'weight' => 52,
     ),
   );
 
@@ -563,6 +527,62 @@ function kandb_user_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'user-user-field_user_portable'
+  $field_instances['user-user-field_user_portable'] = array(
+    'bundle' => 'user',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 10,
+      ),
+    ),
+    'entity_type' => 'user',
+    'field_name' => 'field_user_portable',
+    'label' => 'Portable',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'full_html' => 'full_html',
+          'plain_text' => 'plain_text',
+          'simple' => 'simple',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'full_html' => array(
+              'weight' => -8,
+            ),
+            'plain_text' => array(
+              'weight' => -10,
+            ),
+            'simple' => array(
+              'weight' => -9,
+            ),
+          ),
+        ),
+      ),
+      'text_processing' => 0,
+      'user_register_form' => 1,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 49,
+    ),
+  );
+
   // Exported field_instance: 'user-user-field_user_societe'
   $field_instances['user-user-field_user_societe'] = array(
     'bundle' => 'user',
@@ -638,7 +658,7 @@ function kandb_user_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => 50,
+      'weight' => 51,
     ),
   );
 
@@ -811,6 +831,7 @@ function kandb_user_field_default_field_instances() {
   t('Nom');
   t('Numéro de téléphone');
   t('Pays');
+  t('Portable');
   t('Prenom');
   t('Société');
   t('Ville');
