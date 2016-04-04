@@ -52,11 +52,6 @@
  * @see conf_path()
  */
 
-if(isset($_GET['debug'])){
-  error_reporting(E_ALL);
-  ini_set('display_errors', 1);
-}
-
 /**
  * Database settings:
  *
@@ -217,10 +212,21 @@ if(isset($_GET['debug'])){
  *   );
  * @endcode
  */
-$dir = __DIR__;
-if (file_exists($dir.'/settings.local.php')) {
-  require $dir.'/settings.local.php';
-}
+$databases = array (
+  'default' => 
+  array (
+    'default' => 
+    array (
+      'database' => 'digitas_19_02_2016_dev',
+      'username' => 'root',
+      'password' => '872951',
+      'host' => 'localhost',
+      'port' => '',
+      'driver' => 'mysql',
+      'prefix' => '',
+    ),
+  ),
+);
 
 /**
  * Access control for update.php script.
@@ -252,7 +258,7 @@ $update_free_access = FALSE;
  *   $drupal_hash_salt = file_get_contents('/home/example/salt.txt');
  *
  */
-$drupal_hash_salt = 'Fxciq0b2vJJ3gpsUTbOFVzIiDgxGp2som1eMj0iUtfY';
+$drupal_hash_salt = 'pazekFJY9eQxbtqjdxru1OFMT6vZlJ9fIkI7Ah7dnGQ';
 
 /**
  * Base URL (optional).
@@ -573,32 +579,3 @@ $conf['404_fast_html'] = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN"
  * Remove the leading hash signs to disable.
  */
 # $conf['allow_authorize_operations'] = FALSE;
-
-/**
- * Acquia Settings
- */
-// Increase memory limit when cli
-if (drupal_is_cli() || preg_match('/batch/i', $_GET['q'])){
-  ini_set('memory_limit', '1024M');
-  set_time_limit( 0 );
-}
-// Increase memory limit for admin
-if ( (strpos($_GET['q'], 'admin') === 0) ||
-  (strpos($_GET['q'], 'node/add') === 0) ||
-  (strpos($_GET['q'], 'node/') === 0 && preg_match('/^node\/[\d]+\/edit/', $_GET['q']) === 1) ||
-  (strpos($_GET['q'], 'import') === 0)) {
-  ini_set('memory_limit', '512M');
-}
-// increase memory limit for large image
-if (strpos($_GET['q'], 'sites/default/files') === 0){
-  ini_set('memory_limit', '512M');
-}
-// Include Acquia Drupal settings
-if (file_exists('/var/www/site-php')) {
-    require '/var/www/site-php/kaufmanetbroad/kaufmanetbroad-settings.inc';
-}
-
-/**
- * Add the domain module setup routine.
- */
-include DRUPAL_ROOT . '/profiles/kandb//modules/contrib/domain/settings.inc';
